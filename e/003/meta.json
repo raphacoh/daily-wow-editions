@@ -1,0 +1,22 @@
+{
+  "n": 3,
+  "code": "WOW-003",
+  "date": "2026-09-09",
+  "language": "he",
+  "title": "הסוד שבתוך השופר",
+  "topics": [
+    "פיזיקה",
+    "ביולוגיה",
+    "מוזיקה",
+    "היסטוריה"
+  ],
+  "summary": "What sound is: a push travelling through air; frequency, the speed of sound (Derham 1709), the ear, Pythagoras' string — around the shofar of Rosh Hashanah.",
+  "teaser": "עוד כמה ימים, בבית הכנסת או בסלון, מישהו ירים שופר וינשוף. ומה שיוצא ממנו — אין לו צבע, אין לו ריח, ואי אפשר לתפוס אותו — יעבור את כל החדר, ייכנס לאוזן שלכם, ויגיע למוח. מה זה בעצם הדבר הזה, קול? היום תראו אותו, תמדדו אותו — ותייצרו אותו בעצמכם.",
+  "max_score": 11,
+  "status": "released",
+  "released_at": "2026-09-09T08:00:00.000Z",
+  "password": "קול זה דחיפה",
+  "reviewer_verdict": "PASS (2 rounds) — nits fixed after PASS: dark-mode ear labels, 376 Hz snap, parent wording; remaining nice-to-haves: string canvas small on phones, challenge button wrap at 390px",
+  "review_url": "https://claude.ai/code/artifact/bed8bc75-a15b-47ca-a499-9f1bb7fb1e64",
+  "editor_note": null
+}
