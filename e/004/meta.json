@@ -1,0 +1,22 @@
+{
+  "n": 4,
+  "code": "WOW-004",
+  "date": "2026-09-10",
+  "language": "he",
+  "title": "היום שבו הים התיכון נעלם",
+  "topics": [
+    "גאולוגיה",
+    "גאוגרפיה",
+    "פיזיקה",
+    "היסטוריה"
+  ],
+  "summary": "The Messinian Salinity Crisis: the Mediterranean's water deficit and the Gibraltar gate, salt left by evaporation (2 cm per metre, 1.5 km off Israel), the 1970 Glomar Challenger discovery, and the Zanclean megaflood that refilled the sea in months — with the Leviathan gas platform off Dor beach as the local link.",
+  "teaser": "סעו מזכרון יעקב עשר דקות מערבה, לחוף דור, ותעמדו מול הים. לפני כשישה מיליון שנה הייתם עומדים שם על שפת תהום יבשה ומלוחה, עמוקה כמעט שני קילומטרים — כי הים התיכון פשוט לא היה שם. הוא התאדה. ואז האוקיינוס האטלנטי פרץ פנימה והחזיר אותו, בשיטפון הגדול ביותר שהיה אי פעם על כדור הארץ. איך יודעים? מה נשאר? ומה זה קשור לגז מול חוף דור? יוצאים לחפור.",
+  "max_score": 11,
+  "status": "released",
+  "released_at": "2026-09-10T08:00:00.000Z",
+  "password": "שער הים נפתח",
+  "reviewer_verdict": "PASS (2 rounds) — post-PASS fixes applied and re-checked (phone label clipping in the salt/stack canvases, drill SVG font size); remaining nice-to-haves: older track runs ~30–35 min, demo picker's dangling בן/בת (engine), duplicated visualViewport listener (engine)",
+  "review_url": "https://claude.ai/code/artifact/a8bfcc4c-1c5b-4e9f-88df-624a4a52bc23",
+  "editor_note": null
+}
