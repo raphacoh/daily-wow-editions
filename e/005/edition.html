@@ -1,0 +1,2108 @@
+<title>שורשים וכנפיים #5 · המצפן שמסתתר בעין של הציפור</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F4F2EA; --card:#FFFFFF; --card2:#F7F5FF; --ink:#171B33; --muted:#575B75;
+  --sun:#E2751F; --sun-deep:#A44E06; --sun-soft:#FBDFC2;
+  --nile:#0E6F86; --nile-soft:#D2E9F0; --shadow:#4E4BA6; --shadow-soft:#E1DFF6;
+  --sand:#DCD6C4; --line:#E4DFD2; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#8FA9D8; --sky2:#EDF2FB; --sea:#1B6FA8; --earth:#DCC79B; --earth2:#BE9F6B;
+  --focus:#E2751F;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10142B; --card:#1A1F3E; --card2:#222749; --ink:#F2EDE0; --muted:#AFB3CC;
+    --sun:#FFA24D; --sun-deep:#FFBE7A; --sun-soft:#4A3312;
+    --nile:#4FC3D6; --nile-soft:#123842; --shadow:#A9A2F5; --shadow-soft:#2B2A55;
+    --sand:#363C60; --line:#2F3559; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#0B1330; --sea:#1B4F7E; --earth:#645636; --earth2:#846F45;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10142B; --card:#1A1F3E; --card2:#222749; --ink:#F2EDE0; --muted:#AFB3CC;
+  --sun:#FFA24D; --sun-deep:#FFBE7A; --sun-soft:#4A3312;
+  --nile:#4FC3D6; --nile-soft:#123842; --shadow:#A9A2F5; --shadow-soft:#2B2A55;
+  --sand:#363C60; --line:#2F3559; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#0B1330; --sea:#1B4F7E; --earth:#645636; --earth2:#846F45;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a stick with its shadow */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:26px;height:26px;flex:none}
+.ch .stick::before{content:"";position:absolute;right:0;bottom:3px;width:26px;height:20px;border-top:2.5px solid var(--nile);border-radius:50%/100% 100% 0 0;opacity:.75}
+.ch .stick::after{content:"";position:absolute;right:6px;bottom:9px;width:15px;height:9px;border-top:3px solid var(--sun);border-radius:50%/100% 100% 0 0;transform:rotate(-8deg)}
+
+/* hero */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-24px;width:300px;height:300px;z-index:0;opacity:.92;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .bird{animation:drift 9s ease-in-out infinite}
+.hero .skyart g:nth-of-type(2) .bird{animation-duration:11s;animation-delay:-3s}
+.hero .skyart g:nth-of-type(3) .bird{animation-duration:13s;animation-delay:-6s}}
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(-7px,-11px)}}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 5</div>
+</div></header>
+
+<main>
+
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="dusk" cx="38%" cy="62%" r="62%">
+        <stop offset="0%" stop-color="var(--sun)" stop-opacity=".55"/>
+        <stop offset="48%" stop-color="var(--shadow)" stop-opacity=".26"/>
+        <stop offset="100%" stop-color="var(--shadow)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="140" fill="url(#dusk)"/>
+    <g fill="none" stroke="var(--nile)" stroke-width="2.4" stroke-linecap="round" opacity=".55">
+      <path d="M6 214 C 78 150, 222 150, 294 214"/>
+      <path d="M14 246 C 84 190, 216 190, 286 246"/>
+      <path d="M2 178 C 80 106, 220 106, 298 178" opacity=".7"/>
+    </g>
+    <g fill="var(--sun-deep)">
+      <g transform="translate(96,96) scale(1.25)"><g class="bird"><path d="M0 0 C 9 -11, 17 -11, 23 -2 C 29 -11, 37 -11, 46 0 C 35 -4, 29 -1, 23 5 C 17 -1, 11 -4, 0 0Z"/></g></g>
+      <g transform="translate(168,58) scale(.9)"><g class="bird"><path d="M0 0 C 9 -11, 17 -11, 23 -2 C 29 -11, 37 -11, 46 0 C 35 -4, 29 -1, 23 5 C 17 -1, 11 -4, 0 0Z"/></g></g>
+      <g transform="translate(196,134) scale(.62)"><g class="bird"><path d="M0 0 C 9 -11, 17 -11, 23 -2 C 29 -11, 37 -11, 46 0 C 35 -4, 29 -1, 23 5 C 17 -1, 11 -4, 0 0Z"/></g></g>
+    </g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 5</span><span class="tag">יום שישי, 11 בספטמבר 2026</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>המצפן שמסתתר בעין של הציפור</h1>
+  <p class="lede">הערב, כשהשמש תשקע מעל הים בסביבות 18:50, צאו לרגע החוצה והרימו את הראש. מעל הגג שלכם, גבוה מאוד ולפעמים נמוך מאוד, עוברות השבוע מאות אלפי ציפורים בדרכן מאירופה לאפריקה — ורובן עושות את זה בפעם הראשונה בחייהן, בלי מפה, בלי הורים ובלי וייז. ההסבר הטוב ביותר שיש למדע היום הוא כמעט בלתי נתפס: <b>תגובה כימית בתוך העין שלהן</b>, שמתחילה בקרן אור, אולי מאפשרת להן לראות את השדה המגנטי של כדור הארץ — כמו כתם שקוף שמונח על השמיים ומראה לאן זה "דרומה".</p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">כמה ציפורים חוצות את ישראל בנדידת הסתיו, מסוף אוגוסט עד אמצע דצמבר? כל תשובה כאן גדולה פי <span class="math">100</span> מזו שלפניה. לא צריך לקלוע למספר — צריך לקלוע לסדר הגודל.</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת סדר גודל">
+      <button type="button" class="scaleopt" data-scale="5000"><b>חמשת אלפים</b><span class="num">5,000</span></button>
+      <button type="button" class="scaleopt" data-scale="500000"><b>חצי מיליון</b><span class="num">500,000</span></button>
+      <button type="button" class="scaleopt" data-scale="50000000"><b>חמישים מיליון</b><span class="num">50,000,000</span></button>
+      <button type="button" class="scaleopt" data-scale="500000000"><b>חצי מיליארד</b><span class="num">500,000,000</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE SKY ROAD -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>הכביש שבשמיים</h2>
+  <p>בשבוע של ראש השנה, ישראל היא הגשר הצר ביותר בין שתי יבשות. ציפור שלא רוצה לחצות ים פתוח חייבת לעבור כאן, בין הים התיכון ממערב למדבר ממזרח. לכן אנחנו, יותר מכמעט כל מקום אחר בעולם, יכולים לראות את הנדידה מהמרפסת.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>לפי ההערכה של המדענים, כ<b class="num">חצי מיליארד</b> ציפורים חוצות את ישראל בסתיו. חצי מיליארד זה <b class="num">500,000,000</b>. אם היינו מחלקים אותן שווה בשווה על כל ימי הנדידה, זה היה מיליוני ציפורים כל יום.</p>
+    <p>בשבוע הזה עוברות מעלינו בעיקר <b>איות צרעים</b> — דורסים בגודל בינוני שאוכלים דבורים וצרעות. כמעט כולן עוברות בתוך שבועיים אחד, בתחילת ספטמבר. הן אוהבות לישון ביערות, ובכרמל, ממש ליד זכרון יעקב, יש להן מקומות לינה. אחר הצהריים אפשר לפעמים לראות אותן יורדות לעצים.</p>
+    <p>בעמק החולה, בצפון, הציפורים עוצרות לנוח ולאכול. עכשיו יש שם חסידות, שקנאים ראשונים ואיות צרעים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>לפי ההערכה של פרופ' יוסי לשם מאוניברסיטת תל אביב, כ<b class="num">חצי מיליארד</b> ציפורים חוצות את ישראל פעמיים בשנה. זו הערכה שמבוססת על ספירות ורדאר, לא ספירה מדויקת. נדידת הסתיו נמשכת מסוף אוגוסט עד אמצע דצמבר, בערך <b class="num">100</b> ימים.</p>
+    <p>המין שבשיא השבוע הוא <b>איית הצרעים</b>: כ<b class="num">350,000</b> בסתיו ממוצע, ו<b class="num">90%</b> מהן עוברות בתוך כ־<b class="num">16</b> ימים בלבד. עיט החורש יגיע לשיא בסוף ספטמבר. החסידה הלבנה נבדקה במשדרי לוויין: המסלול המזרחי, דרך ישראל, אורכו כ־<b class="num">7,000</b> ק״מ ונמשך בממוצע כ־<b class="num">80</b> יום — <span class="math">126</span> ק״מ ליום בממוצע, ובחציית הסהרה גם <span class="math">488</span> ק״מ ביום אחד.</p>
+    <p>עמק החולה הוא תחנת הדלק: בספטמבר עוצרים בו שקנאים, חסידות ודורסים; העגורים מגיעים רק בתחילת אוקטובר. ובכרמל, ליד זכרון יעקב, איות הצרעים לנות בלילה ביערות.</p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>בעמק החולה יש השבוע חסידות, שקנאים ואיות צרעים — אבל עדיין <b>אין</b> עגורים; הם מגיעים רק בתחילת אוקטובר. אם מישהו מספר לכם שראה עגורים בחולה השבוע, שאלו אותו לאיזה חודש הוא בכלל מתכוון.</p></div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE FRANKFURT CAGE -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>הכלוב בפרנקפורט: איך בכלל יודעים שיש מצפן?</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>לפני שישים שנה, בגרמניה, חוקר צעיר בשם וולפגנג וילצ'קו שם ציפור שיר קטנה, אדום־חזה, בכלוב עגול. בסתיו הציפור קפצה כל הלילה לצד אחד של הכלוב — לכיוון שאליו הייתה נודדת אילו הייתה חופשייה. ואז וילצ'קו עשה תעלול: הוא הקיף את הכלוב בסלילי חשמל שיוצרים שדה מגנטי, וסובב את ה"צפון" המלאכותי. הציפור הסתובבה איתו. היא לא ראתה כוכבים ולא שמש — רק הרגישה את המגנט. ככה גילו לראשונה שלציפור יש מצפן בגוף. הרבה מדענים לא האמינו בהתחלה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>ב־<span class="math">1965–1966</span> פרסמו וולפגנג וילצ'קו ופריץ מרקל מפרנקפורט ניסוי פשוט ומבריק: אדומי־חזה, ציפורי שיר שנודדות בלילה, הושמו בכלובים עגולים בעונת הנדידה וקפצו שוב ושוב לכיוון הנדידה הטבעי שלהם. כשהחוקרים סובבו את השדה המגנטי סביב הכלוב בעזרת סלילי חשמל, כיוון הקפיצות הסתובב יחד איתו. הקהילה המדעית הגיבה בספקנות: קשה היה להאמין שלציפורים יש חוש שלבני אדם אין. עשרות ניסויים חוזרים במינים רבים הפכו את הספק לוודאות. השאלה שנשארה עד היום היא לא "האם" אלא "איך".</p>
+    <p data-level="advanced">[מתקדם] ניסוי הכלוב עדיין בשימוש: משפך "אמלן" שדפנותיו מצופות נייר, וסימני הציפורניים שנשארים עליו מספרים בבוקר לאן הציפור "רצתה" ללכת.</p>
+    <p data-level="standard">השיטה הזאת — כלוב, סלילים, וסימון לאן הציפור מנסה לקפוץ — עדיין בשימוש במעבדות ציפורים בכל העולם.</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE TILTED COMPASS (interactive 1) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>המצפן הנטוי</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>במצפן של בני אדם המחט מצביעה לצפון. אבל ב־<span class="math">1972</span> גילו וילצ'קו ואשתו רוזוויטה שהמצפן של הציפור עובד אחרת לגמרי. הציפור לא מרגישה "צפון" ו"דרום". היא מרגישה כמה קווי השדה המגנטי נטויים ביחס לקרקע.</p>
+    <p>תחשבו על כדור הארץ כעל מגנט ענק. הקווים הבלתי נראים שלו יוצאים ליד הקוטב הדרומי, מתעגלים בחלל ונכנסים חזרה ליד הקוטב הצפוני. ליד הקוטב הקווים צוללים ישר לתוך האדמה. באמצע, בקו המשווה המגנטי, הם שוכבים שטוחים לגמרי. אצלנו, בזכרון יעקב, הם נטויים בערך <b class="num">49</b> מעלות — כמו מגלשה תלולה.</p>
+    <p>הכלל של הציפור הוא כזה: "לכיוון שבו הקווים צוללים לאדמה — זה לכיוון הקוטב. לכיוון שבו הם עולים מהאדמה — זה לכיוון קו המשווה." בסתיו הציפור פשוט טסה "לכיוון שבו הקווים עולים".</p>
+    <p>ועכשיו החידה: מה קורה לציפור כשהיא מגיעה למקום שבו הקווים שטוחים לגמרי? נסו לנחש באינטראקטיב, לפני שתראו את התשובה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>מצפן של בני אדם קורא קוטביות: המחט מצביעה לצפון המגנטי. ב־<span class="math">1972</span> הראו וולפגנג ורוזוויטה וילצ'קו בכתב העת Science שהמצפן של אדום־החזה הוא <b>מצפן נטייה</b>: הוא קורא את הזווית שבין קווי השדה לבין כוח הכובד, ולא את כיוון החץ. "לכיוון הקוטב" הוא הצד שבו הקווים צוללים לתוך האדמה; "לכיוון קו המשווה" הוא הצד שבו הם עולים ממנה.</p>
+    <p>ההוכחה הייתה אלגנטית: כשהחוקרים הפכו רק את המרכיב האנכי של השדה (הקווים "עלו" במקום "צללו"), הציפורים הפכו כיוון. כשהפכו את השדה כולו — כלומר החליפו את הקוטביות, כמו שמסובבים מגנט — הציפורים לא שינו דבר. מצפן רגיל היה מסתובב ב־<span class="math">180</span> מעלות; הציפור לא שמה לב.</p>
+    <p>המחיר של מצפן כזה: בקו המשווה המגנטי, שם הנטייה <span class="math">0°</span> והקווים אופקיים, אין שום מידע. ואכן, אדומי־חזה וסבכים בשדה עם נטייה <span class="math">0°</span> מתפזרים באקראי. חשוב: קו המשווה המגנטי אינו קו המשווה הגאוגרפי. לאורך נתיב הנדידה שלנו הוא עובר בקו רוחב <span class="math">8°</span> צפון, מעל דרום סודאן ואתיופיה.</p>
+    <p data-level="advanced">[מתקדם] אם כדור הארץ היה מגנט מושלם (דיפול), הנטייה I הייתה קשורה לקו הרוחב φ בנוסחה <span class="math">tan(I) = 2 × tan(φ)</span>. לזכרון יעקב, <span class="math">φ = 32.6°</span>, הנוסחה נותנת <span class="math">I ≈ 51.9°</span>; המדידה בפועל היא <span class="math">49.3°</span>. ההפרש הקטן הוא סימן שכדור הארץ אינו מגנט מושלם, ושהשדה זז ומשתנה לאורך השנים.</p>
+    <p data-level="standard">ההפרש הקטן בין תחזית של מגנט "מושלם" לבין המדידה האמיתית מספר משהו יפה: כדור הארץ הוא מגנט מוזר ולא סימטרי, והשדה שלו זז ומשתנה לאורך השנים.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — המצפן הנטוי ===== -->
+  <div class="panel instrument">
+    <h3>המצפן הנטוי</h3>
+    <p class="cap">כדור הארץ בחיתוך, הקוטב הצפוני למעלה. הקווים הכחולים הם קווי השדה המגנטי. הציפור הכתומה עומדת על פני הכדור, והמחט שלידה מראה באיזו זווית הקווים חוצים את הקרקע.</p>
+    <canvas id="tiltCv" width="640" height="596" aria-label="חתך של כדור הארץ עם קווי השדה המגנטי וציפור שעומדת על פני הכדור"></canvas>
+
+    <div id="tiltGuessBox">
+      <p style="margin:14px 0 8px"><b>רגע לפני שגוררים.</b> הציפור עומדת בזכרון יעקב. אם נגרור אותה עד קו המשווה המגנטי, לאן יצביע החץ שלה?</p>
+      <div class="controls">
+        <button class="btn small ghost" onclick="tiltGuess(1)">דרומה, כרגיל</button>
+        <button class="btn small ghost" onclick="tiltGuess(2)">צפונה, הפוך</button>
+        <button class="btn small ghost" onclick="tiltGuess(3)">לשום מקום, היא תתבלבל</button>
+      </div>
+    </div>
+
+    <div class="controls" id="tiltDrag" style="display:none">
+      <label>קו הרוחב של הציפור
+        <input type="range" id="birdLat" min="-1000" max="1000" step="1" value="578" oninput="tiltDraw()" aria-label="קו הרוחב של הציפור">
+      </label>
+      <div class="readout">נטייה: <b class="num" id="incOut">49°</b></div>
+    </div>
+    <p class="cap" id="tiltMsg" style="margin-top:12px"></p>
+
+    <div id="tiltFlipBox" style="display:none">
+      <h3 style="margin-top:18px">שני הניסויים של וילצ'קו</h3>
+      <div id="flipQv">
+        <p style="margin:0 0 8px">הופכים <b>רק את החלק האנכי</b> של השדה: במקום לצלול לאדמה, הקווים יעלו ממנה. הציפור בזכרון יעקב — תשנה כיוון?</p>
+        <div class="controls">
+          <button class="btn small ghost" onclick="tiltFlipGuess('v',1)">כן, תשנה</button>
+          <button class="btn small ghost" onclick="tiltFlipGuess('v',0)">לא, תמשיך אותו דבר</button>
+        </div>
+        <p class="cap" id="flipFbv" style="margin-top:10px"></p>
+      </div>
+      <div id="flipQp" style="display:none">
+        <p style="margin:16px 0 8px">ועכשיו הופכים <b>את כל המגנט</b>, כמו שמסובבים מגנט מקרר ב־180 מעלות. הציפור — תשנה כיוון?</p>
+        <div class="controls">
+          <button class="btn small ghost" onclick="tiltFlipGuess('p',1)">כן, תשנה</button>
+          <button class="btn small ghost" onclick="tiltFlipGuess('p',0)">לא, תמשיך אותו דבר</button>
+        </div>
+        <p class="cap" id="flipFbp" style="margin-top:10px"></p>
+      </div>
+      <div class="controls" id="flipBtns" style="display:none">
+        <button class="btn small ghost" id="flipVBtn" onclick="tiltToggle('v')">הפכו רק את החלק האנכי</button>
+        <button class="btn small ghost" id="flipPBtn" onclick="tiltToggle('p')">הפכו את כל המגנט</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="q qc" id="polarity"></div>
+  <div class="next"><button class="btn" id="next3" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · TRACK DEEP DIVE A: the eye (interactive 2 + challenge) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>העין שמרגישה מגנט</h2>
+    <p>איפה נמצא המצפן של הציפור? במשך שנים חיפשו אותו במקור, כי במקור של יונים מצאו קצת ברזל. אבל ניסוי מ־<span class="math">2009</span> הראה משהו מפתיע: כשחתכו לאדומי־חזה את העצב שמחבר את המקור למוח, המצפן המשיך לעבוד. וכשפגעו באזור במוח שמעבד את מה שהעין רואה בלילה, המצפן נעלם. המסקנה: המצפן עובר דרך העין. ועוד רמז: המצפן עובד רק כשיש קצת אור. בחושך מוחלט הציפור מאבדת אותו.</p>
+    <p>אז מה יש בעין? ההשערה המובילה של המדענים היא כזאת. ברשתית של הציפור יש חלבון קטן בשם <b>קריפטוכרום</b>. כשקרן אור פוגעת בו, חלקיק זעיר בשם אלקטרון קופץ ממקום למקום בתוך החלבון, ונוצרים שני "חצאים" שכל אחד מהם מסתובב כמו סביבון. שני הסביבונים האלה רוקדים יחד, והמגנט של כדור הארץ — למרות שהוא חלש מאוד — מטה קצת את הריקוד. הריקוד יכול להיגמר בשני אופנים: "יד ביד" או "גב אל גב". כמה זוגות ייגמרו ככה וכמה ככה תלוי בזווית שבין החלבון לבין המגנט של כדור הארץ.</p>
+    <p>עכשיו תחשבו: העין היא קערה, ובה מיליוני תאים שפונים לכל הכיוונים. בכל תא הריקוד נגמר קצת אחרת. יחד זה יוצר דפוס, כמו כתם בהיר על השמיים, שזז כשהציפור מסובבת את הראש. זה מה שאולי הציפור רואה.</p>
+    <p>המילה "אולי" חשובה. אף אחד עדיין לא ראה את זה קורה בעין של ציפור חיה. אבל בשנת <span class="math">2021</span> הצליחו מדענים לייצר את החלבון הזה מאדום־חזה במעבדה, ולהראות שהוא באמת מגיב למגנט — ויותר מהחלבון המקביל של תרנגולת, שלא נודדת. זה רמז חזק. זו עדיין לא הוכחה.</p>
+  </div>
+
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>הריקוד הקוונטי בתוך העין</h2>
+    <p>ראינו שהמצפן קורא זווית, שהוא צריך אור, ושהוא עובר דרך העין ולא דרך המקור (Zapka ואחרים, <span class="math">2009</span>: פגיעה ב"אשכול N" במוח ביטלה את המצפן, חיתוך עצב המקור לא). איזה מנגנון כימי יכול לחוש שדה חלש כל כך? שדה כדור הארץ אצלנו הוא <b class="num">45</b> מיקרוטסלה, פי מאה חלש ממגנט מקרר. האנרגיה שלו קטנה כל כך שלא היה אמור לזוז ממנה כלום בתוך תא.</p>
+    <p>ב־<span class="math">1978</span> הציע הפיזיקאי קלאוס שולטן רעיון שנשמע אז מוזר: תגובה כימית שרגישה לשדה מגנטי דרך <b>ספין</b>. לכל אלקטרון יש ספין, תכונה קוונטית שאפשר לדמיין כסיבוב זעיר, שהופך את האלקטרון למגנט קטנטן. ב־<span class="math">2000</span> הוא ותורסטן ריץ הציעו שהמולקולה היא <b>קריפטוכרום</b>, חלבון ברשתית שקולט אור כחול. וכך זה אמור לעבוד:</p>
+    <ol>
+      <li>אור פוגע בקריפטוכרום. אלקטרון קופץ מחלק אחד של החלבון (טריפטופן) לחלק אחר (הפלאבין).</li>
+      <li>עכשיו יש שני חלקים, כל אחד עם אלקטרון בודד: <b>זוג רדיקלי</b>. שני האלקטרונים נולדו יחד ולכן הספינים שלהם "מתואמים" — מצב שנקרא סינגלט.</li>
+      <li>הזוג לא נשאר במצב אחד. הוא מרצד, מיליוני פעמים בשנייה, בין סינגלט לבין מצב שני, טריפלט. וכאן הקסם: שדה מגנטי חלש משנה את קצב הריצוד, ובעיקר — משנה אותו לפי <b>הזווית</b> בין השדה לבין המולקולה.</li>
+      <li>מסינגלט נוצר תוצר כימי א׳. מטריפלט נוצר תוצר ב׳. כמות א׳ לעומת ב׳ בתא תלויה אפוא בזווית לשדה.</li>
+      <li>הרשתית היא קערה עם תאים שפונים לכל הכיוונים. תאים שונים מייצרים יחסים שונים של א׳ וב׳. המוח יכול לקרוא את זה כדפוס על שדה הראייה, שזז כשהציפור מסובבת את הראש. זה מקור הביטוי "לראות את השדה המגנטי".</li>
+    </ol>
+    <p>מה תומך בזה? שלוש ראיות. הראשונה: ב־<span class="math">2014</span> גילו באוניברסיטת אולדנבורג שאדומי־חזה בבקתות עץ בקמפוס לא מצליחים להתמצא, ובבקתות מצופות אלומיניום שחוסם רעש רדיו — כן. רעש בעוצמה של אלפית מהסף שנחשב מזיק לבני אדם מספיק לשבש את המצפן; מגנט של ברזל לא היה מרגיש רעש כזה, זוג רדיקלי מרצד — כן. השנייה: ב־<span class="math">2018</span> מצאו שקריפטוכרום מסוג CRY4 יושב בדיוק בתאי הראייה הנכונים ברשתית של אדום־חזה, ורמתו עולה בעונת הנדידה, ואצל תרנגולות לא. השלישית: ב־<span class="math">2021</span> ייצרו חוקרים מאולדנבורג ואוקספורד את CRY4 של אדום־חזה בתוך חיידקים, והראו במבחנה שהוא רגיש לשדה מגנטי — יותר מ־CRY4 של תרנגולת ויונה.</p>
+    <p>ומה עדיין חסר? הניסוי מ־<span class="math">2021</span> נעשה במבחנה ובשדות חזקים בהרבה משדה כדור הארץ. הנריק מוריטסן, מראשי המחקר: "עדיין צריך להראות שזה קורה בעיניים של ציפורים... מחקרים כאלה עדיין לא אפשריים טכנית." ב־<span class="math">2025</span> אותה קבוצה הראתה שגרסה אחת של החלבון, CRY4b, כנראה לא רלוונטית, וקבוצה אחרת מציעה חלבון אחר, CRY1a. זה מדע חי: השערה חזקה, מבוססת, ולא מוכחת.</p>
+    <p data-level="advanced">[מתקדם] למה זה "קוונטי"? כי מצבי הסינגלט והטריפלט של הזוג אינם "או זה או זה" אלא סופרפוזיציה שמתפתחת בזמן, וכי האנרגיה של השדה המגנטי קטנה בהרבה מהרעש התרמי בתא. במנגנון קלאסי, שדה כזה היה נבלע ברעש. במנגנון הזוג הרדיקלי, השדה לא צריך לספק אנרגיה; הוא רק מטה את התזמון של ריקוד שכבר קורה, ולכן שדה חלש מאוד מספיק. זו אחת הדוגמאות היחידות שבהן תופעה קוונטית "עדינה" אולי עובדת בתוך יצור חם ורטוב.</p>
+    <p data-level="standard">זו אחת הסיבות שהמנגנון הזה מרתק במיוחד: הוא אולי עובד בתוך גוף חם ורטוב, לא רק במעבדות קפואות ומבודדות.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — ריקוד הזוג ===== -->
+  <div class="panel instrument">
+    <h3>ריקוד הזוג</h3>
+    <p class="cap">קרן אור פוגעת בחלבון. אלקטרון קופץ מהחלק הירוק לחלק הצהוב, ונולדים שני "סביבונים". הם מרצדים, והשדה המגנטי של כדור הארץ מטה קצת את הריצוד — לפי הזווית בין המולקולה לשדה.</p>
+    <canvas id="pairCv" width="640" height="340" aria-label="מולקולה מוארת באור, ושני אלקטרונים מסתובבים בתוכה ביחס לשדה המגנטי"></canvas>
+
+    <div class="controls">
+      <label>הזווית בין המולקולה לשדה
+        <input type="range" id="pairAng" min="0" max="180" step="5" value="0" oninput="pairTurn()" aria-label="הזווית בין המולקולה לשדה">
+      </label>
+      <div class="readout">זווית: <b class="num" id="pairAngOut">0°</b></div>
+    </div>
+    <div class="controls">
+      <button class="btn small" id="pairOne" onclick="pairRunOne()">הדליקו אור</button>
+      <button class="btn small ghost" id="pairHundred" onclick="pairRun100()">שלחו 100 זוגות</button>
+      <span data-track="older"><button class="btn small ghost" id="pairNoise" onclick="pairToggleNoise()">רעש רדיו</button></span>
+    </div>
+
+    <div class="pairbar"><i class="s" id="barS" style="width:0%"></i><i class="t" id="barT" style="width:0%"></i></div>
+    <div class="controls">
+      <div class="readout"><span class="swatch s"></span>יד ביד<span data-track="older"> (תוצר א׳)</span>: <b class="num" id="cntS">0</b></div>
+      <div class="readout"><span class="swatch t"></span>גב אל גב<span data-track="older"> (תוצר ב׳)</span>: <b class="num" id="cntT">0</b></div>
+      <div class="readout">זוגות: <b class="num" id="cntN">0</b></div>
+    </div>
+    <p class="cap" id="pairMsg" style="margin-top:12px"></p>
+
+    <div class="note"><span class="hand">!</span><p><b>ככה לפי ההשערה המובילה.</b> אף אחד עדיין לא ראה את הריקוד הזה קורה בעין של ציפור חיה.</p></div>
+  </div>
+
+  <div data-track="older">
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> בסתיו ממוצע חוצות את ישראל כ־<b class="num">350,000</b> איות צרעים, ו־<b class="num">90%</b> מהן עוברות בתוך <b class="num">16</b> ימים. איות צרעים נודדות רק ביום, על זרמי אוויר חם, במשך כ־<b class="num">8</b> שעות ביום. כמה איות צרעים עוברות ב־16 הימים האלה? כמה ביום בממוצע? כמה בשעה?</p>
+      <div class="controls">
+        <label>ב־16 הימים <input type="number" id="chalTotal" inputmode="numeric" placeholder="?"></label>
+        <label>ביום בממוצע <input type="number" id="chalPerDay" inputmode="numeric" placeholder="?"></label>
+        <label>בשעה <input type="number" id="chalPerHour" inputmode="numeric" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()" data-g="בדוק|בדקי">בדקי</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> חסידה חוצה את קו המשווה המגנטי מעל דרום סודאן וממשיכה דרומה לקניה. אם היא הייתה ממשיכה בעקשנות לפי הכלל "טוסי לכיוון שבו הקווים עולים מהאדמה", מה היה קורה לה? ומה הציפורים עושות בפועל?</p>
+      <details><summary>הרמז והתשובה</summary><p>מדרום לקו המשווה המגנטי הקווים עולים מהאדמה דווקא כשמסתכלים צפונה (הם צוללים לכיוון הקוטב הדרומי). הכלל הישן היה מחזיר את החסידה בחזרה צפונה, לקו המשווה, ושם היא הייתה נתקעת. בפועל הציפורים הופכות את הכלל אחרי החצייה: בניסוי מ־<span class="math">1992</span> סבכים שהוחזקו יומיים בשדה אופקי מדומה עברו מ"לכיוון קו המשווה" ל"לכיוון הקוטב". ובזמן החצייה עצמה, כשהמצפן שותק, הן נעזרות בכוכבים ובשמש.</p></details>
+    </div>
+    <div class="q qc" id="radio"></div>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · TRACK DEEP DIVE B: what the bird sees (interactive 3) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>מה הציפור רואה? ומה עוד לא יודעים</h2>
+    <p>דמיינו שאתם ציפור בדמדומים. השמיים כחולים כהים, ומעליהם, שקוף ורך, מונח כתם. כשאתם פונים לכיוון קו המשווה, הכתם עומד במקום מסוים. כשאתם מסובבים את הראש, הוא זז. אתם לא צריכים לחשוב; פשוט טסים כך שהכתם יישאר במקום הנכון. ככה, אולי, ציפור צעירה שמעולם לא ראתה את אפריקה יודעת לאן לטוס.</p>
+    <p>זה מה שהמדענים חושבים. אבל הם אומרים בכנות שלושה דברים: אחד, אף אחד לא יודע איך הדפוס נראה באמת. שתיים, אף אחד עוד לא ראה אותו בעין חיה. שלוש, אולי יש לציפור עוד חוש מגנטי, במקור, שעוזר לה לדעת לא רק "לאן" אלא גם "איפה אני". גם על זה מתווכחים: לפני כמה שנים גילו שהתאים עם הברזל במקור הם בכלל תאים של מערכת החיסון.</p>
+    <p>זה בסדר שלא יודעים. ככה מדע עובד: מנחשים ניחוש חכם, בודקים, ומספרים בכנות מה מצאו ומה לא.</p>
+  </div>
+
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>מה הציפור רואה, ומה המדענים באמת לא יודעים</h2>
+    <p>אם ההשערה נכונה, הציפור לא רואה "חץ לצפון" אלא דפוס עדין של בהיר־כהה על שדה הראייה, שצורתו תלויה בזווית בין כיוון המבט לקווי השדה. מבט "לכיוון הקוטב" ומבט "לכיוון קו המשווה" שונים זה מזה — אבל היפוך הקוטביות לא משנה את הדפוס, בדיוק כמו שמצפן נטייה דורש. בקו המשווה המגנטי הדפוס נעלם.</p>
+    <p>מה המדענים אומרים בכנות?</p>
+    <ul>
+      <li><b>הוכח:</b> שיש חוש מגנטי, שהוא מצפן נטייה, שהוא תלוי באור, שהוא עובר דרך הראייה, ושרעש רדיו חלש משבש אותו.</li>
+      <li><b>השערה מובילה:</b> זוג רדיקלי בקריפטוכרום. נתמכת בניסויים במבחנה, לא הוכחה בעין חיה. איזה קריפטוכרום בדיוק (CRY4a? CRY1a?) עדיין במחלוקת.</li>
+      <li><b>במחלוקת של ממש:</b> חוש שני, מבוסס גרגירי ברזל (מגנטיט) במקור העליון ובעצב הטריגמינוס. ב־<span class="math">2012</span> התברר ש"תאי הברזל" המפורסמים במקור היונים הם מקרופאגים — תאי מערכת החיסון — ולא תאי חישה. ועם זאת, עצב המקור והמוח כן מגיבים לשינויי שדה. אולי זו לא "מצפן" אלא "מפה", חישה של עוצמת השדה. איפה הקולטן ומהו — אף אחד לא יודע.</li>
+    </ul>
+    <p data-level="advanced">[מתקדם] כל תא לבד מייצר הבדל זעיר בין א׳ לב׳, כמעט רעש. ההצעה היא שהמוח "ממצע" מיליוני תאים, כמו מצלמה בלילה שמצרפת הרבה תמונות חלשות לאחת. לכן הציפור צריכה כמה שניות של מבט יציב.</p>
+    <p data-level="standard">כל תא בודד נותן הבדל קטן מאוד, כמעט רעש — רק מיליוני תאים ביחד, לאורך כמה שניות של מבט יציב, נותנים לציפור דפוס שאפשר לקרוא.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — מה הציפור רואה ===== -->
+  <div class="panel instrument">
+    <h3>מה הציפור רואה</h3>
+    <p class="cap">שמיים של דמדומים, כמו הערב מעל הגג. אם ההשערה נכונה, מונח עליהם דפוס חיוור שתלוי רק בזווית בין המבט לקווי השדה. סובבו את המבט וראו איך הוא זז.</p>
+    <canvas id="seeCv" width="640" height="400" aria-label="שמיים של דמדומים עם כתם אור מדומה שזז כשהציפור מסובבת את הראש"></canvas>
+
+    <div class="controls">
+      <label>לאן הציפור מסתכלת
+        <input type="range" id="seeDir" min="0" max="355" step="5" value="180" oninput="seeDraw(1)" aria-label="לאן הציפור מסתכלת">
+      </label>
+      <div class="readout">מבט: <b id="seeDirOut">דרום</b></div>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="איפה הציפור">
+        <button class="on" id="seeP0" onclick="seeWhere(0)">זכרון יעקב</button>
+        <button id="seeP1" onclick="seeWhere(1)">ברלין</button>
+        <button id="seeP2" onclick="seeWhere(2)">דרום סודאן</button>
+      </div>
+      <div class="readout">נטייה שם: <b class="num" id="seeIncOut">49°</b></div>
+    </div>
+    <p class="cap" id="seeMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>שתי פעילויות קצרות להערב — אחת בתוך הבית, אחת בחוץ.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — מחט שמוצאת צפון (10 דקות)</h3>
+    <p class="cap">מה צריך: מחט תפירה, מגנט מקרר (עדיף חזק), קערה קטנה עם מים, חתיכה קטנה של פקק שעם או קליפת קלמנטינה, ומבוגר שיחזיק את המחט בזמן החיכוך.</p>
+    <ol>
+      <li>מלאו קערה במים עד שני שלישים והניחו אותה על שולחן, רחוק מטלפונים, מהמקרר ומרמקולים (בהם יש מגנטים).</li>
+      <li>אחזו את המחט מקצה אחד. שפשפו את המגנט לאורך המחט, מהעין לחוד, תמיד באותו כיוון, ובסוף כל משיכה הרימו את המגנט באוויר וחזרו להתחלה. לא הלוך ושוב. עשו את זה 30 עד 50 פעמים.</li>
+      <li>הניחו את המחט בעדינות על פיסת הפקק או הקליפה, והשיטו אותה במרכז הקערה.</li>
+      <li>חכו. המחט תסתובב לאט ותיעצר. סובבו את הקערה בעדינות: המחט תחזור לאותו כיוון. אחד הקצוות שלה מצביע צפונה.</li>
+      <li>איזה קצה? בדקו מול השמש: היא שוקעת במערב. אם המערב משמאלכם, הצפון מולכם.</li>
+    </ol>
+    <p class="small">אזהרה קטנה: המחט חדה. מבוגר מחזיק אותה בזמן השפשוף, ובסוף מחזירים אותה לקופסה.</p>
+    <details><summary>שאלה לשולחן</summary><p>המחט שלכם עומדת שטוחה על המים. המצפן של הציפור מרגיש גם כמה הקווים צוללים לאדמה. מה היה קורה למחט שלכם אם היא הייתה תלויה על חוט מהאמצע, במקום לצוף?</p><p>תשובה: היא הייתה נוטה כלפי מטה בזווית של כ־<b class="num">49</b> מעלות, כמו קווי השדה. זה מכשיר אמיתי שנקרא "מחט נטייה".</p></details>
+  </div>
+
+  <div class="panel">
+    <h3>חלק ב׳ — ספירת הדמדומים (15 דקות)</h3>
+    <ol>
+      <li>צאו החוצה בערך ב־18:40, עשר דקות לפני השקיעה, למקום עם שמיים פתוחים (מרפסת, גג, קצה רחוב). קחו דף ועיפרון.</li>
+      <li>שבו בשקט וקבעו "חלון" בשמיים — למשל, בין שני עצים או מעל גג מסוים. סופרים רק מה שעובר בחלון.</li>
+      <li>במשך 15 דקות, רשמו כל ציפור או להקה שעוברת: "להקה גדולה", "להקה קטנה", "בודדת". אם שומעים "פריפ־פריפ" מתגלגל מלמעלה, זו להקת שרקרקים — רשמו גם אם לא רואים.</li>
+      <li>רשמו לאיזה כיוון הן טסות. רוב הנודדות יטוסו דרומה או דרום־מזרחה. ציפורים שטסות לכל הכיוונים הן כנראה מקומיות שחוזרות לישון.</li>
+      <li>אחרי 15 דקות, ספרו. אם בחלון הקטן עברו כך וכך ב־15 דקות — כמה עברו, בקירוב, מעל כל זכרון יעקב הערב?</li>
+      <li>אם לא עבר כלום: זה גם תוצאה. רשמו את הרוח ואת התאריך ונסו שוב מחר. מדענים סופרים גם אפסים.</li>
+    </ol>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE (interactive 4) -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>בפעם הבאה שתראו להקה עוברת בשמיים, תזכרו: כל ציפור בה נושאת בעין מצפן שאף מהנדס לא הצליח לבנות. הוא לא צריך סוללה. הוא מתחיל בקרן אור, ממשיך בריקוד של שני אלקטרונים, ונגמר — אולי — בכתם על השמיים שאומר "לשם". וכשהציפור תגיע לדרום סודאן, המצפן ישתתק לרגע, והיא תצטרך להסתדר עם הכוכבים עד שהקווים יתחילו שוב לצלול לאדמה, הפעם מהצד השני.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>מדוע הסיפור הזה חשוב מעבר לציפורים? כי אם המנגנון יאושר, זו תהיה ההוכחה הברורה ביותר שתופעה קוונטית עדינה פועלת בתוך יצור חי, חם ורטוב — ולא רק במעבדות קפואות. מהנדסים כבר מנסים לבנות "מצפן כימי" בהשראתו. וגם רעש הרדיו שלנו, שמשבש את המצפן של אדום־חזה בקמפוס באולדנבורג, מעלה שאלה שעדיין אין לה תשובה: מה עושות עשרות מיליוני האנטנות שלנו לחצי מיליארד ציפורים שעוברות מעלינו כל סתיו?</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 4 — לוח השנה של השמיים ===== -->
+  <div class="panel instrument">
+    <h3>לוח השנה של השמיים</h3>
+    <p class="cap">ציור סכמטי של מסדרון הנדידה: מאירופה, דרך צוואר הבקבוק הצר של ישראל, אל אפריקה. גררו את התאריך וראו מי עובר מעלינו מתי.</p>
+    <canvas id="calCv" width="640" height="430" aria-label="מפה סכמטית של מסדרון הנדידה מאירופה דרך ישראל לאפריקה, עם נקודות שזורמות דרומה"></canvas>
+
+    <div class="controls">
+      <label>תאריך
+        <input type="range" id="calDay" min="0" max="112" step="1" value="19" oninput="calMove()" aria-label="תאריך">
+      </label>
+      <div class="readout"><b id="calDateOut">13 בספטמבר</b></div>
+    </div>
+    <p class="cap" id="calNow" style="margin-top:10px"></p>
+
+    <div class="bands" id="calBands"></div>
+    <p class="cap" id="calMsg" style="margin-top:14px"></p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ביולוגיה, תקשורת</div><h3>הדבורה מהמהדורה הקודמת</h3><p>הדבורה ידעה לאן ללכת וסיפרה לחברותיה בריקוד. הציפור לא מספרת לאף אחד; היא קוראת את הכיוון מכדור הארץ עצמו, לבד, בפעם הראשונה בחייה. שני פתרונות שונים לגמרי לאותה שאלה: "לאן?"</p></div>
+    <div class="tile"><div class="dom">היסטוריה, גאוגרפיה</div><h3>המצפן של הספנים</h3><p>מלחים סינים השתמשו במחט ממוגנטת שצפה על מים כבר לפני כאלף שנה — בדיוק כמו המחט שלכם בקערה. ולפני שהמצפן הגיע לאירופה, הם ניווטו לפי הכוכבים, כמו הציפורים בלילה.</p></div>
+    <div class="tile"><div class="dom">פיזיקה, רפואה</div><h3>הרופא שמסתכל בתוך הגוף</h3><p>מכשיר MRI בבית החולים משתמש בספין — אותה תכונה של החלקיקים שהציפור אולי משתמשת בה — כדי לצלם את המוח. הבדל אחד: המגנט של MRI חזק פי מאה אלף בערך משדה כדור הארץ, והציפור מסתדרת עם השדה החלש.</p></div>
+    <div class="tile"><div class="dom">מדעי כדור הארץ</div><h3>המגנט שמתהפך</h3><p>בסלעים של קרקעית הים רשום שהקוטב הצפוני המגנטי והדרומי החליפו מקומות מאות פעמים בתולדות כדור הארץ, בפעם האחרונה לפני כ־<b class="num">780,000</b> שנה. למצפן נטייה זה לא משנה כלום — וזה אולי ההסבר למה דווקא מצפן כזה שרד באבולוציה.</p></div>
+  </div>
+
+  <details class="bonus" id="latBox">
+    <summary>בונוס (2 דקות): איפה על כדור הארץ המצפן של הציפור הכי חד?</summary>
+    <table class="latbl">
+      <tr><td>טרומסו (נורווגיה)</td><td><span class="num">78°</span></td></tr>
+      <tr><td>ברלין</td><td><span class="num">68°</span></td></tr>
+      <tr><td>זכרון יעקב</td><td><span class="num">49°</span></td></tr>
+      <tr><td>אילת</td><td><span class="num">45°</span></td></tr>
+      <tr><td>דרום סודאן (קו המשווה המגנטי)</td><td><span class="num">0°</span></td></tr>
+      <tr><td>ניירובי</td><td><span class="num">22°</span> "הפוך" (הקווים עולים מהאדמה)</td></tr>
+    </table>
+    <p class="cap" style="margin-top:10px">ליד הקוטב, הקווים כמעט אנכיים; קשה להבחין בין "קצת יותר תלול" ל"קצת פחות תלול". איפה ההבדל בנטייה בין צעד צפונה לצעד דרומה הכי גדול?</p>
+    <details><summary>התשובה</summary><p>באמצע, סביב <span class="math">45°</span> — בערך אצלנו. גם בקוטב וגם בקו המשווה המצפן חלש, משתי סיבות הפוכות.</p>
+      <p data-level="advanced">[מתקדם] לחישוב עצמי: <span class="math">tan(I) = 2 × tan(φ)</span> נותן <span class="math">I ≈ 51.9°</span> בזכרון יעקב לעומת <span class="math">49.3°</span> בפועל.</p>
+      <p data-level="standard">בקוטב ובקו המשווה המצפן חלש משתי סיבות שונות: בקוטב קשה להבחין בין זוויות קרובות, ובקו המשווה אין זווית לקרוא כלל.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את שרשרת המצפן שבעין, לפי ההשערה, מההתחלה עד הסוף. לחצו על הכרטיסים לפי הסדר הנכון (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: לפי ההערכה, כחצי מיליארד ציפורים חוצות את ישראל בנדידת הסתיו, שנמשכת בערך <span class="math">100</span> ימים. אם הן היו מתחלקות שווה בשווה, כמה ציפורים היו עוברות בכל יום?</div>
+    <div class="controls"><label><span class="math">500,000,000 ÷ 100 =</span> <input type="number" id="numYounger" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדוק</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: זכרון יעקב נמצאת בקו רוחב <span class="math">32.6°</span> צפון. קו המשווה המגנטי על נתיב הנדידה נמצא ב־<span class="math">8.1°</span> צפון. מעלה אחת של קו רוחב היא בערך <b class="num">111</b> ק״מ. (א) כמה קילומטרים מזכרון יעקב עד קו המשווה המגנטי? (ב) חסידה לבנה שנודדת בקצב ממוצע של <span class="math">126</span> ק״מ ליום — כמה ימים תיקח לה הדרך הזאת?</div>
+    <div class="controls"><label>(א) המרחק בק״מ <input type="number" id="numAdv" inputmode="numeric" placeholder="?"></label><label>(ב) הימים (בקירוב) <input type="number" id="numAdvR" inputmode="decimal" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: קו המשווה המגנטי על נתיב הנדידה נמצא בקו רוחב <span class="math">8°</span> צפון. ישראל נמצאת בקו רוחב <span class="math">32°</span> צפון. מעלה אחת של קו רוחב היא בערך <b class="num">111</b> ק״מ. כמה קילומטרים צריכה חסידה לטוס דרומה מישראל עד שהמצפן שלה "משתתק" בקו המשווה המגנטי?</div>
+    <div class="controls"><label>המרחק בק״מ <input type="number" id="numOlder" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('older')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־3–4 משפטים: <b>איך, לפי ההשערה המובילה, העין של ציפור יכולה לשמש כמצפן — ולמה קו המשווה המגנטי מבלבל אותה?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="הציפור קוראת את הנטייה של..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד ה־וואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. השבוע עוברות מעל הבית שלנו, לפי ההערכה, מאות מיליוני ציפורים, ורובן טסות לאפריקה בפעם הראשונה, בלי מפה.<br>
+    2. המצפן של הציפור לא יודע איפה צפון. הוא מרגיש כמה הקווים המגנטיים נטויים, ולכן בדרום סודאן, שם הם שוכבים שטוחים, הוא משתתק.<br>
+    3. ההסבר המוביל הוא שהמצפן נמצא בעין: אור מתחיל ריקוד של שני אלקטרונים, וכדור הארץ מטה את הריקוד. הראו את זה במבחנה ב־2021 — אבל בעין חיה, עדיין לא.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>המצפן הנטוי של אדום־החזה: וילצ'קו ווילצ'קו, Science (1972); התגלית המקורית: וילצ'קו ומרקל, פרנקפורט (1965–1966). התלות באור והראייה: Zapka ואחרים, Nature (2009). שיבוש על ידי רעש רדיו: Engels ואחרים, Nature (2014), אוניברסיטת אולדנבורג. מועמד הקריפטוכרום CRY4: Günther ואחרים, Current Biology (2018); Xu ואחרים, Nature (2021) ו־J. R. Soc. Interface (2025), אולדנבורג ואוקספורד. "תאי הברזל" במקור היונים כמקרופאגים: Treiber ואחרים, Nature (2012); תגובת עצב הטריגמינוס לשדה: Heyers ואחרים, PNAS (2010). נתוני הנדידה מעל ישראל: הערכת פרופ' יוסי לשם, אוניברסיטת תל אביב; רשות הטבע והגנים. נתוני השדה המגנטי לזכרון יעקב: מודל IGRF־14, ספטמבר 2026. זמני שקיעה ולוח השנה העברי: sunrise-sunset.org, Hebcal. כל המספרים שבשיעור הם הערכות מחקריות, לא ספירה מדויקת — וחלק מהמנגנון (הזוג הרדיקלי בעין) הוא עדיין השערה מובילה, לא הוכחה.</p>
+  </details>
+</section>
+
+</main>
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:5, code:'WOW-005', date:'2026-09-11', title:'המצפן שמסתתר בעין של הציפור', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15/Xmdei15Eg15/XpNem154='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:50000000, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'biology', w:3 }, { id:'physics', w:3 }, { id:'earth', w:2 }, { id:'chemistry', w:1 } ],
+  hero: { name:'אדום החזה', fact:'ציפור שיר קטנה שקפצה בכלוב עגול בפרנקפורט וגילתה לעולם שלציפורים יש מצפן' },
+  items: {
+    'predict':       { skill:'inclination-compass',   d:2 },
+    'flip:vertical': { skill:'inclination-compass',   d:3 },
+    'flip:polarity': { skill:'inclination-compass',   d:4 },
+    'qc:scale':      { skill:'orders-of-magnitude',   d:2 },
+    'qc:polarity':   { skill:'inclination-compass',   d:3 },
+    'qc:radio':      { skill:'radical-pair',          d:3 },
+    'mcq:shared:0':  { skill:'inclination-compass',   d:2 },
+    'mcq:shared:1':  { skill:'magnetic-equator',      d:2 },
+    'mcq:shared:2':  { skill:'experiment-design',     d:1 },
+    'mcq:younger:0': { skill:'radical-pair',          d:1 },
+    'mcq:older:0':   { skill:'evidence-vs-proof',     d:3 },
+    'order':         { skill:'radical-pair',          d:3 },
+    'num:younger':   { skill:'division-by-100',       d:2 },
+    'num:older':     { skill:'latitude-distance',     d:3 },
+    'num:adv':       { skill:'rate-and-time',         d:4 },
+    'challenge':     { skill:'multi-step-rate',       d:4 },
+    'explain':       { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===3){ tiltDraw(); showArtoTip(); } if(n===5) seeDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+/* ---------- hero guess: one order of magnitude, not a slider ----------
+   A slider over hundreds of millions teaches nothing: 50 and 70 million feel identical to a kid and
+   neither is a thought. Four choices a factor of 100 apart force a real commitment about scale, which
+   is the thing the lesson can then overturn. */
+const SCALE_ANS = 500000000;
+const SCALE_FB = {
+  5000:      '<span class="pill-bad">קטן בהרבה.</span> <span class="num">5,000</span> ציפורים זה מה שאפשר לראות מעל רכס אחד בערב אחד טוב. העונה כולה גדולה מזה פי <span class="math">100,000</span>.',
+  500000:    '<span class="pill-bad">עדיין קטן.</span> חצי מיליון זה בערך יום עמוס אחד בשיא הנדידה — לא כל העונה.',
+  50000000:  '<span class="pill-bad">קרוב יותר, אבל פי <span class="math">10</span> מדי קטן.</span> חמישים מיליון זה כמו כל תושבי ישראל פי <span class="math">5</span>. הנדידה גדולה אפילו מזה.',
+  500000000: '<span class="pill-ok">קלעתם!</span> כחצי מיליארד, לפי ההערכה. אם הייתם סופרים ציפורה כל שנייה, בלי לישון, זה היה לוקח בערך <span class="math">16</span> שנים.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+
+/* ---------- step 3 (interactive 1): the inclination compass (carries the day's `predict` item) ---------- */
+const tiltCv=document.getElementById('tiltCv'), tctx=tiltCv.getContext('2d'), birdLat=document.getElementById('birdLat');
+const MAGEQ=8;                                   // the magnetic dip equator on this flyway lies at 8°N, not at the geographic equator
+const TILT={ vflip:false, pflip:false, guess:0, gv:null, gp:null, sawEq:false, blink:0 };
+const SPOTS=[{lat:52.5,name:'ברלין',deg:'68°'},{lat:32.57,name:'זכרון יעקב',deg:'49°'},{lat:MAGEQ,name:'דרום סודאן',deg:'0°'}];
+const REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* magnetic latitude: 0 at the dip equator, ±90 at the poles */
+function magLat(p){ const d=p-MAGEQ, u=Math.abs(d)/(d>=0?90-MAGEQ:90+MAGEQ); return Math.sign(d)*90*Math.pow(u,0.83); }
+/* inclination below the horizon, + = the lines dive into the ground towards the north.
+   tan(I) = k·tan(magnetic latitude). k=2 with a plain dipole; k=1.787 with the stretch above reproduces the
+   real numbers along this flyway: 49.3° at Zichron, 68° in Berlin, 22° "the other way" at Nairobi, 0° at 8°N. */
+function incRaw(p){ return Math.atan(1.787*Math.tan(magLat(p)*Math.PI/180))*180/Math.PI; }
+function incAt(p){ return TILT.vflip ? -incRaw(p) : incRaw(p); }
+/* the slider is stretched around the dip equator so the dead zone is wide enough to find with a finger */
+function birdLatDeg(){ const t=+birdLat.value/1000; return t>=0 ? MAGEQ+82*Math.pow(t,2.2) : MAGEQ-98*Math.pow(-t,2.2); }
+
+const TGEO={cx:346, cy:392, R:136};
+function tiltPt(latDeg, r){ const a=latDeg*Math.PI/180; return [TGEO.cx + r*Math.cos(a), TGEO.cy - r*Math.sin(a)]; }
+/* one field line, traced from its apex over the dip equator: d(ln r)/dφ = −tan(I(φ)).
+   Flipping only the vertical component is exactly a mirror about the dip-equator plane, so the shape is
+   always traced from the unflipped field and then mirrored: φ → 2·MAGEQ − φ. */
+function fieldLine(L){
+  const out=[], R=TGEO.R, step=0.6;
+  for(const dir of [1,-1]){
+    const arm=[]; let r=L, p=MAGEQ;
+    for(let k=0;k<500;k++){
+      arm.push([p,r]);
+      const I=incRaw(p)*Math.PI/180;
+      r *= Math.exp(-Math.tan(I)*dir*step*Math.PI/180);
+      p += dir*step;
+      if(r<=R){ arm.push([p,R]); break; }
+      if(Math.abs(p)>89.4){ arm.push([p,R]); break; }
+    }
+    out.push(arm);
+  }
+  const line = out[1].slice().reverse().concat(out[0]);       // south arm, then north arm
+  return TILT.vflip ? line.map(([p,r])=>[2*MAGEQ-p, r]) : line;
+}
+function arrowHead(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function plate(c,x,y,w,h){ c.fillStyle=css('--card'); c.globalAlpha=.82; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* a Hebrew name with an LTR value beside it, each drawn in its own direction so nothing gets mangled */
+function tagText(c,name,val,x,y,font){
+  c.font=font; c.textBaseline='middle';
+  c.direction='ltr'; c.textAlign='left'; const vw = val? c.measureText(val).width+7 : 0; if(val) c.fillText(val,x,y);
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name,x+vw,y);
+  c.direction='ltr'; return vw + c.measureText(name).width;
+}
+function tagWidth(c,name,val,font){ c.font=font; c.direction='ltr'; return (val?c.measureText(val).width+7:0) + c.measureText(name).width; }
+
+function tiltDraw(){
+  const W=tiltCv.width, H=tiltCv.height, {cx,cy,R}=TGEO;
+  const lat=birdLatDeg(), I=incAt(lat), flat=Math.abs(I)<3;
+  const g=tctx.createLinearGradient(0,0,0,H); g.addColorStop(0,css('--sky2')); g.addColorStop(1,css('--sky1'));
+  tctx.fillStyle=g; tctx.fillRect(0,0,W,H);
+
+  /* ---- the globe: field lines on both sides of the cross-section ---- */
+  tctx.lineCap='round';
+  for(const L of [R*1.16, R*1.38, R*1.7, R*2.15, R*3.0, R*6.0, R*14]){
+    const line=fieldLine(L);
+    for(const side of [1,-1]){
+      tctx.strokeStyle=css('--nile'); tctx.lineWidth=3; tctx.globalAlpha=.8; tctx.beginPath();
+      line.forEach(([p,r],i)=>{ const [x,y]=tiltPt(p,r); const px=cx+side*(x-cx); i?tctx.lineTo(px,y):tctx.moveTo(px,y); });
+      tctx.stroke(); tctx.globalAlpha=1;
+      const m=Math.round(line.length*0.5), p1=line[m], p2=line[m+3]||line[m];
+      const [ax,ay]=tiltPt(p1[0],p1[1]), [bx2,by2]=tiltPt(p2[0],p2[1]);
+      const d=(TILT.pflip?-1:1)*(TILT.vflip?-1:1), hx=cx+side*(ax-cx), dx=side*(bx2-ax)*d, dy=(by2-ay)*d;
+      const n=Math.hypot(dx,dy)||1; tctx.fillStyle=css('--nile'); arrowHead(tctx,hx+dx/n*9,ay+dy/n*9,dx,dy,13);
+    }
+  }
+
+  /* the planet, and the bar magnet inside it */
+  tctx.fillStyle=css('--earth'); tctx.strokeStyle=css('--earth2'); tctx.lineWidth=3;
+  tctx.beginPath(); tctx.arc(cx,cy,R,0,Math.PI*2); tctx.fill(); tctx.stroke();
+  const bw=32, bh=R*1.1, northUp = !TILT.pflip;
+  tctx.fillStyle=css('--nile'); tctx.beginPath(); tctx.roundRect(cx-bw/2, northUp?cy-bh/2:cy, bw, bh/2, 6); tctx.fill();
+  tctx.fillStyle=css('--bad');  tctx.beginPath(); tctx.roundRect(cx-bw/2, northUp?cy:cy-bh/2, bw, bh/2, 6); tctx.fill();
+  tctx.font='700 20px Rubik, Arial'; tctx.fillStyle='#FFFFFF'; tctx.textAlign='center'; tctx.textBaseline='middle'; tctx.direction='ltr';
+  tctx.fillText('N', cx, cy+(northUp?-bh/4:bh/4)); tctx.fillText('S', cx, cy+(northUp?bh/4:-bh/4));
+
+  /* poles */
+  tctx.fillStyle=css('--ink'); tctx.font='700 21px Rubik, Arial'; tctx.direction='rtl'; tctx.textAlign='center'; tctx.textBaseline='alphabetic';
+  tctx.fillText('הקוטב הצפוני', cx, cy-R-16); tctx.fillText('הקוטב הדרומי', cx, cy+R+30);
+
+  /* the three marked latitudes, tagged on the left so the bird keeps the right-hand side */
+  tctx.textBaseline='middle';
+  SPOTS.forEach(sp=>{
+    const y=tiltPt(sp.lat,R)[1], lx=cx-R*Math.cos(sp.lat*Math.PI/180), near=Math.abs(lat-sp.lat)<2.2, eq=sp.lat===MAGEQ;
+    tctx.strokeStyle=eq?css('--shadow'):css('--earth2'); tctx.lineWidth=eq?3:2; tctx.setLineDash(eq?[10,8]:[3,6]);
+    tctx.beginPath(); tctx.moveTo(16,y); tctx.lineTo(lx,y); tctx.stroke(); tctx.setLineDash([]);
+    tctx.fillStyle=eq?css('--shadow'):css('--earth2'); tctx.beginPath(); tctx.arc(lx,y,6,0,Math.PI*2); tctx.fill();
+    const f='700 '+(near?'21':'19')+'px Rubik, Arial', w=tagWidth(tctx,sp.name,sp.deg,f);
+    plate(tctx, 12, y-17, w+22, 34);
+    tctx.fillStyle = near ? css('--sun-deep') : (eq?css('--shadow'):css('--muted'));
+    tagText(tctx, sp.name, sp.deg, 23, y, f);
+    if(eq){ tctx.fillStyle=css('--shadow'); tctx.font='700 18px Rubik, Arial'; tctx.direction='rtl'; tctx.textAlign='left'; tctx.textBaseline='middle'; tctx.fillText('קו המשווה המגנטי', 14, y+34); }
+  });
+
+  /* the bird on the rim, with a short needle that turns as it walks */
+  const [bx,by]=tiltPt(lat,R), a=lat*Math.PI/180;
+  const rx=Math.cos(a), ry=-Math.sin(a), nx=-Math.sin(a), ny=-Math.cos(a);
+  const Ir=I*Math.PI/180, fx=Math.cos(Ir)*nx-Math.sin(Ir)*rx, fy=Math.cos(Ir)*ny-Math.sin(Ir)*ry, sgn=TILT.pflip?-1:1;
+  tctx.strokeStyle=css('--sun'); tctx.globalAlpha=.35; tctx.lineWidth=13;
+  tctx.beginPath(); tctx.arc(bx+rx*14,by+ry*14,26,0,Math.PI*2); tctx.stroke(); tctx.globalAlpha=1;
+  drawBird(tctx, bx+rx*14, by+ry*14, a, 0.85, I>0?-1:1);
+  const mx=bx+rx*58, my=by+ry*58;
+  tctx.strokeStyle=css('--nile'); tctx.lineWidth=6;
+  tctx.beginPath(); tctx.moveTo(mx-fx*32,my-fy*32); tctx.lineTo(mx+fx*32,my+fy*32); tctx.stroke();
+  tctx.fillStyle=css('--nile'); arrowHead(tctx, mx+fx*32*sgn, my+fy*32*sgn, fx*sgn, fy*sgn, 15);
+
+  /* ---- the close-up: what the bird actually feels ---- */
+  drawInset(I, flat);
+
+  /* readouts */
+  incOut.textContent = Math.round(Math.abs(I))+'°';
+  if(flat) TILT.sawEq=true;
+  tiltMsg.innerHTML = flat
+    ? '<b>הקווים שוכבים כמעט שטוחים לגמרי.</b> אין "צולל" ואין "עולה", ולמצפן נטייה אין מה לקרוא — החץ של הציפור נעלם. בניסויים אמיתיים, ציפורים בשדה כזה מתפזרות לכל הכיוונים.'
+    : 'הקווים צוללים לאדמה לכיוון <b>'+(I>0?'צפון':'דרום')+'</b>, ולכן בסתיו הציפור טסה לכיוון שבו הם עולים מהאדמה. שימו לב: קו המשווה המגנטי נמצא ב־<span class="math">8°</span> צפון, מעל דרום סודאן — הציפור פוגשת אותו עוד לפני קו המשווה של המפה.';
+  if(TILT.sawEq && TILT.guess && flipBoxHidden()) document.getElementById('tiltFlipBox').style.display='block';
+}
+
+/* the close-up panel across the top: ground, field line, the angle, and the bird's autumn arrow */
+function drawInset(I, flat){
+  const x0=10, y0=10, w=620, h=206, gy=y0+h-46, gx=250, bx=420, sgn=TILT.pflip?-1:1, c=tctx;
+  c.fillStyle=css('--card'); c.strokeStyle=css('--sand'); c.lineWidth=2;
+  c.beginPath(); c.roundRect(x0,y0,w,h,14); c.fill(); c.stroke();
+  c.save(); c.beginPath(); c.roundRect(x0+2,y0+2,w-4,h-4,12); c.clip();
+
+  c.fillStyle=css('--muted'); c.font='19px Rubik, Arial'; c.direction='rtl'; c.textAlign='right'; c.textBaseline='alphabetic';
+  c.fillText('המחט ליד הציפור: באיזו זווית הקווים חוצים את הקרקע?', x0+w-16, y0+28);
+
+  c.fillStyle=css('--earth'); c.fillRect(x0,gy,w,h);
+  c.strokeStyle=css('--earth2'); c.lineWidth=4; c.beginPath(); c.moveTo(x0,gy); c.lineTo(x0+w,gy); c.stroke();
+
+  /* the field line through the bird's feet: right = towards the pole, left = towards the equator */
+  const r=I*Math.PI/180, dx=Math.cos(r), dy=Math.sin(r);
+  c.strokeStyle=flat?css('--bad'):css('--nile'); c.lineWidth=6; c.lineCap='round';
+  c.beginPath(); c.moveTo(gx-dx*260, gy-dy*260); c.lineTo(gx+dx*260, gy+dy*260); c.stroke();
+  c.fillStyle=flat?css('--bad'):css('--nile');
+  arrowHead(c, gx+dx*128*sgn, gy+dy*128*sgn, dx*sgn, dy*sgn, 20);
+
+  /* the angle between the ground and the arm of the line that rises out of it */
+  const lab = Math.abs(I)<0.5 ? 'שטוח' : Math.round(Math.abs(I))+'°';
+  const t0 = I>0 ? Math.PI : 0, t1 = t0 + r, tm = t0 + r/2;
+  if(!flat){
+    c.fillStyle=css('--nile-soft'); c.beginPath(); c.moveTo(gx,gy); c.arc(gx,gy,74,t0,t1, I<0); c.closePath(); c.fill();
+    c.strokeStyle=css('--nile'); c.lineWidth=3;
+    c.beginPath(); c.arc(gx,gy,74,t0,t1, I<0); c.stroke();
+  }
+  const th = flat ? Math.PI+0.6 : tm, tx=gx+124*Math.cos(th), ty=gy+124*Math.sin(th);
+  c.font='700 34px Rubik, Arial'; c.direction='ltr'; c.textAlign='center'; c.textBaseline='middle';
+  const lw=c.measureText(lab).width; plate(c, tx-lw/2-14, ty-24, lw+28, 48);
+  c.fillStyle=flat?css('--bad'):css('--nile'); c.fillText(lab, tx, ty);
+
+  /* the bird, and the way it flies this autumn */
+  const aw = I>0 ? -1 : 1, ay=gy-74;
+  drawBird(c, bx, gy-17, Math.PI/2, 1.05, flat?1:aw);
+  if(flat){
+    c.globalAlpha = REDUCED ? 1 : 0.45+0.55*Math.abs(Math.sin(TILT.blink/38));
+    c.fillStyle=css('--bad'); c.font='700 54px "Secular One", Rubik, Arial'; c.textAlign='center'; c.direction='ltr'; c.textBaseline='middle'; c.fillText('?', bx, ay);
+    c.globalAlpha=1;
+    c.fillStyle=css('--bad'); c.font='700 19px Rubik, Arial'; c.direction='rtl'; c.textAlign='center'; c.textBaseline='alphabetic';
+    c.fillText('אין לאן', bx, ay-36);
+  } else {
+    c.strokeStyle=css('--sun-deep'); c.lineWidth=8; c.lineCap='round';
+    c.beginPath(); c.moveTo(bx-aw*36, ay); c.lineTo(bx+aw*28, ay); c.stroke();
+    c.fillStyle=css('--sun-deep'); arrowHead(c, bx+aw*42, ay, aw, 0, 19);
+    c.font='700 19px Rubik, Arial'; c.direction='rtl'; c.textAlign='center'; c.textBaseline='alphabetic';
+    c.fillText('לכאן טסה בסתיו', bx, ay-26);
+  }
+
+  c.font='700 19px Rubik, Arial'; c.direction='rtl'; c.textBaseline='middle'; c.fillStyle=css('--ink');
+  c.textAlign='left';  c.fillText('לכיוון קו המשווה', x0+16, gy+24);
+  c.textAlign='right'; c.fillText('לכיוון הקוטב', x0+w-16, gy+24);
+  c.restore();
+}
+
+function flipBoxHidden(){ return document.getElementById('tiltFlipBox').style.display!=='block'; }
+
+function drawBird(c,x,y,a,k,face){
+  c.save(); c.translate(x,y); c.rotate(Math.PI/2-a); c.scale((k||1)*(face===-1?-1:1),k||1);            // feet on the ground, body upright
+  c.fillStyle=css('--sun'); c.strokeStyle=css('--sun-deep'); c.lineWidth=2;
+  c.beginPath(); c.ellipse(0,0,21,13,-0.25,0,Math.PI*2); c.fill(); c.stroke();
+  c.beginPath(); c.arc(15,-12,9,0,Math.PI*2); c.fill(); c.stroke();
+  c.fillStyle=css('--sun-deep'); c.beginPath(); c.moveTo(23,-13); c.lineTo(34,-10); c.lineTo(23,-7); c.closePath(); c.fill();
+  c.fillStyle=css('--ink'); c.beginPath(); c.arc(18,-15,2.4,0,Math.PI*2); c.fill();
+  c.fillStyle=css('--sun-deep'); c.beginPath(); c.moveTo(-20,-2); c.lineTo(-38,-12); c.lineTo(-34,3); c.closePath(); c.fill();
+  c.restore();
+}
+
+function tiltGuess(n){
+  if(TILT.guess) return;
+  TILT.guess=n;
+  /* the day's predict item. value/target are the option numbers, ordered by how far each is from the truth:
+     1 "south as usual" (nothing changes) · 2 "north, reversed" · 3 "nowhere, it gets lost" = correct */
+  WOW.emit('predict', { id:'predict', value:n, target:3, correct:n===3 });
+  document.getElementById('tiltGuessBox').innerHTML = '<p style="margin:14px 0 0">'+
+    (n===3 ? '<b class="pill-ok">ניחוש מצוין.</b> ' : '<b class="pill-bad">ננחש שוב בסוף.</b> ')+
+    'עכשיו המחוון פתוח: '+G('גרור','גררי')+' את הציפור עד קו המשווה המגנטי, ב־<span class="math">8°</span> צפון, '+
+    G('ותראה','ותראי')+' מה קורה למחט ולחץ.</p>';
+  document.getElementById('tiltDrag').style.display='flex';
+  tiltDraw();
+}
+function tiltFlipGuess(which,yes){
+  if(TILT['g'+which]!==null) return;
+  TILT['g'+which]=yes;
+  const right = which==='v' ? 1 : 0;                 // only the vertical flip turns the bird around
+  WOW.emit('item', { id:'flip:'+(which==='v'?'vertical':'polarity'), kind:'quick', correct: yes===right, attempt: wowTry('flip:'+which) });
+  birdLat.value='578';
+  if(which==='v'){
+    TILT.vflip=true; TILT.pflip=false;
+    document.getElementById('flipFbv').innerHTML = (yes===1?'<span class="pill-ok">נכון.</span> ':'<span class="pill-bad">לא.</span> ')+
+      'הקווים עולים עכשיו מהאדמה לכיוון צפון, והכלל של הציפור ("טסים לכיוון שבו הקווים עולים") מפנה אותה <b>לצפון</b>. החץ התהפך. זה בדיוק מה שקרה לציפורים במעבדה.';
+    document.getElementById('flipQp').style.display='block';
+  } else {
+    TILT.vflip=false; TILT.pflip=true;
+    document.getElementById('flipFbp').innerHTML = (yes===0?'<span class="pill-ok">נכון.</span> ':'<span class="pill-bad">לא.</span> ')+
+      'ראו את המגנט שבתוך הכדור: הוא התהפך, וכל החצים על הקווים הסתובבו. אבל <b>הזווית</b> של הקווים ביחס לקרקע לא השתנתה בכלל, ולכן החץ של הציפור נשאר במקומו. מצפן רגיל היה מסתובב ב־180 מעלות; הציפור לא שמה לב.';
+    document.getElementById('flipBtns').style.display='flex';
+    flipVBtn.classList.remove('on'); flipPBtn.classList.add('on');
+  }
+  paintFlipBtns(); tiltDraw();
+}
+function tiltToggle(which){
+  if(which==='v'){ TILT.vflip=!TILT.vflip; } else { TILT.pflip=!TILT.pflip; }
+  paintFlipBtns(); tiltDraw();
+}
+function paintFlipBtns(){ const v=document.getElementById('flipVBtn'), p=document.getElementById('flipPBtn');
+  if(v) v.classList.toggle('on', TILT.vflip); if(p) p.classList.toggle('on', TILT.pflip); }
+
+if(!REDUCED){ (function blink(){ TILT.blink++; if(Math.abs(incAt(birdLatDeg()))<3 && TILT.blink%4===0) tiltDraw(); requestAnimationFrame(blink); })(); }
+tiltDraw();
+</script>
+
+<script>
+/* ---------- step 4 (interactive 2): the radical pair. The field changes the odds, not the forces. ---------- */
+const pairCv=document.getElementById('pairCv'), pctx2=pairCv.getContext('2d'), pairAng=document.getElementById('pairAng');
+const PAIR={ n:0, s:0, t:0, run:null, noise:false, phase:0, tt:0, out:null, spin:0, fast:0, opened:{} };
+const PMOL={ x:286, y:176, L:78 }, PFIELD=474;
+const PREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const younger = () => (document.body.dataset.track||'older')==='younger';
+
+/* singlet yield: an anisotropy of ten points either way, exactly the effect the spec asks to be visible only in bulk */
+function pSinglet(){ return PAIR.noise ? 0.5 : 0.5 + 0.10*Math.cos(2*(+pairAng.value)*Math.PI/180); }
+
+function pairPt(u){                                   // a point along the molecule's twisted backbone, u from −1 to 1
+  const a=(+pairAng.value)*Math.PI/180, L=PMOL.L;
+  const ax=u*L, off=Math.sin(u*Math.PI)*16*Math.cos(u*Math.PI*1.5);
+  return [PMOL.x + off*Math.cos(a) + ax*Math.sin(a), PMOL.y - off*Math.sin(a) + ax*Math.cos(a)];
+}
+function pairArrowHead(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+
+function pairDraw(){
+  const c=pctx2, W=pairCv.width, H=pairCv.height;
+  const g=c.createLinearGradient(0,0,0,H); g.addColorStop(0,css('--sky2')); g.addColorStop(1,css('--sky1'));
+  c.fillStyle=g; c.fillRect(0,0,W,H);
+
+  /* the Earth's field: faint lines everywhere, one bold arrow through the molecule */
+  c.strokeStyle=css('--nile'); c.lineWidth=2; c.globalAlpha=.28;
+  for(let x=40;x<W;x+=72){ c.beginPath(); c.moveTo(x,26); c.lineTo(x,H-26); c.stroke(); }
+  c.globalAlpha=1;
+  /* radio noise: it sits behind the molecule so the dance itself stays readable */
+  if(PAIR.noise){
+    c.strokeStyle=css('--bad'); c.lineWidth=2.5; c.globalAlpha=.6;
+    for(let k=0;k<5;k++){ const y=44+k*62; c.beginPath(); c.moveTo(8,y);
+      for(let x=8;x<W-8;x+=14) c.lineTo(x, y+(Math.sin(x*0.7+k*2+PAIR.spin*0.4)*11)); c.stroke(); }
+    c.globalAlpha=1;
+  }
+  c.strokeStyle=css('--nile'); c.lineWidth=6; c.lineCap='round';
+  c.beginPath(); c.moveTo(PFIELD, PMOL.y+124); c.lineTo(PFIELD, PMOL.y-112); c.stroke();
+  c.fillStyle=css('--nile'); pairArrowHead(c, PFIELD, PMOL.y-124, 0,-1, 18);
+  c.fillStyle=css('--nile'); c.font='700 19px Rubik, Arial'; c.direction='rtl'; c.textAlign='right'; c.textBaseline='alphabetic';
+  c.fillText('השדה של כדור הארץ', W-14, 28);
+
+  /* the lamp */
+  const lit = PAIR.phase>0;
+  c.fillStyle=css('--ink'); c.beginPath(); c.roundRect(30,150,58,34,8); c.fill();
+  c.fillStyle=lit?'#FFF1B0':css('--sand'); c.beginPath(); c.moveTo(88,146); c.lineTo(108,138); c.lineTo(108,196); c.lineTo(88,188); c.closePath(); c.fill();
+  if(lit){
+    const cone=c.createLinearGradient(108,0,PMOL.x,0); cone.addColorStop(0,'rgba(255,214,74,.42)'); cone.addColorStop(1,'rgba(255,214,74,0)');
+    c.fillStyle=cone; c.beginPath(); c.moveTo(108,150); c.lineTo(PMOL.x+10,66); c.lineTo(PMOL.x+10,286); c.lineTo(108,184); c.closePath(); c.fill();
+  }
+  c.fillStyle=css('--ink'); c.font='700 19px Rubik, Arial'; c.direction='rtl'; c.textAlign='center';
+  c.fillText('אור', 59, 210);
+
+  /* the molecule: green half (tryptophan) and yellow half (flavin) */
+  c.lineCap='round'; c.lineWidth=26;
+  for(const half of [[-1,0,css('--ok')],[0,1,css('--sun')]]){
+    c.strokeStyle=half[2]; c.beginPath();
+    for(let u=half[0]; u<=half[1]+0.001; u+=0.05){ const [x,y]=pairPt(u); u===half[0]?c.moveTo(x,y):c.lineTo(x,y); }
+    c.stroke();
+  }
+  const a2=(+pairAng.value)*Math.PI/180, [gxp,gyp]=pairPt(-0.72), [yxp,yyp]=pairPt(0.72);
+  if(!younger()){
+    const px=Math.cos(a2), py=-Math.sin(a2);                    // perpendicular to the backbone: the labels sit clear of the spinners
+    const glx=gxp-px*50, gly=gyp-py*50, ylx=yxp+px*50, yly=yyp+py*50;
+    c.font='700 18px Rubik, Arial'; c.direction='rtl'; c.textAlign='center'; c.textBaseline='middle';
+    c.fillStyle=css('--ok'); c.fillText('טריפטופן', glx, gly);
+    c.fillStyle=css('--sun-deep'); c.fillText('פלאבין', ylx, yly);
+  }
+
+  /* the angle between the molecule and the field */
+  const a=(+pairAng.value)*Math.PI/180;
+  c.strokeStyle=css('--nile'); c.lineWidth=2; c.setLineDash([7,6]);
+  c.beginPath(); c.moveTo(PMOL.x, PMOL.y-132); c.lineTo(PMOL.x, PMOL.y+132); c.stroke();
+  c.strokeStyle=css('--muted');
+  c.beginPath(); c.moveTo(PMOL.x-Math.sin(a)*132, PMOL.y-Math.cos(a)*132); c.lineTo(PMOL.x+Math.sin(a)*132, PMOL.y+Math.cos(a)*132); c.stroke(); c.setLineDash([]);
+  if(+pairAng.value>0){
+    c.strokeStyle=css('--muted'); c.lineWidth=3;
+    c.beginPath(); c.arc(PMOL.x, PMOL.y, 104, -Math.PI/2, -Math.PI/2+a); c.stroke();
+  }
+  /* the electron hop, then the two spinning halves */
+  if(PAIR.phase===1){
+    const k=Math.min(1,PAIR.tt/0.3);
+    c.fillStyle=css('--ink'); c.beginPath(); c.arc(gxp+(yxp-gxp)*k, gyp+(yyp-gyp)*k, 9, 0, Math.PI*2); c.fill();
+    c.fillStyle=css('--ink'); c.font='700 20px Rubik, Arial'; c.direction='rtl'; c.textAlign='left'; c.textBaseline='alphabetic';
+    c.fillText('אלקטרון קופץ', 16, H-18);
+  } else if(PAIR.phase>=2){
+    const settled = PAIR.phase===3 && PAIR.out!==null;
+    const up = settled ? (PAIR.out==='s' ? [-1,1] : [-1,-1])
+                       : [Math.sin(PAIR.spin*0.9)>0?1:-1, Math.sin(PAIR.spin*1.37+1)>0?1:-1];
+    if(settled && PAIR.out==='s'){ c.strokeStyle=css('--nile'); c.lineWidth=6;
+      c.beginPath(); c.moveTo(gxp,gyp); c.lineTo(yxp,yyp); c.stroke(); }
+    pairSpinner(c, gxp, gyp, up[0], settled);
+    pairSpinner(c, yxp, yyp, up[1], settled);
+    if(settled){
+      const sng = PAIR.out==='s';
+      c.fillStyle=sng?css('--nile'):css('--shadow'); c.font='700 26px Rubik, Arial'; c.direction='rtl'; c.textAlign='left'; c.textBaseline='alphabetic';
+      c.fillText(sng?'יד ביד':'גב אל גב', 16, H-18);
+    } else {
+      c.fillStyle=css('--muted'); c.font='700 20px Rubik, Arial'; c.direction='rtl'; c.textAlign='left'; c.textBaseline='alphabetic';
+      c.fillText(PAIR.fast? 'מריצים זוגות…' : 'מרצדים…', 16, H-18);
+    }
+  }
+
+  if(PAIR.noise){
+    c.fillStyle=css('--bad'); c.font='700 20px Rubik, Arial'; c.direction='rtl'; c.textAlign='left'; c.textBaseline='alphabetic';
+    c.fillText('רעש רדיו', 14, 28);
+  }
+}
+function pairSpinner(c,x,y,dir,settled){
+  c.fillStyle=css('--card'); c.strokeStyle=css('--ink'); c.lineWidth=3;
+  c.beginPath(); c.arc(x,y,19,0,Math.PI*2); c.fill(); c.stroke();
+  c.strokeStyle=settled?(PAIR.out==='s'?css('--nile'):css('--shadow')):css('--ink'); c.lineWidth=5;
+  c.beginPath(); c.moveTo(x, y+11*dir); c.lineTo(x, y-11*dir); c.stroke();
+  c.fillStyle=c.strokeStyle; pairArrowHead(c, x, y-13*dir, 0, -dir, 11);
+}
+
+function pairTally(out, k){
+  if(out==='s') PAIR.s+=k; else PAIR.t+=k;
+  PAIR.n+=k;
+  const tot=PAIR.n||1;
+  barS.style.width=(PAIR.s/tot*100)+'%'; barT.style.width=(PAIR.t/tot*100)+'%';
+  cntS.textContent=fmt(PAIR.s); cntT.textContent=fmt(PAIR.t); cntN.textContent=fmt(PAIR.n);
+  pairMsg.innerHTML = PAIR.noise
+    ? 'רעש רדיו חלש מערבב את הריקוד. בכל זווית התוצאה חוזרת לחצי־חצי, והמצפן משתתק. בדיוק זה קרה לאדומי־החזה בבקתות העץ באולדנבורג ב־2014.'
+    : PAIR.n<10 ? 'ריקוד אחד לא מספר כלום. התוצאה של זוג בודד נראית אקראית לגמרי — בדיוק כמו הטלת מטבע.'
+    : 'עכשיו רואים: יש הטיה קטנה אבל עקבית. השדה לא דוחף כלום, הוא רק משנה כמה זוגות ייגמרו ככה וכמה ככה. תא בודד לא היה מרגיש; מיליוני תאים יחד — כן.';
+}
+function pairReset(){ PAIR.n=PAIR.s=PAIR.t=0; PAIR.phase=0; PAIR.out=null;
+  barS.style.width='0%'; barT.style.width='0%'; cntS.textContent='0'; cntT.textContent='0'; cntN.textContent='0'; }
+function pairTurn(){ if(PAIR.run) return; pairAngOut.textContent=(+pairAng.value)+'°'; pairReset();
+  pairMsg.innerHTML='זווית חדשה, ספירה חדשה. הדליקו אור ובדקו מה קורה עכשיו.'; pairDraw(); }
+
+function pairRunOne(){
+  if(PAIR.run) return;
+  const out = Math.random()<pSinglet() ? 's' : 't';
+  const t0=performance.now(), dur=PREDUCED?600:2000;
+  pairBusy(true);
+  PAIR.run=requestAnimationFrame(function step(now){
+    const t=Math.min(1,(now-t0)/dur); PAIR.tt=t; PAIR.spin=t*40;
+    PAIR.phase = t<0.32 ? 1 : t<0.78 ? 2 : 3;
+    PAIR.out = t<0.78 ? null : out;
+    pairDraw();
+    if(t<1) PAIR.run=requestAnimationFrame(step);
+    else { PAIR.run=null; pairBusy(false); pairTally(out,1); }
+  });
+}
+function pairRun100(){
+  if(PAIR.run) return;
+  if(!PAIR.opened.dance){ PAIR.opened.dance=1; WOW.emit('open', { id:'dance' }); }
+  const p=pSinglet(); let done=0, s=0, t=0;
+  const t0=performance.now(), dur=PREDUCED?400:1300;
+  pairBusy(true); PAIR.fast=1; PAIR.phase=2; PAIR.out=null;
+  PAIR.run=requestAnimationFrame(function step(now){
+    const k=Math.min(1,(now-t0)/dur), want=Math.round(100*k);
+    while(done<want){ if(Math.random()<p) s++; else t++; done++; }
+    PAIR.spin=k*90;
+    PAIR.s+= s; PAIR.t+= t; PAIR.n+= s+t; s=0; t=0;
+    const tot=PAIR.n||1; barS.style.width=(PAIR.s/tot*100)+'%'; barT.style.width=(PAIR.t/tot*100)+'%';
+    cntS.textContent=fmt(PAIR.s); cntT.textContent=fmt(PAIR.t); cntN.textContent=fmt(PAIR.n);
+    pairDraw();
+    if(k<1) PAIR.run=requestAnimationFrame(step);
+    else { PAIR.run=null; PAIR.fast=0; PAIR.phase=3; PAIR.out = PAIR.s>=PAIR.t?'s':'t'; pairBusy(false); pairTally(PAIR.s>=PAIR.t?'s':'t',0); pairDraw(); }
+  });
+}
+function pairBusy(on){ pairOne.disabled=on; pairHundred.disabled=on; pairAng.disabled=on; }
+function pairToggleNoise(){
+  PAIR.noise=!PAIR.noise;
+  document.getElementById('pairNoise').classList.toggle('on', PAIR.noise);
+  if(PAIR.noise && !PAIR.opened.radio){ PAIR.opened.radio=1; WOW.emit('open', { id:'radio' }); }
+  pairReset(); pairTally('s',0); pairDraw();
+}
+/* the engine picks the kid after this script runs, so redraw when the track lands on the body */
+if(window.MutationObserver) new MutationObserver(()=>{ if(!PAIR.run) pairDraw(); }).observe(document.body,{attributes:true, attributeFilter:['data-track']});
+pairTurn(); pairMsg.innerHTML='בחרו זווית, ואז הדליקו אור. אחר כך שלחו מאה זוגות ותראו את ההבדל.';
+</script>
+
+<script>
+/* ---------- step 5 (interactive 3): an artist's impression of the hypothesis ---------- */
+const seeCv=document.getElementById('seeCv'), sctx2=seeCv.getContext('2d'), seeDir=document.getElementById('seeDir');
+const SEE={ place:0, opened:0, buf:null };
+const SPLACES=[{name:'זכרון יעקב', inc:49.3, dec:5.1}, {name:'ברלין', inc:68, dec:3.7}, {name:'דרום סודאן', inc:0, dec:2.5}];
+const SHORIZON=306, SLOW=140, SLOWH=66;               // the sky is painted from a small offscreen buffer, then blown up soft
+const SWINDS=['צפון','צפון־מזרח','מזרח','דרום־מזרח','דרום','דרום־מערב','מערב','צפון־מערב'];
+function seeWind(d){ return SWINDS[Math.round(((d%360)+360)%360/45)%8]; }
+
+function seeWhere(i){
+  SEE.place=i;
+  [0,1,2].forEach(k=>document.getElementById('seeP'+k).classList.toggle('on', k===i));
+  seeDraw(1);
+}
+/* the pattern: the singlet yield depends on cos² of the angle between the line of sight and the field, so it
+   is brightest along the field axis — and identical at both ends of it, which is exactly why the pattern
+   carries the tilt of the lines but says nothing about their polarity. */
+function seePattern(inc, dec, head){
+  if(!SEE.buf) SEE.buf = sctx2.createImageData(SLOW, SLOWH);
+  const d=SEE.buf.data, amp=Math.abs(Math.sin(inc*Math.PI/180));
+  const ir=inc*Math.PI/180, dr=dec*Math.PI/180;
+  const bx=Math.sin(dr)*Math.cos(ir), by=Math.cos(dr)*Math.cos(ir), bz=-Math.sin(ir);   // x east, y north, z up
+  const hr=head*Math.PI/180, fov=165*Math.PI/180, top=84*Math.PI/180;
+  for(let py=0;py<SLOWH;py++){
+    const el = top*(1-py/(SLOWH-1)) - 0.06;
+    const ce=Math.cos(el), se=Math.sin(el);
+    for(let px=0;px<SLOW;px++){
+      const az = hr + fov*(px/(SLOW-1)-0.5);
+      const dxv=ce*Math.sin(az), dyv=ce*Math.cos(az), dzv=se;
+      const cp=Math.max(-1,Math.min(1, dxv*bx+dyv*by+dzv*bz));
+      const psi=Math.acos(cp)*180/Math.PI;
+      const g1=Math.exp(-Math.pow(psi/46,2)), g2=Math.exp(-Math.pow((180-psi)/46,2));
+      const v=Math.max(g1,g2), k=v-0.45, lightK=k>=0;      // brighter along the axis, dimmer across it
+      const o=(py*SLOW+px)*4;
+      d[o]=lightK?255:14; d[o+1]=lightK?252:20; d[o+2]=lightK?238:52;
+      d[o+3]=Math.round(Math.min(1, Math.abs(k)*1.9*amp*0.62)*255);
+    }
+  }
+  return SEE.buf;
+}
+
+function seeDraw(user){
+  const c=sctx2, W=seeCv.width, H=seeCv.height, p=SPLACES[SEE.place], head=+seeDir.value;
+  if(user && !SEE.opened){ SEE.opened=1; WOW.emit('open', { id:'vision' }); }
+
+  /* twilight */
+  const g=c.createLinearGradient(0,0,0,SHORIZON);
+  g.addColorStop(0,'#1B2A5E'); g.addColorStop(0.55,'#4B5E9B'); g.addColorStop(0.86,'#C98A63'); g.addColorStop(1,'#F0B071');
+  c.fillStyle=g; c.fillRect(0,0,W,SHORIZON);
+  for(let i=0;i<26;i++){ const x=(i*197)%W, y=(i*71)%150+8;
+    c.fillStyle='rgba(255,255,255,'+(0.25+0.4*((i*37)%10)/10)+')'; c.beginPath(); c.arc(x,y,1.4,0,Math.PI*2); c.fill(); }
+
+  /* the imagined pattern, painted small and blown up so it stays soft */
+  if(p.inc!==0){
+    const off=document.createElement('canvas'); off.width=SLOW; off.height=SLOWH;
+    off.getContext('2d').putImageData(seePattern(p.inc,p.dec,head),0,0);
+    c.save(); c.beginPath(); c.rect(0,0,W,SHORIZON); c.clip();
+    c.imageSmoothingEnabled=true; c.imageSmoothingQuality='high';
+    c.drawImage(off, 0, 0, W, SHORIZON);
+    c.restore();
+  }
+
+  /* the ground, and home */
+  c.fillStyle='#241D33'; c.beginPath(); c.moveTo(0,SHORIZON);
+  for(let x=0;x<=W;x+=40) c.lineTo(x, SHORIZON+8+Math.sin(x*0.013)*9+Math.sin(x*0.031)*5);
+  c.lineTo(W,H); c.lineTo(0,H); c.closePath(); c.fill();
+  c.fillStyle='#F6EFDD'; c.font='700 20px Rubik, Arial'; c.direction='rtl'; c.textAlign='right'; c.textBaseline='alphabetic';
+  c.fillText(p.name, W-16, H-44);
+  c.fillStyle='#C9C2D6'; c.font='18px Rubik, Arial'; c.fillText('ציור דמיוני של השערה. אף אחד לא יודע איך זה נראה באמת.', W-16, H-16);
+
+  /* the little compass: which way the head is turned */
+  const cx=68, cy=70, r=40;
+  c.fillStyle='rgba(20,24,50,.66)'; c.beginPath(); c.arc(cx,cy,r+10,0,Math.PI*2); c.fill();
+  c.strokeStyle='#F6EFDD'; c.lineWidth=2.5; c.beginPath(); c.arc(cx,cy,r,0,Math.PI*2); c.stroke();
+  c.fillStyle='#F6EFDD'; c.font='700 18px Rubik, Arial'; c.direction='rtl'; c.textAlign='center'; c.textBaseline='middle';
+  c.fillText('צ', cx, cy-r);
+  const a=head*Math.PI/180, hx=Math.sin(a), hy=-Math.cos(a);
+  c.strokeStyle=css('--sun'); c.lineWidth=6; c.lineCap='round';
+  c.beginPath(); c.moveTo(cx-hx*14, cy-hy*14); c.lineTo(cx+hx*24, cy+hy*24); c.stroke();
+  c.fillStyle=css('--sun'); c.beginPath(); c.moveTo(cx+hx*34, cy+hy*34);
+  c.lineTo(cx+hx*20-hy*10, cy+hy*20+hx*10); c.lineTo(cx+hx*20+hy*10, cy+hy*20-hx*10); c.closePath(); c.fill();
+
+  if(p.inc===0){
+    c.fillStyle='#F6EFDD'; c.font='700 26px Rubik, Arial'; c.direction='rtl'; c.textAlign='center'; c.textBaseline='middle';
+    c.fillText('השמיים ריקים', W/2, 150);
+    c.font='20px Rubik, Arial'; c.fillText('הקווים שטוחים — אין דפוס לקרוא', W/2, 186);
+  }
+
+  seeDirOut.textContent = seeWind(head);
+  seeIncOut.textContent = Math.round(p.inc)+'°';
+  const toEq = Math.abs(((head-180)%360+540)%360-180) < 60;
+  seeMsg.innerHTML = p.inc===0
+    ? 'בדרום סודאן, על קו המשווה המגנטי, קווי השדה שוכבים שטוחים. אין מה לראות ואין מה לקרוא — וזה בדיוק המקום שבו המצפן של הציפור משתתק.'
+    : p.inc>60
+      ? 'בברלין הקווים כמעט אנכיים, ולכן הדפוס יושב גבוה וכמעט לא זז כשמסובבים את הראש. מצפן כזה עובד, אבל קשה לדייק בו.'
+      : toEq
+        ? 'מבט לכיוון קו המשווה: הדפוס עולה גבוה ומתרכז. זה המראה שהציפור מחפשת בסתיו.'
+        : 'מבט לכיוון הקוטב: הדפוס יורד נמוך ומתרחב. שימו לב שהוא נראה אותו דבר גם אם הופכים את הקוטביות של השדה — בדיוק כמו שמצפן נטייה דורש.';
+}
+seeDraw(0);
+</script>
+
+<script>
+/* ---------- step 7 (interactive 4): the sky's calendar over Israel ---------- */
+const calCv=document.getElementById('calCv'), cctx=calCv.getContext('2d'), calDay=document.getElementById('calDay');
+const CREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CMONTHS=['באוגוסט','בספטמבר','באוקטובר','בנובמבר','בדצמבר'];
+const CSTART=new Date(2026,7,25);                     // day 0 of the slider is 25 August
+/* each species: a peak day (from day 0), a width in days, and its colour token */
+const CSPECIES=[
+  { nm:'איית צרעים',  peak:18, w:6,  col:'--sun',    pk:'שיא: 5–20 בספטמבר' },
+  { nm:'עיט חורש',    peak:32, w:5,  col:'--bad',    pk:'שיא: 25–27 בספטמבר' },
+  { nm:'חסידה לבנה',  peak:45, w:24, col:'--nile',   pk:'ספטמבר–נובמבר' },
+  { nm:'עגור אפור',   peak:82, w:26, col:'--shadow', pk:'מתחילת אוקטובר' }
+];
+const CAL={ dots:[], raf:0, opened:0 };
+
+function calDate(d){ const t=new Date(CSTART.getTime()+d*86400000); return [t.getDate(), CMONTHS[t.getMonth()-7]]; }
+function calLevel(sp, d){
+  const z=(d-sp.peak)/sp.w, v=Math.exp(-z*z);
+  return sp.peak>70 ? Math.max(v, d>=37 ? Math.min(1,(d-37)/22) : 0) : v;   // the cranes arrive in October and stay
+}
+function calFlow(d){ return CSPECIES.reduce((a,sp)=>a+calLevel(sp,d), 0); }
+
+/* the corridor, laid out by hand: a funnel that narrows over Israel and opens again into Africa */
+const CPATH=[[430,28],[418,96],[392,150],[368,200],[352,250],[330,308],[300,360],[268,414]];
+function calOnPath(u){                                 // u in 0..1 along the corridor
+  const n=CPATH.length-1, f=Math.max(0,Math.min(0.999,u))*n, i=Math.floor(f), t=f-i;
+  const a=CPATH[i], b=CPATH[i+1];
+  return [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t];
+}
+function calRound(c,pts,fill,stroke){
+  c.beginPath(); c.moveTo(pts[0][0],pts[0][1]);
+  for(let i=1;i<pts.length;i++) c.lineTo(pts[i][0],pts[i][1]);
+  c.closePath(); if(fill){ c.fillStyle=fill; c.fill(); } if(stroke){ c.strokeStyle=stroke; c.lineWidth=2; c.stroke(); }
+}
+function calTag(c,txt,x,y,size,col,align){            // a label that has to stay readable over map colours
+  c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl';
+  const w=c.measureText(txt).width+18, x0 = align==='right' ? x-w+9 : align==='left' ? x-9 : x-w/2;
+  c.fillStyle=css('--card'); c.globalAlpha=.88; c.beginPath(); c.roundRect(x0, y-size*0.86, w, size*1.72, 8); c.fill(); c.globalAlpha=1;
+  calLabel(c,txt,x,y,size,col,align);
+}
+function calLabel(c,txt,x,y,size,col,align){
+  c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y);
+}
+
+function calDraw(){
+  const c=cctx, W=calCv.width, H=calCv.height, d=+calDay.value;
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+
+  /* Europe at the top, the sea on the west, the desert on the east */
+  calRound(c,[[0,0],[W,0],[W,132],[430,150],[300,140],[0,120]], css('--earth'), css('--earth2'));
+  calRound(c,[[0,120],[300,140],[322,300],[0,300]], css('--sea'), null);
+  calRound(c,[[430,150],[W,132],[W,330],[392,330]], css('--sand'), null);
+  /* the land bridge, and Africa below it */
+  calRound(c,[[300,140],[430,150],[392,330],[322,300]], css('--earth'), css('--earth2'));
+  calRound(c,[[0,300],[322,300],[392,330],[300,404],[286,H],[0,H]], css('--earth'), css('--earth2'));
+  /* the Red Sea */
+  calRound(c,[[392,330],[W,330],[W,H],[286,H],[300,404]], css('--sea'), null);
+
+  /* the corridor itself */
+  c.strokeStyle=css('--sun'); c.globalAlpha=.26; c.lineWidth=52; c.lineCap='round'; c.lineJoin='round';
+  c.beginPath(); CPATH.forEach((p,i)=>i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1])); c.stroke(); c.globalAlpha=1;
+
+  /* the magnetic equator at 8°N */
+  const eqY=384;
+  c.strokeStyle=css('--shadow'); c.lineWidth=3; c.setLineDash([11,8]);
+  c.beginPath(); c.moveTo(0,eqY); c.lineTo(W,eqY); c.stroke(); c.setLineDash([]);
+  calLabel(c,'קו המשווה המגנטי — שם המצפן משתתק', 14, eqY-18, 19, css('--shadow'), 'left');
+
+  /* the birds on their way */
+  CAL.dots.forEach(dot=>{
+    const [x,y]=calOnPath(dot.u);
+    c.fillStyle=css('--sun-deep'); c.globalAlpha=dot.a;
+    c.beginPath(); c.arc(x+dot.o, y, 4.5, 0, Math.PI*2); c.fill(); c.globalAlpha=1;
+  });
+
+  /* place names */
+  calLabel(c,'אירופה', 150, 92, 22, css('--ink'));
+  calLabel(c,'טורקיה', 520, 100, 20, css('--ink'));
+  calLabel(c,'הים התיכון', 150, 210, 20, '#F2F7FA');
+  calLabel(c,'מדבר', 520, 250, 20, css('--ink'));
+  calLabel(c,'ים סוף', 548, 352, 20, '#F2F7FA');
+  calLabel(c,'סודאן', 110, 330, 20, css('--ink'));
+  calLabel(c,'אפריקה', 104, 412, 22, css('--ink'));
+  /* Israel: the bottleneck */
+  calTag(c,'ישראל', 352, 292, 22, css('--ink'), 'center');
+  c.fillStyle=css('--sun-deep'); c.beginPath(); c.arc(336,230,6,0,Math.PI*2); c.fill();
+  c.beginPath(); c.arc(370,196,6,0,Math.PI*2); c.fill();
+  calTag(c,'זכרון יעקב', 326, 230, 18, css('--sun-deep'), 'right');
+  calTag(c,'עמק החולה', 382, 196, 18, css('--sun-deep'), 'left');
+
+  /* how busy the sky is today */
+  const flow=calFlow(d), busy = flow>1.2 ? 'שמיים עמוסים' : flow>0.5 ? 'תנועה ערה' : flow>0.15 ? 'תנועה דלילה' : 'כמעט ריק';
+  c.fillStyle=css('--card'); c.globalAlpha=.86; c.beginPath(); c.roundRect(12,12,168,42,10); c.fill(); c.globalAlpha=1;
+  calLabel(c, busy, 96, 33, 20, css('--sun-deep'));
+}
+
+function calStep(){
+  CAL.raf=requestAnimationFrame(calStep);
+  if(calCv.offsetParent===null) return;               // the step is still folded away: no need to burn frames
+  const d=+calDay.value, flow=calFlow(d), want=Math.round(4+flow*30), sp=0.0011+0.0016*Math.min(1,flow);
+  while(CAL.dots.length<want) CAL.dots.push({ u:Math.random(), o:(Math.random()-0.5)*40, a:0.55+Math.random()*0.45 });
+  while(CAL.dots.length>want) CAL.dots.pop();
+  CAL.dots.forEach(dot=>{ dot.u+=sp; if(dot.u>1){ dot.u-=1; dot.o=(Math.random()-0.5)*40; } });
+  calDraw();
+}
+
+function calBuild(){
+  document.getElementById('calBands').innerHTML = CSPECIES.map((sp,i)=>
+    '<div class="band" id="cband'+i+'"><span class="nm">'+esc(sp.nm)+'</span>'+
+    '<span class="bar"><i id="cbar'+i+'" style="background:var('+sp.col+')"></i></span>'+
+    '<span class="pk">'+esc(sp.pk)+'</span></div>').join('');
+}
+function calMove(){
+  if(!CAL.opened){ CAL.opened=1; WOW.emit('open', { id:'calendar' }); }
+  calPaint();
+}
+function calPaint(){
+  const d=+calDay.value, [dd,mm]=calDate(d);
+  calDateOut.innerHTML = '<span class="num">'+dd+'</span> '+mm;
+  let top=0, topI=0;
+  CSPECIES.forEach((sp,i)=>{
+    const v=calLevel(sp,d);
+    document.getElementById('cbar'+i).style.width=Math.round(v*100)+'%';
+    const row=document.getElementById('cband'+i);
+    row.classList.toggle('off', v<0.12); row.classList.toggle('now', v>=0.6);
+    if(v>top){ top=v; topI=i; }
+  });
+  const thisWeek = d>=17 && d<=23;                   // the week of Rosh Hashana
+  calNow.innerHTML = thisWeek
+    ? '<b class="pill-ok">עכשיו:</b> איות צרעים. עגורים עוד לא — הם מגיעים רק באוקטובר.'
+    : '';
+  calMsg.innerHTML = top<0.12
+    ? 'בתאריך הזה השמיים כמעט ריקים. גם זו תוצאה: הנדידה לא נמשכת כל השנה, היא מתוזמנת.'
+    : 'הכי הרבה עכשיו: <b>'+esc(CSPECIES[topI].nm)+'</b>. שימו לב כמה צר הפס של איית הצרעים — כמעט כל ה־350,000 עוברות בתוך שבועיים, וכולן דרך אותו צוואר בקבוק צר מעל הראש שלנו.';
+}
+calBuild(); calPaint();
+if(CREDUCED){ for(let i=0;i<26;i++) CAL.dots.push({ u:i/26, o:(Math.random()-0.5)*40, a:.8 }); calDraw(); }
+else calStep();
+</script>
+
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  polarity:{ q:'המדענים הפכו את המגנט כולו, כמו שמסובבים מגנט מקרר ב־180 מעלות. מה עשתה הציפור?', opts:['הפכה כיוון','לא שינתה דבר','עצרה לטוס','טסה מזרחה'], a:1, fb:'הציפור קוראת רק את הנטייה של הקווים, לא לאן החץ מצביע. כשמסובבים את כל המגנט, הנטייה נשארת אותו דבר.', btn:'next3' },
+  radio:{ q:'בקמפוס באולדנבורג הציפורים התבלבלו בבקתות עץ, והתמצאו בבקתות מצופות אלומיניום. מה חסם האלומיניום?', opts:['אור','קור','רעש רדיו חלש','ריח'], a:2, fb:'אלומיניום מוארק חוסם גלי רדיו. רעש חלש פי אלף מהסף למבוגרים הספיק לשבש את הריקוד של הזוג הרדיקלי.' },
+};
+const MCQ = {
+  shared:[
+    { q:'מה המצפן של הציפור באמת "קורא"?', opts:['איפה צפון ואיפה דרום, כמו מצפן של בני אדם','כמה קווי השדה המגנטי נטויים ביחס לקרקע','את צבע השמיים בשקיעה','את חום האוויר'], a:1, fb:'זה מצפן נטייה: "לכיוון שבו הקווים צוללים לאדמה זה לקוטב, לכיוון שבו הם עולים זה לקו המשווה." כשהפכו את המגנט כולו, הציפור לא שינתה כיוון — סימן שהיא לא קוראת צפון ודרום.' },
+    { q:'למה קו המשווה המגנטי הוא מקום מבלבל לציפור?', opts:['כי חם שם מדי','כי אין שם שדה מגנטי בכלל','כי הקווים שוכבים שטוחים, ולמצפן נטייה אין מה לקרוא','כי השדה חזק מדי ומעוור את הציפור'], a:2, fb:'בנטייה 0° "צולל" ו"עולה" נראים אותו דבר. בניסויים, ציפורים בשדה כזה מתפזרות באקראי.' },
+    { q:'מה הראה ניסוי הכלוב של וילצ׳קו בפרנקפורט?', opts:['שאדומי־חזה לא יכולים למצוא כיוון בלי כוכבים','שכשסובבו את השדה המגנטי סביב הכלוב, הציפורים שינו כיוון בהתאם','שהציפורים עוקבות אחרי ריח הים','שהציפורים צריכות לראות את השמש'], a:1, fb:'זו הייתה ההוכחה הראשונה שלציפור יש חוש מגנטי, ב־1965–1966. הציפורים בכלוב לא ראו כוכבים ובכל זאת מצאו כיוון.' },
+  ],
+  younger:[
+    { q:'לפי ההשערה המובילה, מה החלבון בעין (הקריפטוכרום) צריך כדי להתחיל את "ריקוד" המצפן?', opts:['קרן אור','חום','קול','מלח'], a:0, fb:'האור מקפיץ אלקטרון בתוך החלבון, וכך נולד הזוג הרוקד. בחושך מוחלט המצפן לא עובד.' },
+  ],
+  older:[
+    { q:'מה בדיוק הראה הניסוי מ־2021 על הקריפטוכרום CRY4 של אדום־החזה?', opts:['הוכיח סופית שציפורים רואות את השדה המגנטי','שבמבחנה החלבון מגיב לשדה מגנטי, ויותר מהחלבון המקביל של תרנגולת ויונה, אבל בשדות חזקים משדה כדור הארץ ולא בעין חיה','שהמצפן נמצא במקור של הציפור','שלאדומי־חזה יש גרגירי ברזל בעין'], a:1, fb:'זה רמז חזק, לא הוכחה — וכך צריך לספר את זה. החוקרים עצמם אמרו שעדיין צריך להראות שזה קורה בעין חיה, ושזה עוד לא אפשרי טכנית.' },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'קרן אור בדמדומים נכנסת לעין.'},
+  {id:'b', t:'האור פוגע בקריפטוכרום בתוך תא ברשתית.'},
+  {id:'c', t:'אלקטרון קופץ, ונולד זוג רדיקלי: שני "סביבונים".'},
+  {id:'d', t:'השדה המגנטי של כדור הארץ מטה את ריקוד הזוג, לפי הזווית.'},
+  {id:'e', t:'בתא נוצר יותר תוצר א׳ או יותר תוצר ב׳.'},
+  {id:'f', t:'המוח מחבר את כל התאים לדפוס, והציפור פונה לדרום.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> אור ← קריפטוכרום ← זוג רדיקלי ← השדה מטה את הריקוד ← תוצר א׳/ב׳ ← דפוס במוח. סיבה לפני תוצאה, בדיוק כמו שמדע עובד.' : '<span class="pill-bad">כמעט.</span> הטעות הנפוצה: להחליף בין "השדה מטה את הריקוד" לבין "נוצר תוצר א׳ או ב׳". התוצרים הם <b>התוצאה</b> של הריקוד שהשדה כיוון — לא הסיבה לו. בלי אור אין קפיצת אלקטרון; בלי זוג אין ריקוד; בלי ריקוד אין הבדל בין תוצרים; בלי הבדל בתאים אין דפוס.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const total=+chalTotal.value, perDay=+chalPerDay.value, perHour=+chalPerHour.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const totalOk = total===315000, dayOk = perDay>=19500 && perDay<=19900, hourOk = perHour>=2400 && perHour<=2520;
+  S.challenge = totalOk && dayOk && hourOk;
+  fb.innerHTML = S.challenge ? '<span class="pill-ok">מרשים.</span> <span class="math">350,000 × 0.9 = 315,000</span> ב־16 הימים. <span class="math">315,000 ÷ 16 = 19,687.5</span>, בערך <b class="num">19,700</b> ביום. <span class="math">19,687.5 ÷ 8 ≈ 2,461</span>, בערך <b class="num">2,460</b> בשעה — כמעט אחת כל שנייה וחצי, בממוצע, במשך שבועיים. וזה מין אחד.'
+    : totalOk ? '<span class="pill-ok">315,000 נכון.</span> עכשיו חלקו ב־16 ימים, ואז ב־8 שעות ביום.'
+    : '<span class="pill-bad">עוד לא.</span> רמז: <span class="math">350,000 × 0.9 = ?</span> — זה הסכום ב־16 הימים.';
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: S.challenge, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const c=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    const aOk=Math.abs(c-2720)<=15, bOk=(r>=21 && r<=22.1), sc = aOk&&bOk?2:(aOk?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> <span class="math">32.6 − 8.1 = 24.5</span> מעלות, <span class="math">24.5 × 111 = 2,719.5</span> ≈ <b class="num">2,720</b> ק״מ. ואז <span class="math">2,719.5 ÷ 126 ≈ 21.6</span> ימים.'
+      : aOk ? '<span class="pill-ok">המרחק נכון</span> — כ־<b class="num">2,720</b> ק״מ. עכשיו חלקו ב־126 ק״מ ליום כדי לקבל ימים.'
+      : '<span class="pill-bad">עוד לא.</span> שלב א׳: <span class="math">32.6 − 8.1 = ?</span> מעלות, ואז כפול 111.';
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const ok=v===5000000; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= ok?'<span class="pill-ok">נכון!</span> <span class="math">500,000,000 ÷ 100 = 5,000,000</span> — חמישה מיליון ציפורים ביום, בממוצע. בפועל יש ימי שיא עם הרבה יותר וימים שקטים, אבל זה סדר הגודל.':'<span class="pill-bad">לא בדיוק.</span> רמז: מחלקים <span class="math">500,000,000</span> ב־100.'; }
+  else { const ok=v>=2600 && v<=2700; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">32 − 8 = 24</span> מעלות, <span class="math">24 × 111 = 2,664</span> ק״מ.':'<span class="pill-bad">לא בדיוק.</span> שלב א׳: <span class="math">32 − 8 = ?</span> מעלות. שלב ב׳: להכפיל ב־111 ק״מ.'; }
+  fb.classList.add('show'); }
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שהמצפן קורא את הנטייה (הזווית) של קווי השדה ביחס לקרקע, ולא צפון/דרום.',
+  'הסברתי שבקו המשווה המגנטי הקווים שטוחים, ולכן אין מה לקרוא, והציפור מתבלבלת.',
+  'הזכרתי שאור מפעיל חלבון (קריפטוכרום) בעין, ונוצר זוג של שני חלקים עם אלקטרון מסתובב (זוג רדיקלי).',
+  'הסברתי שהשדה המגנטי משנה את תוצאת ה"ריקוד" לפי הזווית, וכך תאים שפונים לכיוונים שונים יוצרים דפוס.',
+  'כתבתי שזו השערה: הראו שהחלבון מגיב לשדה במבחנה, אבל עוד לא בעין חיה.',
+];
+const MODEL='בואו נתחיל ממה שהמצפן של הציפור מודד. הוא לא מצביע לצפון כמו המצפן שלנו. הוא מרגיש כמה קווי השדה המגנטי של כדור הארץ נטויים ביחס לקרקע: ליד הקטבים הם צוללים כמעט ישר לאדמה, ובקו המשווה המגנטי הם שוכבים שטוחים. הכלל של הציפור בסתיו הוא "טוסי לכיוון שבו הקווים עולים מהאדמה". לכן בקו המשווה המגנטי, שאצל הציפורים שלנו נמצא מעל דרום סודאן, הכלל מפסיק לעבוד: הקווים שטוחים, אין "עולה" ואין "צולל", והציפור צריכה לסמוך על הכוכבים עד שהקווים יתחילו לצלול מהצד השני. עכשיו, איך העין עושה את זה? לפי ההשערה המובילה, ברשתית יש חלבון בשם קריפטוכרום. כשקרן אור פוגעת בו, אלקטרון קופץ ממקום למקום, ונוצרים שני חלקים שלכל אחד אלקטרון בודד שמסתובב — זוג רדיקלי. השניים "רוקדים" בין שני מצבים, והשדה המגנטי, למרות שהוא חלש, מטה את הריקוד לפי הזווית שבין החלבון לקווי השדה. הריקוד נגמר בתוצר כימי אחד או אחר, ולכן תאים שפונים לכיוונים שונים מייצרים כמויות שונות. המוח מחבר את זה לדפוס על שדה הראייה, כמו כתם שזז כשהציפור מסובבת את הראש. ודבר אחרון, חשוב: זו השערה. ב־2021 הראו שהחלבון של אדום־החזה באמת מגיב לשדה מגנטי במבחנה, יותר מזה של תרנגולת. אבל אף אחד עדיין לא ראה את זה קורה בעין של ציפור חיה.';
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (מצפן נטייה, זוג רדיקלי, למה נטייה 0° מבלבלת) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום איך, לפי ההשערה המובילה, העין של ציפור נודדת עוזרת לה לחוש את השדה המגנטי של כדור הארץ. הרעיונות המרכזיים: (1) המצפן של הציפור קורא את הנטייה (הזווית) של קווי השדה המגנטי ביחס לקרקע, ולא צפון/דרום; (2) בקו המשווה המגנטי הקווים שטוחים ולכן אין מה לקרוא, והציפור מתבלבלת; (3) אור מפעיל חלבון בעין (קריפטוכרום), ונוצר זוג רדיקלי — שני חלקים עם אלקטרון מסתובב; (4) השדה המגנטי משנה את תוצאת ה"ריקוד" של הזוג לפי הזווית, ותאים שונים ברשתית נותנים תוצאה שונה, שיוצרת דפוס על שדה הראייה; (5) זו השערה מובילה — הראו שהחלבון מגיב לשדה במבחנה (2021), אבל עוד לא בעין של ציפור חיה.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם את מנגנון מצפן הנטייה (1–2) וגם את שרשרת הזוג הרדיקלי (3–4), 1 אם יש רק חלק מזה. תשובה שמתארת מצפן "שמצביע לצפון" או "ברזל בעין" מפספסת את המנגנון ולא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=85?name+', המצפן הזה כבר אצלך בעין!':pct>=60?name+', יש לך מוח של '+G('ביולוג','ביולוגית')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>':'');
+  const target=500000000;
+  if(!S.guess){ resGuess.innerHTML='לא בחרת סדר גודל בהתחלה. להערכת המדענים חוצות את ישראל בסתיו כחצי מיליארד (<b class="num">500,000,000</b>) ציפורים.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה בחרת <b>חצי מיליארד</b> — וקלעת לסדר הגודל. זו באמת ההערכה: <b class="num">500,000,000</b> ציפורים בעונה אחת, מעל מדינה בגודל של ישראל.'; }
+  else { const times=Math.round(target/S.guess);
+    resGuess.innerHTML='בהתחלה בחרת <b class="num">'+fmt(S.guess)+'</b>. המציאות גדולה מזה פי <b class="num">'+fmt(times)+'</b>: כחצי מיליארד (<b class="num">500,000,000</b>) ציפורים בעונה אחת. זה בדיוק מה שקשה לדמיין בנדידה — היא גדולה מכל ניחוש סביר.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/500000000)) : 9;
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי למספר הציפורים: '+fmt(S.guess)+' (ההערכה: 500,000,000)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "המצפן שמסתתר בעין של הציפור", מהדורה 5, שבוע ראש השנה תשפ"ז (ספטמבר 2026). נושא: איך ציפורים נודדות חשות את השדה המגנטי של כדור הארץ. עובדות מוכחות: לציפורים חוש מגנטי (וילצ\'קו ומרקל, פרנקפורט, 1965–1966, אדומי־חזה בכלוב עגול עם סלילים); המצפן הוא מצפן נטייה שקורא את זווית קווי השדה לקרקע ולא צפון/דרום (וילצ\'קו ווילצ\'קו, Science 1972); היפוך המרכיב האנכי הופך את הציפור, היפוך הקוטביות כולה לא משנה; בנטייה 0° (קו המשווה המגנטי) הציפורים מתפזרות באקראי; אחרי חציית קו המשווה הן הופכות את הכלל (ניסוי 1992); המצפן תלוי באור ועובר דרך העין ואזור "אשכול N" במוח, לא דרך עצב המקור (Zapka 2009); רעש רדיו חלש (50 קילוהרץ עד 5 מגהרץ) משבש אותו (Engels 2014, אולדנבורג). השערה מובילה (לא מוכחת): מנגנון הזוג הרדיקלי (שולטן 1978, ריץ ושולטן 2000): אור מקפיץ אלקטרון בחלבון קריפטוכרום ברשתית, נוצר זוג רדיקלי שמרצד בין סינגלט לטריפלט, השדה משנה את היחס לפי הזווית, תאים בכיוונים שונים יוצרים דפוס על שדה הראייה. CRY4 המועמד המוביל: נמצא בקונוסים כפולים ועולה בעונת הנדידה (2018); במבחנה מגיב לשדה יותר מ־CRY4 של תרנגולת ויונה (Xu, Nature 2021), אבל בשדות חזקים מהארץ ולא בעין חיה, ומוריטסן אמר שעוד צריך להראות זאת בעיניים של ציפורים; CRY4b כנראה לא רלוונטי, CRY4a המועמד (2025); קבוצה אחרת מציעה CRY1a. שנוי במחלוקת: חוש שני מבוסס ברזל/מגנטיט במקור ובעצב הטריגמינוס; "תאי הברזל" במקור היונים התבררו כמקרופאגים (2012), אך המערכת מגיבה לשינויי שדה, אולי כ"מפה" של עוצמה. מספרים: כחצי מיליארד ציפורים חוצות את ישראל פעמיים בשנה (הערכת פרופ\' יוסי לשם); נדידת הסתיו סוף אוגוסט עד אמצע דצמבר, כ־100 ימים; איית צרעים כ־350,000 בסתיו, 90% בתוך 16 ימים, שיא תחילת–אמצע ספטמבר, לנה ביערות הכרמל; עיט חורש שיא 25–27 ספטמבר; חסידה לבנה מסלול מזרחי 7,000 ק"מ, כ־80 יום, 126 ק"מ ליום בממוצע, שיא 488 ק"מ ביום בסהרה; עגורים מגיעים לחולה רק בתחילת אוקטובר. שדה מגנטי בזכרון יעקב: נטייה 49°, 45 מיקרוטסלה, פי מאה חלש ממגנט מקרר; חולה 50°, אילת 45°, ברלין 68°, טרומסו 78°; קו המשווה המגנטי על הנתיב ב־8° צפון (דרום סודאן/אתיופיה), 2,664 ק"מ מישראל (24 × 111). שקיעה השבוע 18:51, סוף דמדומים 19:14. בדמדומים בזכרון: שרקרקים (קריאת "פריפ"), איות צרעים יורדות ללון, חסידות, סנוניות. ניסוי בית: מחט ממוגנטת צפה על מים; ספירת ציפורים 15 דקות. סגנון תשובה: חם, קצר, כנה לגבי אי־ודאות ("כנראה", "לפי ההשערה"), בלי לחשוף תשובות מבחן; אם ילד שואל על תשובה למבחן, לרמוז ולכוון, לא לפתור.';
+const CHIPS = ['למה הציפור מתבלבלת בקו המשווה?', 'מה זה זוג רדיקלי, בפשטות?', 'איך יודעים שהמצפן בעין ולא במקור?', 'אילו ציפורים אפשר לראות הערב מהמרפסת?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשטי בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל הנוסחה והמנגנון הקוונטי), שאל שאלות המשך שדורשות חשיבה, הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 24 × 111 = 2,664. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה הציפור מתבלבלת בקו המשווה המגנטי?</b> כי שם קווי השדה שוכבים שטוחים — אין "צולל" ואין "עולה", ולמצפן נטייה אין מה לקרוא.<br><br><b>איך יודעים שהמצפן בעין?</b> כי כשחתכו את עצב המקור המצפן המשיך לעבוד, אבל כשפגעו באזור הראייה במוח הוא נעלם.');
+    chatOff('ארטו לא זמין בדפדפן הזה');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
+

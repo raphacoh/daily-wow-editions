@@ -1,0 +1,22 @@
+{
+  "n": 5,
+  "code": "WOW-005",
+  "date": "2026-09-12",
+  "language": "he",
+  "title": "המצפן שמסתתר בעין של הציפור",
+  "topics": [
+    "ביולוגיה",
+    "פיזיקה",
+    "גאוגרפיה",
+    "כימיה"
+  ],
+  "summary": "Bird magnetoreception: the inclination compass, the radical-pair/cryptochrome hypothesis, what is proven vs. contested, and the autumn migration over Israel and the Hula Valley.",
+  "teaser": "השבוע עוברות מעל הבית שלכם מאות מיליוני ציפורים בדרך לאפריקה, ורובן בפעם הראשונה בחייהן, בלי מפה.\nאיך הן יודעות לאן? התשובה הכי טובה שיש למדע מסתתרת בעין שלהן, ומתחילה בקרן אור.\nהערב בשקיעה: מחט, קערת מים, ומבט למעלה.",
+  "max_score": 11,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS — gate clean (lint, 17 emit sites, browser smoke across both tracks, three levels, two widths). Hand-built after the scheduled builder was blocked. Themed for the topic: dusk/magnetic palette, bird hero, field-line chapter mark. Opening guess is an orders-of-magnitude question, not a slider. No reviewer-agent round. · finish() ReferenceError (undeclared `diff`) fixed and re-verified in Chromium; re-dated 2026-09-11 → 2026-09-12 so the day counts on time.",
+  "review_url": null,
+  "editor_note": null
+}
