@@ -1,0 +1,22 @@
+{
+  "n": 6,
+  "code": "WOW-006",
+  "date": "2026-09-13",
+  "language": "he",
+  "title": "איך מים מטפסים 100 מטר בלי משאבה",
+  "topics": [
+    "ביולוגיה",
+    "פיזיקה",
+    "הנדסה",
+    "מדעי כדור הארץ"
+  ],
+  "summary": "How a 116 m redwood lifts water to its crown with no pump: the 10.3 m limit of any suction pump (Torricelli), the cohesion-tension theory (Dixon & Joly 1894), capillarity vs. radius, and Koch & Sillett's 2004 treetop measurements (gravity alone at dawn, ~18 atm at noon, 122-130 m ceiling) - with Israel's tallest trees (Hula eucalyptus, Nahal HaShofet cypress) and the Hadera eucalyptus myth as the local link.",
+  "teaser": "ביער בקליפורניה עומד עץ גבוה כמו בניין של 38 קומות, ובכל יום חם הוא מרים מהאדמה אל הצמרת מאות ליטרים של מים — בלי לב, בלי משאבה, ובצינורות שהם בכלל תאים מתים.\nהמשאבה השואבת החזקה ביותר בעולם נתקעת הרבה לפני הצמרת. אז איך העץ עושה את זה? הסוד נמצא בקצה הלא נכון של העץ.",
+  "max_score": 11,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — remaining nits: older track ~30 min incl. optional challenge, fixed Arto tip covers part of a canvas for 12 s on phones (engine), canvas labels ~10 px on 390 px screens",
+  "review_url": "https://claude.ai/code/artifact/238ca8fe-9ee1-4321-8353-e2365ecc0063",
+  "editor_note": null
+}
