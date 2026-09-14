@@ -1,0 +1,22 @@
+{
+  "n": 7,
+  "code": "WOW-007",
+  "date": "2026-09-14",
+  "language": "he",
+  "title": "המנהרה שנחפרה משני הצדדים ונפגשה בחושך",
+  "topics": [
+    "הנדסה",
+    "מתמטיקה",
+    "היסטוריה",
+    "פיזיקה"
+  ],
+  "summary": "Hezekiah's (Siloam) tunnel in Jerusalem, ~700 BCE: 533 m hewn from both ends by two teams that met; why a 1-degree aiming error becomes a 4.7 m miss over 266 m; the 30 cm drop over 533 m that makes the water flow; Frumkin & Shimron's acoustic-guidance hypothesis vs. the karst theory; the Siloam inscription (found 1880) and the cubit = 533/1200 m; Eupalinos, Gotthard and the Roman Mei Kedem tunnel near Zikhron Yaakov.",
+  "teaser": "לפני 2,700 שנה נכנסו שתי קבוצות של חוצבים אל תוך ההר בירושלים, אחת מכל צד, בלי מצפן ובלי מפה — וחצבו 533 מטר של סלע בחושך עד שנפגשו.\nאיך פוגשים מישהו בתוך הר כשמותר לפספס בפחות ממטר? ולמה 30 סנטימטר של ירידה מספיקים כדי שהמים יזרמו עד היום?",
+  "max_score": 11,
+  "status": "released",
+  "released_at": "2026-09-14T10:43:34.150Z",
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — remaining nits: older track ~30 min with the recommended challenge, canvas labels small at 390 px, 'tenth of a degree' (younger) vs 0.13° (older)",
+  "review_url": "https://claude.ai/code/artifact/9dd6dead-a3ad-4308-b2e2-f23ac2e5af29",
+  "editor_note": null
+}
