@@ -1,0 +1,22 @@
+{
+  "n": 8,
+  "code": "WOW-008",
+  "date": "2026-09-15",
+  "language": "he",
+  "title": "הצופן שאיש לא ידע לקרוא 1400 שנה",
+  "topics": [
+    "היסטוריה",
+    "מתמטיקה",
+    "גאוגרפיה",
+    "שפה"
+  ],
+  "summary": "The Rosetta Stone and the decipherment of Egyptian hieroglyphs: the script fell silent after 394 CE; the stone found near Rashid in July 1799 (same expedition that besieged Acre); one decree in three scripts as the key; Young and Champollion reading the Ptolemy/Cleopatra cartouches phonetically (shared p, l, w positions); Champollion's count of 1,419 signs vs 486 Greek words (≈2.9 per word) proving the signs are sounds; Coptic and Ramesses (14 Sept 1822); frequency analysis on a real Hebrew passage; and the Hebrew alphabet as a grandchild of hieroglyphs (aleph = ox head, Proto-Sinaitic ~1800 BCE).",
+  "teaser": "במצרים העתיקה כתבו במשך יותר משלושת אלפים שנה בכתב של ציורים: ינשופים, אריות, נחשים, ידיים ועיניים חרוטים על מקדשים ועל פירמידות. ואז, לפני כ־1,600 שנה, נחרטה הכתובת האחרונה, ותוך כמה דורות לא נשאר אף אחד שידע לקרוא — ובמשך 1,400 שנה אף אחד בעולם לא הצליח לקרוא אפילו מילה אחת.",
+  "max_score": 11,
+  "status": "released",
+  "released_at": null,
+  "password": "הינשוף אומר מם",
+  "reviewer_verdict": "PASS (2 rounds) — remaining nits: phone-width SVG/canvas labels ~10–14 px, reviewer's time-on-task estimate ~35–45 min for slow readers vs the 30-minute tag, optional challenge counts toward the standard older kid's max",
+  "review_url": "https://claude.ai/artifact/VPeaw4M8pUoLxgHep6Y7Je",
+  "editor_note": null
+}

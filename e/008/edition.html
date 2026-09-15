@@ -1,0 +1,1698 @@
+<title>שורשים וכנפיים #8 · הצופן שאיש לא ידע לקרוא 1400 שנה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F4F2EA; --card:#FFFFFF; --card2:#F7F5FF; --ink:#171B33; --muted:#575B75;
+  --sun:#D4922E; --sun-deep:#7F4F0A; --sun-soft:#F8E6C6;
+  --nile:#1273A6; --nile-soft:#D3E8F3; --shadow:#3F4B7A; --shadow-soft:#E6E9F5;
+  --sand:#DCD6C4; --line:#E4DFD2; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#B9D7EE; --sky2:#EEF5FB; --sea:#1B6FA8; --earth:#D9C39A; --earth2:#A98352; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#D9822B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10142B; --card:#1A1F3E; --card2:#222749; --ink:#F2EDE0; --muted:#AFB3CC;
+    --sun:#FFA24D; --sun-deep:#FFBE7A; --sun-soft:#4A3312;
+    --nile:#5FBBE6; --nile-soft:#123444; --shadow:#AEB9E8; --shadow-soft:#262C4A;
+    --sand:#363C60; --line:#2F3559; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#0B1330; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10142B; --card:#1A1F3E; --card2:#222749; --ink:#F2EDE0; --muted:#AFB3CC;
+  --sun:#FFA24D; --sun-deep:#FFBE7A; --sun-soft:#4A3312;
+  --nile:#5FBBE6; --nile-soft:#123444; --shadow:#AEB9E8; --shadow-soft:#262C4A;
+  --sand:#363C60; --line:#2F3559; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#0B1330; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a small cartouche */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:34px;height:26px;flex:none}
+.ch .stick::before{content:"";position:absolute;right:0;bottom:3px;width:30px;height:18px;border:2.5px solid var(--nile);border-radius:10px;opacity:.8}
+.ch .stick::after{content:"";position:absolute;right:26px;bottom:3px;width:3px;height:18px;background:var(--sun);border-radius:2px}
+
+/* hero */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-24px;width:300px;height:300px;z-index:0;opacity:.92;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 2.4s ease-in-out infinite;transform-origin:150px 172px}}
+@keyframes spark{0%,100%{transform:scale(.6);opacity:.4}50%{transform:scale(1.25);opacity:1}}
+/* this edition's widgets */
+.cartwrap svg{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+#cartRead{display:block}
+.gauge{display:inline-flex;align-items:baseline;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 14px}
+.gauge b{font-size:1.4rem;color:var(--nile)}
+.predict{display:grid;gap:8px;margin:12px 0}
+@media (min-width:560px){.predict{grid-template-columns:1fr 1fr}}
+.tubelbl{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.tubelbl span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.95rem}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 8</div>
+</div></header>
+
+
+<main>
+
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="45%" r="60%">
+        <stop offset="0%" stop-color="var(--sun)" stop-opacity=".40"/>
+        <stop offset="60%" stop-color="var(--shadow)" stop-opacity=".14"/>
+        <stop offset="100%" stop-color="var(--shadow)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="140" fill="url(#glow)"/>
+    <!-- the stone: a dark slab with a broken corner -->
+    <path d="M92 70 L188 58 L226 96 L222 244 L88 250 Z" fill="var(--ink)" opacity=".82"/>
+    <g stroke="var(--bg)" stroke-width="3" stroke-linecap="round" opacity=".7">
+      <path d="M108 102 h44 M160 102 h30 M108 116 h60 M176 116 h24 M108 130 h30 M146 130 h44"/>
+      <path d="M106 158 q10 -8 20 0 t20 0 t20 0 t20 0 M106 172 q10 -8 20 0 t20 0 t20 0 M106 186 q10 -8 20 0 t20 0 t20 0 t20 0"/>
+      <path d="M106 212 h24 M138 212 h20 M166 212 h40 M106 226 h40 M154 226 h16 M178 226 h28"/>
+    </g>
+    <!-- a cartouche glowing on the top band -->
+    <g class="spark"><rect x="118" y="94" width="42" height="16" rx="8" fill="none" stroke="var(--sun)" stroke-width="3.5"/></g>
+    <circle cx="66" cy="216" r="7" fill="var(--sun)" opacity=".9"/>
+    <circle cx="246" cy="196" r="5" fill="var(--sun)" opacity=".7"/>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 8</span><span class="tag">יום שלישי, 15 בספטמבר 2026</span><span class="tag">ד׳ בתשרי תשפ״ז</span><span class="tag">כ־30 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>הצופן שאיש לא ידע לקרוא <span class="num">1400</span> שנה</h1>
+  <p class="lede">במצרים העתיקה כתבו במשך יותר משלושת אלפים שנה בכתב של ציורים: ינשופים, אריות, נחשים, ידיים ועיניים חרוטים על מקדשים ועל פירמידות. ואז, לפני כ־<b class="num">1,600</b> שנה, נחרטה הכתובת האחרונה, ותוך כמה דורות לא נשאר אף אחד שידע לקרוא — ובמשך <b class="num">1,400</b> שנה אף אחד בעולם לא הצליח לקרוא אפילו מילה אחת. עד שחיילים שחפרו ביצורים ליד הנילוס מצאו אבן שחורה עם אותו טקסט כתוב <b>שלוש פעמים</b>, ונער צרפתי שלימד את עצמו שש שפות החליט שהוא יהיה זה שיפצח את החידה. השאלה הגדולה של היום: <b>איך קוראים כתב שאף אחד לא יודע לקרוא?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">על האבן כתוב אותו טקסט ביוונית ובכתב הציורים המצרי. בחלק היווני יש <span class="math">486</span> מילים. כמה ציורים (סימנים) יש בחלק המצרי שמספר את אותו דבר? כל תשובה גדולה פי <span class="math">10</span> מזו שלפניה — צריך לקלוע לסדר הגודל, לא למספר.</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת סדר גודל">
+      <button type="button" class="scaleopt" data-scale="50"><b>כחמישים</b><span>ציור אחד לכל משפט</span></button>
+      <button type="button" class="scaleopt" data-scale="500"><b>כחמש מאות</b><span>ציור אחד לכל מילה</span></button>
+      <button type="button" class="scaleopt" data-scale="1500"><b>כאלף וחמש מאות</b><span>כמה ציורים לכל מילה</span></button>
+      <button type="button" class="scaleopt" data-scale="15000"><b>כחמישה־עשר אלף</b><span>עשרות ציורים לכל מילה</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE SCRIPT THAT FELL SILENT -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>הכתב שנרדם</h2>
+  <p>הכתב המצרי העתיק נקרא <b>הירוגליפים</b> — ביוונית: "חריטות קדושות". במשך יותר מ־<span class="math">3,000</span> שנה כתבו בו על קירות של מקדשים, על מצבות ועל פפירוסים. ואז מצרים נכבשה: קודם על ידי היוונים, אחר כך על ידי הרומאים, והמקדשים הישנים נסגרו אחד אחרי השני. הכתובת האחרונה בהירוגליפים שאנחנו מכירים נחרטה במקדש באי פילה, בדרום מצרים, בשנת <span class="math">394</span> לספירה. אחריה — שקט.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>תחשבו על זה רגע: הכתב היה שם כל הזמן. מיליוני סימנים חרוטים על אבן, לעיני כולם. אבל בלי אף אדם שיודע לקרוא אותם, הם הפכו לסתם ציורים יפים. במשך <span class="math">1,400</span> שנה אנשים ניחשו: אולי כל ציור הוא רעיון סודי? ינשוף אומר "חוכמה", נחש אומר "סכנה"? זה נשמע הגיוני — וזה היה לגמרי לא נכון.</p>
+    <p>ואז, בקיץ <span class="math">1799</span>, שנה אחרי שצבא צרפתי בפיקודו של נפוליאון הגיע לנילוס, חיילים חיזקו מבצר ישן ליד העיר <b>רשיד</b> (הצרפתים קראו לה רוזטה). קצין בשם פייר־פרנסואה בושאר הבחין באבן שחורה ומלוטשת בתוך הקיר, מכוסה בכתב צפוף — ועליה <b>שלושה סוגי כתב</b>. הוא הבין מיד שזה משהו מיוחד.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>ב־<span class="math">394</span> נחרטה במקדש איזיס שבאי פילה הכתובת האחרונה הידועה בהירוגליפים. הרומאים ששלטו במצרים סגרו את המקדשים, וידע שעבר מכוהן לכוהן במשך אלפי שנים נעלם בתוך דור או שניים. הכתב נשאר חרוט על אובליסקים, קירות ופסלים — אבל איש לא ידע יותר מה כתוב בו.</p>
+    <p>במשך <span class="math">1,400</span> שנה כמעט כל החכמים בעולם היו בטוחים בדבר אחד: הירוגליפים הם <b>כתב של רעיונות</b>, לא של צלילים. סופר בשם הוראפולו כתב, לפני כ־<span class="math">1,500</span> שנה, ספר שלם של "פירושים": הנץ מסמל את הנשמה, הארנב פתיחות, וכן הלאה — ורוב מה שכתוב בו מומצא. במאה ה־<span class="math">17</span> פרסם החוקר אתנסיוס קירכר "תרגומים" ארוכים של אובליסקים ברומא, ואף מילה בהם לא הייתה נכונה. הבעיה לא הייתה חוסר חוכמה, אלא שלא היה שום <b>מפתח</b>: שום טקסט שבו אותו תוכן כתוב גם בהירוגליפים וגם בשפה שמישהו יודע.</p>
+    <p>המפתח הופיע בקיץ <span class="math">1799</span>. נפוליאון פלש למצרים שנה קודם, וצבאו חיזק מבצר ישן ליד העיר רשיד (רוזטה בפי הצרפתים), בדלתא של הנילוס. הקצין פייר־פרנסואה בושאר שם לב לאבן גרנודיוריט שחורה, בגובה <span class="math">112</span> סנטימטר ובמשקל כ־<span class="math">760</span> קילוגרם, שנבנתה לתוך קיר — ועליה טקסט צפוף בשלושה כתבים. המדענים שהצבא הביא איתו הבינו מיד: אם זה אותו טקסט שלוש פעמים, ואחד מהכתבים הוא יוונית — אפשר להתחיל לפצח.</p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>באותה שנה בדיוק, <span class="math">1799</span>, אותו צבא ניסה לכבוש את עכו — ונכשל אחרי מצור של חודשיים. נפוליאון נסוג למצרים בתחילת הקיץ, והאבן נמצאה ביולי. הסיפור של היום התחיל ממש ליד הבית.</p></div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · ONE TEXT, THREE SCRIPTS (interactive 1) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>טקסט אחד, שלושה כתבים</h2>
+  <p>על האבן חרוט צו של כוהנים מצריים משנת <span class="math">196</span> לפני הספירה, לכבוד המלך תלמי החמישי — נער בן <span class="math">13</span> שהוכתר זמן קצר לפני כן. הצו נכתב שלוש פעמים: למעלה בהירוגליפים, באמצע בכתב מצרי מהיר של יום־יום שנקרא <b>דמוטי</b>, ולמטה <b>ביוונית</b>, שפת המלכים ששלטו אז במצרים. יוונית עתיקה ידעו לקרוא בכל אוניברסיטה באירופה. וזה בדיוק העניין.</p>
+
+  <!-- ===== INTERACTIVE 1 — האבן ===== -->
+  <div class="panel instrument">
+    <h3>האבן</h3>
+    <p class="cap">ציור סכמטי של האבן. שלוש רצועות, שלושה כתבים, אותו טקסט. לחצו על רצועה כדי לגלות מה ידעו לקרוא בה ב־<span class="math">1799</span>, ואז לחצו על "איפה שם המלך?"</p>
+    <canvas id="stoneCv" width="640" height="520" aria-label="האבן עם שלוש רצועות כתב: הירוגליפים, דמוטי ויוונית; שם המלך מודגש בכל רצועה"></canvas>
+    <div id="stoneGuessBox">
+      <p style="margin:14px 0 8px"><b>רגע לפני שמתחילים.</b> אם הייתם חוקרים ב־<span class="math">1799</span>, מאיזו רצועה הייתם מתחילים?</p>
+      <div class="controls">
+        <button class="btn small ghost" onclick="stoneGuess(1)">מלמעלה — הציורים</button>
+        <button class="btn small ghost" onclick="stoneGuess(2)">מהאמצע — הכתב המהיר</button>
+        <button class="btn small ghost" onclick="stoneGuess(3)">מלמטה — היוונית</button>
+      </div>
+    </div>
+    <div class="controls" id="stoneCtl" style="display:none">
+      <div class="seg" role="group" aria-label="בחירת רצועה">
+        <button id="stoneB1" onclick="stoneBand(1)">הירוגליפים</button>
+        <button id="stoneB2" onclick="stoneBand(2)">דמוטי</button>
+        <button class="on" id="stoneB3" onclick="stoneBand(3)">יוונית</button>
+      </div>
+      <button class="btn small" id="stoneNameBtn" onclick="stoneName()">איפה שם המלך?</button>
+    </div>
+    <p class="cap" id="stoneMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>למה שלושה כתבים זה מתנה? דמיינו ספר בשפה שאתם לא מכירים — ואת אותו ספר בדיוק בעברית. עכשיו יש לכם <b>מפתח</b>: מחפשים מילה שחוזרת הרבה בעברית, ובודקים איזה סימן חוזר באותם מקומות בכתב הזר. ככה בדיוק התחילו עם האבן.</p>
+    <p>היוונית סיפרה לחוקרים מה כתוב: צו לכבוד המלך תלמי. ובסוף היא אמרה בפירוש: "הצו הזה ייחרט באותיות קדושות, באותיות של מקומיים ובאותיות יווניות". כלומר — אותו טקסט שלוש פעמים. ושם המלך, תלמי, חוזר בטקסט היווני שוב ושוב. עכשיו צריך רק למצוא איפה הוא מסתתר בין הציורים.</p>
+    <p>הצרפתים משחו את האבן בדיו ולחצו עליה דפים כמו חותמת ענקית, ושלחו את ההעתקים לחוקרים בכל אירופה. שנתיים אחר כך הם הפסידו במלחמה, והאבן עברה לידי הבריטים; מאז <span class="math">1802</span> היא במוזיאון הבריטי בלונדון — הדבר הכי מבוקר בכל המוזיאון.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>שלושת הכתבים הם שתי שפות בלבד: יוונית, ומצרית פעמיים — בכתב הטקסי (הירוגליפים) ובכתב היום־יומי (דמוטי). הטקסט היווני, <span class="math">54</span> שורות, נקרא בקלות, ובסופו נאמר שהצו ייחרט "באותיות קדושות, באותיות מקומיות ובאותיות יווניות" — ההוכחה שזה טקסט אחד. מהרצועה העליונה, ההירוגליפים, שרדו רק <span class="math">14</span> שורות חלקיות; הדמוטית, <span class="math">32</span> שורות, כמעט שלמה.</p>
+    <p>מכאן עבדו כמו ב"מצא את ההבדלים", רק הפוך: מחפשים את הדומה. השם תלמי חוזר ביוונית שוב ושוב, אז חיפשו קבוצת סימנים שחוזרת בדמוטי באותם מקומות. הצרפתי דה סאסי והשוודי אוקרבלד זיהו כך, כבר ב־<span class="math">1802</span>, את השמות תלמי, אלכסנדר וארסינואה. ואז זה נתקע: הם הניחו שהדמוטי הוא כתב של צלילים אבל ההירוגליפים הם כתב של רעיונות. ההנחה השנייה הייתה הטעות של כולם.</p>
+    <p data-level="advanced">[מתקדם] שימו לב לרמז שהיה מונח מול העיניים: בתוך הרצועה ההירוגליפית כמה קבוצות סימנים מוקפות במסגרת מוארכת, מין עיגול מאורך — <b>קרטוש</b>. חוקרים כבר שיערו שהמסגרות מקיפות שמות של מלכים. אם המסגרות הן שמות, ואם הטקסט היווני מזכיר רק מלך אחד, תלמי — אז מה שבתוך המסגרת חייב להיות "תלמי". וכאן שאלה: "תלמי" הוא שם יווני, לא מילה מצרית. איך כותבים שם זר בכתב של רעיונות?</p>
+    <p data-level="standard">שימו לב לרמז שהיה מונח מול העיניים: בתוך הרצועה ההירוגליפית כמה קבוצות סימנים מוקפות במסגרת מוארכת — <b>קרטוש</b>. חוקרים שיערו שהמסגרות מקיפות שמות של מלכים. ואם הטקסט היווני מזכיר רק מלך אחד, תלמי, אז מה שבתוך המסגרת חייב להיות "תלמי".</p>
+    <p>והאבן עצמה? הצרפתים הכינו ממנה העתקים בדיו ושלחו לחוקרים באירופה. ב־<span class="math">1801</span> נכנעו לבריטים, והאבן נמסרה כשלל מלחמה; מאז <span class="math">1802</span> היא במוזיאון הבריטי בלונדון. אבל ההעתקים הם מה שחשוב: הפיצוח נעשה על נייר, בפריז ובלונדון, לא מול האבן.</p>
+  </div>
+
+  <div class="q qc" id="stoneQ"></div>
+  <div class="next"><button class="btn" id="next2" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE NAMES IN THE OVALS (interactive 2) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>השמות שבתוך העיגולים</h2>
+  <p>הנה הרעיון שפתח הכול. שם של אדם אי אפשר לצייר כרעיון. אם מלך יווני נקרא "תלמי", והסופר המצרי צריך לכתוב את השם הזה — הוא חייב לכתוב את <b>הצלילים</b>: ת־ל־מ־י. כלומר, לפחות בתוך המסגרות של שמות המלכים, הציורים חייבים להיות אותיות. בואו נבדוק את זה בעצמנו, עם שני שמות אמיתיים.</p>
+
+  <!-- ===== INTERACTIVE 2 — מפענח הקרטושים ===== -->
+  <div class="panel instrument">
+    <h3>מפענח הקרטושים</h3>
+    <p class="cap">שני קרטושים אמיתיים: "תלמי" מהאבן, ו"קלאופטרה" מאובליסק שהובא ממקדש פילה. קוראים מימין לשמאל, כמו בעברית: הסימנים "מסתכלים" לכיוון תחילת המילה, והציפורים כאן פונות ימינה. לחצו על ציור כדי לגלות את הצליל שלו — וחפשו ציורים שמופיעים בשני השמות.</p>
+    <div class="cartwrap">
+      <svg id="cartSvg" viewBox="0 0 640 424" role="img" aria-label="שני קרטושים: תלמי (שבעה סימנים) וקלאופטרה (תשעה סימנים ועוד סיומת נקבה); לחיצה על סימן מציגה את הצליל שלו"></svg>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="מה מציגים מתחת לציורים">
+        <button class="on" id="cartModePic" onclick="cartMode('pic')">מה מצויר</button>
+        <button id="cartModeSnd" onclick="cartMode('snd')">איזה צליל</button>
+      </div>
+      <button class="btn small ghost" id="cartMatchBtn" onclick="cartMatch()">הדגישו את המשותף</button>
+    </div>
+    <div class="readout" id="cartRead" style="margin-top:12px">לחצו על ציור בקרטוש</div>
+    <p class="cap" id="cartMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ראיתם? <b>הריבוע</b> הוא הצליל פּ. הוא הסימן הראשון ב"פּתולמיס" (ככה כתוב "תלמי" בקרטוש, כמו ביוונית: פּ־ת־ו־ל־מ־י־ס) — וגם החמישי ב"קלאופטרה": ק־ל־א־ו־<b>פּ</b>־א־ט־ר־א. <b>האריה</b> הוא ל: רביעי בתלמי, שני בקלאופטרה. <b>הלולאה</b> היא ו: שלישית בתלמי, רביעית בקלאופטרה. שלושה ציורים, וכל אחד יושב בדיוק במקום שבו הצליל שלו צריך להיות, בשני השמות. זה לא מקרה. הציורים האלה הם אותיות!</p>
+    <p>ומהשמות למדו עוד: הינשוף הוא מ, העַיִט (הציפור עם המקור העקום) הוא א, הפה הוא ר. ושימו לב לסוף של קלאופטרה: כיכר וביצה. הן לא צליל — הן סימן שאומר "השם הזה של אישה". המצרים ערבבו ציורים שהם צלילים עם ציורים שהם רמזים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הפיזיקאי האנגלי <b>תומאס יאנג</b> עשה את זה ראשון, ב־<span class="math">1814</span>: הניח שהקרטוש על האבן הוא "תלמי" (ביוונית: פּתולמיוס), נתן לכל סימן צליל לפי הסדר, ובדק על שמות אחרים. חלק מהצלילים שלו היו נכונים, חלק לא. ובעיקר, הוא חשב שזה טריק לשמות זרים בלבד, ושהמצרית "האמיתית" כתובה ברעיונות — והוא עצר.</p>
+    <p>מי שלא עצר היה <b>ז'אן־פרנסואה שמפוליון</b>, שנולד ב־<span class="math">1790</span> בעיירה קטנה בצרפת, ובגיל <span class="math">16</span> כבר ידע לטינית, יוונית, עברית, ערבית, סורית וארמית. השפה החשובה מכולן הייתה <b>קופטית</b>: שפת הנוצרים במצרים, כתובה באותיות יווניות, ששמפוליון ניחש (נכון) שהיא הצאצאית של המצרית העתיקה. הוא למד אותה עם כוהן קופטי בפריז, וכתב לאחיו: "אני חולם בקופטית".</p>
+    <p>בינואר <span class="math">1822</span> הגיע לידיו העתק של אובליסק שהאנגלי ויליאם בנקס הביא מפילה: על הבסיס, ביוונית, השמות תלמי וקלאופטרה, ועל האובליסק שני קרטושים. שמפוליון השווה: פּ, ל, ו באותם מקומות בשני השמות. הוא בנה מהם אלפבית, וקרא בעזרתו עוד שמות יווניים ורומיים: אלכסנדר, ברניקי, טיבריוס, טראיאנוס. שיטה שעובדת על שם אחד היא ניחוש; על עשרה שמות — פענוח.</p>
+    <p data-level="advanced">[מתקדם] הייתה בעיה קטנה, וממנה למד שמפוליון משהו גדול: בתלמי הצליל ת כתוב בכיכר לחם, בקלאופטרה הצליל ט כתוב ביד. שני סימנים לצליל דומה? כן — כמו ת ו־ט, או ק ו־כּ בעברית. זה נקרא הומופונים, וזה מסביר למה יש הרבה יותר סימנים מאותיות. ועוד כלל: הירוגליפים נכתבים לשני הכיוונים, והסימנים "מסתכלים" לתחילת המילה — אם הציפור פונה ימינה, קוראים מימין, כמו בעברית. כך על האבן וכך באיור שלנו; בספרים רבים מציירים את הקרטושים הפוכים.</p>
+    <p data-level="standard">רמז לעתיד: בתלמי הצליל ת כתוב בחצי עיגול, ובקלאופטרה הצליל ט כתוב ביד. שני סימנים לצליל דומה — כמו ת ו־ט בעברית. המצרים כתבו את אותו צליל ביותר מדרך אחת, וזו אחת הסיבות שיש להם כל כך הרבה סימנים.</p>
+  </div>
+
+  <div class="q qc" id="cartQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · COUNT INSTEAD OF GUESSING (interactive 3) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>לספור במקום לנחש</h2>
+  <p>ב־<span class="math">21</span> בדצמבר <span class="math">1821</span> עשה שמפוליון דבר שאף אחד לא טרח לעשות לפניו: הוא <b>ספר</b>. ברצועה ההירוגליפית של האבן הוא מנה <span class="math">1,419</span> סימנים. בטקסט היווני המקביל יש <span class="math">486</span> מילים. אם כל ציור היה רעיון או מילה, היו צריכים להיות בערך <span class="math">486</span> ציורים. יש כמעט פי שלושה. המסקנה: רוב הציורים לא יכולים להיות מילים. הם חייבים להיות <b>צלילים</b> — ולא רק בשמות של מלכים, אלא בכל הטקסט.</p>
+
+  <!-- ===== INTERACTIVE 3 — מכונת הספירה ===== -->
+  <div class="panel instrument">
+    <h3>מכונת הספירה</h3>
+    <p class="cap">ספירה היא הכלי הסודי של כל מפענח. כאן קטע עברי אמיתי (מהשיעור הזה) מוצפן: כל אות הוחלפה בסימן. המכונה סופרת כמה פעמים כל סימן מופיע. נחשו איזו אות מסתתרת מאחורי הסימן הכי נפוץ, ואז גררו כדי לתת למכונה יותר או פחות טקסט.</p>
+    <canvas id="countCv" width="640" height="420" aria-label="גרף עמודות של שכיחות הסימנים בקטע מוצפן, לפי כמות הטקסט שנבחרה"></canvas>
+    <div id="countGuessBox">
+      <p style="margin:14px 0 8px"><b>נחשו:</b> איזו אות עברית מופיעה הכי הרבה פעמים בטקסט רגיל?</p>
+      <div class="controls">
+        <button class="btn small ghost" onclick="countGuess('א')">א</button>
+        <button class="btn small ghost" onclick="countGuess('ש')">ש</button>
+        <button class="btn small ghost" onclick="countGuess('י')">י</button>
+        <button class="btn small ghost" onclick="countGuess('ל')">ל</button>
+      </div>
+    </div>
+    <div class="controls" id="countCtl" style="display:none">
+      <label>כמה טקסט לתת למכונה
+        <input type="range" id="countN" min="1" max="100" step="1" value="2" oninput="countDraw(1)" aria-label="אחוז הטקסט שנספר" style="direction:ltr">
+      </label>
+      <div class="seg" role="group" aria-label="סימנים או אותיות">
+        <button class="on" id="countSym" onclick="countReveal(false)">סימנים</button>
+        <button id="countLet" onclick="countReveal(true)">לגלות את האותיות</button>
+      </div>
+    </div>
+    <div class="controls" id="countCtl2" style="display:none">
+      <div class="readout"><b class="num" id="countLetters">40</b> אותיות נספרו</div>
+      <div class="gauge">הסימן הכי נפוץ: <b id="countTop">?</b></div>
+    </div>
+    <p class="cap" id="countMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>שמתם לב מה קרה כשנתתם למכונה רק קצת טקסט? העמודות קפצו, וכל פעם סימן אחר היה "המנצח". רק כשהטקסט ארוך העמודות נרגעות, והסימן הכי נפוץ נשאר הכי נפוץ. זו הסיבה שמפענחים צריכים <b>הרבה</b> טקסט — ומה שהיה מיוחד באבן הוא שהיא ארוכה: מאות מילים, אותו דבר שלוש פעמים.</p>
+    <p>וזה בדיוק מה שעשה שמפוליון עם הספירה הגדולה שלו: <span class="math">1,419</span> ציורים מול <span class="math">486</span> מילים. כמעט שלושה ציורים לכל מילה. כמו שבעברית יש כמה אותיות בכל מילה. מהרגע הזה הוא ידע: הציורים הם אותיות, לא רעיונות. עכשיו נשארה רק השאלה איך נשמעת כל אות — ואיזו מילה יוצאת מהן.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון שמאחורי המכונה נקרא <b>ניתוח שכיחויות</b>, והוא הכלי הבסיסי של כל פענוח, מכתבים עתיקים ועד צפנים של מרגלים. בכל שפה יש אותיות נפוצות ונדירות, ובטקסט ארוך מספיק היחסים יציבים: אם סימן אחד מופיע הרבה יותר מכולם, סביר שהוא האות הנפוצה של השפה. אבל בטקסט קצר היחסים מקפצים, וניחוש על סמך <span class="math">20</span> אותיות שווה מעט מאוד. לכן אורך הטקסט קובע — וכתובת של שש שורות, כמו זו של מנהרת השילוח, לא הייתה מספיקה לפענח כתב לא מוכר.</p>
+    <p>הספירה של שמפוליון היא ניתוח כזה בגרסה הפשוטה ביותר: <span class="math">1,419 ÷ 486 ≈ 2.9</span> סימנים לכל מילה יוונית. כתב שבו כל סימן הוא מילה היה נותן יחס של בערך <span class="math">1</span>; כמעט <span class="math">3</span> פירושו שרוב הסימנים הם חלקי מילים — צלילים. (הרצועה שבורה, אז הספירה מקורבת, אבל פי שלושה זה הרבה מעבר לטעות.) יאנג עצר ב"שמות זרים כותבים בצלילים"; שמפוליון הבין ש<b>כל</b> הכתב עובד ככה, רק מעורבב: סימנים של צליל אחד, סימנים של שניים־שלושה צלילים, וסימנים אילמים שרק רומזים על המשמעות, כמו הביצה של קלאופטרה.</p>
+    <p data-level="advanced">[מתקדם] הנה עוד ספירה שאפשר לעשות בבית: קחו עמוד מספר בעברית, ספרו את האותיות י, ו, ה, א, ל, מ. מה יוצא? ובעיה למחשבה: אם הייתם מקבלים טקסט ארוך בכתב לא מוכר בלי שום תרגום, מה ניתוח שכיחויות היה יכול לגלות לכם — ומה הוא לא יכול לגלות לעולם? (תשובה: הוא מגלה איזה סימנים נפוצים ואילו חוזרים יחד, ולפעמים כמה סימנים יש, כלומר אם זה אלפבית של כ־<span class="math">25</span> סימנים או כתב של מאות סימנים; אבל בלי מפתח, בלי שום טקסט מקביל, הוא לא יכול לומר לכם איך נשמע אף סימן. לכן האבן הייתה הכרחית.)</p>
+    <p data-level="standard">אפשר לספור גם בבית: קחו עמוד מספר בעברית וספרו כמה פעמים מופיעות י, ו, ה, א. תגלו שכמה אותיות עושות את רוב העבודה בשפה.</p>
+  </div>
+
+  <div class="q qc" id="countQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE SUN, THE OWL AND THE OX (interactive 4 + challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>היום שבו הכתב התעורר</h2>
+    <p>בבוקר של <span class="math">14</span> בספטמבר <span class="math">1822</span> קיבל שמפוליון העתקים של כתובות ממקדש רחוק בדרום מצרים, אבו סימבל. בקרטוש אחד ראה עיגול של שמש, ואחריו סימנים שכבר הכיר מהשמות היווניים: <b>ס, ס</b>. שמש בקופטית היא <b>רַע</b>. רע־?־ס־ס. רעמסס! פרעה מצרי אמיתי, לא מלך יווני. ולידו קרטוש עם ציפור איביס — הציפור של האל תחות — ואותם סימנים: תחותמס. הצלילים עבדו גם על שמות מצריים. הכתב כולו נפתח.</p>
+    <p>שמפוליון רץ ברחובות פריז למשרד של אחיו, צעק "תפסתי את זה!" — והתעלף. הוא שכב במיטה חמישה ימים. ב־<span class="math">27</span> בספטמבר קרא את התגלית מול חכמי צרפת. הוא היה בן <span class="math">31</span>, והאבן חיכתה לו <span class="math">23</span> שנה.</p>
+    <p>ועכשיו ההפתעה הכי גדולה, והיא קשורה אליכם. האותיות שאתם כותבים כל יום — א, ב, מ, ע — הן <b>נכדות של ההירוגליפים</b>. לפני כ־<span class="math">3,800</span> שנה אנשים שדיברו שפה דומה לעברית, ועבדו במכרות בסיני ובמצרים, לקחו כמה ציורים מצריים וקבעו: כל ציור אומר רק את הצליל <b>הראשון</b> של השם שלו. ראש של שור — "אַלְף" — הוא הצליל א. בית הוא ב. מים הם מ. עין היא ע. עכשיו סובבו את השור.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>השמש, הינשוף והשור</h2>
+    <p>ב־<span class="math">14</span> בספטמבר <span class="math">1822</span> קיבל שמפוליון העתקים מאבו סימבל, מקדש שנבנה מאות שנים לפני שיוונים דרכו במצרים. בקרטוש אחד ראה עיגול שמש, סימן לא מוכר, ושני סימנים שהכיר כ־ס. שמש בקופטית היא רַע; הסימן הלא מוכר, ניחש, הוא <b>מֶס</b> — "נולד". רע־מס־ס: רעמסס, "רע ילד אותו". בקרטוש שני: איביס, ציפורו של האל תחות, ואותם סימנים: תחות־מס. שמות מצריים מלפני אלפי שנים, שנקראו לפי הצלילים, עם הקופטית למשמעות. הכתב חזר לדבר.</p>
+    <p>שמפוליון רץ למשרד אחיו, הכריז "תפסתי את זה!", ונפל למשכב לחמישה ימים. ב־<span class="math">27</span> בספטמבר קרא את "המכתב למסיה דאסייה" באקדמיה בפריז, וב־<span class="math">1824</span> פרסם את השיטה השלמה: ההירוגליפים הם "כתב שהוא בבת אחת ציורי, סמלי ופונטי" — ציורים של הדבר עצמו, סימני צליל, וסימנים אילמים שרק מרמזים לאיזו קבוצה שייכת המילה. ב־<span class="math">1828</span> נסע סוף סוף למצרים וקרא על הקירות מה שאיש לא קרא <span class="math">1,400</span> שנה. הוא מת ב־<span class="math">1832</span>, בן <span class="math">41</span> בלבד.</p>
+    <p>ועכשיו החיבור שאולי לא ציפיתם לו. סביב <span class="math">1800</span> לפני הספירה, במכרות הטורקיז בסרביט אל־ח'אדם שבסיני ובמצרים עצמה, אנשים שדיברו שפה שמית — קרובה מאוד לעברית — עשו עם הציורים המצריים משהו שהמצרים לא עשו: לקחו כעשרים ציורים בלבד וקבעו שכל ציור מסמן רק את <b>הצליל הראשון</b> של שמו בשפתם. ראש שור, "אַלְף", הפך ל־א; בית — ב; מים — מ; עין — ע; ראש — ר; כף יד — כ. זה העיקרון האקרופוני, וזה האלפבית הראשון בעולם. ממנו יצאו הכתב הפיניקי, העברי הקדום (זה של כתובת השילוח!), היווני, הלטיני והעברי המרובע שלנו. השמות של האותיות שלנו הם עדיין הציורים: אָלֶף הוא שור בעברית המקראית, בֵּית הוא בית, מֵם הם מים, עַיִן היא עין.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 4 — השור שהפך לאלף ===== -->
+  <div class="panel instrument">
+    <h3>השור שהפך לאלף</h3>
+    <p class="cap">ארבע אותיות, ארבעה ציורים. גררו את הזמן קדימה וראו איך הציור המצרי הופך לאות בכתב העברי הקדום, לאות יוונית־לטינית ולאות העברית שאתם כותבים היום. (הצורות מפושטות; החוקרים חלוקים על כמה מהשלבים.)</p>
+    <div class="cartwrap">
+      <svg id="oxSvg" viewBox="0 0 640 380" role="img" aria-label="ארבעה ציורים מצריים - ראש שור, בית, מים ועין - ההופכים בהדרגה לאותיות א ב מ ע"></svg>
+    </div>
+    <div class="controls">
+      <label>הזמן
+        <input type="range" id="oxT" min="0" max="300" step="1" value="0" oninput="oxDraw(1)" aria-label="הזמן: מציור מצרי ועד אות עברית" style="direction:ltr">
+      </label>
+      <div class="readout"><b id="oxEra">ציור מצרי</b></div>
+    </div>
+    <div class="controls">
+      <button class="btn small ghost" onclick="oxPreset(0)">ציור</button>
+      <button class="btn small ghost" onclick="oxPreset(100)">כתב עברי קדום</button>
+      <button class="btn small ghost" onclick="oxPreset(200)">יוונית ולטינית</button>
+      <button class="btn small ghost" onclick="oxPreset(300)">עברית של היום</button>
+    </div>
+    <p class="cap" id="oxMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div data-track="older">
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> הצו נחרט על האבן בשנת <span class="math">196</span> לפני הספירה. הכתובת ההירוגליפית האחרונה נחרטה בשנת <span class="math">394</span> לספירה. שמפוליון נולד ב־<span class="math">23</span> בדצמבר <span class="math">1790</span> וקרא את התגלית שלו ב־<span class="math">27</span> בספטמבר <span class="math">1822</span>. (א) כמה שנים היה הכתב בשימוש מהצו ועד הכתובת האחרונה? (אין שנת אפס, אבל מותר לחשב בפשטות.) (ב) כמה שנים "ישן" הכתב, מהכתובת האחרונה ועד הפענוח? (ג) בן כמה היה שמפוליון ביום שקרא את התגלית? (שימו לב מתי יום ההולדת שלו.)</p>
+      <div class="controls">
+        <label>(א) שנים בשימוש <input type="number" id="chalUse" inputmode="numeric" placeholder="?"></label>
+        <label>(ב) שנים של שקט <input type="number" id="chalSleep" inputmode="numeric" placeholder="?"></label>
+        <label>(ג) גילו של שמפוליון <input type="number" id="chalAge" inputmode="numeric" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()" data-g="בדוק|בדקי">בדקי</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> למה שמפוליון ויאנג התחילו דווקא משמות של מלכים <b>יווניים</b> — תלמי, קלאופטרה — ולא ממילים מצריות רגילות? ומה היה קורה אם על האבן היו רק שמות של פרעונים מצריים קדומים, בלי אף שם יווני?</p>
+      <details><summary>הרמז והתשובה</summary><p>שם יווני הוא "מילה זרה" למצרית: אין לו משמעות מצרית שאפשר לצייר, ולכן הסופר חייב לכתוב אותו צליל אחרי צליל. וכשיודעים איך השם נשמע (מהיוונית) ורואים אותו מוקף במסגרת, אפשר להצמיד לכל סימן צליל ולבדוק את ההשערה על שם נוסף. מילה מצרית רגילה לא נותנת את זה: לא יודעים איך היא נשמעת ולא איפה היא מתחילה ונגמרת. בלי אף שם יווני, השיטה הזאת לא הייתה עובדת — היו צריכים להישען רק על הקופטית ועל הספירה, וזה היה לוקח הרבה יותר זמן. ובאמת, גם אחרי שהיו לו הצלילים, שמפוליון היה זקוק לקופטית כדי להבין את רעמסס: הצלילים לבד לא אומרים לכם ש"מס" פירושו "נולד".</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="oxQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>שתי פעילויות קצרות. הראשונה היא הלב של השיעור; השנייה לבחירה.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — אבן רוזטה משלכם (15 דקות)</h3>
+    <p class="cap">מה צריך: דף, עט, וחבר או חברה (או אח, אחות, הורה). זה משחק לשניים: מצפין ומפענח.</p>
+    <ol>
+      <li>המצפין ממציא כתב ציורים: לכל אות נפוצה (י, ו, ה, א, ל, מ, ר, ת, ש, נ, ב, ד, ק, כ, ע, פ) בוחרים ציור קטן — כוכב, גל, עין, בית, חץ. הטבלה נשארת בסתר.</li>
+      <li>המצפין כותב בכתב הסודי שלושה־ארבעה משפטים (לפחות <span class="math">60</span> אותיות — מכונת ספירה צריכה טקסט). שם של אדם או מקום חייב להופיע פעמיים לפחות, ומקיפים אותו בעיגול מאורך — קרטוש!</li>
+      <li>"האבן": המפענח מקבל את הטקסט הסודי, ולידו רק משפט אחד מתוכו מתורגם לעברית. זה המפתח — כמו היוונית באבן.</li>
+      <li>המפענח עובד כמו שמפוליון: קודם הקרטוש (מה השם? אילו ציורים הוא נותן?), אחר כך ספירה (איזה ציור חוזר הכי הרבה? כנראה י או ו), ואז שאר המשפטים. כמה אותיות פענחתם? מחליפים תפקידים.</li>
+    </ol>
+    <details><summary>שאלה לשולחן</summary><p>מה היה קורה אם המצפין היה משתמש בשני ציורים שונים לאותה אות, כמו שהמצרים עשו עם ת?</p><p>תשובה: הספירה הייתה מתבלבלת (כל אות "מתחלקת" לשני סימנים), והקרטוש היה מציל את המצב — כי בשם ידוע רואים מיד ששני ציורים שונים יושבים במקום של אותו צליל. זה בדיוק מה ששמפוליון גילה עם חצי העיגול והיד.</p></details>
+  </div>
+
+  <div class="panel">
+    <h3>חלק ב׳ — השם שלכם בהירוגליפים (5 דקות)</h3>
+    <ol>
+      <li>מהשיעור אתם מכירים כמה צלילים: ריבוע = פּ, כיכר = ת, לולאה = ו, אריה = ל, ינשוף = מ, שני קנים = י, בד מקופל = ס, עַיִט = א, פה = ר, כיכר וביצה = "אישה". כתבו את השם שלכם צליל אחרי צליל, מימין לשמאל, והקיפו בקרטוש. חסר צליל? המציאו ציור, כמו שהמצרים עשו.</li>
+      <li>תנו למישהו בבית לנסות לקרוא בלי לומר לו מה כתוב. אם הוא מצליח — הבנתם את שמפוליון.</li>
+    </ol>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הסיפור הזה קרוב אלינו יותר ממה שנדמה. הצבא שמצא את האבן ניסה באותה שנה, <span class="math">1799</span>, לכבוש את עכו — כשעה נסיעה מזכרון יעקב — והפסיד אחרי חודשיים של מצור. והכתב שאתם כותבים בו התחיל בסיני, כשאנשים שדיברו שפה דומה לעברית הפכו ציורים מצריים לאותיות. הכתובת של מנהרת השילוח, מהגיליון של אתמול, כתובה בדיוק באותיות האלה. אז כשאתם כותבים א, אתם מציירים ראש של שור בן <span class="math">3,800</span> שנה.</p>
+    <p>ועדיין יש כתבים שאף אחד לא יודע לקרוא: "ליניארי A" מכרתים, בן <span class="math">3,500</span> שנה; חותמות עמק האינדוס בהודו ובפקיסטן; לוחות העץ של אי הפסחא. לכולם חסר אותו דבר — אבן רוזטה: טקסט אחד שכתוב גם בכתב הזה וגם בכתב שמישהו יודע. אולי מישהו מכם ימצא אותה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה הפענוח הצליח דווקא אז? כי שלושה דברים נפגשו: <b>מפתח</b> (טקסט מקביל ביוונית), <b>שמות</b> (מסגרות סביב שמות זרים, שחייבים להיכתב בצלילים) ו<b>שפה חיה</b> (הקופטית, שנתנה משמעות לצלילים). כשחסר אחד מהם, הפענוח נתקע. הכתב הליניארי B מכרתים פוצח ב־<span class="math">1952</span> על ידי מייקל ונטריס, אדריכל בריטי, בלי טקסט מקביל — כי השפה מאחוריו התבררה כיוונית עתיקה, שפה שמכירים. הליניארי A, מאותו אי, עדיין סגור: אין מפתח והשפה לא מוכרת. כתב עמק האינדוס, הרונגו־רונגו מאי הפסחא — אותו סיפור. וכתב המאיה נפתח רק במאה ה־<span class="math">20</span>, כשחוקרים הפסיקו להתעקש שהוא "כתב של רעיונות" — הטעות של הוראפולו.</p>
+    <p>והחיבור אלינו כפול. גאוגרפי: אותו צבא שמצא את האבן ביולי <span class="math">1799</span> צר על עכו במרץ־מאי של אותה שנה ונכשל; עכו היא כשעה נסיעה מזכרון יעקב. ועמוק יותר: האלפבית שלנו הוא נכד של ההירוגליפים. ההמצאה בסיני הפכה כמה עשרות ציורים מצריים לאותיות של צליל אחד; משם יצא הכתב הפיניקי, וממנו העברי הקדום של כתובת השילוח (הגיליון של אתמול), היווני והלטיני. העברי המרובע שלנו הגיע מאוחר יותר, דרך הארמית. כלומר: היוונית שעל האבן, ההירוגליפים שמעליה והעברית שאתם קוראים עכשיו הם קרובי משפחה. שמפוליון פענח, במובן מסוים, את סבא־רבא של האותיות שלו.</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">מתמטיקה</div><h3>לספור כדי לפצח</h3><p>ניתוח שכיחויות — לספור איזה סימן חוזר הכי הרבה — הוא הכלי שפיצח צפנים במשך אלף שנה, מהחוקר הערבי אל־כנדי במאה התשיעית ועד מכונות הצופן של מלחמת העולם השנייה. הסוד הוא תמיד אותו סוד: מספיק טקסט, והמספרים מספרים את האמת.</p></div>
+    <div class="tile"><div class="dom">חלל</div><h3>רוזטה ופילה בחלל</h3><p>ב־<span class="num">2004</span> שיגרה סוכנות החלל האירופית חללית בשם רוזטה אל שביט, ונחתת בשם פילה — על שם האבן והאובליסק שפתחו את המצרית. הרעיון: השביט הוא "אבן רוזטה" של מערכת השמש, שיכולה לספר איך היא נוצרה. פילה נחתה על השביט ב־<span class="num">2014</span>.</p></div>
+    <div class="tile"><div class="dom">ביולוגיה</div><h3>הצופן שבתוך התא</h3><p>גם בגוף שלכם יש כתב: ה־DNA כתוב בארבע "אותיות" בלבד, ושלוש אותיות ביחד הן "מילה" שמסמנת אבן בניין של חלבון. בשנות ה־<span class="num">60</span> פענחו מדענים את כל <span class="num">64</span> ה"מילים" — בלי אבן רוזטה, אלא בניסויים: כותבים מילה אחת שוב ושוב ובודקים מה התא בונה.</p></div>
+    <div class="tile"><div class="dom">מחשבים</div><h3>אותיות שהן מספרים</h3><p>למחשב אין ציורים — יש לו רק מספרים. כשאתם מקלידים א, המחשב שומר את המספר <span class="num">1488</span>; ב היא <span class="num">1489</span>. הטבלה שמתרגמת מספר לאות נקראת יוניקוד, והיא אבן רוזטה של כל השפות בעולם — כולל, אגב, ההירוגליפים עצמם, שקיבלו בה מקום ב־<span class="num">2009</span>.</p></div>
+  </div>
+
+  <details class="bonus" id="latBox">
+    <summary>בונוס (2 דקות): כתבים שפוצחו — וכתבים שעדיין מחכים</summary>
+    <table class="latbl">
+      <tr><td>הירוגליפים, מצרים</td><td>פוצח <span class="num">1822</span></td><td>שמפוליון · המפתח: אבן רוזטה, שמות יווניים, קופטית</td></tr>
+      <tr><td>כתב היתדות, מסופוטמיה</td><td>פוצח במאה ה־<span class="num">19</span></td><td>המפתח: כתובת בשלוש שפות על צוק בפרס (בהיסטון)</td></tr>
+      <tr><td>ליניארי B, כרתים</td><td>פוצח <span class="num">1952</span></td><td>מייקל ונטריס, אדריכל · בלי טקסט מקביל, השפה התבררה כיוונית</td></tr>
+      <tr><td>כתב המאיה, מרכז אמריקה</td><td>פוצח ברובו במאה ה־<span class="num">20</span></td><td>ברגע שהפסיקו לחשוב שהוא "כתב של רעיונות"</td></tr>
+      <tr><td>ליניארי A, כרתים</td><td>לא פוצח</td><td>אין מפתח, השפה לא מוכרת</td></tr>
+      <tr><td>כתב עמק האינדוס</td><td>לא פוצח</td><td>כתובות קצרות מאוד — קשה לספור</td></tr>
+      <tr><td>רונגו־רונגו, אי הפסחא</td><td>לא פוצח</td><td>כשני תריסר לוחות עץ בלבד</td></tr>
+    </table>
+    <p class="cap" style="margin-top:10px">שימו לב לדפוס: כל כתב שפוצח נפתח או בעזרת טקסט מקביל, או בעזרת שפה שמישהו עדיין מכיר. הכתבים הסגורים חסרים את שניהם.</p>
+    <details><summary>שאלה קטנה</summary><p>למה כתובות קצרות הן בעיה כל כך גדולה למפענחים?</p>
+      <p data-level="advanced">[מתקדם] כי ניתוח שכיחויות עובד רק על מספרים גדולים: בטקסט של <span class="num">20</span> סימנים כל סימן מופיע פעם או פעמיים, וההבדל בין "נפוץ" ל"נדיר" הוא מקרי לגמרי. חותמות עמק האינדוס מכילות בממוצע כחמישה סימנים. גם אם היו לנו אלפי חותמות, אין בהן משפטים ארוכים, ואי אפשר לראות אילו סימנים באים יחד ובאיזה סדר. וזה לפני שמדברים על כך שאין מפתח ואין שפה מוכרת.</p>
+      <p data-level="standard">כי ספירה עובדת רק כשיש הרבה. בטקסט של <span class="num">20</span> סימנים כל סימן מופיע פעם או פעמיים, ואי אפשר לדעת מי באמת נפוץ. ראיתם את זה במכונת הספירה: עם מעט טקסט העמודות קופצות.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את סיפור הפענוח, מההתחלה ועד הסוף. לחצו על הכרטיסים לפי הסדר הנכון (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: האבן נמצאה בשנת <span class="math">1799</span>, ושמפוליון קרא את הכתב בשנת <span class="math">1822</span>. כמה שנים חיכתה האבן למי שיקרא אותה?</div>
+    <div class="controls"><label><span class="math">1822 − 1799 =</span> <input type="number" id="numYounger" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')" data-g="בדוק|בדקי">בדוק</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: שמפוליון ספר <span class="math">1,419</span> סימנים הירוגליפיים מול <span class="math">486</span> מילים יווניות. (א) כמה סימנים יש בממוצע לכל מילה יוונית? (ספרה אחת אחרי הנקודה.) (ב) בכמה אחוזים מספר הסימנים גדול ממספר המילים? (עגלו למספר שלם.)</div>
+    <div class="controls"><label>(א) סימנים לכל מילה <input type="number" id="numAdv" inputmode="decimal" step="0.1" placeholder="?"></label><label>(ב) אחוזים יותר <input type="number" id="numAdvR" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: שמפוליון ספר <span class="math">1,419</span> סימנים הירוגליפיים מול <span class="math">486</span> מילים יווניות. כמה סימנים יש בממוצע לכל מילה יוונית? (עגלו למספר שלם.)</div>
+    <div class="controls"><label>סימנים לכל מילה <input type="number" id="numOlder" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('older')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>איך הצליחו לקרוא כתב שאף אחד לא ידע לקרוא <span class="num">1,400</span> שנה — מה נתנה האבן, מה נתנו השמות שבתוך העיגולים, ומה הוכיחה הספירה?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="על האבן היה אותו טקסט שלוש פעמים, ואחד מהכתבים היה יוונית..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד ה־וואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. הכתובת האחרונה בהירוגליפים נחרטה בשנת 394, ואחריה 1,400 שנה אף אחד בעולם לא ידע לקרוא מילה. ב־1799 חיילים של נפוליאון מצאו ליד רשיד אבן עם אותו צו כתוב שלוש פעמים — בהירוגליפים, בדמוטי וביוונית — ובאותה שנה אותו צבא צר על עכו ונכשל.<br>
+    2. הפריצה הגיעה משמות: שם יווני כמו "תלמי" אי אפשר לצייר, רק לכתוב בצלילים. הריבוע, האריה והלולאה יושבים בדיוק במקומות הנכונים גם ב"תלמי" וגם ב"קלאופטרה". ושמפוליון ספר: 1,419 ציורים מול 486 מילים — כמעט שלושה ציורים למילה, אז הציורים חייבים להיות צלילים. ב־14 בספטמבר 1822 הוא קרא "רעמסס" בעזרת הקופטית, רץ לאחיו והתעלף.<br>
+    3. האותיות שלנו הן נכדות של ההירוגליפים: לפני כ־3,800 שנה, בסיני, הפכו ראש שור ל־א, בית ל־ב, מים ל־מ ועין ל־ע — כל ציור מסמן רק את הצליל הראשון של שמו. השמות של האותיות בעברית הם עדיין הציורים.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>אבן רוזטה: נמצאה באמצע יולי <span class="num">1799</span> (המסורת: <span class="num">15</span> ביולי) על ידי הקצין פייר־פרנסואה בושאר במבצר ז'וליאן ליד רשיד; גרנודיוריט, <span class="math">112.3 × 75.7 × 28.4</span> ס״מ, כ־<span class="num">760</span> ק״ג; צו ממפיס מ־<span class="num">27</span> במרץ <span class="num">196</span> לפנה״ס, יום אחרי הכתרת תלמי החמישי (נולד <span class="num">210</span> לפנה״ס, כלומר בן <span class="num">13</span>); <span class="num">14</span> שורות הירוגליפים (חלקיות), <span class="num">32</span> דמוטי, <span class="num">54</span> יוונית; נמסרה לבריטים ב־<span class="num">1801</span> והגיעה לפורטסמות׳ בפברואר <span class="num">1802</span>; המוצג המבוקר ביותר במוזיאון הבריטי (Wikipedia: Rosetta Stone; Ptolemy V Epiphanes; British Museum). הכתובת ההירוגליפית האחרונה: מקדש איזיס בפילה, <span class="num">394</span> לספירה; הדמוטית האחרונה <span class="num">452</span> (Wikipedia: Decipherment of ancient Egyptian scripts). הוראפולו (המאה ה־<span class="num">5</span> בערך), קירכר (המאה ה־<span class="num">17</span>), דה סאסי ואוקרבלד (<span class="num">1802</span>, שמות בדמוטי), תומאס יאנג (<span class="num">1814–1819</span>; מתוך <span class="num">13</span> ערכי סימנים בקרטוש תלמי: <span class="num">6</span> נכונים, <span class="num">3</span> חלקית, <span class="num">4</span> שגויים) — שם. שמפוליון: נולד <span class="num">23.12.1790</span> בפיז'אק, מת <span class="num">4.3.1832</span> בפריז (בן <span class="num">41</span>); שפות בנעוריו: לטינית, יוונית, עברית, ערבית, סורית, כשדית (ארמית), אתיופית; קופטית עם הכוהן יוחנא שיפטישי ("אני חולם בקופטית"); הספירה <span class="num">1,419</span> סימנים מול <span class="num">486</span> מילים יווניות ב־<span class="num">21.12.1821</span> (Callimahos, NSA; British Museum blog "Eureka"); קרטוש קלאופטרה מאובליסק בנקס (פילה), ההעתק הגיע לידיו בינואר <span class="num">1822</span>; <span class="num">14.9.1822</span> רעמסס ותחותמס מהעתקי אבו סימבל, "Je tiens mon affaire!", התמוטטות וימים במיטה; "המכתב למסיה דאסייה" נכתב <span class="num">22.9</span> ונקרא <span class="num">27.9.1822</span>; Précis <span class="num">1824</span> ("כתב ציורי, סמלי ופונטי בבת אחת"); משלחת <span class="num">1828–1829</span> (Wikipedia: Jean-François Champollion). קריאת הקרטושים: תלמי p-t-w-l-m-y-s (ריבוע/כיסא, כיכר, לולאה, אריה, ינשוף, שני קנים, בד מקופל); קלאופטרה q-l-i-w-p-a-d-r-a + סיומת נקבה (מדרון, אריה, קנה, לולאה, ריבוע, עיט, יד, פה, עיט, כיכר וביצה); ההומופונים כיכר/יד לצליל t/d (Budge, The Rosetta Stone; learnhieroglyphics.com). כיוון הקריאה: הסימנים פונים לתחילת השורה; באבן ההירוגליפים נקראים מימין לשמאל. מצור עכו: <span class="num">20</span> במרץ – <span class="num">21</span> במאי <span class="num">1799</span> (Wikipedia: Siege of Acre 1799). כתב פרוטו־סינאי: סרביט אל־ח'אדם (תיארוך שנוי במחלוקת, <span class="num">1850–1550</span> לפנה״ס) וּואדי אל־חול (<span class="num">1900–1800</span> לפנה״ס); אקרופוניה; אלף מראש שור (F1), בית מבית (O1), מם ממים (N35), עין מעין (D4), ריש מראש (D1), נון מנחש (I10), כף מכף יד (D46) (Wikipedia: Proto-Sinaitic script). ציורי האותיות באינטראקטיב מפושטים; הכתב העברי המרובע התפתח מהארמי, לא ישירות מהעברי הקדום. אחרים: ליניארי B — ונטריס <span class="num">1952</span>; בהיסטון — רולינסון, המאה ה־<span class="num">19</span>; כתב המאיה — קנורוזוב ואחרים, המאה ה־<span class="num">20</span>; ליניארי A, כתב האינדוס (חותמות של כ־<span class="num">5</span> סימנים בממוצע), רונגו־רונגו (כ־<span class="num">26</span> פריטים) — לא פוצחו. אל־כנדי וניתוח שכיחויות — המאה ה־<span class="num">9</span>. רוזטה/פילה: ESA, שיגור <span class="num">2.3.2004</span>, נחיתה על השביט <span class="num">67P</span> ב־<span class="num">12.11.2014</span>. הצופן הגנטי: <span class="num">64</span> קודונים, ניירנברג ומתיי <span class="num">1961</span> ואילך. יוניקוד: א = U+05D0 = <span class="num">1488</span>; הירוגליפים נוספו ביוניקוד <span class="num">5.2</span> (<span class="num">2009</span>). מכונת הספירה סופרת את הטקסט של השיעור עצמו; שכיחות האותיות מחושבת בדף ואינה נתון סטטיסטי כללי. לוח עברי: Hebcal.</p>
+  </details>
+</section>
+
+</main>
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:8, code:'WOW-008', date:'2026-09-15', title:'הצופן שאיש לא ידע לקרוא 1400 שנה', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '153XniDXqNee15XXkCDXo9eV16nXoNeZ15Q='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'history', w:3 }, { id:'math', w:3 }, { id:'earth', w:2 } ],
+  hero: { name:'אבן רוזטה', fact:'אותו צו בשלושה כתבים, שנמצא ב־1799 ליד רשיד — המפתח שבעזרתו קרא שמפוליון ב־1822 כתב שנשכח 1,400 שנה' },
+  items: {
+    'predict':       { skill:'estimation',            d:2 },
+    'qc:scale':      { skill:'orders-of-magnitude',   d:2 },
+    'qc:stoneQ':     { skill:'parallel-text',         d:2 },
+    'qc:cartQ':      { skill:'phonetic-inference',    d:3 },
+    'qc:countQ':     { skill:'ratio-reasoning',       d:3 },
+    'qc:oxQ':        { skill:'acrophony',             d:2 },
+    'mcq:shared:0':  { skill:'historical-context',    d:1 },
+    'mcq:shared:1':  { skill:'phonetic-inference',    d:2 },
+    'mcq:shared:2':  { skill:'ratio-reasoning',       d:2 },
+    'mcq:younger:0': { skill:'historical-context',    d:1 },
+    'mcq:older:0':   { skill:'evidence-reasoning',    d:3 },
+    'order':         { skill:'sequence',              d:2 },
+    'num:younger':   { skill:'subtraction',           d:2 },
+    'num:older':     { skill:'division-ratio',        d:3 },
+    'num:adv':       { skill:'percent-change',        d:4 },
+    'challenge':     { skill:'timeline-arithmetic',   d:4 },
+    'explain':       { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===2){ stoneDraw(); showArtoTip(); } if(n===3) cartDraw(); if(n===4) countDraw(0); if(n===5) oxDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+/* ---------- hero guess: one order of magnitude, not a slider ----------
+   Four choices a factor of ten apart force a real commitment about scale — how many hieroglyphic signs say what 486 Greek words say —
+   which the lesson can then overturn. */
+const SCALE_ANS = 1500;                                               // signs: 1,419 counted by Champollion (order of magnitude)
+const fmtSigns = n => 'כ־'+fmt(n)+' ציורים';
+const SCALE_FB = {
+  1500:  '<span class="pill-ok">קלעתם!</span> שמפוליון ספר <span class="math">1,419</span> ציורים מול <span class="math">486</span> מילים — כמעט שלושה ציורים לכל מילה. וזה בדיוק הרמז הגדול: אם כל ציור היה מילה, היו צריכים להיות רק כ־<span class="math">500</span>. למה יש פי שלושה? על זה כל השיעור.',
+  500:   '<span class="pill-bad">קטן פי <span class="math">3</span>.</span> ציור לכל מילה — זה מה שכולם חשבו במשך <span class="math">1,400</span> שנה. אבל שמפוליון ספר <span class="math">1,419</span> ציורים, כמעט שלושה לכל מילה. ההפרש הזה הוא המפתח לכל הסיפור.',
+  50:    '<span class="pill-bad">קטן פי <span class="math">30</span>.</span> ציור אחד למשפט שלם? יש על האבן <span class="math">1,419</span> ציורים — כמעט שלושה לכל מילה יוונית. הרבה יותר ממה שכתב של "רעיונות" היה צריך, וזה הרמז.',
+  15000: '<span class="pill-bad">גדול פי <span class="math">10</span>.</span> לא עשרות לכל מילה — בערך שלושה: <span class="math">1,419</span> ציורים מול <span class="math">486</span> מילים. אבל הכיוון שלכם נכון: יותר ציורים ממילים, וזה בדיוק מה שהוכיח שהציורים הם צלילים.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+
+</script>
+
+
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h){ c.fillStyle=css('--card'); c.globalAlpha=.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align){
+  size=Math.max(26,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(26,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(26,size); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(26,size); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* a little digger: head, body, pick */
+function xDigger(c,x,y,dir,col){ c.fillStyle=col; c.beginPath(); c.arc(x,y-22,7,0,Math.PI*2); c.fill(); c.strokeStyle=col; c.lineWidth=5; c.lineCap='round';
+  c.beginPath(); c.moveTo(x,y-15); c.lineTo(x,y+2); c.moveTo(x,y+2); c.lineTo(x-6,y+16); c.moveTo(x,y+2); c.lineTo(x+6,y+16); c.stroke();
+  c.lineWidth=4; c.beginPath(); c.moveTo(x,y-8); c.lineTo(x+dir*20,y-24); c.stroke(); c.strokeStyle=css('--ink'); c.beginPath(); c.moveTo(x+dir*14,y-32); c.lineTo(x+dir*26,y-18); c.stroke(); }
+function xDrop(c,x,y,r,col){ c.fillStyle=col; c.beginPath(); c.moveTo(x,y-r*1.6); c.quadraticCurveTo(x+r*1.2,y-r*0.2,x,y+r); c.quadraticCurveTo(x-r*1.2,y-r*0.2,x,y-r*1.6); c.fill(); }
+
+
+/* ---------- step 2 (interactive 1): the stone — one text, three scripts (carries the day's `predict` item) ---------- */
+const stoneCv=document.getElementById('stoneCv'), stctx=stoneCv.getContext('2d');
+const STONE={ guess:0, band:3, names:false, opened:0 };
+const SB=[ null, {y:64,h:120}, {y:196,h:120}, {y:328,h:150} ];          // band boxes (top: hieroglyphs, middle: demotic, bottom: Greek)
+const SX0=40, SX1=500;                                                  // slab left/right
+function sRnd(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* the three places (row, column fraction) where the king's name sits in each band */
+const NAME_POS={ 1:[[0,.62],[2,.22],[3,.78]], 2:[[1,.58],[3,.18],[4,.74]], 3:[[0,.30],[2,.66],[4,.10]] };
+function stoneGlyph(c,x,y,k,col){ c.strokeStyle=col; c.fillStyle=col; c.lineWidth=2.2; c.lineCap='round';
+  switch(k%7){ case 0: c.beginPath(); c.arc(x,y,4.5,0,Math.PI*2); c.fill(); break;
+    case 1: c.strokeRect(x-4,y-5,8,10); break;
+    case 2: c.beginPath(); c.moveTo(x-5,y+5); c.lineTo(x,y-5); c.lineTo(x+5,y+5); c.closePath(); c.stroke(); break;
+    case 3: c.beginPath(); c.moveTo(x-6,y+3); c.lineTo(x-2,y-3); c.lineTo(x+2,y+3); c.lineTo(x+6,y-3); c.stroke(); break;
+    case 4: c.beginPath(); c.moveTo(x,y-6); c.lineTo(x,y+6); c.moveTo(x-4,y+6); c.lineTo(x+4,y+6); c.stroke(); break;
+    case 5: c.beginPath(); c.ellipse(x,y,6,3.5,0,0,Math.PI*2); c.stroke(); break;
+    default: c.beginPath(); c.moveTo(x-5,y-4); c.lineTo(x+5,y+4); c.moveTo(x+5,y-4); c.lineTo(x-5,y+4); c.stroke(); } }
+function stoneDraw(){
+  const c=stctx, W=stoneCv.width, H=stoneCv.height, ink=css('--ink'), bg=css('--sky2');
+  c.fillStyle=bg; c.fillRect(0,0,W,H);
+  /* the slab, with its broken top corners (the hieroglyphic band lost most of its lines) */
+  c.fillStyle='#2B2F45'; c.beginPath(); c.moveTo(SX0, 92); c.lineTo(SX0+70, 52); c.lineTo(SX1-110, 40); c.lineTo(SX1, 96); c.lineTo(SX1-4, H-16); c.lineTo(SX0+6, H-12); c.closePath(); c.fill();
+  c.strokeStyle='#4A4F6A'; c.lineWidth=3; c.stroke();
+  const rows=[ [1,5,26], [2,5,24], [3,6,26] ];                        // band, rows, row height
+  for(const [b,n,rh] of rows){ const B=SB[b], r=sRnd(b*977);
+    for(let i=0;i<n;i++){ const y=B.y+14+i*rh; const gap = b===3 ? 19 : 22;
+      /* the top band is broken: rows 0–1 only survive on the right/left parts */
+      const x0 = SX0+22 + (b===1 && i===0 ? 150 : b===1 && i===1 ? 60 : 0), x1 = SX1-22 - (b===1 && i===0 ? 70 : 0);
+      const nameW = b===3 ? 9*19 : 5*22;
+      const nameAt = f => x0+(x1-x0)*f;
+      let k=0; for(let x=x0; x<x1; x+=gap, k++){
+        const isName = NAME_POS[b].some(([ri,f])=>ri===i && x>=nameAt(f)-2 && x<nameAt(f)+nameW);
+        r();                                                        // keep the pseudo-random sequence stable whether or not a slot is skipped
+        if(isName) continue;                                        // the name occupies these slots; it is drawn below as one unit
+        const col = b===3 ? '#E8E4D6' : '#D6D9E6';
+        if(b===1){ stoneGlyph(c,x,y,(k*5+i*3)%7,col); }
+        else if(b===2){ c.strokeStyle=col; c.lineWidth=2; c.beginPath(); const a=(k*37%6); c.moveTo(x-8,y+2); c.quadraticCurveTo(x-3,y-6+a, x+2,y+1); c.quadraticCurveTo(x+6,y+5-a, x+9,y-2); c.stroke(); }
+        else { c.fillStyle=col; c.font='700 18px Arial, sans-serif'; c.direction='ltr'; c.textAlign='center'; c.textBaseline='middle'; c.fillText('ΑΒΓΔΕΗΙΚΛΜΝΟΠΡΣΤΥΩ'[(k*7+i*3)%18], x, y); }
+      }
+      /* the king's name, the same unit each time it occurs */
+      for(const [ri,f] of NAME_POS[b]){ if(ri!==i) continue; const x=nameAt(f), col = STONE.names ? css('--sun') : (b===3 ? '#E8E4D6' : '#D6D9E6');
+        if(STONE.names){ c.fillStyle='rgba(217,130,43,.26)'; c.beginPath(); c.roundRect(x-8, y-13, nameW, 26, 8); c.fill(); }
+        if(b===3){ c.fillStyle=col; c.font='700 18px Arial, sans-serif'; c.direction='ltr'; c.textAlign='left'; c.textBaseline='middle'; c.fillText('ΠΤΟΛΕΜΑΙΟΣ', x-4, y); }
+        else if(b===2){ c.strokeStyle=col; c.lineWidth=2.4; c.beginPath(); c.moveTo(x-8,y+4); c.lineTo(x+2,y-6); c.lineTo(x+10,y+4); c.quadraticCurveTo(x+22,y-8,x+34,y+2); c.lineTo(x+46,y-5); c.quadraticCurveTo(x+60,y+6,x+72,y-2); c.lineTo(x+84,y+4); c.lineTo(x+96,y-4); c.stroke(); }
+        else { [0,1,2,3,4].forEach(j=>stoneGlyph(c, x+j*22, y, [1,4,2,0,5][j], col));
+          c.strokeStyle=col; c.lineWidth=STONE.names?2.5:2; c.beginPath(); c.roundRect(x-12, y-12, nameW+2, 24, 12); c.stroke(); c.beginPath(); c.moveTo(x-12+nameW-4,y-12); c.lineTo(x-12+nameW-4,y+12); c.stroke(); }
+      }
+    }
+  }
+  /* band labels on the right margin, and the chosen band's verdict */
+  const labels={1:'הירוגליפים',2:'דמוטי',3:'יוונית'};
+  for(let b=1;b<=3;b++){ const B=SB[b]; const on=STONE.band===b;
+    if(on){ c.strokeStyle=css('--sun'); c.lineWidth=4; c.setLineDash([]); c.strokeRect(SX0+8, B.y-4, SX1-SX0-16, B.h+8); }
+    xTag(c, labels[b], '', 624, B.y+18, 22, on?css('--sun-deep'):css('--muted'), 'right'); }
+  const B=SB[STONE.band];
+  const verdict = STONE.band===3 ? ['קוראים הכול', css('--ok')] : STONE.band===2 ? ['מזהים כמה שמות', css('--sun-deep')] : ['אף אחד לא יודע לקרוא', css('--bad')];
+  xTag(c, verdict[0], '', (SX0+SX1)/2, B.y+B.h-14, 26, verdict[1], 'center');
+  if(STONE.names) xTag(c,'תלמי — אותו שם, שלוש פעמים','', SX0, 22, 24, css('--sun-deep'), 'left');
+}
+function stoneGuess(n){
+  if(STONE.guess) return; STONE.guess=n;
+  WOW.emit('predict', { id:'predict', value:n, target:3, correct:n===3 });
+  document.getElementById('stoneGuessBox').innerHTML='<p style="margin:14px 0 0">'+(n===3?'<b class="pill-ok">בדיוק.</b> ':'<b class="pill-bad">'+(n===1?'הציורים היו הדבר הכי מסתורי על האבן.':'את הדמוטי אף אחד לא ידע לקרוא באותו זמן.')+'</b> ')+'מתחילים <b>מלמטה</b>: יוונית ידעו לקרוא, ולכן היא סיפרה מה כתוב על כל האבן. עכשיו בחרו רצועות, ולחצו "איפה שם המלך?"</p>';
+  document.getElementById('stoneCtl').style.display='flex'; stoneBand(3);
+}
+function stoneBand(b){ STONE.band=b; if(!STONE.opened){ STONE.opened=1; WOW.emit('open', { id:'stone' }); }
+  [1,2,3].forEach(k=>document.getElementById('stoneB'+k).classList.toggle('on', k===b)); stoneDraw();
+  stoneMsg.innerHTML = b===3 ? 'למטה: <b>יוונית</b>, <span class="math">54</span> שורות. ב־<span class="math">1799</span> כל חוקר ידע לקרוא אותה, ולכן ידעו מיד מה כתוב על האבן: צו לכבוד המלך תלמי, ובסופו הבטחה שהצו ייחרט "באותיות קדושות, באותיות מקומיות ובאותיות יווניות".'
+    : b===2 ? 'באמצע: <b>דמוטי</b>, <span class="math">32</span> שורות, כתב מצרי מהיר של יום־יום. אף אחד לא ידע לקרוא אותו, אבל כבר ב־<span class="math">1802</span> זיהו בו כמה שמות — לפי המקום שבו הם מופיעים ביוונית.'
+    : 'למעלה: <b>הירוגליפים</b>. רק <span class="math">14</span> שורות שרדו, והפינות שבורות. אף אחד לא ידע לקרוא אותם, וכולם היו בטוחים שהם ציורים של רעיונות. שימו לב לעיגולים המאורכים — הם הרמז.'; }
+function stoneName(){ STONE.names=!STONE.names; stoneDraw(); document.getElementById('stoneNameBtn').textContent = STONE.names ? 'להסתיר את שם המלך' : 'איפה שם המלך?';
+  if(STONE.names){ stoneMsg.innerHTML='<b>תלמי</b> (ביוונית: פּתולמיוס) חוזר בטקסט היווני שוב ושוב. אז מחפשים קבוצת סימנים שחוזרת בדמוטי באותם מקומות בערך — ובהירוגליפים מחפשים את העיגולים המאורכים, ה<b>קרטושים</b>, שכנראה מקיפים שמות של מלכים. שלוש רצועות, אותו שם. זה המפתח.'; WOW.emit('item', { id:'stone:name', kind:'quick', correct:true, attempt: wowTry('stone:name') }); } }
+stoneDraw();
+
+/* ---------- step 3 (interactive 2): the cartouche decoder (SVG) ---------- */
+const cartSvg=document.getElementById('cartSvg');
+const CART={ mode:'pic', match:false, sel:null, opened:0 };
+/* glyphs: id → { pic (what is drawn), snd (Hebrew sound), draw (svg markup in a 44×44 box) } */
+const GL={
+  sq:   { pic:'ריבוע (מחצלת)', short:'ריבוע', snd:'פּ', d:'<rect x="8" y="9" width="28" height="26" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><path d="M15 9v26M22 9v26M29 9v26" stroke="currentColor" stroke-width="2"/>' },
+  loaf: { pic:'כיכר לחם', short:'כיכר', snd:'ת', d:'<path d="M7 33 A15 15 0 0 1 37 33 Z" fill="currentColor"/>' },
+  lasso:{ pic:'לולאה של חבל', short:'לולאה', snd:'ו', d:'<ellipse cx="22" cy="17" rx="10" ry="12" fill="none" stroke="currentColor" stroke-width="3"/><path d="M27 27 L34 40 M17 27 L12 40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>' },
+  lion: { pic:'אריה שוכב', short:'אריה', snd:'ל', d:'<path d="M4 37 V28 Q4 20 12 20 H28 V37 Z" fill="currentColor"/><circle cx="11" cy="28" r="7" fill="currentColor"/><rect x="27" y="31" width="16" height="6" rx="3" fill="currentColor"/><circle cx="32" cy="15" r="10" fill="currentColor"/><path d="M25 9 l3 -7 4 5 M35 7 l3 -6 2 6" fill="currentColor"/><circle cx="35" cy="13" r="1.6" fill="var(--card)"/><path d="M36 19 q3 1 5 0" stroke="var(--card)" stroke-width="1.5" fill="none"/><path d="M4 32 Q-2 26 3 18 Q5 14 9 17" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>' },
+  owl:  { pic:'ינשוף', short:'ינשוף', snd:'מ', d:'<ellipse cx="22" cy="27" rx="11" ry="13" fill="currentColor"/><circle cx="22" cy="13" r="9" fill="currentColor"/><path d="M14 7 l2 -6 4 5 M30 7 l-2 -6 -4 5" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="18.5" cy="12" r="3" fill="var(--card)"/><circle cx="25.5" cy="12" r="3" fill="var(--card)"/><circle cx="18.5" cy="12" r="1.3" fill="currentColor"/><circle cx="25.5" cy="12" r="1.3" fill="currentColor"/><path d="M14 40 v3 M30 40 v3" stroke="currentColor" stroke-width="2.5"/>' },
+  reeds:{ pic:'שני עלי קנה', short:'קנים', snd:'י', d:'<path d="M14 42 V16 Q14 4 20 6 Q16 12 15 42 Z M30 42 V16 Q30 4 36 6 Q32 12 31 42 Z" fill="currentColor"/><path d="M14 42 V12 M30 42 V12" stroke="currentColor" stroke-width="2.5"/>' },
+  reed: { pic:'עלה קנה', short:'קנה', snd:'א', d:'<path d="M20 42 V16 Q20 4 28 6 Q22 12 21 42 Z" fill="currentColor"/><path d="M20 42 V12" stroke="currentColor" stroke-width="2.5"/>' },
+  cloth:{ pic:'בד מקופל', short:'בד', snd:'ס', d:'<path d="M20 4 v36 M20 4 q10 2 8 10 q-4 3 -8 2" stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round"/>' },
+  hill: { pic:'מדרון של גבעה', short:'מדרון', snd:'ק', d:'<path d="M4 36 L4 22 Q22 22 40 8 L40 36 Z" fill="currentColor"/>' },
+  vult: { pic:'עַיִט (עוף דורס)', short:'עיט', snd:'א', d:'<path d="M8 40 Q6 26 16 22 L28 22 Q34 22 34 16 L34 10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><ellipse cx="18" cy="30" rx="12" ry="9" fill="currentColor"/><circle cx="34" cy="9" r="5" fill="currentColor"/><path d="M38 8 l6 4 -5 2" fill="currentColor"/><path d="M12 39 v4 M20 39 v4" stroke="currentColor" stroke-width="2.5"/>' },
+  hand: { pic:'יד', short:'יד', snd:'ט', d:'<rect x="2" y="24" width="20" height="9" rx="2" fill="currentColor"/><path d="M21 21 H36 Q43 21 43 28 Q43 35 36 35 H21 Z" fill="currentColor"/><path d="M24 21 Q24 10 30 9 Q35 9 34 20 Z" fill="currentColor"/><path d="M28 27 h8 M28 31 h8" stroke="var(--card)" stroke-width="1.4"/>' },
+  mouth:{ pic:'פה', short:'פה', snd:'ר', d:'<path d="M4 22 Q22 8 40 22 Q22 36 4 22 Z" fill="currentColor"/><path d="M8 22 Q22 14 36 22" stroke="var(--card)" stroke-width="2" fill="none"/>' },
+  egg:  { pic:'ביצה', short:'ביצה', snd:'', d:'<ellipse cx="22" cy="24" rx="11" ry="14" fill="currentColor"/>' },
+};
+/* the two names, first sign on the RIGHT (the birds face right, so the reading starts there) */
+const NAMES={ ptol:{ he:'תלמי', gk:'פּתולמיס', signs:['sq','loaf','lasso','lion','owl','reeds','cloth'] },
+              cleo:{ he:'קלאופטרה', gk:'קלאופּאטרא', signs:['hill','lion','reed','lasso','sq','vult','hand','mouth','vult','loaf','egg'] } };
+const SHARED={ sq:'--sun', lion:'--nile', lasso:'--ok' };
+function cartDraw(){
+  const rows=[['ptol',112],['cleo',284]]; let out='';
+  out+='<text x="628" y="26" font-size="22" font-weight="700" fill="'+css('--muted')+'" text-anchor="start" direction="rtl">← קוראים מימין לשמאל</text>';
+  for(const [id,cy] of rows){ const N=NAMES[id], n=N.signs.length, cell=52, w=n*cell+24, x1=628, x0=x1-w;
+    out+='<text x="'+(x1-8)+'" y="'+(cy-50)+'" font-size="26" font-weight="700" fill="'+css('--sun-deep')+'" text-anchor="start" direction="rtl">'+N.he+'</text>';
+    out+='<rect x="'+x0+'" y="'+(cy-40)+'" width="'+w+'" height="80" rx="40" fill="'+css('--card')+'" stroke="'+css('--ink')+'" stroke-width="3"/>';
+    out+='<rect x="'+(x0+4)+'" y="'+(cy-40)+'" width="6" height="80" fill="'+css('--ink')+'"/>';
+    N.signs.forEach((g,i)=>{ const G_=GL[g], gx=x1-12-(i+1)*cell, key=id+':'+i, sel=CART.sel===key, shared=CART.match && SHARED[g];
+      const col = shared ? css(SHARED[g]) : sel ? css('--sun-deep') : css('--ink');
+      out+='<g class="gl" data-key="'+key+'" data-glyph="'+g+'" style="cursor:pointer;color:'+col+'" transform="translate('+gx+','+(cy-34)+')"><rect x="-4" y="-4" width="52" height="52" rx="10" fill="'+(shared?css(SHARED[g]):css('--sun'))+'" opacity="'+(sel||shared?'.18':'0')+'" pointer-events="all"/><g transform="translate(3,3)" pointer-events="none">'+G_.d+'</g></g>';
+      const det = id==='cleo' && i>=9;                                  // the loaf + egg at the end of Cleopatra are a silent "woman" marker
+      const lbl = CART.mode==='snd' ? (det ? (i===10?'אישה':'') : G_.snd) : G_.short;
+      out+='<text x="'+(gx+22)+'" y="'+(cy+(i%2?90:66))+'" font-size="'+(lbl.length>4?19:22)+'" font-weight="700" fill="'+(shared?css(SHARED[g]):css('--muted'))+'" text-anchor="middle" direction="rtl">'+lbl+'</text>';
+    });
+  }
+  if(CART.match){ /* connectors between the shared signs */
+    const links=[['sq',0,4],['lion',3,1],['lasso',2,3]];
+    for(const [g,ia,ib] of links){ const xa=628-12-(ia+1)*52+22, xb=628-12-(ib+1)*52+22;
+      out+='<path d="M'+xa+' 156 C '+xa+' 210, '+xb+' 196, '+xb+' 244" fill="none" stroke="'+css(SHARED[g])+'" stroke-width="4" stroke-dasharray="6 6" opacity=".9"/>'; } }
+  out+='<text x="320" y="408" font-size="22" font-weight="700" fill="'+css('--ink')+'" text-anchor="middle" direction="rtl">'+(CART.match?'ריבוע = פּ · אריה = ל · לולאה = ו — בשני השמות, במקום הנכון':'לחצו על ציור')+'</text>';
+  cartSvg.innerHTML=out;
+  cartSvg.querySelectorAll('.gl').forEach(el=>el.addEventListener('click', ()=>cartPick(el.dataset.key, el.dataset.glyph)));
+}
+function ordinal(i){ return ['הראשון','השני','השלישי','הרביעי','החמישי','השישי','השביעי','השמיני','התשיעי','העשירי','האחד־עשר'][i]; }
+function cartPick(key,g){ CART.sel=key; if(!CART.opened){ CART.opened=1; WOW.emit('open', { id:'cart' }); }
+  const G_=GL[g], [id,i]=key.split(':'), N=NAMES[id];
+  if(id==='cleo' && +i>=9){ cartRead.innerHTML='<b>'+(g==='egg'?'ביצה':'כיכר לחם')+'</b> — כאן, בסוף השם, כיכר וביצה יחד הן לא צליל: סימן אילם שאומר "השם הזה של אישה". המצרים ערבבו ציורים־צלילים עם ציורים־רמזים.'; cartDraw(); return; }
+  const otherId = id==='ptol'?'cleo':'ptol', otherSigns = otherId==='cleo' ? NAMES.cleo.signs.slice(0,9) : NAMES.ptol.signs;   // Cleopatra's final loaf + egg are a silent marker, not sounds
+  const inOther = otherSigns.indexOf(g);
+  const who = id==='ptol'?'תלמי':'קלאופטרה', other = id==='ptol'?'קלאופטרה':'תלמי';
+  let t = '<b>'+G_.pic+'</b> — '+(G_.snd ? 'הצליל <b>'+G_.snd+'</b>. הסימן '+ordinal(+i)+' ב'+who+'.' : 'לא צליל: סימן שאומר "השם הזה של אישה".');
+  if(G_.snd && inOther>=0) t += ' ובשם '+other+' הוא הסימן '+ordinal(inOther)+' — בדיוק איפה שהצליל '+G_.snd+' צריך להיות!';
+  else if(G_.snd && g==='reed') t += ' (כאן קנה אחד מסמן א; בשמות אחרים משתמשים בעיט.)';
+  else if(G_.snd && g==='hand') t += ' (בתלמי הצליל ת כתוב בכיכר לחם — שני סימנים לצליל דומה.)';
+  cartRead.innerHTML=t; cartDraw();
+}
+function cartMode(m){ CART.mode=m; cartModePic.classList.toggle('on',m==='pic'); cartModeSnd.classList.toggle('on',m==='snd'); cartDraw();
+  cartMsg.innerHTML = m==='snd' ? 'תלמי, מימין לשמאל: <b>פּ־ת־ו־ל־מ־י־ס</b> — "פּתולמיס", כמו ביוונית. קלאופטרה: <b>ק־ל־א־ו־פּ־א־ט־ר־א</b>. ובסוף: כיכר וביצה, סימן שלא נהגה — "אישה".' : 'במצב הזה רואים מה מצויר. שימו לב: שום ציור לא "אומר" משהו על מלך או על מלכה. אריה לא מסמל אומץ; הוא פשוט הצליל ל.'; }
+function cartMatch(){ CART.match=!CART.match; cartDraw(); cartMatchBtn.textContent = CART.match ? 'להסיר את ההדגשה' : 'הדגישו את המשותף';
+  if(CART.match){ cartMsg.innerHTML='<b>זו ההוכחה.</b> הריבוע ראשון בתלמי וחמישי בקלאופטרה — ופּ באמת הצליל הראשון של פּתולמיס והחמישי של קלאופּטרה. האריה רביעי ושני — ל. הלולאה שלישית ורביעית — ו. שלושה ציורים במקומות הנכונים בשני שמות שונים: ככה יודעים שהציורים הם צלילים, לא רעיונות.'; WOW.emit('item', { id:'cart:match', kind:'quick', correct:true, attempt: wowTry('cart:match') }); } }
+cartDraw();
+
+/* ---------- step 4 (interactive 3): the counting machine — letter frequency of a real Hebrew passage ---------- */
+const countCv=document.getElementById('countCv'), cctx=countCv.getContext('2d'), countN=document.getElementById('countN');
+const COUNT={ guess:'', reveal:false, opened:0 };
+const SAMPLE_TXT='במצרים העתיקה כתבו במשך יותר משלושת אלפים שנה בכתב של ציורים: ינשופים, אריות, נחשים, ידיים ועיניים חרוטים על מקדשים ועל פירמידות. ואז, לפני כאלף ושש מאות שנה, נחרטה הכתובת האחרונה, ובמשך אלף וארבע מאות שנה אף אחד בעולם לא הצליח לקרוא אפילו מילה אחת. עד שחיילים שחפרו ביצורים ליד הנילוס מצאו אבן שחורה עם אותו טקסט כתוב שלוש פעמים, ונער צרפתי שלימד את עצמו שש שפות החליט שהוא יהיה זה שיפצח את החידה. תחשבו על זה רגע: הכתב היה שם כל הזמן. מיליוני סימנים חרוטים על אבן, לעיני כולם. אבל בלי אף אדם שיודע לקרוא אותם, הם הפכו לסתם ציורים יפים. במשך מאות שנים אנשים ניחשו: אולי כל ציור הוא רעיון סודי? ינשוף אומר חוכמה, נחש אומר סכנה? זה נשמע הגיוני, וזה היה לגמרי לא נכון. ואז, בקיץ, הגיע לנילוס צבא צרפתי. ליד העיר רשיד חיילים חיזקו ביצורים של מבצר ישן. אחד מהם הבחין באבן שחורה ומלוטשת בתוך הקיר, מכוסה בכתב צפוף. הוא הסתכל טוב יותר וראה שיש עליה שלושה סוגי כתב. הוא הבין מיד שזה משהו מיוחד.';
+const FINALS={'ך':'כ','ם':'מ','ן':'נ','ף':'פ','ץ':'צ'};
+const SAMPLE=[...SAMPLE_TXT].filter(ch=>/[א-ת]/.test(ch)).map(ch=>FINALS[ch]||ch);
+const SYMS='○△□◇☆✚~↑☾♥⌂✶⊕∞⊿⌒✿★◐≈⌘⌇'.split('');   // one symbol per letter, deterministic
+const LETTERS='אבגדהוזחטיכלמנסעפצקרשת'.split('');
+const SYM_OF={}; LETTERS.forEach((l,i)=>SYM_OF[l]=SYMS[i]);
+function countTally(n){ const t={}; SAMPLE.slice(0,n).forEach(l=>{ t[l]=(t[l]||0)+1; }); return Object.entries(t).sort((a,b)=>b[1]-a[1]||LETTERS.indexOf(a[0])-LETTERS.indexOf(b[0])); }
+const FULL_TOP = countTally(SAMPLE.length)[0][0];
+function countDraw(user){
+  const c=cctx, W=countCv.width, H=countCv.height, pct=+countN.value, n=Math.max(1,Math.round(SAMPLE.length*pct/100)), tally=countTally(n), top=tally[0], show=tally.slice(0,12);
+  if(user && !COUNT.opened){ COUNT.opened=1; WOW.emit('open', { id:'count' }); }
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  const x0=40, x1=W-30, y0=96, y1=H-64, bw=(x1-x0)/show.length, maxv=Math.max(1,top[1]);
+  c.strokeStyle=css('--line'); c.lineWidth=2; c.beginPath(); c.moveTo(x0,y1); c.lineTo(x1,y1); c.stroke();
+  show.forEach(([l,v],i)=>{ const h=(y1-y0)*(v/maxv), x=x1-(i+1)*bw+bw*0.15, w=bw*0.7, y=y1-h;
+    c.fillStyle = i===0 ? css('--sun') : css('--nile'); c.beginPath(); c.roundRect(x,y,w,h,6); c.fill();
+    xNum(c, String(v), x+w/2, y-18, 24, css('--ink'), 'center');
+    const lbl = COUNT.reveal ? l : SYM_OF[l];
+    xText(c, lbl, x+w/2, y1+28, 30, COUNT.reveal?css('--sun-deep'):css('--ink'), 'center'); });
+  xTagN(c, String(n), 'אותיות נספרו', W/2, 32, 24, css('--ink'), 'center');
+  countLetters.textContent=String(n); countTop.textContent = COUNT.reveal ? top[0] : SYM_OF[top[0]];
+  const stable = pct>=60;
+  countMsg.innerHTML = !COUNT.guess ? '' : pct<25 ? 'טקסט קצר: '+(n<30?'כמה אותיות בודדות':'כמה עשרות אותיות')+'. העמודות קופצות — גררו קצת ותראו שה"מנצח" מתחלף. ככה אי אפשר לפענח כלום.'
+    : !stable ? 'יותר טקסט, והתמונה מתחילה להתייצב. עדיין כדאי עוד.'
+    : (COUNT.reveal ? '<b>הסימן הכי נפוץ הוא האות '+top[0]+'.</b> '+(COUNT.guess===FULL_TOP?'ניחשתם נכון. ':'ניחשתם '+COUNT.guess+' — '+(tally.findIndex(e=>e[0]===COUNT.guess)+1<=4?'גם היא בין הנפוצות. ':'היא רחוקה יותר ברשימה. '))+'מפענח שיודע איזו אות נפוצה בשפה יכול לנחש מה מסתתר מאחורי הסימן הכי נפוץ בכתב לא מוכר. בטקסט ארוך הניחוש הזה כמעט תמיד נכון.'
+      : 'עכשיו הטקסט ארוך, והעמודות יציבות: אותו סימן מנצח כמעט בכל הזזה. לחצו "לגלות את האותיות" כדי לבדוק את הניחוש שלכם.');
+}
+function countGuess(l){ if(COUNT.guess) return; COUNT.guess=l;
+  document.getElementById('countGuessBox').innerHTML='<p style="margin:14px 0 0">ניחשתם <b>'+l+'</b>. עכשיו תנו למכונה לספור: גררו את המחוון, ואז גלו את האותיות.</p>';
+  document.getElementById('countCtl').style.display='flex'; document.getElementById('countCtl2').style.display='flex'; countDraw(0); }
+function countReveal(on){ COUNT.reveal=on; countSym.classList.toggle('on',!on); countLet.classList.toggle('on',on); countDraw(0);
+  if(on){ const ok = COUNT.guess===FULL_TOP; WOW.emit('item', { id:'count:guess', kind:'quick', correct: ok, attempt: wowTry('count:guess') }); } }
+countDraw(0);
+
+/* ---------- step 5 (interactive 4): the ox that became aleph (SVG) ---------- */
+const oxSvg=document.getElementById('oxSvg'), oxT=document.getElementById('oxT');
+const OX={ opened:0 };
+const ERAS=[ ['ציור מצרי','מצרים, לפני כ־4,000 שנה'], ['כתב עברי קדום','סיני וכנען, לפני כ־3,800 שנה ואילך'], ['יוונית ולטינית','יוון ורומא, לפני כ־2,700 שנה'], ['עברית של היום','הכתב המרובע, דרך הארמית'] ];
+/* four letters × four stages: each stage is an svg group drawn in a 100×100 box */
+const OXL=[
+  { name:'ראש שור', he:'אָלֶף', st:[
+      '<path d="M30 30 Q50 10 70 30" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M30 30 Q22 12 18 6 M70 30 Q78 12 82 6" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M30 30 Q26 62 50 86 Q74 62 70 30 Z" fill="currentColor"/><circle cx="41" cy="48" r="4.5" fill="var(--card)"/><circle cx="59" cy="48" r="4.5" fill="var(--card)"/>',
+      '<path d="M14 50 L86 50 M28 50 L74 16 M28 50 L74 84" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>',
+      '<text x="50" y="86" font-family="Georgia,\'Times New Roman\',serif" font-size="96" font-weight="700" text-anchor="middle" fill="currentColor">A</text>',
+      '<text x="50" y="84" font-family="\'Secular One\',Rubik,Arial" font-size="92" text-anchor="middle" fill="currentColor">א</text>' ] },
+  { name:'בית', he:'בֵּית', st:[
+      '<path d="M18 30 H82 V82 H58 V60 H42 V82 H18 Z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>',
+      '<path d="M60 84 L60 26 Q30 22 30 44 Q30 62 60 58" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M60 84 L40 92" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>',
+      '<text x="50" y="86" font-family="Georgia,\'Times New Roman\',serif" font-size="96" font-weight="700" text-anchor="middle" fill="currentColor">B</text>',
+      '<text x="50" y="84" font-family="\'Secular One\',Rubik,Arial" font-size="92" text-anchor="middle" fill="currentColor">ב</text>' ] },
+  { name:'מים', he:'מֵם', st:[
+      '<path d="M8 40 l12 -12 12 12 12 -12 12 12 12 -12 12 12 M8 66 l12 -12 12 12 12 -12 12 12 12 -12 12 12" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>',
+      '<path d="M20 28 l12 -12 12 12 12 -12 12 12 12 -12 M80 16 V90" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>',
+      '<text x="50" y="86" font-family="Georgia,\'Times New Roman\',serif" font-size="96" font-weight="700" text-anchor="middle" fill="currentColor">M</text>',
+      '<text x="50" y="84" font-family="\'Secular One\',Rubik,Arial" font-size="92" text-anchor="middle" fill="currentColor">מ</text>' ] },
+  { name:'עין', he:'עַיִן', st:[
+      '<path d="M8 50 Q50 10 92 50 Q50 90 8 50 Z" fill="none" stroke="currentColor" stroke-width="6"/><circle cx="50" cy="50" r="14" fill="currentColor"/><path d="M50 74 q-8 14 -18 16" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>',
+      '<circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="7"/><circle cx="50" cy="50" r="6" fill="currentColor"/>',
+      '<text x="50" y="86" font-family="Georgia,\'Times New Roman\',serif" font-size="96" font-weight="700" text-anchor="middle" fill="currentColor">O</text>',
+      '<text x="50" y="84" font-family="\'Secular One\',Rubik,Arial" font-size="92" text-anchor="middle" fill="currentColor">ע</text>' ] },
+];
+function oxPreset(v){ oxT.value=v; oxDraw(1); }
+function oxDraw(user){
+  const t=+oxT.value, k=Math.min(2,Math.floor(t/100)), f=(t-k*100)/100, era=t>=300?3:(f<0.5?k:k+1);
+  if(user && !OX.opened){ OX.opened=1; WOW.emit('open', { id:'ox' }); }
+  let out='';
+  out+='<text x="320" y="34" font-size="26" font-weight="700" fill="'+css('--sun-deep')+'" text-anchor="middle" direction="rtl">'+ERAS[era][1]+'</text>';
+  OXL.forEach((L,i)=>{ const cx=576-i*150, cy=170;
+    out+='<text x="'+cx+'" y="'+(cy+122)+'" font-size="28" font-weight="700" fill="'+css('--ink')+'" text-anchor="middle" direction="rtl">'+L.name+'</text>';
+    out+='<text x="'+cx+'" y="'+(cy+154)+'" font-size="24" fill="'+css('--muted')+'" text-anchor="middle" direction="rtl">'+L.he+'</text>';
+    /* crossfade stage k → k+1; the picture stages rotate on their way to becoming letters */
+    /* the ox head turns on its side on the way to the Sinai aleph, and the sideways aleph turns again on the way to the Greek A */
+    const rotA = (i===0 && k<2) ? 90*f : 0;
+    const layers = t>=300 ? [[3,1,0]] : [[k,1-f,rotA],[k+1,f,0]];
+    for(const [s,op,rot] of layers){ if(op<=0.01) continue;
+      const r = rot;
+      out+='<g opacity="'+op.toFixed(2)+'" transform="translate('+(cx-50)+','+(cy-50)+') rotate('+r+' 50 50)" style="color:'+css('--ink')+'">'+L.st[s]+'</g>'; }
+  });
+  oxSvg.innerHTML=out;
+  oxEra.textContent=ERAS[era][0];
+  oxMsg.innerHTML = era===0 ? 'במצרים אלה ציורים: ראש שור, תוכנית של בית, קו של מים, עין. לכל ציור יש משמעות, ולפעמים גם צליל.'
+    : era===1 ? '<b>ההמצאה.</b> מי שדיבר שפה שמית לקח את הציור ואמר: הוא מסמן רק את הצליל הראשון של השם שלו <b>בשפה שלי</b>. אַלְף (שור) → א. בֵּית → ב. מַיִם → מ. עַיִן → ע. שימו לב שראש השור נשכב על הצד. ככה נראו האותיות בכתובת השילוח.'
+    : era===2 ? 'הפיניקים, סוחרים מהחוף של לבנון, הביאו את האותיות ליוון. היוונים שמרו על הצורות, סובבו קצת — ראש השור עכשיו עומד על הקרניים — והוסיפו אותיות של תנועות. מיוון הגיעו האותיות לרומא, ומשם לאנגלית: A, B, M, O.'
+    : 'העברית שאנחנו כותבים היום היא "הכתב המרובע", שהתפתח מהכתב הארמי, שהתפתח מהפיניקי. הצורות השתנו הרבה, אבל השמות נשארו: אָלֶף הוא עדיין שור, בֵּית הוא בית, מֵם הם מים, עַיִן היא עין.';
+}
+oxDraw(0);
+</script>
+
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  stoneQ:{ q:'למה דווקא האבן הזאת הייתה "המפתח", ולא אלפי הכתובות האחרות במצרים?', opts:['כי היא הייתה הכי גדולה ויפה','כי היה עליה אותו טקסט שלוש פעמים, ואת אחד הכתבים — יוונית — ידעו לקרוא','כי היא הייתה כתובה בעברית','כי היא נמצאה על ידי נפוליאון בעצמו'], a:1, fb:'טקסט מקביל הוא הכול: היוונית סיפרה מה כתוב, ולכן אפשר היה לחפש איפה כל שם ואיפה כל מילה מסתתרים בכתבים האחרים. בלי טקסט כזה, אלפי כתובות הן אלפי חידות בלי תשובה.', btn:'next2' },
+  cartQ:{ q:'איך ידעו ששלושת הציורים — ריבוע, אריה ולולאה — הם צלילים ולא רעיונות?', opts:['כי הם מצוירים יפה במיוחד','כי הם מופיעים בשני שמות שונים בדיוק במקומות שבהם הצלילים פּ, ל, ו צריכים להיות','כי הם היו בתוך עיגול','כי כתוב ליד כל ציור מה הוא אומר'], a:1, fb:'זו ההוכחה של שמפוליון: הריבוע ראשון בתלמי וחמישי בקלאופטרה, האריה רביעי ושני, הלולאה שלישית ורביעית. שלושה ציורים במקומות הנכונים בשני שמות שונים — זה לא מקרה.' },
+  countQ:{ q:'שמפוליון ספר 1,419 סימנים מול 486 מילים יווניות. מה זה הוכיח?', opts:['שהיוונים כתבו בקיצור','שהאבן שבורה','שרוב הסימנים לא יכולים להיות מילים שלמות — הם חייבים להיות צלילים','שההירוגליפים הם כתב של רעיונות'], a:2, fb:'כמעט שלושה סימנים לכל מילה. אם כל סימן היה מילה או רעיון, היו צריכים להיות בערך 486 סימנים. פי שלושה יותר פירושו שהסימנים הם חלקי מילים — צלילים — בכל הטקסט, לא רק בשמות.' },
+  oxQ:{ q:'למה ראש של שור הפך דווקא לאות א?', opts:['כי שוורים היו קדושים','כי שור בשפה של הממציאים נקרא "אַלְף", והציור מסמן רק את הצליל הראשון של השם','כי הקרניים דומות לאות א','כי א היא האות הראשונה'], a:1, fb:'זה העיקרון האקרופוני: כל ציור מסמן רק את הצליל הראשון של שמו. אַלְף → א, בֵּית → ב, מַיִם → מ, עַיִן → ע. השמות של האותיות בעברית הם עדיין הציורים.' },
+};
+const MCQ = {
+  shared:[
+    { q:'מה היה כתוב על אבן רוזטה?', opts:['סיפור על מלחמה בין מצרים ליוון','מילון: כל הירוגליף ולידו מה הוא אומר','אותו צו לכבוד המלך תלמי, כתוב שלוש פעמים: בהירוגליפים, בדמוטי וביוונית','רשימת שמות של כל הפרעונים'], a:2, fb:'צו של כוהנים משנת 196 לפני הספירה, לכבוד המלך תלמי החמישי — אותו טקסט בשלושה כתבים. זה לא מילון: אף אחד לא כתב "הסימן הזה אומר כך וכך". את המילון היו צריכים לבנות לבד, ממילה למילה.' },
+    { q:'למה התחילו לפצח דווקא מהשמות שבתוך העיגולים המאורכים (הקרטושים)?', opts:['כי הם היו כתובים באותיות גדולות','כי שם זר כמו "תלמי" חייבים לכתוב לפי הצלילים, ואת הצלילים של השם ידעו מהיוונית','כי בקרטוש כתוב תמיד רק מספר','כי העיגולים היו מצוירים בזהב'], a:1, fb:'שם יווני אי אפשר לצייר כרעיון — רק לכתוב צליל אחרי צליל. וכשיודעים מהיוונית איך השם נשמע, אפשר לתת לכל ציור בקרטוש צליל ולבדוק את הניחוש על שם נוסף. ככה יאנג ושמפוליון קיבלו את האותיות הראשונות.' },
+    { q:'איזה כלי "סודי" עזר לשמפוליון להבין שהציורים הם צלילים בכל הטקסט, לא רק בשמות?', opts:['הוא ספר: 1,419 סימנים מול 486 מילים — כמעט שלושה לכל מילה','הוא מצא מכתב של הכוהנים שמסביר את הכתב','הוא נסע למצרים ושאל את המקומיים','הוא השווה את הציורים לסינית'], a:0, fb:'ספירה. אם כל ציור היה רעיון, היו צריכים להיות בערך 486 ציורים. יש פי שלושה — אז רוב הציורים הם חלקי מילים. ספירה עובדת רק על טקסט ארוך, וזו עוד סיבה שהאבן הייתה חשובה.' },
+  ],
+  younger:[
+    { q:'מי מצא את האבן, ומתי?', opts:['ארכאולוג אנגלי עם מכחול, ב־1922','חיילים צרפתים שחיזקו מבצר ליד רשיד, ב־1799','ילד מצרי ששיחק ליד הנילוס','שמפוליון בעצמו, ב־1822'], a:1, fb:'קיץ 1799: חיילים של נפוליאון חיזקו ביצורים ליד העיר רשיד (רוזטה), והקצין בושאר הבחין באבן השחורה בתוך הקיר. באותה שנה אותו צבא נכשל במצור על עכו. שמפוליון היה אז בן שמונה.' },
+  ],
+  older:[
+    { q:'למה הייתה הקופטית הכרחית לשמפוליון, גם אחרי שכבר ידע את הצלילים של הסימנים?', opts:['כי הקופטית כתובה בהירוגליפים','כי הקופטית היא צאצא של המצרית העתיקה, ורק דרכה ידע מה המילים אומרות — למשל שרַע היא שמש ושמֶס פירושו "נולד"','כי היוונית של האבן הייתה כתובה בטעויות','כי בקופטית יש בדיוק 24 אותיות כמו בהירוגליפים'], a:1, fb:'צלילים בלי שפה הם רעש. יאנג עצר כי לא ידע מצרית; שמפוליון "חלם בקופטית", ולכן כשראה שמש ואחריה ס־ס ידע לקרוא "רע־מס־ס" — רעמסס, "רע ילד אותו". השפה החיה נתנה משמעות לצלילים המתים.' },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'כוהנים חורטים צו לכבוד המלך תלמי בשלושה כתבים (196 לפני הספירה).'},
+  {id:'b', t:'הכתובת האחרונה בהירוגליפים נחרטת בפילה, והכתב נשכח (394 לספירה).'},
+  {id:'c', t:'חיילים צרפתים מוצאים את האבן ליד רשיד (1799).'},
+  {id:'d', t:'תומאס יאנג קורא את השם תלמי בקרטוש לפי צלילים, ועוצר.'},
+  {id:'e', t:'שמפוליון סופר, משווה את תלמי לקלאופטרה, קורא "רעמסס" ומכריז על הפענוח (1822).'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> הצו נחרט ← הכתב נשכח ← האבן נמצאת ← יאנג קורא את תלמי ← שמפוליון מפצח. כ־2,000 שנה מהצו ועד הפענוח.' : '<span class="pill-bad">לא בדיוק.</span> הטעות הנפוצה: לשים את הפענוח לפני יאנג, או את שכחת הכתב אחרי מציאת האבן. הסדר: קודם הצו (196 לפני הספירה), אחר כך הכתובת האחרונה והשכחה (394 לספירה), אז האבן נמצאת (1799), אז יאנג קורא את השם תלמי — ורק בסוף שמפוליון סופר, משווה וקורא "רעמסס" (1822).';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const use=+chalUse.value, sleep=+chalSleep.value, age=+chalAge.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const useOk = use>=589 && use<=590, sleepOk = sleep>=1427 && sleep<=1428, ageOk = age===31;
+  S.challenge = useOk && sleepOk && ageOk;
+  fb.innerHTML = S.challenge ? '<span class="pill-ok">מרשים.</span> (א) מ־<span class="math">196</span> לפני הספירה עד <span class="math">394</span> לספירה: <span class="math">196 + 394 = 590</span> שנה (ובלי שנת אפס, <span class="math">589</span>) — ושימו לב שהאבן נחרטה כבר בסוף ימיו של הכתב, שהיה בשימוש יותר מ־<span class="math">3,000</span> שנה לפניה. (ב) <span class="math">1822 − 394 = 1,428</span> שנה של שקט — "אלף וארבע מאות" של הכותרת. (ג) שמפוליון נולד בדצמבר <span class="math">1790</span>; ב־<span class="math">27</span> בספטמבר <span class="math">1822</span> עוד לא הגיע יום הולדתו, ולכן <span class="math">1822 − 1790 − 1 = 31</span>. בן <span class="math">31</span>, אחרי שהתחיל לחלום על זה עוד כילד.'
+    : (useOk && sleepOk) ? '<span class="pill-ok">שני הראשונים נכונים.</span> עכשיו הגיל: נולד ב־<span class="math">23.12.1790</span>, קרא את התגלית ב־<span class="math">27.9.1822</span>. האם כבר היה לו יום הולדת ב־<span class="math">1822</span>? זהירות עם ההפרש.'
+    : useOk ? '<span class="pill-ok"><span class="num">590</span> (או <span class="num">589</span>) — נכון.</span> עכשיו השקט: מהכתובת האחרונה, <span class="math">394</span>, עד הפענוח, <span class="math">1822</span>. <span class="math">1822 − 394 = ?</span>'
+    : (use>=190 && use<=200) ? '<span class="pill-bad">רק ההפרש בין המספרים?</span> שימו לב: <span class="math">196</span> הוא <b>לפני</b> הספירה ו־<span class="math">394</span> <b>אחרי</b>. השנים נספרות לשני הכיוונים מנקודת האפס, אז מחברים.'
+    : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): מ־<span class="math">196</span> לפני הספירה עד נקודת האפס עברו <span class="math">196</span> שנה, ומשם עד <span class="math">394</span> עוד <span class="math">394</span>. חברו.';
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: S.challenge, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const c=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    const aOk=(c>=2.8 && c<=3.0), bOk=(r>=188 && r<=196), sc = aOk&&bOk?2:(aOk?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">1,419 ÷ 486 ≈ 2.9</span> סימנים לכל מילה יוונית. (ב) עודף של <span class="math">1,419 − 486 = 933</span> סימנים, ו־<span class="math">933 ÷ 486 ≈ 1.92</span>, כלומר כ־<b class="num">192%</b> יותר סימנים ממילים — כמעט פי שלושה. כתב של רעיונות היה נותן בערך <span class="math">0%</span>. זה המספר שהפך את שמפוליון מ"אולי" ל"בטוח".'
+      : aOk ? '<span class="pill-ok">כ־<span class="num">2.9</span> — נכון.</span> עכשיו האחוזים: כמה סימנים יש מעבר ל־<span class="math">486</span>, וכמה זה מתוך <span class="math">486</span>? <span class="math">(1,419 − 486) ÷ 486 = ?</span>'
+      : (c>=280 && c<=300) ? '<span class="pill-bad">נראה שיצא לך באחוזים.</span> ב־(א) שואלים על סימנים לכל מילה: <span class="math">1,419 ÷ 486</span>, עם ספרה אחת אחרי הנקודה.'
+      : '<span class="pill-bad">עוד לא.</span> רמז: חלקו את מספר הסימנים במספר המילים. <span class="math">1,419 ÷ 486</span> — קצת פחות מ־<span class="math">3</span>.';
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const ok=v===23; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= ok?'<span class="pill-ok">נכון!</span> <span class="math">1822 − 1799 = 23</span> שנה. כשהאבן נמצאה, שמפוליון היה ילד בן <span class="math">8</span>; כשקרא אותה, כבר היה בן <span class="math">31</span>. הוא התחיל לחלום על זה עוד כילד.':'<span class="pill-bad">לא בדיוק.</span> רמז: מ־<span class="math">1799</span> עד <span class="math">1800</span> זו שנה אחת, ומ־<span class="math">1800</span> עד <span class="math">1822</span> עוד <span class="math">22</span>.'; }
+  else { const ok=v>=2.8 && v<=3; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">1,419 ÷ 486 ≈ 2.9</span>, כלומר כ־<span class="math">3</span> סימנים לכל מילה יוונית. אם כל סימן היה מילה, היחס היה בערך <span class="math">1</span>. פי שלושה — ולכן הסימנים הם צלילים, חלקי מילים.':(v>=1400 && v<=1450)?'<span class="pill-bad">זה מספר הסימנים עצמו.</span> השאלה: כמה סימנים לכל מילה? חלקו: <span class="math">1,419 ÷ 486</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: חלקו את מספר הסימנים במספר המילים: <span class="math">1,419 ÷ 486</span>. התוצאה קצת פחות מ־<span class="math">3</span>.'; }
+  fb.classList.add('show'); }
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שעל האבן היה אותו טקסט שלוש פעמים, ושאחד מהכתבים — יוונית — ידעו לקרוא, ולכן היא הייתה המפתח.',
+  'הסברתי שהתחילו מהשמות שבתוך העיגולים (קרטושים), כי שם זר כמו תלמי חייבים לכתוב לפי צלילים, ואת הצלילים ידעו מהיוונית.',
+  'הזכרתי שהשוו בין שני שמות (תלמי וקלאופטרה) ומצאו אותם ציורים באותם מקומות של הצלילים.',
+  'כתבתי שמפוליון ספר סימנים מול מילים (1,419 מול 486, כמעט פי שלושה), ולכן הסימנים חייבים להיות צלילים ולא רעיונות.',
+  'הזכרתי שהקופטית (השפה החיה שירדה מהמצרית) נתנה משמעות לצלילים, או את רעמסס, או שהאותיות שלנו יצאו מההירוגליפים.',
+];
+const MODEL='במשך 1,400 שנה אף אחד לא ידע לקרוא הירוגליפים, כי הכתובת האחרונה נחרטה בשנת 394 ואחריה הידע נעלם; כולם חשבו שכל ציור הוא רעיון סודי. ב־1799 חיילים צרפתים מצאו ליד רשיד אבן שעליה אותו צו כתוב שלוש פעמים: בהירוגליפים, בדמוטי וביוונית. את היוונית ידעו לקרוא, אז ידעו מה כתוב — צו לכבוד המלך תלמי — וזה היה המפתח: אפשר לחפש איפה כל שם מסתתר בכתבים האחרים. התחילו מהשמות שבתוך העיגולים המאורכים, הקרטושים, כי שם יווני כמו תלמי אי אפשר לצייר כרעיון, רק לכתוב צליל אחרי צליל, ואת הצלילים ידעו מהיוונית. תומאס יאנג נתן לכל ציור בקרטוש צליל, ושמפוליון השווה בין תלמי לקלאופטרה: הריבוע, האריה והלולאה מופיעים בשני השמות בדיוק במקומות של פּ, ל ו־ו, אז הציורים הם צלילים. אחר כך הוא ספר: 1,419 סימנים מול 486 מילים יווניות, כמעט שלושה סימנים לכל מילה — אם כל סימן היה מילה היו צריכים להיות בערך 486. אז הסימנים הם צלילים בכל הטקסט, לא רק בשמות. ובעזרת הקופטית, השפה שירדה מהמצרית, הוא ידע גם מה הצלילים אומרים: שמש היא "רע", ו"רע־מס־ס" הוא רעמסס. ב־14 בספטמבר 1822 הכתב חזר לדבר. ואגב, האותיות שלנו הן נכדות של ההירוגליפים: ראש שור, "אלף", הפך ל־א.';
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (טקסט מקביל ביוונית כמפתח; שמות זרים בקרטושים שחייבים להיכתב פונטית, ולכן צלילים ידועים מהיוונית; השוואת תלמי/קלאופטרה — אותם סימנים באותן עמדות של פּ, ל, ו; הספירה 1,419 סימנים מול 486 מילים, יחס של כמעט 3, ולכן הסימנים הם צלילים בכל הטקסט ולא רק בשמות; והקופטית כשפה חיה שנתנה משמעות לצלילים — רע־מס־ס = רעמסס) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על פענוח ההירוגליפים ואבן רוזטה. הרעיונות המרכזיים: (1) הכתב נשכח: הכתובת ההירוגליפית האחרונה נחרטה בפילה ב־394 לספירה, ובמשך כ־1,400 שנה איש לא ידע לקרוא; כולם (הוראפולו, קירכר) הניחו בטעות שזה כתב של רעיונות/סמלים; (2) האבן: נמצאה ביולי 1799 על ידי חיילים צרפתים (הקצין בושאר) ליד רשיד; עליה צו ממפיס משנת 196 לפנה"ס לכבוד תלמי החמישי, כתוב שלוש פעמים — הירוגליפים (14 שורות שרדו), דמוטי (32), יוונית (54); היוונית נקראה, ולכן ידעו מה כתוב — זה המפתח (טקסט מקביל); (3) קרטושים: מסגרות מוארכות סביב שמות מלכים; שם זר (תלמי, יווני) חייב להיכתב לפי צלילים, ואת הצלילים יודעים מהיוונית; תומאס יאנג (1814) נתן ערכים פונטיים לסימני תלמי, חלקם נכונים, אבל חשב שזה רק לשמות זרים; (4) שמפוליון (נולד 1790, ידע שפות רבות, למד קופטית) השווה את תלמי (פּ־ת־ו־ל־מ־י־ס: ריבוע, כיכר, לולאה, אריה, ינשוף, שני קנים, בד מקופל) לקלאופטרה (מאובליסק בנקס מפילה): ריבוע = פּ ראשון בתלמי וחמישי בקלאופטרה, אריה = ל רביעי ושני, לולאה = ו שלישי ורביעי — סימנים באותן עמדות פונטיות בשני שמות = צלילים; הומופונים: כיכר ויד לצליל ת/ט; (5) הספירה (21.12.1821): 1,419 סימנים הירוגליפיים מול 486 מילים יווניות, יחס של כמעט 3 — אם כל סימן היה מילה היו כ־486; לכן רוב הסימנים הם צלילים בכל הטקסט; (6) קופטית: צאצאית המצרית, נתנה משמעות: שמש = רע, מס = נולד; 14.9.1822 קרא רעמסס ותחותמס מאבו סימבל, רץ לאחיו, "תפסתי את זה!", התעלף; 27.9.1822 המכתב לדאסייה; 1824: הכתב ציורי, סמלי ופונטי בבת אחת; (7) האלפבית: סביב 1800 לפנה"ס בסיני הפכו ציורים מצריים לאותיות לפי הצליל הראשון (אלף/שור → א, בית → ב, מים → מ, עין → ע); ממנו הפיניקי, העברי הקדום, היווני, הלטיני; (8) ניתוח שכיחויות צריך טקסט ארוך; כתבים לא מפוענחים: ליניארי A, אינדוס, רונגו־רונגו.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם את המפתח (אותו טקסט שלוש פעמים ואחד מהם יוונית שידעו לקרוא) וגם את רעיון הצלילים (שמות בקרטושים שנכתבים לפי צלילים / השוואת שמות, או הספירה שהראתה שיש הרבה יותר סימנים ממילים), 1 אם יש רק חלק מזה. תשובה שאומרת ש"היה מילון על האבן" או ש"כל ציור הוא רעיון" מפספסת את המנגנון ולא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=85?name+', הצופן הזה כבר אצלך בראש!':pct>=60?name+', יש לך מוח של '+G('מפענח','מפענחת')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>':'');
+  const target=1500;                                                   // hieroglyphic signs on the stone (order of magnitude; 1,419 counted)
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right order of magnitude
+  if(!S.guess){ resGuess.innerHTML='לא בחרת סדר גודל בהתחלה. שמפוליון ספר על האבן <b class="num">1,419</b> ציורים מול <span class="math">486</span> מילים יווניות — כמעט שלושה ציורים לכל מילה, ולכן הציורים חייבים להיות צלילים.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה בחרת <b>כאלף וחמש מאות ציורים</b> — וקלעת לסדר הגודל. שמפוליון ספר <b class="num">1,419</b> ציורים מול <span class="math">486</span> מילים: כמעט פי שלושה, ולכן הציורים הם צלילים ולא רעיונות. זו הספירה שפתחה את הכתב.'; }
+  else { const times=Math.round(Math.max(S.guess,target)/Math.min(S.guess,target));
+    resGuess.innerHTML='בהתחלה בחרת <b>'+fmtSigns(S.guess)+'</b>. המציאות '+(S.guess<target?'גדולה':'קטנה')+' מזה פי <b class="num">'+fmt(times)+'</b>: <b class="num">1,419</b> ציורים מול <span class="math">486</span> מילים, כמעט שלושה לכל מילה — ההוכחה שהציורים הם צלילים.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי למספר הציורים על האבן: '+(S.guess?fmtSigns(S.guess):'—')+' (המציאות: 1,419)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "הצופן שאיש לא ידע לקרוא 1400 שנה", מהדורה 8, ד\' בתשרי תשפ"ז (15 בספטמבר 2026). נושא: פענוח ההירוגליפים המצריים ואבן רוזטה — היסטוריה, מתמטיקה (ספירה וניתוח שכיחויות), גאוגרפיה, ומקור האלפבית העברי. עובדות: הירוגליפים ("חריטות קדושות" ביוונית) היו בשימוש יותר מ־3,000 שנה; הכתובת ההירוגליפית האחרונה הידועה נחרטה במקדש איזיס באי פילה ב־394 לספירה (הדמוטית האחרונה 452); אחר כך כ־1,400 שנה (394 עד 1822 = 1,428) איש לא ידע לקרוא. טעות הדורות: הוראפולו (המאה ה־5 בערך) וקירכר (המאה ה־17) הניחו שזה כתב של רעיונות וסמלים; "התרגומים" שלהם היו מומצאים. הבעיה האמיתית: לא היה מפתח — טקסט מקביל. אבן רוזטה: נמצאה באמצע יולי 1799 (המסורת: 15 ביולי) על ידי חיילי נפוליאון שחיזקו את מבצר ז\'וליאן ליד רשיד (רוזטה) בדלתא של הנילוס; הקצין פייר־פרנסואה בושאר הבחין בה; גרנודיוריט שחור, 112 ס"מ גובה, 76 רוחב, 28 עובי, כ־760 ק"ג; צו ממפיס מ־27 במרץ 196 לפנה"ס לכבוד תלמי החמישי (בן 13, הוכתר יום קודם) — אותו טקסט שלוש פעמים: הירוגליפים (14 שורות שרדו, הפינות שבורות), דמוטי (32 שורות, כתב מצרי מהיר של יום־יום), יוונית (54 שורות); בסוף הטקסט היווני נאמר שהצו ייחרט "באותיות קדושות, מקומיות ויווניות". הצרפתים הכינו העתקים בדיו ושלחו לחוקרים; ב־1801 נכנעו לבריטים באלכסנדריה; האבן במוזיאון הבריטי מ־1802 (המוצג המבוקר ביותר). באותה שנה, 1799, אותו צבא צר על עכו (20 במרץ – 21 במאי) ונכשל; עכו כשעה נסיעה מזכרון יעקב. שלבי הפענוח: דה סאסי ואוקרבלד (1802) זיהו בדמוטי את השמות תלמי, אלכסנדר, ארסינואה; תומאס יאנג (פיזיקאי אנגלי, 1814–1819) קרא את קרטוש תלמי לפי צלילים (מתוך 13 ערכים: 6 נכונים, 3 חלקית, 4 שגויים) אבל חשב שרק שמות זרים כתובים פונטית ועצר. קרטוש = מסגרת מוארכת סביב שם מלך. שם יווני (זר) חייב להיכתב לפי צלילים — לכן השמות היו הדרך פנימה. ז\'אן־פרנסואה שמפוליון: נולד 23.12.1790 בפיז\'אק, בנעוריו למד לטינית, יוונית, עברית, ערבית, סורית, כשדית (ארמית), אתיופית; קופטית (צאצאית המצרית, כתובה באותיות יווניות) עם כוהן קופטי בפריז, "אני חולם בקופטית". ב־21.12.1821 ספר 1,419 סימנים הירוגליפיים מול 486 מילים יווניות (1,419 ÷ 486 ≈ 2.9; עודף של 933 סימנים, כ־192% יותר) — לכן רוב הסימנים הם צלילים ולא מילים (הספירה מקורבת כי הרצועה שבורה). בינואר 1822 קיבל העתק של קרטוש קלאופטרה מאובליסק שוויליאם בנקס הביא מפילה (על בסיסו ביוונית: תלמי וקלאופטרה). קריאת הקרטושים (מימין לשמאל, הסימנים פונים לתחילת המילה): תלמי = פּ (ריבוע/מחצלת), ת (כיכר לחם), ו (לולאת חבל), ל (אריה שוכב), מ (ינשוף), י (שני עלי קנה), ס (בד מקופל) — "פּתולמיס"; קלאופטרה = ק (מדרון גבעה), ל (אריה), א (עלה קנה), ו (לולאה), פּ (ריבוע), א (עיט), ט (יד), ר (פה), א (עיט), ואחריהם כיכר וביצה — סימן "אישה" שלא נהגה. משותף: ריבוע = פּ (ראשון בתלמי, חמישי בקלאופטרה), אריה = ל (רביעי, שני), לולאה = ו (שלישי, רביעי) — סימנים באותן עמדות פונטיות בשני שמות = הוכחה שהם צלילים. הומופונים: כיכר ויד לצליל ת/ט. בעזרת האלפבית קרא עוד שמות (אלכסנדר, ברניקי, טיבריוס, טראיאנוס). 14.9.1822: העתקים מאבו סימבל — שמש (רע בקופטית) + סימן מס ("נולד") + ס ס = רעמסס ("רע ילד אותו"); איביס (תחות) + מס = תחותמס; שמות מצריים קדומים נקראו פונטית — הכתב כולו פונטי חלקית. רץ למשרד אחיו, "Je tiens mon affaire!" (תפסתי את זה), התעלף, ימים במיטה; 27.9.1822 קרא את "המכתב למסיה דאסייה" באקדמיה (נכתב 22.9); 1824 Précis: הכתב "ציורי, סמלי ופונטי בבת אחת" — ציורים של הדבר, סימני צליל (של צליל אחד או כמה), וסימנים אילמים (דטרמינטיבים) שמרמזים על קבוצת המשמעות. 1828–1829 משלחת למצרים; מת 4.3.1832 בפריז, בן 41. שמפוליון היה בן 8 כשנמצאה האבן ובן 31 כשפענח (1822 − 1790 − 1, כי יום הולדתו בדצמבר); האבן חיכתה 23 שנה. תקופות: מהצו (196 לפנה"ס) לכתובת האחרונה (394): 590 שנה (589 בלי שנת אפס). ניתוח שכיחויות: בכל שפה יש אותיות נפוצות (בעברית י, ו, ה, א, ל, מ, ר, ת); בטקסט קצר היחסים מקפצים, בטקסט ארוך הם יציבים — לכן צריך הרבה טקסט; אל־כנדי (המאה ה־9). האלפבית: כתב פרוטו־סינאי, סביב 1800 לפנה"ס (תיארוך שנוי במחלוקת, 1850–1550), סרביט אל־ח\'אדם בסיני וּואדי אל־חול במצרים; דוברי שפה שמית לקחו ציורים מצריים ונתנו לכל אחד רק את הצליל הראשון של שמו בשפתם (העיקרון האקרופוני): אלף (שור) → א, בית → ב, מים → מ, עין → ע, ראש → ר, כף → כ, נחש → נ; ממנו הכתב הפיניקי, העברי הקדום (כתובת השילוח מהגיליון הקודם), היווני והלטיני; העברי המרובע שלנו הגיע דרך הארמי. השמות של האותיות בעברית הם עדיין הציורים (אלף = שור במקרא). כתבים אחרים: ליניארי B פוצח ב־1952 על ידי מייקל ונטריס (אדריכל) בלי טקסט מקביל — השפה התבררה כיוונית; כתב היתדות — בהיסטון (שלוש שפות), רולינסון, המאה ה־19; המאיה — קנורוזוב ואחרים, המאה ה־20; לא פוצחו: ליניארי A, כתב עמק האינדוס (חותמות של כ־5 סימנים), רונגו־רונגו (כ־26 פריטים). חלל: חללית רוזטה של ESA (שיגור 2004, נחיתת פילה על השביט 67P ב־12.11.2014). ביולוגיה: הצופן הגנטי — 64 קודונים, פוענח בשנות ה־60. מחשבים: יוניקוד, א = 1488; ההירוגליפים ביוניקוד מ־2009. ניסויי בית: אבן רוזטה משלכם (כתב ציורים מומצא + משפט אחד מתורגם + קרטוש סביב שם), השם שלכם בהירוגליפים, ספירת אותיות בעמוד. סגנון תשובה: חם, קצר, כנה לגבי מה שלא ידוע (למשל אם שמפוליון ראה את ההערה של בנקס על קלאופטרה — לא ידוע בוודאות; תיארוך הכתב הפרוטו־סינאי שנוי במחלוקת), בלי לחשוף תשובות מבחן; אם ילד שואל על תשובה למבחן, לרמוז ולכוון, לא לפתור.';
+const CHIPS = ['איך ידעו שהעיגולים הם שמות?', 'למה בכלל שכחו את הכתב?', 'איך כותבים את השם שלי בהירוגליפים?', 'מה עוד לא פוענח עד היום?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים: הספירה 1,419 מול 486 והיחס, ההשוואה בין הקרטושים עמדה אחרי עמדה, ההומופונים, תפקיד הקופטית, ומה ניתוח שכיחויות יכול ולא יכול לגלות), שאל שאלות המשך שדורשות חשיבה, הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1,419 ÷ 486 ≈ 2.9. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>איך ידעו שהעיגולים הם שמות?</b> חוקרים שיערו את זה כבר קודם, והיוונית על האבן הזכירה מלך אחד, תלמי — אז מה שבתוך העיגול היה חייב להיות תלמי. וכשנתנו לכל ציור צליל לפי "פּתולמיס", אותם ציורים הופיעו במקומות הנכונים גם ב"קלאופטרה". זה לא יכול להיות מקרה.<br><br><b>למה בכלל שכחו את הכתב?</b> כי הוא היה כתב של כוהנים ומקדשים. כשהמקדשים נסגרו, סביב שנת 400, לא נשאר מי שילמד אותו לדור הבא. הכתובות נשארו על הקירות — אבל בלי מורה, ציורים הם רק ציורים.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
