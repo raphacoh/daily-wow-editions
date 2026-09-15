@@ -14,7 +14,7 @@
   "teaser": "במצרים העתיקה כתבו במשך יותר משלושת אלפים שנה בכתב של ציורים: ינשופים, אריות, נחשים, ידיים ועיניים חרוטים על מקדשים ועל פירמידות. ואז, לפני כ־1,600 שנה, נחרטה הכתובת האחרונה, ותוך כמה דורות לא נשאר אף אחד שידע לקרוא — ובמשך 1,400 שנה אף אחד בעולם לא הצליח לקרוא אפילו מילה אחת.",
   "max_score": 11,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-09-15T08:09:48.088Z",
   "password": "הינשוף אומר מם",
   "reviewer_verdict": "PASS (2 rounds) — remaining nits: phone-width SVG/canvas labels ~10–14 px, reviewer's time-on-task estimate ~35–45 min for slow readers vs the 30-minute tag, optional challenge counts toward the standard older kid's max",
   "review_url": "https://claude.ai/artifact/VPeaw4M8pUoLxgHep6Y7Je",
