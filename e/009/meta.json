@@ -1,0 +1,22 @@
+{
+  "n": 9,
+  "code": "WOW-009",
+  "date": "2026-09-16",
+  "language": "he",
+  "title": "היום שבו האוויר בישראל הכי נקי",
+  "topics": [
+    "כימיה",
+    "גאוגרפיה",
+    "מתמטיקה",
+    "היסטוריה"
+  ],
+  "summary": "Yom Kippur as a national-scale natural experiment in air pollution: >150 monitoring stations watch nitrogen oxides crash within hours when Israel's 4M+ engines stop (Tel Aviv Levinsky 68.9 → 4.9 ppb, ≈93%; 2025 Ministry data), why thermal NO is born from the air itself above ~1,300 °C, why NOx is short-lived, the ozone paradox (NO titration: NO + O3 → NO2 + O2, so city ozone rises +8 ppb per Levy 2013 while downwind falls only 5), the ozone weekend effect, particles that do not drop (desert dust, Dayan 2011), and Arie Haagen-Smit, the pineapple-flavour chemist who made smog in a flask and traced LA's 1943 'gas attack' to car exhaust and sunlight (1952).",
+  "teaser": "בעוד ארבעה ימים, ביום ראשון בערב, יקרה בישראל משהו שלא קורה בשום מדינה אחרת: כמעט כל המנועים ייכבו. יום כיפור. במשך 25 שעות הכבישים המהירים יהיו של האופניים. אבל יש מי שלא שובת: יותר מ־150 תחנות ניטור אוויר, שנושמות את האוויר של ישראל כל דקה. והן רואות דבר מדהים: תוך שעות, זיהום המכוניות מעל הערים צונח — בתל אביב ביותר מ־90%. ואז מגיעה ההפתעה: מזהם אחד, האוזון, דווקא עולה. השאלה הגדולה של היום: איך יכול להיות שכשמעלימים את המכוניות, משהו נהיה גרוע יותר?",
+  "max_score": 11,
+  "status": "released",
+  "released_at": null,
+  "password": "אופניים על האיילון",
+  "reviewer_verdict": "PASS (2 rounds) — remaining nits: time-on-task estimated ~40–45 min vs the 25-minute tag (shorter than #8), the optional challenge counts toward the older kid's max (shared engine behaviour), demo sliders stay live after start (demo mode only)",
+  "review_url": "https://claude.ai/artifact/UfTTufGt5sX9ZKJJtv1ukn",
+  "editor_note": null
+}
