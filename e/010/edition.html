@@ -1,0 +1,1684 @@
+<title>שורשים וכנפיים #10 · הנמלה שהלכה על קביים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F4F2EA; --card:#FFFFFF; --card2:#F7F5FF; --ink:#171B33; --muted:#575B75;
+  --sun:#E09A2B; --sun-deep:#7A4A08; --sun-soft:#FAE8C4;
+  --nile:#1B7FB0; --nile-soft:#D2E8F5; --shadow:#8B3F2A; --shadow-soft:#F6E2D8;
+  --sand:#DCD6C4; --line:#E4DFD2; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#B9D7EE; --sky2:#F3EEE2; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#D9822B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10142B; --card:#1A1F3E; --card2:#222749; --ink:#F2EDE0; --muted:#AFB3CC;
+    --sun:#FFB454; --sun-deep:#FFC98A; --sun-soft:#4A3312;
+    --nile:#5EC1EC; --nile-soft:#123444; --shadow:#E4A88C; --shadow-soft:#3E2620;
+    --sand:#363C60; --line:#2F3559; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#171A2E; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10142B; --card:#1A1F3E; --card2:#222749; --ink:#F2EDE0; --muted:#AFB3CC;
+  --sun:#FFB454; --sun-deep:#FFC98A; --sun-soft:#4A3312;
+  --nile:#5EC1EC; --nile-soft:#123444; --shadow:#E4A88C; --shadow-soft:#3E2620;
+  --sand:#363C60; --line:#2F3559; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#171A2E; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: an ant (three dots) on a dotted trail */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:40px;height:26px;flex:none}
+.ch .stick::before{content:"";position:absolute;right:0;bottom:8px;width:34px;height:0;border-top:3px dotted var(--sun);opacity:.9}
+.ch .stick::after{content:"";position:absolute;right:2px;bottom:12px;width:10px;height:10px;border-radius:50%;background:var(--shadow);box-shadow:-11px 0 0 -1px var(--shadow),-20px 0 0 -2px var(--shadow)}
+
+/* hero */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-24px;width:300px;height:300px;z-index:0;opacity:.92;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 2.4s ease-in-out infinite;transform-origin:150px 172px}}
+@keyframes spark{0%,100%{transform:scale(.6);opacity:.4}50%{transform:scale(1.25);opacity:1}}
+/* this edition's widgets */
+.dpad{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-areas:". n ." "w . e" ". s .";gap:6px;direction:ltr;flex:none}
+.dpad .n{grid-area:n} .dpad .s{grid-area:s} .dpad .e{grid-area:e} .dpad .w{grid-area:w}
+.dpad .btn{justify-content:center;white-space:nowrap}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 10</div>
+</div></header>
+
+
+<main>
+
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="45%" r="60%">
+        <stop offset="0%" stop-color="var(--sun)" stop-opacity=".40"/>
+        <stop offset="60%" stop-color="var(--nile)" stop-opacity=".14"/>
+        <stop offset="100%" stop-color="var(--nile)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="140" fill="url(#glow)"/>
+    <!-- the sun, a zigzag trail, and an ant walking on tiny stilts -->
+    <g class="spark"><circle cx="150" cy="172" r="7" fill="var(--sun)" opacity=".5"/></g>
+    <circle cx="66" cy="76" r="22" fill="var(--sun)" opacity=".95"/>
+    <path d="M40 250 L70 214 L104 236 L126 196 L160 214 L186 178" fill="none" stroke="var(--shadow)" stroke-width="4" stroke-dasharray="8 8" stroke-linecap="round" opacity=".8"/>
+    <!-- ant: three body parts, six legs on stilts, two antennae -->
+    <g fill="var(--ink)" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" opacity=".38">
+      <ellipse cx="236" cy="168" rx="20" ry="13" stroke="none"/>
+      <ellipse cx="208" cy="166" rx="11" ry="9" stroke="none"/>
+      <circle cx="190" cy="162" r="9" stroke="none"/>
+      <path d="M200 160 L226 172 M210 158 L214 172" stroke="var(--ink)" stroke-width="3"/>
+      <path d="M212 172 L196 196 L192 212 M220 174 L214 200 L212 216 M230 174 L236 200 L240 216 M206 166 L184 184 L178 200 M216 162 L214 140 M226 162 L234 140" fill="none"/>
+      <path d="M186 158 L172 146 M192 154 L184 138" fill="none" stroke-width="3"/>
+    </g>
+    <!-- the stilts: light bristles under the feet -->
+    <g stroke="var(--sun-deep)" stroke-width="5" stroke-linecap="round" opacity=".6">
+      <path d="M192 212 L190 236 M212 216 L212 240 M240 216 L244 240 M178 200 L172 222"/>
+    </g>
+    <!-- the nest hole -->
+    <ellipse cx="248" cy="252" rx="16" ry="6" fill="var(--shadow)" opacity=".9"/>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 10</span><span class="tag">יום חמישי, 17 בספטמבר 2026</span><span class="tag">ו׳ בתשרי תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>הנמלה שהלכה על קביים</h1>
+  <p class="lede">במדבר, בשעה הכי חמה של היום, כשהחול לוהט ביותר מ־<b class="num">60</b> מעלות וכל הלטאות מסתתרות, יוצאת מחור ברוחב של עיפרון נמלה אחת, לבד. היא רצה בזיגזג, מתפתלת ומחפשת, לפעמים יותר ממאה מטר מהבית — ואז מוצאת חרק שמת מהחום, מסתובבת, ורצה <b>בקו ישר</b> בדיוק אל החור הקטן שלה. בלי שביל של ריח, בלי חברות שמראות את הדרך, עם מוח שקטן מראש סיכה. השאלה הגדולה של היום: <b>איך היא יודעת איפה הבית — ואיך מדענים הוכיחו שהיא סופרת צעדים?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">מדענים לימדו נמלות מדבר ללכת מהקן אל אוכל שהונח בדיוק <span class="num">10</span> מטר ממנו, שוב ושוב. יום אחד, כשנמלה הגיעה לאוכל, הם הדביקו לרגליים שלה קביים זעירים (מזיפים של חזיר!) ושחררו אותה לדרך הביתה. איפה היא תתחיל לחפש את פתח הקן?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="6"><b>אחרי כ־⁠<span class="num">6</span> מטר</b><span>הרגליים המוזרות מבלבלות אותה — היא עוצרת מוקדם</span></button>
+      <button type="button" class="scaleopt" data-scale="10"><b>אחרי <span class="num">10</span> מטר בדיוק</b><span>היא יודעת איפה הבית, לא משנה אילו רגליים</span></button>
+      <button type="button" class="scaleopt" data-scale="15"><b>אחרי כ־⁠<span class="num">15</span> מטר</b><span>היא הולכת רחוק מדי ומפספסת את הבית</span></button>
+      <button type="button" class="scaleopt" data-scale="99"><b>היא הולכת לאיבוד</b><span>מסתובבת במעגלים ולא מוצאת כלום</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE DESERT AT NOON (interactive 1: the journey) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>הנמלה שרצה לבד בשעה הכי חמה</h2>
+  <p>יש נמלים שיוצאות דווקא כשהכי חם. נמלת המדבר (השם המדעי: <span class="num">Cataglyphis</span>, "קָטָגְלִיפִיס"; בעברית קוראים לה, לא במקרה, <b>נַוֶּטֶת</b>) עובדת דווקא בשעות החמות של היום, כשהחול מגיע ל־⁠<span class="num">60</span> מעלות ויותר, ואף לטאה לא מעזה לצאת. אז היא רצה החוצה לאסוף חרקים שהחום גמר אותם. הסכנה: כל דקה בחוץ היא כמעט בישול. לכן היא לא מטיילת בנחת — היא רצה, ובדרך הביתה היא לא מרשה לעצמה לטעות.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>בקן חיים אלפי נמלים, אבל החוצה יוצאות רק ה"ציידות". חיי ציידת קצרים: בערך שבוע, ואז החום או ציפור מנצחים. בשבוע הזה היא יוצאת עשרות פעמים, לבד, ומחפשת בזיגזג: ימינה, שמאלה, עוד קצת, לפעמים מאות מטרים של הליכה. ואז, ברגע שמצאה — היא מסתובבת ורצה הביתה בקו ישר, כאילו מישהו מתח חוט בינה לבין הקן.</p>
+    <p>איך? באינטראקטיב: גררו את הנמלה לאורך המסע שלה. שימו לב לחץ הכתום: זה ה"חץ שבראש" שלה — כל הזמן הוא מצביע הביתה, גם כשהיא לא רואה את הקן. הסוד של השיעור הוא איך היא מעדכנת את החץ הזה בכל צעד.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>נמלת המדבר היא אלופת עולם בשני דברים: חום ונווט. היא מסוגלת לרוץ כשהגוף שלה מתחמם ליותר מ־⁠<span class="num">50</span> מעלות — כמעט אין חיה יבשתית שמסוגלת לזה — והיא עושה את זה בכוונה, כי בשעה הזאת הטורפים בבית והאוכל (חרקים שהתייבשו בחום) מונח על החול. ציידת חיה בממוצע כשישה ימים בלבד מהרגע שהתחילה לצאת, ובימים האלה היא לומדת: בהתחלה היא מוצאת אוכל רק בכרבע מהיציאות, אחרי שבוע — ב־⁠<span class="num">80%</span> מהן.</p>
+    <p>הבעיה שהיא פותרת מרשימה: היא הולכת בזיגזג, לפעמים מאות מטרים, ואז חוזרת בקו ישר לחור בגודל של עיפרון — במישור מלוח ושטוח שאין בו כמעט סימני דרך, ובחום שמאדה כל שביל ריח. מדענים קוראים לזה <b>אינטגרציית מסלול</b>: הנמלה לא זוכרת את הדרך, היא מחשבת כל הזמן חץ אחד — "הבית שם, במרחק כזה". באינטראקטיב: גררו אותה לאורך המסע, וראו כמה הלכה בפועל מול כמה היא צריכה ללכת בחזרה.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — המסע ===== -->
+  <div class="panel instrument">
+    <h3>המסע של נמלה אחת</h3>
+    <p class="cap">גררו את הזמן. הקו הכהה הוא הדרך שהנמלה הלכה בפועל; החץ הכתום הוא הכיוון והמרחק הביתה שהיא מחזיקה בראש בכל רגע. כשהיא מוצאת אוכל — לחצו "הביתה!".</p>
+    <canvas id="jCv" width="640" height="440" aria-label="מפה מלמעלה: קן, מסלול זיגזג של נמלה שמתארך עם הזמן, וחץ שמצביע תמיד מהנמלה אל הקן; בסוף קו ישר חזרה"></canvas>
+    <div class="controls">
+      <label>הזמן במסע
+        <input type="range" id="jT" min="0" max="100" step="1" value="0" oninput="jDraw(1)" aria-label="התקדמות במסע" style="direction:ltr">
+      </label>
+      <div class="readout">הלכה: <b class="num" id="jWalk">0</b> מ׳</div>
+      <div class="readout">הביתה בקו ישר: <b class="num" id="jHome">0</b> מ׳</div>
+    </div>
+    <div class="controls">
+      <button class="btn small" id="jHomeBtn" onclick="jGoHome()" disabled>הביתה!</button>
+      <button class="btn small ghost" id="jArrowBtn" onclick="jToggleArrow()">להסתיר את החץ</button>
+      <button class="btn small ghost" onclick="jReset()">מהתחלה</button>
+    </div>
+    <p class="cap" id="jMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>הנמלה הזאת הלכה כמעט <span class="num">200</span> מטר בזיגזג, אבל הביתה יש רק <span class="num">135</span>. כדי לרוץ הביתה בקו ישר היא צריכה לדעת שני דברים: <b>לאיזה כיוון</b> ו<b>כמה רחוק</b>. על הכיוון בפרק <span class="num">3</span>. קודם — המרחק, וניסוי מטורף.</p></div>
+
+  <div class="q qc" id="journeyQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE STILTS EXPERIMENT (interactive 2: the lab) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>הניסוי: קביים וגדמים</h2>
+  <p>השאלה הראשונה: איך הנמלה יודעת <b>כמה רחוק</b> הבית? יש לה שעון פנימי? היא מרגישה כמה התעייפה? או שהיא סופרת? ב־⁠<span class="num">2006</span> שלושה חוקרים — מתיאס ויטלינגר, רודיגר וֶנֶר והראלד וולף — נסעו למישור מלח בתוניסיה ועשו ניסוי שנשמע כמו בדיחה, וגם לא ממש נעים לנמלים: הם שינו להן את אורך הרגליים.</p>
+
+  <!-- ===== INTERACTIVE 2 — מעבדת הקביים ===== -->
+  <div class="panel instrument">
+    <h3>מעבדת הקביים</h3>
+    <p class="cap">בחרו רגליים, בחרו מתי הן שונו, ושחררו את הנמלה בתעלת המבחן. הקן "האמיתי" אמור להיות במרחק <span class="num">10</span> מטר מנקודת השחרור. איפה היא תתחיל לחפש?</p>
+    <canvas id="labCv" width="640" height="440" aria-label="תעלת מבחן עם סרגל מטרים; נמלה יוצאת מנקודת השחרור, ודגל מסמן איפה הקן היה אמור להיות; הנמלה עוצרת ומחפשת בלולאות במקום שתלוי באורך הרגליים"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="סוג הרגליים">
+        <button id="labL0" onclick="labLegs(0)">גדמים</button>
+        <button id="labL1" class="on" onclick="labLegs(1)">רגילות</button>
+        <button id="labL2" onclick="labLegs(2)">קביים</button>
+      </div>
+      <div class="seg" role="group" aria-label="מתי שונו הרגליים">
+        <button id="labW0" class="on" onclick="labWhen(0)">שונו רק לדרך הביתה</button>
+        <button id="labW1" onclick="labWhen(1)">שונו כבר לפני היציאה</button>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn small" id="labRunBtn" onclick="labRun()">לשחרר את הנמלה</button>
+      <div class="readout">צעדים חזרה: <b class="num" id="labSteps">—</b></div>
+      <div class="readout">מחפשת אחרי: <b class="num" id="labStop">—</b> מ׳</div>
+    </div>
+    <p class="cap" id="labMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ככה זה עבד. קודם לימדו נמלות: הקן כאן, האוכל בדיוק <span class="num">10</span> מטר משם, בתוך תעלה ישרה. הנמלות למדו את הדרך והלכו הלוך וחזור עשרות פעמים. ואז, כשנמלה הגיעה לאוכל, תפסו אותה ועשו אחד משני דברים: הדביקו לרגליים <b>קביים</b> קטנטנים מזיפי חזיר, כך שכל צעד נהיה ארוך יותר — או קיצרו את הרגליים, כך שכל צעד נהיה קצר יותר. ושחררו אותה בתעלה אחרת, לכיוון "הבית".</p>
+    <p>הנמלה עם הקביים הלכה, הלכה, עברה את המקום שבו הקן היה אמור להיות — והתחילה לחפש רק אחרי כ־⁠<span class="num">15</span> מטר. הנמלה עם הרגליים הקצרות עצרה לחפש כבר אחרי פחות מ־⁠<span class="num">6</span> מטר. שתיהן עשו את אותו מספר צעדים כמו תמיד — אבל צעדים ארוכים מביאים רחוק יותר, וצעדים קצרים פחות. הנמלה <b>סופרת צעדים</b>. והחלק הכי חכם: נמלות שקיבלו קביים עוד <b>לפני</b> שיצאו מהקן חזרו בדיוק הביתה, כי הן ספרו את אותם צעדים ארוכים גם החוצה וגם בחזרה. מונה צעדים לא אכפת לו כמה ארוך כל צעד — כל עוד הוא זהה הלוך וחזור.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>התכנון: אימון בתעלה ישרה, מהקן אל האוכל במרחק <span class="num">10</span> מטר. ליד האוכל תופסים את הנמלה, משנים את הרגליים ומעבירים אותה לתעלת מבחן מקבילה, בלי שום סימן דרך. היא רצה "הביתה" ומתחילה חיפוש — הליכה בלולאות — במקום שבו היא חושבת שהקן. המקום הזה הוא המדידה. התוצאות: נמלות רגילות חיפשו אחרי <span class="math">10.2</span> מ׳. נמלות על קביים — אחרי <span class="math">15.3</span> מ׳, כ־⁠<span class="num">50%</span> רחוק מדי. נמלות עם רגליים מקוצרות — אחרי <span class="math">5.75</span> מ׳, כ־⁠<span class="num">44%</span> מוקדם מדי.</p>
+    <p>ועכשיו החלק החכם באמת של הניסוי, זה שהופך ניחוש לראיה. קבוצה נוספת קיבלה קביים (או גדמים) עוד <b>לפני</b> שיצאה מהקן, כך שהלכה עם הרגליים החדשות גם החוצה וגם בחזרה. הנמלות האלה חזרו בדיוק הביתה, כ־⁠<span class="num">10</span> מטר. למה? כי מספר הצעדים החוצה שווה למספר הצעדים חזרה — לא משנה כמה ארוך כל צעד. זה בדיוק מה שמונה צעדים היה עושה. ומה עם ההסברים האחרים? מדידה לפי הנוף שחולף בעיניים כבר נפסלה בניסויים קודמים, ומדידת זמן נפסלה כי נמלה שסוחבת משא כבד והולכת לאט חוזרת מדויק בדיוק כמו נמלה מהירה. נשאר מונה הצעדים — וניסוי הקביים מראה שהוא תלוי באורך הרגל.</p>
+    <p data-level="standard">מדענים לא מרוצים גם כשהם צודקים. במדידות וידאו התברר שהקביים האריכו את הצעד רק בכ־⁠<span class="num">30%</span>, ובכל זאת הנמלות הלכו <span class="num">50%</span> רחוק מדי. משהו חסר. בניסוי המשך התברר שהנמלה לא רק סופרת צעדים אלא גם "מרגישה" את קצב ההליכה. הפער בין החישוב לתוצאה הוא לא כישלון — הוא הרמז הבא.</p>
+    <p data-level="advanced">[מתקדם] מדענים לא מרוצים גם כשהם צודקים. במדידות וידאו הקביים האריכו את הצעד בכ־⁠<span class="num">30%</span> (מ־⁠<span class="math">13.3</span> לכ־⁠<span class="math">17.5</span> מ"מ), מה שהיה אמור להביא את הנמלה לכ־⁠<span class="math">13.4</span> מ׳ בלבד — והיא הלכה עד <span class="math">15.3</span>. פער עקבי של כ־⁠<span class="num">17%</span> בכל הקבוצות. במאמר המשך (<span class="num">2007</span>) הראו שהמונה של הנמלה משקלל גם את אורך הצעד וגם את מהירות ההליכה, כמו מטוטלת שמתנדנדת בקצב. הפער בין המודל הפשוט למדידה הוא לא כישלון — הוא המקום שבו מתחיל המאמר הבא.</p>
+  </div>
+
+  <div class="q qc" id="stiltQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE SKY COMPASS (interactive 3: the mirror) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>המצפן שבשמיים</h2>
+  <p>לספור צעדים זה חצי מהעבודה. מי שסופר <span class="num">500</span> צעדים לכיוון הלא נכון מגיע רחוק מאוד מהבית. הנמלה צריכה מצפן — ואין לה מחט מגנטית בראש. המצפן הראשי שלה תלוי בשמיים.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ב־⁠<span class="num">1911</span> רופא שווייצרי שחי בתוניסיה, פליקס סַנְצִ'י, עשה ניסוי עם מראה. הוא הסתיר מנמלה בדרכה הביתה את השמש עם לוח, והראה לה את השמש דרך מראה — מהצד השני. הנמלה הסתובבה והלכה לכיוון הלא נכון, בדיוק באותה זווית שבה המראה "הזיזה" את השמש! היא לא הלכה "הביתה" — היא הלכה "כך וכך ימינה מהשמש".</p>
+    <p>וזה עוד לא הכול. גם כשמסתירים את השמש עצמה, הנמלה מסתדרת — מספיקה לה פיסה קטנה של שמיים כחולים. לאור השמיים יש "כיוון" נסתר שהעיניים שלנו לא רואות, ובחלק העליון של העין של הנמלה יש תאים מיוחדים שרואים אותו. רק כשמכסים את כל השמיים היא מסתובבת אבודה. נסו במצפן.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>ב־⁠<span class="num">1911</span> פליקס סַנְצִ'י, רופא שווייצרי שחי בקירואן שבתוניסיה, גילה עם מראה שנמלת המדבר מנווטת לפי השמש: כשהוא הסתיר את השמש והציג לה אותה במראה מכיוון אחר, היא סטתה בדיוק באותה זווית. אבל הוא ראה גם דבר מוזר: כל עוד נותרה פיסת שמיים כחולים גלויה — גם בלי השמש — הנמלה חזרה הביתה. כשבעים שנה אחר כך הבינו למה: אור השמיים <b>מקוטב</b> — גלי האור מתנדנדים בכיוון מסוים, שתלוי במקום השמש. לנו זה בלתי נראה; בקצה העליון של העין המורכבת של הנמלה יש שורת עיניות זעירות שרגישות בדיוק לזה. השמיים כולם הם מצפן, גם כשהשמש מוסתרת.</p>
+    <p>וזה עוד לא נגמר: השמש זזה, בממוצע כ־⁠<span class="num">15</span> מעלות בשעה. נמלה שיוצאת לרבע שעה חייבת לתקן את החישוב לפי השעה, ויש ראיות שהיא לומדת לעשות את זה. ובשנים האחרונות התגלה שבסיבובי הלימוד הראשונים שלה סביב הקן היא נעזרת גם בשדה המגנטי של כדור הארץ — כמו הציפורים מגיליון <span class="num">5</span>. עכשיו יש לה את שני החלקים של החץ: הכיוון וגם המרחק.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — מצפן השמיים ===== -->
+  <div class="panel instrument">
+    <h3>מצפן השמיים — הניסוי של סנצ'י</h3>
+    <p class="cap">מבט מלמעלה: הנמלה באמצע, הקן האמיתי מסומן. הנמלה שומרת זווית קבועה בינה לבין השמש. גררו את המראה כדי "להזיז" את השמש — ובדקו לאן הנמלה תרוץ.</p>
+    <canvas id="skyCv" width="640" height="420" aria-label="מבט מלמעלה: נמלה במרכז, קן, שמש על מעגל; חץ מראה לאן הנמלה רצה; כשמזיזים את השמש במראה החץ מסתובב באותה זווית"></canvas>
+    <div class="controls">
+      <label>המראה מזיזה את השמש ב־
+        <input type="range" id="skyAng" min="0" max="180" step="5" value="0" oninput="skyDraw(1)" aria-label="הסטת השמש במעלות" style="direction:ltr">
+      </label>
+      <div class="readout"><b class="num" id="skyAngOut">0°</b></div>
+    </div>
+    <div class="controls">
+      <button class="btn small ghost" onclick="skyPreset('sun')">השמש האמיתית</button>
+      <button class="btn small ghost" onclick="skyPreset('mirror')">מראה: <span class="num">90°</span></button>
+      <button class="btn small ghost" onclick="skyPreset('cloud')">מסתירים רק את השמש</button>
+      <button class="btn small ghost" onclick="skyPreset('dark')">מכסים את כל השמיים</button>
+    </div>
+    <p class="cap" id="skyMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="q qc" id="skyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE ARROW IN THE HEAD (interactive 4: be the ant) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>החץ שבראש</h2>
+  <p>עכשיו מחברים: כיוון מהשמיים, מרחק מהצעדים. אבל הנמלה לא הולכת ישר — היא מזגזגת. איך מכל הזיגזג יוצא חץ אחד הביתה? התשובה: היא לא זוכרת את הדרך. היא מחזיקה בראש שני מספרים בלבד, ומעדכנת אותם בכל צעד.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>דמיינו שסופרים ככה: "כמה צעדים הלכתי צפונה, פחות כמה הלכתי דרומה" — זה מספר אחד. "כמה מזרחה, פחות כמה מערבה" — מספר שני. לא משנה כמה פניות היו בדרך, שני המספרים האלה אומרים בדיוק איפה הבית: מי שהלך בסך הכול <span class="num">12</span> צפונה ו־⁠<span class="num">5</span> מזרחה, הבית שלו <span class="num">12</span> דרומה ו־⁠<span class="num">5</span> מערבה. זה החץ. ובכל צעד רק צריך להוסיף <span class="num">1</span> למספר הנכון.</p>
+    <p>תהיו הנמלה: לחצו על הכפתורים ולכו לאן שבא לכם. תראו את שני המספרים משתנים ואת החץ הכתום מתעדכן. ואז לחצו "הביתה" — והנמלה תרוץ בקו ישר.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>זה נקרא <b>אינטגרציית מסלול</b>, ובמילים של מלחים: <b>ניווט מת</b> (dead reckoning). בכל צעד הנמלה יודעת שני דברים — כיוון (מהשמיים) ואורך (צעד אחד) — והיא מוסיפה אותם לשני סכומים: כמה צפון־דרום, כמה מזרח־מערב. שני הסכומים האלה הם <b>וקטור הבית</b>. ההליכה החוצה היא חיבור ארוך; הדרך הביתה היא פשוט הווקטור ההפוך.</p>
+    <p>ומה המרחק בקו ישר? אם הסכומים הם <span class="num">5</span> מזרחה ו־⁠<span class="num">12</span> צפונה, המרחק הוא לא <span class="num">17</span> (זה מה שהלכתם) — זה היתר של משולש ישר־זווית: <span class="math">5² + 12² = 25 + 144 = 169</span>, ו־⁠<span class="math">√169 = 13</span>. הנמלה, כמובן, לא מחשבת שורשים; המוח שלה מחזיק את הווקטור כמו מחוג. וההוכחה שהיא באמת מחזיקה חץ ולא זוכרת דרך: כשמעבירים אותה בחושך למקום אחר, היא רצה בדיוק לאורך הווקטור — ומגיעה למקום שבו הקן "היה אמור" להיות.</p>
+    <p data-level="standard">ובגלל שכל צעד מוסיף טעות קטנה, ככל שהמסע ארוך יותר החץ פחות מדויק. הנמלה יודעת את זה: כשהיא מגיעה לסוף החץ ולא מוצאת את הפתח, היא מחפשת בלולאות שהולכות וגדלות — ורוחב החיפוש גדול יותר אחרי מסע ארוך.</p>
+    <p data-level="advanced">[מתקדם] כל צעד מוסיף טעות קטנה, והטעויות מצטברות, ולכן דיוק החץ יורד עם אורך המסע. הנמלה מתאימה את עצמה: כשהחץ נגמר והפתח לא שם, היא עוברת לחיפוש שיטתי בלולאות מתרחבות סביב הנקודה, ומחקר מ־⁠<span class="num">2010</span> הראה שרוחב הלולאות תלוי באורך וקטור הבית — לא באורך הדרך המפותלת. כלומר היא "יודעת" כמה לא בטוח החישוב שלה. חשבו: למה הגיוני שהטעות תלויה במרחק בקו ישר ולא במספר הפניות?</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 4 — תהיו הנמלה ===== -->
+  <div class="panel instrument">
+    <h3>תהיו הנמלה</h3>
+    <p class="cap">כל לחיצה היא צעד אחד. הנמלה מחזיקה רק שני מספרים — צפון־דרום ומזרח־מערב — והחץ הכתום מחושב מהם. לכו בזיגזג, ואז לחצו "הביתה בקו ישר".</p>
+    <canvas id="vecCv" width="640" height="440" aria-label="רשת עם קן במרכז; הנמלה זזה צעד בכל לחיצה; קו כהה מראה את הדרך, וחץ כתום את הווקטור הביתה"></canvas>
+    <div class="controls" style="align-items:center">
+      <div class="dpad" role="group" aria-label="כיווני הליכה">
+        <button class="btn small ghost n" onclick="vecStep(0,1)">צפון ↑</button>
+        <button class="btn small ghost w" onclick="vecStep(-1,0)">← מערב</button>
+        <button class="btn small ghost e" onclick="vecStep(1,0)">מזרח →</button>
+        <button class="btn small ghost s" onclick="vecStep(0,-1)">דרום ↓</button>
+      </div>
+      <div style="display:grid;gap:8px">
+        <div class="readout">צפון־דרום: <b class="math" id="vecNS">0</b></div>
+        <div class="readout">מזרח־מערב: <b class="math" id="vecEW">0</b></div>
+        <div class="readout">צעדים שהלכתם: <b class="num" id="vecN">0</b></div>
+        <div class="readout">הביתה בקו ישר: <b class="num" id="vecD">0</b></div>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn small" id="vecHomeBtn" onclick="vecGoHome()" disabled>הביתה בקו ישר</button>
+      <button class="btn small ghost" onclick="vecPreset()"><span class="num">5</span> מזרחה, <span class="num">12</span> צפונה</button>
+      <button class="btn small ghost" onclick="vecReset()">מהתחלה</button>
+    </div>
+    <p class="cap" id="vecMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="aha">כלל אצבע: <b>לא צריך לזכור את הדרך</b> כדי לחזור הביתה. מספיק לזכור כמה הלכת לכל כיוון — ולהפוך.</div>
+
+  <div class="q qc" id="vecQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE MAN WHO FOLLOWED ANTS FOR 50 YEARS (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>האיש שרדף אחרי נמלים <span class="num">50</span> שנה</h2>
+    <p>רודיגר וֶנֶר הוא חוקר שווייצרי שבכל קיץ, במשך יותר מ־⁠<span class="num">50</span> שנה, נסע לאותו מישור מלח ליד העיירה מַהְרֶס בתוניסיה, בחום הנורא של הצהריים, כדי ללכת אחרי נמלים. הוא מתח על החול רשת של חוטים כדי לרשום כל פנייה שלהן, בנה להן תעלות, הזיז אותן בחושך למקומות אחרים, ובדק מה הן עושות. ככה, ניסוי אחרי ניסוי, התגלה כל מה שלמדתם היום: המצפן שבשמיים, ספירת הצעדים, החץ שבראש. ב־⁠<span class="num">2020</span>, בגיל <span class="num">80</span>, הוא כתב על זה ספר: "הנווט של המדבר".</p>
+    <p>ואצלנו? בישראל חיים לפחות חמישה מינים של נַוֶּטֶת — זה השם העברי של הסוג, בזכות הנווט. הנפוצה היא <b>הנווטת השחורה</b>, שרצה בחולות ובשטחים הפתוחים במישור החוף ובמדבר — כלומר גם בסביבה שלנו. במכון ויצמן חוקרים איך קבוצה של נווטות מצליחה לקרוא לעזרה כשמצאה אוכל גדול, ובאוניברסיטת חיפה גילו בה כרומוזום שקובע אם בקן יש מלכה אחת או כמה. בפעם הבאה שתראו בצהריים חמים נמלה שחורה גדולה שרצה לבד ומהר, כמעט בלי לעצור — דעו שהיא סופרת.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>האיש שרדף אחרי נמלים <span class="num">50</span> שנה</h2>
+    <p>כמעט כל מה שידוע על הנווט של הנמלה התגלה בזכות אדם אחד ומקום אחד. רודיגר וֶנֶר, חוקר מציריך, הגיע לראשונה למישור המלח ליד מַהְרֶס בתוניסיה לפני יותר מ־⁠<span class="num">50</span> שנה — ומאז חזר לשם כמעט כל קיץ. ארגז הכלים שלו פשוט ומבריק: רשת חוטים על החול כדי לשרטט את המסלול של כל נמלה, תעלות אימון ומבחן, ו"ניסויי העברה" — לוקחים נמלה שמצאה אוכל, מעבירים אותה בחושך למקום חדש, ורואים שהיא רצה בדיוק לאורך וקטור הבית שלה, ואז מחפשת בלולאות במקום שבו הקן "היה צריך" להיות. ב־⁠<span class="num">2020</span>, בגיל <span class="num">80</span>, סיכם הכול בספר "הנווט של המדבר: מסעה של נמלה".</p>
+    <p>ואצלנו? השם העברי של הסוג הוא <b>נַוֶּטֶת</b> — על שם הנווט. בישראל חיים לפחות חמישה מינים (מדענים עדיין מתווכחים כמה בדיוק — קשה להפריד ביניהם), והנפוצה היא <b>הנווטת השחורה</b>, <span class="num">Cataglyphis niger</span>, שרצה בחולות ובשטחים הפתוחים של מישור החוף והמדבר — כלומר גם בסביבה שלנו. במעבדה של עופר פיינרמן במכון ויצמן הראו איך קבוצה של נווטות מצליחה לגייס עזרה לאוכל גדול למרות שהמסרים בין נמלה לנמלה רועשים ולא מדויקים, ובאוניברסיטת חיפה גילו בה "כרומוזום חברתי" שקובע אם בקן יש מלכה אחת או כמה. בפעם הבאה שתראו בצהריים חמים נמלה שחורה גדולה שרצה לבד ומהר — עקבו אחריה רגע: החוצה בזיגזג, הביתה בקו ישר.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> המספרים האמיתיים מהניסוי של <span class="num">2006</span>, המרחק שבו הנמלות התחילו לחפש את הקן: רגליים רגילות <span class="math">10.2</span> מ׳; קביים <span class="math">15.3</span> מ׳; גדמים <span class="math">5.75</span> מ׳. (א) בכמה אחוזים הנמלות על הקביים הלכו רחוק מדי, ביחס לנמלות הרגילות? (עגלו למספר שלם.) (ב) בכמה אחוזים הנמלות עם הגדמים עצרו מוקדם מדי, ביחס לרגילות? (עגלו למספר שלם.) (ג) נמלת מדבר רצה בערך <span class="math">0.3</span> מטר בשנייה. כמה שניות רצה נמלת הקביים עד שהתחילה לחפש? (מספר שלם.)</p>
+      <div class="controls">
+        <label>(א) קביים, אחוזים רחוק מדי <input type="number" id="chalStilt" inputmode="decimal" step="0.1" placeholder="?"></label>
+        <label>(ב) גדמים, אחוזים מוקדם מדי <input type="number" id="chalStump" inputmode="decimal" step="0.1" placeholder="?"></label>
+        <label>(ג) שניות של ריצה <input type="number" id="chalSec" inputmode="decimal" step="0.1" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()" data-g="בדוק|בדקי">בדקי</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> נמלה יצאה מהקן <b>על קביים</b>, הלכה <span class="num">10</span> מטר עד האוכל, ושם הורידו לה את הקביים והחזירו לה רגליים רגילות לדרך הביתה. איפה היא תתחיל לחפש — לפני הקן, בדיוק בקן, או אחריו? ולמה בכלל כדאי לנמלה לסמוך על ספירת צעדים ולא, למשל, על כמה זמן עבר?</p>
+      <details><summary>הרמז והתשובה</summary><p>בדרך החוצה כל צעד היה ארוך (כ־⁠<span class="math">17.5</span> מ"מ במקום <span class="math">13.3</span>), אז <span class="num">10</span> מטר נכנסו לה לספירה כמספר <b>קטן</b> של צעדים: <span class="math">10,000 ÷ 17.5 ≈ 570</span> במקום כ־⁠<span class="num">750</span>. בדרך הביתה היא עושה את אותו מספר קטן של צעדים, אבל עכשיו כל צעד רגיל: <span class="math">570 × 13.3 ≈ 7,600</span> מ"מ — היא תעצור לחפש כ־⁠<span class="math">2.4</span> מטר <b>לפני</b> הקן. וזה בדיוק המראה של קבוצת הגדמים בניסוי. ולמה צעדים ולא זמן? כי הזמן משקר: הנמלה לפעמים עוצרת, לפעמים רצה מהר ולפעמים לאט, ולפעמים רוח דוחפת אותה. הצעדים, לעומת זאת, נשארים בערך באותו אורך — עד שמישהו מדביק לך קביים. (ובכל זאת, המדידות מראות שהיא משקללת גם את קצב ההליכה, לא רק סופרת.)</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>שלושה ניסויים. הראשון הוא הניסוי של היום — בגרסה שלכם. השניים האחרים לבחירה.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — הנמלה העיוורת (<span class="num">10</span> דקות, בחצר או ברחוב שקט)</h3>
+    <p class="cap">מה צריך: סרט מידה, גיר או אבן לסימון, ומישהו שילך לידכם בעיניים פקוחות.</p>
+    <ol>
+      <li><b>מודדים צעד:</b> הולכים <span class="num">10</span> צעדים רגילים, מודדים את המרחק במטרים ומחלקים ב־⁠<span class="num">10</span>. זה אורך הצעד שלכם (אצל רוב הילדים: בערך חצי מטר).</li>
+      <li><b>הולכים כמו נמלה:</b> מסמנים נקודת התחלה. עוצמים עיניים, הולכים <span class="num">20</span> צעדים תוך ספירה, מסתובבים, וחוזרים <span class="num">20</span> צעדים. פוקחים: כמה רחוק מהסימון עצרתם? מודדים.</li>
+      <li><b>ניסוי הקביים:</b> אותו דבר, אבל בדרך חזרה עושים <span class="num">20</span> צעדי ענק. איפה עצרתם הפעם — לפני הסימון או אחריו? עכשיו אתם הנמלה עם הקביים.</li>
+      <li><b>מחשבים:</b> <span class="num">20</span> צעדים כפול אורך הצעד שלכם = המרחק ש"ספרתם". השוו למרחק שמדדתם. מי דייק יותר, אתם או הנמלה?</li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <h3>חלק ב׳ — המראה של סנצ'י, בגרסת פנס (בערב, בחדר חשוך)</h3>
+    <p>מישהו מחזיק פנס בפינת החדר — זו "השמש". הכלל שלכם: הולכים כך שהאור תמיד על הכתף הימנית. הגיעו לצד השני של החדר וחזרו לפי אותו כלל — אלא שבאמצע הדרך חזרה, בלי להגיד לכם, מעבירים את הפנס לפינה אחרת. מי ששומר על הכלל מגיע למקום הלא נכון, בדיוק כמו הנמלה של סנצ'י.</p>
+  </div>
+
+  <div class="panel">
+    <h3>חלק ג׳ — לחפש נמלת מדבר (בצהריים חמים, על שביל חול)</h3>
+    <p>בשעה הכי חמה של היום, על שביל חולי או בשטח פתוח, חפשו נמלה שחורה גדולה שרצה <b>לבד</b> ומהר, בלי שיירה. רוב הנמלים הולכות בשורות; זו לא. עקבו אחריה מרחוק (לא נוגעים — רק מסתכלים): החוצה בזיגזג עם עצירות קצרות, ואם היא מצאה משהו — הביתה בקו ישר. נסו למצוא את החור שאליו נעלמה: כמה הוא קטן?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>בטלפון של ההורים יש מונה צעדים. הוא מרגיש כל טלטלה של הליכה, סופר, ומכפיל באורך הצעד — בדיוק מה שהנמלה עושה, רק שהיא עושה את זה עם מוח שקטן מראש סיכה, ובלי סוללה. גם במכונית יש מונה כזה: מד המרחק סופר כמה פעמים הגלגל הסתובב, וכל סיבוב הוא "צעד" של כשני מטרים.</p>
+    <p>ולפני שהיו לוויינים, גם ספינות ניווטו ככה: מצפן לכיוון, ומהירות כפול זמן למרחק. וגם אתם: כשאתם הולכים בלילה בבית בחושך, המוח שלכם מחזיק חץ קטן. הוא לא מדויק כמו של הנמלה, אבל הוא שם.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>גם בני אדם עושים אינטגרציית מסלול — לא טוב במיוחד. האוזן הפנימית מרגישה תאוצות ופניות, הרגליים מדווחות על צעדים, והמוח מחבר. אבל בלי סימני דרך אנחנו סוטים: אנשים עם עיניים מכוסות שמנסים ללכת ישר מתחילים להסתובב במעגלים אחרי כמה עשרות מטרים. הנמלה, עם מוח של פחות ממיליון תאי עצב, עושה את זה על מאות מטרים.</p>
+    <p>ומהנדסים? הרוברים על מאדים סופרים סיבובי גלגלים — "מד אוץ" בדיוק כמו במכונית, וכמו ספירת צעדים. אבל כשגלגל מחליק על חול, הספירה משקרת: הגלגל הסתובב, הרובר לא זז. זה בדיוק "הקביים" של הרובר. לכן הרוברים בודקים את עצמם גם עם מצלמות שעוקבות אחרי אבנים בתמונה. הטבע והנאס"א הגיעו לאותה מסקנה: שתי מדידות בלתי תלויות — צעדים ושמיים, גלגלים ומצלמה — טובות יותר מאחת. וזו גם הסיבה שהנמלה בודקת את החץ שלה מול סימני דרך כשיש כאלה.</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">הנדסה</div><h3>מד המרחק במכונית</h3><p>המכונית לא "יודעת" כמה נסעה — היא סופרת סיבובי גלגל ומכפילה בהיקף שלו. גלגל של כ־⁠<span class="num">2</span> מטר היקף: <span class="math">500</span> סיבובים = קילומטר. צעדים ארוכים יותר (גלגל גדול יותר) — והמד יטעה, בדיוק כמו הנמלה על הקביים.</p></div>
+    <div class="tile"><div class="dom">היסטוריה</div><h3>ניווט מת של מלחים</h3><p>לפני הלוויינים, ספינה ידעה איפה היא רק מכיוון המצפן ומ"מהירות כפול זמן". את המהירות מדדו עם חבל עם קשרים במרווחים קבועים שנזרק למים — ומשם היחידה "קשר". קולומבוס חצה כך את האוקיינוס: חץ בראש, כמו הנמלה.</p></div>
+    <div class="tile"><div class="dom">פיזיקה</div><h3>האור שהנמלה רואה ואנחנו לא</h3><p>אור השמיים מקוטב: הגלים מתנדנדים בכיוון מסוים. גם המסך של הטלפון פולט אור כזה — סובבו משקפי שמש מקוטבים מול המסך והוא יחשיך ויאיר לסירוגין. זה ה"כיוון הנסתר" של האור שהעין של הנמלה קוראת מהשמיים.</p></div>
+    <div class="tile"><div class="dom">חלל</div><h3>הרובר שספר סיבובים</h3><p>הרוברים על מאדים סופרים סיבובי גלגלים כדי לדעת כמה נסעו. ב־⁠<span class="num">2009</span> הרובר "ספיריט" נתקע בחול רך: הגלגלים הסתובבו, המונה ספר — והרובר לא זז. מונה בלי בדיקה שנייה הוא כמו הנמלה עם הקביים.</p></div>
+  </div>
+
+  <details class="bonus" id="latBox">
+    <summary>בונוס (2 דקות): מי מודד מרחק — ואיך</summary>
+    <table class="latbl">
+      <tr><td>נמלת המדבר</td><td>סופרת צעדים</td><td>הכיוון מהשמש ומאור השמיים המקוטב</td></tr>
+      <tr><td>דבורה (גיליון <span class="num">2</span>)</td><td>כמה מהר הנוף "זורם" בעיניים</td><td>אי אפשר לספור צעדים באוויר</td></tr>
+      <tr><td>ספינה בלי לוויין</td><td>מהירות כפול זמן</td><td>המצפן לכיוון; טעות מצטברת עם המרחק</td></tr>
+      <tr><td>מכונית</td><td>סיבובי גלגל כפול היקף</td><td>גלגל שמחליק "משקר"</td></tr>
+      <tr><td>הטלפון בכיס</td><td>חיישן תאוצה סופר טלטולים</td><td>ומתקן לפי הלוויינים כשיש קליטה</td></tr>
+      <tr><td>רובר על מאדים</td><td>סיבובי גלגלים ומצלמות</td><td>שתי מדידות, כי החול מחליק</td></tr>
+    </table>
+    <p class="cap" style="margin-top:10px">הדפוס: כל נווט צריך כיוון ומרחק, ומדידה אחת לבד תמיד מצטברת טעות. מי שחכם בודק אותה מול מדידה שנייה.</p>
+    <details><summary>שאלה קטנה</summary><p>למה דבורה לא סופרת צעדים כמו הנמלה, ואיך היא בכל זאת יודעת כמה רחוק הפרחים?</p>
+      <p data-level="advanced">[מתקדם] כי היא עפה — אין צעדים לספור. במקום זה היא מודדת <b>זרימה אופטית</b>: כמה מהר התמונה של הקרקע חולפת בעיניים. הניסוי שהוכיח את זה דומה להפליא לקביים: דבורים שעפו במנהרה עם פסים צפופים "ראו" את הנוף זורם מהר, ודיווחו בריקוד על מרחק גדול הרבה יותר מהאמיתי. גם הנמלה משתמשת קצת בזרימה האופטית של הקרקע — אבל הצעדים הם המונה הראשי שלה, כי על הקרקע הם אמינים יותר.</p>
+      <p data-level="standard">כי היא עפה — אין צעדים לספור. במקום זה היא מסתכלת כמה מהר הקרקע "זורמת" מתחתיה: כשעפים במנהרה עם פסים צפופים, הנוף נראה זורם מהר, והדבורה חושבת שעפה רחוק יותר — הקביים של הדבורים.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את שלבי הניסוי של <span class="num">2006</span>, מההתחלה ועד המסקנה. לחצו על הכרטיסים לפי הסדר הנכון (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: צעד של נמלת מדבר הוא בערך <span class="num">1</span> סנטימטר. הנמלה הולכת מהקן לאוכל — <span class="num">10</span> מטר. כמה צעדים היא סופרת? (רמז: קודם הפכו את המטרים לסנטימטרים.)</div>
+    <div class="controls"><label>מספר הצעדים <input type="number" id="numYounger" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')" data-g="בדוק|בדקי">בדוק</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: אורך הצעד של נמלת מדבר שנמדד בווידאו הוא <span class="math">13.3</span> מ"מ. (א) כמה צעדים היא סופרת בדרך של <span class="num">10</span> מטר? (עגלו למספר שלם.) (ב) על קביים היא הגיעה ל־⁠<span class="math">15.3</span> מטר. <b>אילו</b> ספרה בדיוק את אותו מספר צעדים, מה היה צריך להיות אורך הצעד שלה על הקביים, במ"מ? (חישוב "כאילו", לא המדידה מהווידאו. ספרה אחת אחרי הנקודה. מותר מחשבון.)</div>
+    <div class="controls"><label>(א) צעדים <input type="number" id="numAdv" inputmode="decimal" step="0.1" placeholder="?"></label><label>(ב) אורך צעד על קביים, מ"מ <input type="number" id="numAdvR" inputmode="decimal" step="0.1" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: אורך הצעד של נמלת מדבר הוא <span class="num">13</span> מ"מ. כמה צעדים היא סופרת בדרך של <span class="num">10</span> מטר מהקן לאוכל? (עגלו למספר שלם. רמז: כמה מ"מ יש ב־⁠<span class="num">10</span> מטר? מותר מחשבון.)</div>
+    <div class="controls"><label>מספר הצעדים <input type="number" id="numOlder" inputmode="decimal" step="0.1" placeholder="?"></label><button class="btn small" onclick="checkNum('older')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־⁠<span class="math">3–4</span> משפטים: <b>איך נמלת המדבר מוצאת את הדרך הביתה בקו ישר — ואיך ניסוי הקביים הוכיח שהיא סופרת צעדים?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="הנמלה יודעת לאיזה כיוון הבית בזכות השמש, ואת המרחק היא..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד ה־וואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. נמלת המדבר יוצאת לצוד דווקא בשעה הכי חמה, כשהחול לוהט ב־60 מעלות והלטאות מסתתרות. היא רצה בזיגזג מאות מטרים — ואז חוזרת בקו ישר לחור ברוחב של עיפרון, כי היא מחזיקה בראש "חץ" הביתה: את הכיוון היא לוקחת מהשמש ומאור השמיים המקוטב, ואת המרחק — מספירת צעדים.<br>
+    2. ב־2006 הדביקו מדענים בתוניסיה קביים מזיפי חזיר לרגליים של נמלות, אחרי הליכה של 10 מטר: הן הלכו רחוק מדי והתחילו לחפש את הקן רק אחרי <span class="math">15.3</span> מטר; נמלות עם רגליים מקוצרות עצרו כבר אחרי <span class="math">5.75</span>. ומי שקיבל קביים עוד לפני שיצא — חזר בדיוק הביתה. מונה צעדים, כמו בטלפון, עם מוח שקטן מראש סיכה.<br>
+    3. עוד ב־1911 הראה פליקס סנצ'י עם מראה שהנמלה שומרת זווית קבועה מהשמש: מזיזים את השמש במראה — והיא סוטה באותה זווית. גם בישראל חיות נמלות כאלה — בעברית קוראים להן, לא במקרה, "נווטת" — ואת הנווטת השחורה חוקרים במכון ויצמן ובאוניברסיטת חיפה.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>ניסוי הקביים: Wittlinger, M., Wehner, R. &amp; Wolf, H. (<span class="num">2006</span>), "The ant odometer: stepping on stilts and stumps", Science <span class="num">312</span>: <span class="math">1965–1967</span> — נמלות <span class="num">Cataglyphis fortis</span> במישור מלח בתוניסיה; אימון מהקן אל האוכל, <span class="num">10</span> מ׳ בתעלה; קביים מזיפי חזיר, גדמים על ידי קיצור הרגליים; מרחק תחילת החיפוש: ביקורת <span class="math">10.2</span> מ׳, קביים <span class="math">15.3</span> מ׳ (<span class="math">+50%</span>), גדמים <span class="math">5.75</span> מ׳ (<span class="math">−44%</span>); קבוצות ששונו לפני היציאה חזרו לכ־⁠<span class="num">10</span> מ׳. מאמר ההמשך: Wittlinger, Wehner &amp; Wolf (<span class="num">2007</span>), "The desert ant odometer: a stride integrator that accounts for stride length and walking speed", J. Exp. Biol. <span class="num">210</span>: <span class="math">198–207</span> — אורך צעד רגיל <span class="math">13.3</span> מ"מ (גדמים <span class="math">10.5</span>), מהירות בווידאו <span class="math">0.28</span> מ׳/ש׳; הקביים הוסיפו כ־⁠<span class="math">2–3</span> מ"מ לרגל; שינוי הצעד הצפוי <span class="math">+31.5%</span> / <span class="math">−27.7%</span> מול הנצפה <span class="math">+50%</span> / <span class="math">−43.6%</span>, פער עקבי של כ־⁠<span class="num">17%</span> — המונה משקלל אורך צעד ומהירות. רוחב החיפוש תלוי באורך וקטור הבית: Merkle &amp; Wehner (<span class="num">2010</span>), Behavioral Ecology <span class="num">21</span>: <span class="num">349</span>. "מאות מטרים", מצפן שמש ומונה צעדים, ניסויי העברה וחיפוש שיטתי: J. Exp. Biol. (<span class="num">2026</span>), "How the desert ant Cataglyphis fortis uses its nest hill for homing" (מישור מלח ליד Menzel Chaker). טמפרטורות: גוף מעל <span class="num">50</span> מעלות, חול עד כ־⁠<span class="num">70</span> (ויקיפדיה: Sahara Desert ant, Cataglyphis); מהירות שיא של <span class="num">C. fortis</span> כ־⁠<span class="math">0.6</span> מ׳/ש׳ ונמלת הכסף <span class="math">0.855</span> מ׳/ש׳ = <span class="num">108</span> אורכי גוף בשנייה: Pfeffer et al. (<span class="num">2019</span>), J. Exp. Biol. <span class="num">222</span>. תוחלת חיים של ציידת <span class="math">6.1</span> ימים והצלחה <span class="math">25% → 80%</span>: Schmid-Hempel &amp; Schmid-Hempel (<span class="num">1984</span>), Insectes Sociaux (<span class="num">C. bicolor</span>). סנצ'י: ניסוי המראה (<span class="num">1911</span>, תוניסיה) ותצפית פיסת השמיים; הקיטוב הוסבר כשבעים שנה מאוחר יותר על ידי ונר ועמיתיו (ויקיפדיה: Felix Santschi; Wehner, PNAS <span class="num">2006</span>). שדה מגנטי בסיבובי הלימוד: Fleischmann et al. (<span class="num">2018</span>), Current Biology. ונר: כ־⁠<span class="num">50</span> שנות עבודת שדה במַהְרֶס, הספר "Desert Navigator: The Journey of an Ant" (<span class="num">2020</span>) — AntWiki: Cataglyphis bicolor. ישראל: השם העברי "נווטת" (ויקיפדיה: נווטת); "חמישה מינים" לפי ויקיפדיה (הטקסונומיה בבדיקה — מחקרי אוניברסיטת תל אביב על קבוצות bicolor ו־albicans); הנווטת השחורה <span class="num">Cataglyphis niger</span> במישור החוף ובמדבר; מעבדת פיינרמן, מכון ויצמן: גיוס אמין למרות אינטראקציות רועשות (Razin et al., <span class="num">2013</span>, J. R. Soc. Interface) — מחקר "תמרורי הריח" של אותה מעבדה נעשה על נמלה אחרת (Camponotus fellah) ולכן לא מוזכר; אוניברסיטת חיפה (פריבמן): כרומוזום חברתי בנווטת השחורה (ynet, <span class="num">2024</span>). פישוטים במכוון: המספרים באינטראקטיבים (מסלול, מעבדה, וקטור) הם המחשות; "מונה צעדים" הוא הפישוט של המאמר הראשון, ומאמר ההמשך מדייק ל"אינטגרטור צעדים" שמשקלל מהירות; אורך הצעד על קביים בשאלת החישוב המתקדמת הוא חישוב היפותטי ("אילו ספרה בדיוק") — במדידה הוא היה כ־⁠<span class="math">17.5</span> מ"מ; "<span class="num">15</span> מעלות בשעה" הוא ממוצע; מוח הנמלה: פחות ממיליון תאי עצב (סדר גודל); "קולומבוס בניווט מת" — הכללה מקובלת. לוח עברי: Hebcal.</p>
+  </details>
+</section>
+
+</main>
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:10, code:'WOW-010', date:'2026-09-17', title:'הנמלה שהלכה על קביים', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '153XmdeZ15HXpyDXnNeiINeU15zXnteg'; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'biology', w:3 }, { id:'math', w:3 }, { id:'physics', w:2 } ],
+  hero: { name:'נמלת המדבר — מונה הצעדים', fact:'נמלות מדבר שקיבלו קביים זעירים הלכו 50 אחוז רחוק מדי בדרך הביתה, ונמלות עם רגליים מקוצרות עצרו בחצי הדרך — כי הן מודדות מרחק בספירת צעדים' },
+  items: {
+    'predict':       { skill:'estimation',            d:2 },
+    'qc:scale':      { skill:'prediction',            d:2 },
+    'qc:journeyQ':   { skill:'mechanism',             d:2 },
+    'qc:stiltQ':     { skill:'experimental-design',   d:3 },
+    'qc:skyQ':       { skill:'mechanism',             d:2 },
+    'qc:vecQ':       { skill:'vector-addition',       d:3 },
+    'qc:storyQ':     { skill:'evidence-reasoning',    d:3 },
+    'mcq:shared:0':  { skill:'mechanism',             d:1 },
+    'mcq:shared:1':  { skill:'data-reading',          d:2 },
+    'mcq:shared:2':  { skill:'experimental-design',   d:3 },
+    'mcq:younger:0': { skill:'mechanism',             d:1 },
+    'mcq:older:0':   { skill:'evidence-reasoning',    d:3 },
+    'order':         { skill:'sequence',              d:2 },
+    'num:younger':   { skill:'unit-conversion',       d:2 },
+    'num:older':     { skill:'unit-conversion-division', d:3 },
+    'num:adv':       { skill:'division-and-ratio',    d:4 },
+    'challenge':     { skill:'percent-and-rate',      d:4 },
+    'explain':       { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ jDraw(0); showArtoTip(); } if(n===2) labDraw(); if(n===3) skyDraw(0); if(n===4) vecDraw(); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+/* ---------- hero guess: where does the ant on stilts start searching for its nest? ----------
+   Four choices force a real commitment about the outcome of the experiment (trained on 10 m, stilts glued on at the feeder):
+   the lesson then confirms it with the measured number (15.3 m, about 50% too far). data-scale: 6 / 10 / 15 / 99 ('lost'). */
+const SCALE_ANS = 15;                                                 // metres (15.3 m measured; ≈ +50%)
+const fmtSigns = n => n===6 ? 'עוצרת מוקדם, אחרי כ־6 מטר' : n===10 ? 'בדיוק ליד הקן, אחרי 10 מטר' : n===15 ? 'רחוק מדי, אחרי כ־15 מטר' : 'הולכת לאיבוד';
+const SCALE_FB = {
+  15: '<span class="pill-ok">קלעתם!</span> הנמלות על הקביים עברו את הקן בלי לעצור, והתחילו לחפש אותו רק אחרי <span class="math">15.3</span> מטר — כ־⁠<span class="num">50%</span> רחוק מדי. למה בדיוק, ואיך זה מוכיח שהיא סופרת — על זה כל השיעור.',
+  10: '<span class="pill-bad">לא הפעם.</span> דווקא הרגליים החדשות בלבלו אותה: היא עברה את הקן והתחילה לחפש רק אחרי <span class="math">15.3</span> מטר, כ־⁠<span class="num">50%</span> רחוק מדי. היא לא "יודעת איפה הבית" — היא מודדת, ואת המדידה הקביים קלקלו.',
+  6:  '<span class="pill-bad">הפוך!</span> הנמלות על הקביים הלכו דווקא <b>רחוק מדי</b>: התחילו לחפש רק אחרי <span class="math">15.3</span> מטר. מי שעצר אחרי כ־⁠<span class="num">6</span> מטר היו הנמלות שקיצרו להן את הרגליים. הכיוון של הטעות הוא הרמז לכל השיעור.',
+  99: '<span class="pill-bad">לא לאיבוד — רק לא במקום.</span> הנמלה רצה בביטחון בקו ישר, ופשוט הלכה רחוק מדי: התחילה לחפש אחרי <span class="math">15.3</span> מטר במקום <span class="num">10</span>. היא בטוחה בעצמה, ורק המדידה שלה השתבשה — מה שאומר שהיא מודדת משהו.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+
+</script>
+
+
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h){ c.fillStyle=css('--card'); c.globalAlpha=.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align){
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(30,size); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* an ant seen from above: three body parts, six legs, two antennae; heading angle a (radians, 0 = +x); legs: 0 stumps, 1 normal, 2 stilts */
+function xAnt(c,x,y,a,sz,col,legs){
+  legs = legs==null ? 1 : legs; const lf = legs===0 ? 0.62 : legs===2 ? 1.5 : 1;
+  c.save(); c.translate(x,y); c.rotate(a);
+  c.strokeStyle=col; c.lineCap='round'; c.lineWidth=Math.max(2, sz*0.12);
+  for(const s of [-1,1]){ for(const [lx,ang] of [[-sz*0.55,0.95],[-sz*0.05,1.45],[sz*0.35,2.05]]){ const L=sz*0.9*lf; c.beginPath(); c.moveTo(lx,0); c.lineTo(lx+Math.cos(ang)*L*0.6, s*Math.sin(ang)*L*0.6); c.lineTo(lx+Math.cos(ang)*L*0.6+Math.cos(ang-0.9)*L*0.55, s*(Math.sin(ang)*L*0.6+Math.sin(ang-0.9)*L*0.55)); c.stroke(); } }
+  if(legs===2){ c.strokeStyle=css('--sun'); c.lineWidth=Math.max(2, sz*0.14); for(const s of [-1,1]){ for(const [lx,ang] of [[-sz*0.55,0.95],[-sz*0.05,1.45],[sz*0.35,2.05]]){ const L=sz*0.9*lf; const ex=lx+Math.cos(ang)*L*0.6+Math.cos(ang-0.9)*L*0.55, ey=s*(Math.sin(ang)*L*0.6+Math.sin(ang-0.9)*L*0.55); c.beginPath(); c.moveTo(ex,ey); c.lineTo(ex+Math.cos(ang-0.9)*sz*0.35, ey+s*Math.sin(ang-0.9)*sz*0.35); c.stroke(); } } }
+  c.fillStyle=col; c.beginPath(); c.ellipse(-sz*0.7,0,sz*0.62,sz*0.4,0,0,Math.PI*2); c.fill();
+  c.beginPath(); c.ellipse(-sz*0.05,0,sz*0.32,sz*0.27,0,0,Math.PI*2); c.fill();
+  c.beginPath(); c.arc(sz*0.45,0,sz*0.28,0,Math.PI*2); c.fill();
+  c.strokeStyle=col; c.lineWidth=Math.max(2, sz*0.1); c.beginPath(); c.moveTo(sz*0.6,-sz*0.1); c.lineTo(sz*1.05,-sz*0.5); c.moveTo(sz*0.6,sz*0.1); c.lineTo(sz*1.05,sz*0.5); c.stroke();
+  c.restore();
+}
+function xNest(c,x,y,r,col){ c.fillStyle=col; c.beginPath(); c.ellipse(x,y,r*1.6,r*0.9,0,0,Math.PI*2); c.fill(); c.fillStyle='#2A1E14'; c.beginPath(); c.ellipse(x,y,r*0.6,r*0.35,0,0,Math.PI*2); c.fill(); }
+function xSun(c,x,y,r,alpha){ c.fillStyle='rgba(255,196,60,'+(alpha==null?1:alpha)+')'; c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fill(); c.strokeStyle='rgba(255,196,60,'+(alpha==null?1:alpha)+')'; c.lineWidth=4; for(let i=0;i<8;i++){ const a=i*Math.PI/4; c.beginPath(); c.moveTo(x+Math.cos(a)*(r+6),y+Math.sin(a)*(r+6)); c.lineTo(x+Math.cos(a)*(r+16),y+Math.sin(a)*(r+16)); c.stroke(); } }
+
+/* ---------- step 1 (interactive 1): the journey of one ant (canvas) ---------- */
+const jCv=document.getElementById('jCv'), jctx=jCv.getContext('2d'), jT=document.getElementById('jT');
+const J={ opened:0, home:0, arrow:true, anim:null };
+/* the outbound path in metres, relative to the nest (x to the west is negative, y to the north is negative on the canvas) */
+const JW=[[0,0],[-8,-14],[-22,-9],[-30,-26],[-18,-38],[-44,-48],[-60,-36],[-72,-58],[-90,-52],[-98,-70],[-110,-78]];
+const JS=3.4, JNX=536, JNY=392;                      // px per metre, nest position on the canvas
+const jPx = p => [JNX+p[0]*JS, JNY+p[1]*JS];
+const JSEG=(()=>{ const out=[]; let acc=0; for(let i=0;i<JW.length-1;i++){ const d=Math.hypot(JW[i+1][0]-JW[i][0], JW[i+1][1]-JW[i][1]); out.push({a:JW[i], b:JW[i+1], d, from:acc}); acc+=d; } return { seg:out, total:acc }; })();
+const J_TOTAL=JSEG.total, J_HOME=Math.hypot(JW[JW.length-1][0], JW[JW.length-1][1]);
+function jPos(walked){ if(walked>=J_TOTAL) return { p:JW[JW.length-1].slice(), a:jAngle(JSEG.seg[JSEG.seg.length-1]) }; for(const s of JSEG.seg){ if(walked<=s.from+s.d){ const f=(walked-s.from)/s.d; return { p:[s.a[0]+(s.b[0]-s.a[0])*f, s.a[1]+(s.b[1]-s.a[1])*f], a:jAngle(s) }; } } return { p:[0,0], a:0 }; }
+function jAngle(s){ return Math.atan2(s.b[1]-s.a[1], s.b[0]-s.a[0]); }
+function jDraw(user){
+  const c=jctx, W=jCv.width, H=jCv.height, t=+jT.value/100, ink=css('--ink'), muted=css('--muted');
+  if(user && !J.opened){ J.opened=1; WOW.emit('open', { id:'journey' }); }
+  if(user && J.home){ J.home=0; J.homeF=0; }                                   // moving the slider again cancels the trip home
+  const walked=t*J_TOTAL, cur=jPos(walked);
+  /* sand */
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  c.fillStyle=css('--earth'); c.globalAlpha=.55; c.fillRect(0,0,W,H); c.globalAlpha=1;
+  const r=(()=>{ let s=99; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; })();
+  c.fillStyle=css('--earth2'); c.globalAlpha=.35; for(let i=0;i<70;i++){ c.beginPath(); c.arc(r()*W, r()*H, 1.5+r()*2.5, 0, Math.PI*2); c.fill(); } c.globalAlpha=1;
+  /* scale bar: 20 m */
+  c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.moveTo(30, H-22); c.lineTo(30+20*JS, H-22); c.moveTo(30,H-30); c.lineTo(30,H-14); c.moveTo(30+20*JS,H-30); c.lineTo(30+20*JS,H-14); c.stroke(); xTagN(c,'20','מטר', 30+10*JS, H-58, 20, ink, 'center');
+  /* the sun (top left) */
+  xSun(c, 60, 56, 22, .95);
+  /* the outbound path so far */
+  c.strokeStyle=ink; c.lineWidth=4; c.setLineDash([]); c.beginPath(); const [nx,ny]=jPx([0,0]); c.moveTo(nx,ny);
+  for(const s of JSEG.seg){ if(walked<=s.from) break; const end = walked>=s.from+s.d ? s.b : jPos(walked).p; const [x,y]=jPx(end); c.lineTo(x,y); } c.stroke();
+  /* the food, once found */
+  const [fx,fy]=jPx(JW[JW.length-1]); c.fillStyle=css('--leaf2'); c.beginPath(); c.ellipse(fx,fy,9,6,0.5,0,Math.PI*2); c.fill(); c.strokeStyle=css('--leaf2'); c.lineWidth=2; c.beginPath(); c.moveTo(fx-12,fy-8); c.lineTo(fx-4,fy-3); c.moveTo(fx+10,fy-9); c.lineTo(fx+4,fy-3); c.stroke();
+  xTag(c,'חרק שמת מהחום','', fx+16, fy-30, 20, css('--leaf2'), 'left');
+  /* the nest */
+  xNest(c, nx, ny, 12, css('--shadow')); xTag(c,'הקן','', nx-24, ny+26, 22, ink, 'right');
+  /* the way home: a straight orange line that grows */
+  let antP=cur.p, antA=cur.a;
+  if(J.home){ const f=J.homeF||0; const p=[JW[JW.length-1][0]*(1-f), JW[JW.length-1][1]*(1-f)]; antP=p; antA=Math.atan2(-JW[JW.length-1][1], -JW[JW.length-1][0]);
+    c.strokeStyle=css('--sun-deep'); c.lineWidth=5; c.beginPath(); c.moveTo(fx,fy); const [px,py]=jPx(p); c.lineTo(px,py); c.stroke(); }
+  /* the home vector: from the ant to the nest */
+  const [ax,ay]=jPx(antP);
+  if(J.arrow && (walked>0.5 || J.home) && !(J.home && (J.homeF||0)>=1)){ c.strokeStyle=css('--sun'); c.lineWidth=5; c.setLineDash([10,7]); c.beginPath(); c.moveTo(ax,ay); c.lineTo(nx,ny); c.stroke(); c.setLineDash([]); c.fillStyle=css('--sun'); xArrow(c,nx,ny,nx-ax,ny-ay,20);
+    const dh=Math.hypot(antP[0],antP[1]); xTagN(c, dh.toFixed(0), 'מטר הביתה', (ax+nx)/2, (ay+ny)/2-26, 20, css('--sun-deep'), 'center'); }
+  xAnt(c, ax, ay, antA, 16, ink, 1);
+  /* readouts */
+  const dh=Math.hypot(antP[0],antP[1]);
+  jWalk.textContent = (J.home ? (J_TOTAL + (J_HOME*(J.homeF||0))).toFixed(0) : walked.toFixed(0));
+  jHome.textContent = dh.toFixed(0);
+  jHomeBtn.disabled = !(t>=1) || !!J.home;
+  jMsg.innerHTML = J.home ? ((J.homeF||0)>=1 ? '<b>בבית.</b> הלכה כ־⁠<span class="num">'+J_TOTAL.toFixed(0)+'</span> מטר בזיגזג, ורצה הביתה רק כ־⁠<span class="num">'+J_HOME.toFixed(0)+'</span> — בקו ישר, בלי לחזור על הדרך. איך היא ידעה את הכיוון ואת המרחק? זה כל השיעור.' : 'רצה הביתה לאורך החץ — לא לאורך הדרך שבאה בה.')
+    : t===0 ? 'הנמלה יוצאת מהקן. גררו את הזמן קדימה.'
+    : t<1 ? 'הלכה כבר <span class="num">'+walked.toFixed(0)+'</span> מטר, אבל הבית במרחק <span class="num">'+dh.toFixed(0)+'</span> בלבד. שימו לב: החץ מתעדכן בכל פנייה, ותמיד מצביע לקן.'
+    : '<b>מצאה אוכל!</b> עכשיו לחצו "הביתה!" ותראו לאן היא רצה.';
+}
+function jGoHome(){ if(J.home) return; J.home=1; J.homeF=0; WOW.emit('item', { id:'journey:home', kind:'quick', correct:true, attempt: wowTry('journey:home') });
+  if(XREDUCED){ J.homeF=1; jDraw(0); return; }
+  const t0=performance.now(); const step=now=>{ J.homeF=Math.min(1,(now-t0)/1800); jDraw(0); if(J.homeF<1 && J.home) J.anim=requestAnimationFrame(step); }; J.anim=requestAnimationFrame(step); }
+function jToggleArrow(){ J.arrow=!J.arrow; jArrowBtn.textContent = J.arrow ? 'להסתיר את החץ' : 'להראות את החץ'; jDraw(0); }
+function jReset(){ J.home=0; J.homeF=0; jT.value=0; jDraw(0); }
+jDraw(0);
+
+/* ---------- step 2 (interactive 2): the stilts lab (canvas) ---------- */
+const labCv=document.getElementById('labCv'), lctx=labCv.getContext('2d');
+const LAB={ legs:1, when:0, opened:0, f:0, ran:0, anim:null };
+/* the measured search distances (Wittlinger, Wehner & Wolf 2006): legs changed only for the way home → [stumps, normal, stilts]; changed before the outbound trip → all ≈10 m */
+const LAB_STOP=[[5.75,10.2,15.3],[10.0,10.2,10.1]];
+const LAB_STEPS=[['כ־750','כ־750','כ־750'],['כ־950','כ־750','כ־570']];
+const LAB_NAME=['גדמים','רגילות','קביים'];
+const LX0=52, LX1=612, LM=20;                                   // ruler: 0–20 m
+const lX = m => LX0 + (m/LM)*(LX1-LX0);
+const lFmt = m => String(Math.round(m*100)/100);
+function labLegs(i){ LAB.legs=i; [0,1,2].forEach(k=>document.getElementById('labL'+k).classList.toggle('on',k===i)); LAB.ran=0; LAB.f=0; labDraw(); }
+function labWhen(i){ LAB.when=i; [0,1].forEach(k=>document.getElementById('labW'+k).classList.toggle('on',k===i)); LAB.ran=0; LAB.f=0; labDraw(); }
+function labDraw(){
+  const c=lctx, W=labCv.width, H=labCv.height, ink=css('--ink'), muted=css('--muted');
+  const stop=LAB_STOP[LAB.when][LAB.legs], f=LAB.f;
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the channel */
+  c.fillStyle=css('--earth'); c.globalAlpha=.6; c.fillRect(0,180,W,140); c.globalAlpha=1;
+  c.strokeStyle=css('--earth2'); c.lineWidth=6; c.beginPath(); c.moveTo(0,180); c.lineTo(W,180); c.moveTo(0,320); c.lineTo(W,320); c.stroke();
+  /* the ruler */
+  c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(LX0,356); c.lineTo(LX1,356); c.stroke();
+  for(let m=0;m<=LM;m+=1){ const x=lX(m); c.beginPath(); c.moveTo(x,356); c.lineTo(x, m%5===0?342:349); c.stroke(); if(m%5===0) xNum(c, String(m), x, 378, 20, ink, 'center'); }
+  xText(c,'מטרים', 596, 412, 20, muted, 'center');
+  /* release point and the expected nest */
+  c.fillStyle=css('--nile'); c.beginPath(); c.arc(lX(0),250,10,0,Math.PI*2); c.fill(); xTag(c,'נקודת השחרור','', lX(0)-8, 412, 20, css('--nile'), 'left');
+  c.strokeStyle=css('--shadow'); c.lineWidth=4; c.setLineDash([8,6]); c.beginPath(); c.moveTo(lX(10),180); c.lineTo(lX(10),320); c.stroke(); c.setLineDash([]);
+  xNest(c, lX(10), 250, 10, css('--shadow')); xTag(c,'כאן הקן היה אמור להיות','', lX(10), 158, 20, css('--shadow'), 'center');
+  /* the ant: walks from 0 to `stop`, then loops */
+  const walkF=Math.min(1, f/0.75), loopF=Math.max(0, (f-0.75)/0.25);
+  let ax=lX(stop*walkF), ay=250, aa=0;
+  if(loopF>0){ const k=loopF*Math.PI*4, rr=12+loopF*30; ax=lX(stop)+Math.cos(k)*rr; ay=250+Math.sin(k)*rr*0.7; aa=k+Math.PI/2; }
+  if(f>0){ c.strokeStyle=ink; c.lineWidth=3; c.setLineDash([4,6]); c.beginPath(); c.moveTo(lX(0),250); c.lineTo(lX(stop*walkF),250); c.stroke(); c.setLineDash([]); }
+  if(loopF>0){ c.strokeStyle=css('--sun-deep'); c.lineWidth=3; c.beginPath(); for(let q=0;q<=loopF;q+=0.01){ const k=q*Math.PI*4, rr=12+q*30; const x=lX(stop)+Math.cos(k)*rr, y=250+Math.sin(k)*rr*0.7; if(q===0) c.moveTo(x,y); else c.lineTo(x,y); } c.stroke(); }
+  xAnt(c, ax, ay, aa, 15, ink, LAB.legs);
+  if(f>=1){ const tx=Math.max(120, Math.min(lX(stop), 520)); xTag(c,'מחפשת כאן!','', tx, 78, 22, css('--sun-deep'), 'center'); xTagN(c, lFmt(stop), 'מ׳', tx, 116, 22, css('--sun-deep'), 'center'); }
+  /* legs legend */
+  xTag(c, 'רגליים: '+LAB_NAME[LAB.legs]+(LAB.when? ' — משתי הדרכים':' — רק בדרך הביתה'),'', 24, 26, 20, ink, 'left');
+  labSteps.textContent = LAB.ran ? LAB_STEPS[LAB.when][LAB.legs] : '—';
+  labStop.textContent = f>=1 ? lFmt(stop) : '—';
+  labMsg.innerHTML = !LAB.ran ? 'הנמלה סופרת את הצעדים החוצה, ובדרך הביתה היא "מורידה" אותם אחד־אחד. לחצו "לשחרר את הנמלה".'
+    : f<1 ? 'רצה הביתה...'
+    : LAB.when===0 ? (LAB.legs===1 ? '<b>רגליים רגילות:</b> אותו מספר צעדים, אותו אורך צעד — היא עוצרת לחפש כמעט בדיוק בקן (<span class="math">10.2</span> מ׳). ככה נראית ביקורת בניסוי.'
+        : LAB.legs===2 ? '<b>קביים:</b> היא ספרה כ־⁠<span class="num">750</span> צעדים בדרך החוצה, ועכשיו כל צעד ארוך יותר — אותו מספר צעדים מביא אותה ל־⁠<span class="math">15.3</span> מ׳, כ־⁠<span class="num">50%</span> רחוק מדי. היא עוברת את הקן בלי לעצור.'
+        : '<b>גדמים:</b> אותם כ־⁠<span class="num">750</span> צעדים, אבל קצרים — היא עוצרת לחפש כבר אחרי <span class="math">5.75</span> מ׳ — כ־⁠<span class="num">44%</span> מוקדם מדי. הקן עוד רחוק, אבל הספירה שלה נגמרה.')
+    : (LAB.legs===1 ? '<b>רגילות, משתי הדרכים:</b> כמובן — <span class="math">10.2</span> מ׳.'
+        : '<b>'+LAB_NAME[LAB.legs]+' משתי הדרכים:</b> בדרך החוצה היא ספרה '+LAB_STEPS[1][LAB.legs]+' צעדים '+(LAB.legs===2?'ארוכים':'קצרים')+', ובדרך הביתה עשתה בדיוק את אותו מספר של צעדים '+(LAB.legs===2?'ארוכים':'קצרים')+' — והגיעה הביתה (כ־⁠<span class="num">10</span> מ׳). זו ההוכחה: מונה צעדים לא אכפת לו כמה ארוך כל צעד, כל עוד הוא זהה הלוך וחזור.');
+}
+function labRun(){
+  if(!LAB.opened){ LAB.opened=1; WOW.emit('open', { id:'lab' }); }
+  if(LAB.anim) cancelAnimationFrame(LAB.anim);
+  LAB.ran=1; WOW.emit('item', { id:'lab:'+LAB.when+':'+LAB.legs, kind:'quick', correct:true, attempt: wowTry('lab') });
+  if(XREDUCED){ LAB.f=1; labDraw(); return; }
+  LAB.f=0; const t0=performance.now(); const dur=2600; const step=now=>{ LAB.f=Math.min(1,(now-t0)/dur); labDraw(); if(LAB.f<1) LAB.anim=requestAnimationFrame(step); else LAB.anim=null; }; LAB.anim=requestAnimationFrame(step);
+}
+labDraw();
+
+/* ---------- step 3 (interactive 3): the sky compass — Santschi's mirror (canvas) ---------- */
+const skyCv=document.getElementById('skyCv'), sctx=skyCv.getContext('2d'), skyAng=document.getElementById('skyAng');
+const SKY={ mode:'sun', opened:0 };
+const SKY_CX=300, SKY_CY=228, SKY_R=158, SUN_A=Math.PI*0.78, NEST_A=0.02*Math.PI;   // the sun in the south-west (an afternoon), the nest to the east   // angles: 0 = east, negative = up (north)
+function skyPreset(m){ SKY.mode=m; if(m==='sun'||m==='cloud'||m==='dark') skyAng.value=0; if(m==='mirror') skyAng.value=90; skyDraw(1); }
+function skyDraw(user){
+  const c=sctx, W=skyCv.width, H=skyCv.height, ink=css('--ink'), muted=css('--muted');
+  if(user && !SKY.opened){ SKY.opened=1; WOW.emit('open', { id:'sky' }); }
+  const shift=+skyAng.value; if(user && shift===0 && SKY.mode==='mirror') SKY.mode='sun'; if(user && shift!==0 && SKY.mode!=='mirror') SKY.mode='mirror';   // dragging the mirror always means 'mirror'
+  const sh=shift*Math.PI/180, dark=SKY.mode==='dark', cloud=SKY.mode==='cloud';
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  c.fillStyle=css('--earth'); c.globalAlpha=.5; c.fillRect(0,0,W,H); c.globalAlpha=1;
+  /* the compass ring */
+  c.strokeStyle=muted; c.lineWidth=2; c.setLineDash([6,8]); c.beginPath(); c.arc(SKY_CX,SKY_CY,SKY_R,0,Math.PI*2); c.stroke(); c.setLineDash([]);
+  xText(c,'צפון ↑', 574, 30, 20, muted, 'center');
+  /* the polarization pattern: short lines tangential to the sun's direction (visible unless everything is covered) */
+  const sunA = SUN_A + sh; const sx=SKY_CX+Math.cos(sunA)*SKY_R, sy=SKY_CY+Math.sin(sunA)*SKY_R;
+  if(!dark){ const px=SKY.mode==='mirror'?sx:SKY_CX+Math.cos(SUN_A)*SKY_R, py=SKY.mode==='mirror'?sy:SKY_CY+Math.sin(SUN_A)*SKY_R;   // e-vectors run tangentially around the sun
+    c.strokeStyle=css('--nile'); c.lineWidth=2.5; c.globalAlpha=cloud?.95:.4; for(let i=0;i<36;i++){ const a=i*Math.PI/18, rr=SKY_R+22; const x=SKY_CX+Math.cos(a)*rr, y=SKY_CY+Math.sin(a)*rr; const t=Math.atan2(y-py,x-px)+Math.PI/2; c.beginPath(); c.moveTo(x-Math.cos(t)*8,y-Math.sin(t)*8); c.lineTo(x+Math.cos(t)*8,y+Math.sin(t)*8); c.stroke(); } c.globalAlpha=1; }
+  /* the sun: real position, or seen through the mirror */
+  if(SKY.mode==='mirror' && shift!==0){ const rx=SKY_CX+Math.cos(SUN_A)*SKY_R, ry=SKY_CY+Math.sin(SUN_A)*SKY_R; xSun(c,rx,ry,20,.25); c.fillStyle=ink; c.beginPath(); c.roundRect(rx-36,ry+2,72,12,4); c.fill(); xTag(c,'לוח מסתיר','', rx, ry+40, 18, ink, 'center');
+    c.fillStyle='#BFD8E8'; c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.roundRect(sx-30,sy-30,60,60,8); c.fill(); c.stroke(); xSun(c,sx,sy,16,.95); xTag(c,'השמש במראה','', sx, sy-50, 18, ink, 'center'); }
+  else if(cloud){ xSun(c,sx,sy,20,.2); c.fillStyle='#FFFFFF'; c.globalAlpha=.95; [[0,0,30],[-24,6,22],[26,8,22],[-6,-16,20]].forEach(([dx,dy,r])=>{ c.beginPath(); c.arc(sx+dx,sy+dy,r,0,Math.PI*2); c.fill(); }); c.globalAlpha=1; xTag(c,'ענן על השמש','', sx, sy+52, 18, ink, 'center'); }
+  else if(dark){ c.fillStyle='rgba(40,44,60,.85)'; c.fillRect(0,0,W,H); xText(c,'כל השמיים מכוסים', SKY_CX, 40, 24, '#fff', 'center'); }
+  else { xSun(c,sx,sy,22,.95); xTag(c,'השמש','', sx, sy+44, 20, ink, 'center'); }
+  /* the true nest */
+  const nx=SKY_CX+Math.cos(NEST_A)*(SKY_R-30), ny=SKY_CY+Math.sin(NEST_A)*(SKY_R-30);
+  xNest(c,nx,ny,11,css('--shadow')); xTag(c,'הקן האמיתי','', nx-16, ny+40, 20, ink, 'center');
+  /* the ant's chosen direction: the nest angle shifted by the same amount as the sun */
+  if(dark){ c.strokeStyle=css('--sun'); c.lineWidth=4; c.beginPath(); for(let q=0;q<=1;q+=0.01){ const k=q*Math.PI*5, rr=10+q*70; c.lineTo(SKY_CX+Math.cos(k)*rr, SKY_CY+Math.sin(k)*rr); } c.stroke(); xAnt(c, SKY_CX+Math.cos(Math.PI*5)*80, SKY_CY+Math.sin(Math.PI*5)*80, Math.PI*5+Math.PI/2, 14, '#fff', 1); }
+  else { const runA = NEST_A + (SKY.mode==='mirror' ? sh : 0); const ex=SKY_CX+Math.cos(runA)*(SKY_R-30), ey=SKY_CY+Math.sin(runA)*(SKY_R-30);
+    c.strokeStyle=css('--sun'); c.lineWidth=6; c.beginPath(); c.moveTo(SKY_CX,SKY_CY); c.lineTo(ex,ey); c.stroke(); c.fillStyle=css('--sun'); xArrow(c,ex,ey,ex-SKY_CX,ey-SKY_CY,22);
+    /* the angle the ant keeps between the sun and its heading */
+    const dA=((runA-sunA)%(2*Math.PI)+3*Math.PI)%(2*Math.PI)-Math.PI; c.strokeStyle=css('--sun-deep'); c.lineWidth=3; c.beginPath(); c.arc(SKY_CX,SKY_CY,48, sunA, sunA+dA, dA<0); c.stroke();
+    xAnt(c, SKY_CX+Math.cos(runA)*60, SKY_CY+Math.sin(runA)*60, runA, 15, ink, 1); }
+  skyAngOut.textContent = shift+'°';
+  skyMsg.innerHTML = dark ? '<b>בלי שמיים בכלל:</b> אין שמש, אין אור מקוטב — הנמלה מאבדת את הכיוון ומסתובבת. זה מה שסנצ\'י ראה כשכיסה את כל השמיים.'
+    : cloud ? '<b>ענן על השמש בלבד:</b> הנמלה עדיין רצה ישר לקן! מספיקה לה פיסת שמיים כחולים: אור השמיים מקוטב (הקווים הכחולים סביב הטבעת מסתדרים כמו טבעות סביב השמש, גם כשהיא מוסתרת) — והעין שלה קוראת את זה.'
+    : shift===0 ? '<b>השמש האמיתית:</b> הנמלה שומרת על זווית קבועה (הקשת הכהה) בינה לבין השמש — ומגיעה בדיוק לקן. גררו את המראה.'
+    : '<b>המראה הזיזה את השמש ב־⁠<span class="num">'+shift+'°</span>:</b> הנמלה שומרת על אותה זווית מהשמש ה"חדשה" — ורצה <span class="num">'+shift+'°</span> הצידה, למקום שאין בו קן. היא לא מכירה את הבית — היא מכירה את הכלל.';
+}
+skyDraw(0);
+
+/* ---------- step 4 (interactive 4): be the ant — the home vector (canvas) ---------- */
+const vecCv=document.getElementById('vecCv'), vctx=vecCv.getContext('2d');
+const VEC={ path:[[0,0]], opened:0, home:0, homeF:0, anim:null };
+const VU=22, VCX=320, VCY=330;                                   // px per step, nest position (bottom middle)
+const vPx = p => [VCX+p[0]*VU, VCY-p[1]*VU];
+const vSg = v => v<0 ? '−'+Math.abs(v) : (v>0 ? '+'+v : '0');
+function vecStep(dx,dy){ if(VEC.home) return; if(!VEC.opened){ VEC.opened=1; WOW.emit('open', { id:'vec' }); }
+  const last=VEC.path[VEC.path.length-1], nx=last[0]+dx, ny=last[1]+dy; if(Math.abs(nx)>12 || ny>12 || ny<-1){ vecMsg.innerHTML='עד כאן המפה. הסתובבו — הנמלה עושה את זה כל הזמן.'; return; }
+  VEC.path.push([nx,ny]); vecDraw(); }
+function vecPreset(){ vecReset(); const seq=[]; for(let i=0;i<5;i++) seq.push([1,0]); for(let i=0;i<12;i++) seq.push([0,1]); seq.forEach(([dx,dy])=>{ const l=VEC.path[VEC.path.length-1]; VEC.path.push([l[0]+dx,l[1]+dy]); }); vecDraw(); }
+function vecReset(){ if(VEC.anim) cancelAnimationFrame(VEC.anim); VEC.path=[[0,0]]; VEC.home=0; VEC.homeF=0; vecDraw(); }
+function vecGoHome(){ const l=VEC.path[VEC.path.length-1]; if(VEC.home || (l[0]===0&&l[1]===0)) return; VEC.home=1; VEC.homeF=0; WOW.emit('item', { id:'vec:home', kind:'quick', correct:true, attempt: wowTry('vec:home') });
+  if(XREDUCED){ VEC.homeF=1; vecDraw(); return; }
+  const t0=performance.now(); const step=now=>{ VEC.homeF=Math.min(1,(now-t0)/1500); vecDraw(); if(VEC.homeF<1) VEC.anim=requestAnimationFrame(step); else VEC.anim=null; }; VEC.anim=requestAnimationFrame(step); }
+function vecDraw(){
+  const c=vctx, W=vecCv.width, H=vecCv.height, ink=css('--ink'), muted=css('--muted');
+  const last=VEC.path[VEC.path.length-1], ew=last[0], ns=last[1], n=VEC.path.length-1, d=Math.hypot(ew,ns);
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  c.fillStyle=css('--earth'); c.globalAlpha=.4; c.fillRect(0,0,W,H); c.globalAlpha=1;
+  /* grid */
+  c.strokeStyle=css('--line'); c.lineWidth=1; for(let x=-12;x<=12;x++){ const [px]=vPx([x,0]); c.beginPath(); c.moveTo(px,20); c.lineTo(px,H-20); c.stroke(); } for(let y=-2;y<=13;y++){ const [,py]=vPx([0,y]); c.beginPath(); c.moveTo(20,py); c.lineTo(W-20,py); c.stroke(); }
+  /* compass rose */
+  xText(c,'צפון', 40, 34, 20, muted, 'center'); c.fillStyle=muted; xArrow(c,40,48,0,-1,14); c.fillRect(38,48,4,22);
+  xText(c,'מזרח', W-44, 60, 18, muted, 'center'); xText(c,'מערב', 44, 96, 18, muted, 'center');
+  /* the path */
+  c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); VEC.path.forEach((p,i)=>{ const [x,y]=vPx(p); if(i===0) c.moveTo(x,y); else c.lineTo(x,y); }); c.stroke();
+  c.fillStyle=ink; VEC.path.forEach((p,i)=>{ if(i===0) return; const [x,y]=vPx(p); c.beginPath(); c.arc(x,y,3.5,0,Math.PI*2); c.fill(); });
+  /* the nest */
+  const [nx,ny]=vPx([0,0]); xNest(c,nx,ny,11,css('--shadow')); xTag(c,'הקן','', nx-26, ny+2, 20, ink, 'right');
+  /* the ant, the vector, the trip home */
+  let ap=last; if(VEC.home){ ap=[last[0]*(1-VEC.homeF), last[1]*(1-VEC.homeF)]; const [lx,ly]=vPx(last), [ax,ay]=vPx(ap); c.strokeStyle=css('--sun-deep'); c.lineWidth=5; c.beginPath(); c.moveTo(lx,ly); c.lineTo(ax,ay); c.stroke(); }
+  const [ax,ay]=vPx(ap);
+  if(n>0 && !(VEC.home && VEC.homeF>=1)){ c.strokeStyle=css('--sun'); c.lineWidth=5; c.setLineDash([10,7]); c.beginPath(); c.moveTo(ax,ay); c.lineTo(nx,ny); c.stroke(); c.setLineDash([]); c.fillStyle=css('--sun'); xArrow(c,nx,ny,nx-ax,ny-ay,20); }
+  const head = n>0 ? (VEC.home ? Math.atan2(ny-ay, nx-ax) : Math.atan2(vPx(last)[1]-vPx(VEC.path[n-1])[1], vPx(last)[0]-vPx(VEC.path[n-1])[0])) : -Math.PI/2;
+  xAnt(c, ax, ay, head, 15, ink, 1);
+  /* the two numbers, drawn as the two legs of the triangle */
+  if(n>0 && !VEC.home){ const [lx,ly]=vPx(last); c.strokeStyle=css('--nile'); c.lineWidth=3; c.setLineDash([4,5]); c.beginPath(); c.moveTo(nx,ny); c.lineTo(lx,ny); c.lineTo(lx,ly); c.stroke(); c.setLineDash([]);
+    if(ew!==0) xTagN(c, String(Math.abs(ew)), ew>0?'מזרחה':'מערבה', (nx+lx)/2, ny+28, 18, css('--nile'), 'center');
+    if(ns!==0) xTagN(c, String(Math.abs(ns)), ns>0?'צפונה':'דרומה', Math.max(80, Math.min(W-80, lx+(ew>=0?54:-54))), (ny+ly)/2, 18, css('--nile'), 'center'); }
+  vecNS.textContent = vSg(ns); vecEW.textContent = vSg(ew); vecN.textContent = String(n); vecD.textContent = d.toFixed(d%1?1:0);
+  vecHomeBtn.disabled = n===0 || !!VEC.home;
+  const isPy = (Math.abs(ew)===5 && ns===12) || (Math.abs(ew)===12 && ns===5) || (Math.abs(ew)===3 && ns===4) || (Math.abs(ew)===4 && ns===3);
+  vecMsg.innerHTML = VEC.home ? (VEC.homeF>=1 ? '<b>בבית.</b> הלכתם <span class="num">'+n+'</span> צעדים, והדרך הביתה בקו ישר הייתה רק <span class="num">'+d.toFixed(d%1?1:0)+'</span>. הנמלה לא זכרה את הדרך — רק את שני המספרים.' : 'הביתה לאורך החץ...')
+    : n===0 ? 'לחצו על הכיוונים כדי ללכת. כל לחיצה היא צעד אחד.'
+    : isPy ? '<b>משולש מיוחד!</b> <span class="math">'+Math.abs(ew)+'² + '+Math.abs(ns)+'² = '+(ew*ew)+' + '+(ns*ns)+' = '+(ew*ew+ns*ns)+'</span>, ו־⁠<span class="math">√'+(ew*ew+ns*ns)+' = '+d+'</span>. הביתה בדיוק <span class="num">'+d+'</span> צעדים בקו ישר, למרות שהלכתם <span class="num">'+n+'</span>.'
+    : 'שני המספרים שהנמלה מחזיקה: צפון־דרום <span class="math">'+vSg(ns)+'</span>, מזרח־מערב <span class="math">'+vSg(ew)+'</span>. החץ הכתום מחושב רק מהם. הבית: '+[ns?('<span class="num">'+Math.abs(ns)+'</span> '+(ns>0?'דרומה':'צפונה')):'', ew?('<span class="num">'+Math.abs(ew)+'</span> '+(ew>0?'מערבה':'מזרחה')):''].filter(Boolean).join(' ו־')+(ns&&ew?'':' בדיוק')+'.';
+}
+vecDraw();
+</script>
+
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  journeyQ:{ q:'מה הנמלה צריכה לדעת כדי לרוץ הביתה בקו ישר?', opts:['את כל הפניות של הדרך שהלכה, לפי הסדר, כדי לחזור בהן הפוך','רק שני דברים: לאיזה כיוון הבית, ובאיזה מרחק','את הריח של הקן, שנישא באוויר גם ממאה מטר','שום דבר — היא הולכת באקראי עד שהיא נתקלת בפתח'], a:1, fb:'זה כל הרעיון של "החץ שבראש": כיוון ומרחק, ולא הדרך עצמה. במישור מלח לוהט ריחות לא מחזיקים, ולזכור מאות פניות עם מוח זעיר — לא מעשי. איך היא משיגה את שני המספרים האלה? זה מה שנגלה בפרקים הבאים.', btn:'next1' },
+  stiltQ:{ q:'למה הנמלות שקיבלו קביים עוד לפני שיצאו מהקן חזרו הביתה בדיוק?', opts:['כי הן התרגלו לקביים בדרך החוצה ולמדו ללכת איתם נכון','כי מספר הצעדים החוצה ומספר הצעדים חזרה שווים — לא משנה כמה ארוך כל צעד','כי בדרך החוצה הן סימנו את הדרך בריח, ובחזרה עקבו אחריו','כי הקביים נשברו להן בדרך והן חזרו לרגליים רגילות'], a:1, fb:'זו קבוצת הביקורת החכמה: אותם צעדים ארוכים הלוך וחזור, ולכן הספירה מסתדרת. מונה צעדים מסביר גם את "רחוק מדי" של הקבוצה הראשונה וגם את "בדיוק" של השנייה. ומדידת זמן? נפסלה בניסוי אחר: נמלה שסוחבת משא כבד והולכת לאט חוזרת מדויק בדיוק כמו נמלה מהירה.' },
+  skyQ:{ q:'מה גילה סנצ\'י בניסוי המראה?', opts:['הנמלה הולכת לפי ריח הקן, והמראה לא שינתה כלום','הנמלה שומרת זווית קבועה בינה לבין השמש — כשהשמש "זזה", גם היא זזה באותה זווית','הנמלה פוחדת מהמראה ורצה ממנה לכיוון ההפוך','הנמלה הולכת בעקבות הצל של עצמה, ולכן הלכה אל תוך המראה'], a:1, fb:'השמש היא המצפן: הנמלה לא "יודעת" איפה הבית, היא יודעת כלל — "כך וכך מעלות מהשמש". תזיזו את השמש, ותזיזו את הנמלה. ואם מסתירים רק את השמש? מספיקה לה פיסת שמיים כחולים, בזכות האור המקוטב.' },
+  vecQ:{ q:'נמלה הלכה <span class="num">8</span> צעדים צפונה, אחר כך <span class="num">3</span> מזרחה, ואחר כך <span class="num">3</span> מערבה. איפה הבית?', opts:['<span class="num">8</span> צעדים דרומה בדיוק','<span class="num">11</span> צעדים דרומה','<span class="num">14</span> צעדים אחורה, בדיוק בדרך שבה הלכה','<span class="num">8</span> צעדים צפונה'], a:0, fb:'מזרח־מערב: <span class="math">3 − 3 = 0</span>. צפון־דרום: <span class="num">8</span> צפונה. אז הבית הוא <span class="num">8</span> צעדים דרומה — לא <span class="num">14</span> צעדים אחורה. הנמלה לא זוכרת את הדרך; היא מחזיקה שני סכומים והופכת אותם.' },
+  storyQ:{ q:'איזה ניסוי מוכיח שהנמלה מחזיקה "חץ" ולא זוכרת את הדרך?', opts:['מעבירים אותה בחושך למקום אחר — והיא רצה לאורך החץ, למקום שבו הקן "היה אמור" להיות','שמים ריח של הקן במקום אחר — והיא הולכת אל הריח','סוגרים לה את פתח הקן — והיא בונה קן חדש במקום','משחררים אותה בלילה — והיא מחכה לבוקר ואז חוזרת'], a:0, fb:'"ניסוי ההעברה" של ונר: נמלה שמצאה אוכל ומועברת למקום חדש רצה בדיוק את הכיוון והמרחק של החץ שלה, ואז מחפשת בלולאות במקום שבו הקן היה צריך להיות — למרות שהוא לא שם. אם היא הייתה זוכרת דרך או עוקבת אחרי ריח, זה לא היה קורה.' },
+};
+const MCQ = {
+  shared:[
+    { q:'נמלת המדבר הולכת בזיגזג מאות מטרים, ואז חוזרת הביתה בקו ישר. איך?', opts:['היא הולכת בעקבות שביל ריח שהשאירה בדרך החוצה','היא זוכרת כל פנייה שעשתה, ועושה אותן בסדר הפוך','היא מחזיקה בראש "חץ" הביתה שמתעדכן בכל צעד: הכיוון מהשמיים, המרחק מספירת צעדים','היא רואה את פתח הקן מרחוק, כי המישור שטוח לגמרי'], a:2, fb:'אינטגרציית מסלול: שני מספרים (צפון־דרום, מזרח־מערב) שמתעדכנים בכל צעד לפי הכיוון מהשמש ומאור השמיים המקוטב. הפתח קטן מדי לראות ממרחק, ריחות מתאדים בחום, וזיכרון של מאות פניות לא נכנס במוח שקטן מראש סיכה.' },
+    { q:'נמלה מצאה אוכל <span class="num">30</span> מטר מזרחית לקן. תופסים אותה בעדינות, מעבירים אותה <span class="num">50</span> מטר דרומה ומשחררים. לאן היא תרוץ?', opts:['ישר לקן האמיתי — היא רואה או מריחה אותו','<span class="num">30</span> מטר מערבה, ואז תחפש בלולאות במקום שאין בו קן','תישאר במקום ותחכה שנמלה אחרת תראה לה את הדרך','<span class="num">50</span> מטר צפונה, בחזרה למקום שממנו נלקחה'], a:1, fb:'החץ שבראש שלה אומר "<span class="num">30</span> מערבה" — והיא לא יודעת שהזיזו אותה. היא רצה בדיוק לפי החץ, מגיעה לנקודה שבה הקן "היה אמור" להיות, ומתחילה לחפש בלולאות. זה ניסוי ההעברה של ונר, וזו ההוכחה שהיא מחזיקה וקטור ולא זיכרון של דרך.' },
+    { q:'מד המרחק במכונית סופר סיבובי גלגל. מה יראה המד אם יחליפו את הגלגלים בגלגלים גדולים יותר, בלי לעדכן את המחשב?', opts:['פחות קילומטרים ממה שנסעו באמת — כל סיבוב מביא רחוק יותר, כמו צעד על קביים','יותר קילומטרים ממה שנסעו באמת, כי גלגל גדול מסתובב יותר פעמים','בדיוק אותו דבר — המד מודד מרחק, לא סיבובים','בדיוק כפול, תמיד'], a:0, fb:'המד לא יודע כמה גדול הגלגל — הוא רק סופר סיבובים ומכפיל בהיקף הישן. עם גלגל גדול יותר כל סיבוב מביא רחוק יותר, אז לאותו קילומטר יש פחות סיבובים והמד מראה פחות. הנמלה על הקביים עשתה בדיוק את זה: ספרה פחות צעדים לאותו מרחק, "חשבה" שהיא עוד לא בבית — והמשיכה.' },
+  ],
+  younger:[
+    { q:'ילדה הולכת בחדר חשוך לפי הכלל "הפנס תמיד על הכתף הימנית". באמצע הדרך מזיזים את הפנס לפינה אחרת. מה יקרה?', opts:['היא תסטה מהדרך ותגיע למקום אחר — בדיוק כמו הנמלה של סנצ\'י כשהזיזו לה את השמש במראה','היא תמשיך ישר, כי היא זוכרת את הדרך','היא תעצור במקום עד שיחזירו את הפנס','היא תלך אל הפנס, כי אור מושך'], a:0, fb:'מי שהולך לפי "זווית קבועה מהאור" לא מכיר את הדרך — הוא מכיר כלל. מזיזים את האור, והכלל מוביל למקום אחר. ככה בדיוק הנמלה סטתה בניסוי המראה. ומה מציל את הנמלה כשענן מכסה את השמש? האור המקוטב של השמיים.' },
+  ],
+  older:[
+    { q:'מדידות הווידאו הראו שהקביים האריכו את הצעד רק בכ־⁠<span class="num">30%</span>, אבל הנמלות הלכו <span class="num">50%</span> רחוק מדי. מה עושים מדענים עם פער כזה?', opts:['מוחקים את המדידה שלא מסתדרת ומפרסמים רק את מה שמסתדר','מוותרים על הרעיון של ספירת צעדים ומחפשים הסבר אחר לגמרי','מפרסמים את הפער בגלוי ומחפשים גורם נוסף — וכך גילו שהמונה משקלל גם את קצב ההליכה','מדביקים קביים ארוכים יותר עד שהמספרים יסתדרו'], a:2, fb:'הפער היה עקבי (כ־⁠<span class="num">17%</span> בכל הקבוצות), ולכן הוא לא רעש — הוא רמז. מאמר ההמשך מ־⁠<span class="num">2007</span> הראה שהמונה של הנמלה משקלל גם את המהירות. מודל פשוט שמסביר את רוב התופעה ופער שמוביל למודל הבא — ככה מדע מתקדם.' },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'אימון: הנמלות לומדות ללכת בתעלה מהקן לאוכל שמונח בדיוק <span class="num">10</span> מטר ממנו, שוב ושוב.'},
+  {id:'b', t:'כשנמלה מגיעה לאוכל, מדביקים לרגליים שלה קביים מזיפי חזיר (או מקצרים אותן).'},
+  {id:'c', t:'משחררים אותה בתעלת מבחן ריקה, והיא רצה "הביתה".'},
+  {id:'d', t:'היא עוברת את המקום שבו הקן אמור להיות, ומתחילה לחפש רק אחרי כ־⁠<span class="num">15</span> מטר (עם גדמים: כבר אחרי פחות מ־⁠<span class="num">6</span>).'},
+  {id:'e', t:'המסקנה: היא עשתה את אותו מספר צעדים כמו תמיד — היא מודדת מרחק בספירת צעדים.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> אימון ← קביים במאכל ← שחרור בתעלת המבחן ← רחוק מדי (או קצר מדי) ← המסקנה: ספירת צעדים. ככה נראה ניסוי: קודם מלמדים, אחר כך משנים דבר אחד, ואז מודדים ומסיקים.' : '<span class="pill-bad">לא בדיוק.</span> הטעות הנפוצה: לשים את הקביים לפני האימון, או את המסקנה לפני המדידה. הסדר: קודם מאמנים את הנמלות על 10 מטר; כשנמלה מגיעה לאוכל מדביקים לה קביים; משחררים אותה בתעלת המבחן; היא עוברת את הקן ומחפשת רק אחרי כ־15 מטר; ורק אז המסקנה — היא סופרת צעדים.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const st=+chalStilt.value, sm=+chalStump.value, sec=+chalSec.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const stOk = st>=49 && st<=51, smOk = sm>=43 && sm<=45, secOk = sec>=50 && sec<=52;
+  S.challenge = stOk && smOk && secOk;
+  fb.innerHTML = S.challenge ? '<span class="pill-ok">מרשים.</span> (א) קביים: <span class="math">15.3 − 10.2 = 5.1</span>, ו־⁠<span class="math">5.1 ÷ 10.2 = 0.5</span> — <span class="num">50%</span> רחוק מדי, בדיוק. (ב) גדמים: <span class="math">10.2 − 5.75 = 4.45</span>, ו־⁠<span class="math">4.45 ÷ 10.2 ≈ 0.436</span> — כ־⁠<span class="num">44%</span> מוקדם מדי. (ג) <span class="math">15.3 ÷ 0.3 = 51</span> שניות של ריצה. שימו לב לאי־הסימטריה: הקביים הוסיפו <span class="num">50%</span> והגדמים הורידו רק <span class="num">44%</span>, למרות ש־⁠<span class="math">15.3</span> רחוק מ־⁠<span class="math">10.2</span> בערך כמו ש־⁠<span class="math">5.75</span> קרוב אליו. ככה זה עם אחוזים: <span class="math">15.3 ÷ 10.2 = 1.5</span> אבל <span class="math">5.75 ÷ 10.2 ≈ 0.56</span>, ואחוז "למעלה" ואחוז "למטה" אף פעם לא סימטריים.'
+    : (stOk && smOk) ? (chalSec.value!=='' ? '<span class="pill-bad">שני האחוזים נכונים, אבל הזמן לא.</span> זמן = מרחק חלקי מהירות: <span class="math">15.3 ÷ 0.3 = ?</span> שניות (המרחק של נמלת הקביים, לא <span class="num">10</span>).' : '<span class="pill-ok">שני האחוזים נכונים.</span> עכשיו הזמן: מרחק חלקי מהירות — <span class="math">15.3 ÷ 0.3 = ?</span> שניות.')
+    : (stOk && sm>=42 && sm<=43) ? '<span class="pill-bad">כמעט.</span> גם כאן ההשוואה היא ל־⁠<span class="math">10.2</span>, לא ל־⁠<span class="num">10</span>: <span class="math">(10.2 − 5.75) ÷ 10.2 = ?</span>'
+    : stOk ? '<span class="pill-ok">קביים — נכון, <span class="num">50%</span>.</span> עכשיו הגדמים, באותה שיטה: <span class="math">(10.2 − 5.75) ÷ 10.2 = ?</span>'
+    : (st>=5 && st<=5.2) ? '<span class="pill-bad">זה ההפרש במטרים, לא האחוז.</span> <span class="math">15.3 − 10.2 = 5.1</span> — עכשיו חלקו את זה ב־⁠<span class="math">10.2</span> וכפלו ב־⁠<span class="math">100</span>.'
+    : (st>=52 && st<=54) ? '<span class="pill-bad">כמעט.</span> בדקו במה חילקתם: ההשוואה היא לנמלות הרגילות, שחיפשו אחרי <span class="math">10.2</span> מטר — לא ל־⁠<span class="num">10</span>.'
+    : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): קודם ההפרש, <span class="math">15.3 − 10.2</span>. אחר כך חלקו את ההפרש במספר ההתחלתי, <span class="math">10.2</span>, וכפלו ב־⁠<span class="math">100</span>.';
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: S.challenge, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const c=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    const aOk=(c>=750 && c<=754), bOk=(r>=19.8 && r<=20.9), sc = aOk&&bOk?2:(aOk?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="num">10</span> מטר הם <span class="num">10,000</span> מ"מ, ו־⁠<span class="math">10,000 ÷ 13.3 ≈ 752</span> צעדים. (ב) אותם <span class="num">752</span> צעדים הביאו אותה ל־⁠<span class="num">15,300</span> מ"מ: <span class="math">15,300 ÷ 752 ≈ 20.3</span> מ"מ לצעד. ועכשיו העובדה המעניינת: בווידאו הצעד על הקביים היה רק כ־⁠<span class="math">17.5</span> מ"מ. הפער הזה בין "אילו ספרה בדיוק" למדידה הוא מה שהוביל את החוקרים למאמר הבא — היא לא רק סופרת, היא משקללת גם את הקצב.'
+      : aOk ? ((r>=17 && r<=18) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) כתבתם את המדידה מהווידאו (<span class="math">17.5</span>) — אבל השאלה היא "כאילו": כמה היה צריך להיות הצעד אילו ספרה בדיוק <span class="num">752</span> צעדים ל־⁠<span class="num">15,300</span> מ"מ? <span class="math">15,300 ÷ 752 = ?</span>' : '<span class="pill-ok">כ־⁠<span class="num">752</span> צעדים — נכון.</span> עכשיו (ב): <span class="math">15.3</span> מטר הם <span class="num">15,300</span> מ"מ. חלקו במספר הצעדים: <span class="math">15,300 ÷ 752 = ?</span>')
+      : (c>=74 && c<=76) ? '<span class="pill-bad">פי עשר יותר.</span> <span class="num">10</span> מטר הם <span class="math">10,000</span> מ"מ (לא <span class="math">1,000</span>). חלקו שוב ב־⁠<span class="math">13.3</span>.'
+      : (c>=7500 && c<=7550) ? '<span class="pill-bad">פי עשר פחות.</span> <span class="num">10</span> מטר הם <span class="math">10,000</span> מ"מ, לא <span class="math">100,000</span>.'
+      : '<span class="pill-bad">עוד לא.</span> רמז: הפכו את המטרים למילימטרים (במטר יש <span class="num">1,000</span> מ"מ), ואז חלקו באורך הצעד: <span class="math">10,000 ÷ 13.3</span>.';
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const ok=v===1000; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= ok?'<span class="pill-ok">נכון!</span> <span class="num">10</span> מטר הם <span class="num">1,000</span> ס"מ, וכל צעד סנטימטר — <span class="math">1,000 ÷ 1 = 1,000</span> צעדים. (הצעד האמיתי קצת ארוך יותר, <span class="math">1.3</span> ס"מ, ולכן במציאות זה בערך <span class="num">750</span> צעדים. ואת כולם היא סופרת.)':(v===10||v===100)?'<span class="pill-bad">קטן מדי.</span> כמה סנטימטרים יש במטר אחד? <span class="num">100</span>. אז כמה ב־⁠<span class="num">10</span> מטר?':'<span class="pill-bad">לא בדיוק.</span> רמז: במטר אחד יש <span class="num">100</span> ס"מ. <span class="num">10</span> מטר = <span class="math">10 × 100</span> ס"מ. וכל צעד הוא סנטימטר אחד.'; }
+  else { const ok=v>=765 && v<=775; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="num">10</span> מטר הם <span class="num">10,000</span> מ"מ, ו־⁠<span class="math">10,000 ÷ 13 ≈ 769</span> צעדים. ואת כולם היא סופרת, ואז "מורידה" אותם אחד־אחד בדרך הביתה.':(v>=75 && v<=78)?'<span class="pill-bad">פי עשר יותר.</span> <span class="num">10</span> מטר הם <span class="math">10,000</span> מ"מ, לא <span class="math">1,000</span>. חלקו שוב ב־⁠<span class="num">13</span>.':(v>=7600 && v<=7800)?'<span class="pill-bad">פי עשר פחות.</span> <span class="num">10</span> מטר הם <span class="math">10,000</span> מ"מ, לא <span class="math">100,000</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: הפכו מטרים למילימטרים (במטר יש <span class="num">1,000</span> מ"מ), ואז חלקו באורך הצעד: <span class="math">10,000 ÷ 13</span>.'; }
+  fb.classList.add('show'); }
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שהנמלה מחזיקה בראש "חץ" הביתה — כיוון ומרחק — ולא זוכרת את הדרך.',
+  'הסברתי שאת הכיוון היא לוקחת מהשמש (או מאור השמיים המקוטב) — כמו בניסוי המראה של סנצ\'י.',
+  'כתבתי שאת המרחק היא מודדת בספירת צעדים.',
+  'תיארתי את ניסוי הקביים: נמלות על קביים הלכו רחוק מדי (כ־⁠<span class="num">15</span> מ׳ במקום <span class="num">10</span>), נמלות עם רגליים מקוצרות עצרו מוקדם.',
+  'הסברתי למה נמלות ששונו להן הרגליים עוד לפני היציאה חזרו בדיוק: אותו מספר צעדים הלוך וחזור.',
+];
+const MODEL='נמלת המדבר יוצאת לצוד בשעה הכי חמה, הולכת בזיגזג מאות מטרים, ואז חוזרת לקן בקו ישר. היא לא זוכרת את הדרך ולא הולכת אחרי ריח: היא מחזיקה בראש "חץ" הביתה — כיוון ומרחק — ומעדכנת אותו בכל צעד (אינטגרציית מסלול). את הכיוון היא לוקחת מהשמיים: היא שומרת זווית קבועה בינה לבין השמש, ואם השמש מוסתרת מספיקה לה פיסת שמיים כחולים, כי אור השמיים מקוטב והעין שלה רואה את זה. סנצ\'י הוכיח את זה ב־1911 עם מראה: הזיז את השמש — והנמלה סטתה באותה זווית. את המרחק היא מודדת בספירת צעדים. ב־2006 ויטלינגר, ונר ווולף אימנו נמלות ללכת 10 מטר בתעלה מהקן לאוכל, ובאוכל הדביקו לחלקן קביים מזיפי חזיר ולאחרות קיצרו את הרגליים. הנמלות על הקביים הלכו אותו מספר צעדים אבל כל צעד היה ארוך יותר, ולכן עברו את הקן והתחילו לחפש רק אחרי 15.3 מטר (כ־50% רחוק מדי); הנמלות עם הרגליים המקוצרות עצרו כבר אחרי 5.75 מטר. וההוכחה שסוגרת את העניין: נמלות שקיבלו קביים עוד לפני היציאה מהקן חזרו בדיוק הביתה, כי מספר הצעדים החוצה ובחזרה היה זהה. כך יודעים שהיא סופרת צעדים ולא מודדת זמן או עייפות. (המדידות המדויקות הראו שהיא גם משקללת את קצב ההליכה — וזה כבר המאמר הבא.)';
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (אינטגרציית מסלול: וקטור בית משני סכומים, צפון־דרום ומזרח־מערב, שמתעדכנים בכל צעד; הכיוון ממצפן השמש ומאור השמיים המקוטב, ניסוי המראה של סנצ\'י 1911; המרחק ממונה צעדים; ניסוי הקביים 2006: אימון 10 מ׳, קביים → 15.3 מ׳ (+50%), גדמים → 5.75 מ׳ (−44%), ביקורת 10.2; שינוי הרגליים לפני היציאה → חזרה מדויקת כי מספר הצעדים זהה הלוך וחזור; והפער בין +31.5% אורך צעד ל־+50% מרחק שהוביל למסקנה שהמונה משקלל גם מהירות) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על הנווט של נמלת המדבר וניסוי הקביים. הרעיונות המרכזיים: (1) נמלת המדבר (Cataglyphis) יוצאת לצוד בצהריים, כשהחול לוהט ב־60 מעלות ויותר והטורפים מסתתרים; היא הולכת בזיגזג מאות מטרים ואז חוזרת בקו ישר לפתח ברוחב של עיפרון; ציידת חיה כשישה ימים; (2) אינטגרציית מסלול / ניווט מת: היא לא זוכרת את הדרך ולא הולכת אחרי ריח — היא מחזיקה "חץ" הביתה (וקטור: כיוון ומרחק) שמתעדכן בכל צעד, למעשה שני סכומים: צפון־דרום ומזרח־מערב; 5 מזרחה ו־12 צפונה → 13 בקו ישר (5² + 12² = 169); ניסוי העברה: נמלה שמועברת בחושך רצה לאורך הווקטור למקום שבו הקן "היה אמור" להיות; (3) הכיוון: מצפן שמש — הנמלה שומרת זווית קבועה מהשמש; סנצ\'י (1911, תוניסיה) הזיז את השמש עם מראה והנמלה סטתה באותה זווית; פיסת שמיים כחולים מספיקה כי אור השמיים מקוטב והעיניות בקצה העליון של העין רואות אותו (ונר); כיסוי כל השמיים → אובדן כיוון; השמש זזה כ־15 מעלות בשעה בממוצע והנמלה מתקנת לפי השעה; שדה מגנטי בסיבובי הלימוד; (4) המרחק: מונה צעדים — ויטלינגר, ונר ווולף 2006 (Science): אימון 10 מ׳ בתעלה, קביים מזיפי חזיר או גדמים במאכל; ביקורת חיפשה אחרי 10.2 מ׳, קביים 15.3 (+50%), גדמים 5.75 (−44%); שינוי הרגליים לפני היציאה → חזרה מדויקת (אותו מספר צעדים הלוך וחזור); הסברים אחרים נפסלו: זרימת הנוף בעיניים — בניסויים קודמים (Ronacher & Wehner 1995, תרומה שולית בלבד), מדידת זמן — נמלה שסוחבת משא כבד והולכת לאט חוזרת מדויק; (5) אורך צעד 13.3 מ"מ → כ־750 צעדים ל־10 מ׳; הקביים האריכו את הצעד רק בכ־30% (17.5 מ"מ) אבל המרחק גדל 50% — פער עקבי של 17% שהוביל למאמר 2007: המונה משקלל גם מהירות; (6) רוחב החיפוש (לולאות מתרחבות) תלוי באורך וקטור הבית; (7) חיבורים: מד מרחק במכונית (סיבובי גלגל × היקף), מונה צעדים בטלפון, ניווט מת של מלחים (קשר = קשרים בחבל), רובר על מאדים (גלגלים שמחליקים בחול = קביים, ולכן גם מצלמות), דבורה מודדת זרימה אופטית; (8) ישראל: השם העברי של הסוג הוא נווטת; לפחות חמישה מינים; הנווטת השחורה Cataglyphis niger במישור החוף ובמדבר, נחקרת במכון ויצמן (מעבדת פיינרמן: גיוס אמין למרות מסרים רועשים) ובאוניברסיטת חיפה (כרומוזום חברתי).\n\nההסבר של הילד/ה:\n\"\"\"'+txt+'\"\"\"\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם את שני חלקי החץ (כיוון מהשמש/השמיים ומרחק מספירת צעדים, או לפחות "היא מחזיקה חץ/כיוון ומרחק ולא זוכרת את הדרך") וגם את הלוגיקה של ניסוי הקביים (קביים → רחוק מדי / גדמים → קצר מדי, ורצוי: שינוי לפני היציאה → מדויק), 1 אם יש רק חלק מזה. תשובה שאומרת ש"הנמלה זוכרת את הדרך" או "הולכת אחרי ריח" מפספסת את המנגנון ולא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=85?name+', החץ שבראש שלך מדויק כמו של נמלה!':pct>=60?name+', יש לך מוח של '+G('חוקר נמלים','חוקרת נמלים')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>':'');
+  const target=15;                                                     // where the stilt ants started searching (15.3 m measured)
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. הנמלות על הקביים עברו את הקן והתחילו לחפש רק אחרי <span class="math">15.3</span> מטר במקום <span class="num">10</span> — כ־<b class="num">50%</b> רחוק מדי. אותו מספר צעדים, צעדים ארוכים יותר.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. המדידה: <span class="math">15.3</span> מטר, כ־<b class="num">50%</b> רחוק מדי. אותו מספר צעדים, צעדים ארוכים יותר — והבית נשאר מאחור.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. המציאות: הנמלות על הקביים רצו בביטחון, עברו את הקן, והתחילו לחפש רק אחרי <span class="math">15.3</span> מטר — כ־<b class="num">50%</b> רחוק מדי. הן ספרו את אותו מספר צעדים כמו תמיד, רק שכל צעד היה ארוך יותר.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (איפה נמלת הקביים מחפשת): '+(S.guess?fmtSigns(S.guess):'—')+' (המציאות: אחרי 15.3 מטר)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "הנמלה שהלכה על קביים", מהדורה 10, ו\' בתשרי תשפ"ז (17 בספטמבר 2026). נושא: הנווט של נמלת המדבר — ביולוגיה (Cataglyphis, חום, ציידות), מתמטיקה (ספירה, יחידות, אחוזים, וקטורים, 5-12-13), פיזיקה (מצפן השמש, אור מקוטב) ומעט גאוגרפיה (מדבר, מישורי מלח, ישראל). עובדות: נמלת המדבר (הסוג Cataglyphis, כ־105 מינים; בסהרה, במזרח התיכון ובאסיה; השם העברי של הסוג: נווטת; לפחות חמישה מינים בישראל, הנפוצה: הנווטת השחורה Cataglyphis niger, במישור החוף ובמדבר; נחקרת במעבדת עופר פיינרמן במכון ויצמן — גיוס אמין לאוכל למרות מסרים רועשים בין נמלה לנמלה (Razin 2013) — ובאוניברסיטת חיפה (פריבמן): כרומוזום חברתי שקובע מלכה אחת או כמה; מחקר "תמרורי הריח" בקן של מעבדת פיינרמן נעשה על נמלה אחרת, Camponotus fellah, לא על נווטת) יוצאת לצוד בצהריים כשהחול לוהט (60–70 מעלות) והלטאות מסתתרות; גופה עומד ביותר מ־50 מעלות; אוכלת חרקים שמתו מהחום; ציידת חיה בממוצע 6.1 ימים מתחילת היציאות ומצליחה ב־25% מהיציאות בהתחלה ו־80% אחרי שבוע (Schmid-Hempel 1984, C. bicolor); הולכת בזיגזג מאות מטרים וחוזרת בקו ישר לפתח ברוחב של עיפרון; מהירות בווידאו כ־0.28 מ׳/ש׳, שיא C. fortis כ־0.6 מ׳/ש׳; נמלת הכסף הסהרית C. bombycina — 0.855 מ׳/ש׳ = 108 אורכי גוף בשנייה, השיאנית בעולם (Pfeffer 2019). אינטגרציית מסלול (ניווט מת): לא זיכרון של הדרך ולא ריח — וקטור בית משני סכומים, צפון־דרום ומזרח־מערב, שמתעדכנים בכל צעד; הדרך הביתה = הווקטור ההפוך; 5 מזרחה ו־12 צפונה → 13 בקו ישר (5² + 12² = 25 + 144 = 169, √169 = 13); 8 צפונה + 3 מזרחה + 3 מערבה → הבית 8 דרומה; ניסוי העברה (ונר): נמלה שמצאה אוכל ומועברת בחושך רצה לאורך הווקטור ואז מחפשת בלולאות מתרחבות במקום שבו הקן "היה אמור" להיות; רוחב החיפוש תלוי באורך וקטור הבית ולא באורך הדרך המפותלת (Merkle & Wehner 2010) — הטעות מצטברת עם המרחק. הכיוון: מצפן שמש — זווית קבועה מהשמש; פליקס סנצ\'י (רופא שווייצרי בקירואן, תוניסיה, 1911) הזיז את השמש עם מראה והנמלה סטתה באותה זווית; פיסת שמיים כחולים מספיקה; כיסוי כל השמיים → אובדן כיוון; ההסבר (ונר, כשבעים שנה אחר כך): אור השמיים מקוטב — הגלים מתנדנדים בכיוון שתלוי במקום השמש, ובקצה העליון (הגבי) של העין המורכבת יש עיניות שרגישות לקיטוב; השמש זזה כ־15 מעלות בשעה בממוצע והנמלה מתקנת לפי השעה (לומדת את מסלול השמש); שדה מגנטי משמש בסיבובי הלימוד סביב הקן (Fleischmann 2018). המרחק: מונה צעדים — ויטלינגר, ונר ווולף (Science 2006): Cataglyphis fortis במישור מלח בתוניסיה, אימון מהקן אל האוכל 10 מ׳ בתעלה; ליד האוכל: קביים מזיפי חזיר (הוסיפו כ־2–3 מ"מ לרגל) או גדמים (קיצור הרגליים); שחרור בתעלת מבחן; ביקורת חיפשה אחרי 10.2 מ׳, קביים 15.3 מ׳ (+50%: (15.3 − 10.2) ÷ 10.2 = 0.5), גדמים 5.75 מ׳ (−44%: (10.2 − 5.75) ÷ 10.2 ≈ 0.436); קבוצות ששונו להן הרגליים לפני היציאה חזרו לכ־10 מ׳ — אותו מספר צעדים הלוך וחזור; הסברים אחרים נפסלו: מדידה לפי זרימת הנוף בעיניים — בניסויים קודמים (Ronacher & Wehner 1995: תרומה שולית בלבד), ומדידת זמן — נמלה שסוחבת משא כבד והולכת לאט חוזרת מדויק בדיוק כמו נמלה מהירה; נשאר מונה הצעדים, וניסוי הקביים מראה שהוא תלוי באורך הרגל; מאמר ההמשך (JEB 2007): אורך צעד רגיל 13.3 מ"מ (גדמים 10.5), 10 מ׳ = 10,000 מ"מ → 10,000 ÷ 13.3 ≈ 752 צעדים (עם 13 מ"מ: ≈ 769; עם צעד של 1 ס"מ: 1,000); הקביים האריכו את הצעד רק בכ־31.5% (≈17.5 מ"מ) אבל המרחק גדל 50%, פער עקבי של כ־17% בכל הקבוצות → המונה משקלל אורך צעד ומהירות ("אינטגרטור צעדים"); אילו ספרה בדיוק, צעד הקביים היה 15,300 ÷ 752 ≈ 20.3 מ"מ (חישוב היפותטי); נמלת קביים רצה 15.3 ÷ 0.3 = 51 שניות; נמלה שיצאה על קביים (צעד ≈17.5 מ"מ → ≈570 צעדים) וחזרה ברגליים רגילות תעצור לפני הקן (570 × 13.3 ≈ 7,600 מ"מ, כ־2.4 מ׳ לפני). רודיגר ונר (ציריך): יותר מ־50 שנות עבודת שדה ליד מהרס בתוניסיה, רשת חוטים על החול, תעלות, ניסויי העברה; הספר "Desert Navigator: The Journey of an Ant" (2020). חיבורים: מד מרחק במכונית = סיבובי גלגל × היקף (היקף כ־2 מ׳: 500 סיבובים = ק"מ); מונה צעדים בטלפון (חיישן תאוצה); ניווט מת של מלחים — מצפן + מהירות × זמן, חבל עם קשרים → היחידה "קשר", קולומבוס; רוברים על מאדים — סיבובי גלגלים (ספיריט נתקע בחול ב־2009: הגלגלים הסתובבו והמונה ספר) ולכן גם מצלמות (אודומטריה חזותית); דבורים מודדות זרימה אופטית (מנהרה עם פסים צפופים → ריקוד שמדווח מרחק גדול מדי); בני אדם עושים אינטגרציית מסלול גרועה (סוטים במעגלים בעיניים מכוסות); אור מקוטב: מסך טלפון מול משקפי שמש מקוטבים מחשיך ומאיר. ניסויי בית: מדידת צעד (10 צעדים ÷ 10), הליכה בעיניים עצומות 20 צעדים וחזרה, גרסת "קביים" עם צעדי ענק, פנס כשמש עם כלל "האור על הכתף הימנית", חיפוש נמלה שחורה שרצה לבד בצהריים (לא נוגעים). סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט (האינטראקטיבים הם המחשות; "סופרת צעדים" הוא הפישוט, המדידות מראות גם שקלול מהירות; מספר המינים בישראל בבדיקה), בלי לחשוף תשובות מבחן; אם ילד שואל על תשובה למבחן, לרמוז ולכוון, לא לפתור.';
+const CHIPS = ['איך הנמלה סופרת צעדים?', 'מה זה אור מקוטב?', 'למה הקביים לא בלבלו את הנמלות שיצאו איתם?', 'יש נווטות בישראל?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים: 10.2 / 15.3 / 5.75 מ׳ והאחוזים, אורך צעד 13.3 מ"מ וכ־750 צעדים, הפער בין +31.5% אורך צעד ל־+50% מרחק והמסקנה על שקלול מהירות, וקטור הבית כשני סכומים ומשולש 5-12-13, אור מקוטב והעיניות הגביות, ותיקון מסלול השמש לפי השעה), שאל שאלות המשך שדורשות חשיבה, הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל (15.3 − 10.2) ÷ 10.2 = 50%. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>איך הנמלה סופרת צעדים?</b> אף אחד לא יודע בדיוק איך המוח הזעיר שלה עושה את זה, אבל הניסוי מראה שהיא עושה משהו כזה: כשמאריכים לה את הצעד עם קביים היא הולכת רחוק מדי, וכשמקצרים — קצר מדי. ומי שיצא עם קביים וחזר עם קביים חזר בדיוק, כי מספר הצעדים היה זהה. בפועל היא כנראה משקללת גם את קצב ההליכה, לא רק סופרת.<br><br><b>מה זה אור מקוטב?</b> אור הוא גל שמתנדנד. באור רגיל ההתנדנדות היא לכל הכיוונים; באור מקוטב היא בכיוון אחד. אור השמיים הכחולים מקוטב בצורה שתלויה במקום השמש, ובקצה העליון של העין של הנמלה יש עיניות שרואות את הכיוון הזה — אז גם כשענן מסתיר את השמש, פיסת שמיים מספיקה לה.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
