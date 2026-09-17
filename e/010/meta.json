@@ -11,10 +11,10 @@
     "גאוגרפיה"
   ],
   "summary": "The desert ant Cataglyphis as a navigator: it forages at noon on 60 °C sand, zigzags hundreds of metres and runs straight home to a pencil-wide hole — a home vector updated every step from a sky compass (sun + polarized skylight; Santschi's 1911 mirror experiment) and a stride counter. The 2006 stilts-and-stumps experiment (Wittlinger, Wehner & Wolf, Science): trained on 10 m, ants on pig-bristle stilts searched at 15.3 m (+50%), ants with shortened legs at 5.75 m (−44%), and ants modified before leaving came home exactly; the 2007 follow-up (stride 13.3 mm; +31.5% predicted vs +50% observed) refined the counter into a stride integrator that weights speed. Vector addition with a 5-12-13 triangle, the car odometer / phone pedometer / dead reckoning / Mars-rover wheel-slip connections, and Israel's נווטת שחורה (Weizmann, Haifa).",
-  "teaser": "בלב מדבר, על חול שמגיע ל־60 מעלות בצהריים, יוצאת נמלה קטנה למסע של מאות מטרים — מתפתלת, עוקפת, משנה כיוון שוב ושוב. ואז, ברגע אחד, היא פונה ופורצת בקו ישר בדיוק אל חור ברוחב עיפרון שהיא מעולם לא ראתה מהכיוון הזה.\nאיך היא יודעת לאן ללכת בלי מפה ובלי לראות את הבית? מדענים הדביקו לנמלים קביים — וקיבלו תשובה מפתיעה.",
+  "teaser": "במדבר, בשעה הכי חמה, יוצאת מחור ברוחב של עיפרון נמלה אחת — לבד. היא רצה בזיגזג מאות מטרים, ואז חוזרת הביתה בקו ישר, בלי ריח ובלי חברות. מדענים הדביקו לה קביים זעירים כדי לגלות איך היא עושה את זה. איפה היא תחפש את הבית עם הרגליים החדשות?",
   "max_score": 11,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-09-17T08:09:31.454Z",
   "password": "נמלה על קביים",
   "reviewer_verdict": "PASS (3 rounds) — remaining nits: canvas labels ≈14 CSS px on a 390-px phone, three stacked label plates on the lab canvas in the stumps run, mirror plate touches the top edge at 150–165°, reviewer's time-on-task ≈45–50 min vs the 25-minute tag, engine-level persona short-sentence branch is masculine-only",
   "review_url": "https://claude.ai/artifact/JdkAsHDGDJKz31TzWjGSRp",
