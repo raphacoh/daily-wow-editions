@@ -14,7 +14,7 @@
   "teaser": "ב־1 בספטמבר 1859 ראה אסטרונום אנגלי הבזק לבן על השמש, שנעלם אחרי חמש דקות. בלילה שאחרי השמיים מעל קובה נצבעו אדום, ובבוסטון ניתקו מפעילי הטלגרף את הסוללות — והטלגרף המשיך לשלוח הודעות. איך משהו שקורה על השמש, במרחק 150 מיליון קילומטר, מדליק חוטי חשמל על כדור הארץ?",
   "max_score": 11,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-09-18T08:12:05.725Z",
   "password": "טלגרף בלי סוללה",
   "reviewer_verdict": "PASS (2 rounds) — remaining nits: reviewer estimates 40–50 min time-on-task vs the 30-minute tag; Kp 5 already tints London on the aurora map; artotip covers the seg controls on phones for 12 s (engine)",
   "review_url": "https://claude.ai/artifact/Kw4EgBpVoLgxCWhpXb9FcQ",
