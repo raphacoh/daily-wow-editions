@@ -1,0 +1,22 @@
+{
+  "n": 11,
+  "code": "WOW-011",
+  "date": "2026-09-18",
+  "language": "he",
+  "title": "הלילה שבו השמיים הדליקו את חוטי הטלגרף",
+  "topics": [
+    "חלל",
+    "פיזיקה",
+    "היסטוריה",
+    "גאוגרפיה"
+  ],
+  "summary": "The Carrington Event of 1–2 September 1859: Richard Carrington sees a white-light solar flare at 11:18 while sketching sunspots; a CME reaches Earth ~17.5 h later (~2,400 km/s, path cleared by the 28 Aug cloud); the auroral oval expands to magnetic latitude ~30° (Cuba, Hawaii, Colombia; Rocky-Mountain miners cook breakfast at 1 am); Earth’s shaking field induces currents in ~200,000 km of telegraph wire — Boston–Portland operators disconnect their batteries and work two hours on the ‘auroral current’. Mechanism: Faraday’s law (only a changing field makes current). Today: Quebec 1989 (<90 s, 6 M people, 9 h), the 2012 near miss, May 2024 G5, DSCOVR at L1; Israel’s three geomagnetic stations and Zikhron Yaakov at magnetic latitude ~29°.",
+  "teaser": "ב־1 בספטמבר 1859 ראה אסטרונום אנגלי הבזק לבן על השמש, שנעלם אחרי חמש דקות. בלילה שאחרי השמיים מעל קובה נצבעו אדום, ובבוסטון ניתקו מפעילי הטלגרף את הסוללות — והטלגרף המשיך לשלוח הודעות. איך משהו שקורה על השמש, במרחק 150 מיליון קילומטר, מדליק חוטי חשמל על כדור הארץ?",
+  "max_score": 11,
+  "status": "released",
+  "released_at": null,
+  "password": "טלגרף בלי סוללה",
+  "reviewer_verdict": "PASS (2 rounds) — remaining nits: reviewer estimates 40–50 min time-on-task vs the 30-minute tag; Kp 5 already tints London on the aurora map; artotip covers the seg controls on phones for 12 s (engine)",
+  "review_url": "https://claude.ai/artifact/Kw4EgBpVoLgxCWhpXb9FcQ",
+  "editor_note": null
+}

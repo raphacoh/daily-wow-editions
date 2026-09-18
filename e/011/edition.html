@@ -1,0 +1,1674 @@
+<title>שורשים וכנפיים #11 · הלילה שבו השמיים הדליקו את חוטי הטלגרף</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F4F2EA; --card:#FFFFFF; --card2:#F7F5FF; --ink:#171B33; --muted:#575B75;
+  --sun:#E09A2B; --sun-deep:#7A4A08; --sun-soft:#FAE8C4;
+  --nile:#1B7FB0; --nile-soft:#D2E8F5; --shadow:#6B3FA0; --shadow-soft:#EEE6F7;
+  --night:#141A3A; --aur:#2FBF8F; --aur2:#E0508C;
+  --sand:#DCD6C4; --line:#E4DFD2; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#B9D7EE; --sky2:#F3EEE2; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#D9822B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10142B; --card:#1A1F3E; --card2:#222749; --ink:#F2EDE0; --muted:#AFB3CC;
+    --sun:#FFB454; --sun-deep:#FFC98A; --sun-soft:#4A3312;
+    --nile:#5EC1EC; --nile-soft:#123444; --shadow:#C9A6F0; --shadow-soft:#2E2145;
+    --night:#0B0E22; --aur:#4FE0A8; --aur2:#FF7DB0;
+    --sand:#363C60; --line:#2F3559; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#171A2E; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10142B; --card:#1A1F3E; --card2:#222749; --ink:#F2EDE0; --muted:#AFB3CC;
+  --sun:#FFB454; --sun-deep:#FFC98A; --sun-soft:#4A3312;
+  --nile:#5EC1EC; --nile-soft:#123444; --shadow:#C9A6F0; --shadow-soft:#2E2145;
+  --night:#0B0E22; --aur:#4FE0A8; --aur2:#FF7DB0;
+  --sand:#363C60; --line:#2F3559; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#171A2E; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a small sun with a spark and a wire */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:40px;height:26px;flex:none}
+.ch .stick::before{content:"";position:absolute;right:0;bottom:4px;width:16px;height:16px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 3px var(--sun-soft)}
+.ch .stick::after{content:"";position:absolute;right:20px;bottom:10px;width:20px;height:0;border-top:3px solid var(--shadow);opacity:.8}
+
+/* hero */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-24px;width:300px;height:300px;z-index:0;opacity:.92;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%,100%{transform:scale(.6);opacity:.4}50%{transform:scale(1.25);opacity:1}}
+/* this edition's widgets */
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 11</div>
+</div></header>
+
+
+<main>
+
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="45%" r="60%">
+        <stop offset="0%" stop-color="var(--sun)" stop-opacity=".40"/>
+        <stop offset="60%" stop-color="var(--shadow)" stop-opacity=".16"/>
+        <stop offset="100%" stop-color="var(--shadow)" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="aur" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="var(--aur)" stop-opacity=".0"/>
+        <stop offset="55%" stop-color="var(--aur)" stop-opacity=".55"/>
+        <stop offset="100%" stop-color="var(--shadow)" stop-opacity=".75"/>
+      </linearGradient>
+    </defs>
+    <circle cx="150" cy="150" r="140" fill="url(#glow)"/>
+    <!-- the sun with a white flash, an aurora curtain, and a telegraph pole with a wire -->
+    <circle cx="70" cy="74" r="26" fill="var(--sun)" opacity=".95"/>
+    <g class="spark"><circle cx="82" cy="66" r="7" fill="#fff" opacity=".9"/></g>
+    <path d="M150 120 C160 150 140 180 150 210 M172 112 C182 142 162 172 172 202 M194 118 C204 148 184 178 194 208 M216 126 C226 156 206 186 216 216" fill="none" stroke="url(#aur)" stroke-width="16" stroke-linecap="round" opacity=".85"/>
+    <g stroke="var(--ink)" stroke-width="4" stroke-linecap="round" opacity=".45" fill="none">
+      <path d="M60 262 L60 190 M44 198 L76 198 M48 206 L72 206"/>
+      <path d="M62 198 C120 214 200 214 280 200" stroke-dasharray="1 0"/>
+    </g>
+    <g class="spark"><circle cx="150" cy="208" r="6" fill="var(--sun)" opacity=".8"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 11</span><span class="tag">יום שישי, 18 בספטמבר 2026</span><span class="tag">ז׳ בתשרי תשפ״ז</span><span class="tag">כ־30 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>הלילה שבו השמיים הדליקו את חוטי הטלגרף</h1>
+  <p class="lede">בבוקר של <span class="num">1</span> בספטמבר <span class="num">1859</span> שרטט אסטרונום אנגלי בשם ריצ׳רד קרינגטון כתמי שמש על דף — ופתאום ראה על השמש <b>הבזק לבן</b>, שנעלם אחרי חמש דקות. בלילה שאחרי, השמיים מעל קובה והוואי נצבעו אדום; כורי זהב בהרי הרוקי קמו באחת בלילה לבשל ארוחת בוקר; ובבוסטון <b>ניתקו מפעילי הטלגרף את הסוללות</b> — והטלגרף המשיך לשלוח הודעות, מופעל על ידי השמיים. השאלה של היום: <b>איך משהו שקורה על השמש, במרחק <span class="num">150</span> מיליון קילומטר, מדליק חוטי חשמל על כדור הארץ?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">קרינגטון ראה את ההבזק ב־<span class="num">11:18</span> בבוקר. האור מהשמש מגיע אלינו בשמונה דקות. אבל מה שהדליק את הטלגרפים לא היה אור — זה היה ענן ענק של חלקיקים טעונים שהשמש ירתה לחלל. כמה זמן לקח לענן להגיע לכדור הארץ?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="0.14"><b>כ־⁠<span class="num">8</span> דקות</b><span>כמו האור — הכול מהשמש מגיע באותה מהירות</span></button>
+      <button type="button" class="scaleopt" data-scale="17"><b>כ־⁠<span class="num">17</span> שעות</b><span>מהר מאוד, אבל הרבה יותר לאט מאור</span></button>
+      <button type="button" class="scaleopt" data-scale="72"><b>כ־⁠<span class="num">3</span> ימים</b><span>כמו רוב סופות השמש</span></button>
+      <button type="button" class="scaleopt" data-scale="336"><b>כ־⁠<span class="num">2</span> שבועות</b><span>החלל עצום, זה לוקח זמן</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE FLASH (interactive 1: the race from the Sun) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>ההבזק שקרינגטון ראה</h2>
+  <p>ריצ׳רד קרינגטון היה בן <span class="num">33</span>, בן של מבשל בירה, עם מצפה כוכבים פרטי בכפר רדהיל, דרומית ללונדון. כל בוקר בהיר הוא כיוון את הטלסקופ לשמש — <b>בלי להסתכל דרכו</b>, כי זה מעוור — והטיל את תמונת השמש על דף לבן בחדר חשוך, כמו מקרן, ושרטט את כתמי השמש. באותו בוקר, בתוך קבוצת כתמים ענקית, הופיעו ב־<span class="num">11:18</span> <b>שני כתמים של אור לבן מסנוור</b>. הוא רץ לקרוא למישהו שיראה גם; כשחזר, אחרי דקה, האור כבר דעך. חמש דקות — וזהו. באותו רגע, ליד לונדון, אסטרונום בשם ריצ׳רד הודג׳סון ראה בדיוק את אותו דבר.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>מה קרינגטון ראה? היום אנחנו יודעים: <b>התפרצות שמש</b> — פיצוץ עצום על פני השמש, שמשחרר בכמה דקות יותר אנרגיה ממה שכל בני האדם יצרו אי פעם. הפיצוץ שולח לחלל שני דברים: <b>אור</b>, שרץ במהירות הכי גדולה שיש, ו<b>ענן</b> של מיליארדי טונות של חלקיקים זעירים וטעונים בחשמל — פרוסת שמש שנזרקת החוצה. האור הגיע לעין של קרינגטון תוך שמונה דקות. הענן יצא לדרך באותו רגע, אבל הוא איטי יותר, ולקרינגטון לא היה מושג שהוא בדרך.</p>
+    <p>באינטראקטיב: יש לכם שלושה רצים במרוץ מהשמש לכדור הארץ — האור, ענן רגיל, והענן של קרינגטון. גררו את הזמן ותראו מי מגיע מתי.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>קרינגטון ראה את מה שהיום קוראים לו <b>התפרצות שמש</b> (solar flare): קווי שדה מגנטי על פני השמש, מסובכים ומתוחים כמו גומייה, נקרעים ומתחברים מחדש בבת אחת, ומשחררים תוך דקות אנרגיה של מיליארדי פצצות. ההתפרצות של <span class="num">1859</span> הייתה כל כך חזקה שראו אותה <b>באור רגיל</b>, על רקע השמש הבוהקת — דבר שקורה לעיתים רחוקות מאוד. מדענים שחישבו אחורה מעריכים שהיא הייתה מהחזקות ביותר שתועדו אי פעם. ויחד עם ההבזק, השמש ירתה לחלל <b>ענן פלזמה</b>: מיליארדי טונות של חלקיקים טעונים, עם שדה מגנטי משלהם, שקוראים לו פליטת מסה מהעטרה.</p>
+    <p>שני דברים יצאו מהשמש באותו רגע, ולכל אחד מהירות משלו. האור: <span class="num">300,000</span> ק"מ בשנייה, <span class="num">150</span> מיליון ק"מ בשמונה דקות ועשרים שניות. הענן: לרוב כמה מאות קילומטרים בשנייה, ולכן שניים־ארבעה ימים עד אלינו. אבל הענן של קרינגטון הגיע אחרי <span class="math">17.5</span> שעות בלבד — כלומר רץ בממוצע כ־⁠<span class="num">2,400</span> ק"מ בשנייה. למה כל כך מהר? כמה ימים קודם השמש ירתה ענן אחר, שניקה את הדרך מחלקיקים שמאטים; הענן השני טס בחלל "ריק". באינטראקטיב: גררו את הזמן, והשוו את שלושת הרצים.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — המרוץ מהשמש ===== -->
+  <div class="panel instrument">
+    <h3>המרוץ מהשמש</h3>
+    <p class="cap">גררו את הזמן. שלושה רצים יוצאים מהשמש באותו רגע: האור (למעלה, <span class="num">300,000</span> ק"מ בשנייה), הענן של קרינגטון (באמצע, כ־⁠<span class="num">2,400</span> ק"מ בשנייה) וענן רגיל של סופת שמש (למטה, כ־⁠<span class="num">600</span>). הנקודה בצד ימין של כל מסלול היא כדור הארץ.</p>
+    <canvas id="raceCv" width="640" height="440" aria-label="שלושה מסלולים מהשמש בצד שמאל לכדור הארץ בצד ימין: אור שמגיע אחרי שמונה דקות, ענן מהיר שמגיע אחרי שבע עשרה וחצי שעות, וענן רגיל שמגיע אחרי שלושה ימים"></canvas>
+    <div class="controls">
+      <label>הזמן מאז ההבזק
+        <input type="range" id="raceT" min="0" max="72" step="0.05" value="0" oninput="raceDraw(1)" aria-label="הזמן מאז ההבזק בשעות" style="direction:ltr">
+      </label>
+      <div class="readout"><b class="num" id="raceTOut">0</b> <span id="raceTUnit">דקות</span></div>
+    </div>
+    <div class="controls">
+      <button class="btn small ghost" onclick="racePreset(0.139)">האור הגיע</button>
+      <button class="btn small ghost" onclick="racePreset(17.5)"><span class="math">17.5</span> שעות</button>
+      <button class="btn small ghost" onclick="racePreset(72)"><span class="num">3</span> ימים</button>
+      <button class="btn small ghost" onclick="racePreset(0)">מהתחלה</button>
+    </div>
+    <p class="cap" id="raceMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>קרינגטון ראה את ההבזק, כתב אותו במחברת — ולא ידע שענן בגודל של כוכב לכת דוהר לעברו. למחרת, כשכל העולם דיבר על השמיים האדומים, הוא היה כמעט היחיד שחשד בקשר. אבל הוא היה זהיר: "סנונית אחת עוד לא עושה קיץ", כתב. לקח עשרות שנים עד שהמדענים הסכימו איתו.</p></div>
+
+  <div class="q qc" id="raceQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE NIGHT THE SKY GLOWED (interactive 2: the shield and the aurora) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>הלילה שבו השמיים נדלקו עד קובה</h2>
+  <p>הענן פגע בכדור הארץ ב־<span class="num">2</span> בספטמבר, קצת לפני חמש בבוקר לפי שעון לונדון. באותו רגע, במצפה קיו שליד לונדון ובמצפה קולאבה שבהודו, המחטים של מדי השדה המגנטי — מכשירים שרושמים כמה חזק המגנט הענק של כדור הארץ — התחילו לרקוד. ובלילה, בחצי הכדור שהיה חשוך, אנשים יצאו החוצה והרימו את הראש.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>כדור הארץ הוא מגנט ענק. יש לו שדה מגנטי, שמקיף אותו כמו בועה בלתי נראית ומגן עלינו מהחלקיקים שהשמש יורה כל הזמן. הבועה מסיטה את רוב החלקיקים הצידה — אבל ליד הקטבים, שם קווי המגנט נכנסים לתוך כדור הארץ, החלקיקים מחליקים פנימה לאורך הקווים ומתנגשים באוויר, גבוה מאוד, במאה עד שלוש מאות קילומטר מעל הראש. האוויר זוהר מהמכה: חמצן זוהר ירוק ואדום, חנקן כחול־סגול. זה <b>הזוהר הקוטבי</b>, וזו הסיבה שרואים אותו בדרך כלל רק בנורווגיה, באלסקה ובקנדה.</p>
+    <p>אבל ב־<span class="num">1859</span> הענן היה כל כך חזק שהוא מעך את הבועה, וטבעת הזוהר התרחבה הרחק דרומה. בהוואי, בקובה, במקסיקו ובקולומביה — מקומות חמים שלא ראו זוהר קוטבי מעולם — השמיים היו אדומים כמו אש. באינטראקטיב: גררו את עוצמת הסופה ותראו עד איפה הזוהר מגיע. חפשו את זכרון יעקב.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>לכדור הארץ יש שדה מגנטי, שנוצר מברזל נוזלי שזורם עמוק בתוכו, והוא עוטף את הפלנטה בבועה — <b>המגנטוספרה</b>. הרוח מהשמש, זרם דליל של חלקיקים טעונים שנושב תמיד, פוגעת בבועה ונדחקת סביבה כמו מים סביב אבן בנחל. רק ליד הקטבים המגנטיים, שם קווי השדה צוללים אל האדמה, חלקיקים מצליחים להחליק פנימה, מואצים כלפי מטה לאורך הקווים ומתנגשים במולקולות של אוויר בגובה <span class="math">100–400</span> ק"מ. מולקולה שנפגעת "נטענת" באנרגיה ומשחררת אותה כאור: חמצן — ירוק בגובה נמוך ואדום בגובה של <span class="num">300</span> ק"מ ומעלה; חנקן — כחול וסגול. זהו <b>הזוהר הקוטבי</b>, טבעת אור סביב כל קוטב מגנטי, שבלילה רגיל נראית רק צפונה מקו הרוחב <span class="num">65</span>.</p>
+    <p>סופה גאומגנטית מרחיבה את הטבעת. כשענן פלזמה עם שדה מגנטי ש"מצביע" הפוך משל כדור הארץ פוגע בבועה, הקווים של השניים מתחברים, אנרגיה נשפכת פנימה, וטבעת הזוהר זוחלת דרומה: כל דרגה בסולם הסופות (<span class="num">Kp</span>, מ־⁠<span class="num">0</span> עד <span class="num">9</span>) מזיזה אותה כשתי מעלות. ב־<span class="num">1859</span> היא הגיעה לקו רוחב מגנטי של כ־⁠<span class="num">30</span> — ואור אדום גבוה נראה עוד יותר דרומה, נמוך באופק. באינטראקטיב הערים ממוקמות לפי קו הרוחב <b>המגנטי</b> שלהן: הקוטב המגנטי לא יושב על הקוטב הגאוגרפי, ולכן קובה "צפונית" מישראל במפה הזאת.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — המגן והזוהר ===== -->
+  <div class="panel instrument">
+    <h3>המגן והזוהר</h3>
+    <p class="cap">מבט מהצד על חצי הכדור הצפוני, במפה מגנטית: הקוטב המגנטי למעלה, קו המשווה למטה. גררו את עוצמת הסופה, וראו עד איזו עיר טבעת הזוהר מגיעה. הזוהר האדום נראה גם מדרום לקצה הטבעת — נמוך באופק הצפוני.</p>
+    <canvas id="aurCv" width="640" height="440" aria-label="חצי כדור הארץ עם קווי רוחב מגנטיים וערים; טבעת זוהר ירוקה ואדומה סביב הקוטב שמתרחבת דרומה ככל שעוצמת הסופה עולה; זכרון יעקב מסומנת"></canvas>
+    <div class="controls">
+      <label>עוצמת הסופה
+        <input type="range" id="aurKp" min="0" max="12" step="1" value="2" oninput="aurDraw(1)" aria-label="עוצמת הסופה" style="direction:ltr">
+      </label>
+      <div class="readout"><b id="aurKpOut">Kp 2</b></div>
+    </div>
+    <div class="controls">
+      <button class="btn small ghost" onclick="aurPreset(2)">לילה רגיל</button>
+      <button class="btn small ghost" onclick="aurPreset(9)">סופה קיצונית (<span class="num">Kp 9</span>)</button>
+      <button class="btn small ghost" onclick="aurPreset(12)">קרינגטון <span class="num">1859</span></button>
+    </div>
+    <p class="cap" id="aurMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>מהרי הרוקי דיווחו כורי זהב שקמו באחת בלילה והתחילו לבשל ארוחת בוקר, כי חשבו שהשמש זורחת. בקובה ובמקומות אחרים קראו עיתון לאור הזוהר. וזכרון יעקב? המקום שבו היא עומדת היום נמצא בערך בקו הרוחב המגנטי <span class="num">29</span>. לפי החישובים, גם כאן היה האופק הצפוני אדום בלילה שאחרי הפגיעה — אבל דיווח כתוב מארץ ישראל של <span class="num">1859</span> לא נמצא.</p></div>
+
+  <div class="q qc" id="auroraQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE TELEGRAPH WITHOUT BATTERIES (interactive 3: the wire) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>הטלגרף שעבד בלי סוללה</h2>
+  <p>ב־<span class="num">1859</span> הטלגרף היה האינטרנט: חוטי ברזל על עמודים, בין עיר לעיר, ובכל קצה סוללה, מקש ומכשיר שמתקתק נקודות וקווים — קוד מורס. בעולם כולו היו כבר כ־⁠<span class="num">200,000</span> ק"מ של חוטים כאלה. ובבוקר של <span class="num">2</span> בספטמבר הם השתגעו: מפעילים קיבלו מכות חשמל מהמקשים, ניצוצות קפצו מהמכשירים, ויש דיווחים על נייר שהתלקח. ואז קרה הדבר המוזר מכולם.</p>
+
+  <div class="panel">
+    <h3>בוסטון ↔ פורטלנד, <span class="num">2</span> בספטמבר <span class="num">1859</span></h3>
+    <p class="cap">שיחה בין שני מפעילי טלגרף, כפי שפורסמה בעיתון באותם ימים. פורטלנד נמצאת כ־⁠<span class="num">170</span> ק"מ צפונית לבוסטון.</p>
+    <p><b>בוסטון:</b> נתק בבקשה את הסוללה שלך מהקו לגמרי, לרבע שעה.<br>
+    <b>פורטלנד:</b> מנתק. היא מנותקת עכשיו.<br>
+    <b>בוסטון:</b> גם שלי מנותקת, ואנחנו עובדים עם הזרם של הזוהר. איך אתה מקבל את הכתיבה שלי?<br>
+    <b>פורטלנד:</b> טוב יותר מאשר עם הסוללות. הזרם בא והולך בהדרגה.<br>
+    <b>בוסטון:</b> הזרם שלי חזק מאוד לפעמים, ואנחנו יכולים לעבוד טוב יותר בלי הסוללות, כי הזוהר מבטל ומגביר את הסוללות לסירוגין, והזרם חזק מדי לפעמים למגנטים שלנו.<br>
+    <b>פורטלנד:</b> בסדר גמור. להמשיך בעבודה?<br>
+    <b>בוסטון:</b> כן. קדימה.</p>
+    <p class="cap">כך הם עבדו כשעתיים — עם "הזרם של הזוהר" בלבד.</p>
+  </div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>איך זה יכול להיות? הנה הסוד, ואותו גילה מייקל פאראדיי בלונדון, שלושים שנה קודם: <b>מגנט שזז ליד חוט דוחף בחוט זרם חשמלי.</b> לא מגנט שעומד במקום — רק מגנט שזז, או שדה מגנטי שמשתנה. ככה עובדת כל תחנת כוח בעולם: מגנטים ענקיים מסתובבים ליד סלילי חוט.</p>
+    <p>ובאותו לילה, המגנט הענק של כדור הארץ עצמו רעד וזז מהמכה של הענן. חוטי הטלגרף, שנמתחו על פני מאות קילומטרים, היו כמו סלילים ענקיים — והשדה המגנטי הרועד דחף בהם זרם. חוט קצר קיבל דחיפה קטנה; חוט ארוך, שנמתח בין שתי ערים, קיבל דחיפה גדולה. באינטראקטיב: הפעילו את הסופה, נתקו את הסוללה, ותראו אם ההודעה עוברת.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הסוד הוא חוק שמייקל פאראדיי גילה ב־<span class="num">1831</span>: <b>שדה מגנטי שמשתנה דוחף זרם חשמלי בחוט</b> — השראה אלקטרומגנטית. לא צריך סוללה: מזיזים מגנט דרך סליל, והמחט של מד הזרם קופצת — רק בזמן התנועה; מגנט שנח בתוך הסליל לא עושה כלום. ככל שהשינוי מהיר יותר והחוט ארוך יותר (או עם יותר כריכות), המתח גדול יותר. על החוק הזה עומדות כל תחנות הכוח: טורבינה מסובבת מגנטים ליד סלילים.</p>
+    <p>ב־<span class="num">2</span> בספטמבר <span class="num">1859</span> ה"מגנט" שזז היה השדה המגנטי של כדור הארץ עצמו. ענן הפלזמה מעך ומתח את המגנטוספרה, ובמשך שעות השדה על הקרקע רעד: במצפה קולאבה בבומביי נרשמה ירידה של <span class="num">1,600</span> ננוטסלה — כ־⁠<span class="math">3–4</span> אחוזים מכל השדה, בתוך שעה. חוט טלגרף של מאות קילומטרים הוא סליל ענק: כמה וולטים לקילומטר מצטברים למאות וולטים בין שתי ערים. מספיק כדי להפעיל את מכשיר המורס — ולפעמים יותר מדי: ניצוצות, מכות חשמל, מכשירים שנשרפו. הסוללה נתנה זרם קבוע; הסופה נתנה זרם ש"בא והולך", בדיוק כמו שכתב המפעיל מפורטלנד. באינטראקטיב: עם סוללה ובלי, עם סופה ובלי, חוט ארוך וקצר.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — הטלגרף בלי סוללה ===== -->
+  <div class="panel instrument">
+    <h3>הטלגרף בלי סוללה</h3>
+    <p class="cap">קו טלגרף בין בוסטון לפורטלנד. הסוללה נותנת זרם קבוע; הסופה מרעידה את המגנט של כדור הארץ ודוחפת בחוט זרם שבא והולך. המכשיר מתקתק רק כשהזרם באזור הירוק של המד — יותר מדי, וקופצים ניצוצות.</p>
+    <canvas id="tgCv" width="640" height="480" aria-label="קו טלגרף בין שתי תחנות, סוללה עם מתג, מד זרם עם אזור ירוק, ומכשיר שמדפיס נקודות וקווים כשהזרם מספיק; סופה מרעידה קווי שדה מגנטי מעל הקו"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="סוללה">
+        <button id="tgB1" class="on" onclick="tgBattery(1)">סוללה מחוברת</button>
+        <button id="tgB0" onclick="tgBattery(0)">סוללה מנותקת</button>
+      </div>
+      <div class="seg" role="group" aria-label="אורך הקו">
+        <button id="tgL0" onclick="tgLine(0)">קצר: <span class="num">2</span> ק"מ</button>
+        <button id="tgL1" class="on" onclick="tgLine(1)">ארוך: <span class="num">170</span> ק"מ</button>
+      </div>
+    </div>
+    <div class="controls">
+      <label>עוצמת הסופה
+        <input type="range" id="tgStorm" min="0" max="10" step="1" value="0" oninput="tgDraw(1)" aria-label="עוצמת הסופה" style="direction:ltr">
+      </label>
+      <div class="readout">זרם: <b class="num" id="tgOut">0</b></div>
+    </div>
+    <p class="cap" id="tgMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="aha">כלל אצבע: <b>מגנט שזז עושה חשמל.</b> ב־<span class="num">1859</span> המגנט שזז היה כדור הארץ כולו — והחוטים הארוכים של העולם הפכו לתחנת כוח אחת גדולה.</div>
+
+  <div class="q qc" id="wireQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · WHAT WOULD HAPPEN TODAY (interactive 4: electricity makes magnets, and back) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>ומה היה קורה היום?</h2>
+  <p>ב־<span class="num">1859</span> החוטים הארוכים היחידים בעולם היו של הטלגרף. היום כדור הארץ עטוף בחוטים: קווי חשמל של אלפי קילומטרים, צינורות פלדה, כבלים מתחת לים, ו־<span class="num">10,000</span> לוויינים מעל הראש. סופה כזאת היום היא לא סיפור על מפעילי טלגרף — היא סיפור על כולנו.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>זה כבר קרה, בקטן. ב־<span class="num">13</span> במרץ <span class="num">1989</span> פגעה בכדור הארץ סופת שמש חזקה (הרבה פחות מזו של <span class="num">1859</span>). קווי החשמל הארוכים של קוויבק שבקנדה קיבלו זרם מהשמיים, המגנים של הרשת קפצו — ובתוך פחות מדקה וחצי כל המחוז נשאר בחושך. שישה מיליון אנשים, תשע שעות, בקור של החורף הקנדי.</p>
+    <p>אבל יש גם חדשות טובות: היום יש לנו שומרים. לוויינים צופים בשמש כל הזמן, ולוויין אחד יושב מיליון וחצי ק"מ לפנינו, בדיוק בדרך מהשמש, ומרגיש את הענן כמה עשרות דקות לפני שהוא פוגע בנו — כמו זקיף על גבעה. חברות החשמל מקבלות התרעה ומורידות עומס. באינטראקטיב: הניסוי של פאראדיי — תראו למה רק <b>שינוי</b> עושה חשמל.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>ב־<span class="num">13</span> במרץ <span class="num">1989</span> הגיעה תזכורת. סופה גאומגנטית — חזקה, אבל חלשה בהרבה מזו של <span class="num">1859</span> — דחפה זרם ישר לתוך קווי המתח הגבוה של קוויבק, קנדה. רשת חשמל בנויה לזרם חילופין, לא לזרם כזה: השנאים התחממו, מערכות ההגנה ניתקו קו אחרי קו, ובתוך פחות מ־⁠<span class="num">90</span> שניות קרסה כל הרשת. שישה מיליון אנשים בלי חשמל, תשע שעות, בחורף. ב־<span class="num">23</span> ביולי <span class="num">2012</span> זה כמעט קרה בגדול: השמש ירתה ענן במהירות של קרינגטון שחצה את מסלול כדור הארץ — במקום שבו כדור הארץ היה תשעה ימים קודם.</p>
+    <p>ובמאי <span class="num">2024</span> פגעה בנו הסופה החזקה ביותר מזה עשרים שנה: זוהר נראה עד מקסיקו והודו, ניווט של טרקטורים השתבש, ורשתות חשמל בקנדה ובניו זילנד עברו למצב חירום — והחזיקו, כי ידעו מראש. זה ההבדל: לוויין בשם <span class="num">DSCOVR</span> יושב <span class="math">1.5</span> מיליון ק"מ לפנינו, בדרך מהשמש, ומודד כל ענן <span class="math">15–60</span> דקות לפני הפגיעה — מהירות, צפיפות, ולאן מצביע השדה המגנטי שלו, כי רק ענן ש"מצביע דרומה" נכנס לבועה שלנו בקלות. באינטראקטיב: הניסוי של פאראדיי.</p>
+    <p data-level="standard">ועוד משהו על העיתוי: יש עונות לסופות. סביב יום השוויון של הסתיו והאביב, כשהציר של כדור הארץ "ניצב" ביחס לשמש, השדה המגנטי של הרוח מהשמש מתיישר ביתר קלות הפוך לשדה שלנו, והבועה נפתחת יותר. יום השוויון הקרוב חל בשבוע הבא, ב־<span class="num">23</span> בספטמבר. שבוע טוב לבדוק את תחזית ה־<span class="num">Kp</span>.</p>
+    <p data-level="advanced">[מתקדם] ועוד משהו על העיתוי: יש עונות לסופות — אפקט ראסל־מקפרון. השדה המגנטי של הרוח מהשמש מסתדר לאורך הספירלה של השמש, ופעמיים בשנה, סביב ימי השוויון, הזווית בין הספירלה הזאת לציר המגנטי של כדור הארץ היא כזאת שרכיב גדול יותר של השדה מצביע "דרומה" ביחס לשדה שלנו. חיבור קווי שדה קורה ביתר קלות, ואותה רוח שמש מייצרת סופות חזקות יותר במרץ ובספטמבר מאשר ביוני ובדצמבר. יום השוויון הקרוב חל ב־<span class="num">23</span> בספטמבר. חשבו: למה דווקא הכיוון "דרומה" של השדה בענן פותח את הבועה שלנו?</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 4 — הניסוי של פאראדיי ===== -->
+  <div class="panel instrument">
+    <h3>הניסוי של פאראדיי: רק שינוי עושה חשמל</h3>
+    <p class="cap">סליל חוט מחובר למד זרם. גררו את המגנט פנימה והחוצה — ושימו לב מתי המחט זזה ומתי לא. נחשו קודם: אם המגנט עומד <b>בתוך</b> הסליל בלי לזוז, המחט זזה?</p>
+    <canvas id="fdCv" width="640" height="420" aria-label="סליל חוט עם מגנט מוט שאפשר להזיז לתוכו ומחוצה לו, ומד זרם עם מחט; המחט סוטה רק בזמן שהמגנט זז, וחוזרת לאפס כשהוא עומד"></canvas>
+    <div class="controls">
+      <label>מקום המגנט
+        <input type="range" id="fdX" min="0" max="100" step="1" value="0" oninput="fdMove()" aria-label="מקום המגנט" style="direction:ltr">
+      </label>
+      <div class="readout">זרם: <b class="math" id="fdOut">0</b></div>
+      <div class="readout">כריכות: <b class="num" id="fdTurnsOut">10</b></div>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="מספר כריכות">
+        <button id="fdT0" class="on" onclick="fdTurns(0)"><span class="num">10</span> כריכות</button>
+        <button id="fdT1" onclick="fdTurns(1)"><span class="num">40</span> כריכות</button>
+      </div>
+      <button class="btn small ghost" onclick="fdAuto()">להזיז מהר (אוטומטי)</button>
+    </div>
+    <p class="cap" id="fdMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="q qc" id="guardQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE MAN WHO DREW THE SUN (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>האיש ששרטט את השמש כל יום</h2>
+    <p>קרינגטון לא היה פרופסור ולא עבד באוניברסיטה. את המצפה הוא בנה בכסף של אבא שלו, ובמשך שבע שנים, יום אחרי יום, שרטט את כתמי השמש. מהשרטוטים האלה הוא גילה דבר מדהים: <b>השמש לא מסתובבת כמו כדור</b>. האזור שליד קו המשווה שלה משלים סיבוב בכ־⁠<span class="num">25</span> ימים, ואילו האזורים ליד הקטבים לוקחים יותר — כי השמש היא לא גוף מוצק אלא כדור של גז לוהט. ואת ההבזק של <span class="num">1859</span> הוא ראה פשוט כי היה שם, כל בוקר, עם עיפרון ביד — אף שבאותה שנה כבר ניהל את מבשלת הבירה של המשפחה, כי אבא שלו מת שנה קודם. כשנה וחצי אחרי ההבזק הפסיק לשרטט. ההבזק שלו נשאר.</p>
+    <p>ואצלנו? בישראל יש שלוש תחנות שמודדות את המגנט של כדור הארץ כל הזמן, בדיוק כמו קולאבה ב־<span class="num">1859</span>: בחרמון, בבר גיורא שליד ירושלים ובאילת. כשסופת שמש פוגעת, המחטים שלהן רוקדות. והמקום שבו היום זכרון יעקב, בקו רוחב מגנטי <span class="num">29</span>, ראה לפי החישוב אופק אדום בלילה שאחרי הפגיעה (ליל <span class="math">2–3</span> בספטמבר). אם תבוא סופה כזאת שוב — הפעם יש לנו התרעה של שעות, ואתם תדעו לאן להסתכל: צפונה, נמוך, ממקום חשוך.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>האיש ששרטט את השמש כל יום</h2>
+    <p>ריצ׳רד קרינגטון (<span class="math">1826–1875</span>) לא היה איש אוניברסיטה. את המצפה ברדהיל בנה בכספי המשפחה, ומ־<span class="num">1853</span> שרטט את כתמי השמש כמעט כל יום, שבע שנים. מהשרטוטים הסבלניים האלה יצאה תגלית שמדעני השמש משתמשים בה עד היום: <b>השמש מסתובבת סיבוב דיפרנציאלי</b> — כ־⁠<span class="num">25</span> ימים לסיבוב ליד קו המשווה, יותר מ־⁠<span class="num">30</span> ליד הקטבים, כי היא כדור גז ולא גוף מוצק. וההבזק? הוא לא הוכיח שהוא גרם לסופה. הוא רשם את הצירוף, וכתב שסנונית אחת לא עושה קיץ. עשרות שנים אחר כך, כשהבינו מה זו התפרצות שמש ומה זה ענן פלזמה, הבינו שהוא ראה את ההתחלה של הכול. אביו מת בקיץ <span class="num">1858</span>, שנה לפני ההבזק, וקרינגטון כבר ניהל את מבשלת הבירה כשראה אותו; ב־<span class="num">1861</span> הפסיק את התצפיות.</p>
+    <p>ואצלנו? מפעל המדידות מפעיל שלוש תחנות גאומגנטיות — בחרמון, בבר גיורא שבהרי ירושלים ובאילת — שרושמות את השדה ברציפות, בדיוק כמו שקולאבה בבומביי רשמה את הצניחה של <span class="num">1859</span>. השדה כאן הוא כ־⁠<span class="num">44,000</span> ננוטסלה. קו הרוחב המגנטי של זכרון יעקב הוא כ־⁠<span class="num">29</span> מעלות — קרוב לגבול שאליו הגיע הזוהר האדום ב־<span class="num">1859</span>, ודרומית ממנו רואים אותו נמוך באופק. כלומר: השמיים מעל הכרמל היו, לפי החישוב, אדומים בלילה שאחרי הפגיעה (ליל <span class="math">2–3</span> בספטמבר; הפגיעה עצמה הייתה כאן בשעות היום) — אף שדיווח כתוב מכאן לא נמצא, ועוד לא הייתה כאן זכרון יעקב.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> המספרים האמיתיים. (א) האור מהשמש מגיע אלינו ב־<span class="num">500</span> שניות. הענן של קרינגטון הגיע אחרי <span class="math">17.5</span> שעות. <b>פי כמה</b> הענן היה איטי מהאור? (קודם הפכו את השעות לשניות. עגלו למספר שלם.) (ב) ב־<span class="num">1859</span> היו בעולם כ־⁠<span class="num">125,000</span> מייל של חוטי טלגרף; מייל הוא כ־⁠<span class="math">1.6</span> ק"מ, והיקף כדור הארץ כ־⁠<span class="num">40,000</span> ק"מ. כמה פעמים אפשר היה להקיף את כדור הארץ בחוטים האלה? (ספרה אחת אחרי הנקודה.) (ג) בבומביי השדה המגנטי צנח ב־<span class="num">1,600</span> ננוטסלה. השדה בישראל הוא כ־⁠<span class="num">44,000</span> ננוטסלה. כמה אחוזים מהשדה שלנו זו צניחה כזאת? (ספרה אחת אחרי הנקודה.)</p>
+      <div class="controls">
+        <label>(א) פי כמה איטי מהאור <input type="number" id="chalRatio" inputmode="decimal" step="0.1" placeholder="?"></label>
+        <label>(ב) הקפות של כדור הארץ <input type="number" id="chalWire" inputmode="decimal" step="0.1" placeholder="?"></label>
+        <label>(ג) אחוזים מהשדה <input type="number" id="chalPct" inputmode="decimal" step="0.1" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()" data-g="בדוק|בדקי">בדקי</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> הענן של קרינגטון הגיע אחרי <span class="math">17.5</span> שעות במקום שלושה ימים. אם סופה כזאת תצא מהשמש מחר, למה <span class="math">17.5</span> השעות האלה הן גם חדשות רעות וגם חדשות טובות? ומה הייתם עושים ב־<span class="num">17</span> שעות האלה אם הייתם מנהלים את חברת החשמל?</p>
+      <details><summary>הרמז והתשובה</summary><p>רעות: ענן שמגיע ב־<span class="math">17.5</span> שעות דוהר פי חמישה־שישה מענן רגיל, ופוגע בבועה שלנו הרבה יותר חזק — המהירות היא חלק ממה שעשה את <span class="num">1859</span> קיצוני. וגם: פחות זמן להתכונן. טובות: <span class="math">17.5</span> שעות זה עדיין המון. את ההבזק רואים מיד (האור מגיע ב־<span class="num">8</span> דקות), ולוויינים שצופים בשמש רואים את הענן יוצא לדרך ומודדים את כיוונו ומהירותו תוך שעה־שעתיים. בזמן הזה חברת חשמל יכולה להוריד עומס מקווים ארוכים, לפזר ייצור בין תחנות, להכין צוותים; מפעילי לוויינים מסובבים אותם למצב בטוח; טיסות מעל הקטבים מוסטות דרומה; ומערכות ניווט מזהירות מראש. וברגע האחרון, <span class="math">15–60</span> דקות לפני הפגיעה, הזקיף ב־<span class="num">DSCOVR</span> אומר אם השדה של הענן "מצביע דרומה" — כלומר אם זו סופה גדולה או רק רוח. ב־<span class="num">1989</span> לא היה כל זה, וקוויבק נפלה ב־<span class="num">90</span> שניות; ב־<span class="num">2024</span> היה, והרשתות החזיקו.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>ניסוי אחד עכשיו — הפיזיקה של היום בידיים שלכם — ושניים לבחירה, לפתיחה.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — חשמל שעושה מגנט (<span class="num">10</span> דקות)</h3>
+    <p class="cap">מה צריך: מסמר ברזל גדול, כמטר חוט חשמל דק מבודד (או חוט נחושת מצופה), סוללה של <span class="math">1.5</span> וולט (AA), ומצפן — או אפליקציית מצפן בטלפון.</p>
+    <ol>
+      <li><b>מלפפים:</b> כורכים את החוט סביב המסמר, <span class="num">30–50</span> כריכות צפופות, ומשאירים קצה חופשי מכל צד. מקלפים קצת מהבידוד בקצוות.</li>
+      <li><b>מודדים מרחק:</b> מניחים את המצפן על השולחן, ומחזיקים את המסמר כשתי כפות ידיים ממנו. המחט שקטה.</li>
+      <li><b>מפעילים:</b> נוגעים עם שני הקצוות בשני צדי הסוללה, לכמה שניות בלבד (הסוללה והחוט מתחממים — זה בסדר, אבל לא להשאיר מחובר). המחט קופצת! חשמל שזורם בחוט עושה מגנט. עכשיו הפכו את הסוללה — לאן המחט קופצת הפעם?</li>
+      <li><b>וההפך:</b> מגנט שזז עושה חשמל — זה פאראדיי, וזה מה שקרה לחוטי הטלגרף. אם יש בבית מגנט חזק ומד־מתח (מולטימטר): מגנט שנכנס במהירות לסליל של <span class="num">100</span> כריכות מזיז את המחט.</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — תחזית סופות (<span class="num">5</span> דקות, עם ההורים)</summary>
+    <p>חפשו באינטרנט את התחזית של מרכז מזג האוויר בחלל של ארה"ב (SWPC, "3-day forecast") או כל אתר תחזית זוהר. יש שם מספר בשם <span class="num">Kp</span>, מ־⁠<span class="num">0</span> עד <span class="num">9</span>: זה בדיוק המחוון של האינטראקטיב. <span class="num">Kp 5</span> ומעלה זו סופה. יום השוויון ב־<span class="num">23</span> בספטמבר הוא עונה טובה לסופות, אז בדקו כמה ימים ברצף: מה המספר הכי גבוה שמצאתם השבוע? ומישראל — אם אי פעם תראו <span class="num">Kp 9</span> בתחזית, סעו בלילה למקום חשוך עם אופק צפוני פתוח, וצלמו את האופק בחשיפה ארוכה. אולי תהיו הראשונים שמתעדים זוהר מישראל.</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — לשרטט את השמש כמו קרינגטון (רק עם מבוגר!)</summary>
+    <p><b>לעולם לא מסתכלים על השמש דרך משקפת או טלסקופ — זה מעוור בשנייה.</b> אבל אפשר לעשות בדיוק מה שקרינגטון עשה: להטיל את תמונת השמש על דף. מחזיקים משקפת עם הגב אל השמש, מכסים עדשה אחת, ומכוונים כך שהצל של המשקפת על דף לבן יהיה הכי קטן — ואז מופיע על הדף עיגול בהיר: השמש. מרחיקים ומקרבים את הדף עד שהעיגול חד. אם יש כתמי שמש (בשנים האלה יש הרבה), תראו נקודות כהות. שרטטו אותן, וחזרו מחר: הן זזו — כי השמש מסתובבת.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>לשמש יש מזג אוויר, ויש לו תחזית. כמו שיש חזאים לגשם, יש היום חזאים לסופות שמש: הם מסתכלים על כתמי השמש (כמו קרינגטון, רק עם לוויינים), רואים הבזקים ועננים יוצאים, ומודיעים מראש. השמש מתעוררת ונרגעת במחזור של בערך אחת עשרה שנים, ודווקא עכשיו, בשנים <span class="math">2024–2026</span>, היא בשיא. לכן שומעים בחדשות על זוהר קוטבי במקומות מוזרים.</p>
+    <p>והדבר הכי יפה: הזוהר, הטלגרף בלי סוללה וקוויבק בחושך — כולם אותו סיפור. השמש זורקת חלקיקים, המגנט של כדור הארץ רועד, ומגנט שרועד דוחף חשמל בחוטים. מי שמבין את המשפט הזה מבין גם איך תחנת כוח עובדת.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה שהתחיל ב־<span class="num">1859</span> קוראים היום <b>מזג אוויר בחלל</b>. השמש מתעוררת ונרגעת במחזור של כאחת עשרה שנים; השיא הנוכחי הוא בשנים <span class="math">2024–2026</span>, ולכן היו כל כך הרבה סופות בחדשות. סופה מגיעה בשלושה שלבים: האור והקרינה תוך שמונה דקות (משבשים רדיו ו־GPS), החלקיקים המהירים תוך שעה (מסכנים אסטרונאוטים), וענן הפלזמה אחרי שעות עד ימים — הוא זה שמזיז את השדה המגנטי ומייצר זרמים בקרקע. שלושה שלבים, שלוש התרעות.</p>
+    <p>וסופות כמו של <span class="num">1859</span> — כמה הן נדירות? עצים זוכרים: התפרצויות ענק משאירות עקבות של פחמן מיוחד בטבעות השנתיות, ובעצים ישנים נמצאו סימנים לאירועים גדולים בהרבה, למשל בשנת <span class="num">774</span>. ההערכה: סופה בגודל של קרינגטון פעם בכמה מאות שנים. אף אחד לא יודע מתי הבאה. מה שכן יודעים: היום, בניגוד לקרינגטון, רואים אותה יוצאת לדרך.</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">פיזיקה</div><h3>תחנת הכוח והדינמו</h3><p>כל החשמל שמגיע לבית נוצר בדיוק כמו "זרם הזוהר": מגנטים שמסתובבים ליד סלילים. בטורבינה מסובבים אותם בקיטור, במים או ברוח; בפנס של אופניים — הגלגל. ב־<span class="num">1859</span> "סובב" את המגנט הענן מהשמש.</p></div>
+    <div class="tile"><div class="dom">היסטוריה</div><h3>האינטרנט של <span class="num">1859</span></h3><p>הטלגרף הראשון נמתח ב־<span class="num">1844</span>; חמש עשרה שנה אחר כך היו כבר כ־⁠<span class="num">200,000</span> ק"מ של חוטים, וכבל ראשון מתחת לאוקיינוס האטלנטי (שהתקלקל אחרי חודש). הסופה הראתה בפעם הראשונה שטכנולוגיה יכולה להיפגע ממה שקורה בשמש.</p></div>
+    <div class="tile"><div class="dom">גאוגרפיה</div><h3>המפה המגנטית</h3><p>הקוטב המגנטי לא יושב על הקוטב הגאוגרפי, והוא נודד — כרגע הוא ליד הקוטב, בדרך מקנדה לסיביר. לכן קובה, שנמצאת דרומית לישראל במפה, "צפונית" ממנה במפה המגנטית — וראתה את הזוהר של <span class="num">1859</span> טוב יותר.</p></div>
+    <div class="tile"><div class="dom">חלל</div><h3>הזקיף במיליון וחצי ק"מ</h3><p>בנקודה שבה המשיכה של השמש והמשיכה של כדור הארץ מתאזנות יושבים לוויינים ש"מרגישים" את הרוח מהשמש. הענן פוגע בהם ראשון, ואנחנו מקבלים <span class="math">15–60</span> דקות התרעה — לא הרבה, אבל מספיק לסובב לוויין ולהוריד עומס מקו חשמל.</p></div>
+  </div>
+
+  <details class="bonus" id="latBox">
+    <summary>בונוס (2 דקות): הסופות הגדולות, אחת מול השנייה</summary>
+    <table class="latbl">
+      <tr><td>ספטמבר <span class="num">1859</span></td><td>הזוהר עד קו רוחב מגנטי <span class="num">30</span></td><td>טלגרפים בלי סוללה, ניצוצות; קרינגטון רואה את ההבזק</td></tr>
+      <tr><td>מאי <span class="num">1921</span></td><td>הזוהר עד סמואה; שריפות בתחנות טלגרף ורכבת</td><td>"סופת הרכבת של ניו יורק"</td></tr>
+      <tr><td>מרץ <span class="num">1989</span></td><td>הזוהר עד פלורידה וטקסס</td><td>קוויבק בחושך: <span class="num">90</span> שניות, <span class="num">6</span> מיליון איש, <span class="num">9</span> שעות</td></tr>
+      <tr><td>אוקטובר <span class="num">2003</span></td><td>הזוהר עד ים התיכון ופלורידה</td><td>הפסקת חשמל בשוודיה, לוויינים ניזוקו</td></tr>
+      <tr><td>יולי <span class="num">2012</span></td><td>—</td><td>ענן בגודל קרינגטון פספס את כדור הארץ בתשעה ימים</td></tr>
+      <tr><td>מאי <span class="num">2024</span></td><td>הזוהר עד מקסיקו והודו</td><td>הרשתות החזיקו — הייתה התרעה</td></tr>
+    </table>
+    <p class="cap" style="margin-top:10px">הדפוס: ככל שיש יותר חוטים ארוכים בעולם, אותה סופה עושה יותר נזק — וככל שיש יותר התרעה, פחות.</p>
+    <details><summary>שאלה קטנה</summary><p>למה זוהר קוטבי הוא בדרך כלל ירוק, ודווקא ב־<span class="num">1859</span> רוב האנשים ראו אדום?</p>
+      <p data-level="advanced">[מתקדם] הירוק נפלט מחמצן בגובה <span class="math">100–200</span> ק"מ, והאדום — מחמצן בגובה של <span class="num">300</span> ק"מ ומעלה, שם האוויר דליל מספיק שהאטום מספיק לפלוט את האור לפני שמולקולה אחרת מתנגשת בו. סופה חזקה מזרימה הרבה חלקיקים גם לגבהים הגבוהים, ולכן יש הרבה אדום; וגם: מי שנמצא רחוק מהטבעת, דרומה, רואה מעל האופק רק את החלק הגבוה של הזוהר — האדום — כי הירוק הנמוך מוסתר מאחורי עיקום כדור הארץ. בהוואי ובקובה זה בדיוק מה שראו: שמיים אדומים.</p>
+      <p data-level="standard">הירוק נוצר נמוך, בגובה <span class="math">100–200</span> ק"מ; האדום גבוה יותר, מעל <span class="num">300</span> ק"מ. מי שרחוק מהטבעת, דרומה, רואה מעל האופק רק את החלק הגבוה — האדום — כי הנמוך מוסתר מאחורי עיקום כדור הארץ. בקובה ובהוואי ראו לכן שמיים אדומים.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את השתלשלות האירועים של <span class="num">1859</span>, מההתחלה ועד המסקנה. לחצו על הכרטיסים לפי הסדר הנכון (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: ענן רגיל של סופת שמש מגיע לכדור הארץ אחרי בערך <span class="num">3</span> ימים. כמה שעות זה? (רמז: כמה שעות יש ביום אחד?) הענן של קרינגטון הגיע אחרי <span class="num">17</span> שעות וחצי בלבד.</div>
+    <div class="controls"><label>מספר השעות <input type="number" id="numYounger" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')" data-g="בדוק|בדקי">בדוק</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: הענן של קרינגטון עבר <span class="num">150,000,000</span> ק"מ ב־<span class="math">17.6</span> שעות. (א) מה הייתה המהירות הממוצעת שלו בקילומטרים לשנייה? (קודם הפכו שעות לשניות: בשעה יש <span class="num">3,600</span> שניות. עגלו למספר שלם. מותר מחשבון.) (ב) ענן איטי של סופת שמש נע בכ־⁠<span class="num">400</span> ק"מ בשנייה. פי כמה הענן של קרינגטון היה מהיר ממנו? (ספרה אחת אחרי הנקודה.)</div>
+    <div class="controls"><label>(א) ק"מ בשנייה <input type="number" id="numAdv" inputmode="decimal" step="0.1" placeholder="?"></label><label>(ב) פי כמה מהיר <input type="number" id="numAdvR" inputmode="decimal" step="0.1" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: הענן של קרינגטון עבר <span class="num">150,000,000</span> ק"מ ב־<span class="math">17.5</span> שעות, שהן בערך <span class="num">63,000</span> שניות. מה הייתה המהירות הממוצעת שלו בקילומטרים לשנייה? (עגלו למספר שלם. מותר מחשבון.)</div>
+    <div class="controls"><label>ק"מ בשנייה <input type="number" id="numOlder" inputmode="decimal" step="0.1" placeholder="?"></label><button class="btn small" onclick="checkNum('older')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>איך הבזק על השמש הדליק חוטי טלגרף על כדור הארץ — ולמה הטלגרף עבד בלי סוללה?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="השמש ירתה ענן של חלקיקים, וכשהוא פגע בכדור הארץ..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד ה־וואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. ב־1 בספטמבר 1859 שרטט ריצ׳רד קרינגטון כתמי שמש על דף בחדר חשוך, וראה על השמש הבזק לבן שנמשך חמש דקות — הפעם הראשונה שאדם ראה התפרצות שמש. באותו רגע יצא מהשמש ענן של מיליארדי טונות חלקיקים טעונים, שהגיע לכדור הארץ אחרי <span class="math">17.5</span> שעות במקום שלושה ימים.<br>
+    2. הענן מעך את השדה המגנטי של כדור הארץ, וטבעת הזוהר הקוטבי התרחבה עד קובה, הוואי וקולומביה: כורי זהב בהרי הרוקי קמו באחת בלילה לבשל ארוחת בוקר, ואנשים קראו עיתון לאור הזוהר. לפי החישובים גם האופק מעל המקום שבו היום זכרון יעקב היה אדום.<br>
+    3. חוק פאראדיי: מגנט שזז דוחף זרם בחוט. המגנט של כדור הארץ רעד, וחוטי הטלגרף הארוכים התמלאו זרם — מפעילים בבוסטון ובפורטלנד ניתקו את הסוללות ועבדו שעתיים על "הזרם של הזוהר". ב־1989 אותו דבר הפיל את רשת החשמל של קוויבק ב־90 שניות; היום לוויינים נותנים לנו התרעה.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>ההבזק: Carrington, R. C. (<span class="num">1859</span>), "Description of a Singular Appearance seen in the Sun on September 1, 1859", Monthly Notices RAS <span class="num">20</span> — תצפית ברדהיל, <span class="num">11:18</span> GMT, "שני כתמים של אור לבן ובוהק במיוחד", כחמש דקות; הודג׳סון פרסם תצפית עצמאית לצידו; "סנונית אחת עוד לא עושה קיץ" מתוך אותו מאמר. ביוגרפיה (<span class="math">1826–1875</span>, בן מבשל בירה, רדהיל מ־<span class="num">1853</span>, סיבוב דיפרנציאלי, חוק שפרר; אביו מת ביולי <span class="num">1858</span> והוא ניהל את המבשלה כבר בזמן ההבזק, הפסיק את סדרת התצפיות ב־<span class="num">1861</span>): ויקיפדיה, Richard Carrington. הסופה: Cliver &amp; Dietrich (<span class="num">2013</span>), "The 1859 space weather event revisited", J. Space Weather Space Clim. <span class="num">3</span> — קפיצה מגנטית בקיו וגריניץ׳ ב־<span class="num">11:18</span> UT, תחילת הסופה כ־<span class="math">17.5</span> שעות אחר כך, צניחת <span class="math">−1,600</span> nT בקולאבה (הערכת Dst כ־<span class="math">−900</span> nT, טווח ההערכות בספרות <span class="math">−850</span> עד <span class="math">−1,750</span>), מהירות ענן ממוצעת כ־⁠<span class="num">2,350</span> ק"מ/ש׳, דירוג ההתפרצות X45 (±5), הזוהר עד קו רוחב מגנטי כ־⁠<span class="num">18</span> (הוואי); ויקיפדיה: Carrington Event — <span class="math">17.6</span> שעות, הענן של <span class="num">28</span> באוגוסט שניקה את הדרך, פספוס <span class="num">2012</span> בתשעה ימים (Baker et al. <span class="num">2013</span>), הערכת Lloyd's (<span class="num">2013</span>) <span class="math">0.6–2.6</span> טריליון דולר לארה"ב. גבול הזוהר: Hayakawa et al. (<span class="num">2018</span>), ApJ <span class="num">869</span> — גבול הטבעת ב־<span class="math">2</span> בספטמבר כ־⁠<span class="math">32.7°</span> קו רוחב מגנטי, פליטה אדומה עד <span class="math">30.8°</span>. עדויות: Green &amp; Boardsen (<span class="num">2006</span>), "Eyewitness reports of the great auroral storm of 1859", Adv. Space Res. <span class="num">38</span> — זוהר עד קו רוחב <span class="num">25</span> ומטה, "אפשר היה לקרוא עיתון", כ־⁠<span class="num">125,000</span> מייל של קווי טלגרף בעולם, רבים מהם מושבתים <span class="num">8</span> שעות ויותר; כורי הזהב ברוקי והתצפיות מהוואי (הונולולו, לאהיינה): Images of Old Hawaii, "Carrington Event". שיחת בוסטון–פורטלנד: תמליל העיתונות של <span class="num">1859</span> (Boston Traveler, מובא אצל Loomis, American Journal of Science, ובאתר SWLing Post) — תרגום חופשי; "כשעתיים": ויקיפדיה. חוק פאראדיי (<span class="num">1831</span>) והעיקרון "רק שינוי בשדה מייצר זרם": פיזיקה בסיסית (ויקיפדיה: Faraday's law of induction). זרמים מושרים גאומגנטית בטלגרף: Boteler (<span class="num">2006</span>), Adv. Space Res. <span class="num">38</span>. קוויבק <span class="num">1989</span>: ויקיפדיה, March 1989 geomagnetic storm (קריסה בפחות מ־<span class="num">90</span> שניות, <span class="num">9</span> שעות, Dst <span class="math">−589</span> nT, זוהר עד טקסס ופלורידה, שנאי בניו ג׳רזי) ואתר Hydro-Québec (הצעדים שננקטו); "שישה מיליון": NASA/NOAA. מאי <span class="num">2024</span>: ויקיפדיה, May 2024 solar storms (G5, Kp 9, Dst <span class="math">−412</span>, החזקה מאז <span class="num">2003</span>, GPS חקלאי, רשתות בקנדה ובניו זילנד); Scientific American — זוהר עד קו רוחב מגנטי <span class="num">26</span>. סולם Kp וגבול הטבעת (כ־⁠<span class="num">66°</span> ב־Kp 0, כשתי מעלות לכל דרגה, זוהר נראה עד כ־⁠<span class="num">1,000</span> ק"מ מדרום לו) וצבעי הזוהר (חמצן ירוק <span class="math">120–400</span> ק"מ, אדום מעל <span class="num">300</span>, חנקן סגול): NOAA SWPC, "Tips on viewing the aurora" ו־"Aurora tutorial". DSCOVR ב־L1 (כמיליון מייל, <span class="math">15–60</span> דקות התרעה): NOAA SWPC. ישראל: מפעל המדידות — תחנות גאומגנטיות בחרמון, בבר גיורא ובאילת, שדה כולל <span class="math">42,700–44,600</span> nT (mycoordinates.org / Survey of Israel). קו הרוחב המגנטי של זכרון יעקב (כ־⁠<span class="num">29°</span>), קובה (כ־⁠<span class="num">33°</span>), הוואי (כ־⁠<span class="num">21°</span>) ושאר הערים באינטראקטיב: חישוב דיפול מהקוטב הגאומגנטי (IGRF), מעוגל; "האופק מעל זכרון היה אדום" — מסקנה מהגבול של Hayakawa ומטווח הראייה, לא עדות. יום השוויון: <span class="num">23</span> בספטמבר <span class="num">2026</span>, <span class="num">00:05</span> UTC (Star Walk / timeanddate); אפקט ראסל־מקפרון: Russell &amp; McPherron (<span class="num">1973</span>), EarthSky. פישוטים במכוון: המספרים באינטראקטיבים (המרוץ, המד, הסליל) הם המחשות, לא מדידות; "ענן רגיל — שלושה ימים" הוא ערך טיפוסי (הטווח: יום עד ארבעה); "<span class="math">2,400</span> ק"מ/ש׳" הוא ממוצע חישובי; "נייר שהתלקח" — דיווח שחוזר במקורות המשניים; טבעות העצים (<span class="num">774</span>): אירועי מיאקה, ויקיפדיה. לוח עברי: Hebcal.</p>
+  </details>
+</section>
+
+</main>
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:11, code:'WOW-011', date:'2026-09-18', title:'הלילה שבו השמיים הדליקו את חוטי הטלגרף', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15TXnNec15XXoSDXmdec15Eg16PXqNeS15zXmA=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'space', w:3 }, { id:'physics', w:3 }, { id:'history', w:2 } ],
+  hero: { name:'אירוע קרינגטון — הטלגרף בלי סוללה', fact:'ב־1859 ענן מהשמש הרעיד את המגנט של כדור הארץ כל כך חזק שחוטי הטלגרף התמלאו זרם — מפעילים ניתקו את הסוללות והמשיכו לשלוח הודעות על החשמל של השמיים' },
+  items: {
+    'predict':       { skill:'estimation',            d:2 },
+    'qc:scale':      { skill:'prediction',            d:2 },
+    'qc:raceQ':      { skill:'mechanism',             d:2 },
+    'qc:auroraQ':    { skill:'mechanism',             d:3 },
+    'qc:wireQ':      { skill:'mechanism',             d:3 },
+    'qc:guardQ':     { skill:'experimental-design',   d:2 },
+    'qc:storyQ':     { skill:'evidence-reasoning',    d:3 },
+    'mcq:shared:0':  { skill:'mechanism',             d:2 },
+    'mcq:shared:1':  { skill:'data-reading',          d:2 },
+    'mcq:shared:2':  { skill:'mechanism',             d:3 },
+    'mcq:younger:0': { skill:'mechanism',             d:1 },
+    'mcq:older:0':   { skill:'evidence-reasoning',    d:3 },
+    'order':         { skill:'sequence',              d:2 },
+    'num:younger':   { skill:'unit-conversion',       d:1 },
+    'num:older':     { skill:'rate-division',         d:3 },
+    'num:adv':       { skill:'rate-and-ratio',        d:4 },
+    'challenge':     { skill:'unit-conversion-and-percent', d:4 },
+    'explain':       { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ raceDraw(0); showArtoTip(); } if(n===2) aurDraw(0); if(n===3) tgStart(); if(n===4) fdDraw(); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+/* ---------- hero guess: how long did the Carrington cloud take to reach Earth? ----------
+   Four choices force a real commitment about the travel time (light: 8 min; typical cloud: ~3 days):
+   the lesson then confirms it with the measured number (≈17.5 h). data-scale: hours — 0.14 / 17 / 72 / 336. */
+const SCALE_ANS = 17;                                                 // hours (17.5 h measured)
+const fmtSigns = n => n===0.14 ? 'כ־8 דקות, כמו האור' : n===17 ? 'כ־17 שעות' : n===72 ? 'כ־3 ימים' : 'כ־2 שבועות';
+const SCALE_FB = {
+  17: '<span class="pill-ok">קלעתם!</span> הענן פגע בכדור הארץ אחרי כ־⁠<span class="math">17.5</span> שעות — מהר פי ארבעה מסופה רגילה, ובכל זאת פי <span class="num">126</span> לאט מהאור. למה זה כל כך חשוב, ואיך זה הדליק חוטים — על זה כל השיעור.',
+  0.14: '<span class="pill-bad">לא הפעם.</span> האור באמת מגיע ב־<span class="num">8</span> דקות, אבל הענן הוא חומר — מיליארדי טונות של חלקיקים — והוא איטי בהרבה: כ־⁠<span class="math">17.5</span> שעות. לכן קרינגטון ראה את ההבזק בבוקר, והשמיים נדלקו רק בלילה שאחרי.',
+  72: '<span class="pill-bad">כמעט נכון — לרוב הסופות.</span> ענן רגיל באמת צריך כשלושה ימים, אבל הענן של קרינגטון הגיע אחרי <span class="math">17.5</span> שעות בלבד, פי ארבעה מהר. המהירות הזאת היא חלק מהסיפור של למה הסופה הייתה כל כך קיצונית.',
+  336: '<span class="pill-bad">הרבה יותר מהר.</span> החלל בין השמש לכדור הארץ עצום, אבל הענן דהר בכ־⁠<span class="num">2,400</span> ק"מ בשנייה והגיע אחרי <span class="math">17.5</span> שעות בלבד. שבועיים זה בערך הזמן שלוקח לחללית איטית להגיע לירח וחזרה.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+
+</script>
+
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(30,size); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+function xSun(c,x,y,r,alpha){ c.fillStyle='rgba(255,196,60,'+(alpha==null?1:alpha)+')'; c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fill(); c.strokeStyle='rgba(255,196,60,'+(alpha==null?1:alpha)+')'; c.lineWidth=4; for(let i=0;i<8;i++){ const a=i*Math.PI/4; c.beginPath(); c.moveTo(x+Math.cos(a)*(r+6),y+Math.sin(a)*(r+6)); c.lineTo(x+Math.cos(a)*(r+16),y+Math.sin(a)*(r+16)); c.stroke(); } }
+
+/* ---------- step 1 (interactive 1): the race from the Sun (canvas) ---------- */
+const raceCv=document.getElementById('raceCv'), rctx=raceCv.getContext('2d'), raceT=document.getElementById('raceT');
+const RACE={ opened:0 };
+const R_T=[0.139, 17.5, 72];                                    // hours to Earth: light (500 s), the Carrington cloud, a typical cloud
+const R_NAME=['אור','הענן של קרינגטון','ענן רגיל'];
+const R_SPEED=['300,000','2,400','600'];                         // km/s (typical cloud ≈ 150e6 km / 72 h)
+const RX0=44, RX1=596, RY=[146,258,370];
+const rFmtT = h => h<1 ? {v:(h*60).toFixed(0), u:'דקות'} : h<24 ? {v:(Math.round(h*10)/10).toString(), u:'שעות'} : {v:(Math.round(h/24*10)/10).toString(), u:'ימים'};
+const rAfter = h => h<1 ? 'הגיע אחרי '+(h*60).toFixed(0)+' דקות' : h<24 ? 'הגיע אחרי '+(Math.round(h*10)/10)+' שעות' : 'הגיע אחרי '+(Math.round(h/24*10)/10)+' ימים';
+function xCloud(c,x,y,r,col){ c.fillStyle=col; [[0,0,1],[-0.8,0.25,0.75],[0.8,0.2,0.8],[-0.35,-0.45,0.7],[0.4,-0.5,0.65]].forEach(([dx,dy,k])=>{ c.beginPath(); c.arc(x+dx*r,y+dy*r,r*k,0,Math.PI*2); c.fill(); }); }
+function racePreset(h){ raceT.value=h; raceDraw(1); }
+function raceDraw(user){
+  const c=rctx, W=raceCv.width, H=raceCv.height, t=+raceT.value, ink=css('--ink'), muted=css('--muted');
+  if(user && !RACE.opened){ RACE.opened=1; WOW.emit('open', { id:'race' }); }
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  c.fillStyle=css('--night'); c.globalAlpha=.9; c.fillRect(0,0,W,H); c.globalAlpha=1;
+  const r=(()=>{ let s=7; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; })();
+  c.fillStyle='#fff'; for(let i=0;i<60;i++){ c.globalAlpha=.25+r()*.6; c.beginPath(); c.arc(r()*W, r()*H, .8+r()*1.4, 0, Math.PI*2); c.fill(); } c.globalAlpha=1;
+  /* the sun (top left) and the earth (top right), 150 million km apart */
+  xSun(c, 42, 40, 22, .98); c.fillStyle=css('--water'); c.beginPath(); c.arc(596,42,20,0,Math.PI*2); c.fill(); c.fillStyle=css('--leaf'); c.beginPath(); c.arc(590,36,7,0,Math.PI*2); c.arc(602,48,6,0,Math.PI*2); c.fill();
+  c.strokeStyle=muted; c.lineWidth=2; c.setLineDash([6,6]); c.beginPath(); c.moveTo(80,42); c.lineTo(566,42); c.stroke(); c.setLineDash([]);
+  xTag(c,'150 מיליון ק"מ','', 320, 42, 18, '#fff', 'center');
+  /* the three lanes: name above-left, status above-right, speed below-left */
+  for(let i=0;i<3;i++){
+    const y=RY[i], T=R_T[i], f=Math.min(1, t/T), x=RX0+(RX1-RX0)*f;
+    c.strokeStyle='rgba(255,255,255,.25)'; c.lineWidth=3; c.setLineDash([2,8]); c.beginPath(); c.moveTo(RX0,y); c.lineTo(RX1,y); c.stroke(); c.setLineDash([]);
+    c.fillStyle=css('--water'); c.beginPath(); c.arc(RX1,y,11,0,Math.PI*2); c.fill(); c.fillStyle=css('--leaf'); c.beginPath(); c.arc(RX1-3,y-3,4,0,Math.PI*2); c.arc(RX1+3,y+3,3,0,Math.PI*2); c.fill();
+    if(i===0){ c.strokeStyle='#FFE28A'; c.lineWidth=5; c.beginPath(); c.moveTo(RX0,y); c.lineTo(x,y); c.stroke(); c.fillStyle='#FFF4C2'; c.beginPath(); c.arc(x,y,8,0,Math.PI*2); c.fill(); }
+    else { const col = i===1 ? css('--aur2') : css('--aur'); c.globalAlpha=.92; xCloud(c, x, y, i===1?17:14, col); c.globalAlpha=1; }
+    const lab = f>=1 ? rAfter(T) : 'עוד '+rFmtT(T-t).v+' '+rFmtT(T-t).u;
+    xTag(c, R_NAME[i], '', RX0, y-40, 18, '#fff', 'left');
+    xTag(c, lab, '', RX1, y+38, 18, f>=1 ? '#FFE28A' : '#fff', 'right');
+  }
+  const ft=rFmtT(t); raceTOut.textContent=ft.v; raceTUnit.textContent=ft.u;
+  raceMsg.innerHTML = t===0 ? 'ההבזק עכשיו. שלושת הרצים יוצאים מהשמש באותו רגע — גררו את הזמן.'
+    : t<0.139 ? 'עדיין אף אחד לא הגיע — אפילו האור צריך <span class="num">8</span> דקות ו־<span class="num">20</span> שניות.'
+    : t<17.5 ? '<b>האור כבר כאן</b> — זה מה שקרינגטון ראה. הענן של קרינגטון בדרך, <span class="num">'+(2400*3600*t/1e6).toFixed(0)+'</span> מיליון ק"מ מאחורי האור. ואף אחד על כדור הארץ לא יודע שהוא בא.'
+    : t<72 ? '<b>הענן של קרינגטון פגע</b> — אחרי <span class="math">17.5</span> שעות, כ־⁠<span class="num">2,400</span> ק"מ בשנייה. השדה המגנטי רועד, השמיים נדלקים. ענן רגיל היה מגיע רק אחרי שלושה ימים.'
+    : '<b>שלושה ימים:</b> רק עכשיו ענן רגיל מגיע. הענן של קרינגטון היה כאן יומיים וחצי קודם — פי ארבעה מהר. למה? ענן קודם, מ־<span class="num">28</span> באוגוסט, ניקה לו את הדרך.';
+}
+raceDraw(0);
+
+/* ---------- step 2 (interactive 2): the shield and the aurora (canvas) ---------- */
+const aurCv=document.getElementById('aurCv'), actx=aurCv.getContext('2d'), aurKp=document.getElementById('aurKp');
+const AUR={ opened:0 };
+const A_CX=320, A_CY=440, A_R=316;                              // the hemisphere: pole at the top, the equator at the bottom edge
+/* magnetic (dipole) latitudes, rounded: computed from the IGRF geomagnetic pole; the aurora is drawn on a magnetic map */
+const A_CITY=[ ['טרומסה',67,1], ['לונדון',53,-1], ['רומא',42,1], ['הוואנה',33,-1], ['זכרון יעקב',29,1], ['הונולולו',21,-1] ];
+const aY = lat => A_CY - A_R*Math.sin(lat*Math.PI/180);
+const aHalf = lat => A_R*Math.cos(lat*Math.PI/180);
+function aBound(k){ return k<=9 ? 66-2*k : k===10 ? 42 : k===11 ? 36 : 30; }   // NOAA: ≈66° at Kp 0, ≈2° per step; 1859 ≈ 30° (Hayakawa 2018: 30.8° red)
+function aGlow(k){ return k<5 ? 0 : k<=9 ? 6 : 10; }                              // how far south of the edge a high red aurora is still seen on the horizon (only in storms)
+function aurPreset(k){ aurKp.value=k; aurDraw(1); }
+function aurDraw(user){
+  const c=actx, W=aurCv.width, H=aurCv.height, k=+aurKp.value, B=aBound(k), GW=aGlow(k), ink=css('--ink'), muted=css('--muted');
+  if(user && !AUR.opened){ AUR.opened=1; WOW.emit('open', { id:'aurora' }); }
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  c.fillStyle=css('--night'); c.globalAlpha=.9; c.fillRect(0,0,W,H); c.globalAlpha=1;
+  /* the solar wind: more and longer arrows as the storm grows */
+  c.fillStyle=css('--sun'); c.strokeStyle=css('--sun'); c.lineWidth=4; const n=2+Math.round(k*0.6), L=22+k*4;
+  for(let i=0;i<n;i++){ const y=70+i*22; if(y>A_CY-A_R+40) break; c.beginPath(); c.moveTo(8,y); c.lineTo(8+L,y); c.stroke(); xArrow(c,8+L+8,y,1,0,12); }
+  xText(c,'רוח מהשמש', 40, 44, 18, css('--sun'), 'left');
+  /* the earth */
+  c.save(); c.beginPath(); c.arc(A_CX,A_CY,A_R,Math.PI,0); c.closePath(); c.clip();
+  c.fillStyle=css('--water'); c.fillRect(0,0,W,H);
+  c.fillStyle=css('--leaf2'); c.globalAlpha=.55; [[250,300,70,40],[400,330,60,36],[330,400,90,30],[180,380,60,28],[470,410,70,26]].forEach(([x,y,rx,ry])=>{ c.beginPath(); c.ellipse(x,y,rx,ry,0,0,Math.PI*2); c.fill(); }); c.globalAlpha=1;
+  /* latitude lines */
+  c.strokeStyle='rgba(255,255,255,.35)'; c.lineWidth=1.5; for(const lat of [15,30,45,60,75]){ const y=aY(lat), h=aHalf(lat); c.beginPath(); c.moveTo(A_CX-h,y); c.lineTo(A_CX+h,y); c.stroke(); }
+  /* the auroral band: from the boundary up towards the pole (bright at the edge), and the red glow seen from further south */
+  const yB=aY(B), yTop=aY(Math.min(88,B+14)), yS=aY(Math.max(0,B-GW));
+  const g=c.createLinearGradient(0,yTop,0,yB); g.addColorStop(0,'rgba(60,220,140,0)'); g.addColorStop(.55,'rgba(60,220,140,.75)'); g.addColorStop(1,'rgba(235,70,120,.85)');
+  c.fillStyle=g; c.fillRect(0,yTop,W,yB-yTop);
+  if(GW>0){ const g2=c.createLinearGradient(0,yB,0,yS); g2.addColorStop(0,'rgba(235,70,120,.55)'); g2.addColorStop(1,'rgba(235,70,120,0)'); c.fillStyle=g2; c.fillRect(0,yB,W,yS-yB); }
+  c.restore();
+  c.strokeStyle='#fff'; c.lineWidth=3; c.beginPath(); c.arc(A_CX,A_CY,A_R,Math.PI,0); c.stroke();
+  c.strokeStyle='#fff'; c.lineWidth=3; c.beginPath(); c.moveTo(A_CX-A_R,A_CY-1); c.lineTo(A_CX+A_R,A_CY-1); c.stroke();
+  /* the pole, the equator, the boundary */
+  c.fillStyle='#fff'; c.beginPath(); c.arc(A_CX,A_CY-A_R,6,0,Math.PI*2); c.fill(); xText(c,'הקוטב המגנטי', A_CX, A_CY-A_R-24, 19, '#fff', 'center');
+  xText(c,'קו המשווה', A_CX, A_CY-22, 18, 'rgba(255,255,255,.85)', 'center');
+  c.strokeStyle='rgba(255,255,255,.9)'; c.lineWidth=2; c.setLineDash([8,6]); c.beginPath(); c.moveTo(A_CX-aHalf(B)-14,yB); c.lineTo(A_CX+aHalf(B)+14,yB); c.stroke(); c.setLineDash([]);
+  /* the cities */
+  for(const [name,lat,side] of A_CITY){ const y=aY(lat), x=A_CX+side*70; const over=lat>=B, glow=!over && lat>=B-GW;
+    c.fillStyle = over ? '#FFE28A' : glow ? '#FF8FB0' : '#fff'; c.strokeStyle=ink; c.lineWidth=2; c.beginPath(); c.arc(x,y,7,0,Math.PI*2); c.fill(); c.stroke();
+    if(name==='זכרון יעקב'){ c.strokeStyle=css('--sun'); c.lineWidth=3; c.beginPath(); c.arc(x,y,13,0,Math.PI*2); c.stroke(); }
+    xTag(c, name, String(lat)+'°', x+side*16, y, 17, over?'#7A4A08':glow?'#8B2A4A':ink, side>0?'left':'right', .55); }
+  aurKpOut.innerHTML = (k<=9 ? '<span class="num">Kp '+k+'</span>' : k===12 ? 'קרינגטון <span class="num">1859</span>' : 'מעבר לסולם')+' · הקצה בקו רוחב <span class="num">'+B+'°</span>';
+  const notZ=cc=>cc[0]!=='זכרון יעקב'; const over=A_CITY.filter(cc=>cc[1]>=B).filter(notZ).map(cc=>cc[0]), glow=A_CITY.filter(cc=>cc[1]<B && cc[1]>=B-GW).filter(notZ).map(cc=>cc[0]);
+  const zk = 29>=B ? '<b>זכרון יעקב מתחת לטבעת — השמיים ירוקים ואדומים מעל הראש.</b>' : 29>=B-GW ? '<b>ובזכרון יעקב: האופק הצפוני אדום.</b>' : 'ובזכרון יעקב — שום דבר, כמו בכל לילה.';
+  aurMsg.innerHTML = (k<=2 ? '<b>לילה רגיל:</b> טבעת הזוהר יושבת סביב הקוטב, מעל קו רוחב מגנטי <span class="num">'+B+'</span>. ' : k<=9 ? '<b>סופה בדרגה <span class="num">Kp '+k+'</span>:</b> הרוח מהשמש מועכת את הבועה, והטבעת זוחלת דרומה עד קו רוחב <span class="num">'+B+'</span>. ' : k<12 ? '<b>מעבר לסולם:</b> הטבעת בקו רוחב <span class="num">'+B+'</span> — רואים זוהר במקומות שכמעט אף פעם לא רואים. ' : '<b>ספטמבר <span class="num">1859</span>:</b> הטבעת ירדה עד קו רוחב מגנטי כ־⁠<span class="num">30</span>, והאור האדום הגבוה נראה עוד דרומה, עד הוואי. ')
+    + (over.length ? 'מתחת לטבעת: '+over.join(', ')+'. ' : '') + (glow.length ? 'רואים אדום נמוך בצפון: '+glow.join(', ')+'. ' : '') + zk;
+}
+aurDraw(0);
+
+/* ---------- step 3 (interactive 3): the telegraph without batteries (canvas, animated) ---------- */
+const tgCv=document.getElementById('tgCv'), tctx=tgCv.getContext('2d'), tgStorm=document.getElementById('tgStorm');
+const TG={ battery:1, line:1, opened:0, t:0, anim:null, tape:[], last:0, sparkT:0 };
+const TG_LEN=[2,170];                                            // km: the induced voltage grows with the length of the wire
+const TG_GREEN=[0.55,1.55];                                      // the sounder works in this range of |current|; above 1.55 → sparks
+function tgBattery(v){ TG.battery=v; tgB1.classList.toggle('on',v===1); tgB0.classList.toggle('on',v===0); tgDraw(1); }
+function tgLine(v){ TG.line=v; tgL0.classList.toggle('on',v===0); tgL1.classList.toggle('on',v===1); tgDraw(1); }
+function tgCurrent(t){ const s=+tgStorm.value, len=TG_LEN[TG.line]/170; return TG.battery + s*0.26*len*Math.sin(t*1.6)*(0.7+0.3*Math.sin(t*0.37)); }
+function tgDraw(user){
+  const c=tctx, W=tgCv.width, H=tgCv.height, ink=css('--ink'), muted=css('--muted'), s=+tgStorm.value;
+  if(user && !TG.opened){ TG.opened=1; WOW.emit('open', { id:'telegraph' }); }
+  if(user){ WOW.emit('item', { id:'tg:'+TG.battery+':'+TG.line+':'+s, kind:'quick', correct:true, attempt: wowTry('tg') }); }
+  const I=tgCurrent(TG.t), a=Math.abs(I), works = a>=TG_GREEN[0] && a<=TG_GREEN[1], spark = a>TG_GREEN[1];
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the sky with the earth's field lines, wobbling with the storm */
+  const SKY=170; c.fillStyle=css('--night'); c.globalAlpha=.85; c.fillRect(0,0,W,SKY); c.globalAlpha=1;
+  c.strokeStyle=css('--aur'); c.lineWidth=2.5; c.globalAlpha=.75;
+  for(let i=0;i<4;i++){ const y0=30+i*30; c.beginPath(); for(let x=0;x<=W;x+=8){ const y=y0+Math.sin(x/54+TG.t*1.6+i)*s*2.6+Math.sin(x/23-TG.t*2.3)*s*1.1; if(x===0) c.moveTo(x,y); else c.lineTo(x,y); } c.stroke(); }
+  c.globalAlpha=1;
+  xTag(c, s===0 ? 'השדה המגנטי של כדור הארץ: שקט' : 'השדה המגנטי רועד — סופה '+s, '', W/2, SKY-36, 18, '#fff', 'center');
+  /* the ground, the poles and the wire */
+  c.fillStyle=css('--earth'); c.globalAlpha=.7; c.fillRect(0,SKY,W,H-SKY); c.globalAlpha=1;
+  const y=226, xL=110, xR=530; c.strokeStyle=ink; c.lineWidth=5; c.lineCap='round';
+  for(const x of [xL,xL+105,xL+210,xL+315,xR]){ c.beginPath(); c.moveTo(x,y+56); c.lineTo(x,y-6); c.stroke(); c.beginPath(); c.moveTo(x-10,y-2); c.lineTo(x+10,y-2); c.stroke(); }
+  c.strokeStyle = works ? css('--sun') : spark ? '#FF6B4A' : muted; c.lineWidth = works||spark ? 5 : 3; c.beginPath(); c.moveTo(xL,y-6); c.lineTo(xR,y-6); c.stroke();
+  c.strokeStyle = works ? css('--sun') : spark ? '#FF6B4A' : muted; c.lineWidth=3; c.beginPath(); c.moveTo(xL,y-6); c.lineTo(xL,y+56); c.moveTo(xR,y-6); c.lineTo(xR,y+56); c.moveTo(xR,y+110); c.lineTo(xR,y+150); c.lineTo(xR-100,y+150); c.moveTo(xL,y+110); c.lineTo(xL,y+150); c.lineTo(xL+40,y+150); c.stroke();
+  xTag(c, TG.line ? 'קו ארוך: 170 ק"מ' : 'קו קצר: 2 ק"מ', '', W/2-118, y+26, 17, ink, 'center');
+  /* the stations */
+  for(const [x,nm] of [[xL,'פורטלנד'],[xR,'בוסטון']]){ c.fillStyle=css('--card'); c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.roundRect(x-62,y+56,124,54,8); c.fill(); c.stroke(); xText(c,nm,x,y+83,20,ink,'center'); }
+  /* the battery at Boston, with its switch */
+  const bx=xR, by=y+150; c.fillStyle=TG.battery?css('--sun'):css('--line'); c.beginPath(); c.roundRect(bx-34,by-14,64,28,5); c.fill(); c.fillStyle=ink; c.fillRect(bx+30,by-6,6,12);
+  c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(bx-34,by); c.lineTo(bx-62,by); c.moveTo(bx-62,by); c.lineTo(bx-62+(TG.battery?-26:-20), by-(TG.battery?0:18)); c.moveTo(bx-88,by); c.lineTo(bx-100,by); c.stroke();
+  xText(c, TG.battery ? 'סוללה: מחוברת' : 'סוללה: מנותקת', bx-10, by+36, 17, ink, 'center');
+  /* the sounder at Portland: prints dots when the current is in the working range */
+  const now=performance.now(); if(now-TG.last>230){ TG.last=now; TG.tape.push(works ? (Math.random()<0.3?2:1) : 0); if(TG.tape.length>16) TG.tape.shift(); }
+  c.fillStyle='#fff'; c.strokeStyle=ink; c.lineWidth=2; c.beginPath(); c.roundRect(xL-80,by-14,180,30,4); c.fill(); c.stroke();
+  c.fillStyle=ink; TG.tape.forEach((m,i)=>{ const x=xL-70+i*10.6; if(m===1){ c.beginPath(); c.arc(x,by+1,2.8,0,Math.PI*2); c.fill(); } else if(m===2){ c.fillRect(x-3,by-1,8,4); } });
+  xText(c, works ? 'ההודעה עוברת!' : 'המכשיר שקט', xL+10, by+36, 17, works?css('--ok'):muted, 'center');
+  /* the meter in the middle: green = the sounder works, red = too strong */
+  const mx=320, my=y+178, mr=62; c.fillStyle=css('--card'); c.beginPath(); c.arc(mx,my,mr+10,Math.PI,0); c.closePath(); c.fill(); c.strokeStyle=ink; c.lineWidth=2; c.stroke();
+  const ang = v => Math.PI + (Math.max(-2.2,Math.min(2.2,v))+2.2)/4.4*Math.PI;
+  c.lineWidth=12; c.strokeStyle=css('--ok'); c.beginPath(); c.arc(mx,my,mr-4, ang(TG_GREEN[0]), ang(TG_GREEN[1])); c.stroke(); c.beginPath(); c.arc(mx,my,mr-4, ang(-TG_GREEN[1]), ang(-TG_GREEN[0])); c.stroke();
+  c.strokeStyle='#FF6B4A'; c.beginPath(); c.arc(mx,my,mr-4, ang(TG_GREEN[1]), ang(2.2)); c.stroke(); c.beginPath(); c.arc(mx,my,mr-4, ang(-2.2), ang(-TG_GREEN[1])); c.stroke();
+  c.strokeStyle=ink; c.lineWidth=4; const na=ang(I); c.beginPath(); c.moveTo(mx,my); c.lineTo(mx+Math.cos(na)*(mr-2), my+Math.sin(na)*(mr-2)); c.stroke(); c.fillStyle=ink; c.beginPath(); c.arc(mx,my,5,0,Math.PI*2); c.fill();
+  c.strokeStyle=muted; c.lineWidth=3; c.beginPath(); c.moveTo(mx,y-6); c.lineTo(mx,my-mr-8); c.stroke();
+  xText(c,'מד הזרם', mx, my+22, 16, ink, 'center');
+  /* sparks */
+  if(spark){ c.strokeStyle='#FFD34A'; c.lineWidth=4; for(let i=0;i<9;i++){ const x=xL+ (Math.random()*(xR-xL)), a=Math.random()*Math.PI*2, L=18+Math.random()*16; c.beginPath(); c.moveTo(x,y-6); c.lineTo(x+Math.cos(a)*L, y-6+Math.sin(a)*L); c.stroke(); } xTag(c,'ניצוצות!','', W/2, y-36, 20, '#FF6B4A', 'center'); }
+  tgOut.textContent = (Math.round(I*10)/10).toFixed(1);
+  tgMsg.innerHTML = s===0 ? (TG.battery ? '<b>יום רגיל:</b> הסוללה נותנת זרם קבוע, המחט באזור הירוק, ההודעה מתקתקת. עכשיו נתקו את הסוללה.' : '<b>בלי סוללה, בלי סופה:</b> אין שום דבר שידחוף את החשמל בחוט. שקט. עכשיו הפעילו סופה.')
+    : TG.line===0 ? '<b>קו קצר:</b> השדה הרועד דוחף גם בו זרם — אבל על <span class="num">2</span> ק"מ הדחיפה קטנטנה. מתח מושרה מצטבר לאורך החוט: <span class="num">170</span> ק"מ מקבלים פי <span class="num">85</span>.'
+    : TG.battery ? '<b>סוללה ועוד סופה:</b> הזרם של הזוהר מתווסף לזרם של הסוללה ומתחסר ממנו לסירוגין — פעם חזק מדי (ניצוצות), פעם חלש מדי. "הזוהר מבטל ומגביר את הסוללות לסירוגין", כתב המפעיל מבוסטון. נתקו אותה.'
+    : '<b>בלי סוללה, עם סופה:</b> השדה המגנטי הרועד דוחף זרם בחוט הארוך — "בא והולך בהדרגה" — וכשהוא באזור הירוק, ההודעה עוברת. הטלגרף עובד על השמיים.';
+}
+function tgTick(now){ TG.t=now/1000; tgDraw(0); TG.anim=requestAnimationFrame(tgTick); }
+TG.t=1.1; tgDraw(0);                                            // static first draw; the animation starts when the chapter opens (tgStart)
+
+/* ---------- step 4 (interactive 4): Faraday's experiment — only change makes current (canvas) ---------- */
+const fdCv=document.getElementById('fdCv'), fctx=fdCv.getContext('2d'), fdX=document.getElementById('fdX');
+const FD={ turns:10, x:0, prevX:0, prevT:0, I:0, peak:0, opened:0, anim:null, auto:null, moved:0, restedInside:0, msg:'' };
+const F_COIL_X0=250, F_COIL_X1=400, F_Y=230;                     // the coil; the magnet slides from x=60 (outside) to x=470 (through)
+const fMagX = v => 60 + v/100*410;
+const fFlux = x => Math.exp(-Math.pow((x-(F_COIL_X0+F_COIL_X1)/2)/70,2));   // how much of the magnet's field threads the coil
+function fdTurns(i){ FD.turns = i ? 40 : 10; fdT0.classList.toggle('on',i===0); fdT1.classList.toggle('on',i===1); fdTurnsOut.textContent=String(FD.turns); fdDraw(); }
+function fdMove(){
+  if(!FD.opened){ FD.opened=1; WOW.emit('open', { id:'faraday' }); }
+  const now=performance.now(), x=fMagX(+fdX.value), dt=Math.max(16, now-FD.prevT)/1000;
+  const dPhi = fFlux(x)-fFlux(FD.prevX);
+  FD.I = Math.max(-3, Math.min(3, -dPhi/dt * FD.turns/10 * 0.5)); FD.prevX=x; FD.prevT=now; FD.x=x; FD.moved=1;
+  FD.msg = Math.abs(FD.I)>0.05 ? (dPhi>0 ? 'המגנט נכנס — המחט קופצת לצד אחד.' : 'המגנט יוצא — המחט קופצת לצד השני.') : '';
+  if(!FD.anim) FD.anim=requestAnimationFrame(fdTick);
+  fdDraw();
+}
+function fdTick(now){
+  const dt=(now-(FD.tickT||now))/1000; FD.tickT=now;
+  if(now-FD.prevT>120){ FD.I *= Math.exp(-dt*6); if(Math.abs(FD.I)<0.02){ FD.I=0; } }
+  const inside = FD.x>F_COIL_X0-20 && FD.x<F_COIL_X1+20;
+  if(FD.I===0 && FD.moved && inside && now-FD.prevT>900){ FD.restedInside=1; FD.msg='המגנט עומד בתוך הסליל — והמחט על אפס. לא המגנט עושה חשמל, אלא <b>השינוי</b>.'; if(!FD.emitted){ FD.emitted=1; WOW.emit('item', { id:'faraday:rest', kind:'quick', correct:true, attempt: wowTry('faraday') }); } }
+  else if(FD.I===0 && FD.moved && !inside && now-FD.prevT>900){ FD.msg='המגנט בחוץ, עומד — אפס. הזיזו אותו פנימה, לאט ואז מהר.'; }
+  fdDraw();
+  if(FD.I!==0 || FD.auto || now-FD.prevT<1200){ FD.anim=requestAnimationFrame(fdTick); } else { FD.anim=null; }
+}
+function fdAuto(){ if(FD.auto) return; const t0=performance.now(); FD.auto=1;
+  const step=now=>{ const f=(now-t0)/1000; fdX.value=String(Math.round(50+45*Math.sin(f*5))); fdMove(); if(f<3.2) requestAnimationFrame(step); else { FD.auto=null; FD.msg='מהר = שינוי גדול בכל שנייה = זרם גדול. ככה מסתובבת טורבינה בתחנת כוח — וככה רעד השדה המגנטי ב־<span class="num">1859</span>.'; fdDraw(); } }; requestAnimationFrame(step); }
+function fdDraw(){
+  const c=fctx, W=fdCv.width, H=fdCv.height, ink=css('--ink'), muted=css('--muted'), x=FD.x||fMagX(+fdX.value);
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  c.fillStyle=css('--earth'); c.globalAlpha=.35; c.fillRect(0,0,W,H); c.globalAlpha=1;
+  /* the wire from the coil to the meter */
+  c.strokeStyle=css('--sun-deep'); c.lineWidth=4; c.beginPath(); c.moveTo(F_COIL_X1+8,F_Y-52); c.lineTo(516,F_Y-52); c.lineTo(516,F_Y-96); c.moveTo(F_COIL_X0-8,F_Y+52); c.lineTo(F_COIL_X0-40,F_Y+52); c.lineTo(F_COIL_X0-40,F_Y+110); c.lineTo(564,F_Y+110); c.lineTo(564,F_Y-96); c.stroke();
+  /* the coil: back loops, the magnet, front loops */
+  const nLoops = FD.turns===40 ? 22 : 9, pitch=(F_COIL_X1-F_COIL_X0)/nLoops;
+  c.strokeStyle=css('--sun-deep'); c.lineWidth=FD.turns===40?3:5; for(let i=0;i<nLoops;i++){ const cx=F_COIL_X0+i*pitch+pitch/2; c.beginPath(); c.ellipse(cx,F_Y,pitch*0.45,52,0,Math.PI,Math.PI*2); c.stroke(); }
+  /* the magnet */
+  const ml=150, mh=38; c.fillStyle='#D64545'; c.beginPath(); c.roundRect(x-ml/2,F_Y-mh/2,ml/2,mh,[6,0,0,6]); c.fill(); c.fillStyle='#3B6FD6'; c.beginPath(); c.roundRect(x,F_Y-mh/2,ml/2,mh,[0,6,6,0]); c.fill();
+  xNum(c,'N', x-ml/4, F_Y, 24, '#fff', 'center'); xNum(c,'S', x+ml/4, F_Y, 24, '#fff', 'center');
+  for(let i=0;i<nLoops;i++){ const cx=F_COIL_X0+i*pitch+pitch/2; c.beginPath(); c.ellipse(cx,F_Y,pitch*0.45,52,0,0,Math.PI); c.stroke(); }
+  xTagN(c, String(FD.turns), 'כריכות', (F_COIL_X0+F_COIL_X1)/2-40, F_Y-84, 18, ink, 'center');
+  xText(c,'המגנט', x, F_Y+mh/2+54, 17, ink, 'center');
+  /* the meter */
+  const mx=540, my=F_Y-104, mr=52; c.fillStyle=css('--card'); c.beginPath(); c.arc(mx,my,mr+6,0,Math.PI*2); c.fill(); c.strokeStyle=ink; c.lineWidth=2; c.stroke();
+  c.strokeStyle=css('--line'); c.lineWidth=2; for(let i=-3;i<=3;i++){ const a=-Math.PI/2+i*0.3; c.beginPath(); c.moveTo(mx+Math.cos(a)*(mr-10),my+Math.sin(a)*(mr-10)); c.lineTo(mx+Math.cos(a)*(mr-2),my+Math.sin(a)*(mr-2)); c.stroke(); }
+  const na=-Math.PI/2 + Math.max(-3,Math.min(3,FD.I))*0.3; c.strokeStyle = Math.abs(FD.I)>0.05 ? '#D64545' : ink; c.lineWidth=4; c.beginPath(); c.moveTo(mx,my); c.lineTo(mx+Math.cos(na)*(mr-6), my+Math.sin(na)*(mr-6)); c.stroke();
+  xNum(c,'0', mx, my-mr-16, 18, muted, 'center'); xText(c,'מד הזרם', mx, my+mr+22, 17, muted, 'center');
+  /* the current in the wire */
+  if(Math.abs(FD.I)>0.05){ c.fillStyle=css('--sun'); const dir=FD.I>0?1:-1; for(let i=0;i<6;i++){ const px=F_COIL_X1+20+((i*20+performance.now()/6*dir)%100+100)%100; c.beginPath(); c.arc(px,F_Y-52,4,0,Math.PI*2); c.fill(); } }
+  fdOut.textContent = (FD.I>=0?'+':'−')+Math.abs(Math.round(FD.I*10)/10).toFixed(1);
+  fdMsg.innerHTML = FD.msg || (FD.moved ? '' : 'גררו את המגנט לתוך הסליל. ניחוש: המחט תזוז כשהמגנט זז, או כשהוא בפנים?');
+}
+fdDraw();
+
+</script>
+
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  raceQ:{ q:'מה יצא מהשמש ברגע ההבזק, ומי הגיע ראשון לכדור הארץ?', opts:['רק אור — והוא הגיע אחרי שמונה דקות; שום דבר אחר לא יצא','אור וגם ענן של חלקיקים טעונים; האור הגיע בשמונה דקות, הענן אחרי כ־17 שעות','ענן של חלקיקים בלבד, שהגיע מיד — מהר כמו אור','אור וענן, ושניהם הגיעו ביחד אחרי שלושה ימים'], a:1, fb:'שני דברים, שתי מהירויות. האור רץ במהירות הכי גדולה שיש (300,000 ק"מ בשנייה) ומגיע ב־8 דקות ו־20 שניות; הענן — מיליארדי טונות של חלקיקים — רץ הרבה יותר לאט, ובדרך כלל מגיע אחרי ימים. הענן של קרינגטון היה מהיר במיוחד: 17.5 שעות. לכן קרינגטון ראה את ההבזק, ורק למחרת השמיים נדלקו.', btn:'next1' },
+  auroraQ:{ q:'למה בלילה רגיל רואים זוהר קוטבי רק ליד הקטבים — וב־1859 ראו אותו בקובה?', opts:['כי ליד הקטבים קר, והקור גורם לאוויר לזהור','כי השדה המגנטי של כדור הארץ מסיט את החלקיקים מהשמש, ורק ליד הקטבים הם מחליקים פנימה; ענן חזק מאוד מועך את הבועה והטבעת מתרחבת דרומה','כי בקובה יש הרבה חשמל, וזה מושך את הזוהר','כי ב־1859 הקוטב הצפוני היה ליד קובה'], a:1, fb:'הבועה המגנטית מסיטה את רוב החלקיקים, וליד הקטבים המגנטיים, שם קווי השדה צוללים לקרקע, הם נכנסים ומדליקים את האוויר בגובה <span class="math">100–400</span> ק"מ. סופה חזקה מועכת את הבועה ומזיזה את טבעת הזוהר דרומה — ב־1859 עד קו רוחב מגנטי כ־30. הקור לא זוהר, וחשמל בעיר לא מושך זוהר.' },
+  wireQ:{ q:'למה הטלגרף בין בוסטון לפורטלנד עבד גם אחרי שניתקו את הסוללות?', opts:['כי נשאר חשמל בחוטים מהיום הקודם','כי השדה המגנטי של כדור הארץ רעד מהסופה, ושדה מגנטי שמשתנה דוחף זרם בחוט ארוך — חוק פאראדיי','כי הזוהר הקוטבי הוא אור, והאור חימם את החוטים','כי המפעילים צעקו חזק מספיק'], a:1, fb:'זה חוק פאראדיי: מגנט שזז — או שדה מגנטי שמשתנה — דוחף זרם בחוט. ב־1859 ה"מגנט" שזז היה כדור הארץ עצמו, והחוט של 170 ק"מ היה סליל ענק. הזוהר עצמו הוא רק האור שרואים; לא הוא הדליק את החוטים, אלא אותו רעד מגנטי שיצר גם אותו.' },
+  guardQ:{ q:'בניסוי של פאראדיי, מתי המחט של מד הזרם זזה?', opts:['כל הזמן שהמגנט נמצא בתוך הסליל, גם כשהוא עומד','רק בזמן שהמגנט זז — נכנס או יוצא — וכשהוא עומד המחט חוזרת לאפס','רק כשהמגנט רחוק מהסליל','אף פעם — צריך סוללה בשביל זרם'], a:1, fb:'רק שינוי עושה חשמל. מגנט שעומד בתוך הסליל, חזק ככל שיהיה, לא דוחף שום דבר; מגנט שזז מהר דוחף הרבה. לכן סופה גאומגנטית — שדה שרועד ומשתנה במשך שעות — מייצרת זרם בחוטים, ולכן טורבינה שמסובבת מגנטים מייצרת חשמל.' },
+  storyQ:{ q:'למה קרינגטון לא הכריז "ההבזק שלי גרם לסופה", למרות שחשד בזה?', opts:['כי הוא לא ראה את הזוהר — הוא ישן','כי הוא ראה צירוף אחד בלבד, ומדען זהיר לא מסיק כלל מדוגמה אחת: "סנונית אחת עוד לא עושה קיץ"','כי הוא פחד שיצחקו עליו','כי הודג׳סון אמר לו שזה שטויות'], a:1, fb:'קרינגטון רשם את הצירוף — הבזק, ואחריו סופה — והוסיף שסנונית אחת עוד לא עושה קיץ. צירוף אחד יכול להיות מקרה. רק כשהבינו, עשרות שנים אחר כך, מה זו התפרצות שמש ומה זה ענן פלזמה, וראו את זה חוזר, הפך החשד למדע. ככה זה צריך להיות.' },
+};
+const MCQ = {
+  shared:[
+    { q:'איך משהו שקורה על השמש הדליק חוטי טלגרף על כדור הארץ?', opts:['האור החזק של ההבזק חימם את החוטים עד שזרם בהם חשמל','ענן של חלקיקים טעונים פגע בשדה המגנטי של כדור הארץ, השדה רעד ושינה את עוצמתו, ושדה מגנטי שמשתנה דוחף זרם בחוטים ארוכים','הזוהר הקוטבי נגע בחוטים והעביר להם את האור שלו','חלקיקים מהשמש נפלו ישר על החוטים ונכנסו לתוכם'], a:1, fb:'שלוש חוליות: ענן מהשמש → השדה המגנטי של כדור הארץ רועד → שדה שמשתנה דוחף זרם בחוט (חוק פאראדיי). החלקיקים עצמם נעצרים גבוה, במאות קילומטרים; הזוהר הוא רק האור שנוצר שם; ואור לא מחשמל חוטים.' },
+    { q:'קרינגטון ראה את ההבזק ב־<span class="num">11:18</span> בבוקר, והסופה הגיעה אחרי כ־<span class="math">17.5</span> שעות. מה זה אומר על הענן?', opts:['הוא נע במהירות האור, כמו ההבזק','הוא נע הרבה יותר לאט מאור, אבל מהר מאוד לענן — כ־<span class="num">2,400</span> ק"מ בשנייה, פי ארבעה מענן רגיל','הוא נע לאט מאוד — כ־<span class="num">2</span> ק"מ בשנייה','הוא בכלל לא יצא מהשמש; הסופה נוצרה בכדור הארץ'], a:1, fb:'<span class="num">150</span> מיליון ק"מ ב־<span class="math">17.5</span> שעות זה כ־⁠<span class="num">2,400</span> ק"מ בשנייה — פי <span class="num">126</span> לאט מאור, אבל פי ארבעה מהר מענן רגיל של סופת שמש, שצריך כשלושה ימים. ענן קודם ניקה לו את הדרך. המהירות היא חלק ממה שעשה את הסופה הזאת קיצונית.' },
+    { q:'מפעיל טלגרף ב־<span class="num">1859</span> משאיר את הסוללה מחוברת בזמן הסופה. מה סביר שיקרה?', opts:['הכול יעבוד כרגיל — הסוללה חזקה יותר מהשמיים','הזרם של הסופה יתווסף לזרם הסוללה ויתחסר ממנו לסירוגין: לפעמים חזק מדי (ניצוצות, מכות חשמל), לפעמים חלש מדי','הסוללה תבטל את הסופה והכול יהיה שקט','הזרם של הסופה ייכנס לסוללה ויטעין אותה'], a:1, fb:'זרם מושרה "בא והולך" — פעם לכיוון הסוללה, פעם נגדה. עם סוללה מחוברת הסכום קופץ בין חזק מדי לחלש מדי; בלי סוללה, בשעות שבהן הזרם היה בכיוון הנכון, המכשיר עבד לבד. בדיוק מה שהמפעיל מבוסטון תיאר.' },
+  ],
+  younger:[
+    { q:'מה קורה בניסוי של פאראדיי כשמשאירים את המגנט לעמוד בתוך הסליל?', opts:['המחט חוזרת לאפס — רק מגנט שזז דוחף זרם','המחט נשארת בצד, כי המגנט בפנים','המחט זזה יותר ויותר, כי המגנט מתחמם','הסליל נהיה מגנט לתמיד'], a:0, fb:'רק שינוי עושה חשמל. המגנט יכול לשבת בתוך הסליל שנה — כלום. ברגע שהוא זז, המחט קופצת. ב־1859 השדה המגנטי של כדור הארץ "זז" במשך שעות, ולכן חוטי הטלגרף התמלאו זרם.' },
+  ],
+  older:[
+    { q:'סופה גאומגנטית שווה בעוצמתה פגעה בטלגרף ב־<span class="num">1859</span> ובקוויבק ב־<span class="num">1989</span> ובעולם של <span class="num">2024</span>. למה הנזק שונה בכל פעם?', opts:['הסופות של פעם היו חזקות יותר, כי השמש נחלשת','הנזק תלוי במה שמחובר לחוטים ובהתרעה: ב־<span class="num">1859</span> רק טלגרפים, ב־<span class="num">1989</span> רשת חשמל בלי אזהרה, ב־<span class="num">2024</span> רשתות שידעו מראש והורידו עומס','ב־<span class="num">2024</span> השדה המגנטי של כדור הארץ היה חזק יותר','אין הבדל — כל סופה גורמת לאותו נזק בדיוק'], a:1, fb:'אותה פיזיקה, תשתית שונה. ככל שיש יותר חוטים ארוכים — יותר זרם מושרה, ויותר מה להפסיד; וככל שיש התרעה — מורידים עומס, מסובבים לוויינים, וההשראה כבר לא מפילה רשת. קוויבק נפלה ב־<span class="num">90</span> שניות; ב־<span class="num">2024</span> קנדה וניו זילנד עברו למצב חירום מראש והחזיקו.' },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'<span class="num">28</span> באוגוסט: השמש יורה ענן ראשון, שמנקה את הדרך בין השמש לכדור הארץ.'},
+  {id:'b', t:'<span class="num">1</span> בספטמבר, <span class="num">11:18</span>: קרינגטון שרטט כתמי שמש וראה שני כתמים של אור לבן, חמש דקות. באותו רגע יצא ענן שני.'},
+  {id:'c', t:'כ־⁠<span class="math">17.5</span> שעות אחר כך הענן פוגע בבועה המגנטית של כדור הארץ; מדי השדה המגנטי בלונדון ובבומביי משתגעים.'},
+  {id:'d', t:'בלילה: השמיים אדומים עד קובה והוואי; חוטי הטלגרף מתמלאים זרם, ניצוצות, ומפעילים עובדים בלי סוללות.'},
+  {id:'e', t:'קרינגטון רושם את הצירוף אבל נזהר. עשרות שנים אחר כך מבינים: הבזק, ענן, שדה שרועד, זרם בחוטים — מזג אוויר בחלל.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> ענן ראשון מנקה את הדרך ← ההבזק והענן השני ← הפגיעה בבועה המגנטית ← זוהר עד קובה וטלגרף בלי סוללות ← ההבנה, שנים אחר כך. שימו לב לסדר של הסיבה והתוצאה: קודם השמש, אחר כך השדה המגנטי, ורק אז החוטים.' : '<span class="pill-bad">לא בדיוק.</span> הטעות הנפוצה: לשים את הזוהר והטלגרף לפני הפגיעה בשדה המגנטי, או את ההבנה לפני שהכול קרה. הסדר: הענן הראשון של <span class="num">28</span> באוגוסט מנקה את הדרך; קרינגטון רואה את ההבזק והענן השני יוצא; אחרי <span class="math">17.5</span> שעות הענן פוגע בבועה המגנטית; בלילה — זוהר וטלגרפים; ורק עשרות שנים אחר כך ההבנה.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const ra=+chalRatio.value, wi=+chalWire.value, pc=+chalPct.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const raOk = ra>=125 && ra<=127, wiOk = wi>=4.9 && wi<=5.1, pcOk = pc>=3.5 && pc<=3.7;
+  S.challenge = raOk && wiOk && pcOk;
+  fb.innerHTML = S.challenge ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">17.5 × 3,600 = 63,000</span> שניות, ו־⁠<span class="math">63,000 ÷ 500 = 126</span> — הענן היה איטי מהאור פי <span class="num">126</span> (ועדיין מהיר פי ארבעה מענן רגיל). (ב) <span class="math">125,000 × 1.6 = 200,000</span> ק"מ, ו־⁠<span class="math">200,000 ÷ 40,000 = 5</span> — חמש הקפות של כדור הארץ, ב־<span class="num">1859</span>. (ג) <span class="math">1,600 ÷ 44,000 = 0.036</span> — כ־⁠<span class="math">3.6%</span> מהשדה. נשמע מעט? השדה של כדור הארץ כמעט לא משתנה ביום רגיל; שינוי של <span class="math">3.6%</span> בתוך שעה הוא רעידת אדמה מגנטית. וזכרו: לא גודל השינוי דוחף את הזרם, אלא <b>המהירות</b> שלו.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : (raOk && wiOk) ? (chalPct.value!=='' ? '<span class="pill-bad">(א) ו־(ב) נכונים, (ג) עוד לא.</span> חלקו את הצניחה בשדה כולו וכפלו ב־⁠<span class="num">100</span>: <span class="math">1,600 ÷ 44,000 × 100 = ?</span>' : '<span class="pill-ok">(א) ו־(ב) נכונים.</span> עכשיו (ג): <span class="math">1,600 ÷ 44,000 × 100 = ?</span>')
+    : (raOk && pcOk) ? '<span class="pill-bad">(א) ו־(ג) נכונים, (ב) עוד לא.</span> קודם מייל לק"מ: <span class="math">125,000 × 1.6 = ?</span>, ואז חלקו בהיקף כדור הארץ, <span class="num">40,000</span>.'
+    : (raOk && wi>=190000 && wi<=210000) ? '<span class="pill-bad">(ב): <span class="num">200,000</span> ק"מ — נכון עד כאן.</span> עכשיו חלקו בהיקף כדור הארץ, <span class="num">40,000</span>.'
+    : raOk ? '<span class="pill-ok">(א) נכון — פי <span class="num">126</span>.</span> עכשיו (ב): מייל לק"מ, ואז חלוקה ב־⁠<span class="num">40,000</span>. ו־(ג): <span class="math">1,600 ÷ 44,000 × 100</span>.'
+    : (ra>=2 && ra<=2.2) ? '<span class="pill-bad">ב־(א) חילקתם דקות בשניות.</span> <span class="num">1,050</span> דקות חלקי <span class="num">500</span> שניות זה לא יחס. הפכו את השעות לשניות: <span class="math">17.5 × 3,600 = ?</span>, ואז חלקו ב־⁠<span class="num">500</span>.'
+    : (ra>=0.03 && ra<=0.04) ? '<span class="pill-bad">ב־(א) חילקתם שעות בשניות.</span> קודם אותן יחידות: <span class="math">17.5 × 3,600 = ?</span> שניות, ואז חלקו ב־⁠<span class="num">500</span>.'
+    : (ra>=1050 && ra<=1060) ? '<span class="pill-bad">כמעט — זה <span class="math">17.5</span> שעות בדקות.</span> צריך שניות (<span class="math">× 3,600</span>), ואז לחלק ב־⁠<span class="num">500</span>.'
+    : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): בשעה יש <span class="num">3,600</span> שניות. <span class="math">17.5 × 3,600 = ?</span> שניות, ואת זה חלקו ב־⁠<span class="num">500</span>.';
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: S.challenge, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const c=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    const aOk=(c>=2360 && c<=2385), bOk=(r>=5.8 && r<=6.0), sc = aOk&&bOk?2:(aOk?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">17.6 × 3,600 = 63,360</span> שניות, ו־⁠<span class="math">150,000,000 ÷ 63,360 ≈ 2,367</span> ק"מ בשנייה. (ב) <span class="math">2,367 ÷ 400 ≈ 5.9</span> — פי שישה כמעט מענן איטי. ולמה זה חשוב? ענן מהיר פוגע בבועה המגנטית חזק יותר, ונותן פחות זמן להתכונן — היום היינו מקבלים מהלוויין ב־L1 רק כ־⁠<span class="num">10</span> דקות התרעה אחרונה (<span class="math">1,500,000 ÷ 2,367 ≈ 634</span> שניות), במקום שעה.'
+      : aOk ? ((r>=0.15 && r<=0.18) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חילקתם הפוך: השאלה היא פי כמה קרינגטון מהיר מהענן האיטי — <span class="math">2,367 ÷ 400 = ?</span>' : '<span class="pill-ok">כ־⁠<span class="num">2,367</span> ק"מ בשנייה — נכון.</span> עכשיו (ב): חלקו במהירות של הענן האיטי, <span class="math">2,367 ÷ 400 = ?</span>')
+      : (c>=8500000 && c<=8600000) ? '<span class="pill-bad">זה ק"מ בשעה, לא בשנייה.</span> הפכו את השעות לשניות (<span class="math">17.6 × 3,600</span>) לפני החלוקה.'
+      : (c>=141000 && c<=143000) ? '<span class="pill-bad">פי שישים גדול מדי.</span> בשעה יש <span class="num">3,600</span> שניות, לא <span class="num">60</span>: <span class="math">17.6 × 3,600 = ?</span>'
+      : (c>=39 && c<=40) ? '<span class="pill-bad">פי שישים קטן מדי.</span> חילקתם פעם אחת יותר מדי ב־<span class="num">60</span>: שניות = שעות <span class="math">× 3,600</span>, וזהו.'
+      : '<span class="pill-bad">עוד לא.</span> רמז: קודם שניות — <span class="math">17.6 × 3,600 = 63,360</span>. אחר כך <span class="math">150,000,000 ÷ 63,360</span>.';
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const ok=v===72; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= ok?'<span class="pill-ok">נכון!</span> ביום יש <span class="num">24</span> שעות, ו־⁠<span class="math">3 × 24 = 72</span> שעות. הענן של קרינגטון הגיע אחרי <span class="math">17.5</span> — פי ארבעה מהר. הוא היה בכדור הארץ כשענן רגיל היה עדיין רק ברבע הדרך.':(v===24||v===48)?'<span class="pill-bad">קרוב.</span> ביום אחד יש <span class="num">24</span> שעות. כמה שעות יש ב־<span class="num">3</span> ימים?':'<span class="pill-bad">לא בדיוק.</span> רמז: ביום אחד יש <span class="num">24</span> שעות. <span class="num">3</span> ימים = <span class="math">3 × 24</span>.'; }
+  else { const ok=v>=2375 && v<=2390; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">150,000,000 ÷ 63,000 ≈ 2,381</span> ק"מ בשנייה — יותר מפי <span class="num">100</span> ממהירות הבריחה מכדור הארץ, ופי ארבעה מענן רגיל. ובכל זאת פי <span class="num">126</span> לאט מהאור, שרץ <span class="num">300,000</span> ק"מ בכל שנייה.':(v>=8500000 && v<=8600000)||(v>=8500 && v<=8600)?'<span class="pill-bad">זה ק"מ בשעה, לא ק"מ בשנייה.</span> חלקו את <span class="num">150,000,000</span> ב־⁠<span class="num">63,000</span> שניות.':(v>=238 && v<=239)||(v>=23800 && v<=23900)?'<span class="pill-bad">פי עשר.</span> ספרו אפסים: <span class="num">150,000,000</span> חלקי <span class="num">63,000</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: מהירות = מרחק חלקי זמן. <span class="math">150,000,000 ÷ 63,000 = ?</span>'; }
+  fb.classList.add('show'); }
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שקרינגטון ראה הבזק על השמש (התפרצות שמש), ושבאותו רגע יצא מהשמש ענן של חלקיקים טעונים.',
+  'כתבתי שהענן הגיע אחרי כ־<span class="num">17</span> שעות (ולא בשמונה דקות כמו האור), ופגע בשדה המגנטי של כדור הארץ.',
+  'הסברתי שהשדה המגנטי רעד/השתנה, ושהזוהר הקוטבי התרחב דרומה (עד קובה והוואי).',
+  'הסברתי את חוק פאראדיי: שדה מגנטי שמשתנה (מגנט שזז) דוחף זרם בחוט — ולכן החוטים הארוכים של הטלגרף התמלאו זרם.',
+  'כתבתי שהמפעילים ניתקו את הסוללות והטלגרף המשיך לעבוד על "הזרם של הזוהר", ושהיום זה יכול להפיל רשת חשמל (קוויבק 1989).',
+];
+const MODEL='ב־1 בספטמבר 1859 ריצ׳רד קרינגטון הטיל את תמונת השמש על דף ושרטט כתמי שמש, וראה שני כתמים של אור לבן שנמשכו חמש דקות — התפרצות שמש. האור של ההבזק הגיע אליו אחרי שמונה דקות; אבל באותו רגע יצא מהשמש גם ענן של מיליארדי טונות חלקיקים טעונים, שנע לאט יותר מאור, כ־2,400 ק"מ בשנייה, והגיע לכדור הארץ אחרי 17.5 שעות (ענן רגיל צריך כשלושה ימים; ענן קודם ניקה לו את הדרך). כשהענן פגע בבועה המגנטית של כדור הארץ הוא מעך ומתח אותה, השדה המגנטי על הקרקע רעד ושינה את עוצמתו במשך שעות, וטבעת הזוהר הקוטבי — האוויר שזוהר כשחלקיקים נכנסים לאורך קווי השדה ליד הקטבים — התרחבה עד קובה, הוואי וקולומביה. ועכשיו חוק פאראדיי: שדה מגנטי שמשתנה דוחף זרם חשמלי בחוט, וככל שהחוט ארוך יותר והשינוי מהיר יותר, המתח גדול יותר. חוטי הטלגרף, שנמתחו על פני מאות קילומטרים, היו סלילים ענקיים, והשדה הרועד דחף בהם זרם: מכות חשמל, ניצוצות — ובבוסטון ובפורטלנד המפעילים ניתקו את הסוללות ועבדו שעתיים על הזרם של הסופה בלבד. זה לא הזוהר שהדליק את החוטים; זה אותו רעד מגנטי שיצר את שניהם. היום אותה פיזיקה מאיימת על רשתות חשמל (קוויבק 1989 נפלה ב־90 שניות), ולוויינים נותנים לנו התרעה מראש.';
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (התפרצות שמש = חיבור מחדש של קווי שדה מגנטי על השמש; שני דברים יוצאים: אור שמגיע ב־500 שניות וענן פלזמה — פליטת מסה מהעטרה — שהגיע ב־17.5 שעות, כ־2,400 ק"מ/ש׳, כי ענן קודם מ־28 באוגוסט ניקה את הדרך; הענן מועך ומותח את המגנטוספרה, קווי השדה שלו מתחברים לשלנו כשהוא "מצביע דרומה", השדה על הקרקע משתנה במשך שעות (קולאבה: −1,600 nT) וטבעת הזוהר מתרחבת (אור מחמצן וחנקן בגובה 100–400 ק"מ) עד קו רוחב מגנטי כ־30; חוק פאראדיי: שדה מגנטי משתנה משרה מתח בחוט, פרופורציונלי לקצב השינוי ולאורך החוט/מספר הכריכות, ולכן קווי טלגרף של מאות ק"מ קיבלו מאות וולט; זרם מושרה מתחלף בכיוונו ולכן "בא והולך"; ההשלכות היום: זרמים מושרים בשנאים, קוויבק 1989, התרעה מ־L1) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על אירוע קרינגטון — סופת השמש של 1859. הרעיונות המרכזיים: (1) ב־1 בספטמבר 1859, 11:18, ריצ׳רד קרינגטון (רדהיל, אנגליה) הטיל את תמונת השמש על דף ושרטט כתמי שמש, וראה שני כתמים של אור לבן במשך כחמש דקות — התפרצות שמש (solar flare) שנראתה באור רגיל; ריצ׳רד הודג׳סון ראה אותה במקביל; קרינגטון היה זהיר: "סנונית אחת עוד לא עושה קיץ"; (2) שני דברים יוצאים מהשמש: אור (300,000 ק"מ/ש׳, 150 מיליון ק"מ ב־500 שניות = 8 דקות ו־20 שניות) וענן פלזמה של מיליארדי טונות חלקיקים טעונים (פליטת מסה מהעטרה), שבדרך כלל מגיע אחרי 2–4 ימים; הענן של קרינגטון הגיע אחרי 17.5 שעות, כ־2,400 ק"מ/ש׳ (150,000,000 ÷ 63,000 ≈ 2,381), כי ענן קודם מ־28 באוגוסט ניקה את הדרך; (3) כדור הארץ הוא מגנט ענק עם בועה מגנטית (מגנטוספרה) שמסיטה את הרוח מהשמש; ליד הקטבים המגנטיים חלקיקים נכנסים לאורך קווי השדה ומדליקים את האוויר בגובה 100–400 ק"מ (חמצן ירוק ואדום, חנקן סגול) — זוהר קוטבי, טבעת סביב הקוטב מעל קו רוחב מגנטי ~65; סופה מועכת את הבועה והטבעת זוחלת דרומה (כשתי מעלות לכל דרגת Kp); ב־1859 עד קו רוחב מגנטי ~30, זוהר אדום נראה בקובה, הוואי, מקסיקו, קולומביה; כורי זהב ברוקי קמו באחת בלילה; קראו עיתון לאור הזוהר; זכרון יעקב בקו רוחב מגנטי ~29 — כנראה אופק אדום, בלי עדות כתובה; (4) הטלגרף: ~200,000 ק"מ חוטים בעולם; מכות חשמל, ניצוצות, נייר שהתלקח; בוסטון–פורטלנד (170 ק"מ) עבדו כשעתיים בלי סוללות על "הזרם של הזוהר"; (5) המנגנון: חוק פאראדיי (1831) — שדה מגנטי שמשתנה (מגנט שזז) דוחף זרם בחוט; רק שינוי, לא מגנט שעומד; יותר מהר / חוט ארוך יותר / יותר כריכות → יותר מתח; ב־1859 ה"מגנט שזז" היה השדה של כדור הארץ (קולאבה, בומביי: צניחה של 1,600 nT, כ־3.6% מהשדה של ישראל, 44,000 nT), והחוטים הארוכים היו סלילים; זרם מושרה מתחלף — "בא והולך"; עם סוללה מחוברת — פעם חזק מדי פעם חלש מדי; (6) היום: קוויבק 13 במרץ 1989 — קריסה בפחות מ־90 שניות, 6 מיליון איש, 9 שעות; 23 ביולי 2012 — ענן בגודל קרינגטון פספס בתשעה ימים; מאי 2024 — G5, זוהר עד קו רוחב מגנטי 26, GPS חקלאי השתבש, רשתות החזיקו בזכות התרעה; לוויין DSCOVR ב־L1, 1.5 מיליון ק"מ, 15–60 דקות התרעה; אפקט ראסל־מקפרון: יותר סופות סביב ימי השוויון (23 בספטמבר 2026); (7) ישראל: שלוש תחנות גאומגנטיות (חרמון, בר גיורא, אילת); (8) קרינגטון (1826–1875): סיבוב דיפרנציאלי של השמש, ~25 ימים בקו המשווה; אביו מת ב־1858, הוא ניהל את המבשלה כבר בזמן ההבזק והפסיק את התצפיות ב־1861.\n\nההסבר של הילד/ה:\n\"\"\"'+txt+'\"\"\"\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם את השרשרת (ענן/חלקיקים מהשמש → השדה המגנטי של כדור הארץ רעד/השתנה → זרם בחוטים) וגם את הרעיון של פאראדיי (שדה מגנטי שמשתנה או מגנט שזז דוחף זרם בחוט, ולכן לא צריך סוללה), 1 אם יש רק חלק מזה. תשובה שאומרת ש"האור של הזוהר/ההבזק הדליק את החוטים" או ש"החלקיקים נכנסו לחוטים" מפספסת את המנגנון ולא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=85?name+', '+G('ראית','ראית')+' את ההבזק כמו קרינגטון!':pct>=60?name+', יש לך מוח של '+G('חוקר שמש','חוקרת שמש')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=17;                                                     // hours until the cloud arrived (≈17.5 h)
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. הענן של קרינגטון הגיע לכדור הארץ אחרי כ־<span class="math">17.5</span> שעות — פי ארבעה מהר מענן רגיל, ופי <b class="num">126</b> לאט מהאור. מהיר מספיק כדי להפתיע, איטי מספיק כדי שהיום נספיק להתכונן.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. המדידה: כ־<span class="math">17.5</span> שעות, כ־<b class="num">2,400</b> ק"מ בשנייה. ענן קודם ניקה את הדרך, והשני דהר.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. המציאות: הענן הגיע אחרי כ־<span class="math">17.5</span> שעות — הרבה יותר לאט מהאור (<span class="num">8</span> דקות), הרבה יותר מהר מסופה רגילה (<span class="num">3</span> ימים). כ־<b class="num">2,400</b> ק"מ בשנייה, בחלל שענן קודם ניקה.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה זמן לקח לענן להגיע): '+(S.guess?fmtSigns(S.guess):'—')+' (המציאות: כ־17.5 שעות)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "הלילה שבו השמיים הדליקו את חוטי הטלגרף", מהדורה 11, ז\' בתשרי תשפ"ז (18 בספטמבר 2026). נושא: אירוע קרינגטון — סופת השמש של 1859 — חלל (השמש, התפרצויות, ענני פלזמה, מזג אוויר בחלל), פיזיקה (שדה מגנטי, זוהר קוטבי, חוק פאראדיי, זרם מושרה), היסטוריה (הטלגרף, קרינגטון, קוויבק 1989) ומעט גאוגרפיה (קווי רוחב מגנטיים, ישראל). עובדות: ריצ\'רד קרינגטון (1826–1875), בן של מבשל בירה, מצפה פרטי ברדהיל שבסארי דרומית ללונדון מ־1853; שרטט כתמי שמש כמעט כל יום בהטלת תמונת השמש על דף (לעולם לא מסתכלים על השמש דרך טלסקופ); גילה את הסיבוב הדיפרנציאלי של השמש (כ־25 ימים בקו המשווה, יותר ליד הקטבים) ואת נדידת הכתמים לקו המשווה לאורך מחזור 11 השנים (חוק שפרר); "סיבוב קרינגטון"; אביו מת ביולי 1858, שנה לפני ההבזק, וקרינגטון כבר ניהל את מבשלת הבירה בזמן ההבזק; הפסיק את סדרת התצפיות ב־1861. ההבזק: יום חמישי, 1 בספטמבר 1859, 11:18 (שעון גריניץ\'), "שני כתמים של אור לבן ובוהק במיוחד" בתוך קבוצת כתמים ענקית, כחמש דקות; ריצ\'רד הודג\'סון (לונדון) ראה במקביל; באותו רגע נרשמה קפיצה קטנה במדי השדה המגנטי בקיו ובגריניץ\' (השפעת קרינת ההתפרצות על היונוספרה); קרינגטון חשד בקשר לסופה שבאה למחרת אבל כתב "סנונית אחת עוד לא עושה קיץ"; דירוג משוער X45 (Cliver & Dietrich 2013). התפרצות שמש = חיבור מחדש של קווי שדה מגנטי מסובכים מעל כתמי שמש; משחררת אור וקרינה (מגיעים ב־8 דקות ו־20 שניות: 150,000,000 ÷ 300,000 = 500 שניות) וענן פלזמה = פליטת מסה מהעטרה (CME): מיליארדי טונות חלקיקים טעונים עם שדה מגנטי משלהם, בדרך כלל כמה מאות ק"מ/ש\' ו־2–4 ימים לכדור הארץ. הענן של קרינגטון הגיע אחרי כ־17.5 שעות (ויקיפדיה: 17.6) — ממוצע כ־2,400 ק"מ/ש\' (150,000,000 ÷ 63,000 ≈ 2,381; עם 63,360 שניות: ≈ 2,367; פי 5.9 מענן של 400 ק"מ/ש\'; פי 126 לאט מהאור: 63,000 ÷ 500); הסיבה למהירות: ענן קודם מ־28 באוגוסט (שגרם גם הוא לסופה וזוהר) ניקה את הדרך מחלקיקים. הסופה: החלה ב־2 בספטמבר, כ־04:50 לפי גריניץ\'; מצפה קולאבה בבומביי רשם צניחה של 1,600 ננוטסלה ברכיב האופקי (הערכת Dst כ־−900, טווח ההערכות −850 עד −1,750; קוויבק 1989: −589; מאי 2024: −412); כדור הארץ = מגנט ענק (ברזל נוזלי בליבה), המגנטוספרה = בועה שמסיטה את הרוח מהשמש; ליד הקטבים המגנטיים חלקיקים נכנסים לאורך קווי השדה ומתנגשים במולקולות אוויר בגובה 100–400 ק"מ: חמצן ירוק (120–400 ק"מ) ואדום (מעל 300 ק"מ), חנקן כחול־סגול; טבעת הזוהר סביב הקוטב המגנטי, בלילה רגיל מעל קו רוחב מגנטי כ־65; סולם Kp 0–9: הקצה כ־66 מעלות ב־Kp 0 וזז כשתי מעלות דרומה בכל דרגה (Kp 9 ≈ 48); זוהר גבוה נראה עד כ־1,000 ק"מ מדרום לטבעת, נמוך באופק הצפוני; ענן שהשדה שלו "מצביע דרומה" (הפוך לשדה שלנו) מתחבר לבועה ומכניס אנרגיה. 1859: גבול הטבעת בקו רוחב מגנטי כ־32.7, אור אדום עד 30.8 (Hayakawa 2018), זוהר נראה עד כ־21 מעלות מגנטיות (הוואי); הלילה הרלוונטי לישראל: 2–3 בספטמבר (השיא ב־2 בספטמבר היה בשעות היום כאן); זוהר נראה בקובה, הוואי (הונולולו, לאהיינה: "זוהר ארגמן"), מקסיקו, קולומביה, פנמה, קווינסלנד, יפן, סין, צ\'ילה; זוהר עד קו רוחב 25 ומטה; "אפשר היה לקרוא עיתון"; כורי זהב בהרי הרוקי קמו באחת בלילה לבשל ארוחת בוקר. קווי רוחב מגנטיים (מעוגלים, חישוב דיפול): טרומסה 67, לונדון 53, רומא 42, הוואנה 33, זכרון יעקב 29, קהיר 27, הונולולו 21, בוגוטה 14; הקוטב המגנטי לא על הקוטב הגאוגרפי ולכן קובה "צפונית" מישראל במפה המגנטית; המקום שבו היום זכרון יעקב (נוסדה רק ב־1882) — לפי החישוב אופק צפוני אדום בלילה שאחרי הפגיעה (ליל 2–3 בספטמבר; הפגיעה ב־2 בספטמבר הייתה כאן בשעות היום), אין עדות כתובה; במאי 2024 הזוהר הגיע לקו רוחב מגנטי 26 במקומות אחרים, מישראל לא דווחה צפייה בעין. הטלגרף: הומצא ב־1844 (מורס); ב־1859 כ־125,000 מייל = כ־200,000 ק"מ חוטים בעולם (125,000 × 1.6 = 200,000; 200,000 ÷ 40,000 = 5 הקפות של כדור הארץ), רבים מהם מושבתים 8 שעות ויותר; מכות חשמל למפעילים, ניצוצות, דיווחים על נייר שהתלקח; שיחת בוסטון–פורטלנד (כ־170 ק"מ): ניתקו את הסוללות ועבדו כשעתיים על "הזרם של הזוהר", "בא והולך בהדרגה", "הזוהר מבטל ומגביר את הסוללות לסירוגין". המנגנון — חוק פאראדיי (מייקל פאראדיי, 1831): שדה מגנטי שמשתנה משרה מתח בחוט; רק שינוי (מגנט שזז), לא מגנט שעומד; המתח גדל עם מהירות השינוי, עם אורך החוט ועם מספר הכריכות; זה העיקרון של כל גנרטור ותחנת כוח ושל דינמו באופניים; ב־1859 המגנט "שזז" היה השדה של כדור הארץ, החוט הארוך = סליל ענק, כמה וולט לק"מ מצטברים למאות וולט; 1,600 ÷ 44,000 ≈ 3.6% מהשדה בישראל (42,700–44,600 nT); זרם מושרה מתחלף בכיוונו, לכן עם סוללה מחוברת — פעם חזק מדי (ניצוצות) פעם חלש מדי. היום: קוויבק, 13 במרץ 1989 — זרמים מושרים בקווי 735 kV, שנאים התחממו, מערכות ההגנה ניתקו, קריסה בפחות מ־90 שניות, 6 מיליון איש, 9 שעות, שנאי נשרף בניו ג\'רזי; אחר כך: קיבול טורי, ניטור, שינוי נהלים; 23 ביולי 2012: ענן בגודל קרינגטון חצה את מסלול כדור הארץ 9 ימים אחרי שכדור הארץ היה שם (נמדד על ידי STEREO-A); מאי 2024: סופה G5 (Kp 9), החזקה מאז 2003, זוהר עד מקסיקו, הודו (לדאק), פלורידה; GPS של טרקטורים השתבש; רשתות בקנדה ובניו זילנד עברו למצב חירום והחזיקו; לוויין נפל מוקדם; DSCOVR ב־L1, כ־1.5 מיליון ק"מ, 15–60 דקות התרעה (מהירות, צפיפות, כיוון השדה); בענן של 2,400 ק"מ/ש\' רק כ־10 דקות (1,500,000 ÷ 2,400 ≈ 625 שניות); שלושה שלבים של סופה: קרינה (8 דקות, רדיו/GPS), חלקיקים מהירים (שעה, אסטרונאוטים), ענן (שעות–ימים, רשתות); מחזור 11 שנים, שיא 2024–2026; אפקט ראסל־מקפרון: יותר סופות סביב ימי השוויון; יום השוויון 23 בספטמבר 2026 (00:05 UTC); הערכת Lloyd\'s 2013 לנזק בארה"ב: 0.6–2.6 טריליון דולר; טבעות עצים: אירועי מיאקה (774 לספירה) גדולים בהרבה; סופות אחרות: מאי 1921 (סופת הרכבת של ניו יורק), אוקטובר 2003 (הלואין: הפסקת חשמל בשוודיה). ישראל: מפעל המדידות מפעיל שלוש תחנות גאומגנטיות — חרמון, בר גיורא (מ־1989), אילת — ושולח נתונים למרכזי מידע עולמיים. ניסויי בית: אלקטרומגנט (מסמר, חוט, סוללה AA, מצפן — רק כמה שניות, מתחמם), תחזית Kp באתר SWPC, הטלת תמונת השמש ממשקפת על דף רק עם מבוגר ולעולם לא להסתכל ישירות. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט (המספרים באינטראקטיבים הם המחשות; "17.5 שעות" ו"2,400 ק"מ/ש\'" הם ערכים מעוגלים; עוצמת הסופה של 1859 שנויה במחלוקת; "האופק מעל זכרון היה אדום" הוא מסקנה ולא עדות), בלי לחשוף תשובות מבחן; אם ילד שואל על תשובה למבחן, לרמוז ולכוון, לא לפתור.';
+const CHIPS = ['למה הטלגרף עבד בלי סוללה?', 'מה זה זוהר קוטבי?', 'איך הענן הגיע כל כך מהר?', 'מה יקרה אם סופה כזאת תבוא היום?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים: 500 שניות לאור מול 17.5 שעות לענן, כ־2,400 ק"מ/ש׳ ופי 126 לאט מאור, הצניחה של 1,600 ננוטסלה בקולאבה מול 44,000 בישראל, גבול הזוהר בקו רוחב מגנטי כ־30, חוק פאראדיי כ"מתח פרופורציונלי לקצב השינוי ולאורך החוט", למה רק ענן ש"מצביע דרומה" נכנס לבועה, ואפקט ראסל־מקפרון), שאל שאלות המשך שדורשות חשיבה, הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 150,000,000 ÷ 63,000 ≈ 2,381. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה הטלגרף עבד בלי סוללה?</b> בגלל חוק פאראדיי: מגנט שזז דוחף זרם חשמלי בחוט. ב־1859 הענן מהשמש הרעיד את המגנט הענק של כדור הארץ במשך שעות, וחוטי הטלגרף הארוכים היו כמו סלילים ענקיים — השדה הרועד דחף בהם זרם. ככה בדיוק עובדת תחנת כוח: מגנטים שמסתובבים ליד סלילים. הזוהר הקוטבי לא הדליק את החוטים — אותו רעד מגנטי יצר גם אותו וגם את הזרם.<br><br><b>מה זה זוהר קוטבי?</b> כדור הארץ הוא מגנט ענק, ורוב החלקיקים שהשמש יורה נדחקים סביב הבועה המגנטית שלו. ליד הקטבים המגנטיים הם מחליקים פנימה לאורך קווי השדה ומתנגשים באוויר בגובה <span class="math">100–400</span> ק"מ; חמצן זוהר ירוק ואדום, חנקן סגול. סופה חזקה מועכת את הבועה וטבעת הזוהר מתרחבת דרומה — ב־1859 עד קובה והוואי.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+function tgStart(){ if(XREDUCED){ TG.t=1.1; tgDraw(0); return; } if(!TG.anim) TG.anim=requestAnimationFrame(tgTick); }
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
