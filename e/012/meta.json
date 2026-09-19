@@ -14,7 +14,7 @@
   "teaser": "ב־1962 הדליק מהנדס אמריקאי את הנורית האדומה הראשונה — פירור של גביש שמאיר בלי חוט לוהט. ירוק הגיע כמה שנים אחר כך. ואז העולם נתקע: אף אחד לא הצליח להדליק כחול. שלושים שנה ניסו במעבדות הכי גדולות בעולם, ומי שהצליחו בסוף היו שני מדענים מאוניברסיטה אחת ביפן — ומהנדס עקשן בחברה קטנה, שהמנהל שלו ציווה עליו להפסיק. בלי כחול אין אור לבן, אין מסך טלפון ואין נורת לד. השאלה של היום: למה דווקא כחול היה כל כך קשה — ואיך נורה לבנה היא בעצם אור כחול שלובש מעיל צהוב?",
   "max_score": 11,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-09-19T08:09:30.792Z",
   "password": "כחול במעיל צהוב",
   "reviewer_verdict": "PASS (2 rounds) — remaining nits: reviewer estimates 40–50 min (younger) / 50–60 min (older) vs the 30-minute tag; lab canvas draws the hole layer on top while chapter 1 draws it as the lower floor (caption now says so); engine-level: Arto tip covers step-1 buttons for 12 s on phones, optional challenge counts toward the older max",
   "review_url": "https://claude.ai/artifact/1YySMgj8MQ9u7ep5B3nKeU",
