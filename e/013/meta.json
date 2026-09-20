@@ -11,10 +11,10 @@
     "מדע ישראלי"
   ],
   "summary": "The octopus: three hearts and copper-blue blood (systemic heart stops when jetting); ~500 M neurons with two thirds in the arms; the Jerusalem experiments (Sumbre/Flash/Hochner 2001 bend-propagation program in denervated arms, 2006 pseudo-joints); chromatophores, colour-blindness and skin opsins (Ramirez & Oakley 2015); suckers as pressure physics (force = Δp × area, ~1 kg/cm² in air, up to ~2.5 in water), taste-by-touch (Bellono 2020) and self-recognition (Nesher 2014); Inky's 2016 escape; soft robotics; Octopus vulgaris on the Carmel coast.",
-  "teaser": "לתמנון יש שלושה לבבות, הדם שלו כחול, ורוב תאי העצב שלו — התאים שחושבים — בכלל לא נמצאים בראש, אלא בזרועות. זרוע של תמנון יכולה לפתוח צנצנת, לטעום סרטן ולהחליט אם לתפוס אותו בזמן שהתמנון עצמו מסתכל למקום אחר. הוא עיוור צבעים — ובכל זאת נעלם על סלע בפחות משנייה. וחלק מהסודות האלה גילו דווקא בישראל, במעבדה בירושלים. השאלה של היום: איך חיה בלי עצמות ובלי מוח גדול בראש הפכה לאחת החיות החכמות בים?",
+  "teaser": "לתמנון יש שלושה לבבות, הדם שלו כחול — ורוב תאי העצב שלו בכלל לא בראש, אלא בזרועות. זרוע של תמנון יכולה לטעום סרטן ולהחליט אם לתפוס אותו בזמן שהתמנון מסתכל למקום אחר. הוא עיוור צבעים, ובכל זאת נעלם על סלע בפחות משנייה.\nאיך חיה בלי עצמות ובלי מוח גדול בראש הפכה לאחת החיות החכמות בים — ומה גילו עליה במעבדה בירושלים?",
   "max_score": 11,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-09-20T08:09:23.997Z",
   "password": "שלושה לבבות כחולים",
   "reviewer_verdict": "PASS (2 rounds) — remaining nits: correct MCQ option still the longest in two questions; reviewer estimates ~35–40 min per track vs the 30-minute tag; engine-level: optional challenge counts toward the older max (11 vs 9)",
   "review_url": "https://claude.ai/artifact/LjHiKiTist5rYdmbDARYYg",
