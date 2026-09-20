@@ -1,0 +1,1721 @@
+<title>שורשים וכנפיים #13 · שמונה זרועות שחושבות לבד</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F4F2EA; --card:#FFFFFF; --card2:#F7F5FF; --ink:#171B33; --muted:#575B75;
+  --sun:#E8804A; --sun-deep:#7A3A10; --sun-soft:#FBE3D3;
+  --nile:#1B8A9A; --nile-soft:#D0EEF1; --shadow:#6A3FBF; --shadow-soft:#EAE3FB;
+  --night:#0F1F3A; --aur:#3FA9C9; --aur2:#F4A16A;
+  --sand:#DCD6C4; --line:#E4DFD2; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#B9D7EE; --sky2:#F3EEE2; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#D9822B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10142B; --card:#1A1F3E; --card2:#222749; --ink:#F2EDE0; --muted:#AFB3CC;
+    --sun:#FFA070; --sun-deep:#FFC7A8; --sun-soft:#4A2A14;
+    --nile:#5ED0DE; --nile-soft:#123C44; --shadow:#B69CFF; --shadow-soft:#2A2352;
+    --night:#0A1428; --aur:#5CC0E0; --aur2:#FFB88A;
+    --sand:#363C60; --line:#2F3559; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#171A2E; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10142B; --card:#1A1F3E; --card2:#222749; --ink:#F2EDE0; --muted:#AFB3CC;
+  --sun:#FFA070; --sun-deep:#FFC7A8; --sun-soft:#4A2A14;
+  --nile:#5ED0DE; --nile-soft:#123C44; --shadow:#B69CFF; --shadow-soft:#2A2352;
+  --night:#0A1428; --aur:#5CC0E0; --aur2:#FFB88A;
+  --sand:#363C60; --line:#2F3559; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#171A2E; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a sucker ring at the tip of a short arm */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:40px;height:26px;flex:none}
+.ch .stick::before{content:"";position:absolute;right:0;bottom:2px;width:12px;height:12px;border-radius:50%;background:var(--card);border:4px solid var(--sun);box-shadow:0 0 0 3px var(--sun-soft)}
+.ch .stick::after{content:"";position:absolute;right:20px;bottom:6px;width:20px;height:14px;border-bottom:4px solid var(--sun);border-right:4px solid var(--sun);border-radius:0 0 14px 0;opacity:.85}
+
+/* hero: the octopus */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-24px;width:300px;height:300px;z-index:0;opacity:.92;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%,100%{transform:scale(.7);opacity:.35}50%{transform:scale(1.2);opacity:.9}}
+/* this edition's widgets */
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 13</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="42%" r="60%">
+        <stop offset="0%" stop-color="var(--aur)" stop-opacity=".45"/>
+        <stop offset="60%" stop-color="var(--aur)" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="var(--aur)" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="dome" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="var(--aur2)" stop-opacity=".95"/>
+        <stop offset="100%" stop-color="var(--sun)" stop-opacity=".95"/>
+      </linearGradient>
+    </defs>
+    <circle cx="150" cy="128" r="140" fill="url(#glow)"/>
+    <!-- an octopus: a round mantle, two eyes, eight curling arms with sucker dots -->
+    <g fill="none" stroke="url(#dome)" stroke-width="16" stroke-linecap="round">
+      <path d="M118 176 C 96 214, 60 214, 44 250"/>
+      <path d="M134 184 C 126 226, 96 238, 92 274"/>
+      <path d="M150 188 C 152 228, 138 254, 150 284"/>
+      <path d="M166 184 C 176 226, 204 238, 208 274"/>
+      <path d="M182 176 C 206 214, 240 214, 256 250"/>
+      <path d="M108 160 C 76 176, 50 162, 30 186"/>
+      <path d="M192 160 C 224 176, 250 162, 270 186"/>
+      <path d="M150 190 C 130 236, 190 244, 178 292"/>
+    </g>
+    <g fill="var(--card)" opacity=".85">
+      <circle cx="92" cy="216" r="3"/><circle cx="72" cy="232" r="3"/><circle cx="120" cy="226" r="3"/><circle cx="106" cy="252" r="3"/>
+      <circle cx="184" cy="226" r="3"/><circle cx="198" cy="252" r="3"/><circle cx="210" cy="216" r="3"/><circle cx="232" cy="232" r="3"/>
+      <circle cx="146" cy="232" r="3"/><circle cx="144" cy="262" r="3"/><circle cx="60" cy="172" r="3"/><circle cx="240" cy="172" r="3"/>
+    </g>
+    <ellipse cx="150" cy="122" rx="58" ry="70" fill="url(#dome)"/>
+    <g class="spark"><circle cx="150" cy="96" r="14" fill="var(--aur)" opacity=".55"/></g>
+    <g fill="#FFFFFF"><ellipse cx="126" cy="148" rx="13" ry="14"/><ellipse cx="174" cy="148" rx="13" ry="14"/></g>
+    <g fill="var(--ink)"><rect x="118" y="145" width="16" height="7" rx="3"/><rect x="166" y="145" width="16" height="7" rx="3"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 13</span><span class="tag">יום ראשון, 20 בספטמבר 2026</span><span class="tag">ט׳ בתשרי תשפ״ז</span><span class="tag">כ־30 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>שמונה זרועות שחושבות לבד</h1>
+  <p class="lede">לתמנון יש <b>שלושה לבבות</b>, הדם שלו <b>כחול</b>, ורוב תאי העצב שלו — התאים שחושבים — בכלל לא נמצאים בראש, אלא בזרועות. זרוע של תמנון יכולה לפתוח צנצנת, לטעום סרטן ולהחליט אם לתפוס אותו בזמן שהתמנון עצמו מסתכל למקום אחר. הוא עיוור צבעים — ובכל זאת נעלם על סלע בפחות משנייה. וחלק מהסודות האלה גילו דווקא בישראל, במעבדה בירושלים. השאלה של היום: <b>איך חיה בלי עצמות ובלי מוח גדול בראש הפכה לאחת החיות החכמות בים?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">לתמנון מצוי יש כחצי מיליארד תאי עצב — התאים שמעבירים מסרים וחושבים. איזה חלק מהם נמצא בראש שלו?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="90"><b>כמעט כולם</b><span>כמו אצלנו: המוח בראש</span></button>
+      <button type="button" class="scaleopt" data-scale="50"><b>בערך חצי</b><span>חצי בראש, חצי בגוף</span></button>
+      <button type="button" class="scaleopt" data-scale="33"><b>בערך שליש</b><span>רובם מחוץ לראש</span></button>
+      <button type="button" class="scaleopt" data-scale="5"><b>כמעט כלום</b><span>לתמנון אין ממש מוח</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · NO BONES, THREE HEARTS (interactive 1: the hearts) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>חיה בלי עצמות, עם שלושה לבבות</h2>
+  <p>התמנון הוא קרוב משפחה של החילזון — רכיכה שאיבדה את הקונכייה שלה לפני מיליוני שנים ונשארה רכה לגמרי. אין לו אף עצם. החלק הקשה היחיד בגוף שלו הוא <b>המקור</b>, שדומה למקור של תוכי ומסתתר בין הזרועות. ולכן יש לו כלל פשוט: <b>כל חור שהמקור עובר בו — כל התמנון עובר בו.</b></p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ולתמנון יש עוד כמה הפתעות בפנים. <b>שלושה לבבות:</b> שני לבבות קטנים שדוחפים דם אל הזימים — האיברים שבהם הדם אוסף חמצן מהמים — ולב אחד גדול שדוחף את הדם לכל הגוף ולזרועות. והדם הזה <b>כחול</b>: אצלנו הדם אדום כי הוא נושא חמצן בעזרת ברזל; אצל התמנון החומר שנושא חמצן עשוי מ<b>נחושת</b>, וכשהוא פוגש חמצן הוא נעשה כחול.</p>
+    <p>ועכשיו הדבר המוזר באמת: כשהתמנון נבהל הוא "יורה" את עצמו קדימה — שואב מים לתוך הגוף ומתיז אותם החוצה בסילון חזק. אבל בכל פעם שהוא עושה את זה, <b>הלב הגדול נעצר</b>. לכן תמנון שוחה רק כשהוא חייב, ומתעייף מהר. רוב הזמן הוא זוחל על הסלעים בשמונה זרועות. באינטראקטיב: תנו לו לזחול, ואז שלחו אותו לשחות — והביטו בלב.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>שלושה לבבות ודם כחול.</b> בדם שלנו החמצן נוסע על המוגלובין, חלבון עם ברזל — ולכן הוא אדום. בדם של התמנון החמצן נוסע על <b>המוציאנין</b>, חלבון עם נחושת, שנעשה כחול כשהוא קושר חמצן. ההמוציאנין עובד לא רע במים קרים ודלי חמצן, אבל הוא נושא הרבה פחות חמצן מהמוגלובין: כל ליטר דם של תמנון מכיל רק כרבע מכמות החמצן שיש בליטר דם שלנו. איך מפצים על דם "חלש"? מזרימים הרבה ממנו, מהר: שני לבבות קטנים דוחפים את הדם דרך הזימים, ולב ראשי גדול דוחף אותו בלחץ גבוה לכל הגוף.</p>
+    <p>וכאן נכנס הפרט שמסביר את כל אורח החיים שלו. כדי לשחות, התמנון שואב מים לתוך ה<b>מעטפת</b> (השק הגדול שנראה כמו ראש) ומכווץ אותה בחוזקה, כך שסילון מים חזק יוצא מצינור בצד הגוף — המשפך. הכיווץ הזה לוחץ גם על הוורידים שמזינים את הלב הראשי, ו<b>הלב הראשי נעצר</b> לכל משך הסילון. שחייה היא בשביל תמנון ספרינט בלי נשימה: הוא מתעייף תוך שניות, ולכן הוא זוחל, מטפס ומתגנב — ושומר את הסילון לבריחה. באינטראקטיב: הביטו במד החמצן בזרועות.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — שלושה לבבות ===== -->
+  <div class="panel instrument">
+    <h3>שלושה לבבות</h3>
+    <p class="cap">שני לבבות קטנים ליד הזימים, ולב גדול באמצע. בחרו: התמנון זוחל — או בורח בסילון. עקבו אחרי הלב הגדול ואחרי מד החמצן בזרועות.</p>
+    <canvas id="heartCv" width="640" height="420" aria-label="תמנון בחתך: שני זימים ולידם שני לבבות קטנים, לב גדול באמצע, וזרועות למטה; בזחילה שלושת הלבבות פועמים ומד החמצן בזרועות מלא; בשחייה בסילון המעטפת מתכווצת, הלב הגדול עוצר ומד החמצן יורד"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="תנועה">
+        <button id="hrM0" class="on" onclick="heartMode(0)">זוחל על הסלע</button>
+        <button id="hrM1" onclick="heartMode(1)">בורח בסילון!</button>
+      </div>
+      <div class="readout">הלב הגדול: <b id="heartOut">פועם</b></div>
+    </div>
+    <p class="cap" id="heartMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>ב־<span class="num">2016</span> ברח תמנון בשם אינקי מהאקווריום הלאומי של ניו זילנד. מישהו השאיר את מכסה האקווריום פתוח כמה סנטימטרים. אינקי טיפס החוצה, זחל על הרצפה, מצא צינור ניקוז ברוחב של כ־<span class="num">15</span> סנטימטר — והחליק דרכו <span class="num">50</span> מטר, ישר לים. הוא מעולם לא נמצא. חיה בגודל של כדורגל עם זרועות, בצינור שהיד שלכם בקושי נכנסת בו: כי אין לו עצמות, ורק המקור צריך לעבור.</p></div>
+
+  <div class="q qc" id="heartQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · ARMS THAT THINK (interactive 2: the reaching arm) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>שמונה זרועות שחושבות לבד</h2>
+  <p>לתמנון מצוי יש כ־<span class="num">500</span> מיליון תאי עצב — התאים שמעבירים מסרים בגוף וחושבים. זה המון: פי שבעה מלעכבר. אבל ההפתעה היא איפה הם: רק כשליש מהם בראש (במוח ומאחורי העיניים). <b>כשני שלישים — כ־<span class="num">350</span> מיליון — יושבים בזרועות.</b> לכל זרוע יש מין מוח קטן משלה, שרשרת של תאי עצב לכל אורכה.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על הבעיה של התמנון: היד שלכם מתכופפת רק במקומות מסוימים — כתף, מרפק, שורש כף היד, אצבעות. זרוע של תמנון יכולה להתכופף <b>בכל נקודה</b>, לכל כיוון, ולהתארך ולהתקצר. אם המוח היה צריך לפקד על כל שריר בכל רגע בשמונה זרועות כאלה — הוא היה מתפוצץ. אז התמנון מצא פתרון: <b>המוח אומר רק "לשם!", והזרוע יודעת לבד איך.</b></p>
+    <p>את זה גילו בירושלים. באוניברסיטה העברית, במעבדה של פרופ׳ בנימין הוכנר, צילמו תמנונים מושיטים זרוע אל אוכל, וראו שהתנועה היא תמיד אותו דבר: <b>גל של כיפוף</b> שנולד ליד הגוף ורץ אל קצה הזרוע, כמו גל בחבל שמנערים. ואז עשו ניסוי מפתיע: לקחו זרוע שכבר לא מחוברת למוח, דגדגו אותה — והיא עשתה בדיוק את אותו גל. <b>התוכנית של התנועה נמצאת בתוך הזרוע.</b> באינטראקטיב: נסו בעצמכם, עם מוח ובלי.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בשפת המהנדסים, לזרוע של תמנון יש <b>אינסוף דרגות חופש</b>: היא יכולה להתכופף בכל נקודה, להסתובב סביב עצמה, להתארך ולהתקצר — ואין לה מפרקים קבועים. בשביל מוח, זה סיוט: כדי להזיז זרוע כזאת בדיוק, הוא היה צריך לחשב ולשלוח פקודה נפרדת לכל פיסת שריר, בכל רגע, בשמונה זרועות. הפתרון של האבולוציה: <b>לחלק את העבודה.</b> המוח מחליט מה ולאן; הזרוע עצמה, עם כ־<span class="num">44</span> מיליון תאי העצב שלה, מחליטה איך.</p>
+    <p>את ההוכחה הביאו שני צוותים ישראליים ב־<span class="num">2001</span>: המעבדה של בנימין הוכנר באוניברסיטה העברית בירושלים, ופרופ׳ תמר פלאש ממכון ויצמן, חוקרת רובוטיקה שחקרה איך בני אדם מזיזים את היד. הם צילמו מאות הושטות של זרוע אל אוכל וראו שכולן בנויות אותו דבר: <b>גל כיפוף שרץ מבסיס הזרוע אל הקצה</b>, מיישר אותה תוך כדי, כמעט תמיד באותה מהירות. ואז לקחו זרוע שנותקה מהמוח, גירו אותה חשמלית — והיא ביצעה את אותו גל, באותה צורה. חמש שנים אחר כך גילו משהו יפה עוד יותר: כשתמנון מביא אוכל אל הפה, הזרוע יוצרת לעצמה <b>שלושה כיפופים קבועים</b> — כתף, מרפק ושורש כף יד זמניים — ומתנהגת בדיוק כמו היד שלנו. שני גלים יוצאים משני קצות הזרוע, ובמקום שבו הם נפגשים נוצר "המרפק". באינטראקטיב: שני המצבים, עם חיבור למוח ובלעדיו.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — הזרוע שיודעת לבד ===== -->
+  <div class="panel instrument">
+    <h3>הזרוע שיודעת לבד</h3>
+    <p class="cap">משמאל סרטן, מימין התמנון. בחרו תנועה, ואז לחצו "קדימה!" — ועקבו אחרי הגל שרץ לאורך הזרוע. אחר כך נתקו את הזרוע מהמוח, ונסו שוב.</p>
+    <canvas id="armCv" width="640" height="420" aria-label="זרוע של תמנון יוצאת מהגוף שמימין אל סרטן משמאל; בהושטה גל כיפוף רץ מבסיס הזרוע אל הקצה ומיישר אותה; בהבאה אל הפה הזרוע יוצרת שלושה כיפופים כמו כתף, מרפק ושורש כף יד; מתג מנתק את הזרוע מהמוח והגל נשאר זהה"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="תנועה">
+        <button id="armA0" class="on" onclick="armAction(0)">להושיט אל הסרטן</button>
+        <button id="armA1" onclick="armAction(1)">להביא אל הפה</button>
+      </div>
+      <div class="seg" role="group" aria-label="חיבור למוח">
+        <button id="armB1" class="on" onclick="armBrain(1)">מחובר למוח</button>
+        <button id="armB0" onclick="armBrain(0)">מנותק מהמוח</button>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn small ghost" id="armGoBtn" onclick="armGo()">קדימה!</button>
+      <div class="readout">הגל: <b id="armOut">מחכה</b></div>
+    </div>
+    <p class="cap" id="armMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="aha">כלל אצבע: <b>המוח אומר "לאן", הזרוע יודעת "איך".</b> בגלל זה זרוע של תמנון יכולה לחפש אוכל בסדק בזמן שהעיניים שלו עסוקות במשהו אחר לגמרי.</div>
+
+  <div class="q qc" id="armQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · SKIN THAT CHANGES IN UNDER A SECOND (interactive 3: the skin) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>העור שמחליף צבע בפחות משנייה</h2>
+  <p>תמנון על סלע אפור הוא אפור. אותו תמנון על חול הוא חול. ואם מבהילים אותו — הוא מלבין, מתכהה או מתכסה בפסים, הכול <b>בפחות משנייה</b>. זיקית איטית בהרבה. איך העור הזה עובד?</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>בעור של התמנון יש מיליוני <b>שקיות צבע</b> זעירות. כל שקית היא כמו בלון קטן ואלסטי מלא בצבע — צהוב, כתום־אדום או חום־שחור — ומסביב לה מחוברים <b>שרירים</b> כמו קרני שמש. כשהשרירים מושכים, השקית נמתחת ונהיית נקודת צבע גדולה. כשהם משחררים, היא מתכווצת בחזרה לנקודה זעירה, כמעט בלתי נראית. אלפי שקיות פתוחות מצד אחד וסגורות מצד אחר — וזה הציור על העור.</p>
+    <p>ומה מפעיל את השרירים? <b>עצבים ישר מהמוח.</b> לכן זה כל כך מהיר: אצל הזיקית זה איטי בהרבה, בעזרת הורמונים; אצל התמנון זו פקודה חשמלית, כמו למצמץ. וההפתעה: בעין של התמנון יש רק סוג אחד של תא צבע, כלומר הוא <b>עיוור צבעים</b>. איך הוא מתאים את עצמו לצבע שהוא לא רואה? אף אחד לא יודע לגמרי. ב־<span class="num">2015</span> גילו שהעור עצמו מרגיש אור: אם מאירים על פיסת עור בלי העין ובלי המוח, השקיות נפתחות לבד. באינטראקטיב: הסתירו את התמנון על שלושה רקעים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>איבר הצבע נקרא <b>כרומטופור</b>: שקית אלסטית מלאה בגרגירי פיגמנט — צהוב, כתום־אדום או חום־שחור — ומסביבה טבעת של <span class="math">15–25</span> שרירים רדיאליים. עצב מגיע לכל שריר. כשהעצב יורה, השרירים מתכווצים ומותחים את השקית לדיסקית צבע רחבה פי כמה; כשהם נרפים, האלסטיות של השקית מכווצת אותה חזרה לנקודה. תחת השקיות יושבות שכבות נוספות: תאי מראה (אירידופורים) שמחזירים כחול־ירוק ומתכתי, ותאים לבנים שמפזרים אור. שלושה צבעי פיגמנט, מראה ולבן — וממש כמו במסך, זה מספיק לכמעט כל ציור.</p>
+    <p>המהירות באה מהחיבור הישיר: זה לא תהליך הורמונלי איטי כמו אצל הזיקית, אלא שריר שמופעל בעצב, ולכן <b>מאות אלפיות שנייה</b>. ועכשיו החידה: ברשתית של התמנון יש פיגמנט ראייה אחד בלבד, כלומר הוא לא מבחין בין צבעים. איך עיוור צבעים מתאים את עצמו לצבע הסלע? ההסברים עדיין במחלוקת. אחד: הוא לא באמת "מתאים צבע", אלא בהירות ומרקם — וזה מספיק כדי לרמות טורף. שני, מ־<span class="num">2015</span>: חוקרים באוניברסיטת קליפורניה מצאו בעור של תמנון את <b>אותו חלבון רגיש לאור שיש בעין</b> — רודופסין — ופיסת עור מבודדת פותחת את השקיות שלה כשמאירים עליה, הכי מהר באור כחול. העור "מרגיש" אור, אבל בהירות בלבד, לא תמונה. באינטראקטיב: נסו להסוות את התמנון — ואז נסו בלי הצבע הכהה.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — העור המשתנה ===== -->
+  <div class="panel instrument">
+    <h3>העור המשתנה</h3>
+    <p class="cap">פיסת עור בהגדלה, על רקע לבחירה. שלושת המחוונים מותחים את שלושת סוגי שקיות הצבע. המשימה: להעלים את התמנון על כל רקע. משמאל למעלה: שקית אחת מקרוב — צפו בשרירים.</p>
+    <canvas id="skinCv" width="640" height="420" aria-label="פיסת עור של תמנון בהגדלה עם רשת של שקיות צבע צהובות, אדומות וחומות שגדלות וקטנות לפי המחוונים, מוקפת ברקע של חול, סלע כהה או סלע אדמדם; מד הסוואה; בפינה שקית אחת בהגדלה עם שרירים רדיאליים שמותחים אותה"></canvas>
+    <div class="controls">
+      <label>צהוב <input type="range" id="skY" min="0" max="100" step="1" value="10" oninput="skinDraw(1)" aria-label="שקיות צהובות" style="direction:ltr;accent-color:#E3B23C"></label>
+      <label>כתום־אדום <input type="range" id="skR" min="0" max="100" step="1" value="10" oninput="skinDraw(1)" aria-label="שקיות אדומות" style="direction:ltr;accent-color:#C8552B"></label>
+      <label>חום־שחור <input type="range" id="skB" min="0" max="100" step="1" value="10" oninput="skinDraw(1)" aria-label="שקיות חומות" style="direction:ltr;accent-color:#4A2E1E"></label>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="רקע">
+        <button id="skG0" class="on" onclick="skinBg(0)">חול בהיר</button>
+        <button id="skG1" onclick="skinBg(1)">סלע אדמדם</button>
+        <button id="skG2" onclick="skinBg(2)">סלע כהה</button>
+      </div>
+      <button class="btn small ghost" onclick="skinFlash()">בהלה!</button>
+      <div class="readout">הסוואה: <b class="num" id="skinOut">0%</b></div>
+    </div>
+    <p class="cap" id="skinMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="q qc" id="skinQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · TWO THOUSAND SUCKERS THAT TASTE (interactive 4: the sucker) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>אלפיים כפתורים שטועמים</h2>
+  <p>על כל זרוע של תמנון מצוי יושבים כ־<span class="num">200</span> עד <span class="num">240</span> <b>כפתורי יניקה</b> בשתי שורות — קרוב ל־<span class="num">2,000</span> בסך הכול. כל כפתור זז לבד, נצמד לבד, משחרר לבד. ואצל התמנון הענק של האוקיינוס השקט הכפתור הגדול ביותר רחב כמו פקק של צנצנת, וכפתור אחד כזה מחזיק <span class="num">16</span> קילוגרם.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>איך כפתור נצמד?</b> לא בדבק. הכפתור מניח את השפה הרכה שלו על הסלע ואוטם — שלא ייכנסו מים. ואז שרירים <b>מרימים את הגג</b> של הכפתור מבפנים. עכשיו יש בתוך הכפתור פחות לחץ מבחוץ — והמים שמסביב, שדוחפים על הכול מכל הכיוונים, פשוט <b>דוחפים את הכפתור אל הסלע</b>. זה בדיוק מה שקורה עם וו הפלסטיק במקלחת: לוחצים, האוויר יוצא, והאוויר שבחוץ מחזיק אותו על האריח. האוויר דוחף בערך <span class="num">1</span> קילוגרם על כל סנטימטר רבוע. כפתור כפול ברוחב — מחזיק פי ארבעה, כי השטח שלו גדל פי ארבעה.</p>
+    <p>ועכשיו הקסם: הכפתורים גם <b>טועמים</b>. ב־<span class="num">2020</span> מצאו חוקרים בהרווארד, בשפה של כל כפתור, תאים מיוחדים שמרגישים את החומרים שעל הדבר שנוגעים בו — "זה סרטן? זו אבן?" — בלי שהעיניים בכלל רואות. הזרוע נוגעת, טועמת ומחליטה. ואיך שמונה זרועות עם אלפיים כפתורים לא נדבקות זו לזו ומסתבכות? גם את זה גילו בירושלים: העור של התמנון מכיל חומר שאומר לכפתור "זה אני — לא לתפוס". באינטראקטיב: בנו כפתור יניקה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>הפיזיקה של הכפתור.</b> הכפתור הוא כוס עם שפה רכה שאוטמת על המשטח, ומעליה חלל עם גג שרירי. השרירים מרימים את הגג ומגדילים את הנפח — אבל מים לא נכנסים, כי השפה אוטמת. הלחץ בפנים יורד, והלחץ שבחוץ נשאר. <b>ההפרש בלחצים כפול השטח הוא הכוח</b> שמצמיד את הכפתור. באוויר, הלחץ סביבנו הוא כ־<span class="num">1</span> קילוגרם על כל סנטימטר רבוע (זה משקל עמוד האוויר שמעלינו): כפתור עם שטח של <span class="num">5</span> סמ״ר יחזיק לכל היותר כ־<span class="num">5</span> קילוגרם, גם אם השרירים יעבדו מושלם. במים, מדידות של כפתורי תמנון הראו הפרש לחץ גדול יותר — עד כ־<span class="math">2.5</span> קילוגרם לסמ״ר — כי מים לא "נקרעים" בקלות. ושטח של עיגול? <span class="math">π × r²</span>, כלומר כ־<span class="math">3.14 × r × r</span>. כפתור ברוחב <span class="num">2</span> סנטימטר (רדיוס <span class="num">1</span>): שטח כ־<span class="math">3.14</span> סמ״ר.</p>
+    <p data-level="standard"><b>הכפתור שטועם.</b> ב־<span class="num">2020</span> מצאה קבוצה בהרווארד, בשכבת התאים החיצונית של הכפתור, קולטנים חדשים שמגיבים למולקולות שלא נמסות במים — כאלה שיושבות על פני השטח של סרטן או של רעל. כלומר הכפתור לא מריח את המים, הוא <b>טועם במגע</b>. ומכיוון שהזרוע מקבלת החלטות בעצמה, היא יכולה לתפוס או לוותר בלי לשאול את המוח.</p>
+    <p data-level="advanced">[מתקדם] <b>הכפתור שטועם.</b> ב־<span class="num">2020</span> מצאה קבוצה בהרווארד קולטנים חדשים בכפתורים — קולטני "כימו־מישוש" — שמגיבים למולקולות שכמעט לא נמסות במים, כמו טרפנואידים שיושבים על פני השטח של טרף; קולטן רגיל לריח, שמזהה חומרים מומסים, לא היה עוזר כאן. הכפתור טועם במגע, והזרוע מחליטה מקומית. חשבו על החיסכון: המידע מעובד במקום שבו הוא נאסף, בלי לנסוע אל המוח ובחזרה.</p>
+    <p>ובעיה שלא חשבתם עליה: אם כל כפתור תופס כל דבר שהוא נוגע בו — למה תמנון לא נקשר לעצמו? ב־<span class="num">2014</span> בדקה זאת אותה מעבדה בירושלים עם זרועות שנכרתו (הן ממשיכות לפעול כשעה): הכפתורים תפסו כל דבר — חוץ מעור של תמנון, של עצמו או של אחר. צלחת פלסטיק שכוסתה בעור — לא נתפסה. אותה צלחת מרוחה בתמצית של עור — כמעט לא נתפסה. <b>בעור יש חומר שאומר לכפתור: "זה אני".</b> באינטראקטיב: הפרש הלחצים, השטח והכוח.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 4 — כפתור היניקה ===== -->
+  <div class="panel instrument">
+    <h3>כפתור היניקה</h3>
+    <p class="cap">כפתור יניקה בחתך, צמוד לסלע מלמעלה, ומשקולת תלויה ממנו. מחוון אחד מרים את הגג (מוריד את הלחץ בפנים), השני קובע את רוחב הכפתור. נחשו לפני שגוררים: כפתור רחב פי שניים מחזיק פי כמה?</p>
+    <canvas id="suckCv" width="640" height="440" aria-label="חתך של כפתור יניקה צמוד לתקרת סלע; חיצים גדולים מבחוץ דוחפים את הכפתור אל הסלע, חיצים קטנים בפנים; שרירים מרימים את גג הכפתור; משקולת תלויה מהכפתור ועליה כמה קילוגרם הוא מחזיק; מתג דליפה משחרר את המשקולת"></canvas>
+    <div class="controls">
+      <label>השרירים מושכים את הגג
+        <input type="range" id="skLift" min="0" max="100" step="1" value="0" oninput="suckDraw(1)" aria-label="הרמת הגג" style="direction:ltr">
+      </label>
+      <label>רוחב הכפתור (ס״מ)
+        <input type="range" id="skDia" min="1" max="6" step="0.5" value="2" oninput="suckDraw(1)" aria-label="רוחב הכפתור" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="סביבה">
+        <button id="skE0" class="on" onclick="suckEnv(0)"><span>באוויר (<span class="num">1</span> ק״ג לסמ״ר)</span></button>
+        <button id="skE1" onclick="suckEnv(1)"><span>תמנון במים (<span class="math">2.5</span>)</span></button>
+      </div>
+      <div class="seg" role="group" aria-label="אטימה">
+        <button id="skS1" class="on" onclick="suckSeal(1)">אטום</button>
+        <button id="skS0" onclick="suckSeal(0)">דולף (קיר מחוספס)</button>
+      </div>
+      <div class="readout">מחזיק: <b class="math" id="suckOut">0 kg</b></div>
+    </div>
+    <p class="cap" id="suckMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>המספרים פה הם החישוב המרבי — כפתור אמיתי מחזיק פחות, כי השפה תמיד דולפת קצת והשרירים לא מורידים את הלחץ עד הסוף. וו יניקה מהמקלחת, ברוחב <span class="num">4</span> סנטימטר, מחזיק לפי החישוב עד <span class="math">3.14 × 2 × 2 ≈ 12.6</span> קילוגרם. כמה הוא מחזיק באמת? זה הניסוי של היום.</p></div>
+
+  <div class="q qc" id="suckQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · WHAT WE LEARN FROM THE OCTOPUS (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>מה לומדים מהתמנון</h2>
+    <p>מהנדסים בכל העולם מסתכלים היום על התמנון ומעתיקים. באיטליה בנו זרוע רובוטית רכה מסיליקון, בלי מפרקים, שמתפתלת סביב חפצים כמו זרוע של תמנון — בשביל רובוטים שעובדים ליד בני אדם או מתחת למים. במקום שהמחשב יחשב כל תנועה, נותנים לזרוע "גל" פשוט, כמו שהזרוע האמיתית עושה, וזה עובד. ואת כפתורי היניקה מעתיקים לרובוטים שאוספים פירות בלי למעוך.</p>
+    <p>ואצלנו? מלבד המעבדה בירושלים, גם הים שלנו מלא תמנונים. התמנון המצוי חי לאורך כל החוף של ישראל, בסלעים ובשוניות — גם בחופים ליד דור והבונים, עשר דקות מזכרון יעקב. אם תראו ליד סלע ערמה קטנה של קונכיות ריקות — זו אולי "פח האשפה" של תמנון שגר בחור שלידה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>מה לומדים מהתמנון</h2>
+    <p>למה התמנון מרתק כל כך את המדענים? כי הוא הוכחה שיש <b>יותר מדרך אחת לבנות מוח</b>. האב הקדמון המשותף לנו ולתמנון חי לפני כ־<span class="num">600</span> מיליון שנה, והיה כנראה יצור קטן דמוי תולעת, כמעט בלי מוח. מאז המוח שלנו והמוח שלו התפתחו בנפרד לגמרי — ובכל זאת שניהם למדו לפתור בעיות, לשחק ולזכור. הפילוסוף פיטר גודפרי־סמית כתב שלפגוש תמנון זה הדבר הכי קרוב שיש לפגוש חוצן חכם. ומה שהתמנון מלמד: אפשר לבנות חוכמה מבוזרת — הרבה מחשבים קטנים במקום אחד גדול.</p>
+    <p>מהנדסי רובוטים אימצו את הרעיון. באיטליה נבנתה זרוע רובוטית רכה בהשראת התמנון, ובשנים האחרונות רובוטים תת־ימיים תופסים חפצים בעזרת <b>גל כיפוף שרץ לאורך זרוע רכה</b> — בדיוק המנגנון מירושלים — במקום חישוב מסובך של כל מפרק. את כפתורי היניקה מעתיקים לתופסנים רכים, ואת הרעיון של חיישנים שמחליטים במקום — לרובוטים שצריכים להגיב מהר. ואצלנו: התמנון המצוי חי לאורך כל חוף הים התיכון של ישראל, בשוניות הסלעיות ליד דור והבונים, לא רחוק מזכרון יעקב; הוא צד בלילה ומשאיר מחוץ למאורה ערמת קונכיות ריקות.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> המספרים האמיתיים. לתמנון מצוי כ־<span class="num">500</span> מיליון תאי עצב, ומהם כ־<span class="num">350</span> מיליון בזרועות. (א) איזה אחוז מתאי העצב נמצא בזרועות? (ב) כמה מיליון תאי עצב יש בזרוע אחת (מתוך שמונה)? (עגלו למספר שלם.) (ג) במוח של אדם יש כ־<span class="num">86</span> מיליארד תאי עצב, כלומר <span class="num">86,000</span> מיליון. כמה תמנונים שלמים צריך כדי להגיע למספר תאי העצב של מוח אחד של אדם?</p>
+      <div class="controls">
+        <label>(א) אחוזים <input type="number" id="chalPct" inputmode="decimal" step="1" placeholder="?"></label>
+        <label>(ב) מיליון לזרוע <input type="number" id="chalArm" inputmode="decimal" step="1" placeholder="?"></label>
+        <label>(ג) תמנונים <input type="number" id="chalHum" inputmode="decimal" step="1" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()" data-g="בדוק|בדקי">בדקי</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> למה כדאי לתמנון שהתוכנית של התנועה תשב <b>בתוך הזרוע</b>, ולא במוח? ומה היה קורה אם המוח היה צריך לשלוט בכל שריר בעצמו?</p>
+      <details><summary>הרמז והתשובה</summary><p>לזרוע בלי עצמות אין מפרקים קבועים: היא יכולה להתכופף בכל נקודה. אילו המוח היה שולט בכל שריר, הוא היה צריך לחשב ולשלוח פקודות לאלפי פיסות שריר בכל רגע, בשמונה זרועות בבת אחת — וגם לחכות שהמידע יחזור אליו מקצה הזרוע. במקום זה המוח שולח פקודה קצרה ("לשם!"), והזרוע מריצה תוכנית קבועה ופשוטה — גל כיפוף מהבסיס אל הקצה — שתמיד מגיעה למטרה. זה חוסך חישוב, חוסך זמן, ועובד גם כשהחיבור למוח מתנתק. מהנדסים קוראים לזה "בקרה מבוזרת", והם מעתיקים אותה לרובוטים רכים: במקום לחשב כל מפרק, נותנים לזרוע גל.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>ניסוי אחד עכשיו — למדוד כמה מחזיק כפתור יניקה — ושניים לבחירה.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — כמה מחזיק וו היניקה? (<span class="num">10</span> דקות)</h3>
+    <p class="cap">מה צריך: וו יניקה מפלסטיק (מהמקלחת או מהמטבח), שקית עם ידיות, כמה בקבוקי מים מלאים, סרגל, ואריח חלק (קיר המקלחת מצוין). מבוגר ליד — בקבוקים נופלים.</p>
+    <ol>
+      <li><b>מודדים:</b> מודדים בסרגל את רוחב כוס היניקה בסנטימטרים, ומחלקים בשתיים — זה הרדיוס. השטח הוא <span class="math">3.14 × רדיוס × רדיוס</span>. וו ברוחב <span class="num">4</span> ס״מ: <span class="math">3.14 × 2 × 2 ≈ 12.6</span> סמ״ר, כלומר לפי החישוב עד כ־<span class="math">12.6</span> קילוגרם.</li>
+      <li><b>מרטיבים ולוחצים:</b> מרטיבים קצת את האריח ואת הכוס, לוחצים חזק במרכז כדי להוציא את האוויר. תולים את השקית על הוו, ומוסיפים בקבוק אחרי בקבוק (כל בקבוק של ליטר וחצי שוקל כ־<span class="math">1.5</span> קילוגרם) — עד שהוו משחרר. כמה החזיק? כמה זה מהחישוב המרבי? (בדרך כלל חצי או פחות — השפה דולפת קצת, והאוויר בפנים לא יצא כולו.)</li>
+      <li><b>יבש ומחוספס:</b> עכשיו על אריח יבש לגמרי, ואז על קיר מחוספס. מה קורה? כשיש חריץ קטן, אוויר נכנס, הלחץ בפנים משתווה ללחץ שבחוץ — ואין מי שידחוף את הכוס אל הקיר. זו הסיבה שהתמנון אוהב סלעים חלקים ולחים, ושהשפה של הכפתור שלו רכה כל כך.</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — מסתתרים (<span class="num">5</span> דקות)</summary>
+    <p>משחק ההסוואה. אחד מניח חמישה חפצים קטנים (כפתורים, מטבעות, לגו) על שטיח או שמיכה עם דוגמה עמוסה, והשני מקבל חמש שניות לספור אותם. עכשיו אותם חפצים על שולחן לבן וריק. איפה קל יותר? התמנון מבין את זה בלי לחשוב: על רקע עמוס לא צריך להתאים צבע מדויק — מספיק לשבור את הצורה של הגוף בכתמים בבהירות הנכונה. נסו גם: איזה מהחפצים "נעלם" הכי טוב על השטיח, ולמה?</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — הזרוע הרכה (<span class="num">5</span> דקות)</summary>
+    <p>ממלאים גרב ארוכה באורז וקושרים — זו זרוע בלי עצמות. מחזיקים אותה בקצה אחד ומנסים לגעת בקצה השני בכוס שעל השולחן. קשה? נסו לנער אותה כך שגל ירוץ מהיד אל הקצה — היא תתיישר לכיוון הכוס, בדיוק כמו זרוע של תמנון. ועכשיו החלק השני: בקשו ממישהו לצבוט את הגרב בשלושה מקומות — "כתף", "מרפק" ו"שורש כף יד" — ולהזיז אותה כמו יד. פתאום קל לכוון. זה מה שהזרוע של התמנון עושה לעצמה כשהיא מביאה אוכל אל הפה.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הסיפור של היום הוא סיפור על חיה שפתרה את אותן בעיות שלנו — לזוז, לתפוס, להתחבא, לחשוב — בדרך אחרת לגמרי. במקום עצמות ומפרקים: גל שרץ בזרוע. במקום מוח אחד גדול: מוח בראש ושמונה מוחות קטנים בזרועות. במקום להסתכל על הצבע: עור שמרגיש אור בעצמו. במקום דבק או אצבעות: כפתורים שדוחפים בעזרת המים שמסביב.</p>
+    <p>והדבר השני: הרבה מזה גילו אנשים שפשוט צילמו תמנונים בסבלנות, שוב ושוב, ושאלו "למה התנועה נראית תמיד אותו דבר?" — במעבדה בירושלים, לא רחוק מכאן. הפעם הבאה שתראו תמנון בים או באקווריום, הביטו בזרוע אחת. היא מחליטה משהו עכשיו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הגדול שחוזר בכל השיעור הוא <b>ביזור</b>: במקום מרכז אחד ששולט בהכול, הרבה חלקים חכמים־למחצה. תאי העצב בזרועות מריצים את תוכנית התנועה בעצמם; הכפתורים טועמים ומחליטים בעצמם; העור מרגיש אור בעצמו; ואפילו הלב — יש שלושה. המוח בראש נשאר לדברים הגדולים: מה לרצות, ממה לפחד, מה למדתי אתמול. הפיזיקה, לעומת זאת, לא שונה מאצלנו: כוח הוא הפרש לחצים כפול שטח, ותאי עצב הם תאי עצב.</p>
+    <p>ומה הלאה? מדענים מנסים היום להבין איך הזרועות והמוח "מדברים" — כמה המוח יודע בכלל איפה כל זרוע נמצאת. מהנדסים בונים רובוטים רכים עם בקרה מבוזרת לחיפוש והצלה, לניתוחים ולמעמקי הים. ושאלה פתוחה לגמרי: איך עיוור צבעים מתאים צבעים? אולי אתם תענו. תמנון חי רק שנה או שנתיים — ובזמן הזה הוא לומד לפתוח צנצנת. תארו לעצמכם מה היה עושה עם שמונים.</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ביולוגיה</div><h3>שתי דרכים לבנות מוח</h3><p>האב הקדמון המשותף לנו ולתמנון חי לפני כ־<span class="num">600</span> מיליון שנה והיה כמעט בלי מוח. המוח שלנו והמוח של התמנון צמחו בנפרד — ושניהם הגיעו למשחק, לזיכרון ולפתרון בעיות. חוכמה, מסתבר, יכולה להיבנות ביותר מדרך אחת.</p></div>
+    <div class="tile"><div class="dom">הנדסה</div><h3>רובוטים רכים</h3><p>זרוע רובוטית קשיחה צריכה מנוע וחישוב לכל מפרק. זרוע רכה בהשראת התמנון מקבלת גל אחד ומתפתלת סביב החפץ בעצמה — פחות חישוב, פחות סכנה לאדם שלידה. וכפתורי יניקה מלאכותיים אוספים היום ביצים ותותים בלי למעוך.</p></div>
+    <div class="tile"><div class="dom">פיזיקה</div><h3>מי באמת דוחף</h3><p>כפתור יניקה לא "מושך" — האוויר או המים שבחוץ דוחפים, ברגע שבפנים יש פחות לחץ. לכן וו יניקה נופל כשנכנס אוויר, ולכן בחלל, שבו אין אוויר בכלל, אף כפתור יניקה לא היה עובד — לתמנון בחלל לא היה מה לאחוז.</p></div>
+    <div class="tile"><div class="dom">היסטוריה</div><h3>אריסטו והתמנון</h3><p>לפני כ־<span class="num">2,300</span> שנה כתב אריסטו שהתמנון משנה את צבעו לצבע האבנים שסביבו — ושהוא חיה טיפשה, כי הוא מתקרב ליד של אדם במים. בחצי הראשון הוא צדק. את החצי השני לקח למדע יותר מאלפיים שנה לתקן.</p></div>
+  </div>
+
+  <details class="bonus" id="latBox">
+    <summary>בונוס (2 דקות): כמה תאי עצב יש למי?</summary>
+    <table class="latbl">
+      <tr><td>דבורה</td><td>כמיליון</td><td>ריקוד, ניווט, זיכרון של פרחים</td></tr>
+      <tr><td>צפרדע</td><td>כ־<span class="num">16</span> מיליון</td><td></td></tr>
+      <tr><td>עכבר</td><td>כ־<span class="num">70</span> מיליון</td><td></td></tr>
+      <tr><td>תמנון</td><td>כ־<span class="num">500</span> מיליון</td><td>כשני שלישים בזרועות</td></tr>
+      <tr><td>חתול</td><td>כ־<span class="num">760</span> מיליון</td><td></td></tr>
+      <tr><td>כלב</td><td>כ־<span class="math">2.3</span> מיליארד</td><td></td></tr>
+      <tr><td>אדם</td><td>כ־<span class="num">86</span> מיליארד</td><td>כמעט כולם בראש</td></tr>
+    </table>
+    <p class="cap" style="margin-top:10px">המספרים הם הערכות מספירות של מוחות, ומשתנים בין מחקרים.</p>
+    <details><summary>שאלה קטנה</summary><p>לחתול יש יותר תאי עצב מאשר לתמנון. האם זה אומר שחתול חכם יותר?</p>
+      <p data-level="advanced">[מתקדם] לא בהכרח. מספר תאי העצב הוא רק חלק מהסיפור: חשוב איפה הם (שני שלישים מתאי התמנון עסוקים בהפעלת הזרועות, לא בחשיבה), איך הם מחוברים, וכמה מהם משרתים גוף גדול. פיל, למשל, מחזיק פי שלושה תאי עצב מאדם — רובם במוח הקטן, בשליטה בגוף ענק. גם "חכם" הוא מילה עמומה: חכם במה? לכן מדענים משווים יכולות מוגדרות — פתרון בעיות, זיכרון, למידה מצפייה — ולא מספרים.</p>
+      <p data-level="standard">לא בהכרח. חלק גדול מתאי העצב של התמנון עסוקים בהפעלת הזרועות, לא בחשיבה. וגם אצל חיות אחרות חשוב לא רק כמה תאים יש, אלא איך הם מחוברים ומה הם עושים. לכן מדענים לא שואלים "מי חכם", אלא "מי טוב במה": בזיכרון, בפתרון בעיות, בלמידה.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את הציד של התמנון, מההתחלה ועד הסוף. לחצו על הכרטיסים לפי הסדר הנכון (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: לתמנון <span class="num">8</span> זרועות, ועל כל זרוע כ־<span class="num">200</span> כפתורי יניקה. כמה כפתורי יניקה יש לו בסך הכול?</div>
+    <div class="controls"><label>מספר הכפתורים <input type="number" id="numYounger" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')" data-g="בדוק|בדקי">בדוק</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: כפתור יניקה של תמנון רחב <span class="num">2</span> סנטימטר (רדיוס <span class="num">1</span>). במים הכפתור יוצר הפרש לחץ של עד <span class="math">2.5</span> קילוגרם לכל סמ״ר. (א) כמה קילוגרם הוא מחזיק לכל היותר? (שטח העיגול: <span class="math">3.14 × r × r</span>; ספרה אחת אחרי הנקודה.) (ב) כמה כפתורים כאלה צריך כדי להחזיק ילד במשקל <span class="num">35</span> קילוגרם? (מספר שלם — מעגלים למעלה. מותר מחשבון.)</div>
+    <div class="controls"><label>(א) קילוגרם <input type="number" id="numAdv" inputmode="decimal" step="0.1" placeholder="?"></label><label>(ב) כפתורים <input type="number" id="numAdvR" inputmode="decimal" step="1" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: כפתור יניקה של תמנון ששטחו <span class="num">4</span> סמ״ר. במים הכפתור יוצר הפרש לחץ של עד <span class="math">2.5</span> קילוגרם לכל סמ״ר. כמה קילוגרם הוא מחזיק לכל היותר? (מותר מחשבון.)</div>
+    <div class="controls"><label>קילוגרם <input type="number" id="numOlder" inputmode="decimal" step="0.1" placeholder="?"></label><button class="btn small" onclick="checkNum('older')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>איך תמנון מושיט זרוע ותופס סרטן — ולמה אומרים שהזרועות שלו "חושבות לבד"?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="רוב תאי העצב של התמנון נמצאים בזרועות, ולכן..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. לתמנון יש כחצי מיליארד תאי עצב, ורק שליש מהם בראש: כשני שלישים יושבים בזרועות. בירושלים גילו שהמוח רק אומר "לשם!", והזרוע מריצה לבד גל כיפוף מהבסיס אל הקצה — גם זרוע שמנותקת מהמוח עושה בדיוק את אותו גל. וכשהיא מביאה אוכל לפה היא ממציאה לעצמה כתף, מרפק ושורש כף יד.<br>
+    2. יש לו שלושה לבבות ודם כחול (החמצן נוסע על נחושת במקום על ברזל), ובכל פעם שהוא שוחה בסילון הלב הגדול נעצר — לכן הוא מעדיף לזחול. אין לו עצמות, רק מקור קשה, ולכן תמנון בשם אינקי ברח מאקווריום בניו זילנד דרך צינור ניקוז של 50 מטר אל הים.<br>
+    3. כפתור היניקה לא מושך: השרירים מורידים את הלחץ בפנים, והמים או האוויר שבחוץ דוחפים אותו אל הסלע — בערך קילוגרם על כל סנטימטר רבוע באוויר. הכפתורים גם טועמים במגע, והעור של התמנון מכיל חומר שאומר לכפתור "זה אני", כדי ששמונה זרועות לא ייקשרו זו לזו.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>תאי עצב: Young (<span class="num">1963</span>), "The number and sizes of nerve cells in Octopus" — כ־<span class="num">500</span> מיליון; חלוקה לפי Lab Animal / Nature ("The autonomous arms of the octopus"): כ־<span class="math">40–45</span> מיליון במוח המרכזי, <span class="math">120–180</span> מיליון באונות הראייה, כ־<span class="num">330</span> מיליון בזרועות (כשני שלישים); "כ־<span class="num">350</span> מיליון בזרועות" הוא המספר המקובל בפרסומי מעבדת הוכנר — האומדנים משתנים בין מקורות, ולכן בחישובים השתמשנו ב־<span class="num">350</span> כמספר עגול. השוואת תאי עצב בין חיות: ויקיפדיה, "List of animals by number of neurons" (דבורה <span class="num">960,000</span>, צפרדע <span class="num">16</span> מיליון, עכבר <span class="num">71</span> מיליון, תמנון <span class="num">500</span> מיליון, חתול <span class="num">760</span> מיליון, כלב <span class="math">2.25</span> מיליארד, אדם <span class="num">86</span> מיליארד — הרקולנו־הוזל). הזרוע: Sumbre, Gutfreund, Fiorito, Flash & Hochner, Science <span class="num">293</span> (<span class="num">2001</span>), "Control of octopus arm extension by a peripheral motor program" — גל כיפוף מהבסיס אל הקצה; זרועות מנותקות מבצעות את אותה תנועה בגירוי חשמלי; Sumbre, Fiorito, Flash & Hochner, Current Biology <span class="num">16</span> (<span class="num">2006</span>), "Octopuses use a human-like strategy to control precise point-to-point arm movements" — שלושה כיפופים דמויי מפרקים, שני גלים שנפגשים במפרק האמצעי (ScienceDaily, "How the octopus forms an elbow"; הוכנר וסומברה מהאוניברסיטה העברית, פלאש ממכון ויצמן, פיוריטו מנאפולי). זיהוי עצמי: Nesher, Levy, Grasso & Hochner, Current Biology (<span class="num">2014</span>), "Self-recognition mechanism between skin and suckers prevents octopus arms from interfering with each other" — זרועות כרותות פעילות כשעה; כפתורים לא תופסים עור תמנון ולא צלחת מכוסה בעור או בתמצית עור (NPR, "Why this octopus isn't stuck-up"). טעימה במגע: van Giesen, Kilian, Allard & Bellono, Cell (<span class="num">29</span> באוקטובר <span class="num">2020</span>), "Molecular basis of chemotactile sensation in octopus" — קולטנים בשכבת התאים החיצונית של הכפתור למולקולות קשות־תמס (Harvard Gazette). כפתורים: כ־<span class="num">240</span> לזרוע בתמנון מצוי (ספרות כללית; OSIC); תמנון ענק: כ־<span class="num">280</span> לזרוע, <span class="num">2,240</span> סה״כ, כפתור של <span class="math">6.4</span> ס״מ מחזיק כ־<span class="num">16</span> ק״ג (OctoNation). מנגנון היניקה: Tramacere et al., PLOS ONE (<span class="num">2013</span>), "The morphology and adhesion mechanism of Octopus vulgaris suckers"; Smith (<span class="num">1991</span>, J. Exp. Biol.) — הפרש לחץ של עד <span class="math">0.268</span> MPa מתחת ללחץ הסביבה (כ־<span class="math">2.7</span> ק״ג לסמ״ר; עיגלנו ל־<span class="math">2.5</span>). לחץ אטמוספרי כ־<span class="math">101</span> kPa ≈ <span class="math">1.03</span> ק״ג־כוח לסמ״ר. עור: Ramirez & Oakley, J. Exp. Biol. <span class="num">218</span> (<span class="num">2015</span>), "Eye-independent, light-activated chromatophore expansion (LACE)… in the skin of Octopus bimaculoides" — רודופסין בעור, תגובה מהירה ביותר לאור כחול, בהירות ולא תמונה (UCSB, "Seeing without eyes"); Nature Scitable, "Cephalopod camouflage: cells and organs of the skin" — שקית פיגמנט אלסטית, שרירים רדיאליים, פיגמנטים צהוב/אדום/חום, אירידופורים ולויקופורים, שינוי תוך אלפיות שנייה, עיוורון צבעים (פיגמנט ראייה יחיד) וההשערה שההסוואה היא בבהירות ובמרקם; "מיליוני שקיות" הוא סדר גודל לתמנון מצוי בוגר ומשתנה מאוד עם הגודל. לבבות ודם: ויקיפדיה, Common octopus — לב מערכתי ושני לבבות זימיים, המוציאנין עם נחושת, קיבולת חמצן כ־<span class="num">4</span> אחוזי נפח (מול כ־<span class="num">20</span> אצלנו — "כרבע"); עצירת הלב המערכתי בסילון: Wells, J. Exp. Biol. (<span class="num">1979</span>), "The heartbeat of Octopus vulgaris", ו־Wells & Wells (<span class="num">1986</span>); מסוכם ב־OctoNation. אינקי: ויקיפדיה, Inky (octopus); National Geographic (<span class="num">14</span> באפריל <span class="num">2016</span>) — האקווריום הלאומי של ניו זילנד בנייפיר, מכסה שנשאר פתוח, צינור ניקוז של <span class="num">50</span> מטר בקוטר כ־<span class="num">150</span> מ״מ אל הים; "כלל המקור" — ספרות כללית. אריסטו, "תולדות בעלי החיים", ספר ט׳ (שינוי צבע לצבע האבנים; "חיה טיפשה"). רובוטיקה: פרויקט OCTOPUS האירופי (סקואולה סופריורה סנט׳אנה, פיזה); npj Robotics (<span class="num">2025</span>), "Underwater soft arm grasping with simplified control using octopus-inspired bending propagation". תמנון מצוי בחופי ישראל: החברה להגנת הטבע, "החצי הכחול" — תמנונים כדיירי הים התיכון של ישראל; תפוצת המין בכל הים התיכון (PLOS ONE <span class="num">2016</span>). האב הקדמון המשותף לפני כ־<span class="num">600</span> מיליון שנה וההשוואה לחוצן: גודפרי־סמית, "Other Minds" (<span class="num">2016</span>). פישוטים במכוון: "שקיות צבע" = כרומטופורים; "מוח קטן בזרוע" = גנגליוני הזרוע; "עיוור צבעים" = פיגמנט ראייה יחיד (יש השערות על ראיית צבע דרך האישון, שנויות במחלוקת); "פי שבעה מעכבר" מעוגל; מד החמצן, קצב הלבבות, מד ההסוואה וצורת הגל באינטראקטיבים הם המחשות ולא מדידות. לוח עברי: Hebcal.</p>
+  </details>
+</section>
+
+</main>
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:13, code:'WOW-013', date:'2026-09-20', title:'שמונה זרועות שחושבות לבד', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '153Xmdec15XXl9ebINeq15XXkdeR15wg15TXqdeV15zXqQ=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'biology', w:3 }, { id:'physics', w:2 }, { id:'engineering', w:2 } ],
+  hero: { name:'התמנון — שמונה זרועות שחושבות לבד', fact:'כחצי מיליארד תאי עצב, שני שלישים מהם בזרועות; המוח אומר "לאן" והזרוע יודעת "איך" — גילוי מירושלים. שלושה לבבות, דם כחול, כפתורים שטועמים, ועור שמחליף צבע בפחות משנייה' },
+  items: {
+    'predict':       { skill:'estimation',            d:2 },
+    'qc:scale':      { skill:'estimation',            d:2 },
+    'qc:heartQ':     { skill:'mechanism',             d:2 },
+    'qc:armQ':       { skill:'mechanism',             d:2 },
+    'qc:skinQ':      { skill:'mechanism',             d:2 },
+    'qc:suckQ':      { skill:'mechanism',             d:3 },
+    'qc:storyQ':     { skill:'transfer',              d:2 },
+    'mcq:shared:0':  { skill:'mechanism',             d:2 },
+    'mcq:shared:1':  { skill:'mechanism',             d:3 },
+    'mcq:shared:2':  { skill:'proportional-reasoning',d:3 },
+    'mcq:younger:0': { skill:'mechanism',             d:2 },
+    'mcq:older:0':   { skill:'evidence',              d:3 },
+    'order':         { skill:'sequence',              d:2 },
+    'num:younger':   { skill:'multiplication',        d:1 },
+    'num:older':     { skill:'rate-multiplication',   d:2 },
+    'num:adv':       { skill:'area-and-rate',         d:4 },
+    'challenge':     { skill:'percent-and-division',  d:4 },
+    'explain':       { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ heartDraw(0); showArtoTip(); } if(n===2) armDraw(0); if(n===3) skinDraw(0); if(n===4) suckDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+/* ---------- hero guess: what share of the octopus's neurons sits in its head? ----------
+   Four choices force a real commitment (almost all / half / a third / almost none):
+   the lesson then confirms it — about a third in the head (brain + optic lobes), about two thirds in the arms. data-scale: percent in the head. */
+const SCALE_ANS = 33;                                                 // percent in the head (≈165–225 of ~500 million; the arms hold ~330–350 million)
+const fmtSigns = n => n===90 ? 'כמעט כולם בראש' : n===50 ? 'בערך חצי בראש' : n===33 ? 'בערך שליש בראש' : 'כמעט כלום בראש';
+const SCALE_FB = {
+  33: '<span class="pill-ok">קלעתם!</span> רק כשליש מתאי העצב של התמנון נמצאים בראש — במוח ומאחורי העיניים. כשני שלישים, כ־<span class="num">350</span> מיליון, יושבים בזרועות. מה הם עושים שם, ומי בעצם מחליט — על זה כל השיעור.',
+  90: '<span class="pill-bad">הרבה פחות.</span> אצלנו כמעט כל תאי העצב בראש, אבל אצל התמנון רק כשליש. כשני שלישים — כ־<span class="num">350</span> מיליון — יושבים בזרועות, ולכן כל זרוע יכולה להחליט דברים לבד.',
+  50: '<span class="pill-bad">פחות.</span> רק כשליש מתאי העצב של התמנון נמצאים בראש. כשני שלישים, כ־<span class="num">350</span> מיליון, בזרועות — כמו מוח קטן בכל זרוע. איך זה עובד? על זה השיעור.',
+  5: '<span class="pill-bad">יש לו מוח, ולא קטן.</span> כשליש מתאי העצב — יותר ממאה מיליון — נמצאים בראש, במוח ומאחורי העיניים. אבל הרוב, כשני שלישים, באמת לא שם: הם בזרועות.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+
+</script>
+
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(30,size); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+function xSun(c,x,y,r,alpha){ c.fillStyle='rgba(255,196,60,'+(alpha==null?1:alpha)+')'; c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fill(); c.strokeStyle='rgba(255,196,60,'+(alpha==null?1:alpha)+')'; c.lineWidth=4; for(let i=0;i<8;i++){ const a=i*Math.PI/4; c.beginPath(); c.moveTo(x+Math.cos(a)*(r+6),y+Math.sin(a)*(r+6)); c.lineTo(x+Math.cos(a)*(r+16),y+Math.sin(a)*(r+16)); c.stroke(); } }
+
+/* ---------- small helpers for this edition ---------- */
+const rgbs = c => 'rgb('+Math.round(c[0])+','+Math.round(c[1])+','+Math.round(c[2])+')';
+function xGlow(c,x,y,r,col,a){ const g=c.createRadialGradient(x,y,r*0.2,x,y,r); g.addColorStop(0,col); g.addColorStop(1,'rgba(0,0,0,0)'); c.globalAlpha=a==null?1:a; c.fillStyle=g; c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fill(); c.globalAlpha=1; }
+function xSign(c,txt,x,y,size,col){ c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign='center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }   // tiny decorative glyphs (not labels)
+function xSea(c,W,H){ c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H); c.fillStyle=css('--night'); c.globalAlpha=.88; c.fillRect(0,0,W,H); c.globalAlpha=1; }
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+
+/* ---------- step 1 (interactive 1): three hearts (canvas, short animations) ---------- */
+const heartCv=document.getElementById('heartCv'), hctx=heartCv.getContext('2d');
+const HR={ mode:0, opened:0, anim:null, t0:0, t:0, o2:1, dur:5000 };
+function heartMode(m){ HR.mode=m; hrM0.classList.toggle('on',m===0); hrM1.classList.toggle('on',m===1); if(!HR.opened){ HR.opened=1; WOW.emit('open', { id:'heart' }); }
+  if(HR.anim) cancelAnimationFrame(HR.anim); HR.t0=performance.now(); const o0=HR.o2;
+  const st=now=>{ const f=Math.min(1,(now-HR.t0)/HR.dur); HR.t=(now-HR.t0)/1000; HR.o2 = m ? o0+(0.3-o0)*f : o0+(1-o0)*f; heartDraw(0); if(f<1) HR.anim=requestAnimationFrame(st); else { HR.anim=null; WOW.emit('item', { id:'heart:'+m, kind:'quick', correct:true, attempt: wowTry('heart') }); } };
+  HR.anim=requestAnimationFrame(st); }
+function heartDraw(user){
+  const c=hctx, W=heartCv.width, H=heartCv.height, jet=HR.mode===1, t=HR.t, run=!!HR.anim;
+  xSea(c,W,H);
+  /* the mantle (squeezes rhythmically when jetting) */
+  const sq = jet ? 0.5+0.5*Math.sin(t*6) : 0, mx=300, my=150, rx=150-sq*22, ry=118-sq*10;
+  c.fillStyle='rgba(232,128,74,.35)'; c.beginPath(); c.ellipse(mx,my,rx+10,ry+10,0,0,Math.PI*2); c.fill();
+  c.fillStyle='rgba(232,128,74,.22)'; c.strokeStyle='rgba(255,200,170,.9)'; c.lineWidth=4; c.beginPath(); c.ellipse(mx,my,rx,ry,0,0,Math.PI*2); c.fill(); c.stroke();
+  /* arms below */
+  c.strokeStyle='rgba(232,128,74,.7)'; c.lineWidth=14; c.lineCap='round';
+  for(let i=0;i<8;i++){ const x0=mx-105+i*30, wob=Math.sin(t*2+i)*(jet?2:8); c.beginPath(); c.moveTo(x0,my+ry-6); c.quadraticCurveTo(x0+wob-10, my+ry+70, x0+(i-3.5)*22+wob, H-16); c.stroke(); }
+  /* the siphon and the water jet */
+  c.fillStyle='rgba(255,200,170,.9)'; c.beginPath(); c.roundRect(mx-rx-34,my+30,44,22,8); c.fill();
+  if(jet){ const k=0.5+0.5*Math.sin(t*6); c.strokeStyle='rgba(120,200,255,'+(0.35+0.6*k)+')'; c.lineWidth=10; c.lineCap='round'; for(let i=0;i<3;i++){ c.beginPath(); c.moveTo(mx-rx-40,my+41+(i-1)*9); c.lineTo(mx-rx-40-60-k*70-i*10,my+41+(i-1)*14); c.stroke(); } xText(c,'סילון!',110,250,30,'#9EDBFF','center'); }
+  /* gills: two feathers, and the two small gill hearts beside them */
+  const beat=(ph,alive)=> alive ? 1+0.18*Math.max(0,Math.sin(t*5+ph)) : 1;
+  for(const side of [-1,1]){ const gx=mx+side*78, gy=my-28;
+    c.strokeStyle='#F2B2A0'; c.lineWidth=3; c.beginPath(); c.moveTo(gx,gy-50); c.lineTo(gx,gy+50); c.stroke();
+    for(let k=-4;k<=4;k++){ c.beginPath(); c.moveTo(gx,gy+k*11); c.lineTo(gx+side*24,gy+k*11-6); c.stroke(); }
+    const hr=13*beat(side,true); c.fillStyle='#4FA8E0'; c.beginPath(); c.arc(gx-side*30,gy+56,hr,0,Math.PI*2); c.fill();
+  }
+  xText(c,'זימים',mx,my-92,30,'#F2B2A0','center');
+  xText(c,'לב קטן',mx-118,my+62,30,'#9EDBFF','center'); xText(c,'לב קטן',mx+118,my+62,30,'#9EDBFF','center');
+  /* the systemic heart in the middle: stops during the jet */
+  const alive=!jet, br=26*beat(0,alive);
+  if(alive) xGlow(c,mx,my+22,70,'rgba(90,170,255,1)',.5);
+  c.fillStyle= alive ? '#3E9BD6' : '#6B7290'; c.beginPath(); c.arc(mx,my+22,br,0,Math.PI*2); c.fill(); c.strokeStyle='#fff'; c.lineWidth=2; c.stroke();
+  if(!alive){ c.strokeStyle='#FF5A4A'; c.lineWidth=6; c.beginPath(); c.moveTo(mx-20,my+2); c.lineTo(mx+20,my+42); c.moveTo(mx+20,my+2); c.lineTo(mx-20,my+42); c.stroke(); }
+  xTag(c, alive ? 'הלב הגדול פועם' : 'הלב הגדול עצר!', '', mx, my+100, 30, alive?css('--nile'):css('--bad'), 'center', .92);
+  /* blue blood dots travelling from the gill hearts to the big heart and down the arms */
+  if(alive){ const ph=(t*0.8)%1; for(const side of [-1,1]){ for(let j=0;j<3;j++){ const f=(ph+j/3)%1; const x=mx+side*48*(1-f), y=my+28-f*0+Math.sin(f*Math.PI)*-14; c.fillStyle='#8FD3FF'; c.beginPath(); c.arc(x,y,5,0,Math.PI*2); c.fill(); } } }
+  /* oxygen gauge for the arms, on the right */
+  const gx=578, gy0=70, gh=250, o=HR.o2;
+  c.fillStyle='rgba(255,255,255,.12)'; c.beginPath(); c.roundRect(gx-22,gy0,44,gh,10); c.fill();
+  c.fillStyle = o>0.6 ? '#4FD08F' : o>0.4 ? '#FFC93C' : '#FF6B5A'; c.beginPath(); c.roundRect(gx-22,gy0+gh*(1-o),44,gh*o,10); c.fill();
+  c.strokeStyle='#fff'; c.lineWidth=2; c.beginPath(); c.roundRect(gx-22,gy0,44,gh,10); c.stroke();
+  xText(c,'חמצן',gx,gy0-30,30,'#fff','center'); xText(c,'בזרועות',gx,gy0+gh+30,30,'#fff','center');
+  xNum(c, Math.round(o*100)+'%', gx, gy0+gh+64, 30, '#fff', 'center');
+  heartOut.textContent = alive ? 'פועם' : 'עצר!';
+  heartMsg.innerHTML = !jet ? (run ? 'זוחל בשמונה זרועות. שלושת הלבבות פועמים, הדם הכחול נוסע מהזימים אל הלב הגדול ומשם לזרועות, ומד החמצן מתמלא.' : 'זחילה: שלושת הלבבות פועמים ומד החמצן מלא. עכשיו שלחו אותו לברוח בסילון — ושימו לב מה קורה ללב שבאמצע.')
+    : (run ? '<b>סילון!</b> המעטפת מתכווצת ודוחפת מים החוצה — והכיווץ הזה לוחץ על הוורידים של הלב הגדול. הלב עצר, והחמצן בזרועות יורד.' : '<b>אחרי כמה שניות של סילון</b> החמצן בזרועות ירד לכ־<span class="num">30</span> אחוז. עוד קצת וזה מסוכן. לכן תמנון שוחה רק כשהוא חייב — ומיד חוזר לזחול.');
+}
+heartDraw(0);
+
+/* ---------- step 2 (interactive 2): the arm that knows by itself (canvas, animated) ---------- */
+const armCv=document.getElementById('armCv'), actx=armCv.getContext('2d');
+const AR={ action:0, brain:1, opened:0, anim:null, t0:0, f:0, done:0, runs:0 };
+const A_BASE=[560,200], A_LEN=430, A_CRAB=[110,232];
+function armAction(a){ AR.action=a; armA0.classList.toggle('on',a===0); armA1.classList.toggle('on',a===1); AR.f=0; AR.done=0; if(AR.anim){ cancelAnimationFrame(AR.anim); AR.anim=null; } armDraw(1); }
+function armBrain(b){ AR.brain=b; armB1.classList.toggle('on',b===1); armB0.classList.toggle('on',b===0); AR.f=0; AR.done=0; if(AR.anim){ cancelAnimationFrame(AR.anim); AR.anim=null; } armGoBtn.textContent = b ? 'קדימה!' : 'לדגדג את הזרוע'; armDraw(1); }
+function armGo(){ if(AR.anim) return; if(!AR.opened){ AR.opened=1; WOW.emit('open', { id:'arm' }); } AR.t0=performance.now(); AR.done=0; const dur=AR.action?2600:2000;
+  const st=now=>{ AR.f=Math.min(1,(now-AR.t0)/dur); armDraw(0); if(AR.f<1) AR.anim=requestAnimationFrame(st); else { AR.anim=null; AR.done=1; AR.runs++; armDraw(0); WOW.emit('item', { id:'arm:'+AR.action+':'+AR.brain, kind:'quick', correct:true, attempt: wowTry('arm') }); } };
+  AR.anim=requestAnimationFrame(st); }
+function armPath(){ /* returns the arm as a list of points, base → tip */
+  const pts=[], [bx,by]=A_BASE, f=AR.f, act=AR.action;
+  if(act===0){ /* reach: a bend travels from base to tip; behind it the arm is straight toward the crab, ahead of it the arm keeps its resting curl */
+    const dx=A_CRAB[0]+40-bx, dy=A_CRAB[1]-by, L=Math.hypot(dx,dy), ux=dx/L, uy=dy/L, px=-uy, py=ux;
+    const bend=ease(f)*1.05;
+    for(let i=0;i<=60;i++){ const s=i/60, along=s*Math.min(L-10, A_LEN*0.98);
+      let off = 0; if(s>bend){ const k=(s-bend); off = Math.sin(k*13)*58*Math.min(1,k*5); }
+      pts.push([bx+ux*along+px*off, by+uy*along+py*off]); }
+  } else { /* fetch: three pseudo-joints; two waves meet in the middle, then the "elbow" flexes and brings the crab to the mouth */
+    const seg=110, meet=Math.min(1,f/0.45), flex=f<0.45?0:ease((f-0.45)/0.55), L=(a,b)=>a+(b-a)*flex;
+    /* joint angles (radians): from a straight arm pointing left to a folded triangle — shoulder down-left, elbow up, wrist back to the mouth */
+    const a0=L(Math.PI+0.05,2.6), a1=L(Math.PI+0.05,4.7), a2=L(Math.PI+0.05,0.52);
+    const j0=[bx,by], j1=[j0[0]+Math.cos(a0)*seg, j0[1]+Math.sin(a0)*seg], j2=[j1[0]+Math.cos(a1)*seg, j1[1]+Math.sin(a1)*seg], j3=[j2[0]+Math.cos(a2)*seg, j2[1]+Math.sin(a2)*seg];
+    const segs=[[j0,j1],[j1,j2],[j2,j3]]; for(let si=0;si<3;si++){ const [p,q]=segs[si]; for(let i=0;i<=20;i++){ const s=i/20; pts.push([p[0]+(q[0]-p[0])*s, p[1]+(q[1]-p[1])*s]); } }
+    pts.joints=[j0,j1,j2,j3]; pts.meet=meet; pts.flex=flex;
+  }
+  return pts;
+}
+function armDraw(user){
+  const c=actx, W=armCv.width, H=armCv.height, f=AR.f, act=AR.action, brain=AR.brain;
+  xSea(c,W,H);
+  /* the sea floor and the crab */
+  c.fillStyle='rgba(216,192,138,.35)'; c.fillRect(0,H-70,W,70);
+  const pts=armPath();
+  const tip=pts[pts.length-1];
+  let crab = act===0 ? A_CRAB.slice() : [A_CRAB[0],A_CRAB[1]];
+  if(act===1){ crab = [tip[0], tip[1]]; }   /* in the fetch the crab is already held at the tip */
+  /* the body on the right: mantle, eye, mouth (beak) */
+  c.fillStyle='rgba(232,128,74,.32)'; c.strokeStyle='rgba(255,200,170,.9)'; c.lineWidth=4; c.beginPath(); c.ellipse(600,130,70,96,0,0,Math.PI*2); c.fill(); c.stroke();
+  c.fillStyle='#fff'; c.beginPath(); c.arc(566,120,15,0,Math.PI*2); c.fill(); c.fillStyle='#101426'; c.beginPath(); c.roundRect(556,116,20,8,3); c.fill();
+  c.fillStyle='#101426'; c.beginPath(); c.arc(578,214,9,0,Math.PI*2); c.fill();   /* the mouth / beak */
+  /* the brain and the nerve to the arm */
+  c.fillStyle= brain ? '#E2A0FF' : 'rgba(226,160,255,.35)'; c.beginPath(); c.ellipse(606,96,22,16,0,0,Math.PI*2); c.fill();
+  c.strokeStyle= brain ? '#E2A0FF' : 'rgba(226,160,255,.35)'; c.lineWidth=4; c.setLineDash(brain?[]:[6,6]); c.beginPath(); c.moveTo(606,112); c.quadraticCurveTo(590,160,A_BASE[0],A_BASE[1]); c.stroke(); c.setLineDash([]);
+  if(!brain){ c.strokeStyle='#FF5A4A'; c.lineWidth=6; c.beginPath(); c.moveTo(584,150); c.lineTo(608,170); c.moveTo(608,150); c.lineTo(584,170); c.stroke(); }
+  xText(c, brain ? 'המוח' : 'המוח מנותק', 562, 72, 30, brain?'#E2A0FF':'#FF8A7A', 'right');
+  /* the arm: thick, tapering, with sucker dots; the travelling bend is highlighted */
+  const n=pts.length;
+  for(let i=1;i<n;i++){ const s=i/n; c.strokeStyle='rgba(232,128,74,.95)'; c.lineWidth=30*(1-s)+8; c.lineCap='round'; c.beginPath(); c.moveTo(pts[i-1][0],pts[i-1][1]); c.lineTo(pts[i][0],pts[i][1]); c.stroke(); }
+  for(let i=2;i<n;i+=4){ const s=i/n; c.fillStyle='rgba(255,236,220,.85)'; c.beginPath(); c.arc(pts[i][0],pts[i][1],4*(1-s)+1.5,0,Math.PI*2); c.fill(); }
+  if(act===0){ const k=Math.round(ease(f)*1.05*60); if(f>0 && k<n){ const p=pts[Math.min(n-1,k)]; xGlow(c,p[0],p[1],48,'rgba(255,255,255,1)',.7); c.fillStyle='#fff'; c.beginPath(); c.arc(p[0],p[1],10,0,Math.PI*2); c.fill(); if(f<0.98) xText(c,'הגל',p[0],p[1]-44,30,'#fff','center'); } }
+  else { const J=pts.joints, m=pts.meet;
+    if(f>0 && m<1){ /* two waves travelling toward the middle */
+      const a=[J[0][0]+(J[1][0]-J[0][0])*m*1.0, J[0][1]+(J[1][1]-J[0][1])*m], b=[J[3][0]+(J[2][0]-J[3][0])*m, J[3][1]+(J[2][1]-J[3][1])*m];
+      for(const p of [a,b]){ xGlow(c,p[0],p[1],40,'rgba(255,255,255,1)',.7); c.fillStyle='#fff'; c.beginPath(); c.arc(p[0],p[1],9,0,Math.PI*2); c.fill(); }
+      xText(c,'שני גלים',(a[0]+b[0])/2,(a[1]+b[1])/2-46,30,'#fff','center'); }
+    if(m>=1){ const nm=['כתף','מרפק','שורש כף יד'], lp=[[J[0][0]+50,J[0][1]+50],[J[1][0],J[1][1]+46],[J[2][0],J[2][1]-42]]; for(let i=0;i<3;i++){ const p=J[i]; c.fillStyle='#FFD45C'; c.beginPath(); c.arc(p[0],p[1],11,0,Math.PI*2); c.fill(); c.strokeStyle='#fff'; c.lineWidth=2; c.stroke(); xText(c,nm[i],lp[i][0],lp[i][1],30,'#FFD45C','center'); } }
+  }
+  /* the crab */
+  const cx=crab[0], cy=crab[1];
+  c.fillStyle='#E8553A'; c.beginPath(); c.ellipse(cx,cy,26,17,0,0,Math.PI*2); c.fill(); c.strokeStyle='#E8553A'; c.lineWidth=5; c.lineCap='round';
+  for(let i=-1;i<=1;i+=2){ for(let k=0;k<3;k++){ c.beginPath(); c.moveTo(cx+i*16,cy+2+k*3); c.lineTo(cx+i*36,cy+14-k*8); c.stroke(); } c.beginPath(); c.moveTo(cx+i*18,cy-8); c.lineTo(cx+i*40,cy-24); c.stroke(); }
+  c.fillStyle='#fff'; c.beginPath(); c.arc(cx-7,cy-12,4,0,Math.PI*2); c.arc(cx+7,cy-12,4,0,Math.PI*2); c.fill();
+  if(act===0) xText(c,'סרטן',cx,cy+52,30,'#FFB3A6','center');
+  /* the caption inside the picture */
+  const reached = act===0 && f>=1, fetched = act===1 && f>=1;
+  const cap = act===0 ? (f===0 ? (brain?'לחצו "קדימה!"':'לחצו "לדגדג את הזרוע"') : reached ? 'הגיעה!' : 'גל כיפוף רץ מהבסיס אל הקצה') : (f===0 ? 'לחצו "קדימה!"' : pts.meet<1 ? 'שני גלים נפגשים באמצע' : fetched ? 'הסרטן בפה' : 'שלושה כיפופים — כמו יד');
+  xText(c, cap, W/2, 30, 30, '#fff', 'center');
+  armOut.textContent = f===0 ? 'מחכה' : (f<1 ? 'רץ...' : 'הגיע');
+  armMsg.innerHTML = act===0
+    ? (f===0 ? (brain ? 'המוח רואה סרטן ושולח לזרוע פקודה קצרה: "לשם!". לחצו וראו מה הזרוע עושה עם הפקודה.' : '<b>הזרוע מנותקת מהמוח.</b> בניסוי בירושלים גירו זרוע כזאת — ואז צפו. לחצו "לדגדג את הזרוע".')
+      : !reached ? 'הביטו בנקודה הלבנה: <b>כיפוף אחד</b> שנולד ליד הגוף ורץ אל הקצה. מאחוריו הזרוע כבר ישרה ומכוונת אל הסרטן, לפניו היא עדיין מסולסלת.'
+      : (brain ? '<b>הגיעה.</b> המוח אמר רק "לשם" — את הגל, המהירות והצורה קבעה הזרוע. עכשיו נתקו אותה מהמוח ונסו שוב.' : '<b>אותו גל בדיוק.</b> בלי מוח, הזרוע ביצעה את אותה תנועה, באותה צורה ובאותה מהירות. המסקנה של הצוות בירושלים (<span class="num">2001</span>): התוכנית של התנועה יושבת בתוך הזרוע.'))
+    : (f===0 ? (brain ? 'הזרוע כבר אוחזת בסרטן. עכשיו צריך להביא אותו אל הפה — תנועה מדויקת. לחצו.' : 'את התנועה הזאת חקרו בתמנונים שלמים. לחצו — היא תתבצע כאילו החיבור קיים.')
+      : pts.meet<1 ? '<b>שני גלים</b> — אחד מהבסיס, אחד מהקצה — רצים זה לקראת זה.'
+      : !fetched ? 'במקום שבו הגלים נפגשו נוצר "מרפק". עכשיו יש לזרוע <b>שלושה מפרקים זמניים</b> — והיא מתקפלת בדיוק כמו יד של אדם.'
+      : '<b>הסרטן בפה.</b> זרוע בלי עצמות המציאה לעצמה כתף, מרפק ושורש כף יד — כי לתנועה מדויקת, מסתבר, מפרקים הם הפתרון הכי טוב (Current Biology, <span class="num">2006</span>).');
+}
+armDraw(0);
+
+/* ---------- step 3 (interactive 3): the changing skin (canvas) ---------- */
+const skinCv=document.getElementById('skinCv'), kctx=skinCv.getContext('2d');
+const SK={ bg:0, opened:0, best:0, flashing:0 };
+const skY=document.getElementById('skY'), skR=document.getElementById('skR'), skB=document.getElementById('skB');
+const SK_BG=[ ['חול בהיר',[214,192,150]], ['סלע אדמדם',[150,86,60]], ['סלע כהה',[72,62,58]] ];
+const SK_PIG=[ [227,178,60], [200,85,43], [58,38,26] ];      // yellow, orange-red, brown-black
+const SK_BASE=[236,226,214];                                   // the pale skin under the sacs
+function skinBg(i){ SK.bg=i; [skG0,skG1,skG2].forEach((b,k)=>b.classList.toggle('on',k===i)); skinDraw(1); }
+function skinFlash(){ if(SK.flashing) return; SK.flashing=1; const v=[skY.value,skR.value,skB.value]; skY.value=100; skR.value=100; skB.value=100; skinDraw(1); skinMsg.innerHTML='<b>בהלה!</b> כל השקיות נפתחו בבת אחת — פקודה חשמלית מהעצבים, מאות אלפיות שנייה. ועכשיו — בחזרה.'; setTimeout(()=>{ skY.value=v[0]; skR.value=v[1]; skB.value=v[2]; SK.flashing=0; skinDraw(1); }, 700); WOW.emit('item', { id:'skin:flash', kind:'quick', correct:true, attempt: wowTry('skin') }); }
+function skinMix(c,x,y,w,h){ /* the average colour of the patch as actually drawn (what a predator's eye would blur it into) */
+  const d=c.getImageData(x+24,y+24,w-48,h-48).data, out=[0,0,0]; let n=0;
+  for(let i=0;i<d.length;i+=16){ out[0]+=d[i]; out[1]+=d[i+1]; out[2]+=d[i+2]; n++; }
+  return out.map(v=>v/n); }
+function skinScore(mix,bg){ const d=Math.hypot(mix[0]-bg[0],mix[1]-bg[1],mix[2]-bg[2]); return clamp(Math.round(100-d/1.6),0,100); }
+function skinDraw(user){
+  const c=kctx, W=skinCv.width, H=skinCv.height, e=[+skY.value/100,+skR.value/100,+skB.value/100], bg=SK_BG[SK.bg][1];
+  if(user && !SK.opened){ SK.opened=1; WOW.emit('open', { id:'skin' }); }
+  /* the background fills the whole left/centre area; the skin patch sits on it */
+  c.fillStyle=rgbs(bg); c.fillRect(0,0,W,H);
+  /* texture speckles on the background */
+  const rnd=(()=>{ let s=7; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; })();
+  for(let i=0;i<140;i++){ const x=rnd()*W, y=rnd()*H, r=1+rnd()*3; c.fillStyle='rgba(0,0,0,'+(0.05+rnd()*0.12)+')'; c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fill(); }
+  /* the skin patch (an octopus silhouette-ish rounded blob) */
+  const PX=60, PY=60, PW=330, PH=300;
+  c.fillStyle=rgbs(SK_BASE); c.beginPath(); c.roundRect(PX,PY,PW,PH,40); c.fill();
+  /* iridescent sheen under the sacs */
+  const gr=c.createLinearGradient(PX,PY,PX+PW,PY+PH); gr.addColorStop(0,'rgba(120,200,220,.18)'); gr.addColorStop(1,'rgba(200,160,255,.12)'); c.fillStyle=gr; c.beginPath(); c.roundRect(PX,PY,PW,PH,40); c.fill();
+  /* the chromatophores: a staggered grid, three types interleaved; radius follows the slider */
+  c.save(); c.beginPath(); c.roundRect(PX,PY,PW,PH,40); c.clip();
+  const step=22, RMAX=[14,14,23];   // fully open: a yellow/red sac covers about half its cell, a brown-black one covers it all
+  for(const pass of [[0,1],[2]]){ let row=0;
+    for(let y=PY+12; y<PY+PH; y+=step*0.87, row++){ for(let x=PX+12+(row%2)*step/2; x<PX+PW; x+=step){ const type=(row+Math.round((x-PX)/step))%3; if(!pass.includes(type)) continue; const r=1.6+(RMAX[type]-1.6)*e[type]; c.fillStyle=rgbs(SK_PIG[type]); c.globalAlpha=0.94; c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fill(); } } }
+  c.globalAlpha=1; c.restore();
+  /* the camouflage meter under the patch; when the match is good, blur the patch the way a predator's eye would from a distance */
+  const mix=skinMix(c,PX,PY,PW,PH), sc=skinScore(mix,bg);
+  if(sc>=70){ c.fillStyle=rgbs(mix); c.globalAlpha=clamp((sc-70)/25,0,0.75); c.beginPath(); c.roundRect(PX,PY,PW,PH,40); c.fill(); c.globalAlpha=1; }
+  xText(c, sc>=78 ? 'העור — מרחוק' : 'העור', PX+PW/2, PY+PH+28, 30, '#fff', 'center');
+  /* the inset: one chromatophore with its radial muscles */
+  const IX=525, IY=130, ER=22+26*Math.max(e[0],e[1],e[2]), which=e.indexOf(Math.max(...e));
+  c.fillStyle='rgba(20,26,58,.85)'; c.beginPath(); c.roundRect(418,20,214,230,16); c.fill();
+  c.strokeStyle='#FFD45C'; c.lineWidth=4; c.lineCap='round';
+  for(let i=0;i<14;i++){ const a=i*Math.PI*2/14; c.beginPath(); c.moveTo(IX+Math.cos(a)*ER,IY+Math.sin(a)*ER); c.lineTo(IX+Math.cos(a)*74,IY+Math.sin(a)*74); c.stroke(); }
+  c.fillStyle=rgbs(SK_PIG[which]); c.beginPath(); c.arc(IX,IY,ER,0,Math.PI*2); c.fill(); c.strokeStyle='#fff'; c.lineWidth=2; c.stroke();
+  xText(c,'שקית אחת',IX,44,30,'#fff','center');
+  xText(c, ER>44 ? 'השרירים מושכים' : 'השרירים רפויים', IX, 226, 30, '#FFD45C', 'center');
+  /* the meter */
+  const MX=442, MY=292, MW=170; c.fillStyle='rgba(255,255,255,.15)'; c.beginPath(); c.roundRect(MX,MY,MW,26,13); c.fill();
+  c.fillStyle= sc>=78 ? '#4FD08F' : sc>=55 ? '#FFC93C' : '#FF6B5A'; c.beginPath(); c.roundRect(MX,MY,MW*sc/100,26,13); c.fill(); c.strokeStyle='#fff'; c.lineWidth=2; c.beginPath(); c.roundRect(MX,MY,MW,26,13); c.stroke();
+  xText(c,'הסוואה',MX+MW/2,MY-24,30,'#fff','center'); xNum(c, sc+'%', MX+MW/2, MY+44, 30, '#fff', 'center');
+  /* the patch's average colour as a swatch beside the meter, next to the background swatch */
+  c.fillStyle=rgbs(mix); c.beginPath(); c.roundRect(MX,MY+64,80,36,8); c.fill(); c.fillStyle=rgbs(bg); c.beginPath(); c.roundRect(MX+90,MY+64,80,36,8); c.fill(); c.strokeStyle='#fff'; c.lineWidth=2; c.strokeRect(MX,MY+64,80,36); c.strokeRect(MX+90,MY+64,80,36);
+  xText(c,'עור',MX+40,MY+114,30,'#fff','center'); xText(c,'רקע',MX+130,MY+114,30,'#fff','center');
+  skinOut.textContent=sc+'%';
+  if(sc>=78 && !SK.best){ SK.best=1; WOW.emit('item', { id:'skin:match', kind:'quick', correct:true, attempt: wowTry('skin') }); }
+  if(SK.flashing) return;
+  const bgn=SK_BG[SK.bg][0];
+  skinMsg.innerHTML = sc>=78 ? '<b>נעלם!</b> על '+bgn+' העור והרקע כמעט זהים. שימו לב: לא היה צריך צבע מדויק — שילוב של שלושה צבעים ובהירות נכונה מספיק. עכשיו בחרו רקע אחר, ונחשו קודם איזה מחוון צריך לזוז.'
+    : sc>=55 ? 'קרוב. הביטו בשני הריבועים למטה: הימני הוא הרקע, השמאלי הוא הצבע הממוצע של העור. מה חסר — יותר כהה? יותר צהוב?'
+    : (e[0]+e[1]+e[2]<0.35 ? 'כמעט כל השקיות סגורות: העור חיוור־לבן. ככה תמנון נראה כשהוא ישן — או נבהל מאוד. פתחו שקיות.' : 'רחוק מהרקע. על '+bgn+' צריך '+(SK.bg===0?'מעט צהוב, וכמעט בלי חום':SK.bg===1?'הרבה כתום־אדום וקצת חום':'הרבה חום־שחור — והצהוב רק מפריע')+'.');
+}
+skinDraw(0);
+
+/* ---------- step 4 (interactive 4): the sucker (canvas) ---------- */
+const suckCv=document.getElementById('suckCv'), uctx=suckCv.getContext('2d');
+const SU={ env:0, seal:1, opened:0, shownX4:0 };
+const skLift=document.getElementById('skLift'), skDia=document.getElementById('skDia');
+function suckEnv(v){ SU.env=v; skE0.classList.toggle('on',v===0); skE1.classList.toggle('on',v===1); suckDraw(1); }
+function suckSeal(v){ SU.seal=v; skS1.classList.toggle('on',v===1); skS0.classList.toggle('on',v===0); suckDraw(1); }
+function suckDraw(user){
+  const c=uctx, W=suckCv.width, H=suckCv.height, lift=+skLift.value/100, d=+skDia.value, r=d/2, area=Math.PI*r*r, pmax=SU.env?2.5:1, seal=SU.seal;
+  if(user && !SU.opened){ SU.opened=1; WOW.emit('open', { id:'suck' }); }
+  const dp = seal ? lift*pmax : 0, force = dp*area;                  // kg per cm² × cm² = kg (max)
+  xSea(c,W,H);
+  /* the rock ceiling */
+  c.fillStyle='#6B6B7A'; c.fillRect(0,0,W,70); c.fillStyle='rgba(0,0,0,.25)'; for(let x=20;x<W;x+=90){ c.beginPath(); c.arc(x,40,14,0,Math.PI*2); c.fill(); }
+  xText(c,'סלע',W-16,36,30,'#fff','right');
+  if(!seal){ c.fillStyle=css('--night'); for(let x=0;x<W;x+=26){ c.beginPath(); c.moveTo(x,70); c.lineTo(x+13,58); c.lineTo(x+26,70); c.closePath(); c.fill(); } }
+  /* the sucker: width follows the diameter (px per cm), the roof rises with the lift */
+  const cx=300, pxcm=36, hw=Math.max(24,d*pxcm/2), rimY=70, roofY0=rimY+38, roof=roofY0+lift*44;
+  c.fillStyle='rgba(232,128,74,.95)'; c.beginPath(); c.moveTo(cx-hw-14,rimY); c.lineTo(cx+hw+14,rimY); c.lineTo(cx+hw,rimY+18); c.lineTo(cx-hw,rimY+18); c.closePath(); c.fill();   // the soft rim
+  c.beginPath(); c.moveTo(cx-hw,rimY+18); c.lineTo(cx-hw*0.75,roof+40); c.lineTo(cx+hw*0.75,roof+40); c.lineTo(cx+hw,rimY+18); c.closePath(); c.fill();                       // the cup wall
+  /* the water chamber inside */
+  c.fillStyle= seal ? 'rgba(80,160,230,'+(0.55-0.4*lift)+')' : 'rgba(80,160,230,.55)'; c.beginPath(); c.moveTo(cx-hw+8,rimY+18); c.lineTo(cx+hw-8,rimY+18); c.lineTo(cx+hw*0.7,roof); c.lineTo(cx-hw*0.7,roof); c.closePath(); c.fill();
+  /* the muscular roof and the muscles pulling it down */
+  c.fillStyle='#B9463A'; c.beginPath(); c.roundRect(cx-hw*0.72,roof-4,hw*1.44,14,5); c.fill();
+  c.strokeStyle='#FFD45C'; c.lineWidth=4; for(let i=-2;i<=2;i++){ c.beginPath(); c.moveTo(cx+i*hw*0.3,roof+10); c.lineTo(cx+i*hw*0.34,roof+40); c.stroke(); }
+  /* pressure arrows: outside (big, constant) push the cup toward the rock; inside (shrinking with the lift) push back */
+  c.fillStyle='#9EDBFF'; const outN=Math.max(2,Math.round(hw/24));
+  for(let i=0;i<outN;i++){ const x=cx-hw+ (i+0.5)*(2*hw/outN); const y0=roof+56, len=40*pmax/2.5+28; c.fillRect(x-5,y0,10,len); xArrow(c,x,y0-2,0,-1,22); }
+  xText(c, SU.env ? 'המים דוחפים' : 'האוויר דוחף', cx-hw-14, roof+96, 30, '#9EDBFF', 'right');
+  { const pin = seal ? (1-lift) : 1; if(pin>0.04){ c.fillStyle='rgba(255,255,255,.8)'; const inN=Math.max(1,Math.round(hw/34)); for(let i=0;i<inN;i++){ const x=cx-hw*0.6+(i+0.5)*(hw*1.2/inN), len=Math.max(4,(roof-rimY-30)*pin); c.fillRect(x-3,rimY+22,6,len); xArrow(c,x,rimY+24+len,0,1,12); } } }
+  /* the arm and the hanging weight */
+  const wt=Math.max(0,force), fell=!seal || lift<0.03, wy = fell ? H-40 : roof+120;
+  c.strokeStyle='rgba(232,128,74,.95)'; c.lineWidth=16; c.lineCap='round'; c.beginPath(); c.moveTo(cx+hw+6,rimY+18); c.quadraticCurveTo(cx+hw+80,roof+60,cx+hw+150,roof+140); c.stroke();
+  const bx=Math.min(cx+hw+150,560), bw=Math.max(124,60+Math.min(90,wt*3)), by=fell?H-90:roof+150;
+  c.strokeStyle='#fff'; c.lineWidth=3; c.beginPath(); c.moveTo(bx,roof+140); c.lineTo(bx,by); c.stroke();
+  c.fillStyle= fell ? '#6B7290' : '#FFC93C'; c.beginPath(); c.roundRect(bx-bw/2,by,bw,54,8); c.fill(); c.strokeStyle='#fff'; c.lineWidth=2; c.stroke();
+  const wtS = wt===0 ? '0' : wt<20 ? wt.toFixed(1) : String(Math.round(wt));
+  xNum(c, wtS+' kg', bx, by+27, 30, fell?'#fff':'#101426', 'center');
+  if(fell) xText(c,'נפלה!',bx,by-24,30,'#FF8A7A','center');
+  /* the numbers at the bottom-left */
+  xText(c, lift>0.05 ? 'השרירים מושכים את הגג' : 'הגג צמוד', 16, H-118, 30, '#FFD45C', 'left');
+  xNum(c, 'd = '+d+' cm', 16, H-84, 30, '#fff', 'left');
+  xNum(c, 'A = '+area.toFixed(1)+' cm²', 16, H-52, 30, '#fff', 'left');
+  xNum(c, 'Δp = '+dp.toFixed(2)+' kg/cm²', 16, H-20, 30, '#fff', 'left');
+  suckOut.textContent = wtS+' kg';
+  if(d>=4 && lift>0.5 && !SU.shownX4){ SU.shownX4=1; WOW.emit('item', { id:'suck:x4', kind:'quick', correct:true, attempt: wowTry('suck') }); }
+  suckMsg.innerHTML = !seal ? '<b>דולף.</b> דרך החריצים בקיר נכנסים מים (או אוויר), הלחץ בפנים משתווה ללחץ שבחוץ — ואין הפרש, אין כוח. המשקולת נופלת. לכן התמנון מחפש משטח חלק, והשפה שלו רכה כדי לאטום גם על סלע.'
+    : lift<0.03 ? 'הכפתור מונח על הסלע, אבל הגג למטה: הלחץ בפנים שווה ללחץ בחוץ. הרימו את הגג.'
+    : '<b>מחזיק '+wtS+' קילוגרם</b> (לכל היותר): הפרש הלחץ <span class="math">'+dp.toFixed(2)+'</span> ק״ג לסמ״ר, כפול השטח <span class="math">'+area.toFixed(1)+'</span> סמ״ר. '+(d>=4?'כפתור של <span class="num">'+d+'</span> ס״מ רחב פי '+(d/2)+' מכפתור של <span class="num">2</span> — ומחזיק פי <span class="num">'+((d/2)*(d/2)).toFixed(0)+'</span>: השטח גדל בריבוע.':'נסו להרחיב את הכפתור פי שניים — פי כמה יגדל הכוח?')+(SU.env?' במים עמוקים הכפתור של התמנון מגיע להפרש לחץ גדול יותר מאשר וו באוויר, כי מים קשים "לקרוע".':'');
+}
+suckDraw(0);
+
+</script>
+
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  heartQ:{ q:'למה תמנון מעדיף לזחול על הסלעים ולא לשחות?', opts:['כי הוא כבד מדי בשביל לצוף','כי בכל פעם שהוא שוחה בסילון הלב הגדול שלו נעצר, והוא מתעייף מהר','כי במים הוא לא רואה טוב','כי הזרועות שלו לא יודעות לשחות'], a:1, fb:'כדי לשחות התמנון מכווץ בחוזקה את הגוף (המעטפת) ויורה סילון מים — והכיווץ הזה לוחץ על הוורידים של הלב הגדול, שנעצר לכל משך הסילון. הדם הכחול שלו ממילא נושא מעט חמצן, ולכן החמצן בזרועות יורד מהר. שחייה היא ספרינט לשעת חירום; זחילה היא החיים.', btn:'next1' },
+  armQ:{ q:'מה גילו בירושלים כשהזרוע הייתה מנותקת מהמוח?', opts:['הזרוע לא זזה בכלל — בלי מוח אין תנועה','הזרוע זזה בצורה אקראית לגמרי','הזרוע התחילה לשנות צבע','הזרוע ביצעה בדיוק את אותו גל כיפוף, כי התוכנית של התנועה נמצאת בתוך הזרוע'], a:3, fb:'זו ההוכחה שהמוח אומר רק "לאן" והזרוע יודעת "איך": גם בלי חיבור למוח, גירוי של הזרוע הוציא ממנה את אותה תנועה — גל כיפוף שרץ מהבסיס אל הקצה, באותה צורה ובאותה מהירות. כשני שלישים מתאי העצב של התמנון יושבים בזרועות, ושם יושבת גם התוכנית.' },
+  skinQ:{ q:'איך התמנון מחליף צבע בפחות משנייה?', opts:['שרירים מותחים שקיות צבע זעירות בעור, בפקודה מהעצבים','הוא מזיע צבע מהעור','הוא בולע מים בצבע הסלע','העור שלו שקוף ורואים דרכו את הסלע'], a:0, fb:'בעור יש מיליוני שקיות פיגמנט — צהוב, כתום־אדום וחום־שחור — וסביב כל אחת שרירים קטנים. עצב יורה, השרירים מושכים, השקית נמתחת לנקודת צבע; השרירים נרפים, השקית מתכווצת ונעלמת. בגלל שזו פקודה עצבית ולא חומר בדם (כמו אצל הזיקית), זה לוקח מאות אלפיות שנייה.' },
+  suckQ:{ q:'מה בעצם מצמיד את כפתור היניקה אל הסלע?', opts:['דבק שהכפתור מפריש','הכפתור "מושך" את הסלע אליו','השרירים מורידים את הלחץ בתוך הכפתור, והמים (או האוויר) שבחוץ דוחפים אותו אל הסלע','מגנט זעיר בתוך הכפתור'], a:2, fb:'כפתור יניקה אף פעם לא מושך — הוא רק יוצר בפנים פחות לחץ מבחוץ. השפה הרכה אוטמת, השרירים מרימים את הגג, הלחץ בפנים יורד, והלחץ הגדול שבחוץ עושה את העבודה: דוחף את הכפתור אל הסלע. הכוח הוא הפרש הלחצים כפול שטח הכפתור, ולכן כפתור רחב פי שניים מחזיק פי ארבעה.' },
+  storyQ:{ q:'למה מהנדסים בונים רובוטים רכים בהשראת התמנון?', opts:['כי רובוט רך נראה חמוד יותר','כי תמנון הוא החיה הכי מהירה בים','כי רובוטים קשיחים לא עובדים במים','כי זרוע רכה שמקבלת "גל" פשוט מתפתלת סביב חפצים בעצמה — פחות חישוב, פחות סכנה'], a:3, fb:'הרעיון מירושלים — המוח אומר "לאן", הזרוע יודעת "איך" — הוא בדיוק מה שמהנדסים רוצים: במקום לחשב ולהניע כל מפרק, נותנים לזרוע רכה גל כיפוף אחד, והיא מתעטפת סביב החפץ בעצמה. זה חוסך חישוב, וזרוע רכה גם בטוחה יותר ליד בני אדם ולפירות רכים.' },
+};
+const MCQ = {
+  shared:[
+    { q:'תמנון בגודל של כדורגל עבר דרך צינור ברוחב <span class="num">15</span> סנטימטר. איך זה אפשרי?', opts:['הוא הוציא מעצמו את כל האוויר, כמו בלון','הוא ניתק את הזרועות ואסף אותן מהצד השני','אין לו עצמות — רק המקור קשה, וכל חור שהמקור עובר בו, כל התמנון עובר בו','הוא שבר את העצמות והרכיב אותן מחדש'], a:2, fb:'התמנון הוא רכיכה שאיבדה את הקונכייה, ואין לו אף עצם. הגוף הרך נמתח ומתכווץ לכל צורה; רק המקור הקשה קובע את גודל החור המינימלי. כך אינקי חמק דרך צינור ניקוז של <span class="num">50</span> מטר אל הים. אוויר אין לו להוציא — הוא נושם מים בזימים.' },
+    { q:'המוח של התמנון רואה סרטן ורוצה אותו. מה הוא שולח אל הזרוע?', opts:['פקודה קצרה — "לשם!" — והזרוע עצמה מריצה את הגל מהבסיס אל הקצה','פקודה נפרדת לכל שריר בזרוע, בכל רגע','כלום — הזרוע רואה את הסרטן בעצמה','פקודה לשנות צבע'], a:0, fb:'זו חלוקת העבודה שגילו בירושלים. לזרוע בלי עצמות יש אינסוף דרכים להתכופף, ואילו המוח היה מפקד על כל שריר הוא היה קורס. במקום זה המוח מחליט מה ולאן, ותאי העצב שבזרוע — כ־<span class="num">44</span> מיליון בכל אחת — מריצים גל קבוע שתמיד מגיע למטרה. ההוכחה: זרוע מנותקת מהמוח עושה בדיוק את אותו גל.' },
+    { q:'שני כפתורי יניקה זהים, אבל אחד רחב פי שניים מהשני. פי כמה יותר יכול הרחב להחזיק?', opts:['פי שניים','אותו דבר — הלחץ זהה','פי שמונה','פי ארבעה — השטח גדל בריבוע'], a:3, fb:'הכוח שמצמיד כפתור הוא הפרש הלחצים כפול השטח. שטח של עיגול גדל עם הרדיוס בריבוע: רוחב כפול — שטח פי ארבעה — כוח פי ארבעה. לכן הכפתורים הגדולים של התמנון הענק, ברוחב <span class="math">6.4</span> סנטימטר, מחזיקים <span class="num">16</span> קילוגרם כל אחד, בעוד הקטנים בקצה הזרוע מחזיקים גרמים.' },
+  ],
+  younger:[
+    { q:'למה התמנון לא נקשר לעצמו, אם כל כפתור תופס כל דבר שהוא נוגע בו?', opts:['כי בעור שלו יש חומר שאומר לכפתור "זה אני — לא לתפוס"','כי המוח עוקב כל הזמן אחרי מקום כל זרוע','כי הכפתורים עובדים רק במים קרים','כי הזרועות אף פעם לא נוגעות זו בזו'], a:0, fb:'במעבדה בירושלים גילו שכפתורים על זרוע כרותה תופסים הכול — חוץ מעור של תמנון. אפילו צלחת פלסטיק מרוחה בתמצית של עור כמעט לא נתפסה. החומר שבעור הוא "תעודת זהות" כימית, ולכן הזרועות לא צריכות מוח שיעקוב אחריהן כדי לא להסתבך.' },
+  ],
+  older:[
+    { q:'התמנון עיוור צבעים — ובכל זאת נעלם על סלע בצבע הנכון. מה מהדברים הבאים באמת מצאו החוקרים?', opts:['הוא רואה צבעים דרך כפתורי היניקה','הוא זוכר בעל פה את הצבע של כל סלע בשטח שלו','בעור שלו יש חלבון רגיש לאור כמו בעין, ופיסת עור מבודדת פותחת שקיות צבע כשמאירים עליה — אבל העור חש בהירות, לא תמונה, והחידה לא פתורה','הוא שואל תמנונים אחרים בסימנים'], a:2, fb:'ב־<span class="num">2015</span> מצאו באוניברסיטת קליפורניה רודופסין — חלבון הראייה של העין — בעור של תמנון, ופיסת עור בלי עין ובלי מוח הגיבה לאור (הכי מהר לכחול) בפתיחת שקיות הצבע. זה חלק מהתשובה, לא כולה: העור חש בהירות בלבד, וייתכן שההסוואה מתבססת בעיקר על בהירות ומרקם ולא על צבע מדויק. מדענים עדיין מתווכחים — וזה בסדר להגיד את זה.' },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'העין רואה סרטן. המוח מחליט ושולח לזרוע פקודה קצרה: "לשם!"'},
+  {id:'b', t:'בזרוע נולד גל כיפוף שרץ מהבסיס אל הקצה, והזרוע נמתחת אל הסרטן — התוכנית בתוך הזרוע.'},
+  {id:'c', t:'כפתורי היניקה נוגעים וטועמים: "כן, זה סרטן". השרירים מרימים את הגג, הלחץ בפנים יורד, והמים דוחפים את הכפתורים אל הסרטן.'},
+  {id:'d', t:'הזרוע יוצרת לעצמה שלושה כיפופים — כתף, מרפק ושורש כף יד — ומביאה את הסרטן אל המקור.'},
+  {id:'e', t:'אחרי הארוחה: העצבים מותחים את שקיות הצבע, והתמנון נעלם על הסלע בפחות משנייה.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> רואים ← הגל רץ ← הכפתורים טועמים ותופסים ← שלושה מפרקים אל הפה ← נעלמים. שימו לב להיגיון: המוח מחליט רק בהתחלה; הגל, הטעימה, האחיזה והכיפופים — הזרוע עושה לבד, ורק בסוף העור מסיים את הסיפור.' : '<span class="pill-bad">לא בדיוק.</span> הטעות הנפוצה: לשים את שלושת הכיפופים לפני שהכפתורים תפסו, או את ההסוואה לפני הארוחה. הסדר: העין והמוח ("לשם!"); גל הכיפוף אל הסרטן; הכפתורים טועמים ונצמדים; שלושה מפרקים מביאים אל המקור; ולבסוף העור משנה צבע.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const pc=+chalPct.value, ar=+chalArm.value, hu=+chalHum.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const pcOk = pc>=69.5 && pc<=70.5, arOk = ar>=43 && ar<=44.5, huOk = hu>=171 && hu<=173;
+  S.challenge = pcOk && arOk && huOk;
+  fb.innerHTML = S.challenge ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">350 ÷ 500 = 0.7</span>, כלומר <span class="math">70%</span> מתאי העצב בזרועות. (ב) <span class="math">350 ÷ 8 = 43.75</span> — כ־<span class="num">44</span> מיליון תאי עצב בכל זרוע, יותר מכל המוח של צפרדע (<span class="num">16</span> מיליון). (ג) <span class="math">86,000 ÷ 500 = 172</span> — צריך <span class="num">172</span> תמנונים שלמים כדי להגיע למספר תאי העצב של מוח אדם אחד. ובכל זאת התמנון פותח צנצנות: לא רק כמה תאים יש, אלא איך הם מסודרים.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : (pcOk && arOk) ? (chalHum.value!=='' ? ((hu>=0.17 && hu<=0.173) ? '<span class="pill-bad">(א) ו־(ב) נכונים, ב־(ג) חילקתם הפוך.</span> כמה פעמים <span class="num">500</span> נכנס ב־<span class="num">86,000</span>? <span class="math">86,000 ÷ 500 = ?</span>' : (hu>=17 && hu<=17.3) ? '<span class="pill-bad">(א) ו־(ב) נכונים, ב־(ג) פספסתם אפס.</span> <span class="num">86</span> מיליארד הם <span class="num">86,000</span> מיליון: <span class="math">86,000 ÷ 500 = ?</span>' : '<span class="pill-bad">(א) ו־(ב) נכונים, (ג) עוד לא.</span> <span class="math">86,000 ÷ 500 = ?</span>') : '<span class="pill-ok">(א) ו־(ב) נכונים.</span> עכשיו (ג): <span class="math">86,000 ÷ 500 = ?</span>')
+    : (pcOk && huOk) ? '<span class="pill-bad">(א) ו־(ג) נכונים, (ב) עוד לא.</span> <span class="num">350</span> מיליון מתחלקים בין <span class="num">8</span> זרועות: <span class="math">350 ÷ 8 = ?</span>'
+    : pcOk ? '<span class="pill-ok">(א) נכון — <span class="math">70%</span>.</span> עכשיו (ב): <span class="math">350 ÷ 8 = ?</span>, ואז (ג): <span class="math">86,000 ÷ 500 = ?</span>'
+    : (pc>=0.69 && pc<=0.71) ? '<span class="pill-bad">ב־(א) שכחתם לכפול ב־<span class="num">100</span>.</span> <span class="math">0.7 × 100 = ?</span>'
+    : (pc>=29.5 && pc<=30.5) ? '<span class="pill-bad">ב־(א) חישבתם את החלק שבראש.</span> השאלה על הזרועות: <span class="math">350 ÷ 500 × 100 = ?</span>'
+    : (pc>=142 && pc<=143.5) ? '<span class="pill-bad">ב־(א) חילקתם הפוך.</span> החלק מתוך השלם: <span class="math">350 ÷ 500 × 100 = ?</span>'
+    : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): החלק חלקי השלם, כפול <span class="num">100</span>: <span class="math">350 ÷ 500 × 100 = ?</span>';
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: S.challenge, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const c=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    const aOk=(c>=7.5 && c<=8.2), bOk=(r>=4.9 && r<=5.1), sc = aOk&&bOk?2:(aOk?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) שטח: <span class="math">3.14 × 1 × 1 = 3.14</span> סמ״ר; כוח: <span class="math">3.14 × 2.5 ≈ 7.9</span> קילוגרם. (ב) <span class="math">35 ÷ 7.9 ≈ 4.5</span>, ומעגלים למעלה: <span class="num">5</span> כפתורים. חמישה כפתורים ברוחב מטבע של <span class="num">10</span> אגורות מחזיקים ילד — לפחות בחישוב; בפועל כל כפתור מחזיק פחות, ולכן התמנון משתמש בעשרות בבת אחת.'
+      : aOk ? ((r>=4 && r<=4.6) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) <span class="math">35 ÷ 7.9 ≈ 4.5</span> — אבל אין חצי כפתור, וארבעה לא מספיקים. מעגלים <b>למעלה</b> למספר שלם.' : (r>=13 && r<=15) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חילקתם ב־<span class="math">2.5</span> במקום בכוח של כפתור אחד: <span class="math">35 ÷ 7.9 = ?</span>' : (r>=270 && r<=280) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) כפלתם במקום לחלק: כמה כפתורים של <span class="math">7.9</span> ק״ג צריך ל־<span class="num">35</span>? <span class="math">35 ÷ 7.9 = ?</span>' : '<span class="pill-ok">(א) נכון — כ־<span class="math">7.9</span> קילוגרם.</span> עכשיו (ב): <span class="math">35 ÷ 7.9 = ?</span>, ומעגלים למעלה.')
+      : (c>=4.9 && c<=5.1) ? '<span class="pill-bad">ב־(א) השתמשתם ברוחב במקום בשטח.</span> קודם שטח העיגול: <span class="math">3.14 × 1 × 1 = ?</span>, ואז כפול <span class="math">2.5</span>.'
+      : (c>=31 && c<=32) ? '<span class="pill-bad">ב־(א) השתמשתם ברדיוס <span class="num">2</span>.</span> הרוחב הוא <span class="num">2</span> סנטימטר, ולכן הרדיוס <span class="num">1</span>: <span class="math">3.14 × 1 × 1 × 2.5 = ?</span>'
+      : (c>=3.0 && c<=3.2) ? '<span class="pill-bad">זה השטח — <span class="math">3.14</span> סמ״ר.</span> עכשיו הכוח: כפול <span class="math">2.5</span> ק״ג לסמ״ר.'
+      : (c>=1.2 && c<=1.3) ? '<span class="pill-bad">ב־(א) חילקתם במקום לכפול.</span> <span class="math">3.14 × 2.5 = ?</span>'
+      : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): שטח העיגול <span class="math">3.14 × r × r</span> עם <span class="math">r = 1</span>, ואז כפול <span class="math">2.5</span> ק״ג לכל סמ״ר.';
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const ok=v===1600; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= ok?'<span class="pill-ok">נכון!</span> <span class="math">8 × 200 = 1,600</span> כפתורי יניקה — וכל אחד מהם זז לבד, נצמד לבד וטועם לבד. אצל תמנון מצוי אמיתי יש אפילו קצת יותר, קרוב ל־<span class="num">2,000</span>.':(v===208)?'<span class="pill-bad">חיברתם.</span> על <b>כל אחת</b> משמונה הזרועות יש <span class="num">200</span> — אז כופלים: <span class="math">8 × 200 = ?</span>':(v===25)?'<span class="pill-bad">חילקתם.</span> צריך לכפול: <span class="math">8 × 200 = ?</span>':(v===160)?'<span class="pill-bad">כמעט — חסר אפס.</span> <span class="math">8 × 200 = ?</span>':'<span class="pill-bad">לא בדיוק.</span> רמז: שמונה זרועות, <span class="num">200</span> על כל אחת. <span class="math">8 × 200</span>.'; }
+  else { const ok=v>=9.9 && v<=10.1; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">4 × 2.5 = 10</span> קילוגרם — לכל היותר. בפועל כפתור מחזיק פחות, כי השפה דולפת קצת. וו יניקה באוויר, עם אותו שטח, היה מחזיק רק כ־<span class="num">4</span> קילוגרם: <span class="num">1</span> ק״ג לסמ״ר במקום <span class="math">2.5</span>.':(v>=1.5 && v<=1.7)?'<span class="pill-bad">חילקתם במקום לכפול.</span> כל סמ״ר מחזיק <span class="math">2.5</span> ק״ג, ויש <span class="num">4</span> סמ״ר: <span class="math">4 × 2.5 = ?</span>':(v>=6.4 && v<=6.6)?'<span class="pill-bad">חיברתם.</span> הכוח הוא הפרש הלחץ <b>כפול</b> השטח: <span class="math">4 × 2.5 = ?</span>':(v>=3.9 && v<=4.1)?'<span class="pill-bad">זה מה שהכפתור היה מחזיק באוויר</span> (<span class="num">1</span> ק״ג לסמ״ר). במים של התמנון: <span class="math">4 × 2.5 = ?</span>':'<span class="pill-bad">לא בדיוק.</span> רמז: הפרש הלחץ כפול השטח. <span class="math">4 × 2.5 = ?</span>'; }
+  fb.classList.add('show'); }
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שרוב תאי העצב של התמנון (כשני שלישים) נמצאים בזרועות, ולא בראש.',
+  'הסברתי שהמוח שולח רק פקודה קצרה ("לשם!"), והזרוע עצמה מריצה את התנועה: גל כיפוף שרץ מהבסיס אל הקצה.',
+  'ציינתי את הניסוי מירושלים: זרוע מנותקת מהמוח עושה בדיוק את אותו גל — לכן התוכנית נמצאת בתוך הזרוע.',
+  'הסברתי איך הכפתורים תופסים: השרירים מורידים את הלחץ בפנים, והמים שבחוץ דוחפים את הכפתור אל הסרטן (ו/או שהכפתורים טועמים במגע).',
+  'הזכרתי מה קורה בהבאה אל הפה: הזרוע יוצרת לעצמה שלושה כיפופים — כתף, מרפק ושורש כף יד — כמו יד של אדם.',
+];
+const MODEL='לתמנון יש כחצי מיליארד תאי עצב, אבל רק כשליש מהם בראש; כשני שלישים — כ־350 מיליון — יושבים בזרועות, כמו מוח קטן לכל זרוע. כשהתמנון רואה סרטן, המוח לא מפקד על כל שריר: הוא שולח לזרוע פקודה קצרה, "לשם!", והזרוע עצמה מריצה תוכנית קבועה — גל כיפוף שנולד ליד הגוף ורץ אל הקצה ומיישר את הזרוע לכיוון הסרטן. את זה גילו בירושלים (2001): גם זרוע שנותקה מהמוח ביצעה בדיוק את אותו גל כשגירו אותה, ולכן התוכנית של התנועה נמצאת בתוך הזרוע. כשהזרוע מגיעה, כפתורי היניקה נוגעים וטועמים במגע ("זה סרטן"), והשרירים מרימים את גג הכפתור: הלחץ בפנים יורד, והמים שבחוץ דוחפים את הכפתור אל הסרטן — הכוח הוא הפרש הלחצים כפול השטח. כדי להביא את הסרטן אל המקור, הזרוע יוצרת לעצמה שלושה כיפופים — כתף, מרפק ושורש כף יד זמניים — ומתנהגת כמו יד של אדם (2006). לכן אומרים שהזרועות "חושבות לבד": הן מקבלות מהמוח רק את המטרה, ומחליטות בעצמן איך לנוע, מה לתפוס ומה לעזוב — ומהנדסים מעתיקים היום את הרעיון לרובוטים רכים.';
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (כ־500 מיליון תאי עצב, כשני שלישים / כ־350 מיליון בזרועות — כ־44 מיליון לזרוע, ורק כשליש במוח ובאונות הראייה; בקרה מבוזרת: המוח שולח פקודה קצרה והזרוע מריצה תוכנית מוטורית היקפית — גל כיפוף שמתפשט מהבסיס אל הקצה במהירות קבועה; הניסוי של סומברה, פלאש והוכנר 2001: זרוע מנותקת מהמוח מבצעת את אותו גל בגירוי חשמלי; 2006: שלושה מפרקים מדומים — שני גלים שנפגשים ויוצרים "מרפק"; כפתורי היניקה: אטימה, הרמת הגג, ירידת הלחץ בפנים, כוח = הפרש לחצים × שטח, עד כ־2.5 ק"ג לסמ"ר במים מול כ־1 באוויר; קולטני כימו־מישוש בכפתורים (2020); חומר בעור שמונע אחיזה עצמית (2014); ולמה הביזור חוסך חישוב וזמן) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על התמנון — "שמונה זרועות שחושבות לבד". הרעיונות המרכזיים: (1) גוף: רכיכה בלי עצמות, החלק הקשה היחיד הוא המקור ולכן כל חור שהמקור עובר בו כל התמנון עובר בו (אינקי, ניו זילנד 2016, צינור ניקוז של 50 מטר); שלושה לבבות — שניים קטנים דוחפים דם לזימים, אחד גדול לגוף; דם כחול עם המוציאנין (נחושת) שנושא פחות חמצן מהמוגלובין; בסילון הלב הגדול נעצר ולכן התמנון זוחל; (2) תאי עצב: כ־500 מיליון, כשליש בראש (מוח ואונות ראייה) וכשני שלישים — כ־350 מיליון — בזרועות (כ־44 מיליון לזרוע); (3) בקרה: המוח אומר "לאן", הזרוע יודעת "איך"; מעבדת בנימין הוכנר באוניברסיטה העברית בירושלים עם תמר פלאש ממכון ויצמן (Science 2001): הושטה = גל כיפוף שרץ מבסיס הזרוע אל הקצה במהירות כמעט קבועה; זרוע מנותקת מהמוח מבצעת בגירוי את אותו גל — תוכנית מוטורית היקפית; Current Biology 2006: בהבאת אוכל לפה הזרוע יוצרת שלושה כיפופים דמויי מפרקים (כתף, מרפק, שורש כף יד), שני גלים שנפגשים במפרק האמצעי; (4) עור: כרומטופורים — שקיות פיגמנט אלסטיות (צהוב, כתום־אדום, חום־שחור) עם שרירים רדיאליים בשליטה עצבית, שינוי תוך מאות אלפיות שנייה; אירידופורים ולויקופורים; התמנון עיוור צבעים (פיגמנט ראייה יחיד); 2015 (רמירז ואוקלי, UCSB): רודופסין בעור, פיסת עור מבודדת פותחת כרומטופורים באור, הכי מהר בכחול — בהירות ולא תמונה; ההסוואה כנראה בעיקר בבהירות ובמרקם; החידה לא פתורה; (5) כפתורי יניקה: כ־200–240 לזרוע, כ־2,000 סה"כ; תמנון ענק: 280 לזרוע, 2,240, כפתור של 6.4 ס"מ מחזיק 16 ק"ג; מנגנון: שפה רכה אוטמת, שרירים מרימים את הגג, הלחץ בפנים יורד, המים/האוויר שבחוץ דוחפים; כוח = הפרש לחצים × שטח; באוויר כ־1 ק"ג לסמ"ר, במים כפתור תמנון עד כ־2.5 (סמית 1991: 0.268 MPa); שטח עיגול 3.14 × r × r; כפתור רחב פי 2 מחזיק פי 4; טעימה במגע — קולטני כימו־מישוש למולקולות קשות־תמס (בלונו, הרווארד, Cell 2020); זיהוי עצמי — חומר בעור מונע מהכפתורים לתפוס עור תמנון (נשר, לוי, גראסו והוכנר, 2014); (6) הנדסה: רובוטים רכים בהשראת התמנון (פרויקט OCTOPUS, פיזה; גל כיפוף לאחיזה תת־ימית 2025), בקרה מבוזרת; (7) ישראל: המעבדה בירושלים; תמנון מצוי בשוניות הסלעיות של חוף הכרמל ליד דור והבונים; (8) חישובים: 8 × 200 = 1,600; 4 × 2.5 = 10; 3.14 × 1 × 1 × 2.5 ≈ 7.9; 35 ÷ 7.9 ≈ 4.5 → 5; 350 ÷ 500 = 70%; 350 ÷ 8 ≈ 44; 86,000 ÷ 500 = 172.\n\nההסבר של הילד/ה:\n\"\"\"'+txt+'\"\"\"\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם את הרעיון של חלוקת העבודה (המוח אומר לאן, והזרוע מריצה בעצמה גל כיפוף / רוב תאי העצב בזרועות / זרוע מנותקת עושה אותו גל) וגם את הרעיון של התפיסה (הכפתורים נצמדים בגלל הפרש לחץ — המים דוחפים — ו/או טועמים במגע, או שלושת הכיפופים בהבאה לפה), 1 אם יש רק חלק מזה. תשובה שאומרת ש"לתמנון יש תשעה מוחות שחושבים כמו בן אדם" בלי להסביר מה הזרוע עושה, או ש"הכפתורים מושכים / מודבקים", מפספסת את המנגנון ולא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=85?name+', יש לך שמונה זרועות של '+G('חוקר','חוקרת')+'!':pct>=60?name+', יש לך מוח של '+G('מדען','מדענית')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=33;                                                     // percent of the octopus's neurons in its head
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. רק כשליש מתאי העצב של התמנון נמצאים בראש — כשני שלישים, כ־<span class="num">350</span> מיליון, יושבים בזרועות. לכן הזרוע יודעת לבד איך לנוע, מה לתפוס ומה לעזוב.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. כשליש בראש, כשני שלישים בזרועות: כ־<span class="num">350</span> מיליון תאי עצב שמריצים את התנועה, טועמים ומחליטים בעצמם.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. המציאות: רק כשליש בראש, וכשני שלישים — כ־<span class="num">350</span> מיליון תאי עצב — בזרועות. זו הסיבה שזרוע של תמנון יכולה לחשוב לבד.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (איזה חלק מתאי העצב של התמנון בראש): '+(S.guess?fmtSigns(S.guess):'—')+' (המציאות: כשליש; שני שלישים בזרועות)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "שמונה זרועות שחושבות לבד", מהדורה 13, ט\' בתשרי תשפ"ז (20 בספטמבר 2026). נושא: התמנון המצוי (Octopus vulgaris) — ביולוגיה (מערכת עצבים מבוזרת, שלושה לבבות, דם כחול, כרומטופורים, כפתורי יניקה), פיזיקה (לחץ, כוח = הפרש לחצים × שטח, שטח עיגול), הנדסה (רובוטיקה רכה, בקרה מבוזרת), ומדע ישראלי (מעבדת הוכנר בירושלים). עובדות: התמנון הוא רכיכה (קרוב משפחה של החילזון) בלי עצמות; החלק הקשה היחיד הוא המקור (דמוי מקור תוכי), ולכן כל פתח שהמקור עובר בו — כל התמנון עובר בו; תמנון מצוי: מעטפת עד כ־25 ס"מ, זרועות עד כמטר, עד כ־9 ק"ג, חי שנה–שנתיים; אינקי — תמנון שברח בתחילת 2016 מהאקווריום הלאומי של ניו זילנד בנייפיר: מכסה שנשאר פתוח, זחל על הרצפה, נכנס לצינור ניקוז של 50 מטר בקוטר כ־15 ס"מ אל הים, מעולם לא נמצא (דווח באפריל 2016). לבבות ודם: שלושה לבבות — שני לבבות זימיים (קטנים) שדוחפים דם דרך הזימים, ולב מערכתי (גדול) שדוחף דם לגוף; הדם כחול בגלל המוציאנין — חלבון עם נחושת שנעשה כחול כשקושר חמצן (אצלנו המוגלובין עם ברזל, אדום); ההמוציאנין נושא פחות חמצן (קיבולת כ־4 אחוזי נפח מול כ־20 בדם אדם — "כרבע"), עובד סביר במים קרים ודלי חמצן; בשחייה בסילון המעטפת מתכווצת, הכיווץ לוחץ על הוורידים והלב המערכתי נעצר לכל משך הסילון — לכן התמנון מעדיף לזחול ומתעייף מהר בשחייה (וולס 1979; וולס ווולס 1986). תאי עצב: כ־500 מיליון (יאנג 1963) — כ־40–45 מיליון במוח המרכזי, כ־120–180 מיליון באונות הראייה, כ־330–350 מיליון בזרועות = כשני שלישים ("כ־350 מיליון" הוא המספר המקובל; כ־44 מיליון לזרוע); עכבר כ־71 מיליון, צפרדע 16 מיליון, דבורה כמיליון, חתול כ־760 מיליון, כלב כ־2.25 מיליארד, אדם כ־86 מיליארד; מספר תאים אינו "חוכמה" — חשוב איפה הם ואיך מחוברים. הזרוע: אינסוף דרגות חופש (מתכופפת בכל נקודה, מתארכת, מסתובבת); מעבדת פרופ\' בנימין הוכנר, האוניברסיטה העברית בירושלים, עם פרופ\' תמר פלאש (מכון ויצמן, רובוטיקה ותנועת יד אנושית), גרמן סומברה, יורם גוטפרוינד וגרציאנו פיוריטו (נאפולי): Science 2001, "Control of octopus arm extension by a peripheral motor program" — הושטת זרוע היא גל כיפוף שמתפשט מבסיס הזרוע אל הקצה ומיישר אותה, במהירות כמעט קבועה, וזרועות מנותקות מהמוח מבצעות בגירוי חשמלי את אותה תנועה — התוכנית המוטורית נמצאת בזרוע ("המוח אומר לאן, הזרוע יודעת איך"); Current Biology 2006, "Octopuses use a human-like strategy to control precise point-to-point arm movements" — בהבאת אוכל לפה הזרוע יוצרת שלושה כיפופים דמויי מפרקים (פרוקסימלי = כתף, מדיאלי = מרפק, דיסטלי = שורש כף יד), שני גלי כיווץ נעים זה לקראת זה והמפרק האמצעי נוצר במקום המפגש; זרוע כרותה נשארת פעילה כשעה. עור: כרומטופורים — שקית פיגמנט אלסטית (צהוב, כתום־אדום, חום־שחור) עם 15–25 שרירים רדיאליים, עצב לכל שריר; כיווץ = השקית נמתחת לדיסקית צבע, הרפיה = מתכווצת לנקודה; מאות אלפיות שנייה; תחתיהם אירידופורים (מראה, כחול־ירוק) ולויקופורים (לבן); "מיליוני" כרומטופורים בבוגר (סדר גודל); התמנון עיוור צבעים — פיגמנט ראייה יחיד; רמירז ואוקלי, J. Exp. Biol. 2015 (UCSB): רודופסין בעור של Octopus bimaculoides, פיסת עור מבודדת פותחת כרומטופורים באור ("LACE"), הכי מהר באור כחול, חשה בהירות ולא תמונה; השערה מקובלת: ההסוואה מבוססת על בהירות ומרקם ושבירת צורת הגוף ולא על התאמת צבע מדויקת; יש גם השערות שנויות במחלוקת על ראיית צבע דרך צורת האישון; זיקית משנה צבע לאט יותר (הורמונים ותאים אחרים). כפתורי יניקה: כ־200–240 לזרוע בתמנון מצוי בשתי שורות, קרוב ל־2,000 סה"כ; תמנון ענק של האוקיינוס השקט: כ־280 לזרוע, 2,240, הכפתור הגדול 6.4 ס"מ מחזיק כ־16 ק"ג; כל כפתור נע ונצמד בנפרד; מבנה: שפה רכה (אינפונדיבולום) שאוטמת וחלל עליון (אצטבולום) עם גג שרירי; השרירים מרימים את הגג, הנפח גדל, המים לא נכנסים, הלחץ בפנים יורד, והלחץ שבחוץ דוחף את הכפתור אל המשטח; כוח = הפרש לחצים × שטח; לחץ אטמוספרי כ־1 ק"ג לסמ"ר (101 kPa); כפתורי תמנון במים: הפרש לחץ עד 0.268 MPa (סמית 1991) ≈ 2.7 ק"ג לסמ"ר, עוגל ל־2.5; שטח עיגול π × r² ≈ 3.14 × r × r; כפתור רחב פי 2 מחזיק פי 4; דליפה (משטח מחוספס) מאפסת את ההפרש; וו יניקה של 4 ס"מ: 3.14 × 2 × 2 ≈ 12.6 סמ"ר, עד כ־12.6 ק"ג בחישוב, בפועל פחות; בחלל (ריק) כפתור יניקה לא היה עובד; טעימה במגע: ואן גיסן, קיליאן, אלארד ובלונו, Cell, 29 באוקטובר 2020 — קולטני כימו־מישוש בשכבת התאים החיצונית של הכפתור, רגישים למולקולות קשות־תמס (טרפנואידים) על פני טרף; זיהוי עצמי: נשר, לוי, גראסו והוכנר, Current Biology 2014 — כפתורים על זרוע כרותה תופסים הכול חוץ מעור תמנון (של עצמו או של אחר); צלחת מכוסה בעור או בתמצית עור לא נתפסת — חומר בעור מונע אחיזה עצמית. אבולוציה: האב הקדמון המשותף לאדם ולתמנון חי לפני כ־600 מיליון שנה, יצור קטן דמוי תולעת; מוח האדם ומוח התמנון התפתחו בנפרד; פיטר גודפרי־סמית, "Other Minds" (2016) — "הכי קרוב לפגוש חוצן חכם"; אריסטו ב"תולדות בעלי החיים" תיאר את שינוי הצבע לצבע האבנים וכתב שהתמנון "חיה טיפשה" כי הוא מתקרב ליד אדם. הנדסה: פרויקט OCTOPUS האירופי (סקואולה סופריורה סנט\'אנה, פיזה) — זרוע רובוטית רכה מסיליקון; npj Robotics 2025 — אחיזה תת־ימית עם גל כיפוף בהשראת התמנון; תופסני יניקה רכים לפירות; "בקרה מבוזרת" = הרבה מחשבים קטנים במקום אחד גדול. ישראל: מעבדת הוכנר בירושלים; התמנון המצוי חי לאורך חוף הים התיכון של ישראל, בשוניות הסלעיות ליד דור והבונים (כ־10 דקות מזכרון יעקב); צד בלילה, משאיר "ערמת אשפה" של קונכיות ליד המאורה. ניסויי בית: וו יניקה על אריח — מודדים קוטר, מחשבים שטח, תולים בקבוקים (1.5 ק"ג כל אחד) עד שמשתחרר, משווים לחישוב, מנסים יבש ומחוספס; משחק הסוואה — חמישה חפצים על שטיח עמוס מול שולחן לבן, חמש שניות; גרב מלאה באורז כזרוע רכה — גל, ואז שלוש צביטות כמפרקים. חישובים: 8 × 200 = 1,600; 4 × 2.5 = 10; 3.14 × 1 × 1 = 3.14; 3.14 × 2.5 ≈ 7.9; 35 ÷ 7.9 ≈ 4.5 → 5 כפתורים; 350 ÷ 500 = 70%; 350 ÷ 8 = 43.75 ≈ 44; 86,000 ÷ 500 = 172; 500 ÷ 71 ≈ 7. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט ("שקיות צבע" = כרומטופורים; "מוח קטן בזרוע" = גנגליוני הזרוע; מד החמצן, קצב הלבבות, מד ההסוואה וצורת הגל באינטראקטיבים הם המחשות; אומדני תאי העצב משתנים בין מקורות; חידת עיוורון הצבעים לא פתורה), בלי לחשוף תשובות מבחן; אם ילד שואל על תשובה למבחן, לרמוז ולכוון, לא לפתור.';
+const CHIPS = ['איך זרוע יכולה לחשוב לבד?', 'למה הדם של התמנון כחול?', 'איך כפתור היניקה מחזיק?', 'איך הוא מחליף צבע אם הוא עיוור צבעים?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים: כ־500 מיליון תאי עצב, כ־350 מיליון בזרועות — כ־44 מיליון לזרוע, כ־40–45 מיליון במוח המרכזי ו־120–180 מיליון באונות הראייה; תוכנית מוטורית היקפית — גל כיפוף מהבסיס אל הקצה במהירות קבועה, הניסוי בזרועות מנותקות של 2001, שלושת המפרקים המדומים ושני הגלים שנפגשים של 2006; כוח = הפרש לחצים × שטח, 1 ק"ג לסמ"ר באוויר מול עד 2.5–2.7 במים, שטח עיגול π × r², למה כפתור רחב פי 2 מחזיק פי 4; המוציאנין מול המוגלובין וקיבולת חמצן של כ־4 מול כ־20 אחוזי נפח; כרומטופורים עם שרירים רדיאליים בשליטה עצבית מול הזיקית ההורמונלית; רודופסין בעור וההבדל בין חישת בהירות לראיית תמונה; קולטני כימו־מישוש; ולמה בקרה מבוזרת חוסכת חישוב וזמן), שאל שאלות המשך שדורשות חשיבה, הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>איך זרוע יכולה לחשוב לבד?</b> כשני שלישים מתאי העצב של התמנון יושבים בזרועות. המוח שולח רק פקודה קצרה — "לשם!" — והזרוע מריצה בעצמה גל כיפוף מהבסיס אל הקצה. בירושלים גילו שזרוע מנותקת מהמוח עושה בדיוק את אותו גל, ולכן התוכנית נמצאת בזרוע.<br><br><b>איך כפתור היניקה מחזיק?</b> הוא לא מושך: השרירים מרימים את הגג, הלחץ בפנים יורד, והמים שבחוץ דוחפים את הכפתור אל הסלע. הכוח הוא הפרש הלחצים כפול השטח — לכן כפתור רחב פי שניים מחזיק פי ארבעה.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
