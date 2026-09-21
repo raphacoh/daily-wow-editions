@@ -1,0 +1,22 @@
+{
+  "n": 14,
+  "code": "WOW-014",
+  "date": "2026-09-21",
+  "language": "he",
+  "title": "הזרע שהתעורר אחרי אלפיים שנה",
+  "topics": [
+    "ביולוגיה",
+    "היסטוריה",
+    "פיזיקה",
+    "גאוגרפיה"
+  ],
+  "summary": "Methuselah, the Judean date palm grown from a ~2,000-year-old seed from Masada (Yadin 1963–65, 40 years at Bar-Ilan, Sallon & Solowey, planted Jan 2005, Science 2008; six siblings 2020; Hannah's first 111 dates Sept 2020): why dry seeds survive (glassy state, Harrington's doubling rules), remote germination of the date pit, radiocarbon dating (half-life 5,730 y, 78.5 % left → 155 BCE–64 CE), the Year-4 revolt coin on today's 10-shekel piece, Svalbard.",
+  "teaser": "גלעין תמר נשכח מתחת להריסות מצדה במשך כמעט אלפיים שנה — יבש, חשוך, ובלי מים כמעט שום דבר לא זז בתא. ב־2005 הרטיבו אותו לאט במים פושרים, זרעו אותו, וכעבור שמונה שבועות הוא נבט: מתושלח. ב־2020 הוא כבר הביא — דרך עץ אחר — 111 תמרים ראשונים אחרי אלפיים שנה. השאלה של היום: איך שומרים חיים בתוך זרע במשך אלפיים שנה, ואיך יודעים בכלל בן כמה הוא?",
+  "max_score": 11,
+  "status": "released",
+  "released_at": null,
+  "password": "מתושלח מתעורר",
+  "reviewer_verdict": "PASS (2 rounds) — remaining nits: reviewer estimates 45–55 min per track incl. try-at-home (tag says ~35 after trimming); canvas labels ~14 px on a 390 px phone",
+  "review_url": "https://claude.ai/artifact/9fk32qhrWBqMRLLnkembZ3",
+  "editor_note": null
+}
