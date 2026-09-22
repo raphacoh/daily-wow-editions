@@ -1,0 +1,1720 @@
+<title>שורשים וכנפיים #15 · השמש שאתם רואים כבר שקעה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E08A3C; --sun-deep:#7A3E0E; --sun-soft:#FBE6CF;
+  --nile:#1D6FA6; --nile-soft:#D6E8F5; --shadow:#6B3FA0; --shadow-soft:#EADFF6;
+  --night:#1A2238; --aur:#E9C25A; --aur2:#F0A45C;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#D9822B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#FFA860; --sun-deep:#FFCDA6; --sun-soft:#4A2E14;
+    --nile:#58B0E6; --nile-soft:#14324A; --shadow:#C9A6F0; --shadow-soft:#2E2246;
+    --night:#0B1226; --aur:#F2D27A; --aur2:#FFBE8A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#FFA860; --sun-deep:#FFCDA6; --sun-soft:#4A2E14;
+  --nile:#58B0E6; --nile-soft:#14324A; --shadow:#C9A6F0; --shadow-soft:#2E2246;
+  --night:#0B1226; --aur:#F2D27A; --aur2:#FFBE8A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a sun on the horizon */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:40px;height:30px;flex:none}
+.ch .stick::before{content:"";position:absolute;right:8px;bottom:9px;width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 3px var(--sun-soft)}
+.ch .stick::after{content:"";position:absolute;right:0;bottom:6px;width:40px;height:5px;border-radius:3px;background:var(--nile)}
+
+/* hero: the ghost sun on the sea */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-24px;width:300px;height:300px;z-index:0;opacity:.92;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%,100%{transform:scale(.7);opacity:.35}50%{transform:scale(1.2);opacity:.9}}
+/* this edition's widgets */
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 15</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="55%" r="55%">
+        <stop offset="0%" stop-color="var(--aur)" stop-opacity=".55"/>
+        <stop offset="60%" stop-color="var(--aur)" stop-opacity=".14"/>
+        <stop offset="100%" stop-color="var(--aur)" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="dome" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="var(--aur2)" stop-opacity=".98"/>
+        <stop offset="100%" stop-color="var(--sun)" stop-opacity=".98"/>
+      </linearGradient>
+      <clipPath id="skyclip"><rect x="0" y="0" width="300" height="176"/></clipPath>
+    </defs>
+    <circle cx="150" cy="150" r="140" fill="url(#glow)"/>
+    <!-- the sea -->
+    <path d="M0 176 L300 176 L300 300 L0 300 Z" fill="var(--sea)" opacity=".3"/>
+    <path d="M0 196 Q40 188 80 196 T160 196 T240 196 T320 196" stroke="var(--sky1)" stroke-width="3" fill="none" opacity=".7"/>
+    <path d="M0 226 Q40 218 80 226 T160 226 T240 226 T320 226" stroke="var(--sky1)" stroke-width="3" fill="none" opacity=".5"/>
+    <!-- the real sun: already below the horizon (dashed ghost) -->
+    <circle cx="150" cy="214" r="46" fill="none" stroke="var(--sun-deep)" stroke-width="3" stroke-dasharray="8 7" opacity=".75"/>
+    <!-- the sun we see: flattened, sitting on the water -->
+    <g clip-path="url(#skyclip)"><ellipse cx="150" cy="150" rx="50" ry="38" fill="url(#dome)"/></g>
+    <!-- the bent ray -->
+    <path d="M150 214 C 190 214, 230 192, 268 146" stroke="var(--sun-deep)" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>
+    <path d="M258 140 L272 142 L266 156 Z" fill="var(--sun-deep)" opacity=".8"/>
+    <g class="spark"><circle cx="150" cy="118" r="10" fill="var(--aur)" opacity=".8"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 15</span><span class="tag">יום שלישי, 22 בספטמבר 2026</span><span class="tag">י״א בתשרי תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>השמש שאתם רואים כבר שקעה</h1>
+  <p class="lede">הלילה, בשעה <span class="num">03:05</span>, יקרה משהו שקורה רק פעמיים בשנה: השמש תעמוד <b>בדיוק מעל קו המשווה</b>. זה יום השוויון — היום שבו, בכל מקום בעולם, היום והלילה כמעט שווים. ועכשיו החלק המוזר. אם תעמדו הערב על הצוק בזכרון יעקב ותראו את השמש נוגעת בים מול חוף הכרמל — <b>השמש האמיתית כבר תהיה כולה מתחת לאופק</b>. מה שתראו הוא אור שהאוויר כופף בדרך, ושמראה לכם שמש שאיננה שם. השאלה של היום: <b>איך רואים משהו שכבר לא שם — ולמה היום של 12 שעות בדיוק יגיע רק בעוד כמה ימים?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">היום, ביום השוויון, השמש זורחת ושוקעת בזכרון יעקב. בכמה דקות היום (מזריחה עד שקיעה) ארוך יותר מ־<span class="num">12</span> שעות?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>בערך דקה</b><span>שוויון זה שוויון</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>כ־3 דקות</b><span>קצת, בגלל שהשמש עגולה</span></button>
+      <button type="button" class="scaleopt" data-scale="9"><b>כ־9 דקות</b><span>מספיק לשיר שלם</span></button>
+      <button type="button" class="scaleopt" data-scale="30"><b>כחצי שעה</b><span>הרבה</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE SUN OVER THE EQUATOR (interactive 1: the year) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>השמש מעל קו המשווה</h2>
+  <p>כדור הארץ מסתובב סביב עצמו סביב <b>ציר</b> — קו דמיוני מהקוטב הצפוני לקוטב הדרומי — והציר הזה <b>נטוי</b>: <span class="math">23.4</span> מעלות מהניצב. כשכדור הארץ מקיף את השמש במשך שנה, הנטייה לא משתנה — הציר מצביע כל הזמן לאותו כיוון בחלל, אל כוכב הצפון. מה שמשתנה הוא הכיוון שלו <b>ביחס לשמש</b>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>בקיץ החצי הצפוני של כדור הארץ (שלנו) רוכן <b>לכיוון</b> השמש: השמש גבוהה בשמיים, הימים ארוכים. בחורף הוא רוכן <b>ממנה והלאה</b>: השמש נמוכה, הימים קצרים. ופעמיים בשנה, בדיוק באמצע הדרך, הציר לא רוכן לא לכאן ולא לכאן. אז השמש עומדת בצהריים בדיוק מעל <b>קו המשווה</b> — הקו שמחלק את כדור הארץ לחצי צפוני ולחצי דרומי — והאור מחלק את הכדור בדיוק לשניים, דרך שני הקטבים.</p>
+    <p>ביום כזה, בכל מקום בעולם, השמש זורחת <b>בדיוק במזרח</b>, שוקעת <b>בדיוק במערב</b>, ומאירה בדיוק חצי מהיום: <span class="num">12</span> שעות אור, <span class="num">12</span> שעות חושך. זה קורה הלילה, בשעה <span class="num">03:05</span>. באינטראקטיב: גררו את היום בשנה ותראו את כדור הארץ רוכן ומתיישר, ואת הנקודה הצהובה — המקום שבו השמש בדיוק מעל הראש — עוברת מצפון לקו המשווה לדרומו. ושימו לב כמה שעות אור מקבלת זכרון יעקב.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הנטייה של הציר היא הסיבה לעונות — לא המרחק מהשמש. ביוני הקוטב הצפוני רוכן אל השמש והנקודה שבה השמש בדיוק מעל הראש נמצאת <span class="math">23.4</span> מעלות צפונית לקו המשווה, על <b>חוג הסרטן</b>; בדצמבר היא <span class="math">23.4</span> מעלות דרומה, על חוג הגדי. בין לבין היא חוצה את קו המשווה — פעמיים בשנה. הרגע הזה נקרא <b>יום השוויון</b>, והוא מדויק: השנה ב־<span class="num">23</span> בספטמבר בשעה <span class="num">00:05</span> לפי שעון גריניץ׳, כלומר הלילה ב־<span class="num">03:05</span> שעון ישראל.</p>
+    <p>ברגע הזה קו הגבול בין היום ללילה עובר בדיוק דרך שני הקטבים, וכל קו רוחב — מעגל שמקיף את כדור הארץ — נחתך לשניים שווים. לכן בכל מקום בעולם היום אמור להיות בדיוק <span class="num">12</span> שעות. ובזכרון יעקב, על קו רוחב <span class="math">32.6°</span> צפון, השמש עומדת היום בצהריים בגובה <span class="math">90 − 32.6 = 57.4</span> מעלות מעל האופק. באינטראקטיב: גררו את השנה וקראו את אורך היום — כשסופרים את מרכז השמש ובלי אוויר. האם ביום השוויון תקבלו <span class="num">12:00</span> בדיוק?</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — השנה בסיבוב אחד ===== -->
+  <div class="panel instrument">
+    <h3>השנה בסיבוב אחד</h3>
+    <p class="cap">גררו את היום בשנה. השמש משמאל; הנקודה הצהובה על כדור הארץ היא המקום שבו השמש בדיוק מעל הראש בצהריים; הקו הכחול הוא קו המשווה; הנקודה האדומה — זכרון יעקב, עם החלק המואר של המסלול היומי שלה. למטה: כמה שעות אור מקבלת זכרון — כשסופרים רק את מרכז השמש, ובלי אוויר.</p>
+    <canvas id="yrCv" width="640" height="420" aria-label="השמש משמאל, כדור הארץ מימין עם ציר נטוי, קו המשווה, חצי מואר וחצי חשוך; נקודה צהובה במקום שבו השמש מעל הראש ונקודה אדומה בזכרון יעקב; למטה פס של אורך היום בזכרון"></canvas>
+    <div class="controls">
+      <label>היום בשנה
+        <input type="range" id="yrDay" min="0" max="364" step="1" value="264" oninput="yrDraw(1)" aria-label="היום בשנה" style="direction:ltr">
+      </label>
+      <div class="readout">אור בזכרון: <b class="num" id="yrOut">12:01</b></div>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="תאריכים">
+        <button id="yrP0" onclick="yrJump(171)">21 ביוני</button>
+        <button id="yrP1" class="on" onclick="yrJump(264)">היום</button>
+        <button id="yrP2" onclick="yrJump(354)">21 בדצמבר</button>
+        <button id="yrP3" onclick="yrJump(78)">20 במרץ</button>
+      </div>
+    </div>
+    <p class="cap" id="yrMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>מתנה קטנה ליום השוויון: הערב השמש שוקעת <b>בדיוק במערב</b>. סמנו את הכיוון שבו היא נעלמת מאחורי הים (עץ, עמוד, קצה של גג) — ויש לכם מצפן שלא צריך סוללה. בעוד שלושה חודשים תראו שהיא שוקעת הרבה יותר דרומה.</p></div>
+
+  <div class="q qc" id="yrQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · LIGHT THAT BENDS (interactive 2: the coin in the cup) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>האור שמתכופף</h2>
+  <p>לפני כ־<span class="num">1,900</span> שנה, באלכסנדריה שבמצרים, עשה האסטרונום <b>תלמי</b> ניסוי פשוט: הוא העביר קרן אור מהאוויר לתוך מים, ומדד — בפעם הראשונה בהיסטוריה — בכמה היא <b>משנה כיוון</b> בגבול. הוא גם שם לב שכוכבים ליד האופק נראים קצת גבוה יותר ממקומם. אבל את הקסם עצמו כל ילד וילדה יכולים לראות בכוס: מטבע בתחתית, מתרחקים עד שהשפה מסתירה אותו, מוזגים מים — והמטבע <b>מופיע</b>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>איך זה קורה? אור נוסע בקו ישר — כל עוד הוא באותו חומר. כשהוא עובר ממים לאוויר, הוא <b>משנה כיוון</b> בדיוק בגבול, כמו עגלת קניות שגלגל אחד שלה עולה מהכביש על חול: הצד שנתקע מסובב אותה. אז האור מהמטבע יוצא מהמים, מתכופף, ועובר מעל השפה של הכוס — אל העין.</p>
+    <p>והנה הטריק: העין לא יודעת שהאור התכופף. היא "מצביעה" ישר לאחור, לאורך הקרן שנכנסה אליה, ורואה את המטבע <b>גבוה יותר</b> ממקומו האמיתי. באינטראקטיב: נחשו קודם — כשמוזגים מים, המטבע ייראה גבוה יותר, נמוך יותר, או במקום? ורק אז גררו את המים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הסיבה: האור נע במים לאט יותר מאשר באוויר — בערך <span class="num">25</span> אחוז לאט יותר. כשקרן פוגעת בגבול בזווית, החלק שלה שמגיע ראשון למים מאט ראשון, וכל הקרן מסתובבת — כמו שורה של חיילים שצועדים מכביש לחול: מי שנכנס לחול ראשון מאט, והשורה פונה. לכן אור שנכנס למים מתכופף <b>אל הצד האיטי</b>, ואור שיוצא מהמים מתכופף להפך: אל הצד המהיר. את הכלל המדויק מצא ההולנדי וילברורד סנל ב־<span class="num">1621</span>.</p>
+    <p>העין לא יודעת על הכיפוף. היא בונה תמונה כאילו האור הגיע בקו ישר, ולכן חפץ במים נראה גבוה ורדוד ממקומו. ועכשיו השאלה החשובה של היום: מה קורה כשהגבול הוא לא קו חד בין אוויר למים, אלא <b>מעבר הדרגתי</b> — שכבות ושכבות של חומר שנעשה סמיך יותר, טיפה־טיפה? אז הקרן לא נשברת פעם אחת. היא מתעקלת לאט, לכל האורך, בקשת. בדיוק כמו באוויר שמעל הראש שלכם. באינטראקטיב: נחשו קודם, ואז עקבו אחרי הקרן הצהובה.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — המטבע בכוס ===== -->
+  <div class="panel instrument">
+    <h3>המטבע בכוס</h3>
+    <p class="cap">מטבע בתחתית כוס, ועין שמציצה מעל השפה. נחשו: כשיהיו מים בכוס, איפה העין תראה את המטבע? ואז גררו את גובה המים. הקו הצהוב הוא הקרן האמיתית; המטבע החיוור — איפה העין "רואה" אותו.</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="cpP0" onclick="cpPredict(0)">גבוה יותר</button>
+        <button id="cpP1" onclick="cpPredict(1)">באותו מקום</button>
+        <button id="cpP2" onclick="cpPredict(2)">נמוך יותר</button>
+      </div>
+    </div>
+    <canvas id="cpCv" width="640" height="420" aria-label="כוס עם מטבע בתחתית ועין מימין מעל השפה; בלי מים הקרן מהמטבע נחסמת בדופן; עם מים הקרן נשברת בפני המים, עוברת מעל השפה אל העין, והעין רואה מטבע חיוור גבוה יותר"></canvas>
+    <div class="controls">
+      <label>גובה המים
+        <input type="range" id="cpLvl" min="0" max="100" step="1" value="0" oninput="cpDraw(1)" aria-label="גובה המים" style="direction:ltr">
+      </label>
+      <div class="readout">מים: <b class="num" id="cpOut">0%</b></div>
+    </div>
+    <p class="cap" id="cpMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="aha">כלל אצבע: <b>אור שעובר מחומר דליל לחומר סמיך מתכופף — והעין תמיד מאמינה שהאור בא בקו ישר.</b> לכן דברים במים נראים גבוה יותר ממקומם. ולכן, כפי שתראו עוד רגע, גם השמש.</div>
+
+  <div class="q qc" id="cpQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE GHOST SUN (interactive 3: the sunset) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>שמש רפאים</h2>
+  <p>האוויר שלנו הוא לא "כלום". ליד הקרקע הוא סמיך; ככל שעולים הוא דליל יותר — בגובה <span class="num">5</span> קילומטרים נשאר רק חצי ממנו, ובגובה <span class="num">100</span> קילומטרים כמעט כלום. אור שמגיע מהחלל עובר מדליל לסמיך — כמו מאוויר למים, רק בהדרגה, שכבה אחרי שכבה. ולכן הוא מתכופף: לא בשבירה אחת, אלא בקשת עדינה, <b>כלפי מטה</b>, לכיוון הקרקע.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>כשהשמש גבוה מעל הראש האור בקושי מתכופף. אבל כשהשמש ליד האופק, האור עובר <b>לאורך</b> שכבות האוויר, דרך הרבה יותר אוויר — ומתכופף הכי הרבה: בערך <b>חצי מעלה</b>. וחצי מעלה זה בדיוק הרוחב של השמש בשמיים! כלומר האוויר מרים את השמש בגובה של שמש שלמה. כשהתחתית של השמש נוגעת בים — השמש האמיתית כבר כולה מתחת לקו. מה שרואים הוא שמש רפאים: אור אמיתי, ששינה את כיוונו בדרך אלינו.</p>
+    <p>ועוד משהו: התחתית של השמש קרובה יותר לאופק, ולכן היא מורמת <b>יותר</b> מהחלק העליון. התוצאה — השמש נראית <b>שטוחה</b>, כמו כדור שמישהו יושב עליו. באינטראקטיב: הורידו את השמש האמיתית מתחת לאופק, ותראו מה עוד רואים. ואז לחצו "בלי אוויר" — ככה זה על הירח.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>המספרים. זוויות בשמיים מודדים במעלות, ומעלה מחלקים ל־<span class="num">60</span> <b>דקות קשת</b>. השמש רחבה <span class="num">32</span> דקות קשת — כחצי מעלה. כשהיא בזנית, מעל הראש, האוויר לא מרים אותה בכלל; בגובה <span class="num">45</span> מעלות — דקת קשת אחת, בלתי מורגש; אבל <b>על האופק</b> ההרמה מגיעה ל־<span class="num">34</span> דקות קשת, כ־<span class="math">0.57°</span> — <b>יותר מרוחב השמש כולה</b>. למה כל כך הרבה דווקא שם? כי האור עובר באוויר מסלול ארוך פי כמה עשרות, כמעט במקביל לקרקע, דרך שכבות שנעשות סמיכות יותר ויותר.</p>
+    <p>אז כשהקצה התחתון של השמש הנראית נוגע באופק, מרכזה הנראה בגובה <span class="num">16</span> דקות קשת, והמרכז האמיתי נמצא כ־<span class="num">16</span> דקות קשת <b>מתחת</b> לאופק: השמש האמיתית כולה למטה, בדיוק. וההשטחה: הקצה התחתון מורם בכ־<span class="num">34</span> דקות, העליון רק בכ־<span class="num">29</span> — השמש נראית נמוכה בכשישית מגובהה, כמו עגבנייה. זה קורה לכל דבר בשמיים: כוכבים, ירח, לוויינים. כל לוח זריחות ושקיעות — בטלפון, בעיתון, ובלוח זמני השבת — סופר את הרגע שבו הקצה העליון של השמש <b>הנראית</b> נעלם, כולל הכיפוף. באינטראקטיב: העיגול המקווקו הוא השמש האמיתית. הורידו אותה, ובדקו מתי היא באמת נעלמת.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — השמש שאיננה ===== -->
+  <div class="panel instrument">
+    <h3>השמש שאיננה</h3>
+    <p class="cap">השמש הכתומה היא מה שרואים מהצוק בזכרון. העיגול המקווקו — איפה השמש נמצאת <b>באמת</b>. גררו את השמש האמיתית למטה, ובדקו: מתי היא נעלמת באמת? הכפתור "בלי אוויר" מראה מה היה קורה על הירח.</p>
+    <canvas id="snCv" width="640" height="440" aria-label="אופק ים; שמש כתומה שטוחה שנראית, ועיגול מקווקו שמסמן את השמש האמיתית מתחתיה; חץ מסמן כמה האוויר מרים; צוק עם דמות משמאל; סרגל של מעלה אחת מימין"></canvas>
+    <div class="controls">
+      <label>גובה השמש האמיתית מעל האופק (מעלות)
+        <input type="range" id="snAlt" min="-1.1" max="1.2" step="0.01" value="1.2" oninput="snDraw(1)" aria-label="גובה השמש האמיתית" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="אוויר">
+        <button id="snA1" class="on" onclick="snAir(1)">עם אוויר</button>
+        <button id="snA0" onclick="snAir(0)">בלי אוויר (ירח)</button>
+      </div>
+      <div class="seg" role="group" aria-label="קפיצה">
+        <button id="snJ0" onclick="snJump(1.2)">גבוה</button>
+        <button id="snJ1" onclick="snJump(-0.31)">נוגעת בים</button>
+        <button id="snJ2" onclick="snJump(-0.85)">נעלמת</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="readout">האמיתית: <b class="num" id="snReal">1.20°</b></div>
+      <div class="readout">מה שרואים: <b class="num" id="snApp">1.57°</b></div>
+    </div>
+    <p class="cap" id="snMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>אותו דבר קורה בזריחה, בהפוך: אנחנו רואים את הקצה של השמש עולה מעל ההרים בזמן שהשמש האמיתית עוד לא הגיעה לאופק. והכוכבים? גם הם מורמים, וגם הם מנצנצים — כי האוויר זז כל הזמן, והכיפוף רועד איתו. על הירח, בלי אוויר, כוכבים לא מנצנצים בכלל.</p></div>
+
+  <div class="q qc" id="snQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · NINE MINUTES OF GIFT (interactive 4: the week's calendar) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>תשע דקות מתנה</h2>
+  <p>עכשיו נחבר את שני החלקים. ביום השוויון כל מקום בעולם אמור לקבל <span class="num">12</span> שעות אור — לפי הגאומטריה. אבל בזכרון יעקב השמש זורחת היום ב־<span class="num">06:28</span> ושוקעת ב־<span class="num">18:37</span>: <b><span class="num">12</span> שעות ו־<span class="num">9</span> דקות</b>. מאיפה מגיעות הדקות האלה?</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>משתי מתנות. <b>המתנה הראשונה</b> היא האוויר, שמרים את השמש בחצי מעלה ומראה לנו אותה גם כשהיא מתחת לאופק. <b>המתנה השנייה</b> היא השעון: "זריחה" נחשבת מהרגע שהקצה העליון של השמש מציץ, ו"שקיעה" עד שהקצה האחרון נעלם — אז אנחנו סופרים עוד חצי שמש בכל צד. יחד: כמעט מעלה שלמה.</p>
+    <p>וכמה זמן זה? ליד האופק השמש בזכרון יורדת בערך <b>חמישית מעלה בכל דקה</b>. אז מעלה כמעט שלמה היא כ־<span class="num">4</span> דקות. <span class="num">4</span> דקות בזריחה ועוד <span class="num">4</span> בשקיעה — <span class="num">8</span> דקות מתנה. (והדקה התשיעית? כי יום השוויון הוא רק הלילה, והשמש היום עוד קצת צפונית לקו המשווה.) ועכשיו הטריק: בימים האלה היום מתקצר בכ־<span class="num">2</span> דקות מיום ליום. אז את היום שהוא <b>באמת</b> <span class="num">12</span> שעות נמצא רק כשהמתנה "תיגמר" — בעוד ארבעה־חמישה ימים. באינטראקטיב: מצאו אותו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בואו נחשב. ההרמה של האוויר על האופק: <span class="num">34</span> דקות קשת. הספירה מהקצה העליון במקום מהמרכז: עוד חצי קוטר, <span class="num">16</span> דקות קשת. יחד <span class="num">50</span> דקות קשת — <span class="math">50 ÷ 60 ≈ 0.83</span> מעלות. עכשיו הזמן. כדור הארץ מסתובב <span class="num">360</span> מעלות ב־<span class="num">24</span> שעות: <span class="num">15</span> מעלות בשעה, <span class="math">0.25</span> מעלות בדקה. אבל בזכרון השמש לא יורדת ישר למטה אלא באלכסון, ולכן היא <b>יורדת</b> לאט יותר: <span class="math">0.25 × 0.84 ≈ 0.21</span> מעלות בדקה. אז <span class="math">0.83 ÷ 0.21 ≈ 4</span> דקות בכל צד — כ־<span class="num">8</span> דקות ליום. הדקה התשיעית: יום השוויון הוא הלילה, והשמש היום עדיין <span class="num">0.25</span> מעלות צפונית לקו המשווה.</p>
+    <p>ולמה זה משנה? כי עכשיו היום מתקצר בכ־<span class="num">2</span> דקות בכל יום. <span class="num">8</span> דקות מתנה "נגמרות" אחרי כארבעה ימים — ולכן היום שבו השמש נראית בדיוק <span class="num">12</span> שעות, שקוראים לו <b>אקווילוקס</b> (equilux, "אור שווה" בלטינית), מגיע אצלנו כמה ימים <b>אחרי</b> יום השוויון. ובמקומות אחרים? בהלסינקי השמש יורדת באלכסון חד עוד יותר, והמתנה גדולה יותר — כ־<span class="math">6.7</span> דקות בכל צד — אבל שם היום מתקצר מהר, כ־<span class="num">5</span> דקות ביום, ולכן האקווילוקס מגיע דווקא מוקדם, כבר ב־<span class="num">25</span> בספטמבר. ליד קו המשווה היום כמעט לא משתנה, והאקווילוקס מגיע שבועות אחרי. באינטראקטיב: לוח הזריחות והשקיעות של השבוע בזכרון. נחשו קודם באיזה יום מתקבלות <span class="num">12:00</span> — ואז בדקו מה קורה בלי אוויר.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 4 — לוח השבוע ===== -->
+  <div class="panel instrument">
+    <h3>לוח הזריחות והשקיעות של השבוע</h3>
+    <p class="cap">זכרון יעקב, <span class="math">20–30</span> בספטמבר. כל פס הוא יום אחד; הקו האופקי הוא <span class="num">12</span> שעות בדיוק. נחשו קודם באיזה יום היום הוא <span class="num">12</span> שעות, ואז גררו. הכפתור "בלי אוויר" מראה את היום הגאומטרי: רק מרכז השמש, בלי כיפוף.</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="dlP0" onclick="dlPredict(0)">22 — ביום השוויון</button>
+        <button id="dlP1" onclick="dlPredict(1)">23–24</button>
+        <button id="dlP2" onclick="dlPredict(2)">26–27</button>
+        <button id="dlP3" onclick="dlPredict(3)">30</button>
+      </div>
+    </div>
+    <canvas id="dlCv" width="640" height="420" aria-label="תרשים עמודות של אורך היום בזכרון יעקב מ־20 עד 30 בספטמבר, עם קו של 12 שעות; היום הנבחר מודגש ומעליו הזריחה, השקיעה ואורך היום"></canvas>
+    <div class="controls">
+      <label>התאריך בספטמבר
+        <input type="range" id="dlDay" min="20" max="30" step="1" value="22" oninput="dlDraw(1)" aria-label="התאריך" style="direction:ltr">
+      </label>
+      <div class="readout">אורך היום: <b class="num" id="dlOut">12:09</b></div>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="אוויר">
+        <button id="dlA1" class="on" onclick="dlAir(1)">עם אוויר (מה שרואים)</button>
+        <button id="dlA0" onclick="dlAir(0)">בלי אוויר (רק המרכז)</button>
+      </div>
+    </div>
+    <p class="cap" id="dlMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="q qc" id="dlQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE SAILORS WHO SAW A SUN THAT WAS NOT THERE (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>המלחים שראו שמש שלא הייתה</h2>
+    <p>בקיץ <span class="num">1596</span> יצאה ספינה הולנדית בפיקודו של <b>וילם ברנץ</b> לחפש דרך לסין דרך הקוטב הצפוני. באי נובאיה זמליה, רחוק בצפון (קו רוחב <span class="num">76</span>), הקרח לכד את הספינה. <span class="num">16</span> מלחים בנו בקתה מעצי הספינה והתכוננו לחורף. ב־<span class="num">3</span> בנובמבר השמש שקעה — ולפי החישוב שלהם היא הייתה אמורה לחזור רק ב־<span class="num">8</span> בפברואר. שלושה חודשים של לילה.</p>
+    <p>ואז, ב־<span class="num">24</span> בינואר <span class="num">1597</span>, יצא המלח <b>חרייט דה־פר</b> עם שני חברים מהבקתה — וראה את הקצה של השמש מעל האופק. <b>חמישה־עשר ימים מוקדם מדי.</b> הקפטן לא האמין; שלושה ימים אחר כך ראו אותה כולם. כשחזרו הביתה, החכמים אמרו שהמלחים בטח טעו בספירת הימים. רק אחד, האסטרונום יוהנס קפלר, האמין להם וניסה להסביר איך זה ייתכן. עברו כ־<span class="num">300</span> שנה עד שהוכיחו שדה־פר צדק: מעל הקרח האוויר קר וסמיך במיוחד ליד הקרקע, וחם יותר מעליו, ובתנאים כאלה האור מתכופף פי עשרה מהרגיל ועוקב אחרי העיקום של כדור הארץ מאות קילומטרים. השמש שהם ראו הייתה פס שטוח ומוזר — שמש רפאים אמיתית. היום זה נקרא <b>אפקט נובאיה זמליה</b>.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>המלחים שראו שמש שלא הייתה</h2>
+    <p>ב־<span class="num">1596</span> יצאה משלחת הולנדית בפיקודו של <b>וילם ברנץ</b> לחפש את "המעבר הצפון־מזרחי" — דרך ים לסין מסביב לרוסיה. ליד האי נובאיה זמליה, על קו רוחב <span class="math">76°</span> צפון, הקרח לכד את הספינה; <span class="num">16</span> אנשים בנו בקתה מעצי הספינה ושרדו בה חורף קוטבי. ב־<span class="num">3</span> בנובמבר השמש נעלמה, וברנץ חישב — נכון — שהיא תחזור ב־<span class="num">8</span> בפברואר. ב־<span class="num">24</span> בינואר <span class="num">1597</span> ראה <b>חרייט דה־פר</b>, שניהל את יומן המסע, את קצה השמש מעל האופק: <b><span class="num">15</span> ימים מוקדם מדי</b>. לפי החישוב היה מרכז השמש באותו רגע יותר מ־<span class="num">5</span> מעלות מתחת לאופק — פי עשרה מההרמה הרגילה של האוויר.</p>
+    <p>ברנץ לא האמין וחשד שטעו בלוח השנה; ב־<span class="num">27</span> בינואר ראו אותה כולם, "בעיגולה המלא". כשהיומן פורסם, רוב החכמים באירופה דחו את הסיפור. יוהנס קפלר היה היחיד שהאמין וניסה להסביר איך אור יכול להגיע מ־<span class="num">5</span> מעלות מתחת לאופק. ההסבר המלא הגיע רק במאה ה־<span class="num">20</span>, כשחוקרי קוטב ראו את התופעה שוב ושוב ומדדו את האוויר: מעל קרח האוויר שליד הקרקע קר וסמיך מאוד, ומעליו שכבה חמה יותר — <b>היפוך טמפרטורה</b>. שכבה כזאת עובדת כמו צינור לאור: הקרניים נלכדות בה ועוקבות אחרי העיקום של כדור הארץ מאות קילומטרים, עד שהן מגיעות לעין שהייתה אמורה להיות בחושך. השמש נראית אז כפס שטוח או כמלבן. דה־פר צדק, ובחישוב מודרני של המסלול (<span class="num">2003</span>) התברר שאפילו התיאור שלו מדויק. לפעמים התצפית המוזרה נכונה, והחישוב הוא זה שחסר לו משהו.</p>
+    <p>ואצלנו? מעל הים התיכון בערבי קיץ חמים קורה לפעמים ההפך — אוויר חם מעל מים קרירים — והשמש השוקעת "נמרחת" על האופק כמו האות אומגה. הכיוון הפוך, הרעיון זהה: שכבות אוויר שונות, אור שמתעקל, ועין שמאמינה לקו ישר.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> המספרים האמיתיים. (א) היום בזכרון יעקב: זריחה <span class="num">06:28</span>, שקיעה <span class="num">18:37</span>. בכמה דקות היום ארוך יותר מ־<span class="num">12</span> שעות? (ב) האוויר מרים את השמש על האופק ב־<span class="math">0.57</span> מעלות, והשמש בזכרון יורדת ליד האופק <span class="math">0.21</span> מעלות בכל דקה. בכמה דקות מאחר האוויר את השקיעה? (ספרה אחת אחרי הנקודה.) (ג) בהלסינקי, על קו רוחב <span class="num">60</span>, השמש יורדת ליד האופק רק <span class="math">0.125</span> מעלות בדקה. בכמה דקות מאחר האוויר את השקיעה שם? (ספרה אחת אחרי הנקודה.)</p>
+      <div class="controls">
+        <label>(א) דקות מעבר ל־12 שעות <input type="number" id="chalMin" inputmode="numeric" step="1" placeholder="?"></label>
+        <label>(ב) דקות בזכרון <input type="number" id="chalDelay" inputmode="decimal" step="0.1" placeholder="?"></label>
+        <label>(ג) דקות בהלסינקי <input type="number" id="chalHel" inputmode="decimal" step="0.1" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()" data-g="בדוק|בדקי">בדקי</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> על הירח אין אוויר. איך נראית שם שקיעה — מתי השמש נעלמת, ואיזו צורה יש לה? ולמה המלחים של ברנץ ראו את השמש כשהיא הייתה <span class="num">5</span> מעלות מתחת לאופק, ואנחנו רואים אותה רק עד כחצי מעלה?</p>
+      <details><summary>הרמז והתשובה</summary><p>על הירח מה שרואים הוא מה שיש: השמש עגולה עד הרגע האחרון, בלי השטחה, ונעלמת בדיוק כשהיא באמת מתחת לאופק — בלי ארבע הדקות של מתנה. (השקיעה עצמה אורכת שם כשעה, כי הירח מסתובב סביב עצמו לאט: יום ירחי הוא כ־<span class="num">29.5</span> ימים שלנו.) ואצל ברנץ: ההרמה הרגילה, כחצי מעלה, באה מאוויר "רגיל" שנעשה סמיך בהדרגה. מעל הקרח נוצר היפוך טמפרטורה — שכבה קרה וסמיכה מאוד למטה, חמה מעליה — והמעבר החד בין השכבות מכופף את האור הרבה יותר, וגם לוכד אותו: הקרן שמנסה לעלות מתכופפת חזרה למטה, שוב ושוב, ועוקבת אחרי העיקום של כדור הארץ מאות קילומטרים. זו לא שמש שמורמת בחצי מעלה אלא אור שהובל מסביב לכדור — ולכן <span class="num">5</span> מעלות, ולכן הצורה המוזרה: פס שטוח במקום עיגול.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>ניסוי של חמש דקות במטבח, חקירה של עשר דקות בטלפון, ותצפית אחת הערב — מול הים.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — המטבע שמופיע (<span class="num">5</span> דקות)</h3>
+    <p class="cap">מה צריך: ספל או כוס לא שקופה, מטבע, קנקן מים, ועוד מישהו שימזוג.</p>
+    <ol>
+      <li><b>מסתירים:</b> שמים את המטבע בתחתית הספל ומתרחקים לאט, בישיבה או בכיפוף, עד שהשפה של הספל מסתירה בדיוק את המטבע. לא זזים!</li>
+      <li><b>מוזגים:</b> מישהו אחר מוזג מים לאט לתוך הספל, בלי להזיז אותו. איפה המטבע מופיע? כמה מים היו צריכים כדי שיופיע כולו?</li>
+      <li><b>הופכים:</b> עכשיו נסו את ההפך — הסתכלו על קש בכוס מים מהצד. איפה הקש "נשבר"? זה אותו כיפוף בדיוק.</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — למצוא את היום של 12 שעות (<span class="num">10</span> דקות)</summary>
+    <p>פותחים את אפליקציית מזג האוויר (או אתר של זמני זריחה ושקיעה), בוחרים "זכרון יעקב", ורושמים בטבלה לכל יום מהיום ועד סוף החודש: זריחה, שקיעה, וההפרש ביניהם. באיזה יום ההפרש הוא <span class="num">12:00</span> בדיוק? רמז: לא היום. ואז שאלת בונוס: לפי הטבלה, בכמה דקות היום מתקצר מיום ליום? האם זה אותו מספר כל יום?</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — השקיעה מול הים (הערב, <span class="num">18:20</span>)</summary>
+    <p>מזכרון יעקב רואים את הים. עולים למקום גבוה עם אופק פנוי מערבה (הצוק, קצה של רחוב שיורד לים, או פשוט חוף דור) כמה דקות לפני <span class="num">18:37</span>. שימו לב לשלושה דברים: (<span class="num">1</span>) האם השמש נראית שטוחה כשהיא נוגעת בים? (<span class="num">2</span>) מודדים בשעון: כמה זמן עובר מהרגע שהתחתית נוגעת בים עד שהקצה האחרון נעלם? (אצלנו בערך <span class="num">3</span> דקות.) (<span class="num">3</span>) הכיוון שבו היא נעלמה הוא בדיוק מערב. <b>חשוב:</b> מציצים רק לרגע, ואף פעם לא דרך משקפת או זום של מצלמה — גם שמש נמוכה יכולה לפגוע בעיניים.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הסיפור של היום הוא סיפור על <b>מה שרואים ומה שיש</b>. העיניים שלנו מצוינות, אבל הן מאמינות שהאור תמיד נוסע ישר. הוא לא. המים בכוס מכופפים אותו, האוויר מכופף אותו, ולכן מטבע "קופץ" למעלה, ושמש שכבר שקעה עוד יושבת על הים. מי שיודע איך האור מתכופף יכול לתקן את מה שהוא רואה — ולמצוא את השמש האמיתית.</p>
+    <p>והדבר השני: המלחים בקרח ראו שמש שהחכמים אמרו שלא יכולה להיות שם. הם צדקו, והחכמים טעו, כי הם לא ידעו עדיין כמה האוויר יכול לכופף. במדע, תצפית טובה שווה יותר מחישוב בטוח. הערב, כשהשמש תיגע בים, תדעו משהו שרוב האנשים על החוף לא יודעים: היא כבר לא שם.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הגדול שחוזר בכל השיעור הוא <b>תיקון המכשיר</b>. כל מדידה עוברת דרך משהו — עין, עדשה, אוויר — והמשהו הזה מעוות מעט. מאז טיכו ברהה, שפרסם ב־<span class="num">1596</span> את הטבלה הראשונה של הרמת האוויר, כל אסטרונום מחסיר את הכיפוף מהמדידות שלו; כל לוח זריחות מוסיף אותו; כל טלסקופ גדול מתקן אותו בזמן אמת. גם מקלטי GPS מתקנים את האוויר: האות מהלוויין מתעכב ומתכופף בדרך, ובלי תיקון המיקום היה מוטה בכמה מטרים.</p>
+    <p>ומה עוד מסתתר כאן? האוויר מכופף צבעים שונים קצת אחרת — כחול וירוק יותר מאדום — ולכן ברגע האחרון של השקיעה, בתנאים מושלמים, הקצה העליון של השמש מהבהב לשנייה בירוק. וכל מה שלמדנו על אוויר נכון לכל גז ולכל נוזל: מעל כביש לוהט בערבה האוויר דליל למטה וסמיך למעלה, האור מתכופף כלפי מעלה, ואנחנו רואים "שלולית" שהיא בעצם השמיים. שאלה פתוחה לחקור: אם היינו בונים לוח זמני שקיעה לעיר על מאדים, כמה דקות מתנה היו שם? (רמז: יש שם אוויר, אבל דליל פי מאה.)</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">חלל</div><h3>שקיעה על הירח</h3><p>על הירח אין אוויר: השמש שוקעת בלי הרמה ובלי השטחה, ונעלמת בדיוק כשהיא באמת מתחת לאופק. וגם הכוכבים שם לא מנצנצים — הנצנוץ אצלנו הוא האוויר שרועד ומכופף את האור קצת אחרת בכל רגע.</p></div>
+    <div class="tile"><div class="dom">גאוגרפיה</div><h3>המים על הכביש בערבה</h3><p>ביום חם האספלט מחמם את האוויר שצמוד אליו, והוא נעשה דליל יותר מהאוויר שמעליו — ההפך מהרגיל. אור מהשמיים מתכופף כלפי מעלה, והעין רואה "שלולית" כחולה על הכביש שהיא בעצם פיסת שמיים. מתקרבים — והיא בורחת.</p></div>
+    <div class="tile"><div class="dom">הנדסה</div><h3>ה־GPS שמתקן את האוויר</h3><p>הלוויינים משדרים אות מגובה <span class="num">20,000</span> קילומטרים, ובדרך האוויר מעכב ומכופף אותו מעט. המקלט בטלפון מחשב את העיכוב ומתקן — אחרת המיקום היה מוטה בכמה מטרים, וניווט לרחוב הנכון היה בעיה.</p></div>
+    <div class="tile"><div class="dom">מתמטיקה</div><h3>מעלות ודקות קשת</h3><p>מעלה אחת מחלקים ל־<span class="num">60</span> דקות קשת. השמש והירח רחבים כ־<span class="num">32</span> דקות, כחצי מעלה; האוויר מרים את השמש על האופק ב־<span class="num">34</span>. הזרת ביד מושטת מכסה בערך מעלה — שתי שמשות. נסו הערב: כמה זרתות השמש מעל הים?</p></div>
+  </div>
+
+  <details class="bonus" id="latBox">
+    <summary>בונוס (2 דקות): ההבזק הירוק</summary>
+    <p>האוויר מכופף כל צבע קצת אחרת: ירוק וכחול יותר מאדום. לכן השמש השוקעת היא בעצם כמה שמשות צבעוניות, מוזזות טיפה זו מזו — הירוקה קצת יותר גבוה מהאדומה. ברגע האחרון, כשהאדומה כבר נעלמה, יכול הקצה העליון של הירוקה להציץ לבד לשנייה או שתיים: <b>ההבזק הירוק</b>. הוא נדיר וצריך אופק רחוק ונקי — ים שקט, אוויר צלול — ומחוף הכרמל רואים אותו לפעמים.</p>
+    <details><summary>שאלה קטנה</summary><p>אם הכחול מתכופף אפילו יותר מהירוק, למה ההבזק הוא ירוק ולא כחול?</p>
+      <p data-level="advanced">[מתקדם] כי האור הכחול כמעט לא שורד את הדרך הארוכה באוויר: הוא מתפזר על מולקולות האוויר יותר מכל צבע אחר (זו הסיבה שהשמיים כחולים ביום, ושהשמש הנמוכה אדומה). ליד האופק, אחרי מסלול של מאות קילומטרים באוויר, הכחול פוזר כמעט כולו הצידה, והצבע הקצר ביותר שעוד מגיע בכמות מספקת הוא הירוק. באוויר צלול במיוחד, בהרים גבוהים, נצפו גם הבזקים כחולים — נדירים עוד יותר.</p>
+      <p data-level="standard">כי הכחול "הולך לאיבוד" בדרך: האוויר מפזר את האור הכחול הצידה יותר מכל צבע אחר — לכן השמיים כחולים ביום, ולכן השמש הנמוכה אדומה. ליד האופק כמעט לא נשאר כחול, והצבע שעוד מגיע ומתכופף הכי הרבה הוא הירוק.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את השקיעה מהצוק בזכרון, מההתחלה ועד הסוף. לחצו על הכרטיסים לפי הסדר הנכון (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: כדור הארץ עושה סיבוב שלם — <span class="num">360</span> מעלות — ב־<span class="num">24</span> שעות. כמה מעלות הוא מסתובב בשעה אחת?</div>
+    <div class="controls"><label>מעלות בשעה <input type="number" id="numYounger" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')" data-g="בדוק|בדקי">בדוק</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: (א) האוויר מרים את השמש על האופק ב־<span class="math">0.57</span> מעלות, והשמש בזכרון יורדת ליד האופק <span class="math">0.21</span> מעלות בכל דקה. בכמה דקות מאחר האוויר את השקיעה? (ספרה אחת אחרי הנקודה.) (ב) לוחות הזמנים סופרים גם את הקצה העליון של השמש — עוד <span class="math">0.27</span> מעלות, סך הכול <span class="math">0.84</span>. כמה דקות מתנה מקבל היום כולו, בזריחה ובשקיעה יחד? (מותר מחשבון.)</div>
+    <div class="controls"><label>(א) דקות <input type="number" id="numAdv" inputmode="decimal" step="0.1" placeholder="?"></label><label>(ב) דקות ליום <input type="number" id="numAdvR" inputmode="decimal" step="0.1" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: האוויר מרים את השמש על האופק ב־<span class="math">0.6</span> מעלות. ליד האופק, בזכרון, השמש יורדת <span class="math">0.2</span> מעלות בכל דקה. בכמה דקות מאחר האוויר את השקיעה? (מותר מחשבון.)</div>
+    <div class="controls"><label>דקות <input type="number" id="numOlder" inputmode="decimal" step="0.1" placeholder="?"></label><button class="btn small" onclick="checkNum('older')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה אנחנו רואים את השמש גם אחרי שהיא באמת שקעה — ולמה היום של <span class="num">12</span> שעות בדיוק לא נופל ביום השוויון?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="האוויר סמיך למטה ודליל למעלה, ולכן האור..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. הלילה ב־<span class="num">03:05</span> השמש עומדת בדיוק מעל קו המשווה — יום השוויון. בכל מקום בעולם היא זורחת בדיוק במזרח ושוקעת בדיוק במערב, וכל מקום אמור לקבל <span class="num">12</span> שעות אור. אבל בזכרון יעקב היום ארוך <span class="num">12</span> שעות ו־<span class="num">9</span> דקות, והיום של <span class="num">12</span> שעות בדיוק יגיע רק ב־<span class="math">26–27</span> בספטמבר.<br>
+    2. הסיבה: האוויר מכופף אור, כמו מים בכוס שמראים מטבע גבוה ממקומו. ליד האופק האור עובר דרך הרבה אוויר ומתכופף בכחצי מעלה — בדיוק רוחב של שמש. אז כשהשמש נוגעת בים, השמש האמיתית כבר כולה מתחת לאופק: מה שרואים הוא שמש רפאים. וגם: היא נראית שטוחה, כי התחתית מורמת יותר מהחלק העליון.<br>
+    3. ב־<span class="num">1597</span> מלחים הולנדים שנתקעו בקרח באזור הקוטב הצפוני ראו את השמש חוזרת <span class="num">15</span> ימים מוקדם מדי, כשהייתה <span class="num">5</span> מעלות מתחת לאופק. אף אחד לא האמין להם חוץ מקפלר. הם צדקו: מעל הקרח האוויר מכופף אור פי עשרה ומוביל אותו מסביב לכדור הארץ. היום זה נקרא אפקט נובאיה זמליה.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>יום השוויון: <span class="num">23</span> בספטמבר <span class="num">2026</span>, <span class="num">00:05</span> UTC = <span class="num">03:05</span> שעון ישראל (EarthSky, "2026 September equinox"; ויקיפדיה, "September equinox" — טבלת השנים); השמש זורחת במזרח ושוקעת במערב בכל מקום (EarthSky). הגדרת זריחה ושקיעה: מרחק זניתי של מרכז השמש <span class="math">90°50′</span> — <span class="num">34</span> דקות קשת הרמה ממוצעת על האופק ועוד <span class="num">16</span> דקות קשת חצי קוטר; "הקצה העליון נראה משיק לאופק" (USNO, "Rise, Set, and Twilight Definitions"). הרמה אטמוספרית: אפס בזנית, פחות מדקת קשת ב־<span class="num">45</span> מעלות, כ־<span class="math">34–35</span> דקות קשת על האופק; "כשתחתית השמש נראית נוגעת באופק, הגובה האמיתי שלילי"; השטחה של כ־<span class="num">5</span> דקות קשת, כשישית מהקוטר (ויקיפדיה, "Atmospheric refraction"; British Astronomical Association, "Atmospheric refraction" — התחתית מורמת כ־<span class="num">34</span>, העליון כ־<span class="num">29</span>). ערכי ההרמה באינטראקטיב מחושבים מנוסחת סֵמונדסון, מכוילת ל־<span class="math">34.5</span> דקות קשת על האופק. זמנים בזכרון יעקב (<span class="math">32.57°N, 34.95°E</span>): חישוב לפי אלגוריתם NOAA עם <span class="math">−0.833°</span>, מוצלב עם generalblue.com (<span class="num">22.9</span>: <span class="math">06:28–18:38</span>, <span class="num">12:09</span>; <span class="num">26.9</span>: <span class="num">12:01</span>; <span class="num">27.9</span>: <span class="num">11:59</span>) ו־sunsetsunrisetime.com (<span class="num">12:10</span> ב־<span class="num">22.9</span>, <span class="num">12:00</span> ב־<span class="num">27.9</span>) — האתרים נבדלים בדקה, לפי מודל ההרמה; בשיעור <span class="num">06:28</span>/<span class="num">18:37</span>. קצב הירידה: <span class="math">15°</span> לשעה <span class="math">× cos(32.6°) ≈ 0.21°</span> לדקה ליד האופק ביום השוויון; <span class="math">50′ ÷ 0.21 ≈ 4</span> דקות בכל צד; הלסינקי (<span class="math">60°</span>): <span class="math">0.125°</span> לדקה. היסטוריה: תלמי, "אופטיקה" (המאה ה־<span class="num">2</span>), מדידות ראשונות של שבירה בין אוויר למים וזכוכית ודיון בהרמה אטמוספרית ללא מדידות; אבן אל־הית׳ם; טיכו ברהה — טבלת הרמה ראשונה (<span class="num">1596</span>, כחצי מעלה על האופק); סנל <span class="num">1621</span> (Lehn &amp; van der Werf, "Atmospheric refraction: a history", Applied Optics <span class="num">44</span>, <span class="num">2005</span>). נובאיה זמליה: משלחת ברנץ השלישית, <span class="num">1596–1597</span>, קו רוחב <span class="math">76°15′N</span>; השמש נעלמה ב־<span class="num">3</span> בנובמבר וצפויה ב־<span class="num">8</span> בפברואר; דה־פר ושני חברים ראו אותה ב־<span class="num">24</span> בינואר <span class="num">1597</span>, כ־<span class="num">15</span> יום מוקדם, כשמרכזה כ־<span class="math">5°26′</span> מתחת לאופק; כולם ראו ב־<span class="num">27</span> בינואר; קפלר הציע הסבר; אישור מדעי במאה ה־<span class="num">20</span>; שחזור מסלול הקרניים — van der Werf, Können, Lehn, Steenhuisen &amp; Davidson, Applied Optics <span class="num">42</span> (<span class="num">2003</span>), "Gerrit de Veer's true and perfect description of the Novaya Zemlya effect" (ויקיפדיה, "Novaya Zemlya effect"; Amusing Planet). מנגנון: היפוך טמפרטורה ולכידת קרניים ("צינור") לאורך מאות קילומטרים. פישוטים במכוון: "חצי מעלה" = <span class="num">34</span> דקות קשת (<span class="math">0.57°</span>); "פי עשרה" — <span class="math">5.4° ÷ 0.57°</span>; המסלול היומי בציור של השנה הוא חתך צד; המספרים בחישובים (<span class="math">0.6</span>, <span class="math">0.2</span>) מעוגלים; "כ־<span class="num">300</span> שנה" עד לאישור — מ־<span class="num">1597</span> עד תצפיות ומדידות המאה ה־<span class="num">20</span>; אומגה/כד בשקיעה מעל הים — תעתוע תחתון, נצפה במקומות רבים ולא רק אצלנו; ההבזק הירוק — נדיר, דורש אופק רחוק וצלול. לוח עברי: Hebcal.</p>
+  </details>
+</section>
+
+</main>
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:15, code:'WOW-015', date:'2026-09-22', title:'השמש שאתם רואים כבר שקעה', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '153XmdeQ16TXqCDXqdee16k='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'physics', w:3 }, { id:'space', w:3 }, { id:'earth', w:2 } ],
+  hero: { name:'שמש רפאים — השמש שאתם רואים כבר שקעה', fact:'ביום השוויון השמש מעל קו המשווה ו־12 שעות אור לכולם — אבל האוויר מכופף אור: על האופק הוא מרים את השמש ב־34 דקות קשת, יותר מרוחבה, אז כשהיא נוגעת בים היא כבר כולה למטה; יחד עם הקצה העליון — כ־4 דקות מתנה בכל צד, והיום של 12:00 מגיע רק ב־26–27 בספטמבר; ב־1597 מלחי ברנץ ראו שמש 5 מעלות מתחת לאופק' },
+  items: {
+    'predict':       { skill:'estimation',            d:2 },
+    'qc:scale':      { skill:'estimation',            d:2 },
+    'qc:yrQ':        { skill:'mechanism',             d:2 },
+    'qc:cpQ':        { skill:'mechanism',             d:2 },
+    'qc:snQ':        { skill:'mechanism',             d:3 },
+    'qc:dlQ':        { skill:'mechanism',             d:3 },
+    'qc:storyQ':     { skill:'evidence',              d:2 },
+    'mcq:shared:0':  { skill:'mechanism',             d:2 },
+    'mcq:shared:1':  { skill:'mechanism',             d:2 },
+    'mcq:shared:2':  { skill:'mechanism',             d:3 },
+    'mcq:younger:0': { skill:'transfer',              d:2 },
+    'mcq:older:0':   { skill:'mechanism',             d:3 },
+    'order':         { skill:'sequence',              d:2 },
+    'num:younger':   { skill:'division',              d:1 },
+    'num:older':     { skill:'rate',                  d:2 },
+    'num:adv':       { skill:'rate-two-step',         d:4 },
+    'challenge':     { skill:'time-rate-comparison',  d:4 },
+    'explain':       { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ yrDraw(0); showArtoTip(); } if(n===2) cpDraw(0); if(n===3) snDraw(0); if(n===4) dlDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+/* ---------- hero guess: by how many minutes is today's day (sunrise to sunset) in Zikhron longer than 12 hours? ----------
+   Four choices force a real commitment (about a minute / 3 / 9 / 30): the lesson then confirms it — 06:28 to 18:37 is 12:09. data-scale: minutes. */
+const SCALE_ANS = 9;                                                  // 12 h 09 min on 22 September 2026 in Zikhron Yaakov
+const fmtSigns = n => n===1 ? 'בערך דקה' : n===3 ? 'כ־3 דקות' : n===9 ? 'כ־9 דקות' : 'כחצי שעה';
+const SCALE_FB = {
+  9: '<span class="pill-ok">קלעתם!</span> זריחה <span class="num">06:28</span>, שקיעה <span class="num">18:37</span> — <span class="num">12</span> שעות ו־<span class="num">9</span> דקות. ביום שנקרא "שוויון" קיבלנו תשע דקות מתנה. מי נתן אותן? האוויר. על זה השיעור.',
+  1: '<span class="pill-bad">יותר.</span> היום בזכרון: זריחה <span class="num">06:28</span>, שקיעה <span class="num">18:37</span> — <span class="num">12</span> שעות ו־<span class="num">9</span> דקות. תשע דקות של אור שלא "מגיעות" לנו לפי הגאומטריה. מאיפה הן באות? על זה השיעור.',
+  3: '<span class="pill-bad">יותר.</span> זריחה <span class="num">06:28</span>, שקיעה <span class="num">18:37</span> — <span class="num">12</span> שעות ו־<span class="num">9</span> דקות. העיגול של השמש נותן חלק מזה, אבל את רוב המתנה נותן משהו אחר — האוויר. על זה השיעור.',
+  30: '<span class="pill-bad">הרבה פחות.</span> זריחה <span class="num">06:28</span>, שקיעה <span class="num">18:37</span> — <span class="num">12</span> שעות ו־<span class="num">9</span> דקות. לא חצי שעה, אבל גם לא אפס: תשע דקות שהגאומטריה לא מסבירה. מי מסביר? האוויר. על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+
+</script>
+
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(30,size); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+function xSun(c,x,y,r,alpha){ c.fillStyle='rgba(255,196,60,'+(alpha==null?1:alpha)+')'; c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fill(); c.strokeStyle='rgba(255,196,60,'+(alpha==null?1:alpha)+')'; c.lineWidth=4; for(let i=0;i<8;i++){ const a=i*Math.PI/4; c.beginPath(); c.moveTo(x+Math.cos(a)*(r+6),y+Math.sin(a)*(r+6)); c.lineTo(x+Math.cos(a)*(r+16),y+Math.sin(a)*(r+16)); c.stroke(); } }
+
+
+
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const LAT=32.57;                                                     // Zikhron Yaakov
+const D2R=Math.PI/180;
+function hm(min){ min=Math.round(min); const h=Math.floor(min/60), m=min-h*60; return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0'); }
+function fmtDeg(d){ const s=(Math.round(d*100)/100).toFixed(2); return (d<0?'−':'')+s.replace('-','')+'°'; }
+function xSky(c,W,h0,h1,top,bot){ const g=c.createLinearGradient(0,h0,0,h1); g.addColorStop(0,top); g.addColorStop(1,bot); c.fillStyle=g; c.fillRect(0,h0,W,h1-h0); }
+function xSea(c,W,y0,y1){ c.fillStyle='#2A6FA8'; c.fillRect(0,y0,W,y1-y0); c.strokeStyle='rgba(255,255,255,.28)'; c.lineWidth=3; for(let k=0;k<4;k++){ const y=y0+18+k*26; c.beginPath(); for(let x=0;x<=W;x+=40){ c.quadraticCurveTo(x+10,y-6,x+20,y); c.quadraticCurveTo(x+30,y+6,x+40,y); } c.stroke(); } }
+function xEye(c,x,y,s){ c.fillStyle='#fff'; c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.moveTo(x-s,y); c.quadraticCurveTo(x,y-s*0.9,x+s,y); c.quadraticCurveTo(x,y+s*0.9,x-s,y); c.closePath(); c.fill(); c.stroke(); c.fillStyle='#2A6FA8'; c.beginPath(); c.arc(x,y,s*0.42,0,Math.PI*2); c.fill(); c.fillStyle=css('--ink'); c.beginPath(); c.arc(x,y,s*0.2,0,Math.PI*2); c.fill(); }
+function xCoin(c,x,y,rx,ry,pale){ c.fillStyle= pale ? 'rgba(232,196,90,.45)' : '#E2B037'; c.beginPath(); c.ellipse(x,y,rx,ry,0,0,Math.PI*2); c.fill(); c.strokeStyle= pale ? 'rgba(150,110,30,.45)' : '#9A6E14'; c.lineWidth=3; c.stroke(); if(!pale){ c.strokeStyle='#9A6E14'; c.lineWidth=2; c.beginPath(); c.ellipse(x,y,rx*0.6,ry*0.55,0,0,Math.PI*2); c.stroke(); } }
+/* atmospheric refraction, degrees, from the APPARENT altitude a (degrees): Sæmundsson's formula scaled to 34.5′ on the horizon */
+function refr(a){ a=Math.max(a,-1.5); const r=1.02/Math.tan((a+10.3/(a+5.11))*D2R); return r*(34.5/28.98)/60; }
+/* apparent altitude from the true one (iterate a = h + R(a)) */
+function apparentAlt(h){ let a=h; for(let i=0;i<10;i++){ a=h+refr(a); } return a; }
+/* the sun's declination (degrees) on day d of 2026 (0 = 1 January), at local noon — low-precision solar longitude */
+function declOf(d){ const n=9496.5+d+0.5-3/24; const L=(280.460+0.9856474*n)%360, g=((357.528+0.9856003*n)%360)*D2R; const lam=(L+1.915*Math.sin(g)+0.020*Math.sin(2*g))*D2R; return Math.asin(Math.sin(23.439*D2R)*Math.sin(lam))/D2R; }
+/* geometric day length (hours) at latitude φ for declination δ — the sun's centre, no air */
+function dayLen(phi,dec){ const x=-Math.tan(phi*D2R)*Math.tan(dec*D2R); if(x<=-1) return 24; if(x>=1) return 0; return 2*Math.acos(x)/D2R/15; }
+const MONTHS_HE=['בינואר','בפברואר','במרץ','באפריל','במאי','ביוני','ביולי','באוגוסט','בספטמבר','באוקטובר','בנובמבר','בדצמבר'], MDAYS=[31,28,31,30,31,30,31,31,30,31,30,31];
+function dateOf(d){ let m=0, x=d+1; while(m<11 && x>MDAYS[m]){ x-=MDAYS[m]; m++; } return { d:x, m }; }
+
+/* ---------- step 1 (interactive 1): the year in one turn (canvas) ---------- */
+const yrCv=document.getElementById('yrCv'), yctx=yrCv.getContext('2d');
+const YR={ opened:0, hit:{} };
+function yrJump(d){ yrDay.value=d; yrDraw(1); }
+function yrDraw(user){
+  const c=yctx, W=yrCv.width, H=yrCv.height, d=+yrDay.value, dec=declOf(d), dt=dateOf(d), len=dayLen(LAT,dec);
+  if(user && !YR.opened){ YR.opened=1; WOW.emit('open', { id:'year' }); }
+  [171,264,354,78].forEach((v,k)=>{ const b=document.getElementById('yrP'+k); if(b) b.classList.toggle('on', d===v); });
+  /* space */
+  c.fillStyle='#101733'; c.fillRect(0,0,W,320);
+  const rnd=(()=>{ let s=7; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; })();
+  c.fillStyle='rgba(255,255,255,.7)'; for(let i=0;i<60;i++){ c.beginPath(); c.arc(rnd()*W,rnd()*300,rnd()*1.6+0.4,0,Math.PI*2); c.fill(); }
+  /* the sun on the left, its rays */
+  xSun(c,60,165,36,1);
+  c.strokeStyle='rgba(255,214,90,.45)'; c.lineWidth=3; for(let y=65;y<=265;y+=40){ c.beginPath(); c.moveTo(108,y); c.lineTo(288,y); c.stroke(); c.fillStyle='rgba(255,214,90,.6)'; xArrow(c,296,y,1,0,12); }
+  /* the earth: lit half faces the sun (left); axis tilted by the declination toward the sun */
+  const cx=430, cy=165, R=112, t=dec*D2R;                            // t>0: north pole leans to the sun (summer)
+  c.save(); c.beginPath(); c.arc(cx,cy,R,0,Math.PI*2); c.clip();
+  c.fillStyle='#4FA3E3'; c.fillRect(cx-R,cy-R,2*R,2*R);
+  c.fillStyle='#5DA85A'; [[cx-40,cy-30,44,26],[cx+30,cy+20,36,40],[cx-10,cy+60,50,18]].forEach(([x,y,a,b])=>{ c.beginPath(); c.ellipse(x,y,a,b,0.4,0,Math.PI*2); c.fill(); });
+  c.fillStyle='rgba(6,10,30,.72)'; c.fillRect(cx,cy-R,R,2*R);         // night half
+  /* the equator (perpendicular to the axis) and Zikhron's latitude chord, both tilted by t */
+  c.save(); c.translate(cx,cy); c.rotate(-t);                        // canvas rotates clockwise for positive angles; the north pole must lean LEFT (to the sun) when t>0
+  c.strokeStyle='#1B4F8A'; c.lineWidth=4; c.setLineDash([10,7]); c.beginPath(); c.moveTo(-R,0); c.lineTo(R,0); c.stroke(); c.setLineDash([]);
+  const yz=-R*Math.sin(LAT*D2R), hz=R*Math.cos(LAT*D2R);           // the chord of latitude 32.6°N
+  c.strokeStyle='#C8452D'; c.lineWidth=5; c.beginPath(); c.moveTo(-hz,yz); c.lineTo(hz,yz); c.stroke();
+  c.restore();
+  c.restore();
+  /* the day part of Zikhron's chord: in the picture, everything left of the terminator (x<cx) is lit */
+  const ax=(x,y)=>[cx+x*Math.cos(t)+y*Math.sin(t), cy-x*Math.sin(t)+y*Math.cos(t)];
+  const [x1,y1]=ax(-hz,yz), [x2,y2]=ax(hz,yz);
+  const fr = clamp((cx-x1)/(x2-x1),0,1);
+  c.strokeStyle='#FFD65A'; c.lineWidth=7; c.lineCap='round'; c.beginPath(); c.moveTo(x1,y1); c.lineTo(x1+(x2-x1)*fr,y1+(y2-y1)*fr); c.stroke(); c.lineCap='butt';
+  /* the axis with N */
+  const [axTx,axTy]=ax(0,-R-16), [axBx,axBy]=ax(0,R+16);
+  c.strokeStyle='#F2EDE0'; c.lineWidth=3; c.beginPath(); c.moveTo(axBx,axBy); c.lineTo(axTx,axTy); c.stroke();
+  xText(c,'צפון',axTx+16,axTy+6,30,'#F2EDE0','left');
+  /* the sub-solar point: the leftmost point of the disc */
+  c.fillStyle='#FFD65A'; c.beginPath(); c.arc(cx-R,cy,10,0,Math.PI*2); c.fill(); c.strokeStyle='#fff'; c.lineWidth=2; c.stroke();
+  /* Zikhron: the noon end of its chord */
+  c.fillStyle='#C8452D'; c.beginPath(); c.arc(x1,y1,9,0,Math.PI*2); c.fill(); c.strokeStyle='#fff'; c.lineWidth=2; c.stroke();
+  /* labels */
+  { const [ex,ey]=ax(R,0); xTag(c,'קו המשווה','',ex-44,ey+36,30,css('--nile'),'center',.92); }
+  xTag(c,'זכרון יעקב','',x1-14,y1-26,30,css('--bad'),'right',.92);
+  xTag(c,'מעל הראש','',cx-R-6,cy+38,30,css('--sun-deep'),'right',.92);
+  /* the date, top right */
+  xTagN(c,String(dt.d),MONTHS_HE[dt.m],16,26,30,css('--ink'),'left');
+  /* the day-length strip */
+  c.fillStyle=css('--card'); c.fillRect(0,330,W,H-330);
+  const sx0=70, sx1=570, sy=390; c.fillStyle='rgba(0,0,0,.1)'; c.beginPath(); c.roundRect(sx0,sy-14,sx1-sx0,28,14); c.fill();
+  c.fillStyle='#FFD65A'; c.beginPath(); c.roundRect(sx0,sy-14,(sx1-sx0)*len/24,28,14); c.fill();
+  c.fillStyle=css('--ink'); c.fillRect(sx0+(sx1-sx0)/2-2,sy-22,4,44);
+  xNum(c,'0',sx0-14,sy,30,css('--muted'),'right'); xNum(c,'24',sx1+14,sy,30,css('--muted'),'left');
+  xTag(c,'שעות אור בזכרון:',hm(len*60),W/2,352,30,css('--ink'),'center');
+  yrOut.textContent=hm(len*60);
+  const tag = d===264 ? 'today' : d===171 ? 'june' : d===354 ? 'dec' : '';
+  if(user && tag && !YR.hit[tag]){ YR.hit[tag]=1; WOW.emit('item', { id:'year:'+tag, kind:'quick', correct:true, attempt: wowTry('year') }); }
+  yrMsg.innerHTML = d===264 ? '<b>היום.</b> השמש עדיין <span class="num">0.25</span> מעלות צפונית לקו המשווה — הלילה ב־<span class="num">03:05</span> היא תחצה אותו. הגאומטריה נותנת לזכרון <span class="num">12:01</span>. אבל בלוח כתוב <span class="num">12:09</span>. שמונה דקות חסרות — עוד מעט נמצא אותן.'
+    : d===171 ? '<b><span class="num">21</span> ביוני:</b> הקוטב הצפוני רוכן אל השמש, השמש מעל הראש בחוג הסרטן (<span class="math">23.4°</span> צפון). המסלול של זכרון ברובו באור: כ־<span class="num">14</span> שעות.'
+    : d===354 ? '<b><span class="num">21</span> בדצמבר:</b> הקוטב הצפוני רוכן מהשמש והלאה, השמש מעל הראש בחוג הגדי (<span class="math">23.4°</span> דרום). רוב המסלול של זכרון בחושך: כ־<span class="num">10</span> שעות אור.'
+    : d===78 ? '<b><span class="num">20</span> במרץ, יום השוויון של האביב:</b> השמש שוב מעל קו המשווה, בדרך צפונה. שוב <span class="num">12</span> שעות — ושוב לוח הזריחות יראה קצת יותר.'
+    : 'השמש מעל הראש בקו רוחב <span class="math">'+fmtDeg(dec).replace('°','')+'°</span>'+(dec>0?' צפון':dec<0?' דרום':'')+'. אור בזכרון: <span class="num">'+hm(len*60)+'</span>. נסו למצוא את שני הימים שבהם מתקבלות כמעט בדיוק <span class="num">12:00</span> — במרץ ובספטמבר.';
+}
+yrDraw(0);
+
+/* ---------- step 2 (interactive 2): the coin in the cup (canvas) ---------- */
+const cpCv=document.getElementById('cpCv'), cctx=cpCv.getContext('2d');
+const CP={ opened:0, pred:-1, revealed:0 };
+const CUP={ l:100, r:430, top:170, bot:380, wall:12 }, COIN={ x:155, y:368 }, EYE={ x:612, y:44 }, NW=1.333;
+function cpPredict(k){ CP.pred=k; [0,1,2].forEach(i=>document.getElementById('cpP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'cup:predict', kind:'quick', correct:k===0, attempt: wowTry('cup:predict') }); cpDraw(1); }
+/* where on the surface does the ray from the coin refract exactly toward the eye? bisection on x */
+function cpSurfaceX(ys){
+  const f = xs => { const tw=Math.atan2(xs-COIN.x, COIN.y-ys), ta=Math.atan2(EYE.x-xs, ys-EYE.y); return NW*Math.sin(tw)-Math.sin(ta); };
+  let lo=COIN.x+0.01, hi=CUP.r+80; if(f(lo)>0) return lo; if(f(hi)<0) return hi;
+  for(let i=0;i<50;i++){ const m=(lo+hi)/2; if(f(m)<0) lo=m; else hi=m; } return (lo+hi)/2;
+}
+function cpDraw(user){
+  const c=cctx, W=cpCv.width, H=cpCv.height, L=+cpLvl.value/100, ys=CUP.bot-L*(CUP.bot-CUP.top-14);
+  if(user && !CP.opened){ CP.opened=1; WOW.emit('open', { id:'cup' }); }
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the table */
+  c.fillStyle='#C9A66B'; c.fillRect(0,CUP.bot+12,W,H-CUP.bot-12);
+  /* water */
+  if(L>0){ c.fillStyle='rgba(90,170,235,.55)'; c.fillRect(CUP.l+CUP.wall,ys,CUP.r-CUP.l-2*CUP.wall,CUP.bot-ys+12); c.strokeStyle='#2A6FA8'; c.lineWidth=3; c.beginPath(); c.moveTo(CUP.l+CUP.wall,ys); c.lineTo(CUP.r-CUP.wall,ys); c.stroke(); }
+  /* the coin, real */
+  xCoin(c,COIN.x,COIN.y,30,9,false);
+  /* the cup walls (drawn over the water so the rim hides what it hides) */
+  c.fillStyle='#8FA3B5'; c.fillRect(CUP.l,CUP.top,CUP.wall,CUP.bot-CUP.top+12); c.fillRect(CUP.r-CUP.wall,CUP.top,CUP.wall,CUP.bot-CUP.top+12); c.fillRect(CUP.l,CUP.bot,CUP.r-CUP.l,12);
+  /* the ray */
+  let seen=false, xs=0, yApp=0;
+  if(L>0){
+    xs=cpSurfaceX(ys);
+    const inside = xs>CUP.l+CUP.wall && xs<CUP.r-CUP.wall;
+    const yAtRim = ys-(ys-EYE.y)*((CUP.r-CUP.wall)-xs)/(EYE.x-xs);               // the air ray's height where it crosses the wall line
+    seen = inside && yAtRim < CUP.top;
+    if(seen){
+      const tt=(COIN.x-xs)/(xs-EYE.x); yApp=ys+tt*(ys-EYE.y);
+      /* labels first, rays over them, so the plates never hide the bend point or the ray */
+      xTag(c,'כאן העין "רואה"','',COIN.x+20,yApp-40,30,css('--sun-deep'),'center',.92); xTag(c,'האור נשבר כאן','',xs+24,ys-46,30,css('--sun-deep'),'left',.92);
+      c.strokeStyle='#F5B400'; c.lineWidth=6; c.lineCap='round';
+      c.beginPath(); c.moveTo(COIN.x,COIN.y-6); c.lineTo(xs,ys); c.lineTo(EYE.x-16,EYE.y+4); c.stroke();
+      /* the eye's straight-line belief: the air ray extended back into the water */
+      c.setLineDash([9,8]); c.strokeStyle='rgba(60,60,80,.75)'; c.lineWidth=3; c.beginPath(); c.moveTo(EYE.x-16,EYE.y+4); c.lineTo(COIN.x,yApp); c.stroke(); c.setLineDash([]);
+      xCoin(c,COIN.x,yApp,30,9,true);
+      c.fillStyle='#F5B400'; c.beginPath(); c.arc(xs,ys,7,0,Math.PI*2); c.fill();
+    } else {
+      /* blocked: the ray that would head for the eye hits the wall */
+      c.strokeStyle='#F5B400'; c.lineWidth=6; c.lineCap='round'; c.beginPath(); c.moveTo(COIN.x,COIN.y-6); c.lineTo(xs,ys); const yy=ys-(ys-EYE.y)*((CUP.r-CUP.wall)-xs)/(EYE.x-xs); c.lineTo(CUP.r-CUP.wall,yy); c.stroke();
+      c.strokeStyle=css('--bad'); c.lineWidth=5; c.beginPath(); c.moveTo(CUP.r-2,yy-14); c.lineTo(CUP.r+22,yy+10); c.moveTo(CUP.r+22,yy-14); c.lineTo(CUP.r-2,yy+10); c.stroke();
+    }
+  } else {
+    const yy=COIN.y-6-(COIN.y-6-EYE.y)*((CUP.r-CUP.wall)-COIN.x)/(EYE.x-COIN.x);
+    c.strokeStyle='#F5B400'; c.lineWidth=6; c.lineCap='round'; c.beginPath(); c.moveTo(COIN.x,COIN.y-6); c.lineTo(CUP.r-CUP.wall,yy); c.stroke();
+    c.strokeStyle=css('--bad'); c.lineWidth=5; c.beginPath(); c.moveTo(CUP.r-2,yy-14); c.lineTo(CUP.r+22,yy+10); c.moveTo(CUP.r+22,yy-14); c.lineTo(CUP.r-2,yy+10); c.stroke();
+  }
+  c.lineCap='butt';
+  xEye(c,EYE.x,EYE.y,26);
+  /* labels */
+  xText(c,'העין',W-8,EYE.y+46,30,css('--ink'),'right');
+  xText(c, seen ? 'רואה!' : 'לא רואה', EYE.x-40, EYE.y, 30, seen?css('--ok'):css('--bad'), 'right');
+  xText(c,'המטבע',COIN.x+40,COIN.y+2,30,'#9A6E14','left');
+  if(L>0) xNum(c,Math.round(L*100)+'%',CUP.r-CUP.wall-10,Math.min(ys+40,CUP.bot-8),30,css('--ink'),'right');
+  cpOut.textContent=Math.round(L*100)+'%';
+  if(user && seen && !CP.revealed){ CP.revealed=1; WOW.emit('item', { id:'cup:seen', kind:'quick', correct:true, attempt: wowTry('cup') }); }
+  const predTxt = CP.pred<0 ? 'נחשו למעלה לפני שגוררים: איפה העין תראה את המטבע כשיהיו מים?' : CP.pred===0 ? 'ניחשתם: גבוה יותר. ' : CP.pred===1 ? 'ניחשתם: באותו מקום. ' : 'ניחשתם: נמוך יותר. ';
+  cpMsg.innerHTML = L===0 ? (CP.pred<0 ? predTxt : predTxt+'עכשיו גררו את המים למעלה.') + ' בלי מים, האור מהמטבע נוסע ישר — ונתקע בדופן. השפה מסתירה את המטבע.'
+    : !seen ? 'עדיין לא: גם עם קצת מים הקרן שיוצאת מהמים לא עוברת מעל השפה. הוסיפו מים.'
+    : (CP.pred===0 ? '<span class="pill-ok">ניחשתם נכון.</span> ' : CP.pred>=0 ? '<span class="pill-bad">לא בדיוק.</span> ' : '') + 'האור מהמטבע יוצא מהמים, <b>נשבר</b> בנקודה הצהובה ועובר מעל השפה אל העין. העין מאמינה שהאור בא בקו ישר (הקו המקווקו), ולכן "רואה" את המטבע גבוה יותר — במטבע החיוור. המטבע לא זז; האור זז.';
+}
+cpDraw(0);
+
+/* ---------- step 3 (interactive 3): the ghost sun (canvas) ---------- */
+const snCv=document.getElementById('snCv'), sctx=snCv.getContext('2d');
+const SN={ opened:0, air:1, hit:{} }, HOR=280, PPD=130, SUNR=0.267;   // horizon y, pixels per degree, the sun's radius in degrees
+function snAir(v){ SN.air=v; snA1.classList.toggle('on',v===1); snA0.classList.toggle('on',v===0); snDraw(1); }
+function snJump(h){ snAlt.value=h; snDraw(1); }
+function snDraw(user){
+  const c=sctx, W=snCv.width, H=snCv.height, h=+snAlt.value, air=SN.air===1;
+  if(user && !SN.opened){ SN.opened=1; WOW.emit('open', { id:'sun' }); }
+  const aTop = air ? apparentAlt(h+SUNR) : h+SUNR, aBot = air ? apparentAlt(h-SUNR) : h-SUNR, aC=(aTop+aBot)/2, lift=aC-h;
+  const Y = deg => HOR - deg*PPD;
+  /* sky: warmer as the sun gets lower */
+  const warm = clamp(1-(h+1.2)/3.2,0,1);
+  xSky(c,W,0,HOR, air?'#5C9BD6':'#0B1226', air?('rgb(255,'+Math.round(200-70*warm)+','+Math.round(140-60*warm)+')'):'#0B1226');
+  if(!air){ c.fillStyle='rgba(255,255,255,.7)'; const rnd=(()=>{ let s=3; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; })(); for(let i=0;i<40;i++){ c.beginPath(); c.arc(rnd()*W,rnd()*HOR,rnd()*1.5+0.5,0,Math.PI*2); c.fill(); } }
+  /* the apparent sun: an ellipse between the apparent limbs, clipped to the sky */
+  c.save(); c.beginPath(); c.rect(0,0,W,HOR); c.clip();
+  if(aTop>0){ const g=c.createRadialGradient(W/2,Y(aC),4,W/2,Y(aC),PPD*0.9); g.addColorStop(0,'rgba(255,200,80,.55)'); g.addColorStop(1,'rgba(255,200,80,0)'); c.fillStyle=g; c.beginPath(); c.arc(W/2,Y(aC),PPD*0.9,0,Math.PI*2); c.fill();
+    c.fillStyle='#FFB13B'; c.beginPath(); c.ellipse(W/2,Y(aC),SUNR*PPD,Math.max(1,(aTop-aBot)/2*PPD),0,0,Math.PI*2); c.fill(); }
+  c.restore();
+  /* the sea (grey regolith on the moon) */
+  if(air) xSea(c,W,HOR,H); else { c.fillStyle='#5A5A62'; c.fillRect(0,HOR,W,H-HOR); if(aTop<=0){ c.setLineDash([10,8]); c.strokeStyle='rgba(255,255,255,.55)'; c.lineWidth=3; c.beginPath(); c.arc(W/2,Y(h),SUNR*PPD,0,Math.PI*2); c.stroke(); c.setLineDash([]); } }
+  /* the horizon line */
+  c.strokeStyle= air ? 'rgba(255,255,255,.9)' : '#B8B8C0'; c.lineWidth=3; c.beginPath(); c.moveTo(0,HOR); c.lineTo(W,HOR); c.stroke();
+  /* the real sun: a dashed ghost, visible through the sea */
+  if(air){ c.setLineDash([10,8]); c.strokeStyle= h+SUNR>0 ? 'rgba(120,40,0,.85)' : 'rgba(255,255,255,.9)'; c.lineWidth=4; c.beginPath(); c.arc(W/2,Y(h),SUNR*PPD,0,Math.PI*2); c.stroke(); c.setLineDash([]);
+    /* the lift arrow */
+    if(lift>0.02 && aTop>0){ c.strokeStyle='#FFFFFF'; c.lineWidth=4; c.beginPath(); c.moveTo(W/2+SUNR*PPD+22,Y(h)); c.lineTo(W/2+SUNR*PPD+22,Y(aC)+8); c.stroke(); c.fillStyle='#FFFFFF'; xArrow(c,W/2+SUNR*PPD+22,Y(aC),0,-1,14); }
+  }
+  /* the cliff with a watcher, bottom left */
+  c.fillStyle='#6B4F3A'; c.beginPath(); c.moveTo(0,H); c.lineTo(0,310); c.lineTo(60,306); c.lineTo(110,328); c.lineTo(140,H); c.closePath(); c.fill();
+  c.fillStyle=css('--ink'); c.beginPath(); c.arc(56,272,9,0,Math.PI*2); c.fill(); c.fillRect(52,280,8,26);
+  /* the one-degree scale, right */
+  c.strokeStyle='rgba(255,255,255,.9)'; c.lineWidth=3; c.beginPath(); c.moveTo(W-30,HOR); c.lineTo(W-30,HOR-PPD); c.moveTo(W-38,HOR); c.lineTo(W-22,HOR); c.moveTo(W-38,HOR-PPD); c.lineTo(W-22,HOR-PPD); c.stroke();
+  xNum(c,'1°',W-30,HOR-PPD-22,30,'#fff','center');
+  /* labels */
+  xTag(c, air ? 'האופק — הים' : 'האופק — הירח','',W-16,HOR+26,30,'#fff','right',.25);
+  if(air){ xTag(c,'השמש האמיתית','',W/2-SUNR*PPD-14,Math.min(Y(h),H-32),30,css('--sun-deep'),'right',.9); if(aTop>0) xTag(c,'מה שרואים','',W/2+SUNR*PPD+40,Math.max(Y(aC)-34,30),30,css('--sun-deep'),'left',.9); if(lift>0.02 && aTop>0) xTag(c,'מרים','+'+fmtDeg(lift),W/2+SUNR*PPD+40,Math.max(Y(aC)+8,72),30,css('--sun-deep'),'left',.9); }
+  else xTag(c,'מה שרואים = מה שיש','',W/2,40,30,'#F2EDE0','center',.25);
+  snReal.textContent=fmtDeg(h); snApp.textContent= aTop>0 ? fmtDeg(aC) : 'נעלמה';
+  const state = !air ? 'moon' : h>=0.9 ? 'high' : h>=0.3 ? 'low' : h>=0 ? 'touch0' : aBot>0 ? 'below0' : aTop>=0.25 ? 'touch' : aTop>0 ? 'edge' : 'gone';
+  if(user && air && (state==='touch'||state==='gone') && !SN.hit[state]){ SN.hit[state]=1; WOW.emit('item', { id:'sun:'+state, kind:'quick', correct:true, attempt: wowTry('sun') }); }
+  snMsg.innerHTML = state==='moon' ? '<b>בלי אוויר, כמו על הירח:</b> מה שרואים הוא מה שיש. השמש עגולה, בלי הרמה ובלי השטחה, ונעלמת בדיוק כשהיא באמת מתחת לאופק. גררו אותה למטה ובדקו.'
+    : state==='high' ? 'כאן, כמעלה מעל האופק, האוויר כבר מרים את השמש ב־<span class="num">'+fmtDeg(lift)+'</span> (גבוה בשמיים ההרמה כמעט אפס). גררו למטה, ותראו את ההרמה גדלה ואת השמש משתטחת.'
+    : state==='low' ? 'ליד האופק האור עובר דרך הרבה יותר אוויר, וההרמה גדלה: <span class="num">'+fmtDeg(lift)+'</span>. שימו לב: השמש מתחילה להשתטח, כי התחתית שלה מורמת יותר מהחלק העליון.'
+    : state==='touch0' ? 'מרכז השמש האמיתית כמעט על הקו — והשמש שרואים עדיין תלויה מעליו, שלמה. ההרמה כבר <span class="num">'+fmtDeg(lift)+'</span>.'
+    : state==='below0' ? '<b>מרכז השמש האמיתית כבר מתחת לאופק.</b> ומה רואים? שמש שלמה, מרחפת מעל הים. כל האור הזה הגיע אלינו מעוקל.'
+    : state==='touch' ? '<b>הרגע:</b> השמש האמיתית כולה מתחת לאופק — והשמש שרואים רק נוגעת בים. מי שעומד על החוף אומר "עוד רגע היא שוקעת". היא כבר שקעה.'
+    : state==='edge' ? 'השמש האמיתית עמוק למטה, ורק הקצה העליון של שמש הרפאים עוד מציץ. עוד כמה שניות...'
+    : 'נעלמה. השמש האמיתית עכשיו <span class="num">'+fmtDeg(h)+'</span> — כ־<span class="num">'+Math.round(-h/0.21)+'</span> דקות אחרי שהמרכז שלה עבר את האופק. הקצה האחרון נעלם כ־<span class="num">4</span> דקות אחרי המרכז: ארבע דקות של שמש שלא הייתה שם.';
+}
+snDraw(0);
+
+/* ---------- step 4 (interactive 4): the week's sunrise/sunset calendar (canvas) ---------- */
+const dlCv=document.getElementById('dlCv'), dctx=dlCv.getContext('2d');
+const DL={ opened:0, air:1, pred:-1, hit:{} };
+/* Zikhron Yaakov, 20–30 September 2026: [rise, set] in minutes after midnight (IDT), with air (−50′) and geometric (the sun's centre, no air) */
+const DL_T=[[387.0,1119.9],[387.6,1118.5],[388.2,1117.2],[388.9,1115.8],[389.5,1114.5],[390.2,1113.2],[390.8,1111.8],[391.5,1110.5],[392.1,1109.2],[392.8,1107.8],[393.5,1106.5]];
+const DL_G=[[390.9,1115.9],[391.6,1114.6],[392.2,1113.2],[392.8,1111.9],[393.5,1110.6],[394.1,1109.2],[394.8,1107.9],[395.4,1106.5],[396.1,1105.2],[396.8,1103.9],[397.4,1102.5]];
+function dlAir(v){ DL.air=v; dlA1.classList.toggle('on',v===1); dlA0.classList.toggle('on',v===0); dlDraw(1); }
+function dlPredict(k){ DL.pred=k; [0,1,2,3].forEach(i=>document.getElementById('dlP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'week:predict', kind:'quick', correct:k===2, attempt: wowTry('week:predict') }); dlDraw(1); }
+function dlDraw(user){
+  const c=dctx, W=dlCv.width, H=dlCv.height, day=+dlDay.value, i=day-20, T = DL.air===1 ? DL_T : DL_G;
+  if(user && !DL.opened){ DL.opened=1; WOW.emit('open', { id:'week' }); }
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  const bx0=104, bx1=616, base=262, ppm=8;                                     // 8 px per minute around the 12-hour line
+  /* the 12-hour line */
+  c.strokeStyle=css('--ink'); c.lineWidth=3; c.setLineDash([8,6]); c.beginPath(); c.moveTo(bx0-10,base); c.lineTo(bx1+10,base); c.stroke(); c.setLineDash([]);
+  xNum(c,'12:00',bx0-14,base,30,css('--ink'),'right');
+  /* the bars */
+  const bw=(bx1-bx0)/11;
+  T.forEach((t,k)=>{ const len=t[1]-t[0], d=len-720, x=bx0+k*bw+6, w=bw-12, sel=k===i;
+    c.fillStyle = d>=0 ? (sel?'#E08A3C':'rgba(224,138,60,.55)') : (sel?'#2A6FA8':'rgba(42,111,168,.55)');
+    c.beginPath(); c.roundRect(x, d>=0 ? base-d*ppm : base, w, Math.max(4,Math.abs(d)*ppm), 5); c.fill();
+    if(sel){ c.strokeStyle=css('--ink'); c.lineWidth=3; c.stroke(); }
+    xNum(c,String(20+k),x+w/2,base+ (d>=0? 22 : Math.abs(d)*ppm+22),30,sel?css('--ink'):css('--muted'),'center');
+  });
+  /* the selected day's readout, top */
+  const t=T[i], len=t[1]-t[0];
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(40,14,W-80,112,12); c.fill(); c.strokeStyle=css('--line'); c.lineWidth=2; c.stroke();
+  xTagN(c,String(day),'בספטמבר',W/2,44,30,css('--ink'),'center');
+  xTag(c,'זריחה',hm(t[0]),W-60,88,30,css('--sun-deep'),'right'); xTag(c,'שקיעה',hm(t[1]),60,88,30,css('--sun-deep'),'left');
+  /* the day length and the surplus, top right */
+  const d=Math.round(len)-720;
+  xTag(c,'אורך היום',hm(len),W-24,170,30,css('--ink'),'right');
+  if(Math.abs(d)===1) xText(c,(d>0?'עוד ':'פחות ')+'דקה אחת',W-24,214,30,d>0?css('--sun-deep'):css('--nile'),'right'); else if(d!==0) xTagN(c,(d>0?'+':'−')+Math.abs(d),'דקות',W-24,214,36,d>0?css('--sun-deep'):css('--nile'),'right'); else xText(c,'12 שעות בדיוק',W-24,214,30,css('--ok'),'right');
+  dlOut.textContent=hm(len);
+  const near = DL.air===1 ? (day===26||day===27) : (day===22||day===23);
+  if(user && near && !DL.hit[DL.air]){ DL.hit[DL.air]=1; WOW.emit('item', { id:'week:equilux'+(DL.air?'':'0'), kind:'quick', correct:true, attempt: wowTry('week') }); }
+  const predTxt = DL.pred<0 ? 'נחשו למעלה לפני שגוררים: באיזה יום היום הוא <span class="num">12</span> שעות בדיוק? ' : '';
+  dlMsg.innerHTML = DL.air===1
+    ? (day===22 ? predTxt+'<b>היום, יום השוויון:</b> <span class="num">12:09</span>. תשע דקות יותר מ־<span class="num">12</span> שעות — בזכות האוויר, הקצה העליון, והדקה שנשארה מהגאומטריה.'
+      : (day===26||day===27) ? (DL.pred===2 ? '<span class="pill-ok">ניחשתם נכון.</span> ' : DL.pred>=0 ? '<span class="pill-bad">לא שם.</span> ' : '')+'<b>כאן.</b> ב־<span class="num">26</span> בספטמבר היום הוא <span class="num">12:01</span>, ב־<span class="num">27</span> — <span class="num">11:59</span>. היום של <span class="num">12:00</span> בדיוק נופל ביניהם: ארבעה־חמישה ימים <b>אחרי</b> יום השוויון. זה האקווילוקס של זכרון יעקב.'
+      : day<22 ? predTxt+'עוד לפני יום השוויון, וכבר רק <span class="num">'+hm(len)+'</span>. שימו לב: כל יום מתקצר בכשתי דקות.'
+      : day<26 ? predTxt+'אחרי יום השוויון, ועדיין יותר מ־<span class="num">12</span> שעות: <span class="num">'+hm(len)+'</span>. המתנה עוד לא נגמרה. המשיכו.'
+      : 'כבר פחות מ־<span class="num">12</span> שעות: <span class="num">'+hm(len)+'</span>. מכאן הלילה ארוך מהיום, עד מרץ.')
+    : (day===22||day===23 ? '<b>בלי אוויר, רק מרכז השמש:</b> <span class="num">'+hm(len)+'</span>. עכשיו היום של <span class="num">12</span> שעות נופל בדיוק על יום השוויון — <span class="num">22</span> ו־<span class="num">23</span> בספטמבר, משני צדי הלילה של <span class="num">03:05</span>. שמונה הדקות שנעלמו הן המתנה של האוויר והקצה העליון.'
+      : 'בלי אוויר ובלי הקצה העליון: <span class="num">'+hm(len)+'</span> — בדיוק <span class="num">8</span> דקות פחות מהלוח. כל הפסים ירדו ביחד, והקו של <span class="num">12:00</span> נחצה ביום השוויון.');
+}
+dlDraw(0);
+
+</script>
+
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  yrQ:{ q:'ביום השוויון, מעל איזה קו על כדור הארץ עומדת השמש בצהריים?', opts:['מעל קו המשווה','מעל הקוטב הצפוני','מעל ישראל','מעל חוג הסרטן'], a:0, fb:'ביום השוויון הציר לא רוכן לא אל השמש ולא ממנה, והשמש עומדת בצהריים בדיוק מעל קו המשווה — הקו שמחלק את כדור הארץ לחצי צפוני ולחצי דרומי. קו האור עובר אז דרך שני הקטבים, ולכן כל מקום בעולם מקבל (גאומטרית) <span class="num">12</span> שעות אור. ביוני השמש מעל חוג הסרטן, ובדצמבר מעל חוג הגדי.', btn:'next1' },
+  cpQ:{ q:'למה המטבע "מופיע" כשמוזגים מים לכוס?', opts:['המים עובדים כמו זכוכית מגדלת ומגדילים את המטבע עד שרואים אותו מעל השפה','האור מהמטבע מתכופף כשהוא יוצא מהמים, ועובר מעל השפה אל העין','המים מרימים את המטבע קצת מהתחתית, כמו שהם מרימים סירה','המטבע הרטוב מחזיר הרבה יותר אור, ולכן העין קולטת אותו מרחוק'], a:1, fb:'המטבע לא זז. האור שיוצא ממנו משנה כיוון בגבול שבין המים לאוויר — הוא מתכופף — ולכן קרן שבלי מים הייתה נתקעת בדופן עוברת עכשיו מעל השפה. העין מאמינה שהאור בא בקו ישר, ולכן "רואה" את המטבע גבוה ממקומו.' },
+  snQ:{ q:'התחתית של השמש נוגעת בים מול חוף הכרמל. איפה נמצאת השמש האמיתית ברגע הזה?', opts:['בדיוק איפה שרואים אותה — האור מגיע ישר מהשמש אל העין','קצת גבוה יותר ממה שרואים, כי הים מושך את התמונה למטה','כולה, או כמעט כולה, מתחת לאופק','אי אפשר לדעת — זה תלוי במזג האוויר באותו יום'], a:2, fb:'האוויר מרים את השמש על האופק בכ־<span class="num">34</span> דקות קשת, יותר מרוחב השמש כולה (<span class="num">32</span>). כשהתחתית הנראית נוגעת בים, המרכז האמיתי נמצא כ־<span class="num">16</span> דקות קשת מתחת לאופק, והקצה העליון האמיתי — בדיוק עליו. כל מה שרואים הוא אור שהתעקל בדרך.' },
+  dlQ:{ q:'למה היום של <span class="num">12</span> שעות בדיוק בזכרון מגיע כמה ימים אחרי יום השוויון, ולא בו?', opts:['כי השעונים בישראל מקדימים בשעה, ושעון הקיץ נגמר רק בסוף אוקטובר','כי האוויר והקצה העליון נותנים כ־<span class="num">8</span> דקות מתנה, שנגמרות רק אחרי כמה ימים','כי כדור הארץ מסתובב לאט יותר בסתיו, כשהוא מתרחק מהשמש','כי בסתיו השמש נראית גדולה יותר בשמיים, ולכן היא שוקעת לאט יותר'], a:1, fb:'ההרמה של האוויר (<span class="num">34</span> דקות קשת) והספירה מהקצה העליון (<span class="num">16</span>) נותנות כ־<span class="num">4</span> דקות בכל צד — כ־<span class="num">8</span> דקות ביום. היום מתקצר עכשיו בכ־<span class="num">2</span> דקות ביום, אז המתנה "נגמרת" אחרי כארבעה ימים: <span class="math">26–27</span> בספטמבר. שעון הקיץ לא משנה את אורך היום, רק את המספרים שעל השעון.' },
+  storyQ:{ q:'למה כמעט אף אחד לא האמין למלחים של ברנץ?', opts:['כי לפי החישוב השמש הייתה <span class="num">5</span> מעלות מתחת לאופק — פי עשרה מההרמה הרגילה','כי מלחים שחזרו ממסע ארוך היו ידועים כמי שממציאים סיפורים על מפלצות ים ופלאים','כי החכמים חשבו שבאזור הקוטב השמש לא זורחת בכלל, בשום עונה','כי לא היה להם שעון מדויק, ובלי שעון אי אפשר לדעת איזה יום בחודש'], a:0, fb:'החישוב של ברנץ היה נכון: השמש הייתה באמת יותר מ־<span class="num">5</span> מעלות מתחת לאופק, והאוויר "הרגיל" מרים רק כחצי מעלה. מה שאף אחד לא ידע אז: מעל קרח נוצר היפוך טמפרטורה, שכבת אוויר שעובדת כמו צינור לאור ומובילה אותו מסביב לעיקום של כדור הארץ מאות קילומטרים. קפלר ניחש נכון, וההוכחה הגיעה רק במאה ה־<span class="num">20</span>.' },
+};
+const MCQ = {
+  shared:[
+    { q:'התחתית של השמש נוגעת בים. איפה השמש האמיתית?', opts:['בדיוק שם — נוגעת בים','קצת גבוה יותר ממה שרואים','כולה, או כמעט כולה, מתחת לאופק','מאחורי הים, במקום אחר בשמיים'], a:2, fb:'האוויר מרים את השמש על האופק בכחצי מעלה — יותר מרוחב השמש כולה. אז מה שרואים "יושב" על הים, אבל השמש האמיתית כבר כולה מתחתיו. עוד כשלוש דקות של שמש רפאים, ואז גם היא נעלמת.' },
+    { q:'למה האוויר מכופף את האור שמגיע מהשמש?', opts:['כי הרוח מזיזה את האוויר, והאור נסחף איתו קצת הצידה ולמטה','כי האור עובר משכבות אוויר דלילות לסמיכות, ובכל מעבר משנה מעט כיוון','כי הכבידה של כדור הארץ מושכת את האור למטה, כמו שהיא מושכת כדור שזורקים','כי החום של השמש מאט את האור, והאור האיטי נופל למטה'], a:1, fb:'האוויר סמיך למטה ודליל למעלה. אור שנע מחומר דליל לחומר סמיך יותר משנה כיוון בגבול — כמו האור שיוצא מהמים בכוס — וכשהמעבר הדרגתי, הקרן מתעקלת לאט לכל האורך. ליד האופק המסלול באוויר ארוך במיוחד, ולכן שם הכיפוף גדול: כ־<span class="num">34</span> דקות קשת.' },
+    { q:'למה ביום השוויון היום בזכרון יעקב ארוך יותר מ־<span class="num">12</span> שעות?', opts:['כי בישראל יש שעון קיץ, שמזיז את השקיעה בשעה ומוסיף אור לערב','כי האוויר מרים את השמש, והשעון סופר את הקצה העליון — כ־<span class="num">4</span> דקות בכל צד','כי כדור הארץ קרוב יותר לשמש בספטמבר, ולכן היא נראית יותר זמן','כי יום השוויון האמיתי הוא ביוני, וספטמבר הוא רק היום הרשמי'], a:1, fb:'שתי מתנות: ההרמה של האוויר (<span class="num">34</span> דקות קשת) והספירה מהקצה העליון במקום מהמרכז (<span class="num">16</span>). יחד <span class="num">50</span> דקות קשת, ובקצב הירידה של השמש בזכרון — כ־<span class="num">4</span> דקות בזריחה ועוד כ־<span class="num">4</span> בשקיעה. שעון הקיץ מזיז את המספרים, לא את האור.' },
+  ],
+  younger:[
+    { q:'ביום השוויון, איפה בדיוק השמש זורחת?', opts:['בצפון, כי הציר של כדור הארץ מצביע לכוכב הצפון','בדיוק במזרח — בכל מקום בעולם','במערב, כי כדור הארץ מסתובב ממזרח למערב','זה תלוי במדינה: בישראל במזרח, באוסטרליה במערב'], a:1, fb:'ביום השוויון השמש עומדת מעל קו המשווה, ולכן היא זורחת בדיוק במזרח ושוקעת בדיוק במערב — בזכרון יעקב, בסידני ובקוטב. הערב היא נעלמת בים בדיוק במערב: סמנו את הכיוון ויש לכם מצפן.' },
+  ],
+  older:[
+    { q:'למה השמש נראית שטוחה, כמו עגבנייה, כשהיא נוגעת באופק?', opts:['כי היא באמת נמעכת: החום של השמש מרכך את הגזים שבה, והכבידה מושכת אותם','כי הקצה התחתון מורם על ידי האוויר יותר מהקצה העליון','כי הים משקף אותה, וההשתקפות מתחברת לשמש ונראית כמו שמש רחבה','כי בערב העיניים עייפות ורואות עיגולים כאילו הם שטוחים'], a:1, fb:'ההרמה גדלה ככל שמתקרבים לאופק: הקצה התחתון מורם בכ־<span class="num">34</span> דקות קשת, העליון רק בכ־<span class="num">29</span>. ההפרש, כ־<span class="num">5</span> דקות קשת, הוא כשישית מגובה השמש — ולכן היא נראית שטוחה. הרוחב לא משתנה, כי ההרמה היא רק למעלה.' },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'השמש גבוה בשמיים: האור עובר דרך מעט אוויר וכמעט לא מתכופף.'},
+  {id:'b', t:'השמש יורדת לקראת האופק: האור עובר דרך הרבה אוויר, מתכופף, והשמש מתחילה להיראות שטוחה.'},
+  {id:'c', t:'מרכז השמש האמיתית עובר את האופק — ואנחנו עדיין רואים שמש שלמה מעל הים.'},
+  {id:'d', t:'התחתית של השמש "נוגעת" בים: השמש האמיתית כבר כולה למטה.'},
+  {id:'e', t:'כ־<span class="num">4</span> דקות אחרי שמרכז השמש האמיתית עבר את האופק: הקצה האחרון של שמש הרפאים נעלם.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> גבוה — כמעט בלי כיפוף ← נמוך — הרבה אוויר, שמש שטוחה ← המרכז האמיתי עובר את האופק ← התחתית "נוגעת" בים והאמיתית כולה למטה ← כ־<span class="num">4</span> דקות אחרי השקיעה האמיתית הקצה האחרון נעלם. שימו לב להיגיון: הכיפוף גדל ככל שהשמש יורדת, ולכן הפער בין מה שרואים למה שיש הכי גדול בסוף.' : '<span class="pill-bad">לא בדיוק.</span> הטעות הנפוצה: לשים את "נוגעת בים" לפני "המרכז האמיתי עובר את האופק" — אבל כשהתחתית הנראית נוגעת בים, השמש האמיתית כבר <b>כולה</b> למטה, אז המרכז עבר קודם. הסדר: גבוה ← יורדת ומשתטחת ← המרכז האמיתי מתחת לאופק ← התחתית נוגעת בים ← נעלמת כ־<span class="num">4</span> דקות אחרי השקיעה האמיתית.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const mn=+chalMin.value, dl=+chalDelay.value, hl=+chalHel.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const mnOk = chalMin.value!=='' && mn===9, dlOk = dl>=2.6 && dl<=2.8, hlOk = hl>=4.5 && hl<=4.7;
+  const allOk = mnOk && dlOk && hlOk; S.challenge = S.challenge || allOk;
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) מ־<span class="num">06:28</span> עד <span class="num">18:37</span>: <span class="math">12:37 − 0:28 = 12:09</span>, כלומר <span class="num">9</span> דקות מעבר ל־<span class="num">12</span> שעות. (ב) <span class="math">0.57 ÷ 0.21 ≈ 2.7</span> דקות — כל כך הרבה זמן השמש שכבר שקעה עוד "יושבת" על הים בזכרון. (ג) בהלסינקי השמש יורדת באלכסון חד יותר, ולכן לאט יותר: <span class="math">0.57 ÷ 0.125 ≈ 4.6</span> דקות. ככל שצפונה יותר, שמש הרפאים נשארת יותר זמן — ובקוטב עצמו ההרמה של האוויר שווה ימים שלמים של שמש. (ובכל זאת האקווילוקס בהלסינקי מגיע מוקדם יותר משלנו — כי שם היום מתקצר כ־<span class="num">5</span> דקות ביום.)'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : (mnOk && dlOk) ? (chalHel.value!=='' ? ((hl>=2.6 && hl<=2.8) ? '<span class="pill-bad">(א) ו־(ב) נכונים, ב־(ג) השתמשתם בקצב של זכרון.</span> בהלסינקי השמש יורדת <span class="math">0.125</span> מעלות בדקה: <span class="math">0.57 ÷ 0.125 = ?</span>' : (hl>=0.07 && hl<=0.08) ? '<span class="pill-bad">(א) ו־(ב) נכונים, ב־(ג) כפלתם במקום לחלק.</span> כמה דקות של <span class="math">0.125</span> נכנסות ב־<span class="math">0.57</span>? <span class="math">0.57 ÷ 0.125 = ?</span>' : '<span class="pill-bad">(א) ו־(ב) נכונים, (ג) עוד לא.</span> <span class="math">0.57 ÷ 0.125 = ?</span>') : '<span class="pill-ok">(א) ו־(ב) נכונים.</span> עכשיו (ג): אותו חישוב, עם הקצב של הלסינקי — <span class="math">0.57 ÷ 0.125 = ?</span>')
+    : (mnOk && hlOk) ? ((dl>=0.11 && dl<=0.13) ? '<span class="pill-bad">(א) ו־(ג) נכונים, ב־(ב) כפלתם.</span> השאלה כמה דקות של <span class="math">0.21</span> מעלות נכנסות ב־<span class="math">0.57</span> — מחלקים: <span class="math">0.57 ÷ 0.21 = ?</span>' : '<span class="pill-bad">(א) ו־(ג) נכונים, (ב) עוד לא.</span> <span class="math">0.57 ÷ 0.21 = ?</span>')
+    : mnOk ? '<span class="pill-ok">(א) נכון — <span class="num">9</span> דקות.</span> עכשיו (ב): <span class="math">0.57 ÷ 0.21 = ?</span>, ו־(ג): <span class="math">0.57 ÷ 0.125 = ?</span>'
+    : (mn===729) ? '<span class="pill-bad">ב־(א) חישבתם את אורך היום כולו בדקות.</span> השאלה כמה דקות <b>מעבר</b> ל־<span class="num">12</span> שעות (<span class="num">720</span> דקות): <span class="math">729 − 720 = ?</span>'
+    : (mn===69 || mn===11) ? '<span class="pill-bad">ב־(א) התבלבלו הדקות.</span> מ־<span class="num">06:28</span> עד <span class="num">18:28</span> זה <span class="num">12</span> שעות בדיוק. כמה דקות נשארות עד <span class="num">18:37</span>?'
+    : (mn===12) ? '<span class="pill-bad">ב־(א) זה מספר השעות.</span> השאלה כמה דקות <b>מעבר</b> ל־<span class="num">12</span> השעות: מ־<span class="num">18:28</span> עד <span class="num">18:37</span>.'
+    : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): מ־<span class="num">06:28</span> עד <span class="num">18:28</span> זה בדיוק <span class="num">12</span> שעות. כמה דקות נשארו עד <span class="num">18:37</span>?';
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const c=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    const aOk=(c>=2.6 && c<=2.8), bOk=(r>=7.8 && r<=8.2), sc = aOk&&bOk?2:(aOk?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">0.57 ÷ 0.21 ≈ 2.7</span> דקות — כל כך הרבה זמן השמש שכבר שקעה עוד נראית מעל הים. (ב) <span class="math">0.84 ÷ 0.21 = 4</span> דקות בכל צד, <span class="math">2 × 4 = 8</span> דקות ליום. זה בדיוק ההפרש בין הלוח (<span class="num">12:09</span>) לגאומטריה (<span class="num">12:01</span>).'
+      : aOk ? ((r>=3.9 && r<=4.1) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חישבתם צד אחד — <span class="num">4</span> דקות בשקיעה. אבל יש גם זריחה: <span class="math">2 × 4 = ?</span>' : (r>=1.2 && r<=1.4) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חישבתם רק את הקצה העליון (<span class="math">0.27 ÷ 0.21</span>). השאלה על כל ההרמה, <span class="math">0.84</span> מעלות, ובשני הצדדים: <span class="math">0.84 ÷ 0.21 × 2 = ?</span>' : (r>=8.9 && r<=9.1) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) כתבתם <span class="num">9</span> — זה מה שהלוח מראה היום, כולל הדקה שנשארה מהגאומטריה. השאלה רק על המתנה של ההרמה: <span class="math">0.84 ÷ 0.21 × 2 = ?</span>' : (r>=5.3 && r<=5.5) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חיברתם <span class="math">2.7 + 2.7</span> — זה רק האוויר. עם הקצה העליון ההרמה היא <span class="math">0.84</span>: <span class="math">0.84 ÷ 0.21 × 2 = ?</span>' : '<span class="pill-ok">(א) נכון — <span class="math">2.7</span>.</span> עכשיו (ב): <span class="math">0.84 ÷ 0.21 = ?</span> דקות בכל צד, ואז כפול <span class="num">2</span>.')
+      : (c>=0.11 && c<=0.13) ? '<span class="pill-bad">ב־(א) כפלתם.</span> כמה דקות של <span class="math">0.21</span> מעלות נכנסות ב־<span class="math">0.57</span>? מחלקים: <span class="math">0.57 ÷ 0.21 = ?</span>'
+      : (c>=0.35 && c<=0.37) ? '<span class="pill-bad">ב־(א) חילקתם הפוך.</span> השאלה כמה פעמים <span class="math">0.21</span> נכנס ב־<span class="math">0.57</span>: <span class="math">0.57 ÷ 0.21 = ?</span>'
+      : (c>=27 && c<=28) ? '<span class="pill-bad">ב־(א) התבלבלו הנקודות העשרוניות.</span> <span class="math">0.57 ÷ 0.21</span> הוא קצת פחות מ־<span class="num">3</span>.'
+      : (c>=2.4 && c<=3) ? '<span class="pill-bad">קרוב — בדקו שוב את החילוק, עם ספרה אחת אחרי הנקודה:</span> <span class="math">0.57 ÷ 0.21 = ?</span>'
+      : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): כמה דקות של <span class="math">0.21</span> מעלות צריך כדי לרדת <span class="math">0.57</span> מעלות? <span class="math">0.57 ÷ 0.21</span>.';
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const ok=v===15; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= ok?'<span class="pill-ok">נכון!</span> <span class="math">360 ÷ 24 = 15</span> מעלות בשעה — ומעלה אחת בכל <span class="num">4</span> דקות. לכן, כשהאוויר מרים את השמש בכמעט מעלה, השקיעה מתאחרת בכמה דקות.':(v===336)?'<span class="pill-bad">חיסרתם.</span> השאלה כמה מעלות בכל שעה — <span class="num">360</span> מעלות מתחלקות ל־<span class="num">24</span> שעות: <span class="math">360 ÷ 24 = ?</span>':(v===384)?'<span class="pill-bad">חיברתם.</span> צריך לחלק: <span class="math">360 ÷ 24 = ?</span>':(v===8640)?'<span class="pill-bad">כפלתם.</span> <span class="num">360</span> מעלות מתחלקות שווה בשווה בין <span class="num">24</span> שעות: <span class="math">360 ÷ 24 = ?</span>':(v===150||v===1.5)?'<span class="pill-bad">כמעט — האפסים.</span> <span class="math">360 ÷ 24</span>: כמו <span class="math">36 ÷ 2.4</span>, או <span class="math">24 × ? = 360</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: <span class="num">360</span> מעלות ב־<span class="num">24</span> שעות. <span class="math">360 ÷ 24 = ?</span> (חשבו: <span class="math">24 × 10 = 240</span>, ועוד...)'; }
+  else { const ok=v>=2.9 && v<=3.1; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">0.6 ÷ 0.2 = 3</span> דקות. שלוש דקות שבהן כל מי שעל החוף רואה שמש — והיא כבר מתחת לאופק. (עם הקצה העליון של השמש זה מגיע לכ־<span class="num">4</span> דקות.)':(v>=0.11 && v<=0.13)?'<span class="pill-bad">כפלתם.</span> השאלה כמה דקות של <span class="math">0.2</span> מעלות נכנסות ב־<span class="math">0.6</span> — מחלקים: <span class="math">0.6 ÷ 0.2 = ?</span>':(v>=0.39 && v<=0.41)?'<span class="pill-bad">חיסרתם.</span> צריך לחלק: כמה פעמים <span class="math">0.2</span> נכנס ב־<span class="math">0.6</span>?':(v>=0.79 && v<=0.81)?'<span class="pill-bad">חיברתם.</span> כמה פעמים <span class="math">0.2</span> נכנס ב־<span class="math">0.6</span>? <span class="math">0.6 ÷ 0.2 = ?</span>':(v===30||v===0.3)?'<span class="pill-bad">כמעט — הנקודה העשרונית.</span> <span class="math">0.6 ÷ 0.2</span>: כמו <span class="math">6 ÷ 2</span>. כמה זה?':'<span class="pill-bad">לא בדיוק.</span> רמז: בכל דקה השמש יורדת <span class="math">0.2</span> מעלות. כמה דקות עד שהיא יורדת <span class="math">0.6</span>? <span class="math">0.6 ÷ 0.2</span>.'; }
+  fb.classList.add('show'); }
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שהאוויר סמיך למטה ודליל למעלה, ושאור שעובר דרכו מתכופף — כמו אור שעובר בין אוויר למים (המטבע בכוס).',
+  'הסברתי שליד האופק האור עובר דרך הרבה אוויר ומתכופף הכי הרבה — כחצי מעלה, בערך רוחב של שמש — ולכן רואים את השמש גבוה יותר ממקומה, גם כשהיא כבר כולה מתחת לאופק.',
+  'ציינתי שהקצה התחתון מורם יותר מהקצה העליון, ולכן השמש נראית שטוחה בשקיעה.',
+  'הסברתי שביום השוויון השמש בדיוק מעל קו המשווה, וכל מקום מקבל <span class="num">12</span> שעות — אם סופרים את מרכז השמש ובלי אוויר.',
+  'ציינתי שההרמה של האוויר והספירה מהקצה העליון נותנות כ־<span class="num">4</span> דקות בכל צד (כ־<span class="num">8</span> דקות ביום), ולכן היום של <span class="num">12</span> שעות בדיוק מגיע כמה ימים אחרי יום השוויון.',
+];
+const MODEL='האוויר שמעלינו סמיך ליד הקרקע ודליל למעלה. אור שעובר מחומר דליל לחומר סמיך משנה כיוון — כמו האור מהמטבע בכוס, שנשבר כשהוא יוצא מהמים ומראה לעין מטבע גבוה ממקומו — וכשהמעבר הדרגתי, הקרן מתעקלת לאט, כלפי מטה. כשהשמש גבוה בשמיים האור עובר דרך מעט אוויר וכמעט לא מתכופף, אבל ליד האופק הוא עובר לאורך שכבות האוויר, דרך פי עשרות יותר אוויר, ומתכופף בכ־<span class="num">34</span> דקות קשת — יותר מרוחב השמש כולה (<span class="num">32</span>). העין מאמינה שהאור בא בקו ישר, ולכן רואה את השמש גבוה ממקומה: כשהתחתית שלה נוגעת בים, השמש האמיתית כבר כולה מתחת לאופק, ואנחנו רואים שמש רפאים עוד כשלוש דקות. ומכיוון שהקצה התחתון מורם יותר מהעליון, היא נראית שטוחה. ביום השוויון השמש עומדת בדיוק מעל קו המשווה, קו האור עובר דרך שני הקטבים, וכל מקום מקבל <span class="num">12</span> שעות אור — אם סופרים את מרכז השמש ובלי אוויר. אבל הלוח סופר את הקצה העליון של השמש הנראית: ההרמה (<span class="num">34</span> דקות קשת) ועוד חצי קוטר (<span class="num">16</span>) הן <span class="num">50</span> דקות קשת, ובקצב הירידה של השמש בזכרון, כ־<span class="math">0.21</span> מעלות בדקה, זה כ־<span class="num">4</span> דקות בזריחה ועוד כ־<span class="num">4</span> בשקיעה. לכן היום בזכרון הוא <span class="num">12:09</span>, וכיוון שהיום מתקצר עכשיו בכשתי דקות ביום, היום של <span class="num">12</span> שעות בדיוק מגיע רק ב־<span class="math">26–27</span> בספטמבר.';
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (האוויר דליל למעלה וסמיך למטה; אור שעובר מחומר דליל לסמיך נשבר לכיוון הסמיך כי מהירות האור בחומר סמיך קטנה יותר — חוק סנל, המטבע בכוס; באוויר המעבר הדרגתי ולכן הקרן מתעקלת; ליד האופק המסלול באוויר ארוך פי כמה עשרות וההרמה מגיעה ל־34 דקות קשת ≈ 0.57°, ב־45° רק דקת קשת אחת, בזנית אפס; קוטר השמש 32 דקות קשת, ולכן כשהתחתית הנראית נוגעת באופק המרכז האמיתי כ־16 דקות קשת מתחתיו והשמש האמיתית כולה למטה; השטחה — התחתית מורמת כ־34 דקות והעליון כ־29, כשישית מהקוטר; זמן: 360° ב־24 שעות = 15° לשעה = 0.25° לדקה, ובזכרון (קו רוחב 32.6°) השמש יורדת באלכסון — 0.25 × cos(32.6°) ≈ 0.21° לדקה — לכן 0.57° ≈ 2.7 דקות, ועם חצי הקוטר (16 דקות קשת) סה"כ 50 דקות קשת ≈ 0.83° ≈ 4 דקות בכל צד, כ־8 דקות ליום; יום השוויון — השמש מעל קו המשווה (23 בספטמבר 00:05 UTC = 03:05 שעון ישראל), קו האור עובר דרך הקטבים, 12 שעות גאומטריות בכל קו רוחב; היום מתקצר כ־2 דקות ביום ולכן האקווילוקס מגיע כ־4–5 ימים אחרי, 26–27 בספטמבר; בהלסינקי המתנה גדולה יותר אבל היום מתקצר מהר יותר ולכן האקווילוקס מוקדם יותר; נובאיה זמליה 1597 — היפוך טמפרטורה, לכידת קרניים לאורך מאות קילומטרים, שמש 5°26′ מתחת לאופק) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "השמש שאתם רואים כבר שקעה" — יום השוויון והכיפוף של האור באוויר. הרעיונות המרכזיים: (1) יום השוויון: הציר של כדור הארץ נטוי 23.4°; פעמיים בשנה השמש בדיוק מעל קו המשווה — השנה ב־23 בספטמבר 00:05 UTC, כלומר 03:05 שעון ישראל (הלילה אחרי 22 בספטמבר); קו האור עובר דרך שני הקטבים; בכל מקום 12 שעות אור גאומטריות; השמש זורחת במזרח ושוקעת במערב בדיוק; ביוני השמש מעל חוג הסרטן (23.4°N), בדצמבר מעל חוג הגדי; בזכרון (32.6°N) השמש בצהריים בגובה 57.4°; (2) שבירת אור: תלמי (אלכסנדריה, המאה ה־2) מדד ראשון שבירה אוויר–מים; האור איטי במים בכ־25%; הקרן פונה אל הצד האיטי; חוק סנל 1621; המטבע בכוס — האור נשבר בפני המים, עובר מעל השפה, והעין "רואה" את המטבע גבוה (כשלושה רבעים מהעומק); (3) האוויר: סמיך למטה, דליל למעלה (חצי ב־5 ק"מ); האור מתעקל בהדרגה כלפי מטה; הרמה: אפס בזנית, כדקת קשת ב־45°, כ־34 דקות קשת (0.57°) על האופק; מעלה = 60 דקות קשת; קוטר השמש 32 דקות קשת; כשהתחתית הנראית נוגעת באופק המרכז האמיתי כ־16 דקות קשת מתחתיו — השמש האמיתית כולה למטה; השטחה: התחתית מורמת כ־34, העליון כ־29 — כשישית; כוכבים מנצנצים בגלל אוויר שזז; על הירח אין הרמה ולא נצנוץ; (4) הזמן: 360° ב־24 שעות = 15° לשעה = 0.25° לדקה; בזכרון השמש יורדת באלכסון: כ־0.21° לדקה; 0.57 ÷ 0.21 ≈ 2.7 דקות; הלוחות סופרים את הקצה העליון (+16 דקות קשת) — סה"כ 50 דקות קשת ≈ 0.83° ≈ 4 דקות בכל צד ≈ 8 דקות ליום; היום בזכרון 06:28–18:37 = 12:09 (הדקה התשיעית — השמש עוד 0.25° צפונית לקו המשווה); היום מתקצר כ־2 דקות ביום; אקווילוקס (12 שעות בדיוק) ב־26–27 בספטמבר; בהלסינקי (60°) 0.125° לדקה — 4.6 דקות, אך האקווילוקס שם מוקדם יותר (כ־25.9) כי היום מתקצר כ־5 דקות ביום; בלי אוויר — 12:01 ב־22.9, 11:59 ב־23.9; (5) נובאיה זמליה: משלחת וילם ברנץ 1596–1597, קו רוחב 76°15′N, 16 אנשים בבקתה; השמש נעלמה 3 בנובמבר, צפויה 8 בפברואר; חרייט דה־פר ושני חברים ראו אותה 24 בינואר 1597 — 15 ימים מוקדם, כשמרכזה 5°26′ מתחת לאופק (פי עשרה מהרגיל); ברנץ לא האמין, כולם ראו 27 בינואר; החכמים דחו, קפלר האמין; אישור במאה ה־20, שחזור מסלול הקרניים 2003; מנגנון — היפוך טמפרטורה מעל הקרח (אוויר קר וסמיך למטה, חם מעליו), הקרניים נלכדות ב"צינור" ועוקבות אחרי העיקום מאות קילומטרים; השמש נראית כפס שטוח או מלבן; (6) הקשר: טיכו ברהה — טבלת הרמה ראשונה 1596; ההבזק הירוק (הכחול מתפזר בדרך); תעתוע "מים על הכביש" (אוויר חם ודליל למטה — כיפוף כלפי מעלה); GPS מתקן את עיכוב האוויר; לוחות זמני השבת — שקיעה נראית; (7) חישובים: 360 ÷ 24 = 15; 0.6 ÷ 0.2 = 3; 0.57 ÷ 0.21 ≈ 2.7; 0.84 ÷ 0.21 = 4, × 2 = 8; 18:37 − 06:28 = 12:09 → 9 דקות; 0.57 ÷ 0.125 ≈ 4.6; 90 − 32.6 = 57.4; 50 ÷ 60 ≈ 0.83.\n\nההסבר של הילד/ה:\n\"\"\"'+txt+'\"\"\"\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם את הרעיון של הכיפוף (האוויר סמיך למטה ודליל למעלה / האור מתכופף כמו במעבר למים / ליד האופק ההרמה כחצי מעלה ולכן רואים שמש שכבר מתחת לאופק) וגם את הרעיון של המתנה (ההרמה והספירה מהקצה העליון נותנות כמה דקות בכל צד / ולכן היום של 12 שעות בדיוק מגיע כמה ימים אחרי יום השוויון), 1 אם יש רק חלק מזה. תשובה שאומרת ש"השמש מסתובבת סביב כדור הארץ" או ש"רואים את השמש בגלל ההשתקפות בים" או ש"היום ארוך יותר בגלל שעון הקיץ" מפספסת את המנגנון ולא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=85?name+', יש לך עין של '+G('אסטרונום','אסטרונומית')+' ומוח של '+G('פיזיקאי','פיזיקאית')+'!':pct>=60?name+', יש לך מוח של '+G('מדען','מדענית')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=9;                                                      // 12 h 09 min: nine minutes beyond twelve hours
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. היום בזכרון: זריחה <span class="num">06:28</span>, שקיעה <span class="num">18:37</span> — <span class="num">12</span> שעות ו־<span class="num">9</span> דקות. תשע דקות מתנה מהאוויר ומהקצה העליון של השמש, ביום שנקרא "שוויון".'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. זריחה <span class="num">06:28</span>, שקיעה <span class="num">18:37</span>: <span class="num">12</span> שעות ו־<span class="num">9</span> דקות. האוויר מרים, השעון סופר את הקצה העליון, והדקה התשיעית — כי השוויון רק הלילה.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. המציאות: <span class="num">12</span> שעות ו־<span class="num">9</span> דקות — כ־<span class="num">4</span> דקות מתנה בכל צד מהאוויר ומהקצה העליון של השמש, ועוד דקה כי יום השוויון הוא רק הלילה.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (בכמה דקות היום ארוך מ־12 שעות): '+(S.guess?fmtSigns(S.guess):'—')+' (המציאות: כ־9 דקות)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "השמש שאתם רואים כבר שקעה", מהדורה 15, י"א בתשרי תשפ"ז (22 בספטמבר 2026). נושא: יום השוויון והכיפוף של האור באוויר (הרמה אטמוספרית) — אסטרונומיה (יום השוויון, נטיית הציר, קווי רוחב), פיזיקה (שבירת אור, שכבות אוויר, זוויות ודקות קשת), גאוגרפיה (זכרון יעקב וחוף הכרמל, הלסינקי, נובאיה זמליה, הירח). יום השוויון: ציר כדור הארץ נטוי 23.4° ומצביע תמיד אל כוכב הצפון; העונות נובעות מהנטייה ולא מהמרחק (בינואר כדור הארץ הכי קרוב לשמש); ביוני השמש מעל חוג הסרטן (23.4°N), בדצמבר מעל חוג הגדי (23.4°S); פעמיים בשנה השמש בדיוק מעל קו המשווה — השנה ב־23 בספטמבר 2026 בשעה 00:05 UTC = 03:05 שעון ישראל, כלומר הלילה שאחרי 22 בספטמבר; קו הגבול בין יום ללילה עובר אז דרך שני הקטבים וכל קו רוחב נחתך לשניים — 12 שעות אור גאומטריות בכל מקום; השמש זורחת בדיוק במזרח ושוקעת בדיוק במערב בכל מקום בעולם (מצפן בלי סוללה); בזכרון יעקב (32.57°N, 34.95°E) השמש בצהריים בגובה 90 − 32.6 = 57.4°; ביום השוויון של האביב (20 במרץ) אותו דבר. שבירת אור: תלמי (אלכסנדריה, המאה ה־2, "אופטיקה") מדד ראשון את השבירה בין אוויר למים וזכוכית ושם לב שכוכבים ליד האופק נראים גבוה יותר; אבן אל־הית\'ם (~1000); חוק סנל 1621; טיכו ברהה פרסם ב־1596 את טבלת ההרמה הראשונה; האור נע במים לאט בכ־25% (מקדם שבירה 1.33) והקרן פונה אל הצד האיטי (חיילים מכביש לחול); העין מאמינה שהאור בא בקו ישר; המטבע בכוס: בלי מים השפה מסתירה, עם מים האור נשבר בפני המים, עובר מעל השפה, והמטבע "מופיע" גבוה יותר (עומק נראה כשלושה רבעים מהאמיתי); קש "שבור" בכוס. האוויר: סמיך למטה, דליל למעלה — חצי ממנו מתחת ל־5 ק"מ, כמעט כלום ב־100 ק"מ; מעבר הדרגתי → הקרן מתעקלת בקשת כלפי מטה; הרמה (רפרקציה אטמוספרית): אפס בזנית, פחות מדקת קשת ב־45°, כ־5–6 דקות קשת ב־10°, כ־34–35 דקות קשת (0.57°) על האופק; מעלה = 60 דקות קשת; קוטר השמש והירח כ־32 דקות קשת (חצי מעלה); הזרת ביד מושטה ≈ מעלה; כשהתחתית הנראית נוגעת באופק המרכז הנראה בגובה 16 דקות קשת והמרכז האמיתי כ־16 דקות קשת מתחת לאופק — הקצה העליון האמיתי על הקו, השמש האמיתית כולה למטה; השטחה: התחתית מורמת כ־34 דקות, העליון כ־29 — הפרש כ־5 דקות קשת, כשישית מהקוטר; אותו דבר בזריחה; כוכבים מורמים ומנצנצים (אוויר זז); על הירח (בלי אוויר) אין הרמה, אין השטחה, אין נצנוץ, והשקיעה עצמה אורכת כשעה כי יום ירחי הוא 29.5 ימים; באינטראקטיב ההרמה מחושבת מנוסחה, מכוילת ל־34.5 דקות קשת על האופק. הזמן: 360° ב־24 שעות = 15° לשעה = 0.25° לדקה = מעלה ב־4 דקות; בזכרון השמש יורדת באלכסון (זווית 57.4° מהאופק) — 0.25 × cos(32.6°) = 0.25 × 0.84 ≈ 0.21° לדקה; 0.57 ÷ 0.21 ≈ 2.7 דקות של שמש רפאים; הלוחות (טלפון, עיתון, זמני השבת) סופרים את הקצה העליון של השמש הנראית: +16 דקות קשת, סה"כ 50 דקות קשת ≈ 0.83°; 0.83 ÷ 0.21 ≈ 4 דקות בכל צד ≈ 8 דקות ליום; היום בזכרון: זריחה 06:28, שקיעה 18:37, 12:09 — הדקה התשיעית כי השמש עדיין 0.25° צפונית לקו המשווה; בלי אוויר ורק המרכז: 12:01 ב־22.9, 11:59 ב־23.9; לוח השבוע (עם אוויר): 20.9 12:13, 21.9 12:11, 22.9 12:09, 23.9 12:07, 24.9 12:05, 25.9 12:03, 26.9 12:01, 27.9 11:59, 28.9 11:57, 29.9 11:55, 30.9 11:53; היום מתקצר כ־2 דקות ביום; אקווילוקס ("אור שווה") — היום של 12 שעות בדיוק — ב־26–27 בספטמבר, 4–5 ימים אחרי השוויון; בהלסינקי (60°N) 0.125° לדקה → 4.6 דקות, אבל היום מתקצר שם כ־5 דקות ביום ולכן האקווילוקס מגיע מוקדם יותר, כ־25 בספטמבר (ימים עד האקווילוקס ≈ 1/sin(קו הרוחב): קצרים בקוטב, ארוכים ליד קו המשווה; בקו המשווה עצמו היום תמיד כ־12:07 ואין אקווילוקס); בקו המשווה 0.25° לדקה → כ־3.3 דקות; שעון הקיץ לא משנה את אורך היום. נובאיה זמליה: משלחת וילם ברנץ השלישית, 1596–1597, חיפוש המעבר הצפון־מזרחי לסין; הספינה נלכדה בקרח ליד נובאיה זמליה (76°15′N); 16 אנשים בנו בקתה מעצי הספינה ("הבית השמור") ושרדו חורף קוטבי; השמש נעלמה 3 בנובמבר 1596 וצפויה 8 בפברואר 1597; ב־24 בינואר 1597 ראו חרייט דה־פר (מנהל היומן) ושני חברים את קצה השמש — 15 ימים מוקדם — כשמרכזה 5°26′ מתחת לאופק, פי עשרה מההרמה הרגילה; ברנץ לא האמין וחשד בטעות בלוח; ב־27 בינואר ראו כולם "בעיגולה המלא"; החכמים באירופה דחו, קפלר האמין וניסה להסביר; אישור מדעי במאה ה־20 (תצפיות ומדידות בקוטב), שחזור מסלול הקרניים 2003 (van der Werf, Können, Lehn ואחרים); המנגנון: היפוך טמפרטורה מעל הקרח — אוויר קר וסמיך למטה, חם מעליו — שכבה שעובדת כ"צינור" ולוכדת את הקרניים, שעוקבות אחרי העיקום של כדור הארץ מאות קילומטרים; השמש נראית כפס שטוח או מלבן; "אפקט נובאיה זמליה"; ברנץ מת בדרך הביתה ביוני 1597, רוב הצוות שרד. הקשר: מעל הים התיכון בערבי קיץ — אוויר חם מעל מים קרירים, השמש "נמרחת" (אומגה/כד, תעתוע תחתון); "מים על הכביש" בערבה — אוויר חם ודליל למטה, האור מתכופף כלפי מעלה ורואים שמיים; GPS — האוויר מעכב ומכופף את האות, המקלט מתקן (אחרת שגיאה של מטרים); טלסקופים ואסטרונומים מחסירים את ההרמה מאז ברהה; ההבזק הירוק — האוויר מכופף ירוק וכחול יותר מאדום, ברגע האחרון הקצה העליון ירוק לשנייה; ירוק ולא כחול כי הכחול מתפזר בדרך (השמיים כחולים, השמש הנמוכה אדומה); על מאדים אוויר דליל פי מאה — הרמה קטנה בהרבה. חישובים: 360 ÷ 24 = 15; 0.6 ÷ 0.2 = 3; 0.57 ÷ 0.21 ≈ 2.7; 0.84 ÷ 0.21 = 4; 2 × 4 = 8; 18:37 − 06:28 = 12:09 → 9 דקות; 729 − 720 = 9; 0.57 ÷ 0.125 ≈ 4.6; 90 − 32.6 = 57.4; 50 ÷ 60 ≈ 0.83; 34 − 29 = 5; 5.4 ÷ 0.57 ≈ 10. ניסוי בית: המטבע בכוס (להתרחק עד שהשפה מסתירה, למזוג); לוח השבוע באפליקציית מזג האוויר; השקיעה מול הים הערב ב־18:37 — לבדוק השטחה, למדוד כ־3 דקות מהנגיעה עד ההיעלמות, הכיוון בדיוק מערב; להציץ רק לרגע, לא דרך משקפת. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט ("חצי מעלה" = 34 דקות קשת; "פי עשרה" מעוגל; המסלול היומי בציור הוא חתך צד; 0.6 ו־0.2 מעוגלים; לוחות שונים נבדלים בדקה), בלי לחשוף תשובות מבחן; אם ילד שואל על תשובה למבחן, לרמוז ולכוון, לא לפתור.';
+const CHIPS = ['איך אפשר לראות שמש שכבר שקעה?', 'למה השמש נראית שטוחה בשקיעה?', 'מה זה יום השוויון?', 'למה על הירח זה לא קורה?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים: הרמה של 34 דקות קשת = 0.57° על האופק, דקת קשת ב־45°, אפס בזנית; קוטר השמש 32 דקות קשת ולכן כשהתחתית נוגעת באופק המרכז האמיתי 16 דקות קשת מתחתיו; השטחה 34 מול 29 — כשישית; חוק סנל והצד האיטי, מקדם שבירה 1.33, עומק נראה שלושה רבעים; 15° לשעה, 0.25° לדקה, ובזכרון 0.25 × cos(32.6°) ≈ 0.21° לדקה; 0.57 ÷ 0.21 ≈ 2.7 דקות, עם חצי הקוטר 50 דקות קשת ≈ 4 דקות בכל צד ≈ 8 ליום; 12:09 היום, 12:01 גאומטרית, אקווילוקס 26–27 בספטמבר, הלסינקי 0.125° לדקה — 4.6 דקות אך אקווילוקס מוקדם יותר (כ־25.9) כי היום מתקצר שם כ־5 דקות ביום; נובאיה זמליה — 76°15′N, שמש 5°26′ מתחת לאופק, היפוך טמפרטורה ולכידת קרניים, קפלר, אישור במאה ה־20), שאל שאלות המשך שדורשות חשיבה, הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>איך אפשר לראות שמש שכבר שקעה?</b> כי האוויר מכופף אור: הוא סמיך למטה ודליל למעלה, ואור שעובר דרכו מתעקל כלפי מטה — כמו האור מהמטבע בכוס מים. ליד האופק הכיפוף מגיע לכחצי מעלה, בערך רוחב של שמש שלמה, ולכן רואים את השמש גבוה ממקומה: כשהיא נוגעת בים היא כבר כולה מתחת לאופק.<br><br><b>למה היום של <span class="num">12</span> שעות לא נופל ביום השוויון?</b> כי ההרמה של האוויר והספירה מהקצה העליון של השמש נותנות כ־<span class="num">4</span> דקות מתנה בכל צד — כ־<span class="num">8</span> דקות ביום. היום מתקצר עכשיו בכשתי דקות ביום, אז המתנה נגמרת רק אחרי ארבעה־חמישה ימים: <span class="math">26–27</span> בספטמבר.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
