@@ -1,0 +1,1695 @@
+<title>שורשים וכנפיים #17 · האישה ששמעה את לב כדור הארץ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E0743F; --sun-deep:#8A3A12; --sun-soft:#FBE3D3;
+  --nile:#1D6FA6; --nile-soft:#D6E8F5; --shadow:#6B3FA0; --shadow-soft:#EADFF6;
+  --night:#1A2238; --aur:#F2C94C; --aur2:#F0A45C;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#D9822B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F5955F; --sun-deep:#FFD6BC; --sun-soft:#3D2114;
+    --nile:#58B0E6; --nile-soft:#14324A; --shadow:#C9A6F0; --shadow-soft:#2E2246;
+    --night:#0B1226; --aur:#F2D27A; --aur2:#FFBE8A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F5955F; --sun-deep:#FFD6BC; --sun-soft:#3D2114;
+  --nile:#58B0E6; --nile-soft:#14324A; --shadow:#C9A6F0; --shadow-soft:#2E2246;
+  --night:#0B1226; --aur:#F2D27A; --aur2:#FFBE8A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a little cut-open Earth — mantle ring and glowing core */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:40px;height:30px;flex:none}
+.ch .stick::before{content:"";position:absolute;right:0;bottom:0;width:30px;height:30px;border-radius:50%;background:var(--earth2);box-shadow:inset 0 0 0 4px var(--sun-soft)}
+.ch .stick::after{content:"";position:absolute;right:9px;bottom:9px;width:12px;height:12px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 3px var(--aur)}
+
+/* hero: the cut-open Earth */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-24px;width:300px;height:300px;z-index:0;opacity:.92;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%,100%{transform:scale(.7);opacity:.35}50%{transform:scale(1.2);opacity:.9}}
+/* this edition's widgets */
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 17</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="var(--aur)" stop-opacity=".55"/>
+        <stop offset="60%" stop-color="var(--aur)" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="var(--aur)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- a cut-open Earth: crust/mantle, liquid outer core, solid inner core (to scale: 6371 / 3480 / 1221) -->
+    <g id="heroEarth" stroke="var(--ink)" stroke-width="1.6">
+      <circle cx="150" cy="150" r="128" fill="var(--earth2)" fill-opacity=".55"/>
+      <path d="M150,150 L150,22 A128,128 0 0,1 278,150 Z" fill="var(--card)" fill-opacity=".85"/>
+      <circle cx="150" cy="150" r="70" fill="var(--sun)" fill-opacity=".75"/>
+      <path d="M150,150 L150,80 A70,70 0 0,1 220,150 Z" fill="var(--aur2)" fill-opacity=".9"/>
+      <circle cx="150" cy="150" r="24.5" fill="var(--aur)" stroke-width="2"/>
+      <path d="M22,150 Q40,120 58,150 T94,150 T130,150" fill="none" stroke="var(--nile)" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <g class="spark"><circle cx="150" cy="150" r="9" fill="var(--card)" opacity=".85"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 17</span><span class="tag">יום חמישי, 24 בספטמבר 2026</span><span class="tag">י״ג בתשרי תשפ״ז</span><span class="tag">כ־30 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>האישה ששמעה את לב כדור הארץ</h1>
+  <p class="lede">אף אדם לא ירד עמוק יותר מ־<span class="num">4</span> קילומטרים מתחת לאדמה, ואף מקדח לא חדר יותר מ־<span class="num">12</span>. ובכל זאת אנחנו יודעים שבמרכז כדור הארץ, בעומק של יותר מ־<span class="num">5,000</span> קילומטרים, יש <b>כדור של ברזל מוצק</b>, לוהט כמו פני השמש, שרדיוסו כשני שלישים מרדיוס הירח. איך יודעים? כי ב־<span class="num">1929</span> רעדה האדמה בניו זילנד, וב־<span class="num">1936</span> אישה דנית בשם <b>אינגה להמן</b> שמה לב שהרעידה הגיעה למקום שאליו היא <b>לא הייתה אמורה להגיע</b>. השאלה של היום: <b>איך מצלמים את הפנים של כוכב לכת — בלי לחפור?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">רדיוס כדור הארץ הוא כ־<span class="num">6,370</span> קילומטרים. כמה עמוק הגיע החור העמוק ביותר שבני אדם קדחו אי פעם?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>1 ק״מ</b><span>קצת יותר מהגורד־שחקים הגבוה בעולם</span></button>
+      <button type="button" class="scaleopt" data-scale="12"><b>12 ק״מ</b><span>כמו הגובה שבו טסים מטוסי נוסעים</span></button>
+      <button type="button" class="scaleopt" data-scale="120"><b>120 ק״מ</b><span>יותר מגבול החלל</span></button>
+      <button type="button" class="scaleopt" data-scale="1200"><b>1,200 ק״מ</b><span>כמעט חמישית מהדרך למרכז</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · HOW DEEP HAVE WE GONE (interactive 1: the depth ruler) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>כמה עמוק הגענו?</h2>
+  <p>הקידוח העמוק בעולם, <b>קידוח קולה</b> ברוסיה, נעצר ב־<span class="num">1989</span> בעומק <span class="num">12,262</span> מטרים, כי הסלע שם היה חם (<span class="num">180</span> מעלות) ורך מדי. מרכז כדור הארץ נמצא בעומק <span class="num">6,371</span> קילומטרים. החור העמוק ביותר שלנו הוא <b>שריטה</b>: אם כדור הארץ היה תפוח, עוד לא עברנו את הקליפה.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אז איך יודעים מה יש בפנים? כמו שיודעים מה יש בתוך אבטיח בלי לחתוך אותו: <b>דופקים עליו ומקשיבים</b>. רעידת אדמה גדולה היא דפיקה ענקית על כדור הארץ, והגלים שלה עוברים דרך כל הכדור עד לצד השני. מי שמקשיב להם בזהירות שומע מה יש בפנים.</p>
+    <p>באינטראקטיב: גררו את הסמן מהשטח ועד למרכז, ותראו כמה דק הקרום שעליו אנחנו חיים — ועד כמה הגרעין הפנימי גדול לעומת הירח.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>לבעיה הזאת יש פתרון שרופאים מכירים: אולטרסאונד. שולחים גל, מודדים מתי ואיך הוא חוזר, ומחשבים מה היה בדרך. הגלים של כדור הארץ הם רעידות אדמה: רעידה חזקה שולחת גלים <b>דרך</b> הכדור, ותחנות בכל העולם רושמות מתי בדיוק כל גל הגיע. מהזמנים מחשבים את מהירות הגל בכל עומק — ומהמהירות, מה החומר ומה מצבו.</p>
+    <p>באינטראקטיב: גררו את סמן העומק ושימו לב לשני גבולות: המעטפת–גרעין בעומק כ־<span class="num">2,890</span> ק״מ, והגרעין הפנימי בעומק כ־<span class="num">5,150</span>. איש לא ראה אותם מעולם — שניהם התגלו מהאזנה לגלים.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — סולם העומק ===== -->
+  <div class="panel instrument">
+    <h3>סולם העומק</h3>
+    <p class="cap">חתך של כדור הארץ מהשטח (למעלה) ועד המרכז (למטה), בקנה מידה אמיתי. גררו את הסמן. מימין: הגרעין הפנימי לצד הירח, באותו קנה מידה.</p>
+    <canvas id="dpCv" width="640" height="500" aria-label="סרגל אנכי מהשטח ועד מרכז כדור הארץ עם השכבות בקנה מידה: קרום דק, מעטפת עד 2,890 ק״מ, גרעין חיצוני נוזלי עד 5,150 ק״מ, גרעין פנימי מוצק עד 6,371; סמן שנע לפי הגררה; מימין עיגול הירח לצד עיגול הגרעין הפנימי"></canvas>
+    <div class="controls">
+      <label>עומק (ק״מ)
+        <input type="range" id="dpZ" min="0" max="6371" step="1" value="12" oninput="dpDraw(1)" aria-label="עומק בקילומטרים" style="direction:ltr">
+      </label>
+      <div class="readout">עומק: <b class="num" id="dpOut">12</b> ק״מ</div>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="קפיצה לעומק">
+        <button id="dpJ0" onclick="dpJump(12)">קידוח קולה</button>
+        <button id="dpJ1" onclick="dpJump(2891)">גבול הגרעין</button>
+        <button id="dpJ2" onclick="dpJump(5150)">הגרעין הפנימי</button>
+        <button id="dpJ3" onclick="dpJump(6371)">המרכז</button>
+      </div>
+    </div>
+    <p class="cap" id="dpMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>נסו עכשיו, בחצי דקה: דפקו באצבע על השולחן, על ספר, על כוס ריקה ועל כוס מלאה. כל אחד נשמע אחרת, כי הגל עובר בו אחרת. סייסמולוגים עושים בדיוק את זה עם כדור הארץ — הדפיקה היא רעידת אדמה, והאוזן היא סייסמוגרף.</p></div>
+
+  <div class="q qc" id="dpQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · TWO KINDS OF WAVES (interactive 2: P and S) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>שני גלים, שתי דרכים לרעוד</h2>
+  <p>מרעידת אדמה יוצאים שני סוגי גלים. <b>גל P</b> (Primary, הראשון) הוא גל של דחיפה: החומר נדחס ונמתח <b>לאורך</b> כיוון התנועה, כמו קפיץ. <b>גל S</b> (Secondary, השני) הוא גל של ניעור: החומר זז <b>הצידה</b>, כמו חבל שמנערים. גל P מהיר יותר, בערך פי <span class="math">1.7</span>, ולכן תמיד מגיע ראשון.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>וכאן ההבדל החשוב. גל דחיפה עובר בכל דבר: בסלע, במים, באוויר (הקול הוא גל דחיפה!). אבל גל ניעור צריך חומר ש<b>מחזיק צורה</b>. נסו לנער מים מהצד: הם לא מעבירים את הניעור, הם פשוט זולגים. גל S לא עובר דרך נוזל.</p>
+    <p>וזה מה שגילו לפני מאה שנה: בצד השני של כדור הארץ, מול רעידה גדולה, גלי S <b>לא מגיעים בכלל</b>. משהו במרכז בולע אותם. המסקנה: המרכז נוזלי. באינטראקטיב: נחשו קודם, ואז החליפו את החומר לנוזל ותראו איזה גל עובר.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה גל S לא עובר בנוזל? כי גל S נישא על <b>קשיחות</b>: כשמזיזים שכבה הצידה, השכנה נמשכת אחריה רק אם יש ביניהן "אחיזה". במוצק יש; בנוזל השכבות מחליקות זו על זו, והתנועה לא עוברת הלאה. גל P נישא על התנגדות ל<b>דחיסה</b>, וזו קיימת בכל חומר. לכן מהירות גל S בנוזל היא אפס, ומהירות גל P רק יורדת.</p>
+    <p>ב־<span class="num">1914</span> חישב בנו גוטנברג שיש גבול חד בעומק כ־<span class="num">2,900</span> ק״מ, וב־<span class="num">1926</span> הראה הרולד ג׳פריס שמעבר לגבול הזה גלי S נעלמים — הגרעין <b>נוזלי</b>: ברזל מותך. באינטראקטיב: נחשו, ואז החליפו את החומר ובדקו מה קורה לכל גל בגבול.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — שני גלים ===== -->
+  <div class="panel instrument">
+    <h3>גל דחיפה וגל ניעור</h3>
+    <p class="cap">שתי שורות של חלקיקים. למעלה גל P (דחיפה), למטה גל S (ניעור). הגלים נכנסים מימין; החצי השמאלי יכול להיות מוצק או נוזל. נחשו: מה יעבור דרך הנוזל?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="wvP0" onclick="wvPredict(0)">שני הגלים יעברו</button>
+        <button id="wvP1" onclick="wvPredict(1)">רק גל הדחיפה</button>
+        <button id="wvP2" onclick="wvPredict(2)">רק גל הניעור</button>
+        <button id="wvP3" onclick="wvPredict(3)">אף אחד</button>
+      </div>
+    </div>
+    <canvas id="wvCv" width="640" height="420" aria-label="שתי שורות של חלקיקים: בשורה העליונה גל דחיפה שבו החלקיקים מתקרבים ומתרחקים לאורך השורה; בשורה התחתונה גל ניעור שבו החלקיקים עולים ויורדים; כשהחצי השמאלי נוזל, גל הדחיפה ממשיך וגל הניעור נעלם"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="החומר בצד שמאל">
+        <button id="wvA0" class="on" onclick="wvSet(0)">מוצק</button>
+        <button id="wvA1" onclick="wvSet(1)">נוזל</button>
+      </div>
+      <button class="btn small ghost" id="wvPlay" onclick="wvPlay()">הפעלה</button>
+      <label style="min-width:160px">זמן
+        <input type="range" id="wvT" min="0" max="100" step="1" value="0" oninput="wvDraw(1)" aria-label="זמן" style="direction:ltr">
+      </label>
+    </div>
+    <p class="cap" id="wvMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="aha">כלל אצבע: <b>גל P עובר בכל דבר, גל S רק במוצק.</b> אם גלי S נעלמים — יש שם נוזל.</div>
+
+  <div class="q qc" id="wvQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE SHADOW ZONE (interactive 3: rays through the Earth) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>אזור הצל</h2>
+  <p>גרעין נוזלי עושה עוד משהו לגלי P: הוא <b>מכופף</b> אותם. כשגל עובר מחומר מהיר לחומר איטי הוא משנה כיוון — כמו קש שנראה שבור בכוס מים. גל P נכנס לגרעין הנוזלי, שבו הוא איטי יותר, מתכופף פנימה, ויוצא מהצד השני רחוק יותר. התוצאה: טבעת שלמה על פני כדור הארץ, בין <span class="num">104</span> ל־<span class="num">140</span> מעלות מהרעידה, שאליה גלי P <b>לא אמורים להגיע בכלל</b>. קוראים לה <b>אזור הצל</b>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>תחשבו על פנס שמאיר על כדור זכוכית מלא מים: מאחוריו יש טבעת חשוכה, כי הכדור מכופף את האור. הגרעין הנוזלי הוא כדור המים, והרעידה היא הפנס. כולם הסכימו: בטבעת החשוכה שקט.</p>
+    <p>ואז אינגה להמן הסתכלה ברישומים מרעידת האדמה של <span class="num">1929</span>, ומצאה בתוך הטבעת החשוכה <b>גלים קטנים</b>. חלשים, מאוחרים, אבל שם. משהו בתוך הגרעין מחזיר גלים למקום החשוך. באינטראקטיב: הסתכלו על הקרניים בלי הגרעין הפנימי, ואז הדליקו אותו — ותראו מה להמן ראתה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הקרן האחרונה שחולפת ליד הגרעין בלי להיכנס אליו נוחתת בערך ב־<span class="num">104</span> מעלות; הקרן הראשונה שנכנסת לגרעין מתכופפת חזק ונוחתת רק ב־<span class="num">140</span> ויותר. ביניהן: <span class="math">140 − 104 = 36</span> מעלות של צל, מסביב לכל רעידה. ככה חישב גוטנברג, וככה זה נראה בסייסמוגרמות: בתחנות שבטבעת, שקט.</p>
+    <p>אבל לא לגמרי. להמן מצאה בטבעת, במרחקים של <span class="math">105–142</span> מעלות, גלים חלשים שהגיעו מאוחר. אם הגרעין היה נוזל אחיד, לא הייתה להם דרך להגיע לשם. הפתרון שהציעה: בתוך הגרעין הנוזלי יש <b>כדור פנימי</b> שבו הגלים מהירים יותר. גל שפוגע בו מתכופף <b>החוצה</b> או מוחזר ממנו כמו מקיר — ובשני המקרים נוחת בתוך אזור הצל. באינטראקטיב: החליפו בין "בלי גרעין פנימי" ל"עם", והזיזו את התחנה לתוך הצל.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — קרניים דרך כדור הארץ ===== -->
+  <div class="panel instrument">
+    <h3>קרניים דרך כדור הארץ</h3>
+    <p class="cap">רעידת אדמה למעלה. כל קו הוא הדרך של גל P אחד. הרצועה האפורה על השפה היא אזור הצל. הזיזו את התחנה, ונחשו לפני שמדליקים את הגרעין הפנימי: האם תחנה ב־<span class="num">120</span> מעלות תשמע משהו?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="ryP0" onclick="ryPredict(0)">כן, כרגיל</button>
+        <button id="ryP1" onclick="ryPredict(1)">לא, שקט מוחלט</button>
+        <button id="ryP2" onclick="ryPredict(2)">רק אם יש גרעין פנימי</button>
+      </div>
+    </div>
+    <canvas id="ryCv" width="640" height="520" aria-label="חתך עגול של כדור הארץ עם מעטפת, גרעין חיצוני וגרעין פנימי; רעידת אדמה למעלה שממנה יוצאות קרניים; הקרניים שנכנסות לגרעין מתכופפות ונוחתות רחוק; רצועה אפורה של אזור צל על השפה בין 104 ל־140 מעלות; כשמדליקים את הגרעין הפנימי, קרניים נוספות נוחתות בתוך הצל; תחנה שאפשר להזיז לאורך השפה"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="הגרעין הפנימי">
+        <button id="ryA0" class="on" onclick="rySet(0)">בלי גרעין פנימי</button>
+        <button id="ryA1" onclick="rySet(1)">עם גרעין פנימי</button>
+      </div>
+      <label>מרחק התחנה מהרעידה (מעלות)
+        <input type="range" id="rySt" min="0" max="180" step="1" value="60" oninput="ryDraw(1)" aria-label="מרחק התחנה" style="direction:ltr">
+      </label>
+      <div class="readout"><b class="num" id="ryOut">60°</b></div>
+    </div>
+    <p class="cap" id="ryMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="q qc" id="ryQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · READING A SEISMOGRAM (interactive 4) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>לקרוא סייסמוגרמה</h2>
+  <p>סייסמוגרף הוא מכשיר פשוט: משקולת כבדה על קפיץ, ועט. כשהאדמה זזה, המכשיר זז איתה, אבל המשקולת הכבדה "מתעצלת" ונשארת במקום — והעט מצייר את ההפרש על נייר נע. יוצא קו: שקט, ואז <b>קשקוש</b> כשגל P מגיע, ואחריו קשקוש גדול יותר כשגל S מגיע. הרישום נקרא סייסמוגרמה.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הטריק החשוב בסייסמוגרמה הוא הטריק של הברק והרעם: רואים ברק, סופרים שניות עד הרעם, וכל שלוש שניות הן בערך קילומטר. אותו דבר עם P ו־S: <b>ככל שהרעידה רחוקה, גל S מגיע יותר זמן אחרי P</b>. מספיק לספור את הפער כדי לדעת כמה רחוקה הרעידה.</p>
+    <p>באינטראקטיב: גררו את התחנה רחוק מהרעידה ותראו את שני הקשקושים מתרחקים זה מזה. ואז גררו לתוך אזור הצל — ותראו מה להמן ראתה שם.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הפער בין P ל־S הוא שעון־מרחק. אם P נע בקרום בכ־<span class="num">6</span> ק״מ בשנייה ו־S בכ־<span class="math">3.5</span>, לרעידה במרחק <span class="num">60</span> ק״מ גל P מגיע אחרי <span class="math">60 ÷ 6 = 10</span> שניות ו־S אחרי <span class="math">60 ÷ 3.5 ≈ 17</span> — פער של <span class="num">7</span> שניות. במרחק כפול, פער כפול: שלוש תחנות, שלושה מעגלים — והמוקד בנקודת המפגש.</p>
+    <p>זה היה הכלי של להמן: לכל רעידה גדולה רשמה על כרטיס מתי הגיע P, מתי S, ומתי הגלים שעברו דרך הגרעין. ברישומים מ־<span class="num">1929</span>, בתחנות שישבו בתוך אזור הצל, הופיע גל קטן כ־<span class="num">19</span> דקות אחרי הרעידה — במקום שבו הייתה אמורה להיות שורה ישרה. באינטראקטיב: הזיזו את התחנה. מתי מופיע הגל השלישי, ואיך הוא משתנה כשמדליקים את הגרעין הפנימי?</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 4 — הסייסמוגרמה ===== -->
+  <div class="panel instrument">
+    <h3>הסייסמוגרמה</h3>
+    <p class="cap">מה שמצייר סייסמוגרף בתחנה אחת ב־<span class="num">25</span> הדקות שאחרי רעידה גדולה. גררו את התחנה: קרוב, רחוק, ולתוך אזור הצל.</p>
+    <canvas id="sgCv" width="640" height="420" aria-label="רישום סייסמוגרף: קו שקט שבו מופיעים קשקוש של גל P, קשקוש גדול יותר של גל S, ובמרחקים גדולים גל P′ שעבר דרך הגרעין; ציר הזמן בדקות למטה; באזור הצל אין P ואין S, ורק עם גרעין פנימי מופיע קשקוש קטן אחרי כ־18 דקות"></canvas>
+    <div class="controls">
+      <label>מרחק התחנה מהרעידה (מעלות)
+        <input type="range" id="sgD" min="10" max="180" step="1" value="40" oninput="sgDraw(1)" aria-label="מרחק התחנה" style="direction:ltr">
+      </label>
+      <div class="seg" role="group" aria-label="הגרעין הפנימי">
+        <button id="sgA0" class="on" onclick="sgSet(0)">בלי גרעין פנימי</button>
+        <button id="sgA1" onclick="sgSet(1)">עם גרעין פנימי</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="readout">P מגיע אחרי <b class="num" id="sgP">—</b> דקות</div>
+      <div class="readout">S מגיע אחרי <b class="num" id="sgS">—</b> דקות</div>
+      <div class="readout">הפער: <b class="num" id="sgGap">—</b> דקות</div>
+    </div>
+    <p class="cap" id="sgMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>הטריק הזה שומר על חיים בישראל. מערכת <b>תרועה</b> של המכון הגאולוגי הטמינה כ־<span class="num">120</span> סייסמומטרים לאורך בקעת הירדן, הערבה והכרמל. כשהם קולטים גל P, המחשב שולח התרעה במהירות האור — והיא מגיעה לטלפונים לפני גל S ההרסני: במרחק <span class="num">100</span> ק״מ מהרעידה, עד <span class="num">30</span> שניות להיכנס מתחת לשולחן.</p></div>
+
+  <div class="q qc" id="sgQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE WOMAN WITH THE OATMEAL BOXES (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>קופסאות שיבולת השועל</h2>
+    <p><b>אינגה להמן</b> נולדה בקופנהגן ב־<span class="num">1888</span>. היא למדה בבית ספר מיוחד, שניהלה דודתו של המדען נילס בוהר, ובו בנים ובנות למדו בדיוק אותם דברים — לא רגיל אז. היא למדה מתמטיקה, וב־<span class="num">1928</span> קיבלה לניהולה את שלושת הסייסמוגרפים של דנמרק: אחד בקופנהגן ושניים בגרינלנד הקפואה, שאליהם הגיעה ספינה פעם בשנה.</p>
+    <p>לא היו מחשבים. להמן רשמה כל רעידה על כרטיס קרטון — מאיפה, מתי הגיע כל גל — ושמרה את הכרטיסים ב<b>קופסאות ריקות של שיבולת שועל</b>, על שולחן בגינה. ב־<span class="num">17</span> ביוני <span class="num">1929</span> רעדה האדמה בניו זילנד, בצד השני של העולם. הגלים הגיעו לאירופה אחרי כ־<span class="num">20</span> דקות, וברישומים מתחנות שישבו בתוך אזור הצל — שם היה אמור להיות שקט — היה קשקוש קטן.</p>
+    <p>להמן לא אמרה "טעות במכשיר". היא חישבה, במשך שנים, ובסוף כתבה מאמר עם אחד השמות הקצרים ביותר בהיסטוריה של המדע: <b>P′</b> (פּי־תג, שם הגל). במאמר היא הציעה: בתוך הגרעין הנוזלי יש כדור פנימי שבו הגלים מהירים יותר, והוא מחזיר גלים לאזור הצל. תוך שלוש שנים הסכימו איתה גדולי המומחים בעולם. היא חיה עד גיל <span class="num">104</span>, ופעם אמרה: "הייתם צריכים לדעת עם כמה גברים לא מוכשרים נאלצתי להתחרות — לשווא".</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>קופסאות שיבולת השועל</h2>
+    <p><b>אינגה להמן</b> נולדה בקופנהגן ב־<span class="num">13</span> במאי <span class="num">1888</span>, ולמדה בבית הספר של האנה אדלר — דודתו של נילס בוהר — שבו בנים ובנות למדו אותה תוכנית בדיוק. היא למדה מתמטיקה, וב־<span class="num">1928</span> מונתה לראש המחלקה הסייסמולוגית של דנמרק: שלוש תחנות, בקופנהגן ובשני יישובים בגרינלנד, שאליהם הגיעה ספינה פעם בשנה.</p>
+    <p>שיטת העבודה שלה הייתה בסיס נתונים מקרטון: לכל רעידה ולכל תחנה כרטיס עם זמני ההגעה של הגלים, ממוין ב<b>קופסאות של שיבולת שועל</b> על שולחן בגינה. ברישומים מרעידת האדמה של <span class="num">17</span> ביוני <span class="num">1929</span> בניו זילנד (עוצמה <span class="math">7.8</span>) היא מצאה גלי P ברורים בתחנות שישבו בתוך אזור הצל, במרחקים של <span class="math">105–142</span> מעלות — שם התאוריה לא הרשתה אותם. במודלים המקובלים היה הגרעין כדור נוזלי אחיד, ובו לגל שנוחת ב־<span class="num">120</span> מעלות אין דרך להגיע.</p>
+    <p>במאמר <b>P′</b> מ־<span class="num">1936</span> היא בנתה מודל פשוט להפליא: מעטפת במהירות <span class="num">10</span> ק״מ בשנייה, גרעין ב־<span class="num">8</span>, ובתוכו כדור פנימי ברדיוס כ־<span class="num">1,400</span> ק״מ שבו הגל מהיר יותר. עם המודל הזה הקרניים שפוגעות בכדור הפנימי מוחזרות ומכופפות בדיוק אל אזור הצל. בנו גוטנברג וצ׳רלס ריכטר אימצו את הרעיון ב־<span class="num">1938</span>, ג׳פריס ב־<span class="num">1939</span>. שהכדור הפנימי <b>מוצק</b> — לא רק מהיר — הוכח רק ב־<span class="num">1971</span>, ממדידת ה"צלצול" של כדור הארץ כולו אחרי רעידות ענק. היום מעריכים את רדיוסו ב־<span class="num">1,220</span> ק״מ, כ־<span class="num">70</span> אחוז מרדיוס הירח, ואת הטמפרטורה בו בכ־<span class="num">5,400</span> מעלות — כמו פני השמש. להמן פרסמה עד גיל <span class="num">99</span> ומתה ב־<span class="num">1993</span>, בת <span class="num">104</span>.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> המספרים האמיתיים. רדיוס כדור הארץ <span class="num">6,370</span> ק״מ, רדיוס הגרעין הפנימי <span class="num">1,220</span> ק״מ, קידוח קולה <span class="math">12.3</span> ק״מ, רדיוס הירח <span class="num">1,737</span> ק״מ. (א) באיזה עומק מתחת לרגליים שלנו מתחיל הגרעין הפנימי? (ב) כמה קידוחי קולה צריך להעמיד זה על זה כדי להגיע אליו? (מספר שלם, בערך.) (ג) כמה אחוזים מרדיוס הירח הוא רדיוס הגרעין הפנימי? (מספר שלם.)</p>
+      <div class="controls">
+        <label>(א) עומק בק״מ <input type="number" id="chalDepth" inputmode="numeric" step="1" placeholder="?"></label>
+        <label>(ב) קידוחים <input type="number" id="chalKola" inputmode="numeric" step="1" placeholder="?"></label>
+        <label>(ג) אחוז מהירח <input type="number" id="chalMoon" inputmode="numeric" step="1" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()" data-g="בדוק|בדקי">בדקי</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> להמן הייתה צריכה דווקא רעידה מהצד השני של העולם, בניו זילנד, ולא רעידה באיטליה הקרובה. למה? ומה היה קורה לגלים באזור הצל אם הגרעין הפנימי היה נוזל בדיוק כמו הגרעין החיצוני?</p>
+      <details><summary>הרמז והתשובה</summary><p>רק גלים שנוחתים רחוק מאוד — יותר מ־<span class="num">100</span> מעלות — צוללים עמוק מספיק כדי לגעת בגרעין; רעידה קרובה שולחת לתחנה גלים שנשארים במעטפת ולא "רואים" את המרכז בכלל. לכן להמן, שישבה בדנמרק, הייתה זקוקה לרעידה גדולה בקצה השני של כדור הארץ — ולרישומים מתחנות רבות באירופה ובאסיה, במרחקים שונים ממנה. ואם הגרעין הפנימי היה נוזל כמו החיצוני, לא היה שום גבול בתוך הגרעין שממנו גלים מוחזרים או מתכופפים החוצה: כל קרן שנכנסת לגרעין הייתה יוצאת ב־<span class="num">140</span> מעלות או יותר, ובאזור הצל היה שקט מוחלט. הגל הקטן שהיא מצאה הוא ההוכחה שיש שם משהו <b>שונה</b>. שהוא גם מוצק גילו רק ב־<span class="num">1971</span>: כדור מוצק במרכז משנה את הצלילים שבהם כדור הארץ כולו "מצלצל" אחרי רעידה ענקית, כמו פעמון עם ליבה.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>ניסוי של חמש דקות עם מגש ומים, ועוד שניים לסקרנים.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — לצלם את הפנים של מגש (<span class="num">5</span> דקות)</h3>
+    <p class="cap">מה צריך: מגש או תבנית אפייה, מים, כוס — ומגבת.</p>
+    <ol>
+      <li><b>גל P ביתי:</b> ממלאים את המגש במים בגובה סנטימטר. דופקים באצבע בקצה אחד: הגל חוצה את המגש עד לצד השני.</li>
+      <li><b>גל S ביתי:</b> נסו לנער את המים <b>מהצד</b>, כמו חבל. הניעור לא עובר — המים זולגים סביב האצבע. ניעור לא עובר בנוזל.</li>
+      <li><b>הגרעין הפנימי:</b> שימו במרכז המגש כוס הפוכה ודפקו שוב בקצה. הגל <b>מוחזר</b> מהכוס, ומאחוריה יש אזור שקט. אתם רואים את הגרעין בלי לראות אותו — רק לפי מה שהגל עושה.</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — הג׳לי שמרגיש (<span class="num">20</span> דקות + זמן קירור)</summary>
+    <p>מכינים ג׳לי בקערה שטוחה, ולפני שהוא מתקשה מטביעים במרכז חפץ קשה (אבן שטופה, כדור גומי). כשהוא מוכן, שמים אצבע בקצה אחד ודופקים בעדינות בקצה השני: בג׳לי, בניגוד למים, גל הניעור <b>כן</b> עובר — ג׳לי מחזיק צורה, הוא "מוצק רך". עכשיו דפקו כך שהגל יעבור דרך המקום שבו האבן קבורה, ואז ליד: מרגישים הבדל? הג׳לי הוא המעטפת, האבן היא הגרעין הפנימי, והאצבע שלכם היא סייסמוגרף.</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — לשמוע רעידות אמיתיות (כל השבוע)</summary>
+    <p>המכון הגאולוגי בישראל מפרסם באתר שלו את כל הרעידות שנרשמו בארץ — יש כמה קטנות כמעט כל שבוע, רובן בבקעת הירדן ובים המלח. חפשו "המכון הגאולוגי רעידות אדמה". לכל רעידה יש מרחק מהבית שלכם: אם הרעידה במרחק <span class="num">60</span> ק״מ, אחרי כמה שניות הגיע אליכם גל P? ואם המרחק <span class="num">120</span>? (רמז: <span class="num">6</span> ק״מ בשנייה.)</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הסיפור של היום הוא על משהו שאי אפשר לראות, לגעת בו או להגיע אליו — ובכל זאת אנחנו יודעים עליו הרבה. איך? כי הקשבנו. גל שעובר דרך משהו חוזר אלינו עם סיפור: מה היה בדרך, קשה או רך, איפה הוא נעצר. ככה יודעים מה יש בתוך אבטיח, איך נראה תינוק בבטן של אמא, ומה יש בתוך כדור הארץ.</p>
+    <p>והדבר השני: להמן ראתה קשקוש קטן במקום שבו כולם אמרו שצריך להיות שקט. היא יכלה להגיד "בטח טעות". במקום זה היא שאלה "למה?", וחישבה — ומצאה כדור של ברזל, בעומק שאליו אף אחד לא יגיע לעולם. בפעם הבאה שמשהו לא מסתדר לכם — אולי זו לא טעות. אולי זה גרעין פנימי.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הגדול של השיעור נקרא <b>בעיה הפוכה</b>: לא "יש לי גוף, מה יעשה לו הגל?" אלא "יש לי את הגל שיצא, מה היה הגוף?". זו הבעיה של הרופא עם האולטרסאונד, של הגאולוג שמחפש נפט, של הטלסקופ שמפענח כוכב מהאור שלו — ושל להמן. בעיה הפוכה לא נפתרת בוודאות: תמיד יש כמה גופים שהיו נותנים את אותם גלים. לכן היא הציעה את המודל <b>הפשוט ביותר</b> שמסביר את הנתונים, ואמרה בגלוי מה לא ידוע. את המוצקות, למשל, היא לא טענה — זה הוכח <span class="num">35</span> שנים אחר כך.</p>
+    <p>והדבר השני: הברזל המותך של הגרעין החיצוני זורם סביב הכדור המוצק כמו דינמו — וזה מה שמייצר את השדה המגנטי שמסיט את המצפן ומגן עלינו מקרינה. הגרעין הפנימי גם גדל, כמילימטר בשנה, כשברזל נוזלי קופא על פניו. שאלה פתוחה לחקור: מה יקרה לשדה המגנטי כשהגרעין החיצוני ייגמר, בעוד מיליארדי שנים? (רמז: הסתכלו על מאדים.)</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">רפואה</div><h3>אולטרסאונד</h3><p>גלי קול גבוהים נכנסים לגוף, מוחזרים מכל גבול בין רקמות — עצם, שריר, נוזל — ומהזמנים שלהם המחשב בונה תמונה. אותה מתמטיקה של להמן, רק שהגל קטן פי מיליון והתמונה מוכנה תוך שנייה.</p></div>
+    <div class="tile"><div class="dom">חלל</div><h3>הפנים של מאדים</h3><p>ב־<span class="num">2018</span> נחתה על מאדים הגשושית InSight ובה סייסמומטר אחד. מאות רעידות־מאדים קטנות הספיקו כדי למדוד את הגרעין שלו: נוזלי, ברדיוס של <span class="math">1,650–1,830</span> ק״מ — המדענים עדיין מתווכחים על המספר המדויק. תחנה אחת, כוכב לכת שלם.</p></div>
+    <div class="tile"><div class="dom">פיזיקה</div><h3>למה יש לנו מצפן</h3><p>ברזל נוזלי שזורם סביב כדור ברזל מוצק ומסתובב — זה דינמו ענק שמייצר את השדה המגנטי של כדור הארץ. בלעדיו לא היה מצפן, לא זוהר קוטבי, והרוח השמשית הייתה מקלפת לאט את האטמוספירה.</p></div>
+    <div class="tile"><div class="dom">ישראל</div><h3>תרועה</h3><p>לאורך בקעת הירדן, הערבה והכרמל קבורים כ־<span class="num">120</span> סייסמומטרים שמחפשים גל P. כשהוא מגיע, התרעה יוצאת לטלפונים לפני גל S. זכרון יעקב יושבת בקצה הדרומי של הכרמל, ליד אחד מקווי השבר שבהם המכשירים האלה מקשיבים.</p></div>
+  </div>
+
+  <details class="bonus" id="latBox">
+    <summary>בונוס (2 דקות): הפעמון הענק</summary>
+    <p>אחרי רעידת אדמה ענקית, כדור הארץ כולו <b>מצלצל</b> — כמו פעמון שהיכו בו — במשך ימים. הצלילים נמוכים מכדי לשמוע (תנודה אחת בכל כמה דקות), אבל סייסמוגרפים רגישים קולטים אותם. וכמו שפעמון עם ליבה מצלצל אחרת מפעמון חלול, כדור הארץ עם גרעין פנימי מוצק מצלצל אחרת מכדור עם גרעין נוזלי לגמרי. ב־<span class="num">1971</span> השוו אדם דז׳יבונסקי ופרימן גילברט את הצלילים האלה למודלים, וסגרו את הסיפור: הכדור הפנימי של להמן מוצק.</p>
+    <details><summary>שאלה קטנה</summary><p>גל S לא עובר בגרעין החיצוני הנוזלי. אז איך בכלל אפשר לדעת שהגרעין הפנימי מוצק, אם אף גל S לא מגיע אליו?</p>
+      <p data-level="advanced">[מתקדם] בשתי דרכים. הראשונה: גל P שנכנס לגרעין הפנימי יכול <b>להתהפך</b> בגבול לגל S בתוך הכדור המוצק, לעבור בו כ־S, ולצאת שוב כ־P (הגל נקרא PKJKP). הוא חלש להפליא, וטענות לזיהויו הופיעו רק סביב שנת <span class="num">2000</span>, ועדיין נדונות. השנייה, זו של <span class="num">1971</span>: התנודות החופשיות של כדור הארץ כולו. כדור עם ליבה מוצקה יש לו תדרי צלצול שונים מכדור עם ליבה נוזלית, כי ליבה מוצקה מתנגדת לגזירה; התדרים שנמדדו התאימו רק למודל עם גרעין פנימי מוצק. שימו לב: גם כאן זו בעיה הפוכה — לא רואים את המוצקות, מסיקים אותה.</p>
+      <p data-level="standard">בעזרת הצלצול. כדור הארץ כולו רוטט אחרי רעידה ענקית, וכדור עם ליבה מוצקה רוטט אחרת מכדור עם ליבה נוזלית — כמו פעמון מלא לעומת פעמון חלול. ב־<span class="num">1971</span> מדדו את ה"צלילים" האלה ומצאו שהם מתאימים רק לגרעין פנימי מוצק. (ויש גם גל P נדיר שהופך לגל S בתוך הגרעין הפנימי ויוצא חזרה — אבל הוא כל כך חלש שטוענים שמצאו אותו רק סביב שנת <span class="num">2000</span>.)</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את התגלית — מהרעידה ועד הגרעין הפנימי — לפי סדר ההיגיון של השיעור (כל שלב נשען על הקודם, לא לפי השנים). לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: גל P נע בקרום כדור הארץ בערך <span class="num">6</span> קילומטרים בכל שנייה. רעידת אדמה קרתה במרחק <span class="num">60</span> קילומטרים מהבית. אחרי כמה שניות מגיע גל P?</div>
+    <div class="controls"><label>שניות <input type="number" id="numYounger" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')" data-g="בדוק|בדקי">בדוק</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: גל P שחוצה את כדור הארץ דרך המרכז, מרעידה ועד לתחנה בצד השני, עובר את כל הקוטר: <span class="num">12,740</span> ק״מ. המהירות הממוצעת שלו בדרך היא כ־<span class="num">10</span> ק״מ בשנייה. (א) אחרי כמה שניות הוא מגיע? (ב) וכמה דקות זה? (ספרה אחת אחרי הנקודה; מותר מחשבון.)</div>
+    <div class="controls"><label>(א) שניות <input type="number" id="numAdv" inputmode="numeric" step="1" placeholder="?"></label><label>(ב) דקות <input type="number" id="numAdvR" inputmode="decimal" step="0.1" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: גל P שחוצה את כדור הארץ דרך המרכז, מרעידה ועד לתחנה בצד השני, עובר את כל הקוטר: <span class="num">12,700</span> ק״מ. המהירות הממוצעת שלו בדרך היא כ־<span class="num">10</span> ק״מ בשנייה. אחרי כמה שניות הוא מגיע לצד השני? (מותר מחשבון.)</div>
+    <div class="controls"><label>שניות <input type="number" id="numOlder" inputmode="numeric" step="1" placeholder="?"></label><button class="btn small" onclick="checkNum('older')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>איך יודעים שיש במרכז כדור הארץ גרעין נוזלי, ומה ראתה אינגה להמן שהוכיח שבתוכו יש כדור פנימי?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="גל S לא עובר בנוזל, ולכן..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. אף אחד לא חפר יותר מ־<span class="num">12</span> ק״מ לתוך כדור הארץ (קידוח קולה, <span class="num">1989</span>), ומרכז הכדור בעומק <span class="num">6,371</span> ק״מ. את מה שיש בפנים גילו מ<b>הקשבה</b>: רעידת אדמה שולחת גלים דרך כל הכדור, וסייסמוגרפים בכל העולם רושמים מתי הם הגיעו.<br>
+    2. יש שני גלים: גל P (דחיפה) עובר בכל דבר, גל S (ניעור) עובר רק במוצק, כי נוזל לא מחזיק צורה. גלי S לא מגיעים לצד השני של כדור הארץ — ולכן יודעים שהגרעין <b>נוזלי</b>. הגרעין הנוזלי גם מכופף את גלי P ויוצר "אזור צל" בין <span class="num">104</span> ל־<span class="num">140</span> מעלות, שבו לא אמורים להגיע גלים בכלל.<br>
+    3. ב־<span class="num">1936</span> הראתה הסייסמולוגית הדנית אינגה להמן, שמיינה רישומי רעידות בקופסאות של שיבולת שועל, שברעידה מניו זילנד (<span class="num">1929</span>) הגיעו גלים חלשים לתחנות שישבו בתוך אזור הצל. ההסבר הפשוט ביותר: כדור <b>פנימי</b> בתוך הגרעין, שבו הגל מהיר יותר ושמחזיר גלים לצל. היום יודעים: ברזל מוצק, רדיוס <span class="num">1,220</span> ק״מ, כ־<span class="num">70</span> אחוז מהירח, חם כמו פני השמש.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>אינגה להמן: נולדה <span class="num">13</span> במאי <span class="num">1888</span> בקופנהגן, מתה <span class="num">21</span> בפברואר <span class="num">1993</span> (בת <span class="num">104</span>); בית הספר של האנה אדלר (דודתו של נילס בוהר); מתמטיקה בקופנהגן ובניונהאם קולג׳, קיימברידג׳; ראש המחלקה הסייסמולוגית של המכון הגאודטי הדני מ־<span class="num">1928</span>, שלוש תחנות — קופנהגן, איביגטוט וסקורסביסון בגרינלנד; מדליית בואי <span class="num">1971</span> (האישה הראשונה); מדליית להמן של AGU מ־<span class="num">1996</span>; הציטוט על "גברים לא מוכשרים" ותיאור קופסאות שיבולת השועל בגינה מפי קרוב משפחתה נילס גרוס (Bolt, Biographical Memoirs; Wikipedia, "Inge Lehmann"; APS News, Sept. 2023; AMNH). המאמר: Lehmann, I. (1936), "P′", Publications du Bureau Central Séismologique International, Série A, <span class="num">14</span>, <span class="math">87–115</span>; המודל: מעטפת <span class="num">10</span> ק״מ/ש׳, גרעין <span class="num">8</span>, כדור פנימי מהיר יותר ברדיוס כ־<span class="num">1,400</span> ק״מ (הרווארד, EPS281r, תמציות מהמאמר); גוטנברג וריכטר <span class="num">1938</span>, ג׳פריס <span class="num">1939</span>. הרעידה: מרצ׳יסון (בולר), ניו זילנד, <span class="num">17</span> ביוני <span class="num">1929</span> שעון מקומי (<span class="num">16</span> ביוני <span class="math">22:47</span> UTC), <span class="math">Ms 7.8</span> (<span class="math">Mw 7.3</span>), <span class="num">17</span> הרוגים; תחנותיה של להמן בגרינלנד ובאירופה ישבו במרחקים של כ־<span class="math">149–151</span> מעלות — מחוץ לאזור הצל; את ה־P′ שבתוך הצל (<span class="math">105–142°</span>) קראה מרישומי תחנות אחרות, בהן תחנות ברוסיה (Wikipedia, "1929 Murchison earthquake"; Wikipedia, "Inge Lehmann"). היסטוריה: אולדהם <span class="num">1906</span>; גוטנברג <span class="math">1913–1914</span>, גבול בעומק כ־<span class="num">2,900</span> ק״מ; ג׳פריס <span class="num">1926</span>, "The Rigidity of the Earth's Central Core"; דז׳יבונסקי וגילברט <span class="num">1971</span> — מוצקות מהתנודות החופשיות; PKJKP — זיהויים מתחילת שנות ה־<span class="num">2000</span> ואילך (עדיין נדונים). מספרים: רדיוס כדור הארץ <span class="num">6,371</span> ק״מ; גבול מעטפת–גרעין בעומק <span class="num">2,891</span> (רדיוס <span class="num">3,480</span>); גרעין פנימי רדיוס כ־<span class="num">1,221</span> ק״מ (כ־<span class="num">19</span> אחוז מרדיוס כדור הארץ, כ־<span class="num">70</span> אחוז מרדיוס הירח <span class="num">1,737</span>), עומק <span class="num">5,150</span>; טמפרטורה <span class="math">5,400–5,700</span> K, סדר גודל של פני השמש (<span class="num">5,500</span> מעלות); מהירות P בגרעין הפנימי <span class="math">11.1–11.4</span> ק״מ/ש׳ לעומת <span class="math">10.4</span> בתחתית הגרעין החיצוני; גדילה כמילימטר בשנה (Wikipedia, "Earth's inner core"; PREM). אזור הצל: <span class="math">104°–140°</span> ל־P (יש המצטטים <span class="math">103°–143°</span>), מעבר ל־<span class="num">104°</span> ל־S (Wikipedia, "Shadow zone"; Columbia, "Seismic Evidence for Internal Earth Structure"). קידוח קולה: <span class="num">12,262</span> מטרים ב־<span class="num">1989</span>, קידוח מ־<span class="num">1970</span>, קוטר <span class="num">23</span> ס״מ, <span class="num">180</span> מעלות בתחתית (Wikipedia, "Kola Superdeep Borehole"); מכרה מפוננג בדרום אפריקה כ־<span class="num">4</span> ק״מ. תרועה: המכון הגאולוגי לישראל, כ־<span class="num">120</span> סייסמומטרים לאורך השבר הסורי־אפריקני והכרמל, חיבור לפיקוד העורף בינואר <span class="num">2022</span>, התרעה מעל עוצמה <span class="math">4.5</span>, עד כ־<span class="num">30</span> שניות במרחק <span class="num">100</span> ק״מ (Times of Israel, Jan. 2022; Kurzon et al., SRL 2020). InSight: נחיתה נובמבר <span class="num">2018</span>, רדיוס גרעין מאדים כ־<span class="num">1,830</span> ק״מ (Stähler et al., Science 2021), כ־<span class="num">1,650</span> לפי ניתוחים מ־<span class="num">2023</span> עם שכבת סיליקט מותכת (Khan et al.; Samuel et al., Nature 2023). מהירויות: P בקרום כ־<span class="num">6</span> ק״מ/ש׳, S כ־<span class="math">3.5</span>; P במעטפת <span class="math">8–13.7</span>, בגרעין החיצוני <span class="math">8.1–10.4</span>; זמן הגעה של PKIKP ל־<span class="num">180°</span> כ־<span class="num">20</span> דקות, ומכאן "ממוצע כ־<span class="num">10</span> ק״מ/ש׳" בשאלת החישוב (<span class="math">12,742 ÷ 1,212 ≈ 10.5</span>). פישוטים במכוון: ציור הקרניים בפרק <span class="num">3</span> מחושב ממודל מהירויות מפושט (מעטפת עם שיפוע, גרעין חיצוני, גרעין פנימי) בלי הקרום; הצל בציור יוצא בקירוב <span class="math">97°–145°</span> ולכן הרצועה מסומנת לפי הערכים המקובלים; הסייסמוגרמה בפרק <span class="num">4</span> משתמשת בזמני הגעה מקורבים (P: כ־<span class="num">13</span> דקות ב־<span class="num">90°</span>; S: כ־<span class="num">24</span>; PKP/PKIKP: <span class="math">18–20</span>) ובצורות גל סכמטיות; "גל S לא עובר בנוזל" — בנוזל אידאלי; להמן פירשה את הגלים כהחזרה/שבירה בגבול פנימי, ואת מוצקות הכדור הפנימי הציע פרנסיס בירץ׳ ב־<span class="num">1940</span> והוכיחו ב־<span class="num">1971</span>; "פני השמש" — כ־<span class="num">5,500</span> מעלות. לוח עברי: Hebcal.</p>
+  </details>
+</section>
+
+</main>
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:17, code:'WOW-017', date:'2026-09-24', title:'האישה ששמעה את לב כדור הארץ', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15zXlteo15Eg15zXqSDXkdec'; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'geology', w:3 }, { id:'physics', w:3 }, { id:'maths', w:1 }, { id:'history', w:1 } ],
+  hero: { name:'הכדור שאיש לא ראה — הגרעין הפנימי של כדור הארץ', fact:'אף מקדח לא עבר 12 ק"מ (קולה, 1989) ומרכז כדור הארץ בעומק 6,371; את הפנים גילו מגלים של רעידות אדמה: גל P (דחיפה) עובר בכל חומר, גל S (ניעור) רק במוצק — גלי S לא מגיעים לצד השני ולכן הגרעין החיצוני נוזלי (אולדהם 1906, גוטנברג 1914, ג\'פריס 1926); הגרעין הנוזלי מכופף גלי P ויוצר אזור צל 104°–140°; אינגה להמן מצאה ברישומי רעידת ניו זילנד (1929) גלי P′ חלשים בתוך הצל, והסבירה ב־1936 ("P′") שיש כדור פנימי שבו הגל מהיר יותר; מוצקות הוכחה ב־1971; רדיוס 1,220 ק"מ, כ־70% מהירח, כ־5,400 מעלות' },
+  items: {
+    'predict':       { skill:'estimation',            d:2 },
+    'qc:scale':      { skill:'estimation',            d:2 },
+    'qc:dpQ':        { skill:'evidence',              d:2 },
+    'qc:wvQ':        { skill:'mechanism',             d:2 },
+    'qc:ryQ':        { skill:'mechanism',             d:3 },
+    'qc:sgQ':        { skill:'transfer',              d:2 },
+    'qc:storyQ':     { skill:'evidence',              d:2 },
+    'mcq:shared:0':  { skill:'mechanism',             d:2 },
+    'mcq:shared:1':  { skill:'mechanism',             d:2 },
+    'mcq:shared:2':  { skill:'evidence',              d:3 },
+    'mcq:younger:0': { skill:'transfer',              d:2 },
+    'mcq:older:0':   { skill:'mechanism',             d:3 },
+    'order':         { skill:'sequence',              d:3 },
+    'num:younger':   { skill:'division',              d:1 },
+    'num:older':     { skill:'rate-time',             d:2 },
+    'num:adv':       { skill:'rate-two-step',         d:4 },
+    'challenge':     { skill:'scale-percent',         d:4 },
+    'explain':       { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ dpDraw(0); showArtoTip(); } if(n===2) wvDraw(0); if(n===3) ryDraw(0); if(n===4) sgDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+/* ---------- hero guess: how deep is the deepest hole humans ever drilled? ----------
+   Four choices force a real commitment (1 / 12 / 120 / 1,200 km): Kola reached 12.262 km in 1989. data-scale: km. */
+const SCALE_ANS = 12;                                                 // Kola Superdeep Borehole, 12.3 km
+const fmtSigns = n => n===1 ? '1 ק״מ' : n===12 ? '12 ק״מ' : n===120 ? '120 ק״מ' : '1,200 ק״מ';
+const SCALE_FB = {
+  12: '<span class="pill-ok">קלעתם!</span> קידוח קולה ברוסיה הגיע ב־<span class="num">1989</span> ל־<span class="num">12,262</span> מטרים — ונעצר, כי הסלע שם חם ורך מדי. עד מרכז כדור הארץ נשארו עוד <span class="num">6,359</span> ק״מ. איך יודעים מה יש שם? על זה השיעור.',
+  1: '<span class="pill-bad">יותר.</span> המכרות העמוקים בעולם מגיעים לכ־<span class="num">4</span> ק״מ, וקידוח קולה ברוסיה הגיע ב־<span class="num">1989</span> ל־<span class="num">12,262</span> מטרים. וזה השיא: עד המרכז נשארו עוד <span class="num">6,359</span> ק״מ. איך יודעים מה יש שם? על זה השיעור.',
+  120: '<span class="pill-bad">הרבה פחות.</span> השיא הוא קידוח קולה ברוסיה: <span class="num">12,262</span> מטרים, ב־<span class="num">1989</span>. ב־<span class="num">12</span> ק״מ הסלע כבר בחום <span class="num">180</span> מעלות והמקדח נתקע. עד המרכז נשארו <span class="num">6,359</span> ק״מ. איך יודעים מה יש שם? על זה השיעור.',
+  1200: '<span class="pill-bad">הרבה־הרבה פחות.</span> השיא הוא <span class="num">12,262</span> מטרים בלבד — קידוח קולה, <span class="num">1989</span>. <span class="num">1,200</span> ק״מ הוא בערך רדיוס הגרעין הפנימי, הכדור שנגלה היום — ואליו אף מקדח לא יגיע לעולם. איך יודעים שהוא שם? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+
+</script>
+
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(30,size); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const D2R=Math.PI/180;
+const R_E=6371, R_CMB=3480, R_ICB=1221;                     // km (PREM)
+const LAYER = z => z<35 ? 0 : z<R_E-R_CMB ? 1 : z<R_E-R_ICB ? 2 : 3;   // 0 crust, 1 mantle, 2 outer core, 3 inner core (z = depth)
+const LAYER_COL = () => [css('--leaf2'), css('--earth2'), css('--sun'), css('--aur')];
+const LAYER_NAME = ['קרום','מעטפת','גרעין חיצוני — נוזל','גרעין פנימי — מוצק'];
+function fmtMin(s){ return (Math.round(s/6)/10).toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1}); }   // minutes with one decimal
+function fmtMinHe(s){ const m=Math.floor(s/60), ss=Math.round(s%60); return m===0 ? '<span class="num">'+ss+'</span> שניות' : ss===0 ? '<span class="num">'+m+'</span> דקות' : '<span class="num">'+m+'</span> דקות ו־<span class="num">'+ss+'</span> שניות'; }
+
+/* ---------- step 1 (interactive 1): the depth ruler (canvas) ---------- */
+const dpCv=document.getElementById('dpCv'), dctx=dpCv.getContext('2d');
+const DP={ opened:0, hit:{} };
+function dpJump(z){ dpZ.value=z; dpDraw(1); }
+function dpDraw(user){
+  const c=dctx, W=dpCv.width, H=dpCv.height, z=+dpZ.value, L=LAYER(z), cols=LAYER_COL();
+  if(user && !DP.opened){ DP.opened=1; WOW.emit('open', { id:'depth' }); }
+  [12,2891,5150,6371].forEach((v,k)=>{ const b=document.getElementById('dpJ'+k); if(b) b.classList.toggle('on', z===v); });
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the ruler, left: x 100–180, y 40 (surface) → 440 (centre); 400px = 6371 km */
+  const rx=100, rw=80, y0=40, y1=440, k=(y1-y0)/R_E;
+  const bands=[[0,35],[35,R_E-R_CMB],[R_E-R_CMB,R_E-R_ICB],[R_E-R_ICB,R_E]];
+  bands.forEach((b,i)=>{ c.fillStyle=cols[i]; c.fillRect(rx, y0+b[0]*k, rw, Math.max(2,(b[1]-b[0])*k)); });
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.strokeRect(rx,y0,rw,y1-y0);
+  /* boundary ticks with depths (LTR numbers on the left of the ruler) */
+  [[0,'0'],[R_E-R_CMB,'2,891'],[R_E-R_ICB,'5,150'],[R_E,'6,371']].forEach(t=>{ const y=y0+t[0]*k; c.strokeStyle=css('--ink'); c.lineWidth=2; c.beginPath(); c.moveTo(rx-8,y); c.lineTo(rx+rw+8,y); c.stroke(); xNum(c,t[1],rx-12,y,30,css('--muted'),'right'); });
+  xText(c,'ק״מ',rx-12,y1+26,30,css('--muted'),'right');
+  /* layer names, right of the ruler */
+  xText(c,'מעטפת',rx+rw+14,y0+(35+(R_E-R_CMB))/2*k,30,css('--ink'),'left');
+  xText(c,'גרעין חיצוני',rx+rw+14,y0+((R_E-R_CMB)+(R_E-R_ICB))/2*k-16,30,css('--ink'),'left');
+  xText(c,'נוזל',rx+rw+14,y0+((R_E-R_CMB)+(R_E-R_ICB))/2*k+18,30,css('--muted'),'left');
+  xText(c,'גרעין פנימי',rx+rw+14,y0+((R_E-R_ICB)+R_E)/2*k-16,30,css('--ink'),'left');
+  xText(c,'מוצק',rx+rw+14,y0+((R_E-R_ICB)+R_E)/2*k+18,30,css('--muted'),'left');
+  /* Kola: a hair at the top */
+  c.fillStyle=css('--bad'); c.fillRect(rx-2, y0+12.262*k, rw+4, 2);
+  /* the marker */
+  const my=y0+z*k;
+  c.fillStyle=css('--bad'); c.beginPath(); c.moveTo(rx+rw+4,my); c.lineTo(rx+rw+26,my-12); c.lineTo(rx+rw+26,my+12); c.closePath(); c.fill();
+  c.strokeStyle=css('--bad'); c.lineWidth=3; c.beginPath(); c.moveTo(rx-4,my); c.lineTo(rx+rw+4,my); c.stroke();
+  /* the Moon vs the inner core, right (same scale: 1 px = 14 km) */
+  const s=1/14, mx=490, my2=318;
+  c.fillStyle='rgba(120,120,140,.35)'; c.beginPath(); c.arc(mx,my2,1737*s,0,Math.PI*2); c.fill(); c.strokeStyle=css('--muted'); c.lineWidth=2; c.stroke();
+  c.fillStyle=cols[3]; c.beginPath(); c.arc(mx,my2,R_ICB*s,0,Math.PI*2); c.fill(); c.strokeStyle=css('--ink'); c.lineWidth=2; c.stroke();
+  xTag(c,'הירח','',mx,my2-1737*s-24,30,css('--muted'),'center',.92);
+  xTag(c,'הגרעין הפנימי','',mx,my2+1737*s+26,30,css('--sun-deep'),'center',.92);
+  /* the readout, top right: where are you? */
+  const temp = z<35 ? Math.round(20+z*13.3) : z<R_E-R_CMB ? Math.round(900+(z-35)*(3700-900)/(R_E-R_CMB-35)) : z<R_E-R_ICB ? Math.round(3800+(z-(R_E-R_CMB))*(5400-3800)/(R_CMB-R_ICB)) : 5400;
+  xTagN(c,z.toLocaleString('en-US'),'ק״מ',mx,30,30,css('--ink'),'center');
+  xTag(c,LAYER_NAME[L],'',mx,70,30,L===3?css('--sun-deep'):css('--ink'),'center',.92);
+  xTag(c,'חום: כ־',temp.toLocaleString('en-US')+'°',mx,110,30,css('--bad'),'center',.92);
+  dpOut.textContent=z.toLocaleString('en-US');
+  if(user && L===3 && !DP.hit.ic){ DP.hit.ic=1; WOW.emit('item', { id:'depth:ic', kind:'quick', correct:true, attempt: wowTry('depth') }); }
+  dpMsg.innerHTML = z<=13 ? 'עומק <span class="num">'+z+'</span> ק״מ — הקו האדום הדק למעלה הוא קידוח קולה, <span class="math">12.3</span> ק״מ, השיא האנושי. על הסרגל הוא בקושי חוט שערה.'
+    : L===0 ? 'עומק <span class="num">'+z+'</span> ק״מ — עדיין בקרום, השכבה הדקה שעליה אנחנו חיים (כ־<span class="num">35</span> ק״מ ביבשה). עמוק יותר מכל מקדח.'
+    : L===1 ? 'עומק <span class="num">'+z.toLocaleString('en-US')+'</span> ק״מ — המעטפת: סלע חם שזורם לאט מאוד, כמו פלסטלינה בעונת חורף. גלי P וגלי S עוברים בה שניהם. עד <span class="num">2,891</span>.'
+    : L===2 ? 'עומק <span class="num">'+z.toLocaleString('en-US')+'</span> ק״מ — הגרעין החיצוני: ברזל <b>נוזלי</b>, כ־<span class="num">4,000</span> מעלות. כאן גלי S נעלמים. את הגבול הזה גילה בנו גוטנברג ב־<span class="num">1914</span> מהגלים בלבד.'
+    : 'עומק <span class="num">'+z.toLocaleString('en-US')+'</span> ק״מ — הגרעין הפנימי: כדור ברזל <b>מוצק</b>, רדיוס <span class="num">1,220</span> ק״מ, כ־<span class="num">5,400</span> מעלות. הכדור של אינגה להמן. שימו לב משמאל: הוא כ־<span class="num">70</span> אחוז מהירח.';
+}
+dpDraw(0);
+
+/* ---------- step 2 (interactive 2): P and S waves through solid and liquid (canvas) ---------- */
+const wvCv=document.getElementById('wvCv'), wctx=wvCv.getContext('2d');
+const WV={ opened:0, pred:-1, liquid:0, hit:{}, raf:0 };
+function wvPredict(k){ WV.pred=k; [0,1,2,3].forEach(i=>document.getElementById('wvP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'waves:predict', kind:'quick', correct:k===1, attempt: wowTry('waves:predict') }); wvDraw(1); }
+function wvSet(m){ WV.liquid=m; wvA0.classList.toggle('on',m===0); wvA1.classList.toggle('on',m===1); wvDraw(1); }
+function wvPlay(){ if(WV.raf){ cancelAnimationFrame(WV.raf); WV.raf=0; wvPlayBtn(false); return; }
+  if(XREDUCED){ wvT.value = (+wvT.value+20)%101; wvDraw(1); return; }
+  const t0=performance.now(), start=+wvT.value; wvPlayBtn(true);
+  const step=now=>{ const v=(start+(now-t0)/40)%101; wvT.value=Math.round(v); wvDraw(1); if(now-t0<6000){ WV.raf=requestAnimationFrame(step); } else { WV.raf=0; wvPlayBtn(false); } };
+  WV.raf=requestAnimationFrame(step); }
+function wvPlayBtn(on){ const b=document.getElementById('wvPlay'); b.textContent = on ? 'עצירה' : 'הפעלה'; b.classList.toggle('on',on); }
+function wvDraw(user){
+  const c=wctx, W=wvCv.width, H=wvCv.height, t=+wvT.value/100, liquid=WV.liquid===1;
+  if(user && !WV.opened){ WV.opened=1; WOW.emit('open', { id:'waves' }); }
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the two media: right half solid (rock), left half solid or liquid */
+  const xb=300;                                                     // the boundary; waves travel from the right (x=640) to the left
+  c.fillStyle=css('--earth'); c.globalAlpha=.55; c.fillRect(xb,0,W-xb,H); c.globalAlpha=1;
+  c.fillStyle= liquid ? css('--water') : css('--earth'); c.globalAlpha= liquid ? .35 : .55; c.fillRect(0,0,xb,H); c.globalAlpha=1;
+  c.strokeStyle=css('--ink'); c.lineWidth=3; c.setLineDash([8,6]); c.beginPath(); c.moveTo(xb,0); c.lineTo(xb,H); c.stroke(); c.setLineDash([]);
+  xTag(c,'סלע מוצק','',470,30,30,css('--ink'),'center',.9);
+  xTag(c, liquid?'נוזל':'סלע מוצק','',150,30,30, liquid?css('--nile'):css('--ink'),'center',.9);
+  /* wave front position: starts at the right edge and moves left; phase advances with t */
+  const front = W - t*W*1.15;                                      // x of the leading edge
+  const lam=110, amp=22;
+  /* row 1: P wave — particles displaced along x */
+  const yP=150, yS=300, n=26;
+  xText(c,'גל P — דחיפה',W-14,yP-62,30,css('--ink'),'right');
+  xText(c,'גל S — ניעור',W-14,yS-62,30,css('--ink'),'right');
+  c.strokeStyle='rgba(0,0,0,.15)'; c.lineWidth=2; c.beginPath(); c.moveTo(0,yP); c.lineTo(W,yP); c.moveTo(0,yS); c.lineTo(W,yS); c.stroke();
+  for(let i=0;i<n;i++){ const x0=20+i*(W-40)/(n-1);
+    const behind = x0>front;                                        // the wave has passed this particle
+    const inLiquid = x0<xb;
+    const ph = (x0-front)/lam*2*Math.PI;
+    const dxP = behind ? amp*Math.sin(ph)*(inLiquid?0.8:1) : 0;
+    let dyS = behind ? amp*Math.sin(ph) : 0; if(liquid && inLiquid) dyS = 0;
+    c.fillStyle= (inLiquid&&liquid) ? css('--nile') : css('--sun-deep');
+    c.beginPath(); c.arc(x0+dxP, yP, 11, 0, Math.PI*2); c.fill();
+    c.beginPath(); c.arc(x0, yS+dyS, 11, 0, Math.PI*2); c.fill();
+  }
+  /* arrows: which way the particles move */
+  c.fillStyle=css('--sun-deep'); xArrow(c,600,yP+40,1,0,14); xArrow(c,540,yP+40,-1,0,14); c.fillRect(546,yP+38,48,4);
+  xArrow(c,570,yS+52,0,1,14); xArrow(c,570,yS+28,0,-1,14); c.fillRect(568,yS+30,4,20);
+  /* what arrives on the left */
+  const arrived = front < 60;
+  if(arrived){ xTag(c,'עבר','',60,yP-40,30,css('--ok'),'center',.92); xTag(c, liquid?'נעלם':'עבר','',60,yS-40,30, liquid?css('--bad'):css('--ok'),'center',.92); }
+  /* the clock, bottom */
+  if(user && liquid && arrived && !WV.hit.liq){ WV.hit.liq=1; WOW.emit('item', { id:'waves:liquid', kind:'quick', correct:true, attempt: wowTry('waves') }); }
+  const predTxt = WV.pred<0 ? 'נחשו למעלה לפני שמחליפים לנוזל: מה יעבור? ' : '';
+  wvMsg.innerHTML = !liquid ? predTxt+'שני החצאים סלע. גל P דוחף את החלקיקים קדימה ואחורה, גל S מנער אותם למעלה ולמטה — ושניהם עוברים את הגבול המקווקו כאילו אינו. לחצו "הפעלה", ואז החליפו את צד שמאל לנוזל.'
+    : !arrived ? 'עכשיו צד שמאל נוזל. הפעילו ותסתכלו מה קורה לכל שורה כשהגל חוצה את הקו המקווקו.'
+    : (WV.pred===1 ? '<span class="pill-ok">ניחשתם נכון.</span> ' : WV.pred>=0 ? '<span class="pill-bad">לא בדיוק.</span> ' : '')+'גל P (דחיפה) ממשיך בנוזל — נוזל מתנגד לדחיסה בדיוק כמו סלע. גל S (ניעור) <b>נעלם</b> בגבול: בנוזל השכבות מחליקות זו על זו, ואין מה שיעביר את הניעור הלאה. זה כל הסוד של פרק 2: אם גלי S לא עוברים — יש שם נוזל.';
+}
+wvDraw(0);
+
+/* ---------- step 3 (interactive 3): rays through the Earth (canvas) ----------
+   a real ray tracer: the ray parameter p = r·sin(i)/v is conserved (Snell's law in a sphere); PREM-like P velocities, no crust */
+const ryCv=document.getElementById('ryCv'), rctx=ryCv.getContext('2d');
+const RY={ opened:0, pred:-1, ic:0, hit:{}, cache:{} };
+function ryV(r, ic){
+  if(r>R_CMB){ if(r>5971) return 8.0+(R_E-r)/400; if(r>5701) return 9.0+(5971-r)/270*1.3; return 10.8+2.9*Math.pow((5701-r)/(5701-R_CMB),0.62); }
+  if(r>R_ICB) return 8.06+2.3*Math.pow((R_CMB-r)/(R_CMB-R_ICB),0.9);
+  return ic ? 11.03+(R_ICB-r)/R_ICB*0.23 : 10.36;
+}
+function ryTrace(p, ic){
+  let r=R_E, th=0, dir=-1, path=[[R_E,0]], n=0, deep=R_E;
+  while(n++<40000){
+    const dr=Math.max(0.5, Math.min(3, r/40)), r2=r+dir*dr; if(r2>R_E) break;
+    const v1=ryV(r,ic), v2=ryV(r2<0.5?0.5:r2,ic);
+    if(dir<0 && (r2<=0.5 || r2/v2<=p)){
+      if(Math.abs(v2-v1)<=0.3){ const rt=Math.max(0,p*v2); const half=Math.acos(Math.min(1,rt/r)); th+=half; path.push([rt,th]); th+=half; deep=rt; } else deep=r;
+      dir=1; continue; }
+    const rm=(r+r2)/2, etam=rm/ryV(rm,ic), q=Math.sqrt(Math.max(etam*etam-p*p,1e-12));
+    th+=(p/rm)/q*dr; r=r2; if(n%4===0) path.push([r,th]);
+  }
+  path.push([R_E,th]);
+  return { delta: th/D2R, path, deep };
+}
+const RY_P = [780,700,600,500,400,330,290,262, 250,240,225,210,190,170,150,130,120, 116,114,112,110,108,105,100,92,80,65,45,25,8];   // mantle · outer core · inner core rays
+function ryRays(ic){ const k=ic?'ic':'no'; if(!RY.cache[k]) RY.cache[k]=RY_P.map(p=>Object.assign(ryTrace(p,ic),{p})); return RY.cache[k]; }
+function ryPredict(k){ RY.pred=k; [0,1,2].forEach(i=>document.getElementById('ryP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'rays:predict', kind:'quick', correct:k===2, attempt: wowTry('rays:predict') }); ryDraw(1); }
+function rySet(m){ RY.ic=m; ryA0.classList.toggle('on',m===0); ryA1.classList.toggle('on',m===1); ryDraw(1); }
+function ryDraw(user){
+  const c=rctx, W=ryCv.width, H=ryCv.height, ic=RY.ic===1, st=+rySt.value, cols=LAYER_COL();
+  if(user && !RY.opened){ RY.opened=1; WOW.emit('open', { id:'rays' }); }
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  const cx=320, cy=270, s=204/R_E;                                   // 1 km = s px; the Earth fills the canvas
+  const XY=(r,th)=>[cx+r*s*Math.sin(th), cy-r*s*Math.cos(th)];       // th = angle from the source (top), clockwise
+  /* layers */
+  c.fillStyle=cols[1]; c.beginPath(); c.arc(cx,cy,R_E*s,0,Math.PI*2); c.fill();
+  c.fillStyle=cols[2]; c.beginPath(); c.arc(cx,cy,R_CMB*s,0,Math.PI*2); c.fill();
+  if(ic){ c.fillStyle=cols[3]; c.beginPath(); c.arc(cx,cy,R_ICB*s,0,Math.PI*2); c.fill(); c.strokeStyle=css('--ink'); c.lineWidth=2; c.stroke(); }
+  else { c.strokeStyle='rgba(0,0,0,.18)'; c.setLineDash([5,6]); c.lineWidth=2; c.beginPath(); c.arc(cx,cy,R_ICB*s,0,Math.PI*2); c.stroke(); c.setLineDash([]); }
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.beginPath(); c.arc(cx,cy,R_CMB*s,0,Math.PI*2); c.stroke(); c.beginPath(); c.arc(cx,cy,R_E*s,0,Math.PI*2); c.stroke();
+  /* the shadow band on the rim: 104°–140° on both sides */
+  const band=(a0,a1,mirror)=>{ c.beginPath(); const f=mirror?-1:1; c.arc(cx,cy,R_E*s+16,-Math.PI/2+f*a0*D2R,-Math.PI/2+f*a1*D2R,mirror); c.arc(cx,cy,R_E*s+2,-Math.PI/2+f*a1*D2R,-Math.PI/2+f*a0*D2R,!mirror); c.closePath(); c.globalAlpha=.6; c.fillStyle=css('--muted'); c.fill(); c.globalAlpha=1; };
+  band(104,140,false); band(104,140,true);
+  /* rays (both sides mirrored) */
+  const rays=ryRays(ic);
+  rays.forEach(rr=>{ const inIC = rr.deep<R_ICB+2 && ic, inCore = rr.deep<R_CMB;
+    c.strokeStyle = inIC ? css('--bad') : inCore ? css('--card') : css('--ink'); c.lineWidth = inIC ? 3 : 1.6; c.globalAlpha = inIC ? .95 : inCore ? .8 : .55;
+    [1,-1].forEach(f=>{ c.beginPath(); rr.path.forEach((pt,i)=>{ const [x,y]=XY(pt[0],f*pt[1]); i?c.lineTo(x,y):c.moveTo(x,y); }); c.stroke(); });
+  });
+  c.globalAlpha=1;
+  /* the quake, top */
+  const [qx,qy]=XY(R_E,0); c.fillStyle=css('--bad'); c.beginPath(); c.moveTo(qx,qy-6); for(let k=1;k<=8;k++){ const a=-Math.PI/2+k*Math.PI/4, rad=k%2?22:10; c.lineTo(qx+rad*Math.cos(a),qy-6+rad*Math.sin(a)); } c.closePath(); c.fill();
+  xTag(c,'רעידה','',qx,qy-40,30,css('--bad'),'center',.92);
+  /* the station: a little house on the rim at st degrees, right side */
+  const [sx,sy]=XY(R_E+22,st*D2R);
+  const hears = st<=104 || st>=140, hearsIC = ic && st>=115 && st<140;
+  c.fillStyle = hears ? css('--ok') : hearsIC ? css('--bad') : css('--muted');
+  c.beginPath(); c.arc(sx,sy,14,0,Math.PI*2); c.fill(); c.strokeStyle=css('--card'); c.lineWidth=3; c.stroke();
+  xNum(c, st+'°', sx+ (st<90? 30 : st<150 ? 34 : 0), sy + (st<90 ? -8 : st<150 ? 8 : 36), 30, css('--ink'), st<150?'left':'center');
+  /* legend */
+  xText(c,'אזור הצל',W-46,H-16,30,css('--ink'),'right');
+  c.globalAlpha=.6; c.fillStyle=css('--muted'); c.fillRect(W-40,H-28,26,22); c.globalAlpha=1;
+  if(ic){ c.strokeStyle=css('--bad'); c.lineWidth=3; c.beginPath(); c.moveTo(16,H-16); c.lineTo(52,H-16); c.stroke(); xText(c,'דרך הגרעין הפנימי',60,H-16,30,css('--bad'),'left'); }
+  ryOut.textContent=st+'°';
+  if(user && ic && hearsIC && !RY.hit.ic){ RY.hit.ic=1; WOW.emit('item', { id:'rays:shadow', kind:'quick', correct:true, attempt: wowTry('rays') }); }
+  const predTxt = RY.pred<0 ? 'נחשו למעלה לפני שמדליקים את הגרעין הפנימי: האם תחנה ב־<span class="num">120</span> מעלות תשמע משהו? ' : '';
+  ryMsg.innerHTML = st<=104 ? predTxt+'התחנה ב־<span class="num">'+st+'</span> מעלות: גל P מגיע ישר דרך המעטפת (הקווים הכהים). ככל שהתחנה רחוקה יותר, הקרן צוללת עמוק יותר — עד שב־<span class="num">104</span> היא כמעט נוגעת בגרעין.'
+    : st>=140 ? predTxt+'התחנה ב־<span class="num">'+st+'</span> מעלות: הקרניים הבהירות נכנסו לגרעין הנוזלי, התכופפו, ונחתו כאן — רחוק. זה הגל שקוראים לו P′ (פי־תג).'
+    : !ic ? (RY.pred===1 ? '<span class="pill-ok">ניחשתם כמו גוטנברג.</span> ' : RY.pred===2 ? '<span class="pill-ok">רגע, עוד לא הדלקתם את הגרעין הפנימי.</span> ' : RY.pred>=0 ? '<span class="pill-bad">לא בדיוק.</span> ' : '')+'התחנה ב־<span class="num">'+st+'</span> מעלות יושבת בתוך <b>אזור הצל</b>: אף קרן לא מגיעה לכאן. הקרניים שחלפו ליד הגרעין נחתו לפני <span class="num">104</span>, והקרניים שנכנסו לגרעין הנוזלי התכופפו ונחתו אחרי <span class="num">140</span>. ככה זה נראה בכל ספרי הלימוד עד <span class="num">1936</span>. עכשיו הדליקו את הגרעין הפנימי.'
+    : hearsIC ? (RY.pred===2 ? '<span class="pill-ok">ניחשתם כמו להמן.</span> ' : RY.pred>=0 ? '<span class="pill-bad">לא בדיוק — עכשיו כן.</span> ' : '')+'עם גרעין פנימי: הקרניים האדומות פוגעות בכדור הפנימי, מתכופפות החוצה או מוחזרות ממנו, ונוחתות בתוך אזור הצל, ב־<span class="num">'+st+'</span> מעלות. גל חלש ומאוחר — בדיוק מה שאינגה להמן מצאה על הנייר.'
+    : 'התחנה ב־<span class="num">'+st+'</span> מעלות: בקצה הצל. בציור המפושט שלנו הקרניים האדומות מגיעות רק מ־<span class="num">115</span> מעלות בערך (במציאות — מכ־<span class="num">110</span>). הזיזו קצת ימינה.';
+}
+ryDraw(0);
+
+/* ---------- step 4 (interactive 4): the seismogram (canvas) ----------
+   approximate travel times (seconds) by epicentral distance: P, S (to ~104°), PKP (≥140°), PKIKP through the inner core (≥110°) */
+const sgCv=document.getElementById('sgCv'), sctx=sgCv.getContext('2d');
+const SG={ opened:0, ic:0, hit:{} };
+const SG_TP=[[0,0],[10,150],[20,270],[30,372],[40,455],[50,534],[60,606],[70,672],[80,732],[90,786],[100,834],[104,860]];
+const SG_TS=[[0,0],[10,270],[20,485],[30,670],[40,820],[50,960],[60,1095],[70,1215],[80,1325],[90,1425],[100,1520],[104,1555]];
+const SG_TPKP=[[140,1160],[150,1185],[160,1200],[170,1208],[180,1212]];
+const SG_TPKIKP=[[110,1120],[120,1130],[130,1145],[140,1160],[150,1180],[160,1195],[170,1206],[180,1212]];
+function sgInterp(tbl,d){ if(d<tbl[0][0]||d>tbl[tbl.length-1][0]) return null; for(let i=1;i<tbl.length;i++){ if(d<=tbl[i][0]){ const [d0,t0]=tbl[i-1],[d1,t1]=tbl[i]; return t0+(t1-t0)*(d-d0)/(d1-d0); } } return null; }
+function sgSet(m){ SG.ic=m; sgA0.classList.toggle('on',m===0); sgA1.classList.toggle('on',m===1); sgDraw(1); }
+function sgDraw(user){
+  const c=sctx, W=sgCv.width, H=sgCv.height, d=+sgD.value, ic=SG.ic===1;
+  if(user && !SG.opened){ SG.opened=1; WOW.emit('open', { id:'seismogram' }); }
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* paper strip: 25 minutes across x 40..600 */
+  const x0=40, x1=600, T=1500, X=t=>x0+(x1-x0)*t/T, ym=228;
+  c.fillStyle=css('--card'); c.fillRect(x0-10,70,x1-x0+20,300);
+  c.strokeStyle='rgba(0,0,0,.12)'; c.lineWidth=1; for(let m=0;m<=25;m+=1){ c.beginPath(); c.moveTo(X(m*60),80); c.lineTo(X(m*60),360); c.stroke(); }
+  for(let m=0;m<=25;m+=5){ xNum(c,String(m),X(m*60),388,30,css('--muted'),'center'); }
+  xText(c,'דקות אחרי הרעידה',x1,412,30,css('--muted'),'right');
+  /* arrivals */
+  const tP=sgInterp(SG_TP,d), tS=sgInterp(SG_TS,d), tPKP=sgInterp(SG_TPKP,d), tIC = ic ? sgInterp(SG_TPKIKP,d) : null;
+  const inShadow = d>104 && d<140;
+  /* the trace: noise + wiggles */
+  c.strokeStyle=css('--ink'); c.lineWidth=2.4; c.beginPath();
+  for(let x=x0;x<=x1;x++){ const t=(x-x0)/(x1-x0)*T; let y=ym+Math.sin(x*1.7)*1.2;
+    const wig=(t0,amp,len,f)=>{ if(t0!==null && t>=t0 && t<t0+len){ const u=(t-t0)/len; y+=amp*Math.sin(u*Math.PI)*Math.sin((t-t0)*f); } };
+    wig(tP,42,150,0.26); wig(tS,95,260,0.17); wig(tPKP,30,120,0.26); wig(tIC,16,90,0.3);
+    x===x0?c.moveTo(x,y):c.lineTo(x,y); }
+  c.stroke();
+  /* labels above the arrivals */
+  const lab=(t,txt,col)=>{ if(t===null) return; c.font='700 30px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; c.direction='ltr'; xTag(c,txt,'',clamp(X(t)+18, w/2+40, W-w/2-40),108,30,col,'center',.92); c.strokeStyle=col; c.lineWidth=3; c.beginPath(); c.moveTo(X(t),130); c.lineTo(X(t),ym-50); c.stroke(); };
+  lab(tP,'P',css('--sun-deep')); lab(tS,'S',css('--nile'));
+  if(tPKP!==null) lab(tPKP,'P′ דרך הגרעין',css('--sun-deep'));
+  if(tIC!==null && inShadow) lab(tIC,'P′ חלש — הגרעין הפנימי',css('--bad'));
+  if(inShadow && !ic){ xTag(c,'אזור הצל: שקט','',320,300,30,css('--muted'),'center',.92); }
+  /* the station strip, top */
+  xTag(c,'התחנה:',d+'°',22,40,30,css('--ink'),'left',.92);
+  xTag(c, d<=104 ? 'P ו־S מגיעים' : inShadow ? (ic?'רק P′ חלש':'שקט') : 'P′ בלבד — S לא עובר בגרעין','',400,40,30, d<=104?css('--ok'):inShadow?(ic?css('--bad'):css('--muted')):css('--sun-deep'),'center',.92);
+  sgP.textContent = tP!==null ? fmtMin(tP) : tPKP!==null ? fmtMin(tPKP) : tIC!==null ? fmtMin(tIC) : '—';
+  sgS.textContent = tS!==null ? fmtMin(tS) : '—';
+  sgGap.textContent = (tP!==null&&tS!==null) ? fmtMin(tS-tP) : '—';
+  if(user && inShadow && ic && !SG.hit.ic){ SG.hit.ic=1; WOW.emit('item', { id:'seismogram:ic', kind:'quick', correct:true, attempt: wowTry('seismogram') }); }
+  sgMsg.innerHTML = d<=104 ? 'ב־<span class="num">'+d+'</span> מעלות: P מגיע אחרי '+fmtMinHe(tP)+', S אחרי '+fmtMinHe(tS)+'. הפער, '+fmtMinHe(tS-tP)+', גדל עם המרחק — זה השעון שממנו מחשבים כמה רחוקה הרעידה. גררו הלאה, לתוך הצל.'
+    : inShadow ? (!ic ? 'ב־<span class="num">'+d+'</span> מעלות, בתוך אזור הצל: אין P, אין S. ככה ציפו כולם. הדליקו את הגרעין הפנימי ותראו מה להמן ראתה.' : 'ב־<span class="num">'+d+'</span> מעלות, עם גרעין פנימי: קשקוש קטן ומאוחר, אחרי '+fmtMinHe(tIC)+'. חלש, כמעט לא רואים — אבל הוא שם, וברישומים מ־<span class="num">1929</span> להמן ראתה אותו בכמה תחנות ולא הסכימה להתעלם ממנו.')
+    : 'ב־<span class="num">'+d+'</span> מעלות: גל P′ שעבר דרך הגרעין מגיע אחרי '+fmtMinHe(tPKP)+'. וגל S? אין. הוא נעצר בגרעין הנוזלי — ולכן יודעים שהוא נוזלי. התחנות של להמן עצמה, בגרינלנד, ישבו בערך כאן, כ־<span class="num">150</span> מעלות מניו זילנד — מחוץ לצל; את הגל שבתוך הצל היא מצאה ברישומים של תחנות אחרות.';
+}
+sgDraw(0);
+</script>
+
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  dpQ:{ q:'למה אי אפשר פשוט לקדוח עד מרכז כדור הארץ ולהסתכל?', opts:['כי אף אחד לא ניסה — זה פשוט יקר מדי','כי בעומק של כמה קילומטרים הסלע כבר חם מאוד ורך, והמקדח נתקע — והמרכז רחוק פי מאות','כי מתחת לקרום יש חלל ריק שאי אפשר לקדוח בו','כי הגרעין מושך את המקדח למטה ושובר אותו'], a:1, fb:'קידוח קולה נעצר ב־<span class="math">12.3</span> ק״מ כשהסלע הגיע ל־<span class="num">180</span> מעלות והתחיל להתנהג כמו פלסטלינה. עד המרכז יש <span class="num">6,371</span> ק״מ — יותר מפי <span class="num">500</span>. לכן את הפנים לומדים מהאזנה לגלים, לא מחפירה.', btn:'next1' },
+  wvQ:{ q:'איך יודעים שהגרעין החיצוני של כדור הארץ נוזלי?', opts:['כי גלי S — גלי ניעור — לא מגיעים לצד השני של כדור הארץ, וניעור לא עובר בנוזל','כי מדדו את הטמפרטורה שלו במקדח','כי לבה שיוצאת מהרי געש מגיעה משם','כי גלי P נעלמים לגמרי בגרעין'], a:0, fb:'גל S נישא על "אחיזה" בין שכבות — קשיחות — ובנוזל אין כזאת: השכבות מחליקות זו על זו והניעור נעצר. מעבר לכ־<span class="num">104</span> מעלות מרעידה אין גלי S בכלל, ולכן במרכז יש נוזל. גלי P, לעומת זאת, כן עוברים — רק לאט יותר ובכיפוף.' },
+  ryQ:{ q:'מה זה "אזור הצל" של רעידת אדמה?', opts:['המקום שבו הרעידה הכי חזקה','טבעת על פני כדור הארץ, בין <span class="num">104</span> ל־<span class="num">140</span> מעלות מהרעידה, שאליה גלי P לא אמורים להגיע — כי הגרעין הנוזלי מכופף אותם','המקום שבו אין שמש בזמן הרעידה','החלק של כדור הארץ שמתחת לגרעין'], a:1, fb:'קרן שחולפת ליד הגרעין נוחתת עד <span class="num">104</span> מעלות; קרן שנכנסת לגרעין הנוזלי מתכופפת (כמו אור בכוס מים) ונוחתת רק מ־<span class="num">140</span> והלאה. ביניהן: <span class="math">140 − 104 = 36</span> מעלות של שקט. אלא אם יש בפנים משהו שמחזיר גלים לתוך הצל.' },
+  sgQ:{ q:'רעידה אחת, שתי תחנות. בתחנה א׳ גל S הגיע <span class="num">20</span> שניות אחרי גל P, ובתחנה ב׳ — <span class="num">60</span> שניות אחריו. מה נכון?', opts:['תחנה א׳ קרובה יותר לרעידה','תחנה ב׳ קרובה יותר לרעידה','שתיהן באותו מרחק — הפער תלוי במכשיר','אי אפשר לדעת בלי לדעת את השעה'], a:0, fb:'גל P מהיר וגל S איטי, ולכן הפער ביניהם גדל עם המרחק — כמו הפער בין ברק לרעם. פער של <span class="num">20</span> שניות הוא רעידה במרחק של כ־<span class="num">150</span> ק״מ, ופער של <span class="num">60</span> — רחוקה פי שלושה בערך. שלוש תחנות, שלושה פערים — ומוצאים את המוקד.' },
+  storyQ:{ q:'מה בדיוק ראתה אינגה להמן שגרם לה להציע גרעין פנימי?', opts:['היא צילמה את הגרעין במיקרוסקופ','היא מצאה, ברישומי רעידת ניו זילנד מ־<span class="num">1929</span>, גלי P חלשים בתחנות שישבו בתוך אזור הצל — שם לא היו אמורים להיות גלים','היא ירדה למכרה עמוק ושמעה רעש','היא מדדה שכדור הארץ כבד יותר ממה שחשבו'], a:1, fb:'ניו זילנד נמצאת בצד השני של העולם מאירופה, ובכמה תחנות שישבו בתוך אזור הצל הופיע גל קטן ומאוחר. אם הגרעין היה נוזל אחיד, לא הייתה לו דרך להגיע לשם. המודל שלה: כדור פנימי מהיר יותר, שמחזיר ומכופף גלים לתוך הצל. מאמר <span class="num">1936</span>, בשם "P′".' },
+};
+const MCQ = {
+  shared:[
+    { q:'למה גל S לא עובר דרך נוזל?', opts:['כי נוזל חם מדי לגלים','כי גל S הוא גל ניעור, וניעור עובר רק בחומר שמחזיק צורה — בנוזל השכבות מחליקות זו על זו','כי נוזל כבד יותר מסלע','זה לא נכון — גלי S כן עוברים בנוזל, רק גלי P לא'], a:1, fb:'גל S מזיז שכבה הצידה ומצפה שהשכנה תימשך אחריה. במוצק יש "אחיזה" (קשיחות) — במים אין, האצבע פשוט מחליקה. גל P, של דחיפה, נישא על התנגדות לדחיסה, שיש בכל חומר — לכן הוא עובר גם במים וגם באוויר (זה הקול).' },
+    { q:'מה יוצר את אזור הצל של גלי P?', opts:['הגרעין הנוזלי, שבו הגל איטי יותר, מכופף את הקרניים — ואף קרן לא נוחתת בין <span class="num">104</span> ל־<span class="num">140</span> מעלות','ההרים חוסמים את הגלים','הגלים נגמרים אחרי <span class="num">100</span> מעלות כי אין להם כוח','הצד השני של כדור הארץ תמיד בלילה'], a:0, fb:'כמו קש ששבור לכאורה בכוס מים: כשגל עובר ממהיר לאיטי הוא משנה כיוון. הקרניים שנכנסות לגרעין מתכופפות פנימה ונוחתות רחוק (מ־<span class="num">140</span>), והקרניים שחלפו לידו נוחתות קרוב (עד <span class="num">104</span>). ביניהן — שקט. אלא אם כן יש גרעין פנימי.' },
+    { q:'איך אינגה להמן ידעה שיש כדור פנימי בתוך הגרעין — בלי לראות אותו?', opts:['היא ניחשה, ובמקרה צדקה','היא מצאה גלי P חלשים בתוך אזור הצל, וחישבה שרק כדור פנימי שבו הגל מהיר יותר יכול להחזיר אותם לשם','היא קיבלה מכתב מגוטנברג עם התשובה','היא מדדה את השדה המגנטי של כדור הארץ'], a:1, fb:'זו בעיה הפוכה: מהגלים שיצאו, מה היה הגוף? להמן בנתה את המודל הפשוט ביותר שמסביר את הרישומים מרעידת <span class="num">1929</span> — מעטפת, גרעין נוזלי, ובתוכו כדור שבו הגל מהיר יותר — והראתה שהקרניים שפוגעות בו נוחתות בדיוק בתוך הצל. גוטנברג וריכטר בדקו ואימצו ב־<span class="num">1938</span>.' },
+  ],
+  younger:[
+    { q:'מה משותף לאולטרסאונד אצל רופא, לדפיקה על אבטיח ולרעידת אדמה שחוצה את כדור הארץ?', opts:['בכולם מסתכלים בעיניים על מה שיש בפנים','בכולם שולחים גל דרך משהו סגור ומקשיבים למה שחוזר — ככה לומדים מה יש בפנים בלי לפתוח','בכולם צריך לחפור','בכולם יש נוזל במרכז'], a:1, fb:'זה הרעיון הגדול של היום: גל שעובר דרך גוף חוזר עם סיפור — מה היה בדרך, קשה או רך, איפה נעצר. הרופא, האבטיח והסייסמולוג עושים בדיוק אותו דבר. להמן "דפקה" על כדור הארץ עם רעידת אדמה מניו זילנד.' },
+  ],
+  older:[
+    { q:'להמן הייתה זקוקה דווקא לרעידה בניו זילנד — בצד השני של העולם מדנמרק. למה?', opts:['כי בניו זילנד יש הרעידות הכי חזקות','כי רק גלים שנוחתים רחוק מאוד — יותר מ־<span class="num">100</span> מעלות — צוללים עמוק מספיק כדי לעבור בגרעין; רעידה קרובה שולחת גלים שנשארים במעטפת','כי בדנמרק אין רעידות אדמה','כי הגלים מניו זילנד עוברים באוויר ולא בסלע'], a:1, fb:'קרן לתחנה קרובה היא קשת רדודה במעטפת; ככל שהתחנה רחוקה יותר, הקרן צוללת עמוק יותר, ורק מעבר לכ־<span class="num">104</span> מעלות היא נוגעת בגרעין. מאירופה, ניו זילנד נמצאת במרחק של <span class="math">100–150</span> מעלות — בדיוק המרחקים שבהם הגלים חוצים את הגרעין, ובתחנות שישבו בתוך הצל הופיע ה־P′ החלש.' },
+  ]
+};
+
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'רעידת אדמה חזקה שולחת גלי P וגלי S דרך כל כדור הארץ, ותחנות בעולם רושמות מתי הגיע כל גל.'},
+  {id:'b', t:'מעבר ל־<span class="num">104</span> מעלות גלי S לא מגיעים בכלל — ניעור לא עובר בנוזל — ולכן הגרעין נוזלי.'},
+  {id:'c', t:'ומכיוון שהגרעין נוזלי, גלי P איטיים בו ומתכופפים — נוצר אזור צל: בין <span class="num">104</span> ל־<span class="num">140</span> מעלות לא אמורים להגיע גלים.'},
+  {id:'d', t:'להמן מצאה ברישומי רעידת ניו זילנד (<span class="num">1929</span>) גלי P חלשים בתוך אזור הצל.'},
+  {id:'e', t:'המסקנה (<span class="num">1936</span>): בתוך הגרעין יש כדור פנימי שמחזיר גלים לצל — ומ־<span class="num">1971</span> יודעים שהוא מוצק.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> רעידה שולחת גלים ← גלי S נעלמים, הגרעין נוזלי ← הנוזל מכופף את P, נוצר צל ← להמן מוצאת P′ בתוך הצל ← המסקנה: כדור פנימי. שימו לב להיגיון: קודם מה מודדים, אחר כך מה מסיקים, ורק בסוף ההפתעה שדרשה הסבר חדש.' : '<span class="pill-bad">לא בדיוק.</span> הטעות הנפוצה: להתחיל מהגרעין הפנימי. התגלית הולכת מהמדידה למסקנה: גלים יוצאים ונרשמים ← S לא עובר, אז נוזל ← הנוזל מכופף P, אז צל ← בתוך הצל יש בכל זאת גל ← לכן כדור פנימי.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const dp=+chalDepth.value, kl=+chalKola.value, mn=+chalMoon.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const dpOk = chalDepth.value!=='' && dp===5150, klOk = chalKola.value!=='' && kl>=410 && kl<=430, mnOk = chalMoon.value!=='' && mn>=69 && mn<=71;
+  const allOk = dpOk && klOk && mnOk; S.challenge = S.challenge || allOk;
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">6,370 − 1,220 = 5,150</span> ק״מ — שם מתחיל הכדור של להמן. (ב) <span class="math">5,150 ÷ 12.3 ≈ 419</span> קידוחי קולה זה על גבי זה, כל אחד שיא עולמי של <span class="num">19</span> שנות עבודה. (ג) <span class="math">1,220 ÷ 1,737 ≈ 0.70</span>, כלומר כ־<span class="math">70%</span> מרדיוס הירח: כדור כמעט בגודל הירח, קבור מתחת ל־<span class="num">5,150</span> ק״מ של סלע וברזל נוזלי.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : (dpOk && klOk) ? (chalMoon.value!=='' ? ((mn>=0.69 && mn<=0.71) ? '<span class="pill-bad">(א) ו־(ב) נכונים, ב־(ג) שכחתם להכפיל ב־<span class="num">100</span>.</span> <span class="math">1,220 ÷ 1,737 ≈ 0.70</span>, ובאחוזים: <span class="math">0.70 × 100 = ?</span>' : (mn>=141 && mn<=143) ? '<span class="pill-bad">(א) ו־(ב) נכונים, ב־(ג) חילקתם הפוך.</span> השאלה איזה חלק מהירח הוא הגרעין: <span class="math">1,220 ÷ 1,737 × 100 = ?</span>' : (mn>=18 && mn<=20) ? '<span class="pill-bad">(א) ו־(ב) נכונים, ב־(ג) חילקתם ברדיוס כדור הארץ.</span> השאלה על הירח: <span class="math">1,220 ÷ 1,737 × 100 = ?</span>' : '<span class="pill-bad">(א) ו־(ב) נכונים, (ג) עוד לא.</span> <span class="math">1,220 ÷ 1,737 × 100 = ?</span> (מספר שלם.)') : '<span class="pill-ok">(א) ו־(ב) נכונים.</span> עכשיו (ג): איזה אחוז מ־<span class="num">1,737</span> הם <span class="num">1,220</span>? <span class="math">1,220 ÷ 1,737 × 100 = ?</span>')
+    : (dpOk && mnOk) ? ((kl>=515 && kl<=520) ? '<span class="pill-bad">(א) ו־(ג) נכונים, ב־(ב) חילקתם את כל הרדיוס.</span> עד הגרעין הפנימי צריך רק <span class="num">5,150</span> ק״מ: <span class="math">5,150 ÷ 12.3 = ?</span>' : (kl>=95 && kl<=105) ? '<span class="pill-bad">(א) ו־(ג) נכונים, ב־(ב) חילקתם ברדיוס הגרעין הפנימי.</span> צריך לחלק את העומק: <span class="math">5,150 ÷ 12.3 = ?</span>' : '<span class="pill-bad">(א) ו־(ג) נכונים, (ב) עוד לא.</span> כמה פעמים <span class="math">12.3</span> נכנס ב־<span class="num">5,150</span>? <span class="math">5,150 ÷ 12.3 = ?</span>')
+    : dpOk ? '<span class="pill-ok">(א) נכון — <span class="num">5,150</span>.</span> עכשיו (ב): <span class="math">5,150 ÷ 12.3 = ?</span> (מספר שלם, בערך), ו־(ג): <span class="math">1,220 ÷ 1,737 × 100 = ?</span>'
+    : (dp===1220) ? '<span class="pill-bad">ב־(א) ענו על הרדיוס, לא על העומק.</span> הגרעין הפנימי מתחיל בעומק של הרדיוס הכולל פחות הרדיוס שלו: <span class="math">6,370 − 1,220 = ?</span>'
+    : (dp===7590) ? '<span class="pill-bad">ב־(א) חיברתם.</span> העומק הוא מה שנשאר מהרדיוס אחרי שמורידים את הגרעין הפנימי: <span class="math">6,370 − 1,220 = ?</span>'
+    : (dp===6370) ? '<span class="pill-bad">ב־(א) זה המרכז.</span> הגרעין הפנימי מתחיל <span class="num">1,220</span> ק״מ לפני המרכז: <span class="math">6,370 − 1,220 = ?</span>'
+    : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): מהשטח עד המרכז <span class="num">6,370</span> ק״מ, והגרעין הפנימי תופס את ה־<span class="num">1,220</span> האחרונים. <span class="math">6,370 − 1,220 = ?</span>';
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const c=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    const aOk=(numAdv.value!=='' && c===1274), bOk=(numAdvR.value!=='' && r>=21.1 && r<=21.4), sc = aOk&&bOk?2:(aOk?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">12,740 ÷ 10 = 1,274</span> שניות. (ב) <span class="math">1,274 ÷ 60 ≈ 21.2</span> דקות. במציאות גל P′ שחוצה את כדור הארץ דרך המרכז מגיע אחרי כ־<span class="num">20</span> דקות — כי בדרך הוא מאיץ עד <span class="math">13.7</span> ק״מ בשנייה בתחתית המעטפת. בדיוק הזמן שלקח לגלים מניו זילנד להגיע לתחנות של להמן.'
+      : aOk ? ((r>=1273 && r<=1275) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חזרתם על השניות. כמה דקות הן <span class="num">1,274</span> שניות? <span class="math">1,274 ÷ 60 = ?</span>' : (r>=76000 && r<=77000) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) הכפלתם ב־<span class="num">60</span> במקום לחלק: <span class="math">1,274 ÷ 60 = ?</span>' : (r>=2.1 && r<=2.2) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) בדקו את הנקודה העשרונית: <span class="math">1,274 ÷ 60 = ?</span> (יותר מעשרים.)' : (r>=12.7 && r<=12.8) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חילקתם ב־<span class="num">100</span>. בדקה יש <span class="num">60</span> שניות: <span class="math">1,274 ÷ 60 = ?</span>' : '<span class="pill-ok">(א) נכון — <span class="num">1,274</span>.</span> עכשיו (ב): בדקה יש <span class="num">60</span> שניות, אז <span class="math">1,274 ÷ 60 = ?</span> (ספרה אחת אחרי הנקודה.)')
+      : (c===127400) ? '<span class="pill-bad">ב־(א) הכפלתם.</span> מרחק לחלק למהירות נותן זמן: <span class="math">12,740 ÷ 10 = ?</span>'
+      : (c===127 || c===12740) ? '<span class="pill-bad">כמעט — האפסים.</span> <span class="math">12,740 ÷ 10</span>: מורידים אפס אחד. <span class="math">12,740 ÷ 10 = ?</span>'
+      : (c===6370 || c===637) ? '<span class="pill-bad">ב־(א) לקחתם רדיוס.</span> הגל עובר את כל הקוטר, <span class="num">12,740</span> ק״מ: <span class="math">12,740 ÷ 10 = ?</span>'
+      : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): זמן = מרחק ÷ מהירות. <span class="math">12,740 ÷ 10 = ?</span>';
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const ok=v===10; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= ok?'<span class="pill-ok">נכון!</span> <span class="math">60 ÷ 6 = 10</span> שניות. וגל S, שנע בכ־<span class="num">3</span> ק״מ בשנייה, מגיע רק אחרי <span class="math">60 ÷ 3 = 20</span> שניות — עשר שניות של התרעה, בדיוק מה שמערכת תרועה מנצלת.':(v===360)?'<span class="pill-bad">הכפלתם.</span> הגל עובר <span class="num">6</span> ק״מ בכל שנייה, אז כמה שניות צריך ל־<span class="num">60</span> ק״מ? צריך לחלק: <span class="math">60 ÷ 6 = ?</span>':(v===54||v===66)?'<span class="pill-bad">חיסרתם או חיברתם.</span> השאלה כמה פעמים <span class="num">6</span> נכנס ב־<span class="num">60</span>: <span class="math">60 ÷ 6 = ?</span>':(v===1||v===100)?'<span class="pill-bad">כמעט — האפסים.</span> <span class="math">60 ÷ 6</span>: כמו <span class="math">6 ÷ 6</span>, ועוד אפס.':(v===6)?'<span class="pill-bad">זו המהירות.</span> השאלה כמה שניות: <span class="math">60 ÷ 6 = ?</span>':'<span class="pill-bad">לא בדיוק.</span> רמז: בכל שנייה הגל עובר <span class="num">6</span> ק״מ. כמה שניות עד <span class="num">60</span>? <span class="math">60 ÷ 6 = ?</span>'; }
+  else { const ok=v===1270; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">12,700 ÷ 10 = 1,270</span> שניות — קצת יותר מ־<span class="num">21</span> דקות. במציאות גל שחוצה את כדור הארץ דרך המרכז מגיע אחרי כ־<span class="num">20</span> דקות, כי בתחתית המעטפת הוא מאיץ ל־<span class="math">13.7</span> ק״מ בשנייה. זה הזמן שלקח לגלים מניו זילנד להגיע לתחנות של להמן.':(v===127000)?'<span class="pill-bad">הכפלתם.</span> זמן = מרחק ÷ מהירות: <span class="math">12,700 ÷ 10 = ?</span>':(v===127||v===12700)?'<span class="pill-bad">כמעט — האפסים.</span> <span class="math">12,700 ÷ 10</span>: מורידים אפס אחד.':(v===635||v===6350)?'<span class="pill-bad">לקחתם רדיוס.</span> הגל עובר את כל הקוטר, <span class="num">12,700</span> ק״מ: <span class="math">12,700 ÷ 10 = ?</span>':(v===21||v===21.2)?'<span class="pill-bad">זה בדקות.</span> השאלה בשניות: <span class="math">12,700 ÷ 10 = ?</span>':'<span class="pill-bad">לא בדיוק.</span> רמז: זמן = מרחק ÷ מהירות. <span class="math">12,700 ÷ 10 = ?</span>'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+/* ---------- explain-back grading ---------- */
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שיש שני גלים: גל P (דחיפה) עובר בכל חומר, וגל S (ניעור) עובר רק במוצק, כי בנוזל השכבות מחליקות.',
+  'הסברתי שגלי S לא מגיעים לצד השני של כדור הארץ — ולכן במרכז יש גרעין נוזלי.',
+  'ציינתי שהגרעין הנוזלי מכופף את גלי P ויוצר אזור צל (בין <span class="num">104</span> ל־<span class="num">140</span> מעלות) שאליו גלים לא אמורים להגיע.',
+  'סיפרתי שלהמן מצאה ברישומי רעידת ניו זילנד (<span class="num">1929</span>) גלי P חלשים בתוך אזור הצל.',
+  'הסקתי כמוה: משהו בתוך הגרעין — כדור פנימי שבו הגל מהיר יותר — מחזיר גלים לצל; היום יודעים שהוא ברזל מוצק.',
+];
+const MODEL='מרעידת אדמה חזקה יוצאים שני סוגי גלים. גל P הוא גל של דחיפה, והוא עובר בכל חומר — בסלע, במים ובאוויר — כי כל חומר מתנגד לדחיסה. גל S הוא גל של ניעור, והוא עובר רק בחומר שמחזיק צורה: בנוזל השכבות מחליקות זו על זו, ואין מה שיעביר את הניעור הלאה. כשמסתכלים בסייסמוגרפים בכל העולם רואים שמעבר לכ־<span class="num">104</span> מעלות מהרעידה גלי S לא מגיעים בכלל — משהו במרכז כדור הארץ בולע אותם. המסקנה: הגרעין נוזלי (ברזל מותך). הגרעין הנוזלי גם מכופף את גלי P, כי הם איטיים בו יותר, כמו אור שנשבר בכוס מים. קרן שחולפת ליד הגרעין נוחתת עד <span class="num">104</span> מעלות, וקרן שנכנסת אליו נוחתת רק מ־<span class="num">140</span> מעלות, ולכן בין <span class="num">104</span> ל־<span class="num">140</span> יש אזור צל שאליו לא אמורים להגיע גלי P. אינגה להמן, שניהלה את התחנות של דנמרק, בדקה את הרישומים מרעידת האדמה של <span class="num">1929</span> בניו זילנד — בצד השני של העולם — ומצאה בכמה תחנות שישבו בתוך אזור הצל גל P קטן ומאוחר. אם הגרעין היה נוזל אחיד, לא הייתה לגל שום דרך להגיע לשם. ב־<span class="num">1936</span> היא הציעה במאמר "P′" שבתוך הגרעין יש כדור פנימי שבו הגל מהיר יותר: גל שפוגע בו מתכופף החוצה או מוחזר ממנו, ונוחת בדיוק בתוך הצל. גוטנברג וריכטר אימצו את המודל ב־<span class="num">1938</span>, וב־<span class="num">1971</span> הוכיחו מהתנודות של כדור הארץ כולו שהכדור הפנימי מוצק: ברזל, רדיוס כ־<span class="num">1,220</span> ק״מ, כ־<span class="num">70</span> אחוז מהירח, וחם כמו פני השמש.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (גל P — גל אורכי של דחיסה, נישא על התנגדות לדחיסה שקיימת בכל חומר; גל S — גל רוחבי של גזירה, נישא על קשיחות, ולכן מהירותו בנוזל אפס; P מהיר מ־S בערך פי 1.7; היעדר S מעבר ל־104° → גרעין חיצוני נוזלי (אולדהם 1906, גוטנברג 1914 גבול בעומק 2,900 ק"מ, ג\'פריס 1926); שבירה: P איטי יותר בגרעין (כ־8 לעומת כ־13.7 ק"מ/ש\' בתחתית המעטפת) ולכן הקרניים מתכופפות פנימה — קרן חולפת נוחתת עד 104°, קרן שנכנסת לגרעין נוחתת מ־140°, ומכאן אזור צל 104°–140°; להמן 1936: P′ (PKP) חלש במרחקים 105°–142° (בתוך הצל, בתחנות באירופה ובאסיה) ברישומי רעידת מרצ\'יסון, ניו זילנד, 17 ביוני 1929; תחנותיה שלה ב־149°–151° (איביגטוט, סקורסביסון, אבִּיסקו, פולקובו) ישבו מחוץ לצל; המודל שלה — מעטפת 10, גרעין 8, כדור פנימי מהיר יותר ברדיוס כ־1,400 ק"מ, שמחזיר/שובר קרניים לתוך הצל; אימוץ גוטנברג–ריכטר 1938, ג\'פריס 1939; מוצקות — בירץ\' 1940, הוכחה מהתנודות החופשיות דז\'יבונסקי–גילברט 1971; היום: רדיוס 1,221 ק"מ, עומק 5,150, כ־70% מרדיוס הירח, 5,400–5,700 K; זמן P′ ל־180° כ־20 דקות; בעיה הפוכה) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "האישה ששמעה את לב כדור הארץ" — איך אינגה להמן גילתה את הגרעין הפנימי מגלים של רעידות אדמה. הרעיונות המרכזיים: (1) אי אפשר לחפור: קידוח קולה 12,262 מ\' (1989, 180°), מרכז כדור הארץ 6,371 ק"מ — לומדים על הפנים מהאזנה לגלים (כמו דפיקה על אבטיח, אולטרסאונד); (2) שני גלים: P (דחיפה, אורכי) עובר בכל חומר; S (ניעור, רוחבי) רק במוצק כי נוזל לא מחזיק צורה (אין קשיחות); P מהיר פי 1.7; (3) גרעין נוזלי: מעבר ל־104° אין גלי S (אולדהם 1906, גוטנברג 1914 — גבול בעומק ~2,900 ק"מ, ג\'פריס 1926); (4) אזור הצל: הגרעין הנוזלי איטי יותר ל־P ומכופף את הקרניים (שבירה, כמו קש בכוס מים); קרן חולפת נוחתת עד 104°, קרן שנכנסת נוחתת מ־140°; 140 − 104 = 36 מעלות של צל; (5) להמן: נולדה 1888 בקופנהגן, בית הספר של האנה אדלר (דודת נילס בוהר), ראש המחלקה הסייסמולוגית מ־1928 — תחנות בקופנהגן, איביגטוט וסקורסביסון (גרינלנד); כרטיסי קרטון בקופסאות שיבולת שועל; רעידת ניו זילנד 17 ביוני 1929 (7.8); P′ חלש בתוך הצל (105°–142°) בתחנות באירופה ובאסיה, תחנותיה שלה ב־150° מחוץ לצל; מאמר "P′" 1936 — מודל: מעטפת 10 ק"מ/ש\', גרעין 8, כדור פנימי מהיר יותר (רדיוס ~1,400) שמחזיר גלים לצל; גוטנברג–ריכטר 1938; מוצקות הוכחה 1971 (תנודות של כדור הארץ כולו); מתה 1993 בת 104; הציטוט על גברים לא מוכשרים; (6) היום: גרעין פנימי רדיוס 1,220 ק"מ (עומק 5,150), כ־70% מהירח (1,737), ברזל מוצק, כ־5,400 מעלות — כמו פני השמש; גדל כמילימטר בשנה; דינמו → שדה מגנטי; (7) סייסמוגרמה: פער S − P גדל עם המרחק (ברק ורעם); P בקרום ~6 ק"מ/ש\', S ~3.5; 60 ק"מ → P אחרי 10 שניות; תרועה — 120 סייסמומטרים, התרעה לפני S, עד 30 שניות ב־100 ק"מ; (8) חישובים: 60 ÷ 6 = 10; 12,700 ÷ 10 = 1,270; 12,740 ÷ 10 = 1,274; 1,274 ÷ 60 ≈ 21.2; 6,370 − 1,220 = 5,150; 5,150 ÷ 12.3 ≈ 419; 1,220 ÷ 1,737 ≈ 70%; 140 − 104 = 36.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם את הרעיון של הגרעין הנוזלי (גלי S / ניעור לא עוברים בנוזל ולא מגיעים לצד השני) וגם את הרעיון של להמן (גלים חלשים בתוך אזור הצל, שרק כדור פנימי יכול להחזיר לשם), 1 אם יש רק חלק מזה. תשובה שאומרת ש"ראו את הגרעין במיקרוסקופ" או "חפרו עד המרכז" או "הגרעין נוזלי כי חם" בלי גלים מפספסת את המנגנון ולא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', יש לך אוזן של '+G('סייסמולוג','סייסמולוגית')+' ומוח של '+G('בלש','בלשית')+'!':pct>=60?name+', יש לך מוח של '+G('מדען','מדענית')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=12;                                                     // Kola: 12.3 km
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. החור העמוק ביותר שבני אדם קדחו הוא קידוח קולה: <span class="num">12,262</span> מטרים, ב־<span class="num">1989</span>. עד המרכז נשארו <span class="num">6,359</span> ק״מ — ואת מה שיש שם גילו מהאזנה לגלים.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. קידוח קולה: <span class="num">12,262</span> מטרים, <span class="num">1989</span>, <span class="num">19</span> שנות עבודה. ועכשיו גם ידוע לך איך רואים את ה־<span class="num">6,359</span> ק״מ שנשארו.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. המציאות: <span class="num">12,262</span> מטרים — קידוח קולה, <span class="num">1989</span>. עד המרכז <span class="num">6,371</span> ק״מ. את כל השאר גילו מהאזנה, לא מחפירה.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה עמוק הגיע הקידוח העמוק ביותר): '+(S.guess?fmtSigns(S.guess):'—')+' (המציאות: 12.3 ק״מ)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "האישה ששמעה את לב כדור הארץ", מהדורה 17, י"ג בתשרי תשפ"ז (24 בספטמבר 2026). נושא: איך גילו את מבנה הפנים של כדור הארץ — ובעיקר את הגרעין הפנימי — מגלים של רעידות אדמה; גאולוגיה (שכבות כדור הארץ), פיזיקה (גלים, שבירה, קשיחות), מתמטיקה (זמן = מרחק ÷ מהירות, אחוזים, קנה מידה), היסטוריה (אינגה להמן, 1936). כמה עמוק הגענו: המכרה העמוק בעולם (מפוננג, דרום אפריקה) כ־4 ק"מ; קידוח קולה, חצי האי קולה, רוסיה — קידוח מ־1970, 12,262 מטרים ב־1989, קוטר 23 ס"מ, 180 מעלות בתחתית, הסלע רך מדי, נסגר סופית 1995; רדיוס כדור הארץ 6,371 ק"מ; קרום כ־35 ק"מ ביבשה (5–10 באוקיינוס); מעטפת עד עומק 2,891 (רדיוס הגרעין 3,480); גרעין חיצוני נוזלי עד עומק 5,150; גרעין פנימי רדיוס כ־1,221 ק"מ = כ־19% מרדיוס כדור הארץ, כ־70% מרדיוס הירח (1,737); טמפרטורה 5,400–5,700 K — כמו פני השמש (כ־5,500 מעלות); לחץ 330–360 ג\'יגה־פסקל; ברזל–ניקל; גדל כמילימטר בשנה; גיל משוער 0.5–2 מיליארד שנה. שני גלים: P (Primary, דחיפה/דחיסה, אורכי, כמו קפיץ, כמו קול) עובר במוצק, בנוזל ובגז; S (Secondary, ניעור/גזירה, רוחבי, כמו חבל) עובר רק במוצק, כי נישא על קשיחות ובנוזל אין — השכבות מחליקות; P מהיר מ־S בערך פי 1.7 (בקרום P כ־6 ק"מ/ש\', S כ־3.5; במעטפת P 8–13.7; בגרעין החיצוני P 8.1–10.4; בגרעין הפנימי P 11.1–11.4, S 3.5–3.7). ההיסטוריה: ריצ\'רד אולדהם 1906 — הגלים לצד הרחוק מאחרים, יש גרעין; בנו גוטנברג 1913–1914 — גבול חד בעומק כ־2,900 ק"מ (אי־רציפות גוטנברג); הרולד ג\'פריס 1926 — לגרעין קשיחות זעירה, הוא נוזלי, ולכן אין S מעבר לכ־104°; אזור הצל של P: 104°–140° (יש שמצטטים 103°–143°): הגרעין הנוזלי איטי יותר ל־P (כ־8 לעומת כ־13.7 בתחתית המעטפת) ולכן שובר את הקרניים פנימה — קרן שחולפת ליד הגרעין נוחתת עד 104°, קרן שנכנסת נוחתת מ־140°; אנלוגיה: קש "שבור" בכוס מים, פנס על כדור מים; PKP = P′ = גל P שעבר דרך הגרעין. אינגה להמן: נולדה 13 במאי 1888 בקופנהגן, מתה 21 בפברואר 1993 (104); בית הספר של האנה אדלר (דודת נילס בוהר) — בנים ובנות שווים; מתמטיקה באוניברסיטת קופנהגן ובניונהאם קולג\', קיימברידג\' (1910–1911); מ־1928 ראש המחלקה הסייסמולוגית של המכון הגאודטי הדני — שלוש תחנות: קופנהגן (הפעילה בעצמה), איביגטוט וסקורסביסון בגרינלנד (ספינה פעם בשנה); כרטיסי קרטון עם זמני הגעה בקופסאות של שיבולת שועל בגינה (מפי קרוב המשפחה נילס גרוס); רעידת מרצ\'יסון (בולר), ניו זילנד, 17 ביוני 1929 בבוקר (16 ביוני 22:47 UTC), Ms 7.8, 17 הרוגים; תחנותיה שלה במרחק כ־149–151° (איביגטוט, אבִּיסקו, סקורסביסון, פולקובו) ישבו מחוץ לצל; את ה־P′ החלש שבתוך הצל (105°–142°) קראה מרישומי תחנות אחרות (בהן תחנות ברוסיה); המאמר "P′" (1936), Publications du Bureau Central Séismologique International 14, 87–115 — מהכותרות הקצרות בתולדות המדע; המודל: מעטפת במהירות קבועה 10 ק"מ/ש\', גרעין 8, כדור פנימי מהיר יותר (8.6) ברדיוס כ־1,400 ק"מ — הקרניים שפוגעות בו מוחזרות/נשברות לתוך הצל; "inside the core there is an inner core in which the velocity is larger than the outer one"; אימוץ: גוטנברג וריכטר 1938, ג\'פריס 1939; מוצקות: הציע פרנסיס בירץ\' 1940 (ברזל גבישי, 1952), הוכיחו אדם דז\'יבונסקי ופרימן גילברט 1971 מהתנודות החופשיות (ה"צלצול") של כדור הארץ; PKJKP (S בגרעין הפנימי) — זיהויים מתחילת שנות ה־2000, חלשים ונדונים; מדליית בואי 1971 (האישה הראשונה), מדליית להמן של AGU מ־1996, אי־רציפות להמן (220 ק"מ) גם על שמה; פרסמה עד גיל 99; ציטוט: "הייתם צריכים לדעת עם כמה גברים לא מוכשרים נאלצתי להתחרות — לשווא". סייסמוגרף: משקולת על קפיץ + עט, המשקולת "מתעצלת" (התמדה); סייסמוגרמה: P, אחריו S גדול יותר; פער S − P גדל עם המרחק (ברק ורעם: כ־3 שניות לק"מ); 60 ק"מ: P אחרי 10 שניות, S אחרי כ־17, פער 7; שלוש תחנות → מוקד; זמני הגעה מקורבים: P ב־90° כ־13 דקות, S ב־90° כ־24, P′ (PKP) ב־150° כ־19.5–20, PKIKP ל־180° כ־20 דקות (1,212 שניות → מהירות ממוצעת כ־10.5 ק"מ/ש\'). ישראל: מערכת תרועה של המכון הגאולוגי — כ־120 סייסמומטרים קבורים כל כ־10 ק"מ לאורך השבר הסורי־אפריקני (בקעת הירדן, ים המלח, הערבה) ולאורך שבר הכרמל; מחוברת לפיקוד העורף מינואר 2022; קולטת P ומתריעה לפני S; התרעה מעל עוצמה 4.5 (ארצית מ־6.0); 5–8 שניות לזיהוי ועוד כ־2 לשידור; בקרבת המוקד אין התרעה, ב־50 ק"מ 7–10 שניות, ב־100 ק"מ עד 30; זכרון יעקב יושבת בקצה הדרומי של רכס הכרמל, ליד מערכת שבר הכרמל; רעידות קטנות בבקעת הירדן ובים המלח כמעט כל שבוע. חיבורים: אולטרסאונד — גלי קול מוחזרים מגבולות בין רקמות; InSight על מאדים (נחיתה נובמבר 2018, סייסמומטר אחד, גרעין נוזלי ברדיוס כ־1,830 ק"מ לפי 2021, כ־1,650 לפי 2023); דינמו — ברזל נוזלי זורם סביב הכדור המוצק ומייצר את השדה המגנטי; התנודות החופשיות — כדור הארץ "מצלצל" ימים אחרי רעידת ענק, תדרים תלויים במוצקות הליבה. ניסוי בית: מגש מים — דפיקה (P עובר), ניעור מהצד (S לא עובר), כוס הפוכה במרכז (החזרה, אזור שקט); ג\'לי — מוצק רך, S עובר; אתר המכון הגאולוגי — רשימת רעידות. חישובים: 60 ÷ 6 = 10; 60 ÷ 3.5 ≈ 17; 12,700 ÷ 10 = 1,270; 12,740 ÷ 10 = 1,274; 1,274 ÷ 60 ≈ 21.2; 6,370 − 1,220 = 5,150; 5,150 ÷ 12.3 ≈ 419; 1,220 ÷ 1,737 ≈ 0.70 = 70%; 1,221 ÷ 6,371 ≈ 19%; 140 − 104 = 36; 12,742 ÷ 1,212 ≈ 10.5; 6,371 ÷ 12.3 ≈ 518. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט (ציור הקרניים ממודל מהירויות מפושט; זמני הסייסמוגרמה מקורבים; "גל S לא עובר בנוזל" — בנוזל אידאלי; להמן הראתה גבול פנימי ומהירות גבוהה יותר, לא מוצקות; רדיוס גרעין מאדים במחלוקת), בלי לחשוף תשובות מבחן; אם ילד שואל על תשובה למבחן, לרמוז ולכוון, לא לפתור.';
+const CHIPS = ['למה גל S לא עובר בנוזל?', 'מה זה אזור הצל?', 'מה להמן ראתה על הנייר?', 'כמה חם בגרעין הפנימי?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים: P אורכי על התנגדות לדחיסה, S רוחבי על קשיחות ולכן אפס בנוזל; P מהיר פי 1.7; אין S מעבר ל־104° → גרעין חיצוני נוזלי; שבירה — P איטי בגרעין (כ־8 לעומת 13.7 ק"מ/ש\' בתחתית המעטפת) ולכן הקרניים נשברות פנימה; קרן חולפת עד 104°, קרן שנכנסת מ־140°, צל 104°–140°; להמן 1936 — P′ ב־105°–142° (בתוך הצל) מרעידת 1929, תחנותיה שלה ב־150° מחוץ לצל, מודל 10/8/8.6 ורדיוס כ־1,400; גוטנברג–ריכטר 1938; מוצקות 1971 מהתנודות החופשיות; PKJKP; היום 1,221 ק"מ, 5,150 עומק, 70% מהירח, 5,400–5,700 K; זמן P′ ל־180° כ־20 דקות; דינמו והשדה המגנטי; בעיה הפוכה ואי־יחידות), שאל שאלות המשך שדורשות חשיבה (למשל: למה תחנה ב־90° לא "רואה" את הגרעין אבל תחנה ב־150° כן? — עומק הצלילה של הקרן גדל עם המרחק; מה היה קורה לאזור הצל אם הגרעין היה מהיר יותר מהמעטפת? — הקרניים היו נשברות החוצה ולא היה צל אלא צפיפות), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה גל S לא עובר בנוזל?</b> גל S הוא גל של ניעור: שכבה זזה הצידה ומושכת אחריה את השכנה. במוצק יש ביניהן "אחיזה" — במים אין, האצבע פשוט מחליקה. לכן מעבר לכ־<span class="num">104</span> מעלות מרעידה אין גלי S בכלל, ומכאן שהגרעין נוזלי. גל P, של דחיפה, עובר בכל חומר.<br><br><b>מה להמן ראתה?</b> הגרעין הנוזלי מכופף את גלי P ויוצר אזור צל בין <span class="num">104</span> ל־<span class="num">140</span> מעלות, שבו לא אמורים להגיע גלים. ברישומי רעידת ניו זילנד מ־<span class="num">1929</span> היא מצאה בתוך הצל גלים חלשים ומאוחרים — ורק כדור פנימי שבו הגל מהיר יותר יכול להחזיר אותם לשם. ב־<span class="num">1971</span> הוכיחו שהוא מוצק.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
