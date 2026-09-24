@@ -1,0 +1,22 @@
+{
+  "n": 17,
+  "code": "WOW-017",
+  "date": "2026-09-24",
+  "language": "he",
+  "title": "האישה ששמעה את לב כדור הארץ",
+  "topics": [
+    "גאולוגיה",
+    "פיזיקה",
+    "מתמטיקה",
+    "היסטוריה"
+  ],
+  "summary": "How Inge Lehmann discovered Earth's solid inner core (1936) from P-waves in the shadow zone of the 1929 New Zealand earthquake: P vs S waves, the liquid outer core (no S beyond 104°), refraction and the 104°–140° shadow zone, seismograms and the S−P distance clock, Kola borehole 12,262 m, inner core 1,220 km (~70% of the Moon), Israel's TRUAA early-warning system.",
+  "teaser": "אף מקדח לא חדר יותר מ־12 קילומטרים לתוך כדור הארץ, ומרכזו בעומק 6,371. ובכל זאת אנחנו יודעים שיש שם כדור של ברזל מוצק, לוהט כמו פני השמש. איך יודעים, אם אי אפשר לחפור? רמז: צריך רעידת אדמה בניו זילנד, קופסאות של שיבולת שועל, ואישה אחת שסירבה להגיד \"בטח טעות\".",
+  "max_score": 11,
+  "status": "released",
+  "released_at": "2026-09-24T08:12:27.000Z",
+  "password": "לב של ברזל",
+  "reviewer_verdict": "PASS (2 rounds) — nit left: reviewer estimates ~35–40 min at slow reading speed vs the 30-minute tag (prose trimmed twice); series conventions (WhatsApp/אבא strings, challenge in max) unchanged",
+  "review_url": "https://claude.ai/artifact/6gWsiWLyqF6PMYeRRiDR2r",
+  "editor_note": null
+}
