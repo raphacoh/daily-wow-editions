@@ -1,0 +1,22 @@
+{
+  "n": 19,
+  "code": "WOW-019",
+  "date": "2026-09-26",
+  "language": "he",
+  "title": "המסוק שעף על מאדים באוויר שכמעט לא קיים",
+  "topics": [
+    "חלל",
+    "הנדסה",
+    "פיזיקה",
+    "מתמטיקה"
+  ],
+  "summary": "How NASA's Ingenuity helicopter flew on Mars in air ~100x thinner than Earth's (like 30 km altitude): lift ∝ density × blade area × speed², so 1.8 kg, 1.2 m blades at 2,400+ rpm, Mars gravity 38%; counter-rotating rotors (action/reaction); autonomy because radio takes 3–22 min; Bob Balaram's 15-year-old idea, 5 planned flights became 72 (2021–2024); Dead Sea densest air, Dragonfly to Titan.",
+  "teaser": "מסוק ששוקל פחות מ־2 קילו טס על כוכב לכת שבו האוויר דליל פי מאה משלנו. הוא תוכנן לחמש טיסות. הוא ביצע 72. השאלה של היום: איך מרימים משהו באוויר, כשכמעט אין אוויר?",
+  "max_score": 11,
+  "status": "released",
+  "released_at": "2026-09-26T08:11:00.000Z",
+  "password": "כנפיים על מאדים",
+  "reviewer_verdict": "PASS (3 rounds) — nits left: reviewer estimates ~36–41 min vs the 30-min tag; canvas labels ~14 CSS px at 390 px (series convention); correct option still the longest in 5/10 items",
+  "review_url": "https://claude.ai/artifact/BnzVmsa34DPbsxXh5zF3QC",
+  "editor_note": null
+}

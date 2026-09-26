@@ -1,0 +1,1673 @@
+<title>שורשים וכנפיים #19 · המסוק שעף על מאדים באוויר שכמעט לא קיים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#D9633A; --sun-deep:#8A3A12; --sun-soft:#FBE1D2;
+  --nile:#2A6FB0; --nile-soft:#D8E7F5; --shadow:#5E4A9E; --shadow-soft:#E7E1F5;
+  --night:#1A2238; --aur:#F2C94C; --aur2:#F0A45C;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#D9822B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F5955F; --sun-deep:#FFD6BC; --sun-soft:#3D2114;
+    --nile:#58B0E6; --nile-soft:#14324A; --shadow:#C9A6F0; --shadow-soft:#2E2246;
+    --night:#0B1226; --aur:#F2D27A; --aur2:#FFBE8A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F5955F; --sun-deep:#FFD6BC; --sun-soft:#3D2114;
+  --nile:#58B0E6; --nile-soft:#14324A; --shadow:#C9A6F0; --shadow-soft:#2E2246;
+  --night:#0B1226; --aur:#F2D27A; --aur2:#FFBE8A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny helicopter — body disc and a rotor bar */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:40px;height:30px;flex:none}
+.ch .stick::before{content:"";position:absolute;right:4px;bottom:0;width:22px;height:14px;border-radius:7px;background:var(--sun);box-shadow:0 0 0 3px var(--sun-soft)}
+.ch .stick::after{content:"";position:absolute;right:-4px;bottom:20px;width:38px;height:4px;border-radius:2px;background:var(--ink)}
+
+/* hero: Mars and the little helicopter */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-24px;width:300px;height:300px;z-index:0;opacity:.92;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%,100%{transform:translate(150px,52px) translateY(0)}50%{transform:translate(150px,52px) translateY(-7px)}}
+/* this edition's widgets */
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 19</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="var(--aur)" stop-opacity=".55"/>
+        <stop offset="60%" stop-color="var(--aur)" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="var(--aur)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- Mars: a rust disc with a dark basin and a polar cap; a tiny helicopter hovers above it -->
+    <g id="heroMars">
+      <circle cx="150" cy="176" r="90" fill="var(--sun)" fill-opacity=".6" stroke="var(--ink)" stroke-width="1.6"/>
+      <ellipse cx="118" cy="190" rx="34" ry="18" fill="var(--sun-deep)" fill-opacity=".35"/>
+      <ellipse cx="186" cy="150" rx="22" ry="12" fill="var(--sun-deep)" fill-opacity=".3"/>
+      <ellipse cx="150" cy="92" rx="24" ry="6" fill="var(--card)" fill-opacity=".9"/>
+    </g>
+    <g class="spark" transform="translate(150,52)">
+      <rect x="-14" y="-6" width="28" height="14" rx="5" fill="var(--ink)"/>
+      <rect x="-1.5" y="-22" width="3" height="16" fill="var(--ink)"/>
+      <line x1="-46" y1="-22" x2="46" y2="-22" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+      <line x1="-36" y1="-15" x2="36" y2="-15" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+      <line x1="-12" y1="8" x2="-16" y2="22" stroke="var(--ink)" stroke-width="2.5"/><line x1="12" y1="8" x2="16" y2="22" stroke="var(--ink)" stroke-width="2.5"/>
+    </g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 19</span><span class="tag">יום שבת, 26 בספטמבר 2026</span><span class="tag">ט״ו בתשרי תשפ״ז · סוכות</span><span class="tag">כ־30 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>המסוק שעף על מאדים באוויר שכמעט לא קיים</h1>
+  <p class="lede">ב־<span class="num">19</span> באפריל <span class="num">2021</span>, על כוכב לכת שבו האוויר דליל פי מאה מהאוויר שאתם נושמים עכשיו, מכונה קטנה במשקל <span class="num">1.8</span> קילוגרם סובבה את הלהבים שלה <b><span class="num">2,400</span> פעמים בדקה</b>, התרוממה לגובה שלושה מטרים, ריחפה ונחתה. אף אחד לא החזיק שלט: הפקודה מכדור הארץ הייתה מגיעה אחרי רבע שעה. המסוק הזה נבנה לחמש טיסות. הוא ביצע <b><span class="num">72</span></b>. השאלה של היום: <b>איך מרימים משהו באוויר, כשכמעט אין אוויר?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">האוויר על פני מאדים דליל. פי כמה הוא דליל יותר מהאוויר שלנו בגובה פני הים?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="2"><b>פי 2</b><span>כמו על פסגת הר גבוה</span></button>
+      <button type="button" class="scaleopt" data-scale="10"><b>פי 10</b><span>כמו בגובה 18 ק״מ, מעל המטוסים</span></button>
+      <button type="button" class="scaleopt" data-scale="100"><b>פי 100</b><span>כמו בגובה בלון מזג אוויר</span></button>
+      <button type="button" class="scaleopt" data-scale="1000"><b>פי 1,000</b><span>כמעט ריק</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · HOW MUCH AIR IS THERE (interactive 1: the air ladder) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>כמה אוויר יש שם בכלל?</h2>
+  <p>אוויר הוא לא "כלום". בכל קובייה של מטר על מטר על מטר, כאן ליד הים, יש בערך <b>קילוגרם ורבע של אוויר</b> — כמו בקבוק גדול של מים. ככל שעולים, האוויר מתדלדל: על האוורסט נשאר פחות מחצי, בגובה <span class="num">20</span> ק״מ — פחות מעשירית. ועל פני מאדים? בקובייה כזאת יש אוויר במשקל של <b>כף אחת של מים</b>: כ־<span class="num">15</span> גרם. כמו בגובה <span class="num">30</span> קילומטרים מעל כדור הארץ, יותר מפי שניים מהגובה שאליו הגיע אי פעם מסוק.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>למה זה חשוב למסוק? כי מסוק לא "נאחז" בשמיים. הלהבים שלו <b>דוחפים אוויר למטה</b>, והאוויר דוחף אותם בחזרה למעלה. אם כמעט אין אוויר, כמעט אין מה לדחוף. נסו לנפנף ביד באוויר, ואז במים באמבטיה: במים מרגישים דחיפה חזקה, כי מים צפופים. אוויר של מאדים הוא ההפך ממים.</p>
+    <p>באינטראקטיב: גררו את הסמן מים המלח ועד לגובה <span class="num">40</span> קילומטרים, ותראו איך הנקודות (חלקיקי האוויר) נעלמות. הקו האדום מראה איפה כדור הארץ "נהיה מאדים".</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למדענים יש מילה לכמות האוויר בקובייה: <b>צפיפות</b>. בגובה פני הים היא כ־<span class="math">1.2</span> ק״ג למטר מעוקב; על פני מאדים — בערך <span class="math">0.015</span>, פחות מאחוז וחצי. הפתעה קטנה: הלחץ על מאדים הוא רק כחצי אחוז משלנו, אבל האוויר שם הוא פחמן דו־חמצני כבד וקר מאוד, ולכן הצפיפות היחסית כפולה מהלחץ היחסי. ה"פי מאה" שבכותרת הוא עיגול נוח. את המסוק מעניינת הצפיפות: כמה אוויר הלהב תופס ודוחף למטה בכל שנייה.</p>
+    <p>באינטראקטיב: מצאו את הגובה שבו הצפיפות בכדור הארץ שווה לזו של מאדים, והשוו לשיא הגובה של מסוק: <span class="num">12,442</span> מטרים (ז׳אן בולה, <span class="num">1972</span>) — המנוע שלו כבה שם מחוסר אוויר, והוא נחת בגלישה.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — סולם האוויר ===== -->
+  <div class="panel instrument">
+    <h3>סולם האוויר</h3>
+    <p class="cap">משמאל: עמוד האוויר של כדור הארץ, מים המלח ועד גובה <span class="num">40</span> ק״מ. כל נקודה היא "מנה" של אוויר. מימין: שתי צנצנות — אחת בגובה שבחרתם, אחת על פני מאדים. גררו את הסמן.</p>
+    <canvas id="airCv" width="640" height="520" aria-label="עמוד אנכי של אוויר מים המלח ועד 40 קילומטרים, עם נקודות שמתדלדלות ככל שעולים; סימונים לאוורסט, למטוס נוסעים, לשיא המסוקים ולבלון; קו אדום בגובה 30 קילומטרים שבו הצפיפות שווה לזו של מאדים; מימין צנצנת האוויר בגובה שנבחר לצד צנצנת של מאדים"></canvas>
+    <div class="controls">
+      <label>גובה (ק״מ)
+        <input type="range" id="airH" min="-0.44" max="40" step="0.01" value="0" oninput="airDraw(1)" aria-label="גובה בקילומטרים" style="direction:ltr">
+      </label>
+      <div class="readout">אוויר: <b class="num" id="airOut">100%</b></div>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="קפיצה לגובה">
+        <button id="airJ0" onclick="airJump(-0.44)">ים המלח</button>
+        <button id="airJ1" onclick="airJump(0)">פני הים</button>
+        <button id="airJ2" onclick="airJump(8.8)">אוורסט</button>
+        <button id="airJ3" onclick="airJump(12.4)">שיא מסוק</button>
+        <button id="airJ4" onclick="airJump(30.5)">מאדים</button>
+      </div>
+    </div>
+    <p class="cap" id="airMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>המקום עם האוויר הכי צפוף בעולם הוא בישראל: חוף ים המלח, <span class="num">440</span> מטרים מתחת לפני הים. יש שם כ־<span class="num">5</span> אחוזים יותר אוויר מאשר בתל אביב. מסוק היה עף שם הכי בקלות בעולם — ומאדים הוא ההפך הגמור.</p></div>
+
+  <div class="q qc" id="airQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · WHAT LIFTS A HELICOPTER (interactive 2: the lift lab) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>מה מרים מסוק?</h2>
+  <p>להב של מסוק הוא כנף שמסתובבת. כשהוא חותך את האוויר במהירות, הוא מטה אוויר <b>למטה</b> — ולפי החוק של ניוטון, האוויר דוחף את הלהב <b>למעלה</b>. הדחיפה הזאת נקראת <b>עילוי</b>. כשהעילוי גדול מהמשקל, המסוק ממריא. שלושה דברים קובעים כמה עילוי יש: <b>כמה אוויר</b> (הצפיפות), <b>כמה שטח</b> ללהבים, ו<b>כמה מהר</b> הם נעים.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>על מאדים יש פי מאה פחות אוויר. אז מה עושים? משנים את שני הדברים האחרים: להבים <b>גדולים</b> מאוד ומהירים <b>מאוד</b>. ועוד טריק: עושים את המסוק <b>קל</b> ככל האפשר, כדי שיהיה צריך פחות עילוי. אינג׳ניואיטי שוקל <span class="num">1.8</span> קילוגרם — כמו שני בקבוקי מים — עם להבים באורך <span class="num">1.2</span> מטר מקצה לקצה, שמסתובבים <span class="num">2,400</span> פעמים בדקה. הרוטור של מסוק רגיל מסתובב בערך <span class="num">400</span>.</p>
+    <p>באינטראקטיב: קודם נחשו. אחר כך הגדירו מסוק "רגיל" בכדור הארץ (<span class="num">400</span> סיבובים בדקה), העבירו אותו למאדים — ותראו מה קורה. ואז נסו למצוא בעצמכם מה צריך כדי להמריא שם.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הנה המנגנון במספרים. העילוי גדל <b>ביחס ישר</b> לצפיפות האוויר ולשטח הלהבים, ו<b>בריבוע</b> המהירות: מהירות כפולה נותנת פי ארבעה עילוי. אפשר לכתוב את זה כך: <span class="math">עילוי ∝ צפיפות × שטח × מהירות²</span>. עכשיו החשבון של מאדים: הצפיפות קטנה פי <span class="num">100</span>, אבל הכבידה שם היא רק <span class="num">38</span> אחוז — המסוק שוקל שם פחות, אז צריך פחות עילוי. נשאר לפצות על פי <span class="math">100 × 0.38 = 38</span>. שטח גדול פי ארבעה ומהירות גדולה פי שלושה (<span class="math">4 × 3² = 36</span>) כמעט סוגרים את הפער — וזה בדיוק המתכון של אינג׳ניואיטי: להבים רחבים באורך <span class="num">1.2</span> מטר מקצה לקצה, וסיבוב של <span class="math">2,400–2,800</span> סל״ד במקום כ־<span class="num">400</span>.</p>
+    <p>באינטראקטיב: העילוי מחושב מהנוסחה הזאת (N = ניוטון, יחידה של כוח), מכויל כך שאינג׳ניואיטי ממריא במאדים קצת מתחת ל־<span class="num">2,400</span> סל״ד. בדקו: מה קורה אם מקצרים את הלהב לחצי? (רמז: השטח קטן פי ארבעה, וגם מהירות הקצה קטנה פי שניים.)</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — מעבדת העילוי ===== -->
+  <div class="panel instrument">
+    <h3>מעבדת העילוי</h3>
+    <p class="cap">מסוק במשקל <span class="num">1.8</span> ק״ג. העמודה הירוקה היא העילוי, הכהה היא המשקל (N = ניוטון, יחידה של כוח); כשהירוקה גבוהה יותר — ממריאים. נחשו: מסוק שממריא בכדור הארץ ב־<span class="num">400</span> סיבובים בדקה — מה יעשה על מאדים באותה מהירות?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="lfP0" onclick="lfPredict(0)">ימריא כרגיל</button>
+        <button id="lfP1" onclick="lfPredict(1)">יתרומם, לאט</button>
+        <button id="lfP2" onclick="lfPredict(2)">יישאר על הקרקע</button>
+      </div>
+    </div>
+    <canvas id="lfCv" width="640" height="480" aria-label="מסוק על קרקע, עם חץ ירוק של עילוי כלפי מעלה וחץ כהה של משקל כלפי מטה; רקע עם נקודות אוויר צפופות בכדור הארץ ודלילות במאדים; כשהעילוי גדול מהמשקל המסוק מתרומם"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="כוכב הלכת">
+        <button id="lfW0" class="on" onclick="lfWorld(0)">כדור הארץ</button>
+        <button id="lfW1" onclick="lfWorld(1)">מאדים</button>
+      </div>
+      <div class="readout">עילוי: <b class="num" id="lfLift">—</b></div>
+      <div class="readout">משקל: <b class="num" id="lfWeight">—</b></div>
+    </div>
+    <div class="controls">
+      <label>מהירות הסיבוב (סיבובים בדקה)
+        <input type="range" id="lfRpm" min="100" max="3000" step="50" value="400" oninput="lfDraw(1)" aria-label="סיבובים בדקה" style="direction:ltr">
+      </label>
+      <label>אורך הלהבים (מטר, מקצה לקצה)
+        <input type="range" id="lfD" min="0.4" max="1.6" step="0.1" value="1.2" oninput="lfDraw(1)" aria-label="אורך הלהבים" style="direction:ltr">
+      </label>
+    </div>
+    <p class="cap" id="lfMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="aha">כלל אצבע: <b>פחות אוויר — יותר שטח, יותר מהירות, פחות משקל.</b> זה כל המתכון של מסוק במאדים.</div>
+
+  <div class="q qc" id="lfQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · WHY TWO ROTORS (interactive 3: torque) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>למה שני רוטורים?</h2>
+  <p>לאינג׳ניואיטי אין רוטור זנב כמו למסוק רגיל. במקום זה יש לו <b>שני</b> רוטורים, אחד מעל השני, שמסתובבים <b>בכיוונים הפוכים</b>. למה? כי כשמנוע מסובב להב ימינה, הלהב דוחף את גוף המסוק <b>שמאלה</b> — פעולה ותגובה. מסוק עם רוטור אחד היה מסתחרר כמו סביבון. מסוקים בכדור הארץ פותרים את זה עם רוטור קטן בזנב, שדוחף הצידה נגד הסיבוב.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>נסו את זה: שבו על כיסא מסתובב, הרימו את הרגליים, וסובבו בידיים משהו כבד מעליכם (למשל תיק) במעגל. הגוף שלכם יתחיל להסתובב <b>לכיוון ההפוך</b>. ככה מרגיש מסוק בלי רוטור זנב.</p>
+    <p>על מאדים רוטור זנב היה בעיה: הוא צריך אוויר לדחוף, ואין. אז שני רוטורים הפוכים: אחד דוחף את הגוף שמאלה, השני ימינה, וביחד — כלום. הגוף שקט. באינטראקטיב: נחשו, ואז נסו רוטור אחד, רוטור עם זנב, ושניים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הכלל הפיזיקלי נקרא <b>שימור התנע הזוויתי</b>: אם המסוק עמד בשקט, סך כל הסיבוב שלו הוא אפס — וכך זה חייב להישאר. כשהרוטור מתחיל להסתובב ימינה, משהו חייב להסתובב שמאלה כדי לאזן. אם אין רוטור זנב שיאחז באוויר, ה"משהו" הזה הוא כל גוף המסוק. שני רוטורים שמסתובבים בכיוונים הפוכים באותה מהירות מבטלים זה את זה, וסך הסיבוב נשאר אפס בלי לגעת באוויר בכלל.</p>
+    <p>וזה גם פותר בעיה שנייה: שני רוטורים נותנים פי שניים שטח להבים בלי להאריך את הלהב — והלהב לא יכול להיות ארוך יותר, כי המסוק היה צריך להיכנס מתחת לבטן של הרובר פרסברנס. באינטראקטיב: שימו לב לכיוון החצים.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — פעולה ותגובה ===== -->
+  <div class="panel instrument">
+    <h3>פעולה ותגובה</h3>
+    <p class="cap">מבט מלמעלה על המסוק. הלהבים בכתום, הגוף באפור עם חץ שמראה לאן "האף" פונה. נחשו: מה יעשה הגוף כשרוטור אחד מסתובב?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="tqP0" onclick="tqPredict(0)">יישאר במקום</button>
+        <button id="tqP1" onclick="tqPredict(1)">יסתובב לכיוון ההפוך</button>
+        <button id="tqP2" onclick="tqPredict(2)">יסתובב לאותו כיוון</button>
+      </div>
+    </div>
+    <canvas id="tqCv" width="640" height="420" aria-label="מבט מלמעלה על מסוק: גוף אפור עם חץ, ורוטור כתום שמסתובב; במצב רוטור אחד הגוף מסתובב לכיוון ההפוך; במצב רוטור זנב מדחף קטן בזנב מייצב; במצב שני רוטורים הפוכים הגוף נשאר במקום"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="סוג המסוק">
+        <button id="tqM0" class="on" onclick="tqMode(0)">רוטור אחד</button>
+        <button id="tqM1" onclick="tqMode(1)">רוטור + זנב</button>
+        <button id="tqM2" onclick="tqMode(2)">שניים הפוכים</button>
+      </div>
+      <button class="btn small ghost" id="tqPlay" onclick="tqPlay()">הפעלה</button>
+      <label style="min-width:160px">זמן
+        <input type="range" id="tqT" min="0" max="100" step="1" value="0" oninput="tqDraw(1)" aria-label="זמן" style="direction:ltr">
+      </label>
+    </div>
+    <p class="cap" id="tqMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="q qc" id="tqQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · REMOTE CONTROL AT LIGHT SPEED (interactive 4: the delay) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>שלט רחוק במהירות האור</h2>
+  <p>הבעיה הרביעית היא לא בשמיים אלא בטלפון. פקודה למאדים נוסעת בגלי רדיו, במהירות האור: <span class="num">300,000</span> קילומטרים בכל שנייה. נשמע מהיר — אבל מאדים רחוק: כשהוא הכי קרוב, האות מגיע אחרי כשלוש דקות; כשהוא בצד השני של השמש, אחרי יותר מ<b>עשרים דקות</b>. וטיסה שלמה של אינג׳ניואיטי נמשכת <b>דקה וחצי</b>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אז מי טס? המסוק בעצמו. הוא מקבל מכדור הארץ <b>תוכנית</b> — לאן, כמה גבוה, כמה זמן — ואז הוא לבד: מצלמה שמצלמת את הקרקע <span class="num">30</span> פעמים בשנייה, ומחשב קטן (כמו של טלפון) שמחשב אם הוא נוטה או נסחף ומתקן. רק אחרי הנחיתה הוא שולח הביתה "נחתתי, הנה התמונות".</p>
+    <p>באינטראקטיב: בחרו כמה רחוק מאדים היום, לחצו "שלחו פקודה" ותראו כמה זמן לוקח לה להגיע. השוו לזמן של טיסה אחת.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>החישוב פשוט: <span class="math">זמן = מרחק ÷ מהירות</span>. במרחק הקצר ביותר, כ־<span class="num">55</span> מיליון ק״מ: <span class="math">55,000,000 ÷ 300,000 ≈ 183</span> שניות, כשלוש דקות. במרחק הגדול ביותר, כ־<span class="num">400</span> מיליון ק״מ: יותר מ־<span class="num">22</span> דקות. וזה רק לכיוון אחד — כדי לראות מה קרה צריך לחכות גם לתשובה.</p>
+    <p>לכן אינג׳ניואיטי הוא <b>אוטונומי</b>: תוכנת הטיסה שלו רצה על מעבד של טלפון חכם (סנאפדרגון <span class="num">801</span>), ומשווה בין תמונות רצופות של הקרקע כדי לדעת לאן הוא זז. בטיסה השישית תמונה אחת "נפלה" ושאר התמונות קיבלו זמן שגוי — המסוק התנדנד עד <span class="num">20</span> מעלות, אבל נחת בשלום בעזרת חיישני התנועה בלבד. באינטראקטיב: חשבו את ההשהיה בעצמכם לפני שלוחצים.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 4 — ההשהיה ===== -->
+  <div class="panel instrument">
+    <h3>כמה זמן לוקח לפקודה להגיע?</h3>
+    <p class="cap">כדור הארץ משמאל, מאדים מימין. בחרו את המרחק (הוא משתנה כל הזמן, כי שני הכוכבים מקיפים את השמש), ושלחו פקודה. הסרגל למטה משווה את זמן הנסיעה של האות לטיסה של <span class="num">90</span> שניות.</p>
+    <canvas id="dlCv" width="640" height="400" aria-label="כדור הארץ משמאל ומאדים מימין עם קו ביניהם; אות רדיו נע מכדור הארץ למאדים; ציון המרחק במיליוני קילומטרים וזמן ההגעה בדקות; סרגל שמשווה את ההשהיה לטיסה של 90 שניות"></canvas>
+    <div class="controls">
+      <label>המרחק למאדים (מיליוני ק״מ)
+        <input type="range" id="dlDist" min="55" max="400" step="5" value="150" oninput="dlDraw(1)" aria-label="המרחק למאדים" style="direction:ltr">
+      </label>
+      <button class="btn small" id="dlSend" onclick="dlSend()">שלחו פקודה</button>
+      <div class="readout">ההשהיה: <b class="num" id="dlOut">—</b></div>
+    </div>
+    <p class="cap" id="dlMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="q qc" id="dlQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE STORY (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>הרעיון שחיכה במגירה</h2>
+    <p><b>בוב בלרם</b> גדל בדרום הודו, וכשהיה ילד שמע ברדיו את הנחיתה על הירח. הוא הפך למהנדס במעבדה של נאס״א בקליפורניה, ובשנות ה־<span class="num">90</span> הציע: בואו נבנה מסוק למאדים. אמרו לו "לא". הרעיון חיכה במגירה <span class="num">15</span> שנה, עד שמנהל המעבדה שמע הרצאה על רחפנים ושאל: "אפשר כזה על מאדים?" מישהו נזכר בבוב.</p>
+    <p>הצוות, בניהולה של <b>מימי אאונג</b>, בנה מסוק זעיר ובדק אותו בחדר ענק שממנו שאבו כמעט את כל האוויר — מאדים בתוך בניין. תלמידת תיכון בת <span class="num">17</span> מאלבמה, ונייזה רופאני, בחרה לו שם בתחרות: <b>אינג׳ניואיטי</b>, "תושייה". ב־<span class="num">18</span> בפברואר <span class="num">2021</span> הוא נחת על מאדים מקופל מתחת לבטן של הרובר פרסברנס, ומתחת לפאנל השמש שלו הודבקה פיסת בד קטנטנה מהמטוס של <b>האחים רייט</b> מ־<span class="num">1903</span>.</p>
+    <p>ב־<span class="num">19</span> באפריל <span class="num">2021</span> הוא המריא: שלושה מטרים, <span class="num">39</span> שניות. הצוות חיכה שלוש שעות עד שהתמונות הגיעו. התוכנית הייתה חמש טיסות. אבל המסוק המשיך: הוא שרד לילות של מינוס <span class="num">90</span> מעלות בעזרת מחממים קטנים, חורף חשוך ותקלה שכמעט הפילה אותו — ועף <span class="num">72</span> פעמים, כמעט שלוש שנים. בטיסה האחרונה, ב־<span class="num">18</span> בינואר <span class="num">2024</span>, קצה של להב נשבר בנחיתה על חול חלק. הוא עדיין עומד שם.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>הרעיון שחיכה במגירה</h2>
+    <p><b>בוב בלרם</b> נולד בדרום הודו, ואת הנחיתה על הירח ב־<span class="num">1969</span> שמע ברדיו. הוא הפך למהנדס ב־JPL, המעבדה של נאס״א בפסדינה, ובשנות ה־<span class="num">90</span> הציע מסוק זעיר למאדים. ההצעה נדחתה ו"ישבה על המדף" כ־<span class="num">15</span> שנה — עד שמנהל המעבדה, צ׳רלס אלאצ׳י, חזר מהרצאה על רחפנים ושאל אם אפשר כזה במאדים. מישהו הזכיר את בוב, והוא קיבל שבועות ספורים לכתוב הצעה חדשה.</p>
+    <p>מנהלת הפרויקט <b>מימי אאונג</b> וצוותה בדקו את המסוק ב"סימולטור החלל" של JPL: תא ענק שממנו שאבו את האוויר עד לצפיפות של מאדים, ובו חוט שנשא <span class="num">62</span> אחוז ממשקלו — כבידה של מאדים. הוא נבנה כ<b>הדגמת טכנולוגיה</b>: חמש טיסות ב־<span class="num">30</span> יום, ואם ייכשל, הרובר ימשיך בלעדיו. מעבד של טלפון, שני רוטורים נגדיים, פאנל סולארי קטן, סוללה ל־<span class="num">90</span> שניות טיסה ביום ולמחממים בלילה. ב־<span class="num">18</span> בפברואר <span class="num">2021</span> נחת במכתש ג׳זרו, מקופל מתחת לפרסברנס. תלמידת תיכון בת <span class="num">17</span>, ונייזה רופאני, נתנה לו את שמו.</p>
+    <p>הטיסה הראשונה, <span class="num">19</span> באפריל <span class="num">2021</span>: <span class="num">3</span> מטרים, <span class="num">39.1</span> שניות, ואישור שהגיע ל־JPL אחרי כשלוש שעות. המקום נקרא מאז "שדה האחים רייט", והמסוק נשא פיסת בד מכנף הפלייר של <span class="num">1903</span>. במקום חמש טיסות היו <span class="num">72</span>: שיא גובה <span class="num">24</span> מטרים, שיא מהירות <span class="num">10</span> מטרים בשנייה, <span class="num">17.2</span> ק״מ בסך הכול. ב־<span class="num">18</span> בינואר <span class="num">2024</span>, בנחיתה על גבעות חול חלקות בלי סימנים לעקוב אחריהם, הניווט איבד כיוון, המסוק נחת בתנועה צידית וקצה להב נשבר. הוא עדיין עומד שם.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> כמה מהר נע קצה הלהב? הרוטור מסתובב <span class="num">2,400</span> פעמים בדקה, ואורך הלהבים מקצה לקצה הוא <span class="num">1.2</span> מטר, כלומר בכל סיבוב הקצה עובר היקף של מעגל שקוטרו <span class="num">1.2</span> מטר (<span class="math">π ≈ 3.14</span>). מהירות הקול על מאדים, שמדד הרובר פרסברנס, היא כ־<span class="num">240</span> מטרים בשנייה. (א) כמה סיבובים בשנייה? (ב) מהי מהירות קצה הלהב במטרים בשנייה? (מספר שלם, בערך.) (ג) כמה אחוזים ממהירות הקול על מאדים זה? (מספר שלם.)</p>
+      <div class="controls">
+        <label>(א) סיבובים בשנייה <input type="number" id="chalRps" inputmode="numeric" step="1" placeholder="?"></label>
+        <label>(ב) מטרים בשנייה <input type="number" id="chalTip" inputmode="numeric" step="1" placeholder="?"></label>
+        <label>(ג) אחוז מהקול <input type="number" id="chalMach" inputmode="numeric" step="1" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()" data-g="בדוק|בדקי">בדקי</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> אם יותר שטח ויותר מהירות נותנים יותר עילוי — למה לא בנו להבים ארוכים פי שניים, וסובבו אותם פי שניים יותר מהר?</p>
+      <details><summary>הרמז והתשובה</summary><p>שלוש סיבות. <b>משקל:</b> להבים ארוכים יותר כבדים יותר ודורשים מנוע חזק וסוללה גדולה יותר, וכל גרם נוסף דורש עוד עילוי — מעגל שקשה לצאת ממנו; וגם: המסוק היה צריך להיכנס מקופל מתחת לרובר. <b>מהירות הקול:</b> קצה הלהב כבר נע ב־<span class="num">63</span> אחוז ממהירות הקול של מאדים; פי שניים יותר מהר היה מעבר למהירות הקול, ואז נוצרים גלי הלם, הלהב מאבד עילוי ורועד, ומהנדסים לא יודעים לחשב מה יקרה. לכן הרוטורים לא עברו כ־<span class="num">2,800</span> סל״ד. <b>אנרגיה:</b> פי שניים מהירות דורש הרבה יותר מפי שניים כוח מהמנוע, והסוללה של אינג׳ניואיטי מספיקה ל־<span class="num">90</span> שניות ביום. הנדסה היא אמנות הפשרה: מספיק שטח, מספיק מהירות, מספיק קל — ולא יותר.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>מסוק נייר בחמש דקות, ומרוץ בין להבים צרים לרחבים.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — מסוק הנייר (<span class="num">5</span> דקות)</h3>
+    <p class="cap">מה צריך: דף נייר, מספריים, אטב נייר אחד או שניים, וכיסא לעמוד עליו (בזהירות).</p>
+    <ol>
+      <li><b>גוזרים</b> רצועה של נייר באורך כ־<span class="num">20</span> ס״מ וברוחב <span class="num">4</span>. חותכים אותה מהקצה העליון עד האמצע — נוצרים שני "להבים". מקפלים להב אחד קדימה ואחד אחורה.</li>
+      <li>את החצי התחתון <b>מקפלים</b> לרצועה צרה (זה הגוף), ושמים בקצה שלו אטב — המשקל.</li>
+      <li><b>מפילים</b> מגובה של כשני מטרים. המסוק יסתובב ויירד לאט: הלהבים דוחפים אוויר למטה, והאוויר דוחף אותם למעלה — עילוי אמיתי. שימו לב: הגוף מסתובב יחד עם הלהבים, כי אין לו רוטור נגדי.</li>
+      <li><b>המרוץ:</b> בונים מסוק שני עם להבים <b>צרים</b> (רוחב <span class="num">2</span> ס״מ). מפילים את שניהם ביחד: מי יורד לאט יותר? עכשיו הוסיפו אטב שני לכבד. מה השתנה?</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — כמה מהר הוא מסתובב? (<span class="num">10</span> דקות)</summary>
+    <p>מדדו עם סטופר כמה שניות לוקח למסוק הנייר ליפול משני מטרים, ונסו לספור סיבובים בדרך (וידאו בהילוך איטי עוזר). כמה סיבובים בשנייה? אינג׳ניואיטי עושה <span class="num">40</span>. ועכשיו מאדים: שם יש פי מאה פחות אוויר, ומסוק הנייר היה נופל כמעט כמו אבן. איך הייתם משנים אותו? (יותר להבים? רחבים יותר? קל יותר?)</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — לראות את הטיסה האמיתית (<span class="num">3</span> דקות)</summary>
+    <p>הרובר פרסברנס צילם את הטיסה הראשונה של אינג׳ניואיטי בווידאו. חפשו "Ingenuity first flight video NASA": <span class="num">39</span> שניות, שלושה מטרים, וצל קטן על החול. שימו לב כמה מהר הלהבים מסתובבים לעומת מסוק רגיל, ותקשיבו: בטיסה מאוחרת יותר הרובר גם הקליט את הזמזום שלהם — הצליל הראשון של מכונה מעופפת על כוכב אחר.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הסיפור של היום הוא על מילה אחת: "אי אפשר". כולם ידעו שאי אפשר לעוף על מאדים, כי אין שם אוויר. בוב בלרם לא התווכח עם הפיזיקה — הוא הסתכל בה מקרוב. עילוי צריך אוויר, שטח ומהירות. את האוויר אי אפשר לשנות. אז הוא שינה את השניים האחרים, והוריד משקל. אותו חוק, תשובה אחרת.</p>
+    <p>והדבר השני: המסוק נבנה לחמש טיסות ועשה <span class="num">72</span>. לא כי היה מזל, אלא כי בנו אותו לשרוד את הכישלון: מחממים ללילה, תוכנה שיודעת לנחות גם כשהמצלמה מתבלבלת, ותוכנית שאמרה "אם ייפול, למדנו משהו". כשמנסים משהו חדש, לתכנן לכישלון זה לא פחדנות. ככה מגיעים ל־<span class="num">72</span>.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הגדול של השיעור הוא <b>הנדסה כאיזון</b>. הפיזיקה נותנת נוסחה אחת — עילוי מצפיפות, שטח ומהירות בריבוע — ומאדים מוריד ממנה את הצפיפות. את החסר משלימים משטח ומהירות, אבל לכל אחד יש מחיר: שטח שוקל ותופס מקום מתחת לרובר, מהירות מתקרבת למהירות הקול ודורשת אנרגיה שאין. הפתרון של אינג׳ניואיטי הוא לא "הכי גדול" ולא "הכי מהר", אלא הנקודה שבה כל הפשרות נפגשות: <span class="num">1.8</span> ק״ג, <span class="num">1.2</span> מטר, <span class="num">2,400</span> סל״ד, <span class="num">90</span> שניות. וגם: הכבידה החלשה של מאדים, <span class="num">38</span> אחוז, היא הגורם היחיד שעבד <b>לטובת</b> המסוק.</p>
+    <p>והדבר השני: <b>הדגמת טכנולוגיה</b>. נאס״א לא שלחה מסוק כדי לחקור, אלא כדי לבדוק אם אפשר בכלל — עם רשות להיכשל, וב־<span class="num">80</span> מיליון דולר, שבמונחי חלל זה זול. הרעיון עצמו הוא הפרס: בשנת <span class="num">2028</span> אמור לצאת לדרך "דרגונפליי" — רחפן בגודל מכונית לטיטאן, הירח של שבתאי, שבו הבעיה הפוכה: אוויר צפוף פי ארבעה משלנו וכבידה של שביעית. שאלה לחקור: על טיטאן, על איזה משלושת הגורמים בנוסחה יהיה הכי קל לוותר?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">פיזיקה</div><h3>מהירות הקול על מאדים</h3><p>המיקרופון של הרובר פרסברנס קלט את זמזום הלהבים של אינג׳ניואיטי ממרחק ידוע, ומהזמן שלקח לו מדדו את מהירות הקול על מאדים: כ־<span class="num">240</span> מטרים בשנייה, לעומת <span class="num">340</span> אצלנו. באוויר קר של פחמן דו־חמצני הקול איטי — וצלילים גבוהים נעים שם מהר יותר מנמוכים.</p></div>
+    <div class="tile"><div class="dom">היסטוריה</div><h3>שנים־עשר שניות בקיטי הוק</h3><p>ב־<span class="num">17</span> בדצמבר <span class="num">1903</span> עף המטוס של האחים רייט <span class="num">12</span> שניות ו־<span class="num">37</span> מטרים — פחות זמן מהטיסה הראשונה של אינג׳ניואיטי. פיסה מבד הכנף שלו טסה למאדים, ופיסה אחרת טסה ב־<span class="num">1969</span> לירח עם ניל ארמסטרונג.</p></div>
+    <div class="tile"><div class="dom">ביולוגיה</div><h3>המסוק של הטבע</h3><p>זרע המייפל (ואצלנו: זרעי האורן והתדהר) נופל מהעץ עם "להב" אחד ומסתחרר — בדיוק כמו מסוק הנייר. הסחרור מאט את הנפילה, והרוח נושאת את הזרע רחוק מהעץ. במנהרת רוח גילו שהלהב יוצר מערבולת קטנה שמכפילה את העילוי.</p></div>
+    <div class="tile"><div class="dom">ישראל</div><h3>האוויר הכי כבד בעולם</h3><p>בים המלח, <span class="num">440</span> מטרים מתחת לפני הים, לחץ האוויר הוא הגבוה ביותר על פני כדור הארץ: כ־<span class="num">1,060</span> מיליבר, כ־<span class="num">5</span> אחוזים יותר מבחוף. מזכרון יעקב יורדים לשם כמעט <span class="num">600</span> מטרים, וכל מטר מוסיף קצת אוויר. מסוק שם? קל. על מאדים — פי מאה קשה.</p></div>
+  </div>
+
+  <details class="bonus" id="latBox">
+    <summary>בונוס (2 דקות): הבעיה ההפוכה — טיטאן</summary>
+    <p>על טיטאן, הירח הגדול של שבתאי, האוויר <b>צפוף פי ארבעה</b> משלנו והכבידה היא <b>שביעית</b>. שם לעוף קל להפליא: בן אדם עם כנפיים על הזרועות היה יכול להתרומם. נאס״א מתכננת לשלוח לשם ב־<span class="num">2028</span> את "דרגונפליי", רחפן עם שמונה רוטורים בגודל של מכונית, שינחת ב־<span class="num">2034</span> ויקפוץ ממקום למקום עשרות קילומטרים. אינג׳ניואיטי הוכיח שאפשר לעוף במקום שבו כמעט אין אוויר; דרגונפליי ינצל מקום שבו יש יותר מדי.</p>
+    <details><summary>שאלה קטנה</summary><p>על טיטאן קר מאוד: מינוס <span class="num">180</span> מעלות. למה דווקא זה עוזר לרחפן לעוף?</p>
+      <p data-level="advanced">[מתקדם] כי צפיפות של גז עולה כשקר: באותו לחץ, מולקולות קרות נעות לאט יותר וצפופות יותר. הלחץ על טיטאן הוא רק פי <span class="math">1.5</span> משלנו, אבל בגלל הקור (וכי המולקולות, חנקן, דומות לשלנו) הצפיפות גדולה פי ארבעה. אותו רעיון בדיוק — הפוך — הוא הסיבה שאינג׳ניואיטי טס בחורף של מאדים מהר יותר: בקיץ, כשהאוויר מתחמם ומתדלדל, הצוות העלה את הסל״ד ל־<span class="num">2,700</span> ויותר. וזו גם הסיבה שהמנוע של ז׳אן בולה כבה ב־<span class="num">12,442</span> מטרים: מנוע, כמו להב, צריך אוויר.</p>
+      <p data-level="standard">כי אוויר קר הוא אוויר צפוף: המולקולות שלו זזות לאט ומצטופפות. יותר אוויר בכל קובייה — יותר מה לדחוף. אצלנו זה עובד הפוך: ביום חם מסוק ממריא קצת יותר קשה, וכשמאדים מתחמם בקיץ הצוות של אינג׳ניואיטי היה צריך לסובב את הלהבים מהר יותר.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את היום של אינג׳ניואיטי על מאדים — מהלילה ועד שהתמונות מגיעות לכדור הארץ. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: אינג׳ניואיטי תוכנן ל־<span class="num">5</span> טיסות בלבד. הוא ביצע <span class="num">72</span>. כמה טיסות הוא טס מעבר לתוכנית?</div>
+    <div class="controls"><label>טיסות <input type="number" id="numYounger" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')" data-g="בדוק|בדקי">בדוק</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: אות רדיו נע במהירות האור, <span class="num">300,000</span> ק״מ בשנייה. ביום מסוים מאדים היה במרחק <span class="num">165</span> מיליון ק״מ מכדור הארץ. (א) אחרי כמה שניות הגיעה הפקודה למסוק? (ב) וכמה דקות זה? (ספרה אחת אחרי הנקודה; מותר מחשבון.)</div>
+    <div class="controls"><label>(א) שניות <input type="number" id="numAdv" inputmode="numeric" step="1" placeholder="?"></label><label>(ב) דקות <input type="number" id="numAdvR" inputmode="decimal" step="0.1" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: אות רדיו נע במהירות האור, <span class="num">300,000</span> ק״מ בשנייה. ביום מסוים מאדים היה במרחק <span class="num">150</span> מיליון ק״מ מכדור הארץ. אחרי כמה שניות הגיעה הפקודה למסוק? (מותר מחשבון.)</div>
+    <div class="controls"><label>שניות <input type="number" id="numOlder" inputmode="numeric" step="1" placeholder="?"></label><button class="btn small" onclick="checkNum('older')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה קשה כל כך לעוף על מאדים, ואיך המהנדסים של אינג׳ניואיטי הצליחו בכל זאת?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="על מאדים האוויר דליל פי מאה, ולכן..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. על פני מאדים יש פי מאה פחות אוויר מאשר אצלנו — כמו בגובה <span class="num">30</span> ק״מ מעל כדור הארץ, יותר מפי שניים מהגובה שאליו הגיע אי פעם מסוק (<span class="num">12,442</span> מטרים, <span class="num">1972</span>). מסוק עף כי הלהבים דוחפים אוויר למטה והאוויר דוחף אותם למעלה (עילוי); כמעט בלי אוויר, כמעט אין מה לדחוף.<br>
+    2. עילוי תלוי בשלושה דברים: כמה אוויר, כמה שטח ללהבים, וכמה מהר הם נעים (בריבוע). את האוויר אי אפשר לשנות, אז אינג׳ניואיטי קיבל להבים גדולים (<span class="num">1.2</span> מטר) שמסתובבים מהר מאוד (<span class="num">2,400</span> פעמים בדקה, פי שישה ממסוק רגיל), ומשקל של <span class="num">1.8</span> ק״ג בלבד. שני רוטורים הפוכים מבטלים זה את זה, אחרת הגוף היה מסתחרר. והכבידה החלשה של מאדים (<span class="num">38</span> אחוז) עזרה.<br>
+    3. אי אפשר להטיס אותו בשלט: אות רדיו לוקח <span class="math">3–22</span> דקות להגיע, וטיסה נמשכת דקה וחצי — אז הוא טס לבד, עם מצלמה ומעבד של טלפון. הרעיון של בוב בלרם חיכה <span class="num">15</span> שנה במגירה; המסוק נבנה ל־<span class="num">5</span> טיסות וביצע <span class="num">72</span> (<span class="num">2021–2024</span>), עד שקצה להב נשבר בנחיתה. הוא נשא איתו פיסת בד מהמטוס של האחים רייט.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>אינג׳ניואיטי (Ingenuity): מסה <span class="num">1.8</span> ק״ג; שני רוטורים נגדיים (קואקסיאליים), ארבעה להבי פחמן, מוטת להבים <span class="math">1.2</span> מ׳; סל״ד <span class="math">2,400–2,700</span> בטיסות (הועלה בקיץ המאדימי, כשהאוויר דליל יותר; <span class="num">2,800</span> בבדיקות סיבוב); מהירות קצה הלהב מתחת ל־<span class="math">0.7</span> מאך; מעבד Qualcomm Snapdragon 801; סוללת ליתיום־יון <span class="math">35–40</span> Wh ופאנל סולארי; מחממים ללילות של כ־<span class="num">−90°</span> במכתש ג׳זרו; תקשורת דרך הרובר פרסברנס (Zigbee). נחיתה על מאדים: <span class="num">18</span> בפברואר <span class="num">2021</span>; פריסה מתחת לרובר: <span class="num">3</span> באפריל; טיסה ראשונה: <span class="num">19</span> באפריל <span class="num">2021</span>, <span class="num">3</span> מ׳, <span class="math">39.1</span> שניות (המראה 12:33 בזמן מאדים מקומי, האישור ב־JPL כשלוש שעות אחר כך); "שדה האחים רייט"; פיסת בד מכנף הפלייר של <span class="num">1903</span> מתחת לפאנל. תכנון: הדגמת טכנולוגיה — עד <span class="num">5</span> טיסות ב־<span class="num">30</span> סולים, <span class="math">3–5</span> מ׳, עד <span class="num">90</span> שניות; בפועל <span class="num">72</span> טיסות; שיא גובה <span class="num">24</span> מ׳ (טיסה <span class="num">61</span>); שיא מהירות <span class="num">10</span> מ׳/ש׳ (טיסה <span class="num">62</span>); הטיסה הארוכה ביותר <span class="math">169.5</span> שניות (טיסה <span class="num">12</span>) ו־<span class="num">709</span> מ׳ (טיסה <span class="num">25</span>); סה״כ <span class="math">17.24</span> ק״מ וכ־<span class="math">2:09</span> שעות טיסה; תקלת הניווט בטיסה <span class="num">6</span> (תמונה שנפלה, חותמות זמן שגויות, נטייה עד <span class="num">20°</span>); טיסה <span class="num">72</span>: <span class="num">18</span> בינואר <span class="num">2024</span>, נחיתה על רכסי חול חסרי מאפיינים, איבוד עקיבה, נחיתה במהירות אופקית ושבירת קצה להב (אחד הלהבים נותק לחלוטין, אחרים ניזוקו כשליש מהקצה); סיום המשימה הוכרז <span class="num">25</span> בינואר <span class="num">2024</span>; עלות פיתוח כ־<span class="num">80</span> מיליון דולר ועוד כ־<span class="num">5</span> לתפעול (Wikipedia, "Ingenuity (helicopter)" ו־"List of Ingenuity flights"; NASA Science, Ingenuity Mars Helicopter; JPL, "6 Things to Know", "Succeeds in Historic First Flight"; Planetary Society; SpaceNews, Jan. 2024). אנשים: בוב בלרם — מהנדס ראשי, ילדות בדרום הודו, הרעיון משנות ה־<span class="num">90</span> (בעקבות ה"מסיקופטר" של אילן קרו מסטנפורד), "ישב על המדף" כ־<span class="num">15</span> שנה, חודש אחרי שמנהל JPL צ׳רלס אלאצ׳י שמע הרצאה על רחפנים (JPL, "The Man Who Wanted to Fly on Mars", 2020); מימי אאונג — מנהלת הפרויקט ("our Wright brothers moment on Mars"); הווארד גריפ — הטייס הראשי; ונייזה רופאני, תלמידת תיכון מאלבמה, בחרה את השם. אטמוספירה: לחץ ממוצע על פני מאדים <span class="math">6.4</span> מיליבר (כ־<span class="math">0.6%</span> משלנו), צפיפות <span class="math">0.016 ± 0.006</span> ק״ג/מ״ק, <span class="math">95%</span> פחמן דו־חמצני, כבידה <span class="math">3.73</span> מ׳/ש׳² (<span class="num">38%</span>), מרחק מכדור הארץ <span class="math">54.6–401.4</span> מיליון ק״מ (NASA NSSDC Mars Fact Sheet); "פי 100 דליל" ו"כמו בגובה 30 ק״מ" הם העיגול המקובל של נאס״א (הצפיפות המדויקת מקבילה לגובה <span class="math">27–34</span> ק״מ לפי המקור והעונה); צפיפות אוויר סטנדרטית בכדור הארץ: <span class="math">1.225</span> ק״ג/מ״ק בפני הים, <span class="math">0.018</span> ב־<span class="num">30</span> ק״מ (US Standard Atmosphere). מהירות הקול על מאדים: כ־<span class="num">240</span> מ׳/ש׳ בתדרים נמוכים (נמדד מזמזום הרוטור של אינג׳ניואיטי) וכ־<span class="num">250</span> בגבוהים, לעומת כ־<span class="num">340</span> בכדור הארץ (Maurice et al., Nature 2022; Science News). שיא הגובה למסוק: ז׳אן בולה, <span class="num">21</span> ביוני <span class="num">1972</span>, Aérospatiale SA 315 Lama, <span class="num">12,442</span> מ׳, המנוע כבה ב־<span class="num">−63°</span> ונחיתה באוטורוטציה (FAI). ים המלח: <span class="num">−440</span> מ׳ (2025), לחץ <span class="math">1,061–1,065</span> hPa, כ־<span class="num">5%</span> מעל הסטנדרט (Wikipedia, "Dead Sea"); זכרון יעקב כ־<span class="math">100–170</span> מ׳ מעל פני הים. האחים רייט: <span class="num">17</span> בדצמבר <span class="num">1903</span>, <span class="num">12</span> שניות, <span class="num">37</span> מ׳ (<span class="num">120</span> רגל); פיסת בד וחלק מהמדחף טסו לירח עם ארמסטרונג באפולו <span class="num">11</span>. דרגונפליי: שיגור מתוכנן יולי <span class="num">2028</span>, הגעה לטיטאן <span class="num">2034</span>; טיטאן — לחץ כ־<span class="math">1.5</span> אטמוספירות, צפיפות פי כ־<span class="num">4</span> משלנו, כבידה כ־<span class="num">14%</span>, כ־<span class="num">−180°</span> (NASA, Dragonfly). פישוטים במכוון: "מעבדת העילוי" משתמשת בחוק <span class="math">L ∝ ρ·ω²·D⁴</span> (<span class="math">שטח ∝ D²</span>, <span class="math">מהירות קצה ∝ D</span>), מכויל כך שאינג׳ניואיטי ממריא במאדים סביב <span class="num">2,200</span> סל״ד ובכדור הארץ קצת מתחת ל־<span class="num">400</span>, בלי הפסדים, מנוע ותופעות מהירות הקול — במציאות אינג׳ניואיטי לא יכול לרוץ ב־<span class="num">2,400</span> סל״ד באוויר של כדור הארץ, כי המנוע לא היה עומד בעומס; אנימציית הרוטורים בפרק <span class="num">3</span> סכמטית (יחס הסיבובים לא לפי מומנטי התמד אמיתיים); ההשהיה בפרק <span class="num">4</span> לכיוון אחד ובקירוב מרחק ישר; "מסוק רגיל כ־400 סל״ד" — מסוקי נוסעים: <span class="math">300–500</span>; "פי מאה פחות אוויר" — עיגול (ראו לעיל). לוח עברי: Hebcal.</p>
+  </details>
+</section>
+
+</main>
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:19, code:'WOW-019', date:'2026-09-26', title:'המסוק שעף על מאדים באוויר שכמעט לא קיים', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '153XmdeT15DXniDXnNeiINed15nXmdek16DXmw=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'space', w:3 }, { id:'engineering', w:3 }, { id:'physics', w:2 }, { id:'maths', w:1 } ],
+  hero: { name:'אינג׳ניואיטי — המסוק הראשון על כוכב אחר', fact:'על פני מאדים יש פי ~100 פחות אוויר (0.015 ק"ג/מ"ק מול 1.225) — כמו בגובה 30 ק"מ; עילוי = הלהבים דוחפים אוויר למטה — גדל עם הצפיפות, השטח והמהירות בריבוע; הפתרון: 1.8 ק"ג, להבים 1.2 מ\', 2,400–2,800 סל"ד (פי 6 ממסוק), כבידה 38% עוזרת; שני רוטורים נגדיים (פעולה ותגובה); אוטונומי כי אות רדיו לוקח 3–22 דקות; בוב בלרם הציע בשנות ה־90, הרעיון חיכה 15 שנה; הדגמת טכנולוגיה ל־5 טיסות — בפועל 72 (19.4.2021–18.1.2024), 17 ק"מ, שיא 24 מ\'; קצה להב נשבר בנחיתה על חול חלק' },
+  items: {
+    'predict':       { skill:'estimation',            d:2 },
+    'qc:scale':      { skill:'estimation',            d:2 },
+    'qc:airQ':       { skill:'mechanism',             d:2 },
+    'qc:lfQ':        { skill:'mechanism',             d:2 },
+    'qc:tqQ':        { skill:'mechanism',             d:3 },
+    'qc:dlQ':        { skill:'evidence',              d:2 },
+    'qc:storyQ':     { skill:'evidence',              d:2 },
+    'mcq:shared:0':  { skill:'mechanism',             d:2 },
+    'mcq:shared:1':  { skill:'mechanism',             d:2 },
+    'mcq:shared:2':  { skill:'evidence',              d:3 },
+    'mcq:younger:0': { skill:'evidence',              d:2 },
+    'mcq:older:0':   { skill:'mechanism',             d:3 },
+    'order':         { skill:'sequence',              d:3 },
+    'num:younger':   { skill:'subtraction',           d:1 },
+    'num:older':     { skill:'rate-time',             d:2 },
+    'num:adv':       { skill:'rate-two-step',         d:4 },
+    'challenge':     { skill:'circumference-percent', d:4 },
+    'explain':       { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ airDraw(0); showArtoTip(); } if(n===2) lfDraw(0); if(n===3) tqDraw(0); if(n===4) dlDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+/* ---------- hero guess: how much thinner is the air on Mars? ----------
+   Four choices force a real commitment (×2 / ×10 / ×100 / ×1,000): the surface density of Mars is ~1% of Earth's at sea level. data-scale: the factor. */
+const SCALE_ANS = 100;                                                // Mars: ~0.015 kg/m³ vs 1.225
+const fmtSigns = n => n===2 ? 'פי 2' : n===10 ? 'פי 10' : n===100 ? 'פי 100' : 'פי 1,000';
+const SCALE_FB = {
+  100: '<span class="pill-ok">קלעתם!</span> על פני מאדים יש בכל מטר מעוקב רק כ־<span class="num">15</span> גרם אוויר, לעומת יותר מקילוגרם אצלנו — כמו בגובה <span class="num">30</span> ק״מ מעל כדור הארץ, שאליו אף מסוק לא הגיע. איך ממריאים שם? על זה השיעור.',
+  2: '<span class="pill-bad">הרבה יותר.</span> פי שניים פחות אוויר יש כבר בגובה <span class="num">6</span> ק״מ, מתחת לפסגת האוורסט. על מאדים יש פי <span class="num">100</span> פחות: כ־<span class="num">15</span> גרם במטר מעוקב, לעומת יותר מקילוגרם אצלנו — כמו בגובה <span class="num">30</span> ק״מ. איך ממריאים שם? על זה השיעור.',
+  10: '<span class="pill-bad">עוד יותר.</span> פי עשרה פחות אוויר יש בגובה כ־<span class="num">18</span> ק״מ, מעל מטוסי הנוסעים. על מאדים יש פי <span class="num">100</span> פחות — כמו בגובה <span class="num">30</span> ק״מ, שאליו אף מסוק לא הגיע. איך ממריאים שם? על זה השיעור.',
+  1000: '<span class="pill-bad">קצת פחות.</span> פי אלף פחות אוויר יש בגובה כ־<span class="num">50</span> ק״מ, ושם באמת אי אפשר לעוף. על מאדים "רק" פי <span class="num">100</span> פחות — כמו בגובה <span class="num">30</span> ק״מ, שאליו אף מסוק לא הגיע. איך ממריאים שם? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(30,size); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+/* US Standard Atmosphere, density (kg/m³) by altitude (km); Mars surface ≈ 0.015 (Jezero, NASA fact sheet 0.016 ± 0.006) */
+const RHO_TBL=[[-0.5,1.285],[0,1.225],[1,1.112],[2,1.007],[3,0.909],[4,0.819],[5,0.736],[6,0.660],[7,0.590],[8,0.526],[9,0.467],[10,0.414],[11,0.365],[12,0.312],[13,0.267],[14,0.228],[15,0.195],[16,0.166],[18,0.122],[20,0.089],[22,0.065],[25,0.040],[28,0.025],[30,0.018],[32,0.0136],[35,0.0082],[38,0.0053],[40,0.004]];
+const RHO0=1.225, RHO_MARS=0.015, G_E=9.81, G_M=3.72, MASS=1.8;
+function rhoAt(h){ if(h<=RHO_TBL[0][0]) return RHO_TBL[0][1]; for(let i=1;i<RHO_TBL.length;i++){ if(h<=RHO_TBL[i][0]){ const [h0,r0]=RHO_TBL[i-1],[h1,r1]=RHO_TBL[i]; return r0*Math.pow(r1/r0,(h-h0)/(h1-h0)); } } return RHO_TBL[RHO_TBL.length-1][1]; }
+/* deterministic pseudo-random dots (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+function fmtPct(f){ return f>=0.1 ? Math.round(f*100)+'%' : f>=0.01 ? (Math.round(f*1000)/10)+'%' : (Math.round(f*10000)/100)+'%'; }
+function drawHeli(c,x,y,s,col,blur,ang){   // side view: body, skids, mast, two rotor discs (s = scale, blur = rotor as a disc)
+  c.save(); c.translate(x,y); c.scale(s,s);
+  c.fillStyle=col; c.beginPath(); c.roundRect(-22,-8,44,20,7); c.fill();                       // body
+  c.fillRect(-2,-30,4,24);                                                                     // mast
+  c.strokeStyle=col; c.lineWidth=3; c.lineCap='round';
+  c.beginPath(); c.moveTo(-14,12); c.lineTo(-20,26); c.moveTo(14,12); c.lineTo(20,26); c.moveTo(-26,26); c.lineTo(-12,26); c.moveTo(12,26); c.lineTo(26,26); c.stroke();   // legs
+  c.fillStyle=css('--nile'); c.fillRect(-16,-40,32,6);                                          // solar panel
+  if(blur){ c.globalAlpha=.35; c.fillStyle=css('--sun'); c.beginPath(); c.ellipse(0,-30,blur,4,0,0,Math.PI*2); c.fill(); c.beginPath(); c.ellipse(0,-22,blur,4,0,0,Math.PI*2); c.fill(); c.globalAlpha=1; }
+  c.strokeStyle=css('--sun'); c.lineWidth=4; const a=ang||0, L=blur||40;
+  c.beginPath(); c.moveTo(-L*Math.cos(a),-30); c.lineTo(L*Math.cos(a),-30); c.moveTo(-L*Math.cos(a+1.2),-22); c.lineTo(L*Math.cos(a+1.2),-22); c.stroke();
+  c.restore();
+}
+
+/* ---------- step 1 (interactive 1): the air ladder (canvas) ---------- */
+const airCv=document.getElementById('airCv'), actx=airCv.getContext('2d');
+const AIR={ opened:0, hit:{} };
+function airJump(h){ airH.value=h; airDraw(1); }
+function airDraw(user){
+  const c=actx, W=airCv.width, H=airCv.height, h=+airH.value, rho=rhoAt(h), f=rho/RHO0;
+  if(user && !AIR.opened){ AIR.opened=1; WOW.emit('open', { id:'air' }); }
+  [-0.44,0,8.8,12.4,30.5].forEach((v,k)=>{ const b=document.getElementById('airJ'+k); if(b) b.classList.toggle('on', Math.abs(h-v)<0.05); });
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the column: x 40..200, altitude -1 (y=480) .. 40 km (y=40) */
+  const cx0=72, cw=150, y0=60, y1=490, kmToY=km=>y1-(km+1)*(y1-y0)/41;
+  c.fillStyle=css('--card'); c.fillRect(cx0,y0,cw,y1-y0);
+  /* dots per 1-km band ∝ density */
+  const rnd=prng(7);
+  for(let km=-1;km<40;km++){ const r=rhoAt(km+0.5)/RHO0, n=Math.round(64*r); c.fillStyle=css('--nile'); for(let i=0;i<n;i++){ const x=cx0+6+rnd()*(cw-12), y=kmToY(km+1)+2+rnd()*((y1-y0)/41-4); c.beginPath(); c.arc(x,y,2.4,0,Math.PI*2); c.fill(); } }
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.strokeRect(cx0,y0,cw,y1-y0);
+  /* ground / Dead Sea */
+  c.fillStyle=css('--earth2'); c.fillRect(cx0-8,kmToY(0),cw+16,y1-kmToY(0)); c.fillStyle=css('--water'); c.fillRect(cx0+cw-60,kmToY(-0.44),60,y1-kmToY(-0.44));
+  /* scale ticks, left */
+  [0,10,20,30,40].forEach(km=>{ const y=kmToY(km); c.strokeStyle=css('--ink'); c.lineWidth=2; c.beginPath(); c.moveTo(cx0-8,y); c.lineTo(cx0,y); c.stroke(); xNum(c,String(km),cx0-12,y,30,css('--muted'),'right'); });
+  xText(c,'ק״מ',cx0+cw/2,y1+18,30,css('--muted'),'center');
+  /* the Mars line */
+  const yM=kmToY(30.5); c.strokeStyle=css('--bad'); c.lineWidth=3; c.setLineDash([8,6]); c.beginPath(); c.moveTo(cx0-8,yM); c.lineTo(cx0+cw+150,yM); c.stroke(); c.setLineDash([]);
+  xTag(c,'כמו על מאדים','',cx0+cw+14,yM-22,30,css('--bad'),'left',.92);
+  /* landmarks, right of the column */
+  const marks=[[12.4,'שיא מסוק (1972)',css('--ink'),-16],[8.8,'אוורסט',css('--ink'),16],[-0.44,'ים המלח',css('--nile'),0]];
+  marks.forEach(m=>{ const y=kmToY(m[0]); c.strokeStyle=m[2]; c.lineWidth=2; c.beginPath(); c.moveTo(cx0+cw,y); c.lineTo(cx0+cw+10,y+m[3]); c.stroke(); xTag(c,m[1],'',cx0+cw+14,y+m[3],30,m[2],'left',.92); });
+  /* the marker */
+  const my=kmToY(h); c.fillStyle=css('--sun-deep'); c.beginPath(); c.moveTo(cx0+cw+2,my); c.lineTo(cx0+cw+22,my-12); c.lineTo(cx0+cw+22,my+12); c.closePath(); c.fill();
+  c.strokeStyle=css('--sun-deep'); c.lineWidth=3; c.beginPath(); c.moveTo(cx0-4,my); c.lineTo(cx0+cw+2,my); c.stroke();
+  /* two jars, right: here vs Mars (dots ∝ density) */
+  const jar=(x,y,w,hh,frac,seed,label,col)=>{ c.fillStyle=css('--card'); c.beginPath(); c.roundRect(x,y,w,hh,12); c.fill(); c.strokeStyle=css('--ink'); c.lineWidth=2.5; c.stroke();
+    const n=Math.round(300*frac), r2=prng(seed); c.fillStyle=col; for(let i=0;i<Math.max(n,frac>0?1:0);i++){ c.beginPath(); c.arc(x+8+r2()*(w-16), y+8+r2()*(hh-16), 3.2, 0, Math.PI*2); c.fill(); }
+    xText(c,label,x+w/2,y+hh+26,30,css('--ink'),'center'); };
+  jar(420,116,96,150,f,11,'כאן',css('--nile'));
+  jar(538,116,96,150,RHO_MARS/RHO0,13,'מאדים',css('--bad'));
+  xNum(c,fmtPct(f),468,84,34,css('--nile'),'center');
+  xNum(c,fmtPct(RHO_MARS/RHO0),586,84,34,css('--bad'),'center');
+  xText(c,'כמה אוויר בצנצנת?',516,44,30,css('--muted'),'center');
+  const hTxt = h<0 ? Math.abs(Math.round(h*1000))+' מ׳ מתחת לים' : 'גובה: '+(Math.round(h*10)/10).toLocaleString('en-US')+' ק״מ';
+  xTag(c,hTxt,'',510,466,30,css('--sun-deep'),'center',.92);
+  airOut.textContent=fmtPct(f);
+  if(user && h>=28 && h<=34 && !AIR.hit.mars){ AIR.hit.mars=1; WOW.emit('item', { id:'air:mars', kind:'quick', correct:true, attempt: wowTry('air') }); }
+  airMsg.innerHTML = h<0 ? 'ים המלח, <span class="num">440</span> מטרים מתחת לפני הים: המקום עם האוויר הכי צפוף בעולם, כ־<span class="num">5</span> אחוזים יותר מבחוף. כאן מסוק היה עף הכי בקלות.'
+    : h<1 ? 'גובה פני הים: <span class="num">100</span> אחוז. כאן אנחנו, וכאן מתוכננים כל המסוקים. השוו את הצנצנת שלנו לצנצנת של מאדים.'
+    : h<9.5 ? 'גובה <span class="num">'+(Math.round(h*10)/10)+'</span> ק״מ, האוויר רק <span class="num">'+fmtPct(f)+'</span>. על האוורסט (<span class="math">8.8</span> ק״מ) מטפסים נושמים מבלון חמצן — וגם למסוקים כבר קשה.'
+    : h<13 ? 'גובה <span class="num">'+(Math.round(h*10)/10)+'</span> ק״מ: <span class="num">'+fmtPct(f)+'</span> מהאוויר. ב־<span class="math">12.4</span> ק״מ נגמר הכוח של המסוק הכי טוב בהיסטוריה: ז׳אן בולה, <span class="num">1972</span>, והמנוע שלו כבה שם.'
+    : h<27 ? 'גובה <span class="num">'+(Math.round(h*10)/10)+'</span> ק״מ: רק <span class="num">'+fmtPct(f)+'</span> מהאוויר של פני הים. אין כאן מטוסים, רק בלונים — ועדיין הרבה יותר אוויר מאשר על מאדים. גררו הלאה.'
+    : h<=34 ? 'גובה <span class="num">'+(Math.round(h*10)/10)+'</span> ק״מ: <span class="num">'+fmtPct(f)+'</span> — <b>זה האוויר של מאדים</b>. שתי הצנצנות כמעט זהות: פי מאה פחות אוויר. וכאן אינג׳ניואיטי צריך להמריא.'
+    : 'גובה <span class="num">'+(Math.round(h*10)/10)+'</span> ק״מ: <span class="num">'+fmtPct(f)+'</span>. אפילו פחות מעל מאדים. מכאן ומעלה גם ללהבים הכי טובים אין במה להיאחז.';
+}
+airDraw(0);
+
+/* ---------- step 2 (interactive 2): the lift lab (canvas) ----------
+   L = K · ρ · (rpm/1000)² · (D/1.2)⁴ — lift ∝ density × blade area (D²) × tip speed² (D²·rpm²); K calibrated so that
+   Ingenuity (1.8 kg, D = 1.2 m) just lifts off on Mars around 2,200 rpm and on Earth just under 400 rpm */
+const lfCv=document.getElementById('lfCv'), lctx=lfCv.getContext('2d');
+const LF={ opened:0, pred:-1, world:0, hit:{}, ang:0 };
+const LF_K=92;
+function lfCalc(rpm,D,rho){ return LF_K*rho*Math.pow(rpm/1000,2)*Math.pow(D/1.2,4); }
+function lfPredict(k){ LF.pred=k; [0,1,2].forEach(i=>document.getElementById('lfP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'lift:predict', kind:'quick', correct:k===2, attempt: wowTry('lift:predict') }); lfDraw(1); }
+function lfWorld(w){ LF.world=w; lfW0.classList.toggle('on',w===0); lfW1.classList.toggle('on',w===1); lfDraw(1); }
+function lfDraw(user){
+  const c=lctx, W=lfCv.width, H=lfCv.height, rpm=+lfRpm.value, D=+lfD.value, mars=LF.world===1;
+  const rho = mars?RHO_MARS:RHO0, g = mars?G_M:G_E, weight=MASS*g, lift=lfCalc(rpm,D,rho), ratio=lift/weight, flies=lift>weight;
+  if(user && !LF.opened){ LF.opened=1; WOW.emit('open', { id:'lift' }); }
+  c.fillStyle= mars ? (isDark()?'#3A2418':'#F2D6C4') : css('--sky1'); c.fillRect(0,0,W,H);
+  /* air dots (density) */
+  const rnd=prng(mars?3:5), n=Math.round(420*rho/RHO0); c.fillStyle= mars ? 'rgba(160,80,40,.45)' : 'rgba(40,90,150,.35)'; for(let i=0;i<Math.max(n,3);i++){ c.beginPath(); c.arc(rnd()*W, rnd()*380, 3, 0, Math.PI*2); c.fill(); }
+  /* ground */
+  c.fillStyle= mars ? css('--sun') : css('--leaf2'); c.fillRect(0,400,W,H-400); c.fillStyle= mars ? css('--sun-deep') : css('--earth2'); c.globalAlpha=.35; c.fillRect(0,400,W,6); c.globalAlpha=1;
+  xTag(c, mars?'מאדים':'כדור הארץ','',20,30,30,css('--ink'),'left',.92);
+  xTag(c,'אוויר:',fmtPct(rho/RHO0),20,72,30,css('--muted'),'left',.92);
+  /* the helicopter, left of centre: hovers when lift > weight; height ∝ excess, capped */
+  const lift0=flies ? clamp((ratio-1)*160, 30, 190) : 0, hy=372-lift0;
+  const scale=1.0+D*0.6, blur=Math.round(D*48);
+  LF.ang += rpm/900; drawHeli(c,230,hy,scale,css('--ink'),blur,LF.ang);
+  /* the scale, right: two bars from the ground — lift (green) vs weight (dark); taller green = it flies */
+  const px = mars ? 22 : 8.5, base=398;                                                       // px per newton (weight bar ≈ 150 px on both worlds)
+  const Lw=Math.min(250, weight*px), Ll=Math.min(250, lift*px), capped=lift*px>250;
+  c.fillStyle=css('--ok'); c.fillRect(440,base-Ll,52,Ll); if(capped){ c.fillStyle=css('--sun-deep'); xArrow(c,466,base-Ll-6,0,-1,28); }
+  c.fillStyle=css('--ink'); c.fillRect(545,base-Lw,52,Lw);
+  xNum(c,(Math.round(lift*10)/10).toLocaleString('en-US')+' N',466,base-Ll-(capped?46:26),30,css('--ok'),'center');
+  xNum(c,(Math.round(weight*10)/10).toLocaleString('en-US')+' N',571,base-Lw-26,30,css('--ink'),'center');
+  xTag(c,'עילוי','',466,base+30,30,css('--ok'),'center',.9);
+  xTag(c,'משקל','',571,base+30,30,css('--ink'),'center',.9);
+  c.strokeStyle='rgba(0,0,0,.25)'; c.setLineDash([4,6]); c.lineWidth=2; c.beginPath(); c.moveTo(425,base-Lw); c.lineTo(612,base-Lw); c.stroke(); c.setLineDash([]);
+  /* verdict */
+  xTag(c, flies ? (ratio>2.5?'ממריא בקלות!':'ממריא!') : ratio>0.7 ? 'כמעט...' : 'נשאר על הקרקע', '', 230, 446, 30, flies?css('--ok'):css('--bad'), 'center', .95);
+  document.getElementById('lfLift').textContent=(Math.round(lift*10)/10).toLocaleString('en-US')+' N'; lfWeight.textContent=(Math.round(weight*10)/10).toLocaleString('en-US')+' N';
+  if(user && mars && flies && !LF.hit.mars){ LF.hit.mars=1; WOW.emit('item', { id:'lift:mars', kind:'quick', correct:true, attempt: wowTry('lift') }); }
+  const predTxt = LF.pred<0 ? 'נחשו למעלה לפני שעוברים למאדים. ' : '';
+  lfMsg.innerHTML = !mars ? predTxt+(flies ? 'בכדור הארץ, <span class="num">'+rpm.toLocaleString('en-US')+'</span> סיבובים בדקה ולהבים של <span class="math">'+D+'</span> מטר מרימים <span class="math">'+(Math.round(lift*10)/10)+' N</span> — יותר מהמשקל, <span class="math">'+(Math.round(weight*10)/10)+' N</span> (המסה <span class="math">1.8</span> ק״ג כפול הכבידה). ככה עף מסוק רגיל. עכשיו לחצו "מאדים".' : 'בכדור הארץ: <span class="num">'+rpm.toLocaleString('en-US')+'</span> סיבובים בדקה עדיין לא מספיקים — העילוי <span class="math">'+(Math.round(lift*10)/10)+' N</span> קטן מהמשקל. הגבירו את המהירות או האריכו את הלהבים.')
+    : (flies ? (LF.pred>=0 && rpm<=600 ? (LF.pred===2?'<span class="pill-ok">ניחשתם נכון.</span> ':'<span class="pill-bad">לא בדיוק.</span> ') : '')+'על מאדים! עם <span class="num">'+rpm.toLocaleString('en-US')+'</span> סיבובים בדקה ולהבים של <span class="math">'+D+'</span> מטר העילוי הוא <span class="math">'+(Math.round(lift*10)/10)+' N</span>, יותר מהמשקל <span class="math">'+(Math.round(weight*10)/10)+' N</span> (על מאדים המסוק שוקל רק <span class="num">38</span> אחוז). זה בערך המתכון האמיתי: <span class="math">2,400–2,800</span> סל״ד, <span class="math">1.2</span> מטר.'
+      : (rpm<=600 ? (LF.pred===2?'<span class="pill-ok">ניחשתם נכון.</span> ':LF.pred>=0?'<span class="pill-bad">לא בדיוק.</span> ':'')+'על מאדים באותן הגדרות: העילוי צנח ל־<span class="math">'+(Math.round(lift*100)/100)+' N</span>, כי יש פי מאה פחות אוויר לדחוף. המשקל אמנם ירד ל־<span class="math">'+(Math.round(weight*10)/10)+' N</span>, אבל זה לא מספיק. נסו: מה צריך כדי להמריא? (מהירות? להבים?)'
+        : 'עדיין על הקרקע: עילוי <span class="math">'+(Math.round(lift*10)/10)+' N</span> מול משקל <span class="math">'+(Math.round(weight*10)/10)+' N</span>. זכרו: המהירות עובדת בריבוע, ואורך הלהב עובד עוד יותר חזק (שטח <b>וגם</b> מהירות קצה). המשיכו.'));
+}
+lfDraw(0);
+
+/* ---------- step 3 (interactive 3): action and reaction (canvas, top view) ---------- */
+const tqCv=document.getElementById('tqCv'), tctx=tqCv.getContext('2d');
+const TQ={ opened:0, pred:-1, mode:0, hit:{}, raf:0 };
+function tqPredict(k){ TQ.pred=k; [0,1,2].forEach(i=>document.getElementById('tqP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'torque:predict', kind:'quick', correct:k===1, attempt: wowTry('torque:predict') }); tqDraw(1); }
+function tqMode(m){ TQ.mode=m; [0,1,2].forEach(i=>document.getElementById('tqM'+i).classList.toggle('on',i===m)); tqDraw(1); }
+function tqPlay(){ if(TQ.raf){ cancelAnimationFrame(TQ.raf); TQ.raf=0; tqPlayBtn(false); return; }
+  if(XREDUCED){ tqT.value = (+tqT.value+10)%101; tqDraw(1); return; }
+  const t0=performance.now(), start=+tqT.value; tqPlayBtn(true);
+  const step=now=>{ const v=(start+(now-t0)/60)%101; tqT.value=Math.round(v); tqDraw(1); if(now-t0<6000){ TQ.raf=requestAnimationFrame(step); } else { TQ.raf=0; tqPlayBtn(false); } };
+  TQ.raf=requestAnimationFrame(step); }
+function tqPlayBtn(on){ const b=document.getElementById('tqPlay'); b.textContent = on ? 'עצירה' : 'הפעלה'; b.classList.toggle('on',on); }
+function curvedArrow(c,cx,cy,r,a0,a1,col,w){ c.strokeStyle=col; c.lineWidth=w; c.beginPath(); c.arc(cx,cy,r,a0,a1,a1<a0); c.stroke(); const tx=cx+r*Math.cos(a1), ty=cy+r*Math.sin(a1), dir = a1>a0 ? 1 : -1; c.fillStyle=col; xArrow(c,tx,ty,-Math.sin(a1)*dir,Math.cos(a1)*dir,18); }
+function tqDraw(user){
+  const c=tctx, W=tqCv.width, H=tqCv.height, t=+tqT.value/100, m=TQ.mode;
+  if(user && !TQ.opened){ TQ.opened=1; WOW.emit('open', { id:'torque' }); }
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  const cx=320, cy=215, rot=t*Math.PI*10;                         // rotor angle (5 turns over the slider)
+  const body = m===0 ? -rot*0.16 : 0;                             // single rotor: the body turns the other way (schematic ratio)
+  /* ground reference: a fixed cross so the body's turning is visible */
+  c.strokeStyle='rgba(0,0,0,.12)'; c.lineWidth=2; c.beginPath(); c.moveTo(cx-190,cy); c.lineTo(cx+190,cy); c.moveTo(cx,cy-190); c.lineTo(cx,cy+190); c.stroke();
+  /* the body */
+  c.save(); c.translate(cx,cy); c.rotate(body);
+  c.fillStyle=css('--muted'); c.beginPath(); c.roundRect(-34,-44,68,88,16); c.fill();
+  if(m===1){ c.fillStyle=css('--muted'); c.fillRect(-6,44,12,110); c.strokeStyle=css('--sun'); c.lineWidth=5; const ta=rot*2.2; c.beginPath(); c.moveTo(-26*Math.cos(ta),150-26*Math.sin(ta)*0.3); c.lineTo(26*Math.cos(ta),150+26*Math.sin(ta)*0.3); c.stroke(); }
+  c.fillStyle=css('--ink'); c.beginPath(); c.moveTo(0,-74); c.lineTo(-18,-46); c.lineTo(18,-46); c.closePath(); c.fill();   // the nose
+  c.restore();
+  /* rotor(s) */
+  const blade=(ang,len,col,w)=>{ c.strokeStyle=col; c.lineWidth=w; c.lineCap='round'; c.beginPath(); c.moveTo(cx-len*Math.cos(ang),cy-len*Math.sin(ang)); c.lineTo(cx+len*Math.cos(ang),cy+len*Math.sin(ang)); c.stroke(); };
+  if(m===2){ blade(-rot+Math.PI/2,118,css('--sun-deep'),8); }
+  blade(rot,118,css('--sun'),10);
+  c.fillStyle=css('--ink'); c.beginPath(); c.arc(cx,cy,9,0,Math.PI*2); c.fill();
+  /* direction arrows */
+  curvedArrow(c,cx,cy,150,-0.4,0.9,css('--sun'),6);                                            // rotor: clockwise
+  if(m===2) curvedArrow(c,cx,cy,166,Math.PI+0.9,Math.PI-0.4,css('--sun-deep'),6);               // second rotor: counter-clockwise
+  if(m===0 && t>=0.02) curvedArrow(c,cx,cy,92,Math.PI/2+1.1,Math.PI/2-1.1,css('--ink'),6);                 // body: counter-clockwise
+  if(m===1){ c.fillStyle=css('--nile'); xArrow(c,cx-40,cy+150,-1,0,20); c.fillRect(cx-40,cy+147,34,6); xTag(c,'דחיפת הזנב','',cx-56,cy+150,30,css('--nile'),'right',.92); }
+  /* labels */
+  xTag(c,'רוטור','',cx+150,cy-120,30,css('--sun'),'left',.92);
+  if(m===2) xTag(c,'רוטור שני, הפוך','',20,cy+150,30,css('--sun-deep'),'left',.92);
+  xTag(c, t<0.02 ? 'לחצו "הפעלה"' : m===0 ? 'הגוף מסתובב!' : 'הגוף יציב', '', cx, 30, 30, t<0.02?css('--muted'):m===0?css('--bad'):css('--ok'), 'center', .95);
+  xTag(c,'סיבובי הרוטור:',String(Math.round(t*5*10)/10),W-16,H-24,30,css('--muted'),'right',.92);
+  if(user && m===2 && t>0.3 && !TQ.hit.coax){ TQ.hit.coax=1; WOW.emit('item', { id:'torque:coax', kind:'quick', correct:true, attempt: wowTry('torque') }); }
+  const predTxt = TQ.pred<0 ? 'נחשו למעלה, ואז לחצו "הפעלה". ' : '';
+  tqMsg.innerHTML = m===0 ? predTxt+(t>0.05 ? (TQ.pred===1?'<span class="pill-ok">ניחשתם נכון.</span> ':TQ.pred>=0?'<span class="pill-bad">לא בדיוק.</span> ':'')+'רוטור אחד: המנוע דוחף את הלהב ימינה, והלהב דוחף את הגוף שמאלה. שימו לב לאף (המשולש הכהה) — הוא מסתובב לכיוון ההפוך מהלהבים. ככה אי אפשר לטוס ישר.' : 'רוטור אחד, עדיין דומם. הפעילו ותסתכלו על האף של המסוק.')
+    : m===1 ? 'רוטור וזנב: הפתרון של מסוקים בכדור הארץ. מדחף קטן בזנב דוחף אוויר הצידה, נגד הסיבוב — והגוף יציב. אבל בשביל זה צריך אוויר לדחוף, ועל מאדים כמעט אין.'
+    : 'שני רוטורים הפוכים: העליון דוחף את הגוף שמאלה, התחתון ימינה — וביחד אפס. הגוף יציב בלי לגעת באוויר בכלל, ויש פי שניים להבים. זה הפתרון של אינג׳ניואיטי.';
+}
+tqDraw(0);
+
+/* ---------- step 4 (interactive 4): the signal delay (canvas) ---------- */
+const dlCv=document.getElementById('dlCv'), dctx=dlCv.getContext('2d');
+const DL={ opened:0, hit:{}, raf:0, prog:-1 };
+const C_LIGHT=300000;                                                // km/s
+function dlSec(){ return (+dlDist.value)*1e6/C_LIGHT; }
+function dlSend(){ if(DL.raf) cancelAnimationFrame(DL.raf); const t0=performance.now(); WOW.emit('item', { id:'delay:send', kind:'quick', correct:true, attempt: wowTry('delay') });
+  if(XREDUCED){ DL.prog=1; dlDraw(1); return; }
+  const step=now=>{ DL.prog=Math.min(1,(now-t0)/2600); dlDraw(1); if(DL.prog<1) DL.raf=requestAnimationFrame(step); else DL.raf=0; }; DL.raf=requestAnimationFrame(step); }
+function dlFmt(s){ const m=Math.floor(s/60), ss=Math.round(s%60); return m===0 ? '<span class="num">'+ss+'</span> שניות' : ss===0 ? '<span class="num">'+m+'</span> דקות' : '<span class="num">'+m+'</span> דקות ו־<span class="num">'+ss+'</span> שניות'; }
+function dlDraw(user){
+  const c=dctx, W=dlCv.width, H=dlCv.height, dist=+dlDist.value, sec=dlSec(), p=DL.prog;
+  if(user && !DL.opened){ DL.opened=1; WOW.emit('open', { id:'delay' }); }
+  c.fillStyle=css('--night'); c.fillRect(0,0,W,H);
+  const rnd=prng(21); c.fillStyle='rgba(255,255,255,.7)'; for(let i=0;i<70;i++){ c.beginPath(); c.arc(rnd()*W, rnd()*H, rnd()*1.6+0.4, 0, Math.PI*2); c.fill(); }
+  const ex=90, mx=550, y=150;
+  /* Earth and Mars; Mars drawn a little smaller and further as the distance grows */
+  c.fillStyle=css('--nile'); c.beginPath(); c.arc(ex,y,44,0,Math.PI*2); c.fill(); c.fillStyle=css('--leaf'); c.beginPath(); c.ellipse(ex-10,y-6,18,12,0.5,0,Math.PI*2); c.fill(); c.beginPath(); c.ellipse(ex+16,y+14,12,9,-0.4,0,Math.PI*2); c.fill();
+  const mr = 30 - (dist-55)/345*10; c.fillStyle=css('--sun'); c.beginPath(); c.arc(mx,y,mr,0,Math.PI*2); c.fill(); c.fillStyle=css('--card'); c.beginPath(); c.ellipse(mx,y-mr+4,mr*0.4,3,0,0,Math.PI*2); c.fill();
+  c.strokeStyle='rgba(255,255,255,.35)'; c.setLineDash([6,8]); c.lineWidth=2; c.beginPath(); c.moveTo(ex+50,y); c.lineTo(mx-mr-6,y); c.stroke(); c.setLineDash([]);
+  const LT='#F2EDE0';                                                 // the night sky is always dark: fixed light labels in both themes
+  xTag(c,'כדור הארץ','',ex,y+72,30,LT,'center',.18);
+  xTag(c,'מאדים','',mx,y+72,30,LT,'center',.18);
+  xTag(c,'המרחק: '+dist.toLocaleString('en-US')+' מיליון ק״מ','',320,44,30,LT,'center',.18);
+  /* the signal */
+  if(p>=0){ const sx=ex+50+(mx-mr-6-ex-50)*p; c.strokeStyle=css('--aur'); c.lineWidth=4; for(let k=0;k<3;k++){ c.globalAlpha=.9-k*.3; c.beginPath(); c.arc(sx-k*14,y,10+k*4,-1.1,1.1); c.stroke(); } c.globalAlpha=1;
+    if(p<1) xTag(c,dlFmt(sec*p).replace(/<[^>]+>/g,''),'',clamp(sx,120,470),y-44,30,css('--aur'),'center',.18); }
+  if(p>=1){ xTag(c,'הגיעה אחרי '+dlFmt(sec).replace(/<[^>]+>/g,''),'',400,y-44,30,css('--aur'),'center',.18); }
+  /* the bar: delay vs a 90-second flight */
+  const bx=40, bw=560, by=292, total=Math.max(sec,90)*1.02, sc=bw/total;
+  xText(c,'זמן הנסיעה של הפקודה: '+dlFmt(sec).replace(/<[^>]+>/g,''),bx+bw,by-16,30,LT,'right');
+  c.fillStyle='rgba(255,255,255,.12)'; c.fillRect(bx,by,bw,22);
+  c.fillStyle=css('--aur'); c.fillRect(bx+bw-Math.max(2,sec*sc),by,Math.max(2,sec*sc),22);
+  xText(c,'טיסה שלמה של המסוק: 90 שניות',bx+bw,by+50,30,LT,'right');
+  c.fillStyle='rgba(255,255,255,.12)'; c.fillRect(bx,by+66,bw,22);
+  c.fillStyle=css('--ok'); c.fillRect(bx+bw-Math.max(3,90*sc),by+66,Math.max(3,90*sc),22);
+  const mins=Math.round(sec/60*10)/10;
+  dlOut.textContent = mins.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1})+' דק׳';
+  if(user && p>=1 && !DL.hit.sent){ DL.hit.sent=1; }
+  dlMsg.innerHTML = p<0 ? 'במרחק <span class="num">'+dist+'</span> מיליון ק״מ: <span class="math">'+(dist*1e6).toLocaleString('en-US')+' ÷ 300,000 = '+Math.round(sec).toLocaleString('en-US')+'</span> שניות, כלומר '+dlFmt(sec)+'. לחצו "שלחו פקודה" ותראו אותה בדרך (בהאצה: כל שנייה על המסך היא כמה דקות אמיתיות).'
+    : p<1 ? 'האות בדרך, במהירות האור: <span class="num">300,000</span> ק״מ בכל שנייה — ועדיין רק חלק קטן מהדרך.'
+    : 'הפקודה הגיעה אחרי '+dlFmt(sec)+'. הטיסה כולה (הפס הירוק) נמשכת <span class="num">90</span> שניות — היא הייתה נגמרת <span class="num">'+Math.max(1,Math.round(sec/90))+'</span> פעמים לפני שהפקודה מגיעה, ועוד '+dlFmt(sec)+' עד שהייתם רואים מה קרה. לכן המסוק חייב לטוס לבד.';
+}
+dlDraw(0);
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  airQ:{ q:'למה קשה כל כך למסוק לעוף על מאדים?', opts:['כי על מאדים אין חשמל, ואי אפשר להפעיל שם מנוע','כי הכבידה על מאדים חזקה הרבה יותר משלנו, והמסוק כבד מדי','כי על מאדים יש כמעט תמיד סופת אבק שמפילה כל דבר שעף','כי האוויר שם דליל פי מאה — ללהבים כמעט אין אוויר לדחוף'], a:3, fb:'מסוק לא נאחז בשמיים: הלהבים דוחפים אוויר למטה והאוויר דוחף אותם למעלה. על פני מאדים יש בכל קובייה של אוויר רק כ־<span class="num">15</span> גרם, לעומת יותר מקילוגרם אצלנו — כמו בגובה <span class="num">30</span> ק״מ מעל כדור הארץ. הכבידה שם דווקא חלשה (<span class="num">38</span> אחוז), וזה עוזר.', btn:'next1' },
+  lfQ:{ q:'עילוי תלוי בשלושה דברים: כמה אוויר, כמה שטח ללהבים, וכמה מהר הם נעים. איזה מהשלושה המהנדסים לא יכלו לשנות על מאדים?', opts:['את השטח — מתחת לרובר אין מקום ללהבים גדולים יותר','את המהירות — שום מנוע לא מסובב להבים מהר יותר ממסוק רגיל','את כמות האוויר — היא של מאדים, וזהו','את המשקל — מסוק חייב לשקול הרבה כדי לא להתהפך ברוח'], a:2, fb:'האוויר הוא הנתון. אז שינו את כל השאר: להבים גדולים (<span class="num">1.2</span> מטר מקצה לקצה), סיבוב מהיר במיוחד (<span class="num">2,400</span> ומעלה בדקה, פי שישה ממסוק רגיל), ומשקל של <span class="num">1.8</span> ק״ג בלבד. במעבדת העילוי ראיתם שבכדור הארץ אותם להבים ממריאים כבר בכ־<span class="num">400</span> סיבובים בדקה.' },
+  tqQ:{ q:'למה שני הרוטורים של אינג׳ניואיטי מסתובבים בכיוונים הפוכים?', opts:['כי הסיבוב של האחד מבטל את הסיבוב של השני — אחרת הגוף היה מסתחרר','כדי שהמסוק יוכל לטוס גם הפוך, עם הרוטורים למטה, אם יתהפך בנחיתה','כדי לחסוך בחשמל: כל רוטור עובד רק חצי מהזמן, וביחד הם עובדים כל הזמן','כי על מאדים הרוח נושבת משני הכיוונים, וצריך רוטור לכל כיוון'], a:0, fb:'פעולה ותגובה: המנוע מסובב את הלהב ימינה, והלהב דוחף את הגוף שמאלה. מסוק בכדור הארץ מייצב את עצמו עם רוטור זנב שדוחף אוויר הצידה — אבל על מאדים אין מספיק אוויר לדחוף. שני רוטורים הפוכים מאזנים זה את זה בלי לגעת באוויר, ונותנים גם פי שניים שטח להבים.' },
+  dlQ:{ q:'למה אי אפשר להטיס את אינג׳ניואיטי בשלט רחוק מכדור הארץ?', opts:['כי אין לו אנטנה — הוא מדבר רק עם הרובר שעומד לידו','כי על מאדים יש הפרעות רדיו חזקות מסופות האבק, והאות לא עובר','כי אות רדיו לוקח <span class="num">3</span> עד <span class="num">22</span> דקות להגיע, וטיסה שלמה נמשכת דקה וחצי — עד שהפקודה מגיעה, הטיסה נגמרה','כי נאס״א רצתה לחסוך בעובדים, ומחשב זול יותר מטייס'], a:2, fb:'האות נוסע במהירות האור, <span class="num">300,000</span> ק״מ בשנייה, אבל מאדים נמצא במרחק של <span class="num">55</span> עד <span class="num">400</span> מיליון ק״מ. לכן המסוק מקבל תוכנית ומבצע אותה לבד: מצלמה שמצלמת את הקרקע <span class="num">30</span> פעמים בשנייה ומעבד של טלפון שמתקן כל סטייה. רק אחרי הנחיתה הוא מדווח.' },
+  storyQ:{ q:'אינג׳ניואיטי תוכנן כ"הדגמת טכנולוגיה". מה זה אומר?', opts:['שהמטרה הייתה רק לבדוק אם אפשר בכלל לעוף על מאדים — חמש טיסות קצרות, ומותר להיכשל','שהוא נבנה כדי להצטלם יפה ולהופיע בסרטונים של נאס״א, בלי מטרה מדעית','שהוא נבנה בידי תלמידי תיכון במסגרת תחרות של נאס״א, בהדרכת מהנדסים','שהוא היה עותק מדויק של מסוק צבאי, רק קטן יותר, כדי לבדוק אם הוא עובד גם שם'], a:0, fb:'הרובר פרסברנס היה המשימה האמיתית; המסוק היה ניסוי צדדי, עם <span class="num">30</span> יום וחמש טיסות לנסות. אם היה נופל, נאס״א הייתה אומרת "למדנו משהו". במקום זה הוא עף <span class="num">72</span> פעמים בכמעט שלוש שנים, והפך למסוק המפורסם בהיסטוריה.' },
+};
+const MCQ = {
+  shared:[
+    { q:'מה מרים מסוק באוויר?', opts:['המנוע דוחף את המסוק למעלה ישירות, כמו רקטה קטנה שיורה למטה','האוויר החם שהמנוע מייצר מתאסף מתחת ללהבים ומרים אותו כמו בלון','הלהבים דוחפים אוויר למטה, והאוויר דוחף אותם למעלה — זה העילוי','הלהבים "נתפסים" בשמיים כמו בורג שמתברג לתוך האוויר ומושך את המסוק'], a:2, fb:'פעולה ותגובה, כמו כשמנפנפים ביד במים ומרגישים דחיפה חזרה. לכן כמות האוויר קובעת: כמעט בלי אוויר, כמעט בלי מה לדחוף — וזאת בדיוק הבעיה של מאדים, עם פי מאה פחות אוויר.' },
+    { q:'איך המהנדסים הרימו מסוק באוויר הדליל של מאדים?', opts:['בנו אותו קל מאוד, עם להבים גדולים שמסתובבים מהר מאוד','הוסיפו לו מנוע סילון קטן, שדוחף גז למטה גם כשאין אוויר בחוץ','מילאו את הגוף שלו בגז קל מאוויר, כמו בלון, כדי שיצוף מעצמו','חיכו ליום עם רוח חזקה במיוחד, שתרים אותו כמו עפיפון'], a:0, fb:'שלושת המספרים של אינג׳ניואיטי: <span class="num">1.8</span> ק״ג, להבים באורך <span class="num">1.2</span> מטר מקצה לקצה, ו־<span class="num">2,400</span> סיבובים בדקה ומעלה — פי שישה ממסוק רגיל. יותר שטח ויותר מהירות מפצים על פחות אוויר, ופחות משקל דורש פחות עילוי. וגם הכבידה החלשה של מאדים עזרה.' },
+    { q:'המסוק תוכנן לחמש טיסות. מה מהדברים האלה באמת עזר לו להגיע ל־<span class="num">72</span>?', opts:['הרובר פרסברנס טען אותו בכבל בכל לילה, כדי שהסוללה לא תיגמר','הוא טס רק בימים חמים במיוחד, כשהאוויר על מאדים צפוף יותר','אסטרונאוטים שנחתו על מאדים תיקנו אותו כמה פעמים והחליפו לו להבים','מחממים ללילה, תוכנה שנוחתת גם כשהמצלמה מתבלבלת, וצוות שהגביר את הסיבוב כשהאוויר התדלדל'], a:3, fb:'אף אחד לא נגע בו: על מאדים אין אנשים, והרובר לא יכול לטעון אותו. הוא שרד לילות של מינוס <span class="num">90</span> בזכות מחממים קטנים, נחת בשלום בטיסה השישית בזכות התוכנה, ובקיץ המאדימי, כשהאוויר התדלדל, הצוות הגביר את הסיבוב ל־<span class="num">2,700</span> סל״ד ויותר.' },
+  ],
+  younger:[
+    { q:'מה קרה בטיסה האחרונה, ב־<span class="num">18</span> בינואר <span class="num">2024</span>?', opts:['הסוללה נגמרה באמצע האוויר, והמסוק נפל מגובה של עשרים מטרים','המסוק נחת על חול חלק בלי סימנים, מערכת הניווט התבלבלה, ובנחיתה נשבר קצה של להב','סופת אבק גדולה העיפה אותו והפכה אותו על הגב, והלהבים נתקעו בחול','הוא התנגש ברובר פרסברנס בזמן שצילם אותו מקרוב, ושניהם ניזוקו'], a:1, fb:'המצלמה של המסוק מוצאת את הדרך לפי סימנים על הקרקע — אבנים, צללים. על גבעות חול חלקות לא היה במה להיאחז, והמסוק נחת בתנועה צידית מהירה. קצה להב נשבר, ובלי להבים שלמים אי אפשר לעוף. הוא עדיין עומד שם, ומדבר עם הרובר כשהוא עובר קרוב.' },
+  ],
+  older:[
+    { q:'על מאדים הכבידה היא כ־<span class="num">38</span> אחוז מזו של כדור הארץ. איך זה השפיע על הטיסה?', opts:['זה עזר: המסוק שקל שם פחות מ־<span class="num">40</span> אחוז ממשקלו כאן, אז נדרש פחות עילוי — אבל זה רחוק מלפצות על אוויר דליל פי מאה','זה הפריע: כבידה חלשה מקטינה את העילוי, כי הלהבים נשענים על הכבידה כדי לדחוף את האוויר למטה','זה לא משנה בכלל: העילוי תלוי רק במהירות הלהבים, והמשקל לא משתתף בחשבון','זה מה שאפשר את הטיסה: בלי הכבידה החלשה שום מסוק לא היה עף שם, גם עם להבים ענקיים'], a:0, fb:'החשבון: הצפיפות קטנה פי <span class="num">100</span>, המשקל קטן פי <span class="math">2.6</span>. נשאר פער של פי כ־<span class="num">38</span> שצריך לסגור עם שטח ומהירות: פי ארבעה שטח ופי שלושה מהירות (<span class="math">4 × 3² = 36</span>) כמעט מספיקים. הכבידה החלשה היא הגורם היחיד במאדים שעבד לטובת המסוק.' },
+  ]
+};
+
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'לילה על מאדים, מינוס <span class="num">90</span> מעלות: מחממים קטנים שומרים על הסוללה שלא תיסדק מקור.'},
+  {id:'b', t:'בבוקר השמש עולה, והפאנל הסולארי הקטן טוען את הסוללה — מספיק ל־<span class="num">90</span> שניות טיסה.'},
+  {id:'c', t:'אחרי הטעינה המסוק קורא את <b>תוכנית הטיסה</b> ששלחו מכדור הארץ (לא שלט!): לאן, כמה גבוה, כמה זמן.'},
+  {id:'d', t:'הרוטורים מאיצים ל־<span class="num">2,400</span> סיבובים בדקה, והמסוק ממריא וטס לבד, כשהמצלמה שלו עוקבת אחרי הקרקע.'},
+  {id:'e', t:'אחרי הנחיתה התמונות עוברות לרובר פרסברנס, ומשם, דרך לוויין, לכדור הארץ — אחרי <span class="math">3–22</span> דקות.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> לילה עם מחממים ← טעינה בשמש ← קריאת התוכנית מכדור הארץ ← טיסה עצמאית ← דיווח הביתה. שימו לב להיגיון: בלי אנרגיה אין טיסה, בלי תוכנית המסוק לא יודע לאן, ורק בסוף — אחרי שהכול נגמר — כדור הארץ שומע מה קרה.' : '<span class="pill-bad">לא בדיוק.</span> הטעות הנפוצה: לשים את התמונות לפני הטיסה, או את התוכנית אחריה. חשבו על היום כמו על סיפור: קודם שורדים את הלילה ומתמלאים באנרגיה, אחר כך מקבלים את התוכנית, טסים לבד, ורק בסוף מדווחים.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const rp=+chalRps.value, tp=+chalTip.value, mc=+chalMach.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const rpOk = chalRps.value!=='' && rp===40, tpOk = chalTip.value!=='' && tp>=145 && tp<=158, mcOk = chalMach.value!=='' && mc>=60 && mc<=66;
+  const allOk = rpOk && tpOk && mcOk; S.challenge = S.challenge || allOk;
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">2,400 ÷ 60 = 40</span> סיבובים בכל שנייה. (ב) בכל סיבוב הקצה עובר היקף של <span class="math">1.2 × 3.14 ≈ 3.77</span> מטר, ולכן <span class="math">40 × 3.77 ≈ 151</span> מטרים בשנייה — יותר מ־<span class="num">540</span> קמ״ש, על כוכב שבו המסוק עצמו טס לכל היותר <span class="num">10</span> מטרים בשנייה. (ג) <span class="math">151 ÷ 240 ≈ 0.63</span>, כלומר כ־<span class="math">63%</span> ממהירות הקול של מאדים. במהירות הסיבוב הגבוהה ביותר, כ־<span class="num">2,800</span>, הקצה מתקרב לשלושה רבעים ממהירות הקול — ומעבר לזה הלהב היה מפסיק לעבוד. זו הסיבה שלא סובבו מהר יותר.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : (rpOk && tpOk) ? (chalMach.value!=='' ? ((mc>=0.6 && mc<=0.66) ? '<span class="pill-bad">(א) ו־(ב) נכונים, ב־(ג) שכחתם להכפיל ב־<span class="num">100</span>.</span> <span class="math">151 ÷ 240 ≈ 0.63</span>, ובאחוזים: <span class="math">0.63 × 100 = ?</span>' : (mc>=155 && mc<=165) ? '<span class="pill-bad">(א) ו־(ב) נכונים, ב־(ג) חילקתם הפוך.</span> השאלה איזה חלק ממהירות הקול היא מהירות הקצה: <span class="math">151 ÷ 240 × 100 = ?</span>' : (mc>=42 && mc<=46) ? '<span class="pill-bad">(א) ו־(ב) נכונים, ב־(ג) חילקתם במהירות הקול של כדור הארץ.</span> על מאדים הקול איטי יותר, <span class="num">240</span> מ׳/ש׳: <span class="math">151 ÷ 240 × 100 = ?</span>' : '<span class="pill-bad">(א) ו־(ב) נכונים, (ג) עוד לא.</span> <span class="math">151 ÷ 240 × 100 = ?</span> (מספר שלם.)') : '<span class="pill-ok">(א) ו־(ב) נכונים.</span> עכשיו (ג): איזה אחוז מ־<span class="num">240</span> הם <span class="num">151</span>? <span class="math">151 ÷ 240 × 100 = ?</span>')
+    : (rpOk && mcOk) ? '<span class="pill-bad">(א) ו־(ג) נכונים, (ב) עוד לא.</span> בכל סיבוב הקצה עובר היקף שלם: <span class="math">1.2 × 3.14 ≈ 3.77</span> מטר. ו־<span class="num">40</span> סיבובים בשנייה: <span class="math">40 × 3.77 = ?</span>'
+    : rpOk ? (chalTip.value!=='' ? ((tp>=47 && tp<=49) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) הכפלתם בקוטר ושכחתם את <span class="math">π</span>: בכל סיבוב הקצה עובר את כל ההיקף, <span class="math">1.2 × 3.14 ≈ 3.77</span> מטר. <span class="math">40 × 3.77 = ?</span>' : (tp>=23 && tp<=25) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) לקחתם רדיוס (<span class="math">0.6</span>) במקום היקף. ההיקף: <span class="math">1.2 × 3.14 ≈ 3.77</span>, ואז <span class="math">40 × 3.77 = ?</span>' : (tp>=3.7 && tp<=3.8) ? '<span class="pill-ok">(א) נכון.</span> <span class="math">3.77</span> הוא ההיקף — הדרך בסיבוב <b>אחד</b>. יש <span class="num">40</span> כאלה בשנייה: <span class="math">40 × 3.77 = ?</span>' : (tp>=9000 && tp<=9100) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חישבתם מטרים <b>בדקה</b>. בשנייה יש <span class="num">40</span> סיבובים: <span class="math">40 × 3.77 = ?</span>' : '<span class="pill-ok">(א) נכון — <span class="num">40</span>.</span> עכשיו (ב): היקף המעגל הוא <span class="math">1.2 × 3.14 ≈ 3.77</span> מטר, ובשנייה יש <span class="num">40</span> סיבובים: <span class="math">40 × 3.77 = ?</span>') : '<span class="pill-ok">(א) נכון — <span class="num">40</span>.</span> עכשיו (ב): היקף המעגל הוא <span class="math">1.2 × 3.14 ≈ 3.77</span> מטר, ובשנייה יש <span class="num">40</span> סיבובים: <span class="math">40 × 3.77 = ?</span>')
+    : (rp===2400) ? '<span class="pill-bad">ב־(א) ענו על סיבובים בדקה.</span> בדקה יש <span class="num">60</span> שניות: <span class="math">2,400 ÷ 60 = ?</span>'
+    : (rp===144000) ? '<span class="pill-bad">ב־(א) הכפלתם.</span> מדקה לשנייה מחלקים: <span class="math">2,400 ÷ 60 = ?</span>'
+    : (rp===4 || rp===400) ? '<span class="pill-bad">כמעט — האפסים.</span> <span class="math">2,400 ÷ 60</span>: כמו <span class="math">24 ÷ 6</span>, ועוד אפס.'
+    : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): בדקה יש <span class="num">60</span> שניות, אז <span class="math">2,400 ÷ 60 = ?</span>';
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const c=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    const aOk=(numAdv.value!=='' && c===550), bOk=(numAdvR.value!=='' && r>=9.1 && r<=9.3), sc = aOk&&bOk?2:(aOk?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">165,000,000 ÷ 300,000 = 550</span> שניות. (ב) <span class="math">550 ÷ 60 ≈ 9.2</span> דקות. ותשובה חוזרת — "נחתתי" — לוקחת עוד <span class="math">9.2</span> דקות: יותר מ־<span class="num">18</span> דקות הלוך ושוב, בשביל טיסה של דקה וחצי. לכן המסוק חייב לחשוב לבד.'
+      : aOk ? ((r>=549 && r<=551) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חזרתם על השניות. כמה דקות הן <span class="num">550</span> שניות? <span class="math">550 ÷ 60 = ?</span>' : (r>=32900 && r<=33100) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) הכפלתם ב־<span class="num">60</span> במקום לחלק: <span class="math">550 ÷ 60 = ?</span>' : (r>=5.4 && r<=5.6) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חילקתם ב־<span class="num">100</span>. בדקה יש <span class="num">60</span> שניות: <span class="math">550 ÷ 60 = ?</span>' : (r>=0.85 && r<=0.95) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) בדקו את הנקודה העשרונית: <span class="math">550 ÷ 60 = ?</span> (יותר מתשע.)' : '<span class="pill-ok">(א) נכון — <span class="num">550</span>.</span> עכשיו (ב): בדקה יש <span class="num">60</span> שניות, אז <span class="math">550 ÷ 60 = ?</span> (ספרה אחת אחרי הנקודה.)')
+      : (c===55 || c===5500 || c===5.5) ? '<span class="pill-bad">כמעט — האפסים.</span> <span class="math">165,000,000 ÷ 300,000</span>: מוחקים חמישה אפסים משני הצדדים ומקבלים <span class="math">1,650 ÷ 3 = ?</span>'
+      : (c===49500000000000 || c>1e12) ? '<span class="pill-bad">ב־(א) הכפלתם.</span> זמן = מרחק ÷ מהירות: <span class="math">165,000,000 ÷ 300,000 = ?</span>'
+      : (c===500) ? '<span class="pill-bad">זה החישוב של <span class="num">150</span> מיליון.</span> כאן המרחק <span class="num">165</span> מיליון: <span class="math">165,000,000 ÷ 300,000 = ?</span>'
+      : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): זמן = מרחק ÷ מהירות. <span class="math">165,000,000 ÷ 300,000 = ?</span> (טיפ: מוחקים אפסים משני הצדדים.)';
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const ok=v===67; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= ok?'<span class="pill-ok">נכון!</span> <span class="math">72 − 5 = 67</span> טיסות מעבר לתוכנית — יותר מפי ארבעה־עשר ממה שתכננו. וגם אחרי ה־<span class="num">72</span> הוא לא "מת": הוא עומד על מאדים ומודד מזג אוויר, ומדבר עם הרובר כשהוא עובר קרוב.':(v===77)?'<span class="pill-bad">חיברתם.</span> השאלה כמה טיסות <b>מעבר</b> לחמש: צריך לחסר. <span class="math">72 − 5 = ?</span>':(v===72||v===5)?'<span class="pill-bad">זה אחד המספרים מהשאלה.</span> כמה טיסות נוספות מעבר לחמש המתוכננות? <span class="math">72 − 5 = ?</span>':(v===360)?'<span class="pill-bad">הכפלתם.</span> השאלה על ההפרש בין <span class="num">72</span> ל־<span class="num">5</span>: <span class="math">72 − 5 = ?</span>':(v===14||v===15)?'<span class="pill-bad">חילקתם — זה "פי כמה".</span> השאלה כמה טיסות <b>נוספות</b>: <span class="math">72 − 5 = ?</span>':'<span class="pill-bad">לא בדיוק.</span> רמז: תכננו <span class="num">5</span>, יצאו <span class="num">72</span>. כמה נוספות? <span class="math">72 − 5 = ?</span>'; }
+  else { const ok=v===500; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">150,000,000 ÷ 300,000 = 500</span> שניות — יותר משמונה דקות, לכיוון אחד. ותשובה חוזרת לוקחת עוד <span class="num">500</span>. בינתיים הטיסה של <span class="num">90</span> השניות נגמרה חמש פעמים. לכן המסוק טס לבד.':(v===50||v===5000||v===5||v===0.5)?'<span class="pill-bad">כמעט — האפסים.</span> <span class="math">150,000,000 ÷ 300,000</span>: מוחקים חמישה אפסים משני הצדדים, נשאר <span class="math">1,500 ÷ 3 = ?</span>':(v>1e12)?'<span class="pill-bad">הכפלתם.</span> זמן = מרחק ÷ מהירות: <span class="math">150,000,000 ÷ 300,000 = ?</span>':(v>=8 && v<=8.5)?'<span class="pill-bad">זה בדקות.</span> השאלה בשניות: <span class="math">150,000,000 ÷ 300,000 = ?</span>':'<span class="pill-bad">לא בדיוק.</span> רמז: זמן = מרחק ÷ מהירות. <span class="math">150,000,000 ÷ 300,000 = ?</span> (טיפ: מוחקים אפסים משני הצדדים.)'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+/* ---------- explain-back grading ---------- */
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שהאוויר על מאדים דליל פי מאה (כמו בגובה <span class="num">30</span> ק״מ בכדור הארץ), ולכן ללהבים כמעט אין אוויר לדחוף.',
+  'הסברתי מה מרים מסוק: הלהבים דוחפים אוויר למטה והאוויר דוחף אותם למעלה (עילוי) — יותר אוויר, יותר שטח ויותר מהירות נותנים יותר עילוי.',
+  'ציינתי את הפתרון: מסוק קל מאוד (<span class="num">1.8</span> ק״ג), להבים גדולים (<span class="num">1.2</span> מטר מקצה לקצה) שמסתובבים מהר מאוד (<span class="num">2,400</span> סיבובים בדקה, פי שישה ממסוק רגיל).',
+  'הזכרתי עוד פרט אחד לפחות: הכבידה החלשה במאדים עוזרת, שני רוטורים הפוכים מאזנים את הסיבוב, או שהמסוק טס לבד כי אות רדיו לוקח דקות.',
+  'סיפרתי מה קרה: תוכנן לחמש טיסות וביצע <span class="num">72</span> בכמעט שלוש שנים (<span class="num">2021–2024</span>), עד שקצה להב נשבר בנחיתה.',
+];
+const MODEL='על מאדים יש פי מאה פחות אוויר מאשר על פני הים בכדור הארץ — כמו בגובה שלושים קילומטרים, יותר מפי שניים מהגובה שאליו הגיע אי פעם מסוק. וזו בעיה, כי מסוק לא נאחז בשמיים: הלהבים שלו דוחפים אוויר למטה, והאוויר דוחף אותם למעלה. הדחיפה הזאת, העילוי, גדלה ככל שיש יותר אוויר, יותר שטח ללהבים ויותר מהירות — ומהירות עובדת בריבוע. את האוויר של מאדים אי אפשר לשנות, אז המהנדסים של נאס״א שינו את כל השאר: בנו מסוק שמשקלו רק <span class="num">1.8</span> קילוגרם, עם להבים באורך <span class="num">1.2</span> מטר שמסתובבים <span class="num">2,400</span> פעמים בדקה ויותר, פי שישה ממסוק רגיל. הכבידה החלשה של מאדים, <span class="num">38</span> אחוז משלנו, עזרה: המסוק שוקל שם פחות, אז צריך פחות עילוי. שני הרוטורים מסתובבים בכיוונים הפוכים, כדי שהסיבוב של האחד יבטל את הסיבוב של השני ואת הגוף לא יסחרר. ומכיוון שאות רדיו לוקח בין שלוש לעשרים ושתיים דקות להגיע למאדים, אי אפשר להטיס אותו בשלט — הוא מקבל תוכנית וטס לבד, עם מצלמה ומעבד של טלפון. אינג׳ניואיטי נבנה כניסוי לחמש טיסות, ובאפריל <span class="num">2021</span> ביצע את הטיסה הראשונה על כוכב אחר: שלושה מטרים, <span class="num">39</span> שניות. הוא המשיך לעוף כמעט שלוש שנים, <span class="num">72</span> טיסות ו־<span class="num">17</span> קילומטרים, עד שבינואר <span class="num">2024</span> קצה של להב נשבר בנחיתה על חול חלק.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (עילוי = הלהב מטה אוויר למטה ומקבל דחיפה למעלה — החוק השלישי של ניוטון; העילוי ביחס ישר לצפיפות האוויר ולשטח הלהבים ובריבוע המהירות (L ∝ ρ·A·v²); צפיפות על מאדים כ־0.015 ק״ג/מ״ק לעומת 1.225 — פי כ־100 פחות, כמו בגובה כ־30 ק״מ; לחץ 6.4 מיליבר (0.6%) אבל הצפיפות היחסית גבוהה יותר כי CO₂ כבד וקר; כבידה 3.72 מ׳/ש׳² = 38% ולכן המשקל קטן פי 2.6 ונשאר פער של פי כ־38 שסוגרים בשטח ובמהירות; אינג׳ניואיטי: 1.8 ק״ג, מוטת להבים 1.2 מ׳, 2,400–2,800 סל״ד לעומת 300–500 במסוק רגיל, מהירות קצה כ־150 מ׳/ש׳ (2,400 ÷ 60 = 40 סל״ש × 3.77 מ׳ היקף) = כ־63% ממהירות הקול של מאדים (240 מ׳/ש׳), ולכן אי אפשר לסובב הרבה יותר מהר; שני רוטורים קואקסיאליים נגדיים — שימור התנע הזוויתי / פעולה ותגובה, במקום רוטור זנב שצריך אוויר; אוטונומיה — השהיית רדיו 3–22 דקות (55–400 מיליון ק״מ ÷ 300,000 ק״מ/ש׳) לעומת טיסה של 90 שניות; ניווט לפי מצלמה 30 פריימים בשנייה ומעבד Snapdragon 801; הדגמת טכנולוגיה — 5 טיסות ב־30 סולים, בפועל 72 (19.4.2021–18.1.2024), מחממים ללילות של −90°, סל״ד הועלה בקיץ כשהאוויר התדלדל; סיום — איבוד עקיבה על חול חלק ושבירת קצה להב) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "המסוק שעף על מאדים באוויר שכמעט לא קיים" — איך המסוק אינג׳ניואיטי של נאס״א טס על מאדים. הרעיונות המרכזיים: (1) על פני מאדים יש פי כ־100 פחות אוויר (צפיפות כ־0.015 ק״ג/מ״ק לעומת 1.225) — כמו בגובה כ־30 ק״מ בכדור הארץ, יותר מפי שניים משיא הגובה של מסוק (12,442 מ׳, ז׳אן בולה 1972); בים המלח (−440 מ׳) האוויר הכי צפוף בעולם (כ־5% יותר); (2) עילוי: הלהבים דוחפים אוויר למטה והאוויר דוחף אותם למעלה (פעולה ותגובה); העילוי גדל עם צפיפות האוויר, שטח הלהבים, והמהירות בריבוע; (3) הפתרון: קל מאוד (1.8 ק״ג), להבים גדולים (1.2 מ׳), סיבוב מהיר מאוד (2,400–2,800 סל״ד, פי 6 ממסוק רגיל ~400); הכבידה החלשה של מאדים (38%) עוזרת — המשקל קטן פי 2.6, נשאר פער של פי ~38 שסוגרים עם פי 4 שטח ופי 3 מהירות (4 × 3² = 36); (4) שני רוטורים נגדיים: רוטור אחד היה מסחרר את הגוף לכיוון ההפוך (פעולה ותגובה / שימור תנע זוויתי); מסוק רגיל משתמש ברוטור זנב שצריך אוויר; (5) אוטונומיה: אות רדיו במהירות האור (300,000 ק״מ/ש׳) לוקח 3–22 דקות (55–400 מיליון ק״מ), טיסה נמשכת עד 90 שניות; המסוק מקבל תוכנית וטס לבד עם מצלמה (30 תמונות בשנייה) ומעבד של טלפון (Snapdragon 801); בטיסה 6 תקלת תמונות הטתה אותו 20° והוא נחת בשלום; (6) הסיפור: בוב בלרם (מהנדס ראשי, ילדות בדרום הודו) הציע בשנות ה־90, הרעיון חיכה כ־15 שנה עד שמנהל JPL צ׳רלס אלאצ׳י שאל אחרי הרצאה על רחפנים; מימי אאונג — מנהלת הפרויקט; בדיקות בסימולטור החלל של JPL באוויר בצפיפות מאדים; השם נבחר בידי ונייזה רופאני, תלמידת תיכון בת 17 מאלבמה; הדגמת טכנולוגיה — עד 5 טיסות ב־30 יום; נחיתה 18.2.2021 במכתש ג׳זרו מתחת לרובר פרסברנס; פיסת בד מהפלייר של האחים רייט (1903); טיסה ראשונה 19.4.2021 — 3 מ׳, 39.1 שניות, "שדה האחים רייט", אישור אחרי כ־3 שעות; 72 טיסות, 17.2 ק״מ, יותר משעתיים באוויר, שיא גובה 24 מ׳, שיא מהירות 10 מ׳/ש׳; מחממים ללילות של −90°; טיסה 72 ב־18.1.2024 — נחיתה על חול חלק בלי סימנים, איבוד עקיבה, שבירת קצה להב; (7) חיבורים: מהירות הקול על מאדים כ־240 מ׳/ש׳ (נמדדה מזמזום הרוטור) לעומת 340; האחים רייט 17.12.1903 — 12 שניות, 37 מ׳; זרע המייפל — מסוק של הטבע; דרגונפליי לטיטאן (שיגור 2028, הגעה 2034; אוויר צפוף פי 4, כבידה 14%); (8) חישובים: 72 − 5 = 67; 150,000,000 ÷ 300,000 = 500; 165,000,000 ÷ 300,000 = 550; 550 ÷ 60 ≈ 9.2; 2,400 ÷ 60 = 40; 1.2 × 3.14 ≈ 3.77; 40 × 3.77 ≈ 151; 151 ÷ 240 ≈ 63%; 100 × 0.38 = 38; 4 × 3² = 36.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם את הבעיה (אוויר דליל ולכן מעט עילוי — הלהבים דוחפים אוויר) וגם את הפתרון (קל, להבים גדולים, סיבוב מהיר מאוד — לפחות שניים מהשלושה), 1 אם יש רק חלק מזה. תשובה שאומרת ש"אין כבידה על מאדים" או ש"המסוק עף כי הוא קל" בלבד, או שמסבירה רק את הסיפור בלי המנגנון, לא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', יש לך ראש של '+G('מהנדס','מהנדסת')+' ולב של '+G('טייס','טייסת')+'!':pct>=60?name+', יש לך מוח של '+G('מדען','מדענית')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=100;                                                    // Mars air: ~1% of Earth's density
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. האוויר על פני מאדים דליל פי <span class="num">100</span> בערך מהאוויר שלנו — כמו בגובה <span class="num">30</span> ק״מ מעל כדור הארץ. ובכל זאת אינג׳ניואיטי המריא שם <span class="num">72</span> פעמים.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. פי מאה פחות אוויר, כמו בגובה <span class="num">30</span> ק״מ. ועכשיו ידוע לך גם איך ממריאים שם: קל, גדול, מהיר.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. המציאות: פי <span class="num">100</span> בערך — כמו בגובה <span class="num">30</span> ק״מ מעל כדור הארץ, יותר מפי שניים משיא הגובה של מסוק. ואת הפער סגרו עם להבים גדולים, סיבוב מהיר ומשקל קטן.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (פי כמה האוויר על מאדים דליל יותר): '+(S.guess?fmtSigns(S.guess):'—')+' (המציאות: פי 100 בערך)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "המסוק שעף על מאדים באוויר שכמעט לא קיים", מהדורה 19, ט״ו בתשרי תשפ״ז (26 בספטמבר 2026, סוכות). נושא: איך המסוק אינג׳ניואיטי (Ingenuity) של נאס״א טס על מאדים, כשהאוויר שם דליל פי כ־100; חלל (מאדים, המשימה), הנדסה (תכנון תחת אילוצים, הדגמת טכנולוגיה), פיזיקה (עילוי, צפיפות, פעולה ותגובה, מהירות האור והקול), מתמטיקה (יחסים, ריבוע, זמן = מרחק ÷ מהירות, היקף מעגל, אחוזים). האוויר: צפיפות בפני הים 1.225 ק״ג/מ״ק (בכל מטר מעוקב יותר מקילוגרם אוויר — "כמו בקבוק גדול של מים"); על האוורסט (8.85 ק״מ) כ־0.47 (38%); בגובה מטוס נוסעים (11 ק״מ) כ־0.36; ב־20 ק״מ כ־0.09 (7%); ב־30 ק״מ כ־0.018 (1.5%); על פני מאדים כ־0.015 ק״ג/מ״ק (כ־15 גרם, "כף אחת של מים") — פי כ־100 פחות, "כמו בגובה כ־30 ק״מ" (המקורות: 27–34 ק״מ לפי עונה ומקום); לחץ על מאדים 6.4 מיליבר בממוצע (0.6% משלנו), 95% פחמן דו־חמצני, המולקולה כבדה וקר (ממוצע −59°) ולכן הצפיפות היחסית גבוהה מהלחץ היחסי; כבידה על מאדים 3.72 מ׳/ש׳² = 38%; שיא הגובה למסוק בכדור הארץ: ז׳אן בולה, 21.6.1972, Aérospatiale Lama, 12,442 מ׳ — המנוע כבה ב־−63° מחוסר אוויר, נחיתה באוטורוטציה; ים המלח: −440 מ׳, לחץ 1,061–1,065 hPa — הגבוה בעולם, כ־5% מעל פני הים, האוויר הכי צפוף; זכרון יעקב כ־100–170 מ׳ מעל פני הים. עילוי: להב הוא כנף מסתובבת; הוא מטה אוויר למטה והאוויר דוחף אותו למעלה (החוק השלישי של ניוטון); העילוי ∝ צפיפות × שטח × מהירות² (L = ½·ρ·v²·A·C_L); כשמקטינים את הצפיפות פי 100 והמשקל פי 2.6 (כבידה 38%) נשאר פער של פי 38: פי 4 שטח ופי 3 מהירות (4 × 3² = 36) כמעט סוגרים; באורך להב כפול השטח גדל פי 4 וגם מהירות הקצה פי 2, ולכן העילוי (באותו סל״ד) גדל פי 16 — במעבדת העילוי בשיעור: L ∝ ρ·(סל״ד)²·D⁴, מכויל כך שאינג׳ניואיטי (1.8 ק״ג, D = 1.2) ממריא במאדים סביב 2,200 סל״ד ובכדור הארץ קצת מתחת ל־400; במציאות אינג׳ניואיטי לא יכול לרוץ ב־2,400 סל״ד באוויר של כדור הארץ (המנוע לא היה עומד בעומס) — נבדק בסימולטור החלל של JPL באוויר דליל כמו במאדים ועם חוט שנשא 62% מהמשקל. אינג׳ניואיטי: מסה 1.8 ק״ג (על מאדים "שוקל" כמו 0.68 ק״ג כאן); גובה כ־0.5 מ׳; שני רוטורים קואקסיאליים נגדיים, 4 להבי פחמן, מוטה 1.2 מ׳; סל״ד 2,400–2,700 בטיסות, 2,800 בבדיקות סיבוב (הועלה בקיץ המאדימי כשהאוויר התדלדל; מסוק נוסעים 300–500); מהירות קצה מתחת ל־0.7 מאך; ב־2,400 סל״ד: 40 סל״ש × 3.77 מ׳ (היקף, 1.2 × π) ≈ 151 מ׳/ש׳ ≈ 543 קמ״ש = כ־63% ממהירות הקול של מאדים (240 מ׳/ש׳); ב־2,800 כ־73% — מעבר לזה גלי הלם ואובדן עילוי; מעבד Qualcomm Snapdragon 801 (של טלפון), לינוקס; מצלמת ניווט 30 פריימים בשנייה + חיישני תנועה; סוללת ליתיום־יון 35–40 Wh, פאנל סולארי קטן על הרוטורים; טיסה של עד 90 שניות ביום; מחממים ללילות של כ־−90° במכתש ג׳זרו; תקשורת Zigbee לרובר פרסברנס ומשם דרך לוויינים לכדור הארץ. למה שני רוטורים: המנוע מסובב את הלהב ימינה והלהב דוחף את הגוף שמאלה (פעולה ותגובה; שימור התנע הזוויתי — סך הסיבוב נשאר אפס); מסוק רגיל מייצב עם רוטור זנב שדוחף אוויר הצידה, ועל מאדים אין מספיק אוויר; שני רוטורים נגדיים מאזנים בלי לגעת באוויר ונותנים פי 2 שטח בלי להאריך להב (המסוק היה צריך להיכנס מקופל מתחת לרובר). אוטונומיה: אות רדיו במהירות האור 300,000 ק״מ/ש׳; מרחק כדור הארץ–מאדים 54.6–401.4 מיליון ק״מ → השהיה של כ־3 עד 22 דקות לכיוון אחד (55,000,000 ÷ 300,000 ≈ 183 שניות); המסוק מקבל תוכנית טיסה ומבצע לבד; בטיסה 6 (מאי 2021) תמונה נפלה וחותמות זמן שגויות גרמו לנטייה של עד 20°, נחת בשלום עם חיישני התנועה. הסיפור: בוב בלרם — מהנדס ראשי, נולד וגדל בדרום הודו, דודו ביקש חומרים מהקונסוליה האמריקאית, שמע את הנחיתה על הירח (1969) ברדיו, למד הנדסת מכונות (IIT מדרס, רנסלר), 35 שנה ב־JPL; בשנות ה־90 שמע בכנס על ה"מסיקופטר" של אילן קרו מסטנפורד והציע גרסה למאדים — נדחה, "ישב על המדף" כ־15 שנה; מנהל JPL צ׳רלס אלאצ׳י חזר מהרצאה על רחפנים (2013) ושאל אם אפשר במאדים, בלרם קיבל שבועות ספורים לכתוב הצעה; מימי אאונג — מנהלת הפרויקט ("our Wright brothers moment on Mars"); הווארד גריפ — הטייס הראשי; טדי צאנטוס — מנהל התפעול; טימותי קנהאם — תוכנת הטיסה; עלות כ־80 מיליון דולר פיתוח + כ־5 תפעול; השם: ונייזה רופאני, תלמידת תיכון בת 17 מאלבמה, בתחרות של נאס״א ("תושייה"); שיגור 30.7.2020 עם פרסברנס; נחיתה 18.2.2021 במכתש ג׳זרו, מקופל מתחת לרובר; פריסה 3.4.2021; פיסת בד מכנף הפלייר של האחים רייט (1903) מתחת לפאנל הסולארי (כמו הפיסה שטסה לירח עם ארמסטרונג באפולו 11); הדגמת טכנולוגיה: עד 5 טיסות ב־30 סולים, 3–5 מ׳, עד 90 שניות; טיסה ראשונה 19.4.2021, 3 מ׳, 39.1 שניות, המראה 12:33 בזמן מאדים, האישור ב־JPL כשלוש שעות אחרי (3:34 → 6:46 שעון החוף המזרחי), "שדה האחים רייט"; 72 טיסות; שיא גובה 24 מ׳ (טיסה 61); שיא מהירות 10 מ׳/ש׳ (טיסה 62); הטיסה הארוכה 169.5 שניות (טיסה 12) והרחוקה 709 מ׳ (טיסה 25); סה״כ 17.24 ק״מ, כ־2 שעות ו־9 דקות באוויר, כ־1,000 ימים; שרד חורף עם מעט שמש ואבק; טיסה 72: 18.1.2024, אזור של רכסי חול חלקים בלי מאפיינים, מערכת הניווט איבדה עקיבה, נחיתה במהירות אופקית, קצה להב נשבר (להב אחד נותק לחלוטין, אחרים ניזוקו כשליש מהקצה); סיום המשימה הוכרז 25.1.2024; הוא ממשיך לעמוד שם ולמדוד מזג אוויר ולדבר עם הרובר כשהוא בטווח. חיבורים: מהירות הקול על מאדים — נמדדה במיקרופון של פרסברנס: כ־240 מ׳/ש׳ בתדרים נמוכים (מזמזום הרוטור של אינג׳ניואיטי) וכ־250 בגבוהים (מנקישות הלייזר), לעומת כ־340 בכדור הארץ; האחים רייט 17.12.1903 — 12 שניות, 37 מ׳ (120 רגל); זרע המייפל (סמרה) מסתחרר עם להב אחד ויוצר מערבולת על קצהו שמכפילה את העילוי (Lentink et al. 2009); דרגונפליי — רחפן של נאס״א לטיטאן, 8 רוטורים, בגודל מכונית, שיגור מתוכנן יולי 2028, הגעה 2034; טיטאן: לחץ כ־1.5 אטמוספירות, צפיפות פי כ־4 משלנו, כבידה כ־14%, כ־−180° (אוויר קר צפוף יותר). ניסוי בית: מסוק נייר — רצועה 20 × 4 ס״מ, חיתוך לשני להבים מקופלים לכיוונים הפוכים, גוף מקופל ואטב; מרוץ להבים רחבים מול צרים; אטב שני; מדידת זמן נפילה משני מטרים (כ־2 שניות); ספירת סיבובים; וידאו של הטיסה הראשונה. חישובים: 72 − 5 = 67; 150,000,000 ÷ 300,000 = 500 (≈ 8.3 דקות); 165,000,000 ÷ 300,000 = 550; 550 ÷ 60 ≈ 9.2; 55,000,000 ÷ 300,000 ≈ 183; 400,000,000 ÷ 300,000 ≈ 1,333 (≈ 22 דקות); 2,400 ÷ 60 = 40; 1.2 × 3.14 ≈ 3.77; 40 × 3.77 ≈ 151; 151 ÷ 240 ≈ 0.63 = 63%; 100 × 0.38 = 38; 4 × 3² = 36; 2,400 ÷ 400 = 6; 1.8 × 9.81 ≈ 17.7 N; 1.8 × 3.72 ≈ 6.7 N. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט ("פי 100" ו"30 ק״מ" הם עיגולים; מעבדת העילוי היא מודל מפושט; אנימציית הרוטורים סכמטית; ההשהיה לכיוון אחד), בלי לחשוף תשובות מבחן; אם ילד שואל על תשובה למבחן, לרמוז ולכוון, לא לפתור.';
+const CHIPS = ['למה קשה לעוף על מאדים?', 'מה זה עילוי?', 'למה שני רוטורים?', 'מי זה בוב בלרם?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים: עילוי ∝ צפיפות × שטח × מהירות², ומהיכן זה בא — הלהב מטה אוויר למטה ומקבל דחיפה למעלה; צפיפות 0.015 מול 1.225 (פי ~100, כמו בגובה 30 ק״מ) ולמה הצפיפות היחסית גבוהה מהלחץ היחסי (CO₂ כבד וקר); כבידה 38% ולכן משקל פי 2.6 פחות ופער של פי 38 שנסגר עם פי 4 שטח ופי 3 מהירות; L ∝ ρ·(סל״ד)²·D⁴ ולמה D בחזקת 4; מהירות קצה 151 מ׳/ש׳ ב־2,400 סל״ד = 63% ממהירות הקול של מאדים (240) והגבול של גלי הלם; שימור התנע הזוויתי ושני רוטורים נגדיים מול רוטור זנב; השהיית רדיו 3–22 דקות מול טיסה של 90 שניות, ניווט במצלמה ב־30 פריימים ותקלת טיסה 6; הדגמת טכנולוגיה, 5 טיסות שהפכו ל־72, העלאת הסל״ד בקיץ, המחממים, ושבירת הלהב ב־18.1.2024; דרגונפליי וטיטאן כבעיה ההפוכה), שאל שאלות המשך שדורשות חשיבה (למשל: למה הכפלת אורך הלהב נותנת פי 16 עילוי ולא פי 2? — שטח פי 4 ומהירות קצה פי 2 בריבוע; מה היה קורה למסוק בקיץ של מאדים בלי להעלות סל״ד? — האוויר החם דליל יותר, פחות עילוי, לא ממריא; למה על טיטאן הבעיה הפוכה?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה קשה לעוף על מאדים?</b> מסוק עף כי הלהבים דוחפים אוויר למטה והאוויר דוחף אותם למעלה. על מאדים יש פי <span class="num">100</span> פחות אוויר — כמו בגובה <span class="num">30</span> ק״מ אצלנו — אז כמעט אין מה לדחוף. הפתרון: מסוק קל מאוד (<span class="num">1.8</span> ק״ג), להבים גדולים (<span class="num">1.2</span> מטר) שמסתובבים מהר מאוד (<span class="num">2,400</span> פעמים בדקה), וכבידה חלשה שעוזרת.<br><br><b>למה הוא טס לבד?</b> אות רדיו לוקח בין <span class="num">3</span> ל־<span class="num">22</span> דקות להגיע למאדים, וטיסה שלמה נמשכת דקה וחצי. אז הוא מקבל תוכנית מכדור הארץ וטס לבד, עם מצלמה שמצלמת את הקרקע ומעבד של טלפון. רק אחרי הנחיתה הוא מדווח.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
