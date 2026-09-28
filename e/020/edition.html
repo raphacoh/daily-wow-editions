@@ -1,0 +1,1639 @@
+<title>שורשים וכנפיים #20 · הציפור שלימדה רכבת שלמה להיות שקטה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#D9633A; --sun-deep:#8A3A12; --sun-soft:#FBE1D2;
+  --nile:#0F8A9E; --nile-soft:#D5EEF2; --shadow:#3552A6; --shadow-soft:#E1E6F7;
+  --night:#1A2238; --aur:#F2C94C; --aur2:#F0A45C;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#D9822B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F5955F; --sun-deep:#FFD6BC; --sun-soft:#3D2114;
+    --nile:#4FC3D6; --nile-soft:#0F3A44; --shadow:#9DB0F0; --shadow-soft:#232B4F;
+    --night:#0B1226; --aur:#F2D27A; --aur2:#FFBE8A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F5955F; --sun-deep:#FFD6BC; --sun-soft:#3D2114;
+  --nile:#4FC3D6; --nile-soft:#0F3A44; --shadow:#9DB0F0; --shadow-soft:#232B4F;
+  --night:#0B1226; --aur:#F2D27A; --aur2:#FFBE8A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny kingfisher — round body and a long beak */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:40px;height:30px;flex:none}
+.ch .stick::before{content:"";position:absolute;right:2px;bottom:4px;width:20px;height:20px;border-radius:50%;background:var(--nile);box-shadow:0 0 0 3px var(--nile-soft)}
+.ch .stick::after{content:"";position:absolute;right:22px;bottom:11px;width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-right:18px solid var(--ink)}
+
+/* hero: a pond and a diving kingfisher */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-24px;width:300px;height:300px;z-index:0;opacity:.92;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%,100%{transform:translate(150px,52px) translateY(0)}50%{transform:translate(150px,52px) translateY(-7px)}}
+/* this edition's widgets */
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 20</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="var(--aur)" stop-opacity=".55"/>
+        <stop offset="60%" stop-color="var(--aur)" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="var(--aur)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- a pond, and a kingfisher diving into it beak-first: long beak, round head, a short body, folded wings -->
+    <g id="heroPond">
+      <ellipse cx="150" cy="232" rx="118" ry="30" fill="var(--water)" fill-opacity=".55" stroke="var(--ink)" stroke-width="1.4"/>
+      <ellipse cx="150" cy="232" rx="60" ry="14" fill="none" stroke="var(--card)" stroke-opacity=".8" stroke-width="2"/>
+      <ellipse cx="150" cy="232" rx="28" ry="6" fill="none" stroke="var(--card)" stroke-opacity=".9" stroke-width="2"/>
+    </g>
+    <g class="spark" transform="translate(150,52)">
+      <!-- the bird, pointing straight down -->
+      <ellipse cx="0" cy="40" rx="22" ry="34" fill="var(--nile)" stroke="var(--ink)" stroke-width="1.6"/>
+      <ellipse cx="0" cy="62" rx="14" ry="20" fill="var(--sun)" fill-opacity=".9"/>
+      <circle cx="0" cy="94" r="17" fill="var(--nile)" stroke="var(--ink)" stroke-width="1.6"/>
+      <circle cx="-7" cy="92" r="3" fill="var(--ink)"/><circle cx="7" cy="92" r="3" fill="var(--ink)"/>
+      <path d="M-6 106 L0 158 L6 106 Z" fill="var(--ink)"/>
+      <path d="M-20 18 C-40 34 -44 62 -30 84 C-26 60 -22 40 -20 18 Z" fill="var(--nile)" stroke="var(--ink)" stroke-width="1.4"/>
+      <path d="M20 18 C40 34 44 62 30 84 C26 60 22 40 20 18 Z" fill="var(--nile)" stroke="var(--ink)" stroke-width="1.4"/>
+    </g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 20</span><span class="tag">יום שני, 28 בספטמבר 2026</span><span class="tag">י״ז בתשרי תשפ״ז · חול המועד סוכות</span><span class="tag">כ־30 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>הציפור שלימדה רכבת שלמה להיות שקטה</h1>
+  <p class="lede">ביפן של שנות ה־<span class="num">90</span> נסעה אחת הרכבות המהירות בעולם — <span class="num">400</span> מטרים של מתכת, <span class="num">300</span> קילומטרים בשעה. אבל בכל פעם שהיא יצאה ממנהרה, נשמע <b>רעם</b>. לא מהרכבת: מהאוויר שהיא דחסה לפניה. אנשים שגרו <span class="num">400</span> מטרים מהמנהרה התלוננו, והמהנדסים לא ידעו מה לעשות. עד שאחד מהם, שאהב לצפות בציפורים בזמנו הפנוי, נזכר בציפור קטנה במשקל של <span class="num">40</span> גרם, שצוללת למים בלי להתיז. השאלה של היום: <b>איך ציפור בגודל של כף יד פתרה בעיה של רכבת באורך <span class="num">400</span> מטרים?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">כדי לפתור את בעיית הרעם, המהנדסים בנו לרכבת "אף" חדש, ארוך ומחודד, שנראה כמו מקור של ציפור. כמה ארוך הוא?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="2"><b>2 מטרים</b><span>כמו האף של מטוס קטן</span></button>
+      <button type="button" class="scaleopt" data-scale="6"><b>6 מטרים</b><span>כמו מכונית גדולה</span></button>
+      <button type="button" class="scaleopt" data-scale="15"><b>15 מטרים</b><span>יותר מאוטובוס שלם</span></button>
+      <button type="button" class="scaleopt" data-scale="40"><b>40 מטרים</b><span>כמו בניין של 13 קומות, בשכיבה</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE DIVE (interactive 1: the splash lab) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>הצלילה של השלדג</h2>
+  <p>ה<b>שלדג</b> הוא ציפור קטנה, כ־<span class="num">15</span> סנטימטרים, כחולה־טורקיז מלמעלה וכתומה מלמטה. הוא יושב על ענף מעל המים, מחכה — ואז צולל ראש קדימה, עד עומק של מטר, ותופס דג. הדבר המדהים: הוא נכנס למים כמעט <b>בלי התזה</b>. ואם חושבים על זה, זה מוזר: הוא עובר מאוויר, שכמעט לא מתנגד, למים, שצפופים ממנו פי <span class="num">800</span>. איך הוא לא נבלם כמו כף יד שטוחה שמכים בה על המים?</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>נסו את זה בראש: כשקופצים לבריכה "פצצה", המים עפים לכל הכיוונים. כשצוללים עם הידיים קדימה, כמעט לא. למה? כי כל דבר שנכנס למים חייב <b>להזיז מים הצידה</b>. פצצה מזיזה הרבה מים <b>בבת אחת</b>, ולמים אין זמן לזוז — אז הם קופצים. ידיים מחודדות מזיזות את המים <b>לאט־לאט</b>: קודם קצת, אחר כך עוד קצת. המקור של השלדג בנוי בדיוק ככה: חד בקצה, ומתרחב בהדרגה עד לראש.</p>
+    <p>באינטראקטיב: קודם נחשו מה יתיז הכי פחות. אחר כך הפילו כדור, לוח שטוח, חרוט, ושלדג — ותסתכלו על מד ההתזה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הנה המנגנון. כשגוף נכנס למים, הוא צריך לדחוף הצידה בדיוק את נפח המים שהוא תופס. מה שקובע את גודל ההתזה הוא לא <b>כמה</b> מים נדחפים בסך הכול, אלא <b>כמה מהר</b>: כמה מים נדחפים בכל רגע. כדור או לוח שטוח נכנסים למים ברוחבם המלא כמעט מיד, והמים חייבים לברוח מהר — ומים שנעים מהר מתיזים. חרוט ארוך מתרחב לאט: בכל רגע הוא דוחף רק פרוסה דקה נוספת של מים. המקור של השלדג הוא בדיוק חרוט כזה, ומאחוריו ראש שמתרחב בעדינות ואז גוף — <b>הרוחב גדל בהדרגה</b>, בלי קפיצות.</p>
+    <p>זכרו את המשפט הזה, כי הוא יחזור: <b>לא הרוחב קובע, אלא כמה מהר הרוחב גדל.</b> באינטראקטיב, שימו לב לצללית של כל צורה מצד שמאל של הבריכה: איפה היא "קופצת" ברוחב, ואיפה היא גדלה בהדרגה.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — מעבדת הצלילה ===== -->
+  <div class="panel instrument">
+    <h3>מעבדת הצלילה</h3>
+    <p class="cap">ארבע צורות נופלות למים מאותו גובה. נחשו: מה יתיז הכי פחות?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="spP0" onclick="spPredict(0)">הכדור</button>
+        <button id="spP1" onclick="spPredict(1)">הלוח השטוח</button>
+        <button id="spP2" onclick="spPredict(2)">החרוט</button>
+      </div>
+    </div>
+    <canvas id="spCv" width="640" height="480" aria-label="בריכת מים שאליה נופלת צורה מלמעלה: כדור, לוח שטוח, חרוט ארוך או שלדג; מד התזה בצד, ומשמאל צללית של הצורה שמראה כמה מהר הרוחב שלה גדל"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="הצורה">
+        <button id="spS0" class="on" onclick="spShape(0)">כדור</button>
+        <button id="spS1" onclick="spShape(1)">לוח שטוח</button>
+        <button id="spS2" onclick="spShape(2)">חרוט</button>
+        <button id="spS3" onclick="spShape(3)">שלדג</button>
+      </div>
+      <button class="btn small ghost" id="spPlay" onclick="spPlay()">הפילו!</button>
+      <label style="min-width:160px">זמן
+        <input type="range" id="spT" min="0" max="100" step="1" value="0" oninput="spDraw(1)" aria-label="זמן" style="direction:ltr">
+      </label>
+    </div>
+    <p class="cap" id="spMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>את השם "שלדג" — "שולה דגים" — המציא המשורר חיים נחמן ביאליק. ודווקא עכשיו, בסתיו, השלדג הגמדי עובר בישראל בדרכו דרומה: בבריכות הדגים ובנחלים של חוף הכרמל, לא רחוק מזכרון יעקב, אפשר לראות אותו יושב על ענף ובוהה במים.</p></div>
+
+  <div class="q qc" id="splashQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE TUNNEL BOOM (interactive 2: the tunnel) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>הרעם שיוצא מהמנהרה</h2>
+  <p>עכשיו לרכבת. בשדה פתוח, רכבת מהירה דוחפת את האוויר שלפניה, והאוויר פשוט זז הצידה ולמעלה. אבל במנהרה אין "הצידה": הרכבת ממלאת חלק גדול מהמנהרה, כמו <b>בוכנה בתוך צינור</b>. האוויר שלפניה נדחס — ו<b>הדחיסה רצה קדימה</b>, במהירות הקול: <span class="num">340</span> מטרים בשנייה, פי ארבעה מהרכבת. היא מגיעה לקצה השני של המנהרה הרבה לפני הרכבת, ושם, כשהיא פוגשת פתאום את האוויר החופשי, היא <b>מתפרצת החוצה בבום</b>. ביפן קראו לזה "בום המנהרה", ובשנות ה־<span class="num">70</span>, כשהרכבות התחילו לעבור במנהרות ארוכות, אנשים שגרו ליד היציאות התלוננו על רעמים ועל חלונות שרועדים.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>למה זה קשור לשלדג? כי הרכבת שנכנסת למנהרה היא בדיוק כמו ציפור שנכנסת למים: פתאום האוויר סביבה "מתקשה", אין לו לאן לברוח. רכבת עם אף קצר ושטוח דוחסת את האוויר <b>בבת אחת</b>, כמו פצצה בבריכה. רכבת עם אף ארוך שמתרחב לאט דוחסת אותו <b>בהדרגה</b>, כמו מקור של שלדג — והגל שרץ קדימה רך יותר, והבום קטן יותר.</p>
+    <p>ועוד משהו: ככל שהרכבת מהירה יותר, הבום גדל <b>מאוד</b>. באינטראקטיב: הכניסו את הרכבת למנהרה, ותראו את הגל (הפס הכתום) רץ לפניה ומתפרץ מהצד השני. שחקו עם המהירות ועם צורת האף.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>כמה מספרים. רכבת ב־<span class="num">300</span> קמ״ש נעה <span class="math">300,000 ÷ 3,600 ≈ 83</span> מטרים בשנייה. גל הלחץ רץ במהירות הקול, כ־<span class="num">340</span> מטרים בשנייה — פי ארבעה מהר יותר. במנהרה באורך <span class="num">3.4</span> קילומטרים הגל מגיע ליציאה אחרי <span class="num">10</span> שניות, והרכבת רק אחרי <span class="num">41</span>. הבום מגיע קודם.</p>
+    <p>ומה קובע כמה חזק הבום? שני דברים. <b>המהירות</b> — ובאופן מפתיע: עוצמת הבום גדלה בערך <b>בחזקה שלישית</b> של המהירות. מהירות כפולה — בום גדול פי <span class="math">2 × 2 × 2 = 8</span>. כשיפן העלתה את המהירות מ־<span class="num">210</span> ל־<span class="num">300</span> קמ״ש, הבום גדל כמעט פי שלושה. ו<b>כמה מהר הרכבת ממלאת את המנהרה</b>: אף קצר וקהה מגיע לרוחבו המלא תוך מטרים אחדים, ולחץ האוויר קופץ; אף ארוך שמתרחב בהדרגה מעלה את הלחץ בעדינות, וגל רך יותר יוצא מהצד השני. זה בדיוק מה שהשלדג עושה במים. ועוד פרט: במנהרה ארוכה הגל <b>מתחדד</b> בדרך — החלק הדחוס שלו נע מעט מהר יותר ומדביק את החלק שלפניו — ולכן במנהרות הארוכות הבום היה הגרוע ביותר.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — המנהרה ===== -->
+  <div class="panel instrument">
+    <h3>המנהרה</h3>
+    <p class="cap">הרכבת נכנסת מצד שמאל. הפס הכתום הוא גל הלחץ שרץ לפניה במהירות הקול. כשהוא מגיע ליציאה — בום. המד למעלה משווה את עוצמת הבום לרכבת ישנה ב־<span class="num">210</span> קמ״ש (זה <span class="math">×1</span>).</p>
+    <canvas id="tnCv" width="640" height="420" aria-label="חתך צד של מנהרה בתוך הר: רכבת נכנסת משמאל, פס כהה של אוויר דחוס רץ לפניה לאורך המנהרה ומתפרץ מהיציאה מימין בעיגולי בום; למעלה מד של עוצמת הבום; למטה מהירות הרכבת ומהירות הגל"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="צורת האף">
+        <button id="tnN0" class="on" onclick="tnNose(0)">אף קצר וקהה</button>
+        <button id="tnN1" onclick="tnNose(1)">אף ארוך כמו מקור</button>
+      </div>
+      <button class="btn small ghost" id="tnPlay" onclick="tnPlay()">הפעלה</button>
+    </div>
+    <div class="controls">
+      <label>מהירות הרכבת (קמ״ש)
+        <input type="range" id="tnV" min="100" max="320" step="10" value="300" oninput="tnDraw(1)" aria-label="מהירות הרכבת" style="direction:ltr">
+      </label>
+      <label style="min-width:160px">זמן
+        <input type="range" id="tnT" min="0" max="100" step="1" value="0" oninput="tnDraw(1)" aria-label="זמן" style="direction:ltr">
+      </label>
+      <div class="readout">בום: <b class="num" id="tnOut">×1.0</b></div>
+    </div>
+    <p class="cap" id="tnMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="aha">כלל אצבע: <b>לא כמה אוויר דוחסים, אלא כמה מהר.</b> אף שמתרחב בהדרגה עושה גל רך; מהירות גבוהה עושה גל חזק — בחזקה שלישית.</div>
+
+  <div class="q qc" id="tunnelQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE OWL (interactive 3: serrations) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>הינשוף שלימד את הרכבת לשתוק</h2>
+  <p>הבום לא היה הרעש היחיד. על גג הרכבת יש <b>קשת חשמל</b> (פנטוגרף): זרוע מתכת שנוגעת בכבל החשמל שמעל המסילה ומושכת ממנו זרם. ב־<span class="num">300</span> קמ״ש האוויר חולף על הזרוע הזאת בשריקה: מאחוריה נוצרות <b>מערבולות</b> גדולות, כמו מאחורי דגל ברוח, וכל מערבולת כזאת היא רעש. איך משתיקים זרוע מתכת שנוסעת ברוח של <span class="num">300</span> קמ״ש? אותו מהנדס חשב שוב על ציפור: <b>הינשוף</b>, שעף בלילה בשקט מוחלט, כדי שהעכבר לא ישמע אותו מגיע.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>לינשוף יש סוד בקצה הכנף: הנוצות הקדמיות שלו <b>משוננות</b>, כמו מסרק קטן. כשהאוויר עובר על שיניים קטנות, במקום מערבולת אחת גדולה ורועשת נוצרות הרבה מערבולות זעירות — והזעירות שקטות. המהנדסים חרטו שיניים כאלה על הקשת של הרכבת, והשריקה נעלמה ברובה.</p>
+    <p>באינטראקטיב: הפעילו את הרוח על זרוע חלקה, ואז על זרוע משוננת, והסתכלו על מד הרעש.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הפיזיקה כאן דומה לפרק הקודם, אבל בכיוון אחר. כשאוויר עובר על שפה חלקה, הוא מתנתק ממנה בבת אחת ומתגלגל ל<b>מערבולת אחת גדולה</b>, ואז עוד אחת, ועוד אחת — קצב קבוע, שיוצר צליל בתדר אחד חזק (כמו שריקה של חוט חשמל ברוח). שיניים בשפה מפצלות את השפה ל"הרבה שפות קטנות": כל שן יוצרת מערבולת זעירה משלה, ובכולן יחד יש הרבה פחות אנרגיה מאשר במערבולת אחת גדולה. הרעש מתפזר לתדרים רבים וחלשים, ובחלק ניכר נעלם.</p>
+    <p>אותו רעיון בדיוק בכנף הינשוף: המסרק בקצה הכנף שובר את המערבולות הגדולות, ובשילוב נוצות רכות בקצה האחורי, הינשוף כמעט לא נשמע. המהנדסים חרטו שינון על חלק הקשת החשוף לרוח, והשריקה נעלמה ברובה. באינטראקטיב: השוו את גודל המערבולות ואת מד הרעש.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — הינשוף ===== -->
+  <div class="panel instrument">
+    <h3>הינשוף</h3>
+    <p class="cap">הרוח נושבת משמאל לימין על זרוע המתכת של הקשת. נחשו: מה יהיה שקט יותר?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="owP0" onclick="owPredict(0)">זרוע חלקה</button>
+        <button id="owP1" onclick="owPredict(1)">זרוע משוננת</button>
+        <button id="owP2" onclick="owPredict(2)">אין הבדל</button>
+      </div>
+    </div>
+    <canvas id="owCv" width="640" height="400" aria-label="זרוע מתכת אנכית ברוח: בגרסה החלקה נוצרות מאחוריה מערבולות גדולות ומד הרעש גבוה; בגרסה המשוננת, עם שיניים כמו נוצת ינשוף, נוצרות מערבולות זעירות רבות ומד הרעש נמוך"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="סוג הזרוע">
+        <button id="owM0" class="on" onclick="owMode(0)">חלקה</button>
+        <button id="owM1" onclick="owMode(1)">משוננת, כמו ינשוף</button>
+      </div>
+      <button class="btn small ghost" id="owPlay" onclick="owPlay()">רוח!</button>
+      <label style="min-width:160px">זמן
+        <input type="range" id="owT" min="0" max="100" step="1" value="0" oninput="owDraw(1)" aria-label="זמן" style="direction:ltr">
+      </label>
+    </div>
+    <p class="cap" id="owMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="q qc" id="owlQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE STORY -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>המהנדס שאהב ציפורים</h2>
+    <p><b>אייג׳י נקאטסו</b> היה מהנדס בחברת הרכבות של מערב יפן. ב־<span class="num">1990</span> קיבל משימה: לבנות רכבת חדשה שתיסע <span class="num">300</span> קמ״ש — מהר כמו הרכבות הכי מהירות בעולם, ומהר יותר מכל רכבת ביפן. אבל ככל שהרכבת מהירה יותר, הבום מהמנהרות חזק יותר, וביפן יש חוק: רכבת לא יכולה להרעיש יותר מ־<span class="num">70</span> דציבלים ליד בתים, כמו שיחה בקול רם. הרכבת החדשה עברה את הגבול.</p>
+    <p>בזמנו הפנוי נקאטסו היה צַפָּר — הוא אהב ללכת לטבע ולצפות בציפורים. ערב אחד הלך להרצאה של מהנדס מטוסים שסיפר איך ציפורים עזרו לתכנן מטוסים. ונקאטסו שאל את עצמו שאלה: <b>"האם יש חיה שעוברת כל יום ממקום שבו קל לזוז למקום שבו קשה לזוז — ומסתדרת?"</b> והתשובה קפצה לו: השלדג. מאוויר למים, בלי התזה.</p>
+    <p>אבל מהנדסים לא מסתפקים ברעיון יפה — הם בודקים. הצוות ירה "קליעים" בצורות שונות לתוך צינור ומדד את גל הלחץ שכל צורה עושה, ואז הריץ חישובים במחשב־על. הצורה שניצחה הייתה... כמו מקור של שלדג. הרכבת החדשה, <b>סדרה <span class="num">500</span></b>, יצאה לדרך במרץ <span class="num">1997</span>, עם אף באורך <span class="num">15</span> מטרים. היא הייתה שקטה יותר, מהירה יותר ב־<span class="num">10</span> אחוזים — וגם השתמשה ב־<span class="num">15</span> אחוזים <b>פחות חשמל</b>. הרכבת שנועדה להיות שקטה, יצאה גם חסכונית.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>המהנדס שאהב ציפורים</h2>
+    <p><b>אייג׳י נקאטסו</b> היה מהנדס בכיר ב־JR West, חברת הרכבות של מערב יפן, ואחראי על מסעות הניסוי של הרכבת שהחברה תכננה בתחילת שנות ה־<span class="num">90</span>: סדרה <span class="num">500</span>, הראשונה ביפן שתיסע באופן סדיר <span class="num">300</span> קמ״ש — כמו הרכבות המהירות בעולם. הרכבת הקודמת נסעה <span class="num">270</span>. אבל ליפן יש תקן רעש קשוח, <span class="num">70</span> דציבלים ליד מגורים, ומהירות גבוהה יותר פירושה בום מנהרה חזק בהרבה — זכרו: בחזקה שלישית. הבעיה הזאת יכלה לעצור את כל הפרויקט.</p>
+    <p>נקאטסו היה חבר בחברת הצפרים היפנית, ובהרצאה של מהנדס מטוסים שהיה גם צפר, שמע איך כנפי ציפורים השפיעו על תכנון מטוסים. הוא ניסח לעצמו שאלה מדויקת: "<b>האם יש יצור שמתמודד כל יום עם שינוי פתאומי בהתנגדות של הסביבה?</b>" רכבת שנכנסת למנהרה עוברת מאוויר "חופשי" לאוויר לכוד; השלדג עובר מאוויר למים, צפופים פי <span class="num">800</span>, בלי התזה. ההשערה: צורת המקור היא הפתרון.</p>
+    <p>ואז המדע. הצוות ירה קליעים בצורות שונות לתוך צינור ומדד את גלי הלחץ, והריץ סימולציות של רכבות במנהרות על מחשב־על של סוכנות החלל היפנית. הצורה האופטימלית שיצאה מהמדידות התבררה כקרובה מאוד למקור של שלדג: חוד שמתרחב בהדרגה, עם חתך כמעט עגול. הרכבת קיבלה אף באורך <span class="num">15</span> מטרים — יותר ממחצית הקרון הראשון. סדרה <span class="num">500</span> נכנסה לשירות במרץ <span class="num">1997</span> בקו אוסקה–פוקואוקה. התוצאות: לחץ האוויר בגל קטן בכ־<span class="num">30</span> אחוזים, מהירות גבוהה ב־<span class="num">10</span> אחוזים, וצריכת חשמל נמוכה ב־<span class="num">15</span> אחוזים — כי אף שדוחס פחות אוויר גם נדחף פחות אחורה. הצורה שנועדה לשקט התבררה כצורה החסכונית ביותר. ובכנות: המקור לא "העתיק" את הרכבת — המדידות מצאו את הצורה, והשלדג היה ההשראה ואישור מרהיב שהטבע הגיע לאותה תשובה.</p>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>הרכבת במספרים</h2>
+    <p>בואו נרגיש את הגדלים. השלדג: כ־<span class="num">15</span> סנטימטרים, <span class="num">40</span> גרם — כמו עשר כפיות סוכר. האף של הרכבת: <span class="num">15</span> מטרים. כמה שלדגים בשורה, מהמקור עד הזנב, היו נכנסים לאורך האף הזה? את זה תחשבו במבחן. והרכבת כולה: <span class="num">16</span> קרונות, יותר מ־<span class="num">400</span> מטרים — ארבעה מגרשי כדורגל.</p>
+    <p>המהירות: <span class="num">300</span> קמ״ש הם <span class="num">83</span> מטרים בכל שנייה. בזמן שאתם קוראים את המשפט הזה, הרכבת עברה כמה מאות מטרים. וגל הלחץ במנהרה מהיר עוד יותר: <span class="num">340</span> מטרים בשנייה, מהירות הקול. לכן הוא תמיד מגיע ליציאה לפני הרכבת, ולכן הבום נשמע <b>לפני</b> שרואים את הרכבת יוצאת.</p>
+    <p>ומה הרכבת החדשה חסכה? <span class="num">15</span> אחוזים חשמל. אם הרכבת הישנה השתמשה ב־<span class="num">100</span> "כוסות" חשמל, החדשה משתמשת ב־<span class="num">85</span> — ונוסעת מהר יותר. הכול בגלל אף שדוחף את האוויר לאט.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>למה דווקא בחזקה שלישית?</h2>
+    <p>למה מהירות כפולה נותנת בום גדול פי שמונה, ולא פי שניים? הנה הרעיון בקירוב. דבר ראשון, <b>כמה</b> אוויר נדחס: רכבת מהירה פי שניים דוחסת את האוויר במנהרה פי שניים חזק יותר <b>וגם</b> פי שניים מהר יותר — הלחץ בגל גדל בערך <b>בריבוע</b> המהירות (כמו הדחיפה של רוח: רוח כפולה דוחפת פי ארבעה). דבר שני, מה שיוצא מהיציאה כרעש איננו הלחץ עצמו אלא <b>כמה חד</b> הוא: כמה מהר הלחץ עולה כשהגל מגיע. אף שנכנס במהירות כפולה עובר את אותם מטרים בחצי הזמן, אז העלייה חדה פי שניים נוספים. ריבוע כפול עוד אחד — <span class="math">2² × 2 = 8</span>: חזקה שלישית. לכן ההעלאה מ־<span class="num">210</span> ל־<span class="num">300</span> קמ״ש, "רק" פי <span class="math">1.43</span>, הכפילה את הבום כמעט פי שלושה: <span class="math">1.43 × 1.43 × 1.43 ≈ 2.9</span>.</p>
+    <p>ומכאן ברור מה האף הארוך עושה: הוא לא משנה את המהירות, אלא את <b>החדות</b>. במקום שהרוחב המלא ייכנס למנהרה תוך <span class="num">3</span> מטרים, הוא נכנס לאורך <span class="num">15</span> — העלייה בלחץ מתפרסת על זמן ארוך פי חמישה, והגל יוצא רך. זה גם מה שהמדידות של נקאטסו הראו: לחץ נמוך בכ־<span class="num">30</span> אחוזים. ובונוס שאף אחד לא תכנן: אוויר שנדחס פחות גם מתנגד פחות, ולכן הרכבת צרכה <span class="num">15</span> אחוזים פחות חשמל אף שנסעה <span class="num">10</span> אחוזים מהר יותר.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> (א) הבום גדל בחזקה שלישית של המהירות. חברת רכבות רוצה להאיץ רכבת מ־<span class="num">200</span> קמ״ש ל־<span class="num">250</span>. פי כמה יגדל הבום? רמז: קודם חשבו את יחס המהירויות, ואז הכפילו אותו בעצמו שלוש פעמים. (ספרה אחת אחרי הנקודה; מותר מחשבון.) (ב) הרכבת הקודמת ביפן נסעה <span class="num">270</span> קמ״ש והשתמשה, נניח, ב־<span class="num">100</span> יחידות חשמל <b>בשעה</b>. החדשה נוסעת <span class="num">300</span> קמ״ש עם <span class="num">85</span> יחידות בשעה. כמה אחוזים פחות חשמל היא צורכת <b>לכל קילומטר</b>? רמז: חשבו כמה חשמל לקילומטר לכל רכבת (יחידות ÷ קילומטרים בשעה), ואז את ההפרש באחוזים מהישנה. (מספר שלם.)</p>
+      <div class="controls">
+        <label>(א) הבום גדל פי <input type="number" id="chalBoom" inputmode="decimal" step="0.1" placeholder="?"></label>
+        <label>(ב) אחוז חיסכון לק״מ <input type="number" id="chalSave" inputmode="numeric" step="1" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()" data-g="בדוק|בדקי">בדקי</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> למה הבום יוצא דווקא מהצד <b>הרחוק</b> של המנהרה, ולא מהכניסה שבה הרכבת דחסה את האוויר? ומה היה קורה אם היו בונים את המנהרה רחבה פי שניים?</p>
+      <details><summary>הרמז והתשובה</summary><p><b>הצד הרחוק:</b> בכניסה האוויר הדחוס לא יכול לצאת אחורה — הרכבת סותמת את הפתח ודוחפת אותו קדימה. הדחיסה בורחת לכיוון היחיד שפתוח, לאורך המנהרה, במהירות הקול. הרעש נולד רק כשהגל פוגש אוויר חופשי, וזה קורה בפעם הראשונה ביציאה. בדרך הגל גם מתחדד, ולכן מנהרה ארוכה — בום חזק יותר. <b>מנהרה רחבה פי שניים:</b> הרכבת תופסת חלק קטן יותר מהחתך, ולאוויר יש לאן לזוז סביבה — הלחץ עולה הרבה פחות, והבום קטן מאוד. לכן במנהרות רחבות הבעיה קטנה. אבל מנהרה רחבה פי שניים עולה הרבה יותר, ויפן, ארץ הררית עם מאות מנהרות, בחרה לפתור את הבעיה מהצד הזול: לשנות את הרכבת ולא את ההרים. הנדסה טובה שואלת לא רק "מה עובד" אלא "מה עובד במחיר שאפשר לשלם".</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="shapeQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>מעבדת ההתזה של נקאטסו, בכיור. ובונוס: בום מנהרה מגליל נייר.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — מי מתיז הכי פחות? (<span class="num">10</span> דקות)</h3>
+    <p class="cap">מה צריך: קערה גדולה או כיור מלא מים, כפית, כדור קטן (גולה או כדור פינג־פונג), דף נייר ונייר דבק, ומגבת. עדיף בחוץ או באמבטיה.</p>
+    <ol>
+      <li><b>מכינים חרוט:</b> מגלגלים חצי דף לחרוט חד וסוגרים בנייר דבק. שמים בפנים גולה קטנה, כדי שיהיה לו משקל וייפול עם החוד למטה.</li>
+      <li><b>מפילים</b> מגובה של <span class="num">30</span> ס״מ בדיוק, בזה אחר זה: את הכפית (הצד השטוח למטה), את הכדור, ואת החרוט. מסתכלים מהצד: כמה גבוה עפים המים? אפשר לשים דף נייר ליד הקערה ולספור טיפות.</li>
+      <li><b>משווים:</b> מה התיז הכי הרבה? הכפית השטוחה מגיעה לרוחבה המלא בבת אחת. החרוט מתרחב לאט. זה בדיוק מה שנקאטסו ראה — רק שהוא ירה קליעים לצינור.</li>
+      <li><b>מתכננים:</b> עכשיו נסו לבנות "אף" עוד יותר טוב: חרוט ארוך יותר? קצר יותר? עם קצה מעוגל? מפילים, מודדים, משפרים. ככה עובדים מהנדסים.</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — בום מנהרה מגליל נייר (<span class="num">5</span> דקות)</summary>
+    <p>קחו גליל קרטון ארוך (מנייר אלומיניום או מנייר עטיפה) — זו המנהרה. תלו רצועת נייר טישו דקה מול הקצה הרחוק, במרחק סנטימטר. עכשיו דחפו לתוך הקצה הקרוב כדור או פקק שממלא כמעט את כל הגליל — <b>מהר</b>. הטישו בקצה השני יזוז <b>לפני</b> שהכדור מגיע: זה גל הלחץ שרץ קדימה. נסו לאט, ואז מהר יותר: מה ההבדל? ומה קורה אם הפקק קטן בהרבה מהגליל (מנהרה "רחבה")?</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — לראות בעיניים (<span class="num">3</span> דקות)</summary>
+    <p>חפשו סרטון בהילוך איטי של שלדג צולל ("kingfisher dive slow motion"): שימו לב שהמקור נכנס ראשון, ואז הראש, ואז הכנפיים נצמדות לגוף. ואחר כך חפשו "500 series Shinkansen nose" — ותראו את אותה צורה, באורך <span class="num">15</span> מטרים. ואם יוצאים לטבע בסתיו: ליד בריכות דגים ונחלים בישראל אפשר לפגוש את השלדג הגמדי בעצמו, בדרכו דרומה.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הסיפור של היום הוא על <b>לשאול את השאלה הנכונה</b>. נקאטסו לא שאל "איך מקטינים בום?" — על זה אף אחד לא ידע לענות. הוא שאל: "מי כבר פתר בעיה כזאת?" וברגע שהשאלה הייתה נכונה, התשובה ישבה על ענף מעל הנחל. לזה קוראים <b>ביומימיקרי</b> — ללמוד מהטבע. הטבע ניסה מיליוני שנים של צורות, ומה שלא עבד — לא שרד. השלדג עם המקור הלא נכון היה נשאר רעב.</p>
+    <p>והדבר השני: הרעיון היפה לא הספיק. נקאטסו <b>בדק</b>: ירה צורות לצינור, מדד, חישב. גם אתם: כשיש לכם רעיון, נסו אותו בכיור. ככה יודעים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הגדול הראשון: <b>אותה פיזיקה, בגדלים שונים</b>. ציפור של <span class="num">40</span> גרם שנכנסת למים ורכבת של <span class="num">400</span> מטרים שנכנסת למנהרה מתמודדות עם אותו עיקרון — גוף שעובר לסביבה שבה קשה לזוז חייב לדחוף אותה הצידה, ומה שקובע את "המכה" הוא קצב הדחיפה, לא כמותה. לכן פתרון של ציפור עובד לרכבת: הפיזיקה לא יודעת מה הגודל. זה הכוח האמיתי של <b>ביומימיקרי</b> — לא להעתיק צורות יפות, אלא לזהות שהטבע כבר פתר את <b>אותה משוואה</b>.</p>
+    <p>הרעיון השני: <b>ההשראה מציעה, המדידה מחליטה</b>. השלדג נתן לנקאטסו השערה. את הצורה קבעו קליעים בצינור, מחשב־על ומסעות ניסוי — ורק אז אפשר היה לומר בביטחון שהמקור צדק. אלמלא המדידות, "אף כמו מקור" היה נשאר סיפור יפה. והרעיון השלישי, שמופיע שוב ושוב בהנדסה: פתרון טוב לבעיה אחת פותר לפעמים גם בעיה שלא חשבתם עליה — האף שנועד לשקט חסך <span class="num">15</span> אחוזים חשמל. שאלה לחקור: אילו עוד דברים בבית שלכם "העתיקו" מהטבע? (רמז: סקוץ׳, חליפות שחייה, קרמים נגד שמש.)</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">פיזיקה</div><h3>מהירות הקול</h3><p>גל הלחץ במנהרה נע ב־<span class="num">340</span> מטרים בשנייה, כי זו המהירות שבה "חדשות" עוברות באוויר: מולקולה דוחפת את השכנה שלה. הרכבת נעה <span class="num">83</span> מטרים בשנייה. לכן הבום תמיד מקדים את הרכבת, ולכן שומעים רעם רק כמה שניות אחרי הברק — האור מגיע מיד, הקול מטייל.</p></div>
+    <div class="tile"><div class="dom">היסטוריה</div><h3>הרכבת המהירה הראשונה</h3><p>ב־<span class="num">1</span> באוקטובר <span class="num">1964</span>, תשעה ימים לפני האולימפיאדה בטוקיו, יצאה לדרך השינקנסן הראשונה: טוקיו–אוסקה ב־<span class="num">210</span> קמ״ש, מהר יותר מכל רכבת אחרת בעולם. הכינוי שלה — "רכבת הקליע" — הגיע מהאף העגול שלה. שלושים שנה אחר כך, הקליע הפך למקור.</p></div>
+    <div class="tile"><div class="dom">ביולוגיה · ישראל</div><h3>השלדגים שלנו</h3><p>בישראל חיים שלושה שלדגים: <b>שלדג לבן־חזה</b> הגדול, שצועק מהחוטים; <b>פרפור עקוד</b> השחור־לבן, שמרפרף באוויר מעל הבריכות; ו<b>השלדג הגמדי</b> — גיבור הסיפור — שעובר כאן בסתיו בדרכו דרומה, ונחשב אחד ממבשרי הסתיו. חפשו אותו בנחל תנינים ובבריכות חוף הכרמל.</p></div>
+    <div class="tile"><div class="dom">הנדסה</div><h3>עוד רעיונות מהטבע</h3><p>הסקוץ׳ הומצא אחרי שמהנדס שווייצרי בדק במיקרוסקופ למה זרעי הקוצים נדבקים לפרווה של הכלב שלו: ווים זעירים. חליפות שחייה חיקו את עור הכריש, ומבנים בערים חמות מחקים את תלי הטרמיטים, שמאווררים את עצמם. תמיד אותה שאלה: מי כבר פתר את זה?</p></div>
+  </div>
+
+  <details class="bonus" id="latBox">
+    <summary>בונוס (2 דקות): למה נושבת רוח ברכבת התחתית?</summary>
+    <p>מי שעמד פעם בתחנת רכבת תחתית מכיר את זה: רגע לפני שהרכבת מגיעה, נושבת רוח חמה מהמנהרה. זה בדיוק בום המנהרה — רק לאט. הרכבת דוחפת לפניה את האוויר כמו בוכנה, ולאוויר אין לאן לברוח חוץ מקדימה, אל התחנה. במהירות של <span class="num">60</span> קמ״ש זה משב רוח נעים; ב־<span class="num">300</span> קמ״ש זה רעם. אותה פיזיקה, פי חמישה מהירות — ובחזקה שלישית: פי <span class="num">125</span>.</p>
+    <details><summary>שאלה קטנה</summary><p>גם בקומות הגבוהות של מגדל, כשנפתחת דלת המעלית, לפעמים נושבת רוח. למה?</p>
+      <p data-level="advanced">[מתקדם] כי המעלית היא בוכנה בפיר: כשהיא עולה, היא דוחפת לפניה את האוויר שבפיר ומושכת אוויר מאחוריה. לפיר יש פתחים בכל קומה (מרווחי הדלתות), ולכן האוויר בורח דרכם — זו הרוח. ככל שהמעלית מהירה יותר ותופסת חלק גדול יותר משטח הפיר (יחס החסימה), הלחץ גדול יותר — בדיוק שני הגורמים של בום המנהרה. במגדלים גבוהים במיוחד, שבהם המעליות נוסעות מעל <span class="num">30</span> קמ״ש, המהנדסים מתכננים פירים עם פתחי אוורור, וגם את המעליות עצמן עם חתך מעוגל — אף של שלדג, בגרסת מעלית.</p>
+      <p data-level="standard">כי המעלית היא כמו רכבת בפיר צר: כשהיא עולה היא דוחפת לפניה את האוויר שבפיר, ולאוויר יש רק דרך אחת לצאת — דרך המרווחים של הדלתות בקומות. זו הרוח שמרגישים. במגדלים גבוהים מאוד, שבהם המעליות מהירות, המהנדסים צריכים לחשוב על זה בדיוק כמו מהנדסי הרכבות.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את בום המנהרה — מהרגע שהרכבת נכנסת ועד שהתושבים מתלוננים. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: האף של הרכבת ארוך <span class="num">15</span> מטרים, כלומר <span class="num">1,500</span> סנטימטרים. שלדג הוא באורך <span class="num">15</span> סנטימטרים. כמה שלדגים בשורה, מהמקור עד הזנב, נכנסים לאורך האף?</div>
+    <div class="controls"><label>שלדגים <input type="number" id="numYounger" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')" data-g="בדוק|בדקי">בדוק</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: רכבת נכנסת למנהרה באורך <span class="num">5,100</span> מטרים במהירות <span class="num">300</span> קמ״ש. גל הלחץ רץ לפניה במהירות הקול, <span class="num">340</span> מטרים בשנייה. (א) אחרי כמה שניות הגל מגיע ליציאה? (ב) ואחרי כמה שניות הרכבת עצמה מגיעה ליציאה? (רמז: קודם הפכו קמ״ש למטרים בשנייה — <span class="math">300,000 ÷ 3,600</span>. תשובה עד שנייה אחת לכאן או לכאן; מותר מחשבון.)</div>
+    <div class="controls"><label>(א) הגל, שניות <input type="number" id="numAdv" inputmode="numeric" step="1" placeholder="?"></label><label>(ב) הרכבת, שניות <input type="number" id="numAdvR" inputmode="decimal" step="0.1" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: רכבת נכנסת למנהרה באורך <span class="num">5,100</span> מטרים. גל הלחץ רץ לפניה במהירות הקול, <span class="num">340</span> מטרים בשנייה. אחרי כמה שניות הגל מגיע ליציאה — והבום נשמע? (מותר מחשבון.)</div>
+    <div class="controls"><label>שניות <input type="number" id="numOlder" inputmode="numeric" step="1" placeholder="?"></label><button class="btn small" onclick="checkNum('older')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה רכבת מהירה עושה רעם כשהיא יוצאת ממנהרה, ואיך ציפור עזרה לפתור את זה?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="כשהרכבת נכנסת למנהרה, האוויר שלפניה..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. רכבת מהירה במנהרה היא כמו בוכנה בצינור: האוויר שלפניה נדחס, והדחיסה רצה קדימה במהירות הקול (<span class="num">340</span> מטרים בשנייה, פי ארבעה מהרכבת), מגיעה ליציאה הרחוקה לפני הרכבת ומתפרצת החוצה בבום שנשמע <span class="num">400</span> מטרים משם. הבום גדל בחזקה שלישית של המהירות: מהירות כפולה — בום פי שמונה.<br>
+    2. המהנדס אייג׳י נקאטסו, שאהב לצפות בציפורים, שאל: איזו חיה עוברת כל יום ממקום שקל לזוז בו למקום שקשה לזוז בו? השלדג, שצולל מאוויר למים בלי התזה, כי המקור שלו מתרחב בהדרגה. הצוות ירה קליעים בצורות שונות לתוך צינור, מדד, וגילה שהצורה הטובה ביותר דומה למקור — ובנה לרכבת סדרה <span class="num">500</span> אף באורך <span class="num">15</span> מטרים (<span class="num">1997</span>).<br>
+    3. התוצאה: פחות בום, <span class="num">10</span> אחוזים יותר מהירות ו־<span class="num">15</span> אחוזים <b>פחות</b> חשמל — כי אף שדוחס פחות אוויר גם נדחף פחות אחורה. ומהינשוף, שעף בשקט בזכות נוצות משוננות, הרכבת קיבלה קשת חשמל משוננת שלא שורקת. ואת השם "שלדג" המציא ביאליק; השלדג הגמדי עובר בישראל בדיוק עכשיו, בסתיו.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>הסיפור: אייג׳י נקאטסו (Eiji Nakatsu), מהנדס ב־JR West, אחראי על מסעות הניסוי של סדרה <span class="num">500</span>, חבר בחברת הצפרים היפנית; הרצאתו של מהנדס המטוסים סייצ׳י יאג׳ימה; השאלה "האם יש יצור שמתמודד עם שינוי פתאומי בהתנגדות האוויר כחלק מחיי היומיום"; ניסויי ירי של קליעים בצורות שונות לתוך צינור וסימולציות על מחשב־על של סוכנות החלל; אף באורך <span class="num">15</span> מ׳ עם חתך כמעט עגול; שינון על הפנטוגרף לפי נוצת הינשוף; התוצאות: לחץ אוויר נמוך ב־<span class="num">30%</span>, חשמל נמוך ב־<span class="num">15%</span>, מהירות גבוהה ב־<span class="num">10%</span>; בום המנהרה נשמע ומרעיד עד <span class="num">400</span> מ׳ מהיציאה (Japan for Sustainability, "Shinkansen Technology Learned from an Owl? — The story of Eiji Nakatsu", ראיון, מרץ 2005). סדרה <span class="num">500</span>: JR West, כניסה לשירות <span class="num">1997</span> (נוזומי, מרץ 1997, קו סאניו — שין־אוסקה–הקאטה), מהירות תפעולית <span class="num">300</span> קמ״ש (תכנון <span class="num">320</span>), <span class="num">16</span> קרונות (קרון קצה <span class="num">27</span> מ׳, ביניים <span class="num">25</span> מ׳ — כ־<span class="num">404</span> מ׳), עיצוב תעשייתי: אלכסנדר נוימייסטר, <span class="num">9</span> מערכים, סיום שירות נוזומי <span class="num">2010</span>, ממשיכה כרכבת קודמה בת <span class="num">8</span> קרונות (Wikipedia, "500 Series Shinkansen"); "10% faster using 15% less electricity" (AskNature, "High speed train inspired by the kingfisher"); תקן הרעש היפני <span class="num">70</span> דציבלים; הפתרון התגבש ב־<span class="num">1994</span> (Medium, Bells &amp; Whistles). הרכבת הקודמת בקו — סדרה <span class="num">300</span>, <span class="num">270</span> קמ״ש (<span class="math">300 ÷ 270 ≈ 1.11</span>). פיזיקה: "אפקט הבוכנה"; גלי הדחיסה מתלכדים לגל הלם שיוצר בום ביציאה; "עוצמת הגל פרופורציונית לחזקה השלישית של מהירות הרכבת" (Wikipedia, "Piston effect"; הספרות המחקרית: משרעת גל המיקרו־לחץ ∝ v³ בקירוב, והלחץ בגל הדחיסה ∝ v² × יחס החסימה). מהירות הקול באוויר כ־<span class="num">340</span> מ׳/ש׳ (<span class="num">15°</span>); <span class="num">300</span> קמ״ש = <span class="math">83.3</span> מ׳/ש׳. השינקנסן הראשונה: קו טוקאידו, <span class="num">1</span> באוקטובר <span class="num">1964</span>, <span class="num">210</span> קמ״ש. השלדג הגמדי (Alcedo atthis): אורך <span class="math">15–16</span> ס״מ, משקל כ־<span class="math">34–46</span> ג׳ (Wikipedia; מקורות ישראליים מציינים <span class="math">19–26</span> ג׳ — בשיעור "כ־40 גרם"), מוטת כנפיים <span class="math">23–25</span> ס״מ, צולל מעמדת תצפית עד עומק מטר; בישראל חולף מצוי בנדידת הסתיו מהמחצית השנייה של יולי, "מבשר הסתיו", מבקר חורף לא שכיח, לא מקנן; השם "שלדג" — ביאליק (השם הקודם: "שולה הדגים הקטן"); בני משפחתו בישראל: שלדג לבן־חזה ופרפור עקוד (יונקי ישראל/צפרות בישראל, yardbirds.org.il; רשות הטבע והגנים, "דף צביעה ומידע — שלדג גמדי"). צפיפות המים לעומת אוויר: <span class="math">1,000 ÷ 1.2 ≈ 830</span>, מעוגל ל"פי 800". פישוטים במכוון: "מעבדת הצלילה" ו"המנהרה" הם מודלים סכמטיים — ההתזה מוצגת כפרופורציונית לקצב גידול החתך של הצורה, ועוצמת הבום כ־<span class="math">(v ÷ 210)³</span> כפול <span class="math">0.7</span> לאף הארוך (ה־30% של נקאטסו), בלי אורך המנהרה (במודל: 3 ק״מ), יחס החסימה או סוג המסילה שמשפיעים במציאות; אנימציית המערבולות בפרק <span class="num">3</span> סכמטית (המנגנון האמיתי — שבירת מערבולות גדולות למערבולות קטנות בעלות פחות אנרגיה אקוסטית, ופיזור התדר — מפושט); הטענה שהאף "נכנס תוך 3 מטרים" ברכבת קהה היא סדר גודל להשוואה; החיסכון לק״מ באתגר (כ־<span class="num">23%</span>) הוא תרגיל על סמך ה־15% וה־10% המדווחים, ולא נתון מדוד; סקוץ׳ — ז׳ורז׳ דה מסטרל, <span class="num">1941</span>, זרעי הלפה. לוח עברי: Hebcal.</p>
+  </details>
+</section>
+
+</main>
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:20, code:'WOW-020', date:'2026-09-28', title:'הציפור שלימדה רכבת שלמה להיות שקטה', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15LXk9ec16kg15zXqSDXqNeV16fXng=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'biology', w:3 }, { id:'engineering', w:3 }, { id:'physics', w:2 }, { id:'maths', w:1 } ],
+  hero: { name:'השלדג והשינקנסן — המקור שהשתיק את בום המנהרה', fact:'רכבת מהירה במנהרה היא בוכנה בצינור: האוויר נדחס, הדחיסה רצה קדימה במהירות הקול (340 מ׳/ש׳, פי 4 מהרכבת ב־300 קמ״ש = 83 מ׳/ש׳), מתחדדת, ומתפרצת ביציאה כבום שנשמע 400 מ׳ משם; הבום ∝ מהירות³ (210→300 קמ״ש: כמעט פי 3); מה שקובע הוא קצב גידול החתך, לא הרוחב — כמו מקור של שלדג (15 ס״מ, כ־40 ג׳) שצולל למים בלי התזה; אייג׳י נקאטסו (JR West, צפר) שאל "איזה יצור מתמודד עם שינוי פתאומי בהתנגדות?", ירה קליעים בצינור, ובנה אף של 15 מ׳ לסדרה 500 (1997): 30% פחות לחץ, 10% יותר מהירות, 15% פחות חשמל; נוצות הינשוף המשוננות → קשת חשמל שקטה; "שלדג" — ביאליק' },
+  items: {
+    'predict':       { skill:'estimation',            d:2 },
+    'qc:scale':      { skill:'estimation',            d:2 },
+    'qc:splashQ':    { skill:'mechanism',             d:2 },
+    'qc:tunnelQ':    { skill:'mechanism',             d:3 },
+    'qc:owlQ':       { skill:'mechanism',             d:2 },
+    'qc:storyQ':     { skill:'evidence',              d:2 },
+    'qc:shapeQ':     { skill:'mechanism',             d:3 },
+    'mcq:shared:0':  { skill:'mechanism',             d:2 },
+    'mcq:shared:1':  { skill:'mechanism',             d:2 },
+    'mcq:shared:2':  { skill:'evidence',              d:3 },
+    'mcq:younger:0': { skill:'evidence',              d:2 },
+    'mcq:older:0':   { skill:'mechanism',             d:3 },
+    'order':         { skill:'sequence',              d:3 },
+    'num:younger':   { skill:'division',              d:1 },
+    'num:older':     { skill:'rate-time',             d:2 },
+    'num:adv':       { skill:'rate-two-step',         d:4 },
+    'challenge':     { skill:'power-percent',         d:4 },
+    'explain':       { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ spDraw(0); showArtoTip(); } if(n===2) tnDraw(0); if(n===3) owDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+/* ---------- hero guess: how long is the new nose? ----------
+   Four choices force a real commitment (2 / 6 / 15 / 40 m): the 500 series nose is 15 m long. data-scale: the length in metres. */
+const SCALE_ANS = 15;                                                 // the 500 series nose: 15 m, almost round in cross-section
+const fmtSigns = n => n===2 ? '2 מטרים' : n===6 ? '6 מטרים' : n===15 ? '15 מטרים' : '40 מטרים';
+const SCALE_FB = {
+  15: '<span class="pill-ok">קלעתם!</span> האף של הרכבת החדשה ארוך <span class="num">15</span> מטרים — יותר ממחצית הקרון הראשון, והרבה יותר ארוך מהשלדג כולו. למה דווקא כזה ארוך, ואיך ציפור עזרה לגלות את זה? על זה השיעור.',
+  2: '<span class="pill-bad">הרבה יותר.</span> האף של הרכבת החדשה ארוך <span class="num">15</span> מטרים — יותר ממחצית הקרון הראשון. אף קצר לא היה עוזר, וכבר תראו למה: הסוד הוא להתרחב <b>לאט</b>.',
+  6: '<span class="pill-bad">עוד יותר.</span> האף ארוך <span class="num">15</span> מטרים — יותר מאוטובוס שלם, ויותר ממחצית הקרון הראשון. למה כזה ארוך? כי הסוד הוא להתרחב <b>לאט</b>. על זה השיעור.',
+  40: '<span class="pill-bad">קצת פחות.</span> האף ארוך <span class="num">15</span> מטרים — עדיין יותר מאוטובוס שלם, ויותר ממחצית הקרון הראשון. איך הגיעו בדיוק לצורה הזאת? ציפור עזרה, וגם צינור וקליעים. על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(30,size); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(30,size); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+/* ---------- small helpers for this edition ---------- */
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* deterministic pseudo-random (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* a generic play/scrub helper: animates a 0–100 range input over `ms` milliseconds, calling draw(1) each frame */
+function xPlayer(id, rangeId, btnId, ms, draw, onLabel, offLabel){
+  const st={ raf:0 };
+  st.toggle=function(){ if(st.raf){ cancelAnimationFrame(st.raf); st.raf=0; st.btn(false); return; }
+    const r=document.getElementById(rangeId); if(+r.value>=100) r.value=0;
+    if(XREDUCED){ r.value=Math.min(100,+r.value+20); draw(1); return; }
+    const t0=performance.now(), start=+r.value; st.btn(true);
+    const step=now=>{ const v=Math.min(100, start+(now-t0)/ms*100); r.value=Math.round(v); draw(1); if(v<100){ st.raf=requestAnimationFrame(step); } else { st.raf=0; st.btn(false); } };
+    st.raf=requestAnimationFrame(step); };
+  st.btn=function(on){ const b=document.getElementById(btnId); b.textContent = on ? onLabel : offLabel; b.classList.toggle('on',on); };
+  return st;
+}
+/* the four shapes of the splash lab: half-width (px) as a function of depth d (px from the tip), and how "abrupt" the entry is */
+const SP_SHAPES=[
+  { name:'כדור',      abrupt:0.75, len:80,  hw:d=>{ const r=40; return d<0?0: d>2*r?0: Math.sqrt(Math.max(0,r*r-(d-r)*(d-r))); } },
+  { name:'לוח שטוח',  abrupt:1.0,  len:22,  hw:d=>(d<0||d>22)?0:56 },
+  { name:'חרוט',      abrupt:0.22, len:150, hw:d=>(d<0||d>150)?0:Math.min(30, d*0.2) },
+  { name:'שלדג',      abrupt:0.14, len:190, hw:d=>{ if(d<0||d>190) return 0; if(d<70) return 1+d*0.11;                     /* the beak */
+      if(d<110){ const u=(d-70)/40; return 8.7+ (Math.sin(u*Math.PI)*14) + u*10; }                                       /* the head */
+      const u=(d-110)/80; return Math.max(0, 24 + Math.sin(u*Math.PI)*8 - u*u*22); } }                                  /* the body */
+];
+
+/* ---------- step 1 (interactive 1): the splash lab (canvas) ---------- */
+const spCv=document.getElementById('spCv'), sctx=spCv.getContext('2d');
+const SP={ opened:0, pred:-1, shape:0, hit:{} };
+const spPl = xPlayer('sp','spT','spPlay',2600,()=>spDraw(1),'עצירה','הפילו!');
+function spPlay(){ spPl.toggle(); }
+function spPredict(k){ SP.pred=k; [0,1,2].forEach(i=>document.getElementById('spP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'splash:predict', kind:'quick', correct:k===2, attempt: wowTry('splash:predict') }); spDraw(1); }
+function spShape(k){ SP.shape=k; [0,1,2,3].forEach(i=>document.getElementById('spS'+i).classList.toggle('on',i===k)); spT.value=0; spDraw(1); }
+function spDraw(user){
+  const c=sctx, W=spCv.width, H=spCv.height, t=+spT.value/100, sh=SP_SHAPES[SP.shape];
+  if(user && !SP.opened){ SP.opened=1; WOW.emit('open', { id:'splash' }); }
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  const wy=300, tankX=150, tankW=340;                                            // water surface, tank
+  /* tank */
+  c.fillStyle=css('--water'); c.globalAlpha=.85; c.fillRect(tankX,wy,tankW,H-20-wy); c.globalAlpha=1;
+  c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.moveTo(tankX,wy-40); c.lineTo(tankX,H-20); c.lineTo(tankX+tankW,H-20); c.lineTo(tankX+tankW,wy-40); c.stroke();
+  /* the object: tip position from y=40 (t=0) to wy+sh.len (t=1); it enters the water at te */
+  const y0=22+sh.len, yEnd=wy+sh.len*0.6, tipY=y0+(yEnd-y0)*t, cx=tankX+tankW/2;
+  const te=(wy-y0)/(yEnd-y0);                                                    // time of entry
+  const sub=Math.max(0, tipY-wy);                                                // how deep the tip is
+  /* splash: droplets ∝ abruptness, appear after entry and rise then fall */
+  if(t>te){ const p=Math.min(1,(t-te)/(1-te)), rnd=prng(17+SP.shape);
+    const n=Math.round(4+sh.abrupt*34), hmax=sh.abrupt*190;
+    c.fillStyle=css('--water');
+    for(let i=0;i<n;i++){ const side=rnd()<.5?-1:1, dx=(20+rnd()*90)*side*(0.4+sh.abrupt), ph=rnd()*0.6+0.4, arc=Math.sin(Math.min(1,p/ph)*Math.PI);
+      const hold=Math.sin(Math.min(1,p/ph)*Math.PI/2); const x=cx+dx*hold*1.2, y=wy-hold*hmax*(0.5+rnd()*0.7); c.beginPath(); c.arc(x,y,3+rnd()*4*sh.abrupt,0,Math.PI*2); c.fill(); }
+    /* the crown */
+    c.globalAlpha=.55; c.fillStyle=css('--water'); const cr=Math.sin(Math.min(1,p*1.6)*Math.PI/2); c.beginPath(); c.ellipse(cx,wy,30+sh.abrupt*70*cr,8+sh.abrupt*22*cr,0,0,Math.PI*2); c.fill(); c.globalAlpha=1;
+  }
+  /* the object itself (drawn tip-down) */
+  c.fillStyle= SP.shape===3 ? css('--nile') : css('--ink');
+  c.beginPath(); let first=true;
+  for(let d=0; d<=sh.len; d+=2){ const w=sh.hw(d); const x=cx+w, y=tipY-d; if(first){ c.moveTo(x,y); first=false; } else c.lineTo(x,y); }
+  for(let d=sh.len; d>=0; d-=2){ const w=sh.hw(d); c.lineTo(cx-w, tipY-d); }
+  c.closePath(); c.fill();
+  if(SP.shape===3){ c.fillStyle=css('--sun'); c.beginPath(); c.ellipse(cx,tipY-150,14,30,0,0,Math.PI*2); c.fill(); c.fillStyle=css('--ink'); c.beginPath(); c.arc(cx-8,tipY-92,3,0,Math.PI*2); c.arc(cx+8,tipY-92,3,0,Math.PI*2); c.fill(); }
+  /* water line on top of the submerged part */
+  c.fillStyle=css('--water'); c.globalAlpha=.35; if(sub>0) c.fillRect(cx-120,wy,240,Math.min(sub,H-20-wy)); c.globalAlpha=1;
+  c.strokeStyle=css('--card'); c.lineWidth=2; c.beginPath(); c.moveTo(tankX,wy); c.lineTo(tankX+tankW,wy); c.stroke();
+  /* left: the silhouette and its "width growth" arrow */
+  const sx=78, syTip=250; c.fillStyle=css('--muted'); c.globalAlpha=.55; c.beginPath(); first=true;
+  for(let d=0; d<=sh.len; d+=2){ const w=sh.hw(d)*0.9; if(first){ c.moveTo(sx+w, syTip-d); first=false; } else c.lineTo(sx+w, syTip-d); }
+  for(let d=sh.len; d>=0; d-=2){ c.lineTo(sx-sh.hw(d)*0.9, syTip-d); }
+  c.closePath(); c.fill(); c.globalAlpha=1;
+  c.fillStyle=css('--sun-deep'); c.fillRect(sx-2,syTip+8,4,22); xArrow(c,sx,syTip+36,0,1,16);
+  xTag(c, sh.abrupt>0.5 ? 'מתרחב בבת אחת' : 'מתרחב לאט', '', 14, syTip+66, 30, sh.abrupt>0.5?css('--bad'):css('--ok'), 'left', .92);
+  /* right: the splash meter */
+  const mx=560, mTop=90, mH=250, lvl = t>te ? sh.abrupt : 0;
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(mx-22,mTop,44,mH,10); c.fill(); c.strokeStyle=css('--ink'); c.lineWidth=2; c.stroke();
+  c.fillStyle= lvl>0.5?css('--bad'):lvl>0?css('--ok'):css('--line'); c.beginPath(); c.roundRect(mx-18,mTop+mH-4-(mH-8)*lvl,36,(mH-8)*lvl,8); c.fill();
+  xTag(c,'התזה','',mx,mTop-28,30,css('--ink'),'center',.9);
+  if(t>te) xTag(c, lvl>0.7?'ענקית':lvl>0.5?'גדולה':lvl>0.2?'קטנה':'כמעט כלום','',mx,mTop+mH+30,30,lvl>0.5?css('--bad'):css('--ok'),'center',.92);
+  xTag(c, sh.name,'',cx,H-48,30,css('--ink'),'center',.9);
+  if(user && t>te && SP.shape===3 && !SP.hit.bird){ SP.hit.bird=1; WOW.emit('item', { id:'splash:bird', kind:'quick', correct:true, attempt: wowTry('splash') }); }
+  const predTxt = SP.pred<0 ? 'נחשו למעלה לפני שמפילים. ' : '';
+  const verdict = (t>te && SP.pred>=0 && SP.shape===2) ? (SP.pred===2?'<span class="pill-ok">ניחשתם נכון.</span> ':'<span class="pill-bad">לא בדיוק.</span> ') : '';
+  spMsg.innerHTML = t<=te ? predTxt+'הצורה: <b>'+sh.name+'</b>. משמאל הצללית שלה — שימו לב איפה הרוחב "קופץ" ואיפה הוא גדל בהדרגה. לחצו "הפילו!".'
+    : SP.shape===0 ? verdict+'הכדור נכנס למים ומגיע לרוחבו המלא תוך רגע: הרבה מים נדחפים הצידה בבת אחת, והם עפים. התזה גדולה.'
+    : SP.shape===1 ? verdict+'הלוח השטוח הוא הגרוע מכולם: כל הרוחב שלו פוגש את המים באותה שנייה. ככה מרגישה "פצצה" בבריכה — וככה מרגיש האוויר במנהרה מול רכבת עם אף קהה.'
+    : SP.shape===2 ? verdict+'החרוט מתרחב לאט: בכל רגע הוא דוחף רק פרוסה דקה נוספת של מים. המים זזים בנחת — כמעט בלי התזה. עכשיו נסו את השלדג.'
+    : 'השלדג: מקור חד שמתרחב בהדרגה, ראש שמתרחב בעדינות, וגוף. אין קפיצות ברוחב — ולכן כמעט אין התזה. זו הצורה שהמהנדסים העתיקו לרכבת.';
+}
+spDraw(0);
+
+/* ---------- step 2 (interactive 2): the tunnel (canvas) ----------
+   boom ∝ (v/210)³ × noseFactor (blunt 1, long 0.7 — Nakatsu's "30% less pressure"); the wave runs at 340 m/s, the train at v/3.6 */
+const tnCv=document.getElementById('tnCv'), tctx=tnCv.getContext('2d');
+const TN={ opened:0, nose:0, hit:{} };
+const TN_LEN=3000, TN_X0=140, TN_X1=540, TN_SEC=12;                              // tunnel 3,000 m drawn over 420 px; the slider spans 12 s
+const tnPl = xPlayer('tn','tnT','tnPlay',3600,()=>tnDraw(1),'עצירה','הפעלה');
+function tnPlay(){ tnPl.toggle(); }
+function tnNose(k){ TN.nose=k; tnN0.classList.toggle('on',k===0); tnN1.classList.toggle('on',k===1); tnDraw(1); }
+function tnBoom(v){ return Math.pow(v/210,3)*(TN.nose===1?0.7:1); }
+function tnDraw(user){
+  const c=tctx, W=tnCv.width, H=tnCv.height, v=+tnV.value, t=+tnT.value/100*TN_SEC, ms=v/3.6, boom=tnBoom(v);
+  if(user && !TN.opened){ TN.opened=1; WOW.emit('open', { id:'tunnel' }); }
+  const px=(TN_X1-TN_X0)/TN_LEN;                                                 // px per metre
+  c.fillStyle=css('--sky1'); c.fillRect(0,0,W,H);
+  /* the mountain and the tunnel */
+  c.fillStyle=css('--earth2'); c.beginPath(); c.moveTo(TN_X0-40,H-60); c.lineTo(TN_X0+60,150); c.lineTo(300,110); c.lineTo(430,140); c.lineTo(TN_X1-40,160); c.lineTo(TN_X1+40,H-60); c.closePath(); c.fill();
+  c.fillStyle=css('--earth'); c.fillRect(0,H-60,W,60);
+  const ty=250, th=70;                                                             // tunnel top, height
+  c.fillStyle=css('--night'); c.fillRect(TN_X0,ty,TN_X1-TN_X0,th);
+  /* the pressure wave: a band from the train's nose to the wave front, darkness ∝ pressure, front sharpness ∝ nose */
+  const noseLen = TN.nose===1 ? 15 : 3, nosePx = TN.nose===1 ? 46 : 9;                    // the nose, exaggerated (15 m would be 2 px at this scale)
+  const trainX = Math.min(TN_X1, TN_X0 + ms*t*px), waveX = Math.min(TN_X1, TN_X0 + 340*t*px);
+  const inside = t>0 && trainX>TN_X0;
+  if(inside){ const grad=c.createLinearGradient(trainX,0,waveX,0); const a=Math.min(.95, .25+boom*.22);
+    grad.addColorStop(0,'rgba(217,99,58,'+a+')'); grad.addColorStop(TN.nose===1?0.55:0.85,'rgba(217,99,58,'+(a*.8)+')'); grad.addColorStop(1,'rgba(217,99,58,0)');
+    c.fillStyle=grad; c.fillRect(trainX,ty,Math.max(0,waveX-trainX),th);
+    /* the wave front line */
+    if(waveX<TN_X1){ c.strokeStyle=css('--sun'); c.lineWidth = TN.nose===1 ? 3 : 7; c.beginPath(); c.moveTo(waveX,ty); c.lineTo(waveX,ty+th); c.stroke(); }
+  }
+  /* the train (side view), nose to the right */
+  const L=Math.max(130, 404*px), tx1=trainX, tx0=trainX-L;
+  c.fillStyle=css('--card'); c.beginPath(); c.moveTo(tx0,ty+14); c.lineTo(tx1-nosePx,ty+14);
+  c.quadraticCurveTo(tx1-nosePx*0.35, ty+16, tx1, ty+th-16); c.lineTo(tx0,ty+th-16); c.closePath(); c.fill();
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.stroke();
+  c.fillStyle=css('--nile'); for(let x=tx0+12; x<tx1-nosePx-14; x+=20){ c.fillRect(x,ty+24,11,10); }
+  /* the boom at the exit */
+  if(waveX>=TN_X1 && t>0){ const age=(340*t - TN_LEN)/340, r0=Math.min(1.6, age*1.4);
+    for(let k=0;k<4;k++){ const r=(18+k*22)*boom*0.55*Math.min(1,r0+0.2); c.strokeStyle=css('--sun'); c.globalAlpha=Math.max(0,.9-k*.22); c.lineWidth=5; c.beginPath(); c.arc(TN_X1+8, ty+th/2, r, -Math.PI/2, Math.PI/2); c.stroke(); }
+    c.globalAlpha=1; xTag(c,'בום!','',TN_X1-30,ty-44,Math.round(30+boom*6),css('--bad'),'center',.95); }
+  /* the house, 400 m past the exit (schematic) */
+  c.fillStyle=css('--card'); c.fillRect(598,H-100,30,40); c.fillStyle=css('--sun-deep'); c.beginPath(); c.moveTo(594,H-100); c.lineTo(613,H-122); c.lineTo(632,H-100); c.closePath(); c.fill();
+  /* labels */
+  xTag(c,'כניסה','',TN_X0,ty+th+30,30,css('--ink'),'center',.9);
+  xTag(c,'יציאה','',TN_X1,ty+th+30,30,css('--ink'),'center',.9);
+  xTag(c,'הרכבת, מטרים בשנייה:',String(Math.round(ms)),64,H-24,30,css('--ink'),'left',.92);
+  xTag(c,'הגל:','340',W-30,H-24,30,css('--sun-deep'),'right',.92);
+  /* the boom meter, top */
+  const bx=40, bw=560, by=26, bmax=4.5;
+  xText(c,'עוצמת הבום',bx+bw,by-2,30,css('--ink'),'right');
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(bx,by+16,bw,22,11); c.fill(); c.strokeStyle=css('--ink'); c.lineWidth=2; c.stroke();
+  const fill=Math.min(bw-4,(bw-4)*boom/bmax); c.fillStyle= boom>1.5?css('--bad'):boom>1.05?css('--sun'):css('--ok'); c.beginPath(); c.roundRect(bx+2,by+18,fill,18,9); c.fill();
+  const x1=bx+2+(bw-4)/bmax; c.strokeStyle=css('--ink'); c.setLineDash([4,4]); c.beginPath(); c.moveTo(x1,by+10); c.lineTo(x1,by+44); c.stroke(); c.setLineDash([]);
+  xNum(c,'×1',x1,by+60,30,css('--muted'),'center'); xNum(c,'×'+boom.toFixed(1),bx+2,by-2,34,css('--ink'),'left');
+  tnOut.textContent='×'+(Math.round(boom*10)/10).toLocaleString('en-US',{minimumFractionDigits:1});
+  if(user && waveX>=TN_X1 && TN.nose===1 && !TN.hit.long){ TN.hit.long=1; WOW.emit('item', { id:'tunnel:long', kind:'quick', correct:true, attempt: wowTry('tunnel') }); }
+  const arriveWave=Math.round(TN_LEN/340), arriveTrain=Math.round(TN_LEN/ms);
+  tnMsg.innerHTML = t===0 ? 'רכבת ב־<span class="num">'+v+'</span> קמ״ש, כלומר <span class="math">'+v+',000 ÷ 3,600 ≈ '+Math.round(ms)+'</span> מטרים בשנייה. המנהרה כאן באורך <span class="num">3</span> ק״מ. לחצו "הפעלה" — מי יגיע ליציאה ראשון, הרכבת או הגל?'
+    : waveX<TN_X1 ? 'הגל (הפס הכתום) רץ קדימה ב־<span class="num">340</span> מטרים בשנייה — פי <span class="num">'+(Math.round(340/ms*10)/10)+'</span> מהרכבת. '+(TN.nose===1?'עם האף הארוך הגל רחב ורך: הלחץ עלה בהדרגה.':'עם האף הקהה הגל חד: הלחץ קפץ בבת אחת.')
+    : 'בום! הגל הגיע ליציאה אחרי <span class="num">'+arriveWave+'</span> שניות; הרכבת תגיע רק אחרי <span class="num">'+arriveTrain+'</span>. עוצמת הבום: <span class="math">×'+(Math.round(boom*10)/10)+'</span> לעומת רכבת ישנה ב־<span class="num">210</span> קמ״ש'+(TN.nose===1?' — האף הארוך הוריד אותה בכ־<span class="num">30</span> אחוזים.':' — נסו עכשיו את האף הארוך, או שנו את המהירות: מהירות כפולה, בום פי שמונה.');
+}
+tnDraw(0);
+
+/* ---------- step 3 (interactive 3): the owl (canvas) ---------- */
+const owCv=document.getElementById('owCv'), octx=owCv.getContext('2d');
+const OW={ opened:0, pred:-1, mode:0, hit:{} };
+const owPl = xPlayer('ow','owT','owPlay',3000,()=>owDraw(1),'עצירה','רוח!');
+function owPlay(){ owPl.toggle(); }
+function owPredict(k){ OW.pred=k; [0,1,2].forEach(i=>document.getElementById('owP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'owl:predict', kind:'quick', correct:k===1, attempt: wowTry('owl:predict') }); owDraw(1); }
+function owMode(m){ OW.mode=m; owM0.classList.toggle('on',m===0); owM1.classList.toggle('on',m===1); owDraw(1); }
+function owDraw(user){
+  const c=octx, W=owCv.width, H=owCv.height, t=+owT.value/100, m=OW.mode;
+  if(user && !OW.opened){ OW.opened=1; WOW.emit('open', { id:'owl' }); }
+  c.fillStyle=css('--sky1'); c.fillRect(0,0,W,H);
+  const bx=200, by0=70, by1=310;                                                   // the strut
+  /* wind streamlines, left */
+  c.strokeStyle=css('--nile'); c.fillStyle=css('--nile'); c.globalAlpha=.6; c.lineWidth=3; for(let y=60;y<=350;y+=36){ c.beginPath(); c.moveTo(20,y); c.lineTo(bx-30,y); c.stroke(); xArrow(c,bx-26,y,1,0,12); } c.globalAlpha=1;
+  /* vortices behind the strut */
+  const rnd=prng(5);
+  if(t>0){
+    if(m===0){ for(let k=0;k<6;k++){ const ph=(t*1.6+k/6)%1, x=bx+50+ph*360, y=200+(k%2?-1:1)*52, r=(34+ph*30)*Math.min(1,0.4+ph*1.6), dir=k%2?1:-1;
+        const a0 = dir>0 ? 0.4 : Math.PI*1.8, a1 = dir>0 ? Math.PI*1.8 : 0.4; c.strokeStyle=css('--bad'); c.globalAlpha=Math.max(0,1-ph*0.9); c.lineWidth=6; c.beginPath(); c.arc(x,y,r,a0,a1,dir<0); c.stroke(); c.fillStyle=css('--bad'); xArrow(c,x+r*Math.cos(a1),y+r*Math.sin(a1),-Math.sin(a1)*dir,Math.cos(a1)*dir,18); c.globalAlpha=1; } }
+    else { for(let k=0;k<26;k++){ const ph=(t*1.6+rnd())%1, x=bx+30+ph*380, y=95+rnd()*230, r=9*Math.min(1,0.4+ph); c.strokeStyle=css('--ok'); c.globalAlpha=Math.max(0,.9-ph*0.8); c.lineWidth=3; c.beginPath(); c.arc(x,y,r,0,Math.PI*1.7); c.stroke(); c.globalAlpha=1; } }
+  }
+  /* the strut */
+  c.fillStyle=css('--muted'); c.fillRect(bx-12,by0,24,by1-by0);
+  if(m===1){ c.fillStyle=css('--muted'); for(let y=by0;y<by1;y+=14){ c.beginPath(); c.moveTo(bx-12,y); c.lineTo(bx-30,y+7); c.lineTo(bx-12,y+14); c.closePath(); c.fill(); } }
+  else { c.fillRect(bx-24,by0,12,by1-by0); }
+  c.fillStyle=css('--ink'); c.fillRect(bx-26,by1,52,10);
+  xTag(c, m===1?'זרוע משוננת':'זרוע חלקה','',bx+10,34,30,css('--ink'),'center',.9);
+  xTag(c,'רוח','',60,34,30,css('--nile'),'center',.9);
+  /* the noise meter, right */
+  const mx=575, mTop=80, mH=230, lvl = t>0 ? (m===0?0.9:0.25) : 0;
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(mx-22,mTop,44,mH,10); c.fill(); c.strokeStyle=css('--ink'); c.lineWidth=2; c.stroke();
+  c.fillStyle= lvl>0.5?css('--bad'):lvl>0?css('--ok'):css('--line'); c.beginPath(); c.roundRect(mx-18,mTop+mH-4-(mH-8)*lvl,36,(mH-8)*lvl,8); c.fill();
+  xTag(c,'רעש','',mx,mTop-28,30,css('--ink'),'center',.9);
+  if(t>0) xTag(c, m===0?'שריקה!':'שקט','',mx,mTop+mH+30,30,m===0?css('--bad'):css('--ok'),'center',.92);
+  if(t>0) xTag(c, m===0?'מערבולות גדולות — רועש':'מערבולות זעירות — שקט','',330,H-30,30,m===0?css('--bad'):css('--ok'),'center',.92);
+  if(user && t>0.3 && m===1 && !OW.hit.owl){ OW.hit.owl=1; WOW.emit('item', { id:'owl:serrated', kind:'quick', correct:true, attempt: wowTry('owl') }); }
+  const predTxt = OW.pred<0 ? 'נחשו למעלה, ואז לחצו "רוח!". ' : '';
+  const verdict = (t>0 && OW.pred>=0 && m===1) ? (OW.pred===1?'<span class="pill-ok">ניחשתם נכון.</span> ':'<span class="pill-bad">לא בדיוק.</span> ') : '';
+  owMsg.innerHTML = t===0 ? predTxt+(m===0?'זרוע חלקה, עוד בלי רוח.':'זרוע עם שיניים כמו נוצת ינשוף, עוד בלי רוח.')
+    : m===0 ? 'האוויר מתנתק מהשפה החלקה בבת אחת ומתגלגל למערבולת אחת גדולה, ואז עוד אחת — בקצב קבוע. כל מערבולת גדולה היא "פעימה" של רעש: שריקה חזקה בתדר אחד. עכשיו נסו את הזרוע המשוננת.'
+    : verdict+'כל שן יוצרת מערבולת זעירה משלה. בכולן יחד יש הרבה פחות אנרגיה מאשר במערבולת אחת גדולה, והרעש מתפזר לתדרים רבים וחלשים. ככה עף הינשוף בשקט — וככה השתתקה הקשת של הרכבת.';
+}
+owDraw(0);
+</script>
+<script>
+/* ---------- questions ---------- */
+/* ---------- questions ---------- */
+const QC = {
+  splashQ:{ q:'למה כדור עושה "פלופ" גדול במים, וחרוט חד כמעט לא מתיז?', opts:['כי הכדור כבד יותר, ומשקל הוא מה שקובע את גודל ההתזה','כי הכדור מגיע לרוחבו המלא בבת אחת ודוחף הרבה מים בו־זמנית, והחרוט מתרחב לאט ודוחף קצת בכל רגע','כי החרוט חותך את המים לשניים, והם לא מרגישים אותו בכלל','כי המים "מכירים" צורות עגולות ונרתעים מהן'], a:1, fb:'כל גוף שנכנס למים חייב להזיז אותם הצידה. השאלה היא לא כמה, אלא כמה מהר: כדור ולוח שטוח דוחפים הרבה מים בבת אחת, והמים קופצים. חרוט — או מקור של שלדג — מתרחב בהדרגה, ודוחף בכל רגע רק פרוסה דקה. זה כל הסוד של הצלילה השקטה.', btn:'next1' },
+  tunnelQ:{ q:'למה הבום נשמע ביציאה מהמנהרה, ולא בכניסה שבה הרכבת דחסה את האוויר?', opts:['כי הרכבת מאיצה ביציאה, וההאצה עושה את הרעש','כי הדחיסה רצה קדימה במהירות הקול, מהר יותר מהרכבת, ומתפרצת החוצה בקצה הרחוק כשהיא פוגשת אוויר חופשי','כי ביציאה מהמנהרה הנהג צופר, לפי החוק ביפן','כי בכניסה למנהרה הרכבת דווקא שואבת אוויר, ובום נוצר רק מדחיסה'], a:1, fb:'במנהרה לאוויר הדחוס אין לאן לברוח חוץ מקדימה, והדחיסה נוסעת לאורך המנהרה ב־<span class="num">340</span> מטרים בשנייה — פי ארבעה מהרכבת. היא פוגשת אוויר חופשי בפעם הראשונה ביציאה, ושם היא מתפרצת. לכן שומעים את הבום לפני שרואים את הרכבת.' },
+  owlQ:{ q:'מה עושות השיניים שחרטו על הקשת החשמלית של הרכבת?', opts:['מפרקות מערבולת אחת גדולה ורועשת להרבה מערבולות זעירות ושקטות','חותכות את האוויר כך שהוא לא נוגע בקשת בכלל','מחממות את האוויר סביב הקשת, ואוויר חם שקט יותר','מייצרות חשמל נוסף מהרוח, כמו טורבינה'], a:0, fb:'בדיוק כמו המסרק בקצה כנף הינשוף. שפה חלקה משחררת מערבולת אחת גדולה בכל פעם, בקצב קבוע — שריקה. שיניים מפצלות אותה להרבה מערבולות קטנות, שבכולן יחד יש פחות אנרגיה, והרעש מתפזר לתדרים רבים וחלשים.' },
+  storyQ:{ q:'איזו שאלה שאל את עצמו נקאטסו, שהובילה אותו לשלדג?', opts:['"מהי הציפור המהירה בעולם?"','"האם יש יצור שמתמודד כל יום עם שינוי פתאומי בהתנגדות של הסביבה?"','"איזו ציפור נראית הכי דומה לרכבת?"','"איך ציפורים שומעות בום מנהרה?"'], a:1, fb:'זו שאלה מדויקת, וזה כל ההבדל. רכבת שנכנסת למנהרה עוברת מאוויר חופשי לאוויר לכוד; השלדג עובר מאוויר למים בלי התזה. הרעיון היה ההשראה — ואת הצורה עצמה קבעו קליעים שנורו לצינור, סימולציות במחשב־על ומסעות ניסוי.' },
+  shapeQ:{ q:'מה באף של הרכבת הוא שמקטין את הבום?', opts:['הצבע הבהיר שלו, שמחזיר את גלי הלחץ אחורה','זה שהרוחב שלו גדל בהדרגה לאורך <span class="num">15</span> מטרים, ולכן הלחץ במנהרה עולה לאט במקום לקפוץ','זה שהוא עשוי מחומר רך שסופג את האוויר','זה שהוא כבד יותר, ומשקל דוחס אוויר פחות'], a:1, fb:'לא כמה אוויר דוחסים, אלא כמה מהר. אף קהה מגיע לרוחבו המלא תוך מטרים אחדים והלחץ קופץ; אף שמתרחב לאורך <span class="num">15</span> מטרים מעלה אותו בהדרגה, וגל רך יותר יוצא מהצד השני — כ־<span class="num">30</span> אחוזים פחות לחץ במדידות של נקאטסו. ואוויר שנדחס פחות גם מתנגד פחות: <span class="num">15</span> אחוזים חיסכון בחשמל.' },
+};
+const MCQ = {
+  shared:[
+    { q:'רכבת מהירה נכנסת למנהרה. מה קורה לאוויר שלפניה?', opts:['הוא נדחס, והדחיסה רצה קדימה במהירות הקול ומתפרצת ביציאה כבום','הוא נשאב לתוך המנוע של הרכבת ומשמש לקירור','הוא זז הצידה בקלות, בדיוק כמו בשדה פתוח','הוא נעלם — במנהרות אין אוויר'], a:0, fb:'במנהרה הרכבת היא בוכנה בצינור: האוויר לא יכול לברוח הצידה, אז הוא נדחס, והדחיסה נוסעת קדימה ב־<span class="num">340</span> מטרים בשנייה. היא מגיעה ליציאה הרבה לפני הרכבת, ושם — בום, שנשמע עד <span class="num">400</span> מטרים משם.' },
+    { q:'מה משותף למקור של השלדג ולאף החדש של הרכבת?', opts:['שניהם כתומים, כי כתום מפחיד דגים ואנשים','שניהם עשויים מחומר קשה במיוחד שחותך כל דבר','שניהם מתרחבים בהדרגה, ולכן דוחפים את המים או את האוויר לאט — בלי התזה ובלי בום','שניהם ארוכים בדיוק <span class="num">15</span> מטרים'], a:2, fb:'זה הרעיון של כל השיעור: לא הרוחב קובע, אלא כמה מהר הרוחב גדל. חוד שמתרחב בהדרגה דוחף בכל רגע רק "פרוסה" דקה של מים או אוויר, וכלום לא קופץ. השלדג הוא בגודל של כף יד; האף — <span class="num">15</span> מטרים. אותה פיזיקה, בגודל אחר לגמרי.' },
+    { q:'האף החדש נועד להשתיק את הבום. מה עוד קרה, שאף אחד לא תכנן?', opts:['הרכבת נהייתה איטית יותר, כי האף הארוך כבד','הרכבת השתמשה ב־<span class="num">15</span> אחוזים פחות חשמל — אף שנסעה מהר יותר','הנוסעים הפסיקו לראות את הנוף מהחלון הקדמי','שום דבר — הבום פשוט נעלם וזהו'], a:1, fb:'אוויר שנדחס פחות גם דוחף פחות אחורה. לכן הרכבת עם האף הארוך נסעה <span class="num">10</span> אחוזים מהר יותר וצרכה <span class="num">15</span> אחוזים פחות חשמל. פתרון טוב לבעיה אחת פותר לפעמים גם בעיה שלא חשבתם עליה.' },
+  ],
+  younger:[
+    { q:'איך נקאטסו והצוות שלו בדקו איזו צורת אף היא הטובה ביותר?', opts:['הם בנו עשר רכבות שלמות, כל אחת עם אף אחר, והקשיבו','הם ירו "קליעים" בצורות שונות לתוך צינור ומדדו את גל הלחץ שכל צורה עושה, ואז חישבו במחשב','הם שאלו את השלדג, שהראה להם את הדרך','הם העתיקו את הצורה מרכבת צרפתית'], a:1, fb:'רעיון יפה הוא רק ההתחלה — מהנדסים בודקים. הצינור היה "מנהרה" קטנה והקליע היה "רכבת" קטנה; המדידות והסימולציות במחשב־על מצאו את הצורה הכי טובה, והיא התבררה כדומה מאוד למקור של שלדג. אחר כך בנו את הרכבת האמיתית, ב־<span class="num">1997</span>.' },
+  ],
+  older:[
+    { q:'עוצמת הבום גדלה בחזקה שלישית של המהירות. אם רכבת מכפילה את מהירותה, מה קורה לבום?', opts:['גדל פי שניים — כמו המהירות','גדל פי ארבעה — כמו הדחיפה של רוח','גדל פי שמונה: <span class="math">2 × 2 × 2</span>','נשאר אותו דבר — הבום תלוי רק בצורת האף'], a:2, fb:'<span class="math">2³ = 8</span>. הלחץ בגל גדל בריבוע המהירות (הרכבת דוחסת חזק פי שניים וגם מהר פי שניים), ומה שיוצא כרעש הוא החדות של העלייה — שגדלה בעוד פי שניים. לכן העלאה "קטנה" מ־<span class="num">210</span> ל־<span class="num">300</span> קמ״ש הכפילה את הבום כמעט פי שלושה: <span class="math">1.43³ ≈ 2.9</span>.' },
+  ]
+};
+
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'הרכבת נכנסת למנהרה ב־<span class="num">300</span> קמ״ש, והאף שלה <b>דוחס</b> את האוויר שלפניו — כמו בוכנה בצינור.'},
+  {id:'b', t:'הדחיסה מתנתקת מהרכבת ו<b>רצה קדימה</b> במהירות הקול, <span class="num">340</span> מטרים בשנייה — פי ארבעה מהרכבת.'},
+  {id:'c', t:'לאורך המנהרה הגל <b>מתחדד</b>: החלק הדחוס שלו נע מעט מהר יותר ומדביק את החלק שלפניו.'},
+  {id:'d', t:'הגל מגיע <b>ליציאה</b>, פוגש אוויר חופשי בפעם הראשונה, ומתפרץ החוצה — בום.'},
+  {id:'e', t:'תושבים במרחק <span class="num">400</span> מטרים שומעים רעם, החלונות רועדים — והם מתלוננים לחברת הרכבות.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> דחיסה בכניסה ← הגל רץ קדימה ← מתחדד בדרך ← מתפרץ ביציאה ← התושבים שומעים. שימו לב להיגיון: הרעש נולד רק כשהגל פוגש אוויר חופשי, וזה קורה ביציאה — ולכן הבום מקדים את הרכבת, ולכן מנהרה ארוכה מחמירה אותו.' : '<span class="pill-bad">לא בדיוק.</span> הטעות הנפוצה: לשים את הבום בכניסה, או את ההתחדדות אחרי הבום. חשבו על זה כמו על סיפור: קודם דוחסים, אחר כך הדחיסה נוסעת ומתחדדת, ורק כשהיא יוצאת לאוויר החופשי — הרעש. התלונות מגיעות בסוף.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const bm=+chalBoom.value, sv=+chalSave.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const bmOk = chalBoom.value!=='' && bm>=1.8 && bm<=2.1, svOk = chalSave.value!=='' && sv>=22 && sv<=25;
+  const allOk = bmOk && svOk; S.challenge = S.challenge || allOk;
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) יחס המהירויות: <span class="math">250 ÷ 200 = 1.25</span>. בחזקה שלישית: <span class="math">1.25 × 1.25 × 1.25 ≈ 1.95</span> — הבום כמעט מוכפל מהאצה של רבע בלבד. זו הסיבה שכל העלאת מהירות הופכת את הבעיה "פתאום" לחמורה, ושהאף הארוך היה הכרחי. (ב) חשמל לקילומטר: הישנה <span class="math">100 ÷ 270 ≈ 0.37</span>, החדשה <span class="math">85 ÷ 300 ≈ 0.283</span>. ההפרש: <span class="math">0.37 − 0.283 = 0.087</span>, ובאחוזים מהישנה: <span class="math">0.087 ÷ 0.37 ≈ 0.235</span>, כלומר כ־<span class="math">23–24%</span>. לקילומטר, החיסכון גדול מה־<span class="num">15</span> אחוזים — כי הרכבת גם מהירה יותר, ומסיימת את הקילומטר בפחות זמן.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : bmOk ? (chalSave.value!=='' ? ((sv===15) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) ענו על החיסכון <b>לשעה</b>. השאלה לקילומטר: כמה יחידות לק״מ לכל רכבת? <span class="math">100 ÷ 270 = ?</span> ו־<span class="math">85 ÷ 300 = ?</span>, ואז ההפרש באחוזים מהישנה.' : (sv>=8 && sv<=9) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חישבתם את ההפרש ביחידות (<span class="math">0.087</span>) ולא באחוזים מהישנה: <span class="math">0.087 ÷ 0.37 × 100 = ?</span>' : (sv>=29 && sv<=32) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) או שעיגלתם יותר מדי, או שחילקתם את ההפרש בחדשה במקום בישנה. חשבו עם שלוש ספרות — <span class="math">0.370</span> ו־<span class="math">0.283</span> — ואחוז חיסכון מודדים מהמצב <b>הישן</b>: <span class="math">0.087 ÷ 0.370 × 100 = ?</span>' : '<span class="pill-ok">(א) נכון.</span> (ב) עוד לא. רמז: הישנה <span class="math">100 ÷ 270 ≈ 0.37</span> לק״מ, החדשה <span class="math">85 ÷ 300 ≈ 0.283</span>. כמה אחוזים מ־<span class="math">0.37</span> הוא ההפרש?') : '<span class="pill-ok">(א) נכון — כמעט פי שניים.</span> עכשיו (ב): חשבו כמה יחידות חשמל לקילומטר לכל רכבת — יחידות בשעה חלקי קילומטרים בשעה.')
+    : svOk ? '<span class="pill-bad">(ב) נכון, (א) עוד לא.</span> קודם יחס המהירויות: <span class="math">250 ÷ 200 = ?</span>, ואז אותו מספר כפול עצמו כפול עצמו.'
+    : (chalBoom.value!=='' && bm>=1.2 && bm<=1.3) ? '<span class="pill-bad">(א): זה יחס המהירויות, <span class="math">1.25</span>.</span> הבום גדל בחזקה <b>שלישית</b>: <span class="math">1.25 × 1.25 × 1.25 = ?</span>'
+    : (chalBoom.value!=='' && bm>=1.5 && bm<=1.6) ? '<span class="pill-bad">(א): הכפלתם פעמיים — זה ריבוע.</span> חזקה שלישית היא שלוש פעמים: <span class="math">1.25 × 1.25 × 1.25 = ?</span>'
+    : (chalBoom.value!=='' && bm>=3.7 && bm<=3.8) ? '<span class="pill-bad">(א): הכפלתם ב־3 במקום להעלות בחזקה 3.</span> <span class="math">1.25 × 1.25 × 1.25 = ?</span> (הרבה פחות מ־<span class="math">3.75</span>.)'
+    : (chalBoom.value!=='' && bm>=49 && bm<=51) ? '<span class="pill-bad">(א): זה ההפרש בקמ״ש.</span> השאלה "פי כמה": קודם <span class="math">250 ÷ 200</span>, ואז בחזקה שלישית.'
+    : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): יחס המהירויות הוא <span class="math">250 ÷ 200 = 1.25</span>. עכשיו הכפילו אותו בעצמו שלוש פעמים.';
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const c=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    const aOk=(numAdv.value!=='' && c===15), bOk=(numAdvR.value!=='' && r>=60 && r<=62.5), sc = aOk&&bOk?2:(aOk?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">5,100 ÷ 340 = 15</span> שניות — והבום נשמע. (ב) <span class="math">300,000 ÷ 3,600 ≈ 83.3</span> מטרים בשנייה, ולכן <span class="math">5,100 ÷ 83.3 ≈ 61.2</span> שניות. הרכבת מגיעה ליציאה כ־<span class="num">46</span> שניות אחרי הבום: מי שעומד בחוץ שומע רעם, ורק אחר כך רואה רכבת.'
+      : aOk ? ((r>=14 && r<=16) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חזרתם על זמן הגל. הרכבת איטית מהגל: קודם הפכו קמ״ש למטרים בשנייה — <span class="math">300,000 ÷ 3,600 = ?</span> — ואז <span class="math">5,100 ÷ </span> המהירות.' : (r>=16.5 && r<=17.5) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חילקתם ב־<span class="num">300</span>, אבל <span class="num">300</span> הם קמ״ש, לא מטרים בשנייה. <span class="math">300,000 ÷ 3,600 ≈ 83.3</span>, ואז <span class="math">5,100 ÷ 83.3 = ?</span>' : (r>=0.016 && r<=0.018) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חישבתם בשעות (<span class="math">5.1 ÷ 300</span>). השאלה בשניות: <span class="math">5,100 ÷ 83.3 = ?</span>' : (r>=1.0 && r<=1.05) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חישבתם דקות. בשניות: <span class="math">5,100 ÷ 83.3 = ?</span>' : '<span class="pill-ok">(א) נכון — <span class="num">15</span>.</span> עכשיו (ב): <span class="math">300,000 ÷ 3,600 ≈ 83.3</span> מטרים בשנייה, ואז <span class="math">5,100 ÷ 83.3 = ?</span> (מותר לעגל.)')
+      : (c===1.5 || c===150) ? '<span class="pill-bad">כמעט — האפסים.</span> <span class="math">5,100 ÷ 340</span>: מוחקים אפס אחד משני הצדדים, <span class="math">510 ÷ 34 = ?</span>'
+      : (c>=1700000) ? '<span class="pill-bad">ב־(א) הכפלתם.</span> זמן = מרחק ÷ מהירות: <span class="math">5,100 ÷ 340 = ?</span>'
+      : (c>=60 && c<=62.5) ? '<span class="pill-bad">ב־(א) חישבתם את הרכבת.</span> (א) שואל על הגל, שרץ ב־<span class="num">340</span> מטרים בשנייה: <span class="math">5,100 ÷ 340 = ?</span>'
+      : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): זמן = מרחק ÷ מהירות. <span class="math">5,100 ÷ 340 = ?</span>';
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const ok=v===100; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= ok?'<span class="pill-ok">נכון!</span> <span class="math">1,500 ÷ 15 = 100</span> שלדגים בשורה. האף של הרכבת ארוך פי מאה מהציפור כולה — ובכל זאת, אותה צורה ואותו רעיון: להתרחב לאט.':(v===1485)?'<span class="pill-bad">חיסרתם.</span> השאלה כמה פעמים <span class="num">15</span> ס״מ נכנסים ב־<span class="num">1,500</span> ס״מ — צריך לחלק: <span class="math">1,500 ÷ 15 = ?</span>':(v===10||v===1000)?'<span class="pill-bad">כמעט — האפסים.</span> <span class="math">1,500 ÷ 15</span>: כמו <span class="math">15 ÷ 15 = 1</span>, ועוד שני אפסים.':(v===1||v===15)?'<span class="pill-bad">לא בדיוק.</span> האף הוא <span class="num">1,500</span> ס״מ וכל שלדג <span class="num">15</span> ס״מ. כמה שלדגים? <span class="math">1,500 ÷ 15 = ?</span>':(v===22500)?'<span class="pill-bad">הכפלתם.</span> כמה פעמים <span class="num">15</span> נכנס ב־<span class="num">1,500</span>? מחלקים: <span class="math">1,500 ÷ 15 = ?</span>':'<span class="pill-bad">לא בדיוק.</span> רמז: <span class="num">15</span> מטר = <span class="num">1,500</span> ס״מ, ושלדג = <span class="num">15</span> ס״מ. <span class="math">1,500 ÷ 15 = ?</span>'; }
+  else { const ok=v===15; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">5,100 ÷ 340 = 15</span> שניות, והבום נשמע. הרכבת עצמה, ב־<span class="num">83</span> מטרים בשנייה, תגיע ליציאה רק אחרי יותר מדקה. הרעם תמיד מקדים את הרכבת.':(v===1.5||v===150||v===0.15)?'<span class="pill-bad">כמעט — האפסים.</span> <span class="math">5,100 ÷ 340</span>: מוחקים אפס אחד משני הצדדים, <span class="math">510 ÷ 34 = ?</span>':(v>=1700000)?'<span class="pill-bad">הכפלתם.</span> זמן = מרחק ÷ מהירות: <span class="math">5,100 ÷ 340 = ?</span>':(v>=60 && v<=62.5)?'<span class="pill-bad">זה הזמן של הרכבת.</span> השאלה על הגל, שרץ ב־<span class="num">340</span> מטרים בשנייה: <span class="math">5,100 ÷ 340 = ?</span>':'<span class="pill-bad">לא בדיוק.</span> רמז: זמן = מרחק ÷ מהירות. <span class="math">5,100 ÷ 340 = ?</span>'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+/* ---------- explain-back grading ---------- */
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שבמנהרה האוויר לא יכול לברוח הצידה, ולכן הרכבת דוחסת אותו כמו בוכנה בצינור.',
+  'הסברתי שהדחיסה רצה קדימה במהירות הקול (<span class="num">340</span> מטרים בשנייה, מהר יותר מהרכבת), מגיעה ליציאה לפני הרכבת ומתפרצת שם כבום.',
+  'ציינתי את הפתרון: אף ארוך (<span class="num">15</span> מטרים) שמתרחב בהדרגה, כמו מקור של שלדג — כי מה שקובע הוא לא כמה אוויר דוחסים אלא כמה מהר.',
+  'הסברתי למה דווקא השלדג: הוא עובר מאוויר למים בלי התזה, כמו רכבת שעוברת מאוויר חופשי לאוויר לכוד במנהרה.',
+  'הזכרתי עוד פרט אחד לפחות: הבום גדל בחזקה שלישית של המהירות; המהנדס נקאטסו בדק את הצורה בירי קליעים לצינור; הרכבת החדשה (<span class="num">1997</span>) חסכה <span class="num">15</span> אחוזים חשמל; או הינשוף והקשת המשוננת.',
+];
+const MODEL='כשרכבת מהירה נכנסת למנהרה, האוויר שלפניה לא יכול לברוח הצידה כמו בשדה פתוח — הרכבת ממלאת חלק גדול מהמנהרה, כמו בוכנה בתוך צינור, ולכן האוויר נדחס. הדחיסה הזאת לא נשארת ליד הרכבת: היא רצה קדימה במהירות הקול, <span class="num">340</span> מטרים בשנייה, פי ארבעה מהר יותר מהרכבת עצמה. היא מגיעה לקצה השני של המנהרה הרבה לפני הרכבת, ושם, כשהיא פוגשת פתאום אוויר חופשי, היא מתפרצת החוצה בבום שנשמע במרחק מאות מטרים. ככל שהרכבת מהירה יותר, הבום חזק יותר — בחזקה שלישית: מהירות כפולה, בום פי שמונה. המהנדס היפני אייג׳י נקאטסו, שאהב לצפות בציפורים, שאל את עצמו אם יש יצור שעובר כל יום ממקום שקל לזוז בו למקום שקשה לזוז בו, ונזכר בשלדג, שצולל מאוויר למים בלי להתיז. הסוד של השלדג הוא המקור: הוא מתרחב בהדרגה, ולכן דוחף בכל רגע רק קצת מים, במקום הרבה מים בבת אחת. אותו רעיון עובד לאוויר במנהרה — לא כמה אוויר דוחסים קובע את הבום, אלא כמה מהר. הצוות ירה קליעים בצורות שונות לתוך צינור, מדד את גלי הלחץ וחישב במחשב־על, והצורה הטובה ביותר התבררה כדומה למקור. הרכבת החדשה, סדרה <span class="num">500</span> משנת <span class="num">1997</span>, קיבלה אף באורך <span class="num">15</span> מטרים: הבום קטן, הרכבת נסעה <span class="num">10</span> אחוזים מהר יותר וצרכה <span class="num">15</span> אחוזים פחות חשמל. ומהינשוף, שעף בשקט בזכות נוצות משוננות, הרכבת קיבלה קשת חשמל משוננת שכבר לא שורקת.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (אפקט הבוכנה — במנהרה האוויר לא יכול לברוח הצידה, הרכבת דוחסת אותו כמו בוכנה בצינור; גל הדחיסה מתנתק ורץ קדימה במהירות הקול, כ־340 מ׳/ש׳, לעומת 83 מ׳/ש׳ של רכבת ב־300 קמ״ש (300,000 ÷ 3,600); לאורך המנהרה הגל מתחדד (החלק הדחוס נע מעט מהר יותר), וביציאה הוא מתפרץ כגל מיקרו־לחץ — "בום המנהרה" שנשמע ומרעיד עד 400 מ׳; עוצמת הבום ∝ מהירות בחזקה שלישית: הלחץ בגל ∝ v² והחדות (קצב עליית הלחץ) ∝ v, ולכן 2³ = 8 ו־(300 ÷ 210)³ ≈ 2.9; מה שקובע את הגל הוא קצב הגידול של חתך הרכבת בכניסה, לא הרוחב הסופי — אף שמתרחב לאורך 15 מ׳ במקום כ־3 מ׳ מעלה את הלחץ בהדרגה ומפחית אותו בכ־30%; יחס החסימה (מנהרה רחבה — פחות לחץ); האנלוגיה לשלדג — מעבר מאוויר למים (צפופים פי ~800) בלי התזה, כי המקור, הראש והגוף מתרחבים בהדרגה, וההתזה נקבעת מקצב דחיפת המים, לא מכמותם; נקאטסו — ניסויי קליעים בצינור וסימולציות במחשב־על קבעו את הצורה, השלדג היה ההשראה; התוצאות — 15% פחות חשמל אף ש־10% יותר מהירות, כי אוויר שנדחס פחות מתנגד פחות; הינשוף — שינון בשפה מפצל מערבולת גדולה למערבולות זעירות עם פחות אנרגיה אקוסטית, ולכן קשת חשמל משוננת) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "הציפור שלימדה רכבת שלמה להיות שקטה" — איך המקור של השלדג פתר את "בום המנהרה" של הרכבת המהירה ביפן. הרעיונות המרכזיים: (1) רכבת מהירה במנהרה היא בוכנה בצינור: האוויר שלפניה לא יכול לברוח הצידה ונדחס; (2) הדחיסה רצה קדימה במהירות הקול (340 מ׳/ש׳, פי 4 מהרכבת ב־300 קמ״ש = 83 מ׳/ש׳), מתחדדת לאורך המנהרה, מגיעה ליציאה לפני הרכבת ומתפרצת שם כבום שנשמע עד 400 מ׳ — לכן הבום נשמע לפני שרואים את הרכבת; (3) עוצמת הבום גדלה בחזקה שלישית של המהירות (מהירות כפולה — בום פי 8; מ־210 ל־300 קמ״ש — כמעט פי 3), ולכן ההעלאה ל־300 קמ״ש הפכה את הבעיה לחמורה; (4) הפתרון — אף באורך 15 מ׳ שמתרחב בהדרגה: לא כמה אוויר דוחסים קובע אלא כמה מהר; אף קהה קופץ לרוחבו המלא תוך מטרים אחדים והלחץ קופץ, אף ארוך מעלה אותו לאט — כ־30% פחות לחץ; (5) השלדג: כ־15 ס״מ, כ־40 ג׳, צולל מענף עד עומק מטר ותופס דג בלי התזה, כי המקור, הראש והגוף מתרחבים בהדרגה — מים צפופים פי ~800 מאוויר; כדור או לוח שטוח דוחפים הרבה מים בבת אחת ומתיזים, חרוט דוחף פרוסה דקה בכל רגע; (6) הסיפור: אייג׳י נקאטסו, מהנדס ב־JR West שאחראי על מסעות הניסוי של סדרה 500 (הרכבת הסדירה הראשונה ב־300 קמ״ש; הקודמת 270), צפר, שמע הרצאה של מהנדס מטוסים בחברת הצפרים ושאל "האם יש יצור שמתמודד כל יום עם שינוי פתאומי בהתנגדות הסביבה?"; תקן רעש יפני 70 דציבלים; הצוות ירה קליעים בצורות שונות לתוך צינור, מדד גלי לחץ והריץ סימולציות במחשב־על — הצורה האופטימלית דומה למקור; סדרה 500 נכנסה לשירות במרץ 1997 (JR West, 16 קרונות, כ־404 מ׳, חתך כמעט עגול); תוצאות: לחץ פחות ב־30%, מהירות פלוס 10%, חשמל מינוס 15% (אוויר שנדחס פחות מתנגד פחות); (7) הינשוף: נוצות משוננות בקצה הכנף שוברות מערבולת גדולה למערבולות זעירות — שינון על הפנטוגרף (קשת החשמל) הפסיק את השריקה; (8) חיבורים: מהירות הקול 340 מ׳/ש׳ (ולכן רעם אחרי ברק); השינקנסן הראשונה 1.10.1964, טוקיו–אוסקה, 210 קמ״ש, "רכבת הקליע"; שלדגים בישראל — שלדג לבן־חזה, פרפור עקוד, ושלדג גמדי שחולף בסתיו ("מבשר הסתיו"), השם "שלדג" — ביאליק; ביומימיקרי — סקוץ׳ (דה מסטרל, זרעי לפה), חליפות שחייה כעור כריש, בנייני טרמיטים; רוח ברכבת התחתית ובמעלית — אפקט הבוכנה לאט; (9) חישובים: 1,500 ÷ 15 = 100; 5,100 ÷ 340 = 15; 300,000 ÷ 3,600 ≈ 83.3; 5,100 ÷ 83.3 ≈ 61.2; 300 ÷ 210 ≈ 1.43; 1.43³ ≈ 2.9; 250 ÷ 200 = 1.25; 1.25³ ≈ 1.95; 2³ = 8; 100 ÷ 270 ≈ 0.37; 85 ÷ 300 ≈ 0.283; חיסכון לק״מ ≈ 23%.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם את הבעיה (האוויר נדחס במנהרה והדחיסה רצה קדימה ומתפרצת ביציאה) וגם את הפתרון (אף ארוך שמתרחב בהדרגה כמו מקור של שלדג, כי מה שקובע הוא כמה מהר דוחסים), 1 אם יש רק חלק מזה. תשובה שאומרת ש"הרכבת עושה רעש כי היא מהירה" בלבד, או ש"העתיקו ציפור" בלי להסביר למה הצורה עוזרת, או שמספרת רק את הסיפור בלי המנגנון, לא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', יש לך ראש של '+G('מהנדס','מהנדסת')+' ועיניים של '+G('צפר','צפרית')+'!':pct>=60?name+', יש לך מוח של '+G('מדען','מדענית')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=15;                                                     // the 500 series nose: 15 m
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. האף של הרכבת החדשה ארוך <span class="num">15</span> מטרים — הרבה יותר מהשלדג כולו — כי הסוד הוא להתרחב לאט: לא כמה אוויר דוחסים, אלא כמה מהר.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. <span class="num">15</span> מטרים של אף שמתרחב בהדרגה, כמו מקור של שלדג. ועכשיו ידוע לך גם למה: לא כמה אוויר דוחסים, אלא כמה מהר.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. המציאות: <span class="num">15</span> מטרים — יותר ממחצית הקרון הראשון. אורך כזה נותן לאוויר זמן להידחס בהדרגה, וזה כל הסוד.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (אורך האף של הרכבת): '+(S.guess?fmtSigns(S.guess):'—')+' (המציאות: 15 מטרים)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "הציפור שלימדה רכבת שלמה להיות שקטה", מהדורה 20, י״ז בתשרי תשפ״ז (28 בספטמבר 2026, חול המועד סוכות). נושא: איך המקור של השלדג פתר את "בום המנהרה" של הרכבת המהירה ביפן (סדרה 500 של השינקנסן); ביולוגיה (השלדג, הינשוף, ביומימיקרי), הנדסה (תכנון תחת אילוצים, מדידה מול השראה), פיזיקה (אפקט הבוכנה, גלי לחץ, מהירות הקול, חזקות, מערבולות), מתמטיקה (יחסים, חזקה שלישית, המרת יחידות, זמן = מרחק ÷ מהירות, אחוזים). הבעיה: כשרכבת מהירה נכנסת למנהרה האוויר לא יכול לברוח הצידה — הרכבת ממלאת חלק גדול מחתך המנהרה (יחס החסימה) ודוחסת אותו כמו בוכנה בצינור; גל הדחיסה מתנתק מהרכבת ורץ קדימה במהירות הקול, כ־340 מ׳/ש׳ (ב־15°), לעומת רכבת ב־300 קמ״ש = 300,000 ÷ 3,600 ≈ 83.3 מ׳/ש׳ — פי 4; במנהרה ארוכה הגל מתחדד (החלק הדחוס נע מעט מהר יותר ומדביק את החזית); ביציאה הוא פוגש אוויר חופשי ומתפרץ כ"גל מיקרו־לחץ" — בום המנהרה, שנשמע ומרעיד חלונות עד 400 מ׳ מהיציאה; לכן הבום מקדים את הרכבת (במנהרה של 3.4 ק״מ: הגל אחרי 3,400 ÷ 340 = 10 שניות, הרכבת אחרי 3,400 ÷ 83.3 ≈ 41 שניות; במבחן: 5,100 ÷ 340 = 15 ו־5,100 ÷ 83.3 ≈ 61.2). עוצמת הבום ∝ מהירות בחזקה שלישית (בקירוב): הלחץ בגל ∝ v² (הרכבת דוחסת חזק פי 2 וגם מהר פי 2 — כמו דחיפת רוח) והרעש נקבע מחדות העלייה (קצב עליית הלחץ) שגדלה בעוד פי v, ולכן 2³ = 8; מ־210 ל־300 קמ״ש: (300 ÷ 210)³ = 1.43³ ≈ 2.9; מנהרה רחבה פי 2 — יחס חסימה קטן, לחץ נמוך בהרבה; יפן ההררית בחרה לשנות את הרכבת ולא את המנהרות. הפתרון: מה שקובע את הגל הוא קצב הגידול של חתך הרכבת בכניסה, לא הרוחב הסופי ("לא כמה אוויר דוחסים, אלא כמה מהר") — אף קהה מגיע לרוחבו המלא תוך מטרים אחדים (סדר גודל 3 מ׳) והלחץ קופץ; אף שמתרחב בהדרגה לאורך 15 מ׳ (יותר ממחצית הקרון הראשון, 27 מ׳) מעלה את הלחץ בעדינות, וגל רך יותר יוצא מהיציאה; במדידות של נקאטסו: לחץ אוויר נמוך ב־30%, מהירות גבוהה ב־10% (300 מול 270 קמ״ש של סדרה 300 — 300 ÷ 270 ≈ 1.11), צריכת חשמל נמוכה ב־15% (אוויר שנדחס פחות מתנגד פחות). השלדג הגמדי (Alcedo atthis): אורך 15–16 ס״מ, משקל כ־34–46 ג׳ (בשיעור: כ־40 ג׳ — כמו עשר כפיות סוכר; מקורות ישראליים מציינים 19–26 ג׳), מוטת כנפיים 23–25 ס״מ, כחול־טורקיז מלמעלה וכתום־ערמוני מלמטה, מקור ארוך (שחור בזכרים, אדמדם בנקבות), צולל מעמדת תצפית (ענף מעל המים) עד עומק מטר ותופס דגים כמעט בלי התזה — כי המקור, הראש והגוף מתרחבים בהדרגה (מים צפופים פי ~830 מאוויר: 1,000 ÷ 1.2, מעוגל ל־800); בישראל חולף מצוי בנדידת הסתיו מהמחצית השנייה של יולי, "מבשר הסתיו", מבקר חורף לא שכיח, לא מקנן; השם "שלדג" ("שולה דגים") — ח״נ ביאליק (קודם: "שולה הדגים הקטן"); בני משפחתו בישראל — שלדג לבן־חזה (גדול, צועק מהחוטים) ופרפור עקוד (שחור־לבן, מרפרף מעל בריכות); מקומות: נחל תנינים, בריכות הדגים של חוף הכרמל ומעגן מיכאל — לא רחוק מזכרון יעקב. מעבדת הצלילה: ההתזה תלויה בקצב שבו הגוף דוחף מים הצידה — כדור ולוח שטוח מגיעים לרוחבם המלא בבת אחת (הרבה מים בבת אחת — התזה גדולה, כמו "פצצה" בבריכה), חרוט ושלדג מתרחבים לאט (פרוסה דקה בכל רגע — כמעט בלי התזה); המודל בשיעור סכמטי. הסיפור: אייג׳י נקאטסו (Eiji Nakatsu), מהנדס בכיר ב־JR West (חברת הרכבות של מערב יפן), אחראי על מסעות הניסוי של סדרה 500 — הרכבת הראשונה ביפן שתיסע באופן סדיר 300 קמ״ש (תכנון 320; ה־TGV הצרפתי נסע 300 כבר מ־1989), שנועדה לקו סאניו (שין־אוסקה–הקאטה/פוקואוקה); חבר בחברת הצפרים היפנית; שמע הרצאה של סייצ׳י יאג׳ימה, מהנדס מטוסים וצפר, על ציפורים בתכנון מטוסים; שאל: "האם יש יצור שמתמודד כל יום עם שינוי פתאומי בהתנגדות הסביבה?" — השלדג, מאוויר למים בלי התזה; תקן הרעש היפני 70 דציבלים ליד מגורים (כמו שיחה בקול רם), שהעלאת המהירות איימה לחרוג ממנו; המדע: ירי קליעים בצורות שונות לתוך צינור ומדידת גלי הלחץ, וסימולציות של רכבות במנהרות על מחשב־על של סוכנות החלל — הצורה האופטימלית קרובה למקור השלדג, חוד שמתרחב בהדרגה עם חתך כמעט עגול; הפתרון התגבש ב־1994; סדרה 500 נכנסה לשירות במרץ 1997 כרכבת נוזומי, 16 קרונות (קרון קצה 27 מ׳, ביניים 25 מ׳ — כ־404 מ׳), אף 15 מ׳, עיצוב תעשייתי אלכסנדר נוימייסטר, 9 מערכים; שירות נוזומי עד 2010, ומאז רכבת קודמה בת 8 קרונות (מתוכננת לפרישה ב־2027); בכנות: המקור היה השראה ואישור — המדידות קבעו את הצורה. הינשוף: נוצות משוננות (מסרק) בשפת הכנף הקדמית ונוצות רכות בקצה האחורי — מעוף שקט; שפה חלקה משחררת מערבולת אחת גדולה בקצב קבוע (שריקה בתדר אחד), שיניים מפצלות אותה למערבולות זעירות רבות עם פחות אנרגיה אקוסטית והרעש מתפזר לתדרים חלשים; נקאטסו חרט שינון על חלק הפנטוגרף (קשת החשמל — הזרוע שמושכת זרם מהכבל מעל המסילה) והשריקה נעלמה ברובה. חיבורים: מהירות הקול היא המהירות שבה "חדשות" עוברות באוויר (מולקולה דוחפת את שכנתה) — לכן רעם אחרי ברק; השינקנסן הראשונה — קו טוקאידו, 1.10.1964, טוקיו–אוסקה, 210 קמ״ש, תשעה ימים לפני אולימפיאדת טוקיו, "רכבת הקליע" על שם האף העגול; ביומימיקרי — סקוץ׳ (ז׳ורז׳ דה מסטרל, 1941, זרעי לפה עם ווים זעירים שנדבקו לפרוות הכלב), חליפות שחייה כעור כריש, מרכז איסטגייט בהרארה שמאוורר עצמו כתל טרמיטים; אפקט הבוכנה לאט — רוח בתחנת רכבת תחתית (ב־60 קמ״ש משב, ב־300 רעם; פי 5 מהירות = פי 125 בחזקה שלישית) ורוח בפתיחת דלת מעלית (המעלית בוכנה בפיר; מעליות מהירות במגדלים — פירים מאווררים וחתך מעוגל). ניסוי בית: הפלת כפית (שטוחה), כדור וחרוט נייר עם גולה מגובה 30 ס״מ למים — הכפית מתיזה הכי הרבה, החרוט הכי פחות; גליל קרטון ארוך + פקק + רצועת טישו בקצה הרחוק — הטישו זז לפני שהפקק מגיע (גל הלחץ); סרטוני הילוך איטי של שלדג צולל ושל אף סדרה 500. חישובים: 300,000 ÷ 3,600 ≈ 83.3; 5,100 ÷ 340 = 15; 5,100 ÷ 83.3 ≈ 61.2; 1,500 ÷ 15 = 100 (100 שלדגים לאורך האף); 300 ÷ 210 ≈ 1.43; 1.43 × 1.43 × 1.43 ≈ 2.9; 250 ÷ 200 = 1.25; 1.25³ ≈ 1.95 (האתגר); 2 × 2 × 2 = 8; 5³ = 125; 100 ÷ 270 ≈ 0.37; 85 ÷ 300 ≈ 0.283; (0.37 − 0.283) ÷ 0.37 ≈ 0.235 = כ־23% חיסכון לק״מ; 1,000 ÷ 1.2 ≈ 830; 404 מ׳ ≈ 4 מגרשי כדורגל. הרכבת: גוף מסגסוגת אלומיניום. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט ("חזקה שלישית" ו"30%" הם קירובים; מעבדת הצלילה, המנהרה והמערבולות הם מודלים סכמטיים; "3 מטרים" לאף קהה הוא סדר גודל), בלי לחשוף תשובות מבחן; אם ילד שואל על תשובה למבחן, לרמוז ולכוון, לא לפתור.';
+const CHIPS = ['למה הבום יוצא מהיציאה?', 'למה השלדג לא מתיז?', 'מה זה חזקה שלישית?', 'מי זה נקאטסו?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים: אפקט הבוכנה ויחס החסימה; גל הדחיסה שרץ ב־340 מ׳/ש׳ מול 83.3 מ׳/ש׳ של הרכבת (300,000 ÷ 3,600) ולמה הוא מתחדד לאורך המנהרה; למה הבום ∝ v³ — לחץ ∝ v² וחדות ∝ v, ולכן (300 ÷ 210)³ ≈ 2.9; למה קצב גידול החתך ולא הרוחב הסופי קובע — 15 מ׳ מול כ־3 מ׳, 30% פחות לחץ; האנלוגיה לשלדג ולמה ההתזה נקבעת מקצב דחיפת המים; מדידה מול השראה — קליעים בצינור ומחשב־על; למה 15% פחות חשמל אף ש־10% יותר מהירות, וחיסכון לק״מ של כ־23%; המערבולות של הינשוף — פיצול מערבולת גדולה לזעירות ופיזור התדר), שאל שאלות המשך שדורשות חשיבה (למשל: למה מנהרה ארוכה מחמירה את הבום? — הגל מתחדד בדרך; מה היה קורה במנהרה רחבה פי 2? — יחס חסימה קטן, לחץ נמוך בהרבה; למה במעלית מרגישים רוח ובמכונית לא? — מכונית לא נוסעת בצינור), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה הבום יוצא דווקא מהיציאה?</b> במנהרה לאוויר הדחוס אין לאן לברוח חוץ מקדימה. הדחיסה רצה לאורך המנהרה במהירות הקול, <span class="num">340</span> מטרים בשנייה — פי ארבעה מהרכבת — ומתפרצת החוצה כשהיא פוגשת אוויר חופשי בפעם הראשונה: ביציאה. לכן שומעים רעם לפני שרואים רכבת.<br><br><b>למה השלדג לא מתיז?</b> כי המקור שלו מתרחב בהדרגה: בכל רגע הוא דוחף רק פרוסה דקה של מים, במקום הרבה מים בבת אחת. לא כמה מים דוחפים קובע את ההתזה, אלא כמה מהר. בדיוק אותו רעיון עובד לאוויר במנהרה — ולכן האף של הרכבת ארוך <span class="num">15</span> מטרים ומתרחב לאט.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
