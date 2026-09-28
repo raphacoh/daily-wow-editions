@@ -11,10 +11,10 @@
     "מתמטיקה"
   ],
   "summary": "How a kingfisher's beak solved the Shinkansen tunnel boom: a fast train in a tunnel is a piston, the compression wave runs ahead at the speed of sound (340 m/s vs 83 m/s) and bursts out of the far portal; boom ~ v³; JR West engineer Eiji Nakatsu (a birdwatcher) asked which creature copes with a sudden change in resistance, fired bullet shapes into a pipe, and gave the 500 Series (1997, 300 km/h) a 15 m beak-shaped nose: 30% less pressure, 10% faster, 15% less electricity; owl-feather serrations on the pantograph; the common kingfisher passes through Israel in autumn, its Hebrew name coined by Bialik.",
-  "teaser": null,
-  "max_score": null,
+  "teaser": "ביפן של שנות ה־90 נסעה אחת הרכבות המהירות בעולם — ובכל פעם שיצאה ממנהרה, נשמע רעם ששמעו במרחק 400 מטרים. המהנדסים לא ידעו מה לעשות, עד שאחד מהם נזכר בציפור קטנה שצוללת למים בלי להתיז. איך ציפור בגודל של כף יד פתרה בעיה של רכבת באורך 400 מטרים?",
+  "max_score": 11,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-09-28T08:13:47.441Z",
   "password": "מקור של שלדג",
   "reviewer_verdict": "PASS (2 rounds) — nits left: reviewer estimates ~45–60 min vs the 30-min tag (same word counts as #19); kingfisher weight sources disagree (page says ~40 g, Israeli sources 19–26 g); Arto FAB can overlap a canvas label at the viewport bottom (series layout)",
   "review_url": "https://claude.ai/artifact/Lqx2mLW2D1LoC4jRusXt64",
