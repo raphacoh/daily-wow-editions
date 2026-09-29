@@ -1,0 +1,22 @@
+{
+  "n": 21,
+  "code": "WOW-021",
+  "date": "2026-09-29",
+  "language": "he",
+  "title": "הבטון שבונה את עצמו מחדש כבר אלפיים שנה",
+  "topics": [
+    "כימיה",
+    "הנדסה",
+    "היסטוריה",
+    "גאוגרפיה"
+  ],
+  "summary": "Roman self-healing concrete: Herod poured concrete into the sea at Caesarea (22–15 BCE, 10 km from Zikhron Yaakov) using ~24,000 m³ of Puteoli pozzolana (52,000 t ≈ 130 shiploads) that sets under water (Vitruvius 1:2); the white lime clasts long dismissed as bad mixing are, per MIT's 2023 Science Advances paper (Masic, Seymour), quicklime from hot mixing (55–60°C above ambient) — brittle, porous calcium reservoirs: water in a crack dissolves them and the calcium recrystallises as calcite, sealing a 0.5 mm crack within weeks (control never healed); Jackson 2017: seawater grows Al-tobermorite/phillipsite so marine Roman concrete strengthens; modern concrete fails because rebar rust expands and widens cracks (50–100 yr); the Caesarea harbour itself sank (fault, tsunami), the concrete held.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-09-29T08:12:02.000Z",
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: reviewer estimates ~35–45 min vs the 30-min tag (same word counts as #19/#20); canvas label plates touch the edges by a few px at 640-unit scale; series-wide 'שלחו לאבא' strings",
+  "review_url": "https://claude.ai/artifact/PvuR5d44bZn7Y9QFHcgqC5",
+  "editor_note": null
+}
