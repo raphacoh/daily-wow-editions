@@ -11,10 +11,10 @@
     "היסטוריה"
   ],
   "summary": "The Moon recedes 3.8 cm/yr (lunar laser ranging to the Apollo 11 retroreflector, 1969→today): the tidal bulge carried ahead of the Moon by Earth's faster spin tugs the Moon forward into a higher orbit while braking Earth (~2.3 ms/century tidal, 1.7 net); fossil growth lines count days per year (Wells 1963: ~400 in Devonian corals; de Winter 2020: Torreites clam, 70 Myr, 372 days, 23.5-h day); George Darwin's 1879 theory; why the rate is not constant (Meyers 2018: 1.4 Gyr, 18.7 h, 340,900 km); Phobos, Beresheet's NASA retroreflector, the Hebrew calendar and the Sukkot full moon.",
-  "teaser": null,
-  "max_score": null,
+  "teaser": "בשבת, בחג הראשון של סוכות, הירח היה מלא — אבל הוא כבר לא במקום שבו סבא וסבתא ראו אותו: בכל שנה הוא בורח מאיתנו עוד קצת, ובדרך הוא לוחץ על הבלמים של כדור הארץ.\nכשהדינוזאורים חיו, יממה הייתה קצרה יותר משלנו — ואת זה יודעים מקונכייה. איך מודדים כמה הירח התרחק? עם מראות שאסטרונאוטים השאירו עליו לפני 57 שנה, ולייזר.\nלמה הירח בורח — ומה זה עושה ליום שלנו?",
+  "max_score": 11,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-09-30T08:11:49.559Z",
   "password": "מראות על הירח",
   "reviewer_verdict": "PASS (2 rounds) — nits left: reviewer estimates ~45 min vs the 30-min tag (prose trimmed ~10% after round 2; same order as #19–#21); time-machine clock ring is schematic; coral lens 23 vs 25 lines is a subtle difference",
   "review_url": "https://claude.ai/artifact/TXPdwAcNJtxJoifesLRqYV",
