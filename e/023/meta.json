@@ -11,10 +11,10 @@
     "גאוגרפיה"
   ],
   "summary": "Why honey almost never spoils (≈80% sugar, 17–18% water, water activity ~0.6, osmosis dries any microbe, pH ~3.9, glucose-oxidase H2O2), how bees turn 80%-water nectar into honey (enzymes, fanning at 35 °C, wax capping; 1,000 g nectar → ~244 g honey), why an open jar ferments (hygroscopic), the Egyptian-tomb edible-honey legend vs the real oldest honey (Georgia, ~5,500 yr), and the world's oldest apiary at Tel Rehov (2005, Mazar: ~30 clay cylinder hives, est. ~100, ~500 kg/yr, ~3,000 yr) whose charred bees Guy Bloch identified as Anatolian (PNAS 2010).",
-  "teaser": null,
+  "teaser": "מספרים שארכאולוגים פתחו קבר במצרים ומצאו צנצנת דבש בת 3,000 שנה — ועדיין אפשר היה לאכול ממנה. האם זה באמת קרה?\nלחם מתעפש תוך שבוע, חלב מחמיץ תוך יום — ודבש? כמעט לעולם לא. מה יש בו שחיידקים ועובש לא מסוגלים לחיות בו, ואיך הדבורים מייצרות אותו?\nובדרך: הכוורת העתיקה ביותר שנמצאה אי פעם בעולם — והיא בעמק בית שאן.",
   "max_score": 11,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-10-01T08:11:45.433Z",
   "password": "דבורים מטורקיה",
   "reviewer_verdict": "PASS (2 rounds) — nits left: reviewer estimates ~40 min vs the 30-min tag (same order as #19–#22); canvas label minimum (22 px in a 640-px canvas) is small on phones — inherited engine helper; the Zikhron Yaakov anchor in the lede is kept per the series brief",
   "review_url": "https://claude.ai/artifact/EEF5EP6QaC91b9UiCReuFy",
