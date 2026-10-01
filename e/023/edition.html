@@ -1,0 +1,1699 @@
+<title>שורשים וכנפיים #23 · הדבש שלא מתקלקל לעולם — והכוורת בת 3,000 השנה בעמק</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E3A23A; --sun-deep:#8A5410; --sun-soft:#FBEACB;
+  --nile:#0F8A9E; --nile-soft:#D5EEF2; --shadow:#3552A6; --shadow-soft:#E1E6F7;
+  --night:#1A2238; --aur:#F2C94C; --aur2:#F0A45C;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#D9822B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B95C; --sun-deep:#FFE0A6; --sun-soft:#3D2A0E;
+    --nile:#4FC3D6; --nile-soft:#0F3A44; --shadow:#9DB0F0; --shadow-soft:#232B4F;
+    --night:#0B1226; --aur:#F2D27A; --aur2:#FFBE8A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B95C; --sun-deep:#FFE0A6; --sun-soft:#3D2A0E;
+  --nile:#4FC3D6; --nile-soft:#0F3A44; --shadow:#9DB0F0; --shadow-soft:#232B4F;
+  --night:#0B1226; --aur:#F2D27A; --aur2:#FFBE8A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a honeycomb cell with a drop of honey */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:40px;height:30px;flex:none}
+.ch .stick::before{content:"";position:absolute;right:6px;bottom:0;width:26px;height:28px;background:var(--sun);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.ch .stick::after{content:"";position:absolute;right:15px;bottom:8px;width:8px;height:11px;border-radius:50% 50% 50% 50%/40% 40% 60% 60%;background:var(--sun-deep)}
+
+/* hero: a honey jar, a bee hovering beside it */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-24px;width:300px;height:300px;z-index:0;opacity:.92;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%,100%{transform:translate(236px,118px)}50%{transform:translate(244px,106px)}}
+/* this edition's widgets */
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 23</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="var(--aur)" stop-opacity=".55"/>
+        <stop offset="60%" stop-color="var(--aur)" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="var(--aur)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- a honey jar with a lid and a dripping spoon, a clay hive behind it, and a bee hovering -->
+    <g id="heroJar">
+      <rect x="70" y="120" width="120" height="132" rx="26" fill="var(--sun)" stroke="var(--ink)" stroke-width="1.8"/>
+      <rect x="78" y="128" width="104" height="112" rx="20" fill="var(--aur2)" fill-opacity=".55"/>
+      <rect x="80" y="104" width="100" height="24" rx="7" fill="var(--earth2)" stroke="var(--ink)" stroke-width="1.8"/>
+      <rect x="92" y="164" width="76" height="40" rx="8" fill="var(--card)" fill-opacity=".85"/>
+      <path d="M100 176 h60 M100 190 h44" stroke="var(--sun-deep)" stroke-width="4" stroke-linecap="round"/>
+      <path d="M190 150 q30 -30 62 -6" fill="none" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>
+      <ellipse cx="255" cy="148" rx="13" ry="9" fill="var(--sand)" stroke="var(--ink)" stroke-width="1.6"/>
+      <path d="M252 156 q3 14 -2 24 q8 -4 6 -22" fill="var(--sun)" stroke="var(--ink)" stroke-width="1"/>
+    </g>
+    <g class="spark" transform="translate(236,118)">
+      <ellipse cx="0" cy="0" rx="18" ry="12" fill="var(--aur)" stroke="#1B1F33" stroke-width="1.6"/>
+      <path d="M-8 -11 v22 M0 -12 v24 M8 -11 v22" stroke="#1B1F33" stroke-width="3"/>
+      <ellipse cx="-4" cy="-13" rx="12" ry="6" fill="var(--card)" fill-opacity=".8" stroke="#1B1F33" stroke-width="1"/>
+      <ellipse cx="9" cy="-13" rx="10" ry="5" fill="var(--card)" fill-opacity=".8" stroke="#1B1F33" stroke-width="1"/>
+      <circle cx="-15" cy="-2" r="3" fill="#1B1F33"/>
+    </g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 23</span><span class="tag">יום חמישי, 1 באוקטובר 2026</span><span class="tag">כ׳ בתשרי תשפ״ז · חול המועד סוכות</span><span class="tag">כ־30 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>הדבש שלא מתקלקל לעולם — והכוורת בת 3,000 השנה בעמק</h1>
+  <p class="lede">מספרים שארכאולוגים פתחו קבר במצרים ומצאו בו צנצנת דבש בת <span class="num">3,000</span> שנה — ושהדבש עדיין היה טוב לאכילה. <b>האם זה באמת קרה?</b> היום נבדוק, ונגלה למה דבש הוא כמעט המזון היחיד שלא מתקלקל, בזמן שלחם מתעפש תוך שבוע. ובדרך נבקר ב<b>כוורת העתיקה ביותר שנמצאה אי פעם בעולם</b> — והיא לא במצרים: היא בעמק בית שאן, קצת יותר משעה נסיעה מזכרון יעקב. השאלה של היום: <b>מה יש בדבש שחיידקים ועובש לא מסוגלים לחיות בו?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">דבש הוא נוזל. כמה מהדבש הוא בכלל מים?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="90"><b>כמעט הכל מים</b><span>כמו אבטיח — כ־90 אחוז</span></button>
+      <button type="button" class="scaleopt" data-scale="40"><b>פחות מחצי</b><span>כמו לחם טרי — כ־40 אחוז</span></button>
+      <button type="button" class="scaleopt" data-scale="18"><b>פחות מחמישית</b><span>כמו תמר יבש — כ־18 אחוז</span></button>
+      <button type="button" class="scaleopt" data-scale="1"><b>כמעט כלום</b><span>כמו סוכר בשקית — כ־1 אחוז</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE THIRSTY SUGAR (interactive 1: osmosis) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>הסוכר הצמא</h2>
+  <p>לחם מתעפש, חלב מחמיץ, תפוח נרקב. מי עושה את זה? יצורים זעירים — <b>חיידקים</b> ופטריות <b>עובש</b> — שנוחתים על האוכל מהאוויר, אוכלים אותו ומתרבים. כדי לחיות הם צריכים שלושה דברים: אוכל, חום, ו<b>מים</b>. בדבש יש אוכל בשפע (סוכר!), והוא לא קר. אז מה חסר להם? המים.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>דבש הוא בעיקר סוכר: בכף אחת של דבש, ארבע חמישיות הן סוכר ורק כחמישית מים. ולסוכר יש תכונה מוזרה: הוא <b>צמא</b>. כשסוכר פוגש מים, הוא מושך אותם אליו. וחיידק הוא בעצם שקית קטנטנה מלאה במים. כשחיידק נוחת על דבש, הסוכר שמסביבו <b>מושך החוצה את המים שבתוכו</b> — והחיידק מתייבש ומתכווץ כמו צימוק. הוא לא מצליח לאכול, לא מצליח להתחלק, ומת.</p>
+    <p>אפילו העובש, שמסתדר עם פחות מים מהחיידקים, לא מצליח בדבש. ויש לדבש עוד שני נשקים קטנים: הוא <b>חמוץ</b> כמו מיץ תפוזים, והדבורים מוסיפות לו חומר שמייצר מעט <b>מי חמצן</b> — חומר חיטוי, כמו זה שמורחים על שריטה. באינטראקטיב: נחשו קודם מה יקרה לחיידק בדבש, ואז גררו את המחוון מהמים אל הדבש.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>המנגנון נקרא <b>אוסמוזה</b>. לתא של חיידק יש קרום דק, שמים עוברים דרכו בקלות אבל סוכר כמעט לא. כשבחוץ יש הרבה יותר סוכר (ומעט מים) מאשר בפנים, המים זורמים מהצד ה"מימי" לצד ה"סוכרי" — <b>החוצה מהתא</b>. התא מתכווץ, הקרום שלו מתקמט, ושום דבר לא עובד בו. דבש הוא כ־<span class="num">80</span> אחוז סוכר ורק <span class="math">17–18</span> אחוז מים — ואפילו המים המעטים האלה "תפוסים" על ידי הסוכר.</p>
+    <p>מדענים מודדים כמה מים <b>זמינים</b> יש במזון במספר שנקרא <b>פעילות מים</b>: מים טהורים = <span class="num">1.0</span>; לחם ≈ <span class="num">0.95</span>; ריבה ≈ <span class="num">0.8</span>; דבש ≈ <span class="num">0.6</span>. רוב החיידקים לא מתרבים מתחת ל־<span class="num">0.91</span>, רוב העובשים לא מתחת ל־<span class="num">0.7</span>, ומתחת ל־<span class="num">0.6</span> שום יצור חי לא מצליח להתרבות. דבש עומד בדיוק על הגבול. ויש לו עוד שני נשקים: הוא <b>חומצי</b> (pH כ־<span class="num">3.9</span>, כמו מיץ תפוזים), והדבורים מוסיפות לו אנזים שמייצר מעט <b>מי חמצן</b> — חומר חיטוי. באינטראקטיב: נחשו, גררו את המחוון, וצפו במד פעילות המים.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — החיידק בצנצנת ===== -->
+  <div class="panel instrument">
+    <h3>החיידק בצנצנת</h3>
+    <p class="cap">חיידק אחד, גדול פי מיליון, נוחת על נוזל. נחשו: מה יקרה לו כשהנוזל הוא דבש?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="osP0" onclick="osPredict(0)">יאכל סוכר ויתרבה</button>
+        <button id="osP1" onclick="osPredict(1)">יישאר כמו שהוא</button>
+        <button id="osP2" onclick="osPredict(2)">יתייבש ויתכווץ</button>
+      </div>
+    </div>
+    <canvas id="osCv" width="640" height="470" aria-label="חיידק גדול בתוך טיפת נוזל; ככל שמזיזים את המחוון ממים לדבש, חיצים כחולים מראים מים שיוצאים מהחיידק והוא מתכווץ ומתקמט; מימין מד אנכי של פעילות מים עם שלושה קווים: חיידקים, עובש, ושום דבר לא גדל"></canvas>
+    <div class="controls">
+      <label>כמה סוכר בנוזל
+        <input type="range" id="osS" min="0" max="82" step="1" value="0" oninput="osDraw(1)" aria-label="אחוז סוכר" style="direction:ltr">
+      </label>
+      <div class="readout"><b class="num" id="osOut">0%</b> סוכר</div>
+    </div>
+    <p class="cap" id="osMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>אותו טריק בדיוק עובד גם עם <b>מלח</b>: דג מלוח, בשר מיובש וזיתים במלח מחזיקים חודשים בלי מקרר, כי המלח, כמו הסוכר, מושך את המים מכל חיידק שמתקרב. סבתות ידעו את זה הרבה לפני שהיו מקררים.</p></div>
+
+  <div class="q qc" id="osmQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE NECTAR DRYER (interactive 2: fanning) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>המפעל שמייבש צוף</h2>
+  <p>הדבש לא נולד יבש. הוא מתחיל כ<b>צוף</b> — נוזל מתוק ודליל בתוך הפרחים, שהוא בערך <span class="num">80</span> אחוז מים. אם היו משאירים אותו ככה, הוא היה מחמיץ תוך יומיים. הדבורים הופכות אותו לדבש בשלושה שלבים.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>שלב א׳:</b> דבורה מלקטת צוף מפרחים ושומרת אותו ב"בטן דבש" מיוחדת. בכוורת היא מעבירה אותו מפה לפה לדבורה אחרת, וזו לעוד אחת. בכל העברה מתערבבים בצוף <b>רוקים מיוחדים</b> (אנזימים), שחותכים את הסוכר הגדול לסוכרים קטנים יותר. <b>שלב ב׳:</b> הדבורים מורחות את הצוף בשכבה דקה בתוך תאי השעווה, ואלפי דבורים <b>מנפנפות בכנפיים</b> — כמו מאווררים זעירים. הכוורת חמה, כ־<span class="num">35</span> מעלות, והמים מתאדים. יום, יומיים, שלושה — והמים יורדים מ־<span class="num">80</span> אחוז לפחות מ־<span class="num">20</span>.</p>
+    <p><b>שלב ג׳:</b> כשהדבש מספיק סמיך, הדבורים <b>סוגרות את התא במכסה שעווה</b>. זו הצנצנת הסגורה הראשונה בעולם — ובתוכה הדבש מחכה לחורף, כשאין פרחים. באינטראקטיב: נחשו כמה מהצוף ייעלם בדרך, הפעילו את המאווררים, וצפו במד המים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>שלושה שלבים, ובכל אחד כימיה. <b>א׳ — האנזימים:</b> הסוכר שבצוף הוא בעיקר סוכרוז (סוכר של שולחן). ב"בטן הדבש" של הדבורה ובמעברים מפה לפה מתערבב בו האנזים <b>אינוורטאז</b>, שמפרק כל מולקולת סוכרוז לשתי מולקולות קטנות: גלוקוז ופרוקטוז. אנזים שני, <b>גלוקוז־אוקסידאז</b>, הופך מעט מהגלוקוז לחומצה (לכן הדבש חומצי) ול<b>מי חמצן</b> — שנוצרים בעיקר כשהדבש נרטב, בדיוק כשחיידקים היו רוצים לתקוף.</p>
+    <p><b>ב׳ — הייבוש:</b> הדבורים מורחות את הצוף בשכבה דקה בתאים, מחממות את הכוורת לכ־<span class="num">35</span> מעלות ומנפנפות בכנפיים; המים מתאדים, מ־<span class="num">80</span> אחוז ל־<span class="math">17–18</span>. חישבו: ב־<span class="num">1,000</span> גרם צוף יש <span class="num">200</span> גרם סוכר. בדבש המוכן הסוכר הוא <span class="num">82</span> אחוז, אז מאותם <span class="num">200</span> גרם סוכר יוצאים <span class="math">200 ÷ 0.82 ≈ 244</span> גרם דבש. יותר משלושה רבעים מהמשקל התאדו. <b>ג׳ — המכסה:</b> ברגע שהדבש בשל, הדבורים אוטמות את התא בשעווה. למה? כי דבש הוא <b>היגרוסקופי</b> — הוא מושך מים גם מהאוויר, ודבש שלא נאטם היה חוזר ונרטב. באינטראקטיב: נחשו, הפעילו את המאווררים — וגם נסו בלי.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — מייבשים צוף ===== -->
+  <div class="panel instrument">
+    <h3>מייבשים צוף</h3>
+    <p class="cap">תא אחד בחלת הדבש, מלא צוף טרי. נחשו: כמה ממשקל הצוף יתאדה עד שהוא יהפוך לדבש?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="drP0" onclick="drPredict(0)">בערך רבע</button>
+        <button id="drP1" onclick="drPredict(1)">בערך חצי</button>
+        <button id="drP2" onclick="drPredict(2)">יותר משלושה רבעים</button>
+      </div>
+    </div>
+    <canvas id="drCv" width="640" height="470" aria-label="חתך של תא שעווה משושה מלא בנוזל; דבורים מנפנפות בכנפיים מעליו; מד גדול של אחוז המים יורד מ־80 לכיוון 18, ומדחום מראה 35 מעלות; כשהמים מגיעים ל־18 אחוז מופיע מכסה שעווה על התא; בלי נפנוף הנוזל נשאר דליל ומופיעות בועות"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="נפנוף">
+        <button id="drM1" class="on" onclick="drMode(1)">עם מאווררים (כמו באמת)</button>
+        <button id="drM0" onclick="drMode(0)">בלי מאווררים</button>
+      </div>
+      <button class="btn small ghost" id="drPlay" onclick="drPlay()">הפעילו את הכוורת</button>
+      <label style="min-width:160px">זמן (ימים)
+        <input type="range" id="drT" min="0" max="100" step="1" value="0" oninput="drDraw(1)" aria-label="זמן" style="direction:ltr">
+      </label>
+    </div>
+    <p class="cap" id="drMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="aha">כלל אצבע: <b>דבש הוא צוף שהוציאו ממנו את המים.</b> מארבע כפות צוף נשארת כף אחת של דבש — וכל השאר עלה באוויר מנפנוף הכנפיים.</div>
+
+  <div class="q qc" id="dryQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE HIVES THAT BURNED AND SURVIVED (interactive 3: the apiary) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>הכוורת שנשרפה — ונשמרה</h2>
+  <p>בני אדם הבינו שדבש נשמר הרבה לפני שידעו למה. הציור העתיק ביותר של כוורנים בעבודה נמצא במקדש במצרים, והוא בן כ־<span class="num">4,400</span> שנה. וה<b>כוורת</b> העתיקה ביותר שנמצאה אי פעם בחפירה? בישראל. ב־<span class="num">2005</span> חפרו ארכאולוגים מהאוניברסיטה העברית, בראשות <b>עמיחי מזר</b> ו<b>נאוה פניץ־כהן</b>, בתל רחוב שבעמק בית שאן — כחמישה קילומטרים דרומית לבית שאן — ומצאו שורות של גלילי חרס מוזרים.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>כל גליל היה באורך של כ־<span class="num">80</span> סנטימטרים — כמו תינוק בן שנה — וברוחב של <span class="num">40</span>, עשוי מחימר ומקש. בקצה אחד חור קטן, ובקצה השני מכסה שאפשר להסיר. אלה היו <b>כוורות</b>! שלושים כוורות שרדו, מסודרות בשורות, שלוש קומות זו על זו, וחוקרים משערים שהיו שם כמאה. ואיך יודעים שזה לא סתם צינור? כי הכוורות <b>נשרפו</b> בשרפה גדולה לפני כשלושת אלפים שנה, והאש שימרה בפנים שאריות מפוחמות של חלת דבש — ובתוכן דבורים: כנפיים, רגליים, אפילו גלמים.</p>
+    <p>כוורת בגודל כזה נותנת בערך <span class="num">5</span> קילוגרם דבש בשנה. אז מאה כוורות — <b>כחצי טון דבש</b>! מפעל שלם, בלב עיר, לפני <span class="num">3,000</span> שנה, בימי המלכים הראשונים של ישראל. באינטראקטיב: בנו את המכוורת בעצמכם.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הגלילים, כ־<span class="num">80</span> סנטימטרים אורך ו־<span class="num">40</span> קוטר, עם דפנות בעובי <span class="num">4</span> סנטימטרים, עשויים חימר לא שרוף מעורב בקש. בקצה אחד חור כניסה לדבורים, בקצה השני מכסה נשלף לרדיית הדבש — בדיוק כמו כוורות חרס שכוורנים בכפרי המזרח התיכון השתמשו בהן עד המאה העשרים. במקום נמצאו כ־<span class="num">30</span> כוורות, בשלוש שורות של שלוש קומות, וההערכה היא שהיו שם <span class="math">100–200</span>. אחת־עשרה בדיקות פחמן־<span class="num">14</span> על גרגרי תבואה מהמכוורת תיארכו אותה לסוף המאה העשירית או תחילת התשיעית לפני הספירה — לפני כ־<span class="num">2,900</span> שנה, ימיה הראשונים של ממלכת ישראל.</p>
+    <p>כוורת כזאת נותנת <span class="math">3–5</span> קילוגרם דבש ו־<span class="math">0.5–0.7</span> קילוגרם שעווה בשנה; מאה כוורות — כחצי טון דבש. ולמה שרד משהו בכלל? שרפה. הכוורות נהרסו באש, חלות הדבש התפחמו — ובפחם נשמרו חלקי דבורים. ליד המכוורת נמצאו גם מזבח קטן וכד עם הכתובת "לנמשי" — אולי שם המשפחה שהמכוורת הייתה שלה. באינטראקטיב: בנו את המכוורת, וחשבו כמה דבש יצא ממנה.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — מכוורת בעמק ===== -->
+  <div class="panel instrument">
+    <h3>מכוורת בעמק</h3>
+    <p class="cap">גררו את המחוון והוסיפו כוורות חרס, שלוש קומות זו על זו, כמו בתל רחוב. כמה דבש יוצא בשנה?</p>
+    <canvas id="apCv" width="640" height="470" aria-label="שורות של גלילי חרס מסודרים בשלוש קומות, מספרם גדל עם המחוון; מימין כוורת אחת מקרוב עם חור כניסה, מכסה, ומידות 80 ו־40 סנטימטרים; למעלה המספרים הגדולים: כמה כוורות, כמה קילוגרם דבש בשנה וכמה צנצנות"></canvas>
+    <div class="controls">
+      <label>כוורות
+        <input type="range" id="apN" min="1" max="150" step="1" value="1" oninput="apDraw(1)" aria-label="מספר כוורות" style="direction:ltr">
+      </label>
+      <div class="readout"><b class="num" id="apOut">5</b> ק״ג דבש בשנה</div>
+    </div>
+    <p class="cap" id="apMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="q qc" id="hiveQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE STORY -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>הבלש שזיהה דבורה לפי כנף אחת</h2>
+    <p>נחזור לאגדה מההתחלה: הדבש מהקבר במצרים. הסיפור הזה מופיע בכל מקום — בספרים, בסרטונים, בכתבות. אבל כשחוקרים חיפשו את המקור, הם לא מצאו דו״ח של מעבדה, לא שם של קבר ולא שם של ארכאולוג שטעם. מה שכן נמצא בכדים עתיקים במצרים היה לרוב גוש שחור ודביק — שאריות שהתייבשו והתפוררו. אז האגדה כנראה <b>לא נכונה</b> כמו שמספרים אותה. אבל המדע שמאחוריה נכון: בצנצנת <b>סגורה היטב</b>, שאין לה מאיפה למשוך מים, דבש באמת יכול להחזיק אלפי שנים. הדבש העתיק ביותר שנמצא באמת הוא שאריות בכדי חרס בקבר בגאורגיה, בן כ־<span class="num">5,500</span> שנה. לא לאכילה — אבל אפשר לזהות שזה דבש.</p>
+    <p>ועכשיו לבלש. בכוורות בתל רחוב מצאו חלות דבש שרופות, ובתוכן חלקי דבורים. <b>גיא בלוך</b>, חוקר דבורים מהאוניברסיטה העברית, קיבל למעבדה <span class="num">17</span> כנפיים מפוחמות וכמה עשרות רגליים. לכל זן של דבורים יש כנף קצת אחרת — הקווים שבה מסודרים בצורה שונה, כמו טביעת אצבע. בלוך מדד את הקווים והשווה למאגר של דבורים מכל העולם. והתוצאה הפתיעה: אלה לא היו הדבורים המקומיות שלנו, אלא <b>דבורים מטורקיה</b>, ממרחק של מאות קילומטרים!</p>
+    <p>למה שמישהו יביא דבורים מרחוק? הדבורה המקומית, הסורית, עצבנית ועוקצת הרבה — לא נעים לגדל מאה כוורות שלה באמצע עיר. הדבורה הטורקית רגועה יותר ונותנת יותר דבש. אז או שלפני <span class="num">3,000</span> שנה סוחרים הביאו מלכות דבורים מטורקיה בכדים, או שאז הדבורים האלה חיו גם כאן, ומאז נעלמו. החוקרים אומרים בכנות: עוד לא יודעים איזו אפשרות נכונה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>האגדה, הבלש והכנפיים המפוחמות</h2>
+    <p>קודם — האגדה. "ארכאולוגים מצאו בקבר מצרי דבש בן <span class="num">3,000</span> שנה, ועדיין אפשר לאכול אותו." המשפט הזה מודפס באלפי ספרים וכתבות. אבל כשחוקרים ניסו לאתר את המקור, הם לא מצאו דו״ח מעבדה, שם של קבר או שם של אדם שטעם. ביומני החפירה של קבר תות ענח׳ אמון אין בדיקה כזאת, ומה שנמצא בכדים מצריים אחרים היה בדרך כלל <b>שארית שחורה וקשה</b>, לא דבש. אז זו כנראה אגדה. אבל היא אגדה עם כימיה נכונה: בכלי <b>אטום</b>, שאין לו מאיפה לשאוב מים, דבש באמת יכול להחזיק אלפי שנים. הדבש העתיק ביותר שזוהה בוודאות הוא שאריות בכדי חרס מקבר בגאורגיה, ליד צינור נפט שנחפר ב־<span class="num">2003</span> — כ־<span class="num">5,500</span> שנה, ואפשר היה אפילו לומר מאילו פרחים הוא.</p>
+    <p>ועכשיו — הבלש. בחלות המפוחמות מתל רחוב נשמרו <span class="num">17</span> כנפיים וכמה עשרות רגליים של דבורים. <b>גיא בלוך</b>, חוקר דבורים מהאוניברסיטה העברית, השתמש בשיטה שנקראת <b>מורפומטריה</b>: מודדים את הזוויות והאורכים של הקווים בכנף (הוורידים), ומשווים למאגר של מדידות מזני דבורים מכל העולם. לכל זן יש "טביעת כנף" משלו. התוצאה, שפורסמה ב־<span class="num">2010</span>: הדבורים לא היו הזן המקומי, <i>Apis mellifera syriaca</i>, אלא <i>Apis mellifera anatoliaca</i> — <b>הדבורה האנטולית</b>, שחיה היום בטורקיה, מאות קילומטרים צפונה. "התוצאות היו חד־משמעיות", אמר בלוך.</p>
+    <p>למה דווקא הדבורה מטורקיה? הדבורה הסורית תוקפנית מאוד ונוטה לנטוש את הכוורת; הדבורה האנטולית רגועה ונותנת הרבה יותר דבש. יש שתי אפשרויות: או שלפני <span class="num">3,000</span> שנה כוורנים כבר ידעו לייבא מלכות מארץ רחוקה — מסחר מתוחכם להפליא — או שתחום המחיה של הדבורה האנטולית השתרע אז דרומה עד עמק הירדן. החוקרים כותבים בכנות שאי אפשר עדיין להכריע. ועוד דבר שהתגלית שינתה: בתנ״ך כתוב "ארץ זבת חלב ודבש", ורבים חשבו שהכוונה לסירופ תמרים, כי לא היו עדויות לגידול דבורים. תל רחוב הראתה שדבש דבורים היה כאן <b>תעשייה</b>.</p>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>הצנצנת הפתוחה</h2>
+    <p>אם דבש לא מתקלקל, למה על הצנצנת כתוב "לסגור היטב"? כי לדבש יש חולשה אחת: הסוכר הצמא שלו מושך מים <b>גם מהאוויר</b>. בצנצנת פתוחה, בחדר לח, השכבה העליונה של הדבש סופגת לאט־לאט מים מהאוויר ונעשית דלילה ומימית. ופתאום יש בה מספיק מים בשביל <b>שמרים</b> — פטריות זעירות שאוהבות סוכר. הם אוכלים אותו ופולטים בועות של גז: הדבש "תוסס" ומקבל טעם חמוץ. זה בדיוק מה שהדבורים מונעות עם מכסה השעווה, ומה שאנחנו מונעים עם מכסה הצנצנת.</p>
+    <p>ועוד דבר שמבלבל הרבה אנשים: דבש שנעשה <b>קשה ולבנבן</b> בצנצנת לא התקלקל! זה הסוכר שמסתדר בגבישים קטנים, כמו סוכר בשקית. קערה עם מים חמים מהברז מחזירה אותו לנוזל. ודבר אחרון, חשוב: לתינוקות מתחת לגיל שנה לא נותנים דבש. בדבש יכולים להיות <b>נבגים</b> — "זרעים" קשוחים של חיידק שישן וממתין למים. לילדים ולמבוגרים הם לא מזיקים, אבל הבטן של תינוק עדיין לא יודעת להתמודד איתם. באינטראקטיב: פתחו את הצנצנת, הגבירו את הלחות, וראו מה קורה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>למה דווקא על הגבול</h2>
+    <p>הנה מה שמעניין: דבש עומד <b>בדיוק</b> על גבול החיים. פעילות המים שלו היא כ־<span class="math">0.56–0.62</span>, ומתחת ל־<span class="num">0.6</span> שום יצור לא מתרבה. אבל יש שמרים מיוחדים, "אוהבי סוכר", שמסתדרים גם ב־<span class="num">0.62</span>. לכן דבש שספג קצת מים — יותר מכ־<span class="num">19</span> אחוז — כבר יכול להתחיל <b>לתסוס</b>: השמרים אוכלים סוכר ופולטים פחמן דו־חמצני ואלכוהול. וזה בדיוק למה לדבש יש גבול חוקי: כוורנים לא רשאים למכור דבש עם יותר מכ־<span class="num">20</span> אחוז מים. איך הדבש סופג מים? הוא <b>היגרוסקופי</b>: כשהאוויר לח יותר מהדבש (לחות יחסית מעל כ־<span class="num">60</span> אחוז), מולקולות מים עוברות מהאוויר אל השכבה העליונה. בצנצנת פתוחה בתל אביב בקיץ זה קורה תוך ימים; בכד חרס אטום בקבר יבש — לעולם לא.</p>
+    <p>ומה עם הנבגים? חיידקים כמו <i>קלוסטרידיום בוטולינום</i> יודעים להסתגר ב<b>נבג</b> — קופסה קשוחה ויבשה שמחכה למים. הדבש לא הורג נבגים; הוא רק מונע מהם להתעורר. לכן דבש בטוח לכולם חוץ מתינוקות מתחת לגיל שנה, שמערכת העיכול שלהם עדיין לא יודעת להשתיק את הנבגים. וגבישים? דבש שהתגבש לא התקלקל — הגלוקוז שבו הסתדר בגבישים (דבש עשיר בפרוקטוז נשאר נוזלי יותר זמן). באינטראקטיב: פתחו את הצנצנת, שנו את הלחות, ומצאו את יום התסיסה.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> כוורת חרס מתל רחוב היא גליל: אורכה <span class="num">80</span> סנטימטרים, והקוטר <b>הפנימי</b> שלה (אחרי הדפנות) כ־<span class="num">30</span> סנטימטרים. (א) מה הנפח הפנימי שלה <b>בליטרים</b>? רמז: נפח גליל = <span class="math">π × r × r × h</span>; הרדיוס הוא חצי מהקוטר; <span class="math">π ≈ 3.14</span>; התוצאה יוצאת בסמ״ק, ו־<span class="math">1,000</span> סמ״ק = ליטר אחד. (עגלו לליטר שלם.) (ב) המכוורת נתנה כחצי טון — <span class="num">500</span> קילוגרם — דבש בשנה. דבש כבד ממים: ליטר דבש שוקל כ־<span class="num">1.4</span> קילוגרם. כמה <b>כוורות מלאות עד הסוף</b> היה ממלא כל הדבש של שנה? רמז: קודם המירו את הדבש לליטרים (<span class="math">500 ÷ 1.4</span>), ואז חלקו בנפח של כוורת אחת מ־(א). (עגלו לכוורת שלמה; מותר מחשבון.)</p>
+      <div class="controls">
+        <label>(א) ליטרים בכוורת <input type="number" id="chalVol" inputmode="numeric" step="1" placeholder="?"></label>
+        <label>(ב) כוורות מלאות <input type="number" id="chalHives" inputmode="numeric" step="1" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()" data-g="בדוק|בדקי">בדקי</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> לפני <span class="num">3,000</span> שנה סוחרים העבירו דבש בכדים על גבי חמורים, שבועות בדרך, בלי שהתקלקל — אבל אף אחד לא סחר בחלב טרי למרחקים. למה? ומה היה קורה לדבש בכד אם הסוחר היה שוכח את הפקק ביום גשום?</p>
+      <details><summary>הרמז והתשובה</summary><p><b>חלב</b> הוא כ־<span class="num">87</span> אחוז מים, ופעילות המים שלו כמעט <span class="num">1.0</span> — גן עדן לחיידקים; תוך יום הוא מחמיץ. <b>דבש</b> הוא כ־<span class="num">18</span> אחוז מים, פעילות מים כ־<span class="num">0.6</span>, חומצי, ועם מעט מי חמצן — שום דבר לא מתרבה בו. לכן דבש (וגם שמן, יין, דגים מלוחים ותאנים מיובשות) היה סחורה שאפשר להעביר למרחקים, וחלב הפך לגבינה קשה או ליוגורט — גם שם מפחיתים מים או מוסיפים חומצה. <b>הפקק:</b> דבש היגרוסקופי. בכד פתוח ביום לח, השכבה העליונה סופגת מים מהאוויר, פעילות המים שלה עולה מעל <span class="num">0.62</span>, ושמרים "אוהבי סוכר" מתחילים לתסוס — בועות, ריח של יין, וטעם חמוץ. השכבה התחתונה, הסמיכה, הייתה שורדת עוד הרבה זמן. הדבורים פותרות בדיוק את הבעיה הזאת עם מכסה השעווה.</p></details>
+    </div>
+  </div>
+
+  <!-- ===== INTERACTIVE 4 — הצנצנת הפתוחה ===== -->
+  <div class="panel instrument">
+    <h3>הצנצנת הפתוחה</h3>
+    <p class="cap">צנצנת דבש בחדר. הסירו את המכסה, קבעו כמה לח האוויר, והפעילו את הזמן: מתי הדבש מתחיל לתסוס?</p>
+    <canvas id="jrCv" width="640" height="470" aria-label="צנצנת דבש עם מכסה שאפשר להסיר; טיפות מים נכנסות מהאוויר אל השכבה העליונה כשהמכסה פתוח והאוויר לח; מד גדול של אחוז המים בשכבה העליונה; כשהוא עובר 19 אחוז מופיעות בועות ושלט 'תוסס'"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="מכסה">
+        <button id="jrL1" class="on" onclick="jrLid(1)">מכסה סגור</button>
+        <button id="jrL0" onclick="jrLid(0)">מכסה פתוח</button>
+      </div>
+      <label style="min-width:160px">לחות האוויר
+        <input type="range" id="jrH" min="20" max="90" step="5" value="70" oninput="jrDraw(1)" aria-label="לחות" style="direction:ltr">
+      </label>
+      <button class="btn small ghost" id="jrPlay" onclick="jrPlay()">הריצו חודש</button>
+      <label style="min-width:160px">זמן (ימים)
+        <input type="range" id="jrT" min="0" max="100" step="1" value="0" oninput="jrDraw(1)" aria-label="זמן" style="direction:ltr">
+      </label>
+    </div>
+    <p class="cap" id="jrMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="q qc" id="openQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>מרוץ עובש, סוכר שמייבש תפוח, וצנצנת שחזרה לחיים.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — מרוץ העובש (<span class="num">5</span> דקות, ואז שבוע של הצצות)</h3>
+    <p class="cap">מה צריך: שתי כפיות, שתי צלוחיות, דבש, סוכר, מים, ומדף שקט במטבח (לא במקרר).</p>
+    <ol>
+      <li><b>צלוחית א׳:</b> כפית דבש. <b>צלוחית ב׳:</b> כפית סוכר מעורבבת בכפית מים — "צוף" תוצרת בית, בערך חצי מים. אפשר להוסיף <b>צלוחית ג׳:</b> חתיכת לחם קטנה — האלוף הצפוי של המרוץ.</li>
+      <li>געו בכל אחת בקצה האצבע (ככה מזמינים חיידקים אמיתיים מהאוויר ומהיד), ותנו להן לשבת פתוחות על המדף.</li>
+      <li><b>הציצו כל יום.</b> הלחם והסוכר־במים יתחילו להתעפש או להחמיץ תוך כמה ימים. הדבש? כלום. אם החדר לח מאוד, הדבש אולי ייעשה קצת דליל למעלה — זה הדבש ששואב מים מהאוויר, בדיוק כמו באינטראקטיב.</li>
+      <li><b>למה?</b> לסוכר־במים יש הרבה מים זמינים; לדבש כמעט אין. אותו סוכר, כמות מים אחרת — וזה כל ההבדל בין מזון שמחזיק שבוע למזון שמחזיק אלפי שנים.</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — הסוכר שמייבש תפוח (<span class="num">10</span> דקות + שעה של המתנה)</summary>
+    <p>חתכו שתי פרוסות תפוח דקות ושוות. את אחת הניחו על צלחת, ואת השנייה טבלו בדבש (או כסו במלח גס — אותו רעיון). חכו שעה, והשוו: הפרוסה שבדבש נעשתה רכה, מקומטת ונוטפת, והדבש שסביבה נעשה דליל יותר — כי הוא <b>משך את המים מתוך התפוח</b>. זה בדיוק מה שקורה לחיידק שנוחת על דבש, רק שהחיידק קטן פי מיליון ומתייבש תוך רגעים. ולמלח? אותו טריק. הביטו במטבח: ריבה, דג מלוח, מלפפון חמוץ — כולם משמרים בעזרת סוכר, מלח או חומצה.</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — הצנצנת שחזרה לחיים (<span class="num">10</span> דקות)</summary>
+    <p>חפשו בבית צנצנת דבש ישנה שנעשתה קשה או לבנבנה. היא לא התקלקלה — הסוכר התגבש. שימו אותה (עם מכסה) בקערה עם מים חמים מהברז, לא רותחים, ל־<span class="num">10</span> דקות, וערבבו. הגבישים נמסים והדבש חוזר לנוזל צלול. למה לא במיקרוגל או במים רותחים? כי חום גבוה הורס את האנזים שמייצר את מי החמצן, ומשנה את הטעם. הדבורים חיממו ל־<span class="num">35</span> מעלות — ואנחנו לא צריכים יותר.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הסיפור של היום הוא על <b>מים</b>. כל דבר חי צריך מים, גם היצורים שמקלקלים לנו את האוכל. ומי ששולט במים שולט בקלקול: הדבורים מוציאות את המים מהצוף, הסוכר מחזיק את המים שנשארו, והמכסה שומר שלא ייכנסו חדשים. שלושה שומרים, ודבש שיכול להחזיק אלפי שנים. וכשמבינים את זה, פתאום כל המטבח נראה אחרת: ריבה, צימוקים, דג מלוח, פסטה יבשה — כולם אותו רעיון.</p>
+    <p>והדבר השני: <b>לא כל סיפור יפה הוא נכון</b>. את הדבש מהקבר המצרי כולם מספרים, אבל אף אחד לא מצא את הדו״ח. זה לא אומר שהדבש לא היה מחזיק — הכימיה אומרת שכן. זה אומר שצריך לשאול "איך יודעים?". ובעמק בית שאן, לעומת זאת, נמצאו כוורות אמיתיות בנות <span class="num">3,000</span> שנה, שהוצגו בתערוכה במוזיאון ארץ ישראל. הסיפור האמיתי מנצח את האגדה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הגדול הראשון: <b>לא כמות המים קובעת, אלא כמה מהם זמינים</b>. פעילות מים היא מספר אחד שמסביר למה ריבה, דבש, בשר מיובש, גבינה קשה ומלפפון חמוץ מחזיקים — ולמה לחם, חלב ותפוח לא. סוכר, מלח, ייבוש וחומצה הם ארבע דרכים לעשות אותו דבר: להוריד את המספר הזה. כל טכנולוגיית שימור מזון עד המצאת המקרר היא וריאציה על הרעיון הזה, והדבורים הגיעו אליו לפני שהיו בני אדם.</p>
+    <p>הרעיון השני: <b>איך יודעים?</b> האגדה על הדבש המצרי היא דוגמה לעובדה שכולם "יודעים" בלי מקור. המדע לא דוחה אותה בגלל שהיא לא סבירה — היא דווקא סבירה — אלא כי אין ראיה. ובאותו זמן, מ־<span class="num">17</span> כנפיים שרופות אפשר לדעת בוודאות שהדבורים בתל רחוב באו מאנטוליה, כי יש מדידה, מאגר השוואה ומאמר שאפשר לבדוק. ראיה קטנה ומדויקת שווה יותר מסיפור גדול בלי מקור. והרעיון השלישי, הכנה: החוקרים לא יודעים איך הדבורים הגיעו לעמק — סחר או תחום מחיה שהשתנה — ואומרים זאת. שאלה לחקור: אילו עוד מזונות "לא מתקלקלים" — ומה המנגנון בכל אחד? (רמז: אורז יבש, מלח, סוכר, חומץ.)</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">כימיה · מטבח</div><h3>ריבה, מלפפון חמוץ ודג מלוח</h3><p>ריבה היא פרי שבישלו עם הרבה סוכר — פעילות מים כ־<span class="num">0.8</span>, נמוך מדי לרוב החיידקים. מלפפון חמוץ יושב בחומץ, כמו הדבש החומצי. דג מלוח וזיתים במלח — אוסמוזה עם מלח במקום סוכר. סבתות ידעו את הכימיה של הדבורים הרבה לפני שהיה לה שם.</p></div>
+    <div class="tile"><div class="dom">רפואה · היסטוריה</div><h3>תחבושת מדבש</h3><p>בלוחות חרס שומריים בני כ־<span class="num">4,000</span> שנה דבש מופיע בכשליש מהמרשמים, והמצרים מרחו אותו על פצעים. זה עבד: הסוכר מייבש חיידקים, מי החמצן מחטאים, והחומציות מפריעה להם. גם היום יש בבתי חולים תחבושות עם דבש רפואי מעוקר — לפצעים שקשה לרפא.</p></div>
+    <div class="tile"><div class="dom">היסטוריה · תנ״ך</div><h3>ארץ זבת חלב ודבש</h3><p>מאות שנים חשבו חוקרים ש"דבש" בתנ״ך הוא בעיקר סירופ תמרים, כי לא נמצאו עדויות לכוורות. ואז, ב־<span class="num">2005</span>, צצו בתל רחוב כשלושים כוורות מימי המלכים הראשונים — ומשערים שהיו כמאה — תעשייה שלמה של דבש דבורים. וגם שמשון מצא דבש "בגוויית האריה": נחיל בר שהתיישב בשלד יבש.</p></div>
+    <div class="tile"><div class="dom">ביולוגיה · פיזיקה</div><h3>המזגן של הכוורת</h3><p>הדבורים מנפנפות לא רק כדי לייבש צוף: הן שומרות על הכוורת ב־<span class="num">35</span> מעלות כל עונת הגידול. בחום הן מביאות מים ומנפנפות כדי לאדות אותם (כמו זיעה), ובקור הן רועדות בשרירי הכנפיים כדי להתחמם. אלפי חרקים קטנים שמפעילים יחד מזגן — בלי חשמל.</p></div>
+  </div>
+
+  <details class="bonus" id="latBox">
+    <summary>בונוס (2 דקות): הדבש שבמעמקי הים</summary>
+    <p>הדבש הוא לא המזון היחיד שמחזיק אלפי שנים. בספינות טרופות מהעת העתיקה, בקרקעית הים התיכון, נמצאו כדים אטומים ובהם שמן זית, יין, ואפילו זיתים — במים קרים, בלי חמצן ובלי אור, שלושת התנאים שהחיידקים הכי לא אוהבים. ובאיים הקרים בצפון מוצאים <b>חמאה</b> בת אלפי שנים בביצות: קרה, חומצית, בלי חמצן. לא מומלץ לטעום — אבל זו עדיין חמאה.</p>
+    <details><summary>שאלה קטנה</summary><p>למה כל המזונות ה"נצחיים" — דבש, מלח, סוכר, אורז יבש — הם יבשים או מלאי סוכר או מלח, ואף פעם לא, למשל, מרק?</p>
+      <p data-level="advanced">כי הגורם המשותף הוא <b>פעילות המים</b>, לא הטעם. מרק הוא כ־<span class="num">90</span> אחוז מים חופשיים, פעילות מים כ־<span class="num">0.99</span> — כל חיידק ופטרייה מתרבים בו. סוכר ומלח "תופסים" מולקולות מים בקשרים כימיים כך שהן לא זמינות (פעילות מים נמוכה גם כשיש מים), וייבוש פשוט מסלק אותן. הסף: רוב החיידקים עוצרים מתחת ל־<span class="num">0.91</span>, עובשים מתחת ל־<span class="num">0.7</span>, ושום דבר לא מתרבה מתחת ל־<span class="num">0.6</span>. תרגיל: ריבה ביתית עם פחות סוכר (פעילות מים כ־<span class="num">0.85</span>) — מי כן יגדל בה? (עובשים. לכן ריבה דיאטטית חייבת מקרר, וריבה רגילה לא.)</p>
+      <p data-level="standard">כי הדבר שכולם חולקים הוא <b>מעט מים זמינים</b>. במרק כמעט הכל מים חופשיים, וכל חיידק שמח בו. סוכר ומלח "תופסים" את המים כך שהחיידקים לא יכולים להשתמש בהם, וייבוש פשוט מסלק אותם. לכן ריבה מחזיקה על המדף ומרק לא — גם אם שניהם עשויים מאותם ירקות ופירות.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את הדרך מפרח לצנצנת שמחזיקה אלפי שנים. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: כוורת חרס אחת בתל רחוב נתנה בערך <span class="num">5</span> קילוגרם דבש בשנה. כמה קילוגרם דבש נתנו <span class="num">20</span> כוורות בשנה?</div>
+    <div class="controls"><label>קילוגרם <input type="number" id="numYounger" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')" data-g="בדוק|בדקי">בדוק</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: הדבורים הביאו לכוורת <span class="num">1,250</span> גרם צוף. צוף הוא <span class="num">80</span> אחוז מים. (א) כמה גרם <b>מים</b> יש בצוף? (ב) כל הסוכר שבצוף עובר לדבש, ובדבש המוכן הסוכר הוא <span class="num">82</span> אחוז מהמשקל (השאר מים). כמה גרם <b>דבש</b> ייצאו מהצוף הזה? רמז: קודם כמה גרם סוכר יש בצוף (<span class="math">1,250 − </span>המים), ואז: הסוכר הוא <span class="num">82</span> אחוז מהדבש, אז הדבש = הסוכר חלקי <span class="num">0.82</span>. (עגלו לגרם שלם; סטייה של עד <span class="num">5</span> גרם מתקבלת; מותר מחשבון.)</div>
+    <div class="controls"><label>(א) גרם מים <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) גרם דבש <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: הדבורים הביאו לכוורת <span class="num">500</span> גרם צוף. צוף הוא <span class="num">80</span> אחוז מים. כמה גרם <b>מים</b> יש בצוף — כלומר כמה גרם צריכים להתאדות עד שיישאר בעיקר סוכר? (מותר מחשבון.)</div>
+    <div class="controls"><label>גרם מים <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה דבש לא מתקלקל, מה הדבורים עושות לצוף כדי שיהיה כזה — ומה מצאו בתל רחוב?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="בדבש יש הרבה סוכר וכמעט אין מים, ולכן..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. דבש לא מתקלקל כי הוא כ־<span class="num">80</span> אחוז סוכר ורק כ־<span class="num">18</span> אחוז מים: הסוכר "צמא" ומושך את המים מכל חיידק או עובש שנוחת עליו, עד שהוא מתייבש (אוסמוזה). בנוסף הדבש חומצי כמו מיץ תפוזים, ואנזים מהדבורים מייצר בו מעט מי חמצן. הסיפור על הדבש הטעים מהקבר המצרי הוא כנראה אגדה — אין דו״ח, ובכדים נמצא גוש שחור — אבל בכלי אטום דבש באמת יכול להחזיק אלפי שנים. הדבש העתיק ביותר שזוהה: גאורגיה, כ־<span class="num">5,500</span> שנה.<br>
+    2. הדבורים מייצרות דבש בשלושה שלבים: מעבירות את הצוף (כ־<span class="num">80</span> אחוז מים) מפה לפה עם אנזימים שחותכים את הסוכר; מורחות אותו בתאים ומנפנפות בכנפיים ב־<span class="num">35</span> מעלות עד שנשארים רק <span class="math">17–18</span> אחוז מים; ואוטמות את התא במכסה שעווה. מ־<span class="num">1,000</span> גרם צוף יוצאים רק כ־<span class="num">240</span> גרם דבש. ולמה לסגור את הצנצנת? כי דבש מושך מים מהאוויר, ודבש רטוב מתחיל לתסוס.<br>
+    3. הכוורות העתיקות ביותר בעולם נמצאו ב־<span class="num">2005</span> בתל רחוב שבעמק בית שאן, בחפירה של עמיחי מזר: גלילי חרס באורך <span class="num">80</span> ס״מ, בערך <span class="num">30</span> שרדו ומשערים שהיו כמאה — כחצי טון דבש בשנה, לפני כ־<span class="num">3,000</span> שנה. הן נשרפו, ובפחם נשמרו <span class="num">17</span> כנפיים של דבורים. גיא בלוך מדד אותן וגילה: אלה דבורים מטורקיה, רגועות יותר מהדבורה המקומית העוקצנית.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>תל רחוב: A. Mazar &amp; N. Panitz-Cohen, "The Apiary at Tel Rehov — an update" (<span class="num">2022</span>, אתר גיא בלוך, האוניברסיטה העברית) — התגלית ב־<span class="num">2005</span>, כ־<span class="num">30</span> כוורות שנחשפו, כ־<span class="num">60</span> משוחזרות בקומה התחתונה ועד כ־<span class="num">180</span> בשלוש קומות; מידות <span class="math">0.8 × 0.4</span> מ׳ ונפח כ־<span class="num">56</span> ליטר; <span class="math">3–5</span> ק״ג דבש ו־<span class="math">0.5–0.7</span> ק״ג שעווה לכוורת בשנה, כ־<span class="num">500</span> ק״ג דבש ל־<span class="num">100</span> כוורות; <span class="num">11</span> תאריכי פחמן־<span class="num">14</span> על גרגרים — סוף המאה העשירית/תחילת התשיעית לפנה״ס; המזבח וכד "לנמשי". ScienceDaily / האוניברסיטה העברית (<span class="num">4.9.2007</span>) — "כחצי טון דבש בשנה", כ־<span class="num">100</span> כוורות, המכוורת העתיקה ביותר שנחשפה בחפירה. Wikipedia, "Tel Rehov" — <span class="num">5</span> ק״מ דרומית לבית שאן, <span class="num">3</span> ק״מ מערבית לירדן, חפירות <span class="math">1997–2012</span> בראשות מזר, דפנות בעובי <span class="num">4</span> ס״מ, הערכה <span class="math">100–200</span> כוורות. הדבורים: G. Bloch et al., "Industrial apiculture in the Jordan valley during Biblical times with Anatolian honeybees", PNAS <span class="num">107</span> (<span class="num">2010</span>) — שאריות פועלות, זכרים, גלמים ורימות; מורפומטריה; <i>A. m. anatoliaca</i> ולא <i>A. m. syriaca</i>; "מזג נוח יותר ותנובת דבש גבוהה יותר"; Nature blog "Iron age buzz" (<span class="num">2010</span>) — <span class="num">17</span> כנפיים ועשרות רגליים, הציטוט "התוצאות היו חד־משמעיות", הדבורה הסורית "תוקפנית מאוד", שתי ההשערות (ייבוא מול תחום מחיה שהשתנה). מוזיאון ארץ ישראל, "ארץ זבת חלב ודבש" — הכוורות ופרשנות ה"דבש" במקרא. הכימיה: Wikipedia, "Honey" — <span class="num">17</span> אחוז מים (<span class="math">15.5–18</span>), <span class="num">82</span> אחוז פחמימות (פרוקטוז <span class="num">38</span>, גלוקוז <span class="num">31</span>), pH <span class="math">3.4–6.1</span> (ממוצע <span class="num">3.9</span>), צפיפות <span class="math">1.38–1.45</span> ק״ג לליטר, צוף <span class="math">70–80</span> אחוז מים, כוורת כ־<span class="num">35</span> מעלות, נפנוף ואידוי, גלוקוז־אוקסידאז → חומצה גלוקונית ומי חמצן, סיכון תסיסה עולה בהרטבה (הערך "מעל <span class="num">25</span> אחוז" שם; בשיעור: כ־<span class="num">19</span>, לפי סף השמרים האוסמופיליים), "לא נמצא דבש אכיל בקברים מצריים — כל המקרים התבררו כחומרים אחרים", השאריות בגאורגיה בנות <span class="math">4,700–5,500</span> שנה. Smithsonian Magazine, "The Science Behind Honey's Eternal Shelf Life" — pH <span class="math">3–4.5</span>, גלוקוז־אוקסידאז, היגרוסקופיות, לוחות שומריים (דבש ב־<span class="num">30</span> אחוז מהמרשמים), משחות במצרים (אמינה האריס, UC Davis). Space Daily (<span class="num">2026</span>) — האגדה המצרית "ברובה פולקלור": אין תיעוד מעבדתי אצל קרטר, שאריות "כמו זפת"; פעילות מים כ־<span class="num">0.56</span>, סף עובש <span class="num">0.7</span>. Aqualab, "How water activity controls microbial growth" — רוב החיידקים לא מתחת ל־<span class="num">0.91</span>, עובשים לא מתחת ל־<span class="num">0.7</span>, שמרים אוסמופיליים עד <span class="num">0.62</span>, "אין התרבות" ב־<span class="num">0.6</span>. Eurasianet (<span class="num">2012</span>) — גאורגיה: כדי חרס בקבר <span class="num">170</span> ק״מ מערבית לטביליסי, נחשפו ב־<span class="num">2003</span> בעבודות צינור הנפט באקו–טביליסי–ג׳יהאן, כ־<span class="num">5,500</span> שנה, דבש טיליה, פירות יער ופרחי שדה. הציור המצרי: מקדש השמש של ניאוסרע באבו גוראב, השושלת החמישית (כ־<span class="num">2400</span> לפנה״ס; "כ־<span class="num">4,400</span> שנה"). בוטוליזם בתינוקות: NHS / CDC — לא לתת דבש מתחת לגיל <span class="num">12</span> חודשים. פישוטים במכוון: "החיידק בצנצנת" ממפה אחוז סוכר לפעילות מים בקו ישר (<span class="math">1 − 0.0049 × סוכר</span>), קירוב שמתאים לקצוות (<span class="num">0</span> → <span class="num">1.0</span>, <span class="num">82</span> → <span class="num">0.6</span>) ולא לאמצע; "מייבשים צוף" מאיץ את הייבוש לכשלושה ימים ומציג תסיסה בלי נפנוף אחרי יום וחצי — סדר גודל, לא מדידה; "הצנצנת הפתוחה" מדמה ספיגת מים בשכבה העליונה כמתקרבת לשיווי משקל שתלוי בלחות (מעל כ־<span class="num">60</span> אחוז לחות יחסית) — הקצב סכמטי; "כ־<span class="num">5</span> ק״ג לכוורת" הוא הקצה העליון של <span class="math">3–5</span>; "כמאה כוורות" — האומדן השמרני (המחקר: <span class="math">100–200</span>, ואולי עד <span class="num">180</span>); "לפני כ־<span class="num">3,000</span> שנה" — בפועל כ־<span class="math">2,900–2,950</span>; הקוטר הפנימי באתגר (<span class="num">30</span> ס״מ) נגזר מהקוטר החיצוני <span class="num">40</span> ודפנות של <span class="num">4</span> ס״מ (מעוגל כדי שיתאים לנפח <span class="num">56</span> ליטר במאמר); חישובי האתגר: <span class="math">3.14 × 15 × 15 × 80 = 56,520</span> סמ״ק ≈ <span class="num">57</span> ליטר, <span class="math">500 ÷ 1.4 ≈ 357</span> ליטר, <span class="math">357 ÷ 56.5 ≈ 6.3</span>; "מזג נוח יותר" — ניסוח המאמר; "פי <span class="math">3–8</span> דבש" מופיע בוויקיפדיה בלבד ולכן לא בשיעור; המרחק מזכרון יעקב לתל רחוב — כ־<span class="num">80</span> ק״מ בכביש; "<span class="num">20</span> אחוז מים" כגבול חוקי — תקן קודקס אלימנטריוס. לוח עברי: Hebcal.</p>
+  </details>
+</section>
+
+</main>
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:23, code:'WOW-023', date:'2026-10-01', title:'הדבש שלא מתקלקל לעולם — והכוורת בת 3,000 השנה בעמק', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15TXmden16jXldeY154g153Xmdeo15XXkdeT'; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'chemistry', w:3 }, { id:'biology', w:3 }, { id:'history', w:2 }, { id:'geography', w:1 } ],
+  /* lint-ignore: math */
+  hero: { name:'הדבש שלא מתקלקל — הסוכר הצמא, הדבורים שמייבשות, והכוורות של תל רחוב', fact:'דבש: כ־80% סוכר, 17–18% מים, פעילות מים כ־0.6 (חיידקים צריכים מעל 0.91, עובש מעל 0.7, מתחת ל־0.6 שום דבר לא מתרבה), pH כ־3.9, גלוקוז־אוקסידאז → חומצה גלוקונית + מי חמצן; אוסמוזה מייבשת כל חיידק. הדבורים: צוף 70–80% מים → מפה לפה עם אינוורטאז (סוכרוז → גלוקוז + פרוקטוז) → נפנוף ב־35° עד 18% → מכסה שעווה; 1,000 גרם צוף (200 גרם סוכר) → 200 ÷ 0.82 ≈ 244 גרם דבש. היגרוסקופי: צנצנת פתוחה סופגת מים, מעל כ־19% שמרים אוסמופיליים תוססים. האגדה המצרית — בלי מקור (שאריות "כמו זפת"); הדבש העתיק שזוהה: גאורגיה, ~5,500 שנה (2003). תל רחוב (5 ק״מ דרומית לבית שאן): 2005, מזר ופניץ־כהן; ~30 כוורות חרס (80 × 40 ס״מ, דפנות 4 ס״מ, ~56 ליטר), אומדן 100–200, שלוש קומות; 3–5 ק״ג דבש לכוורת → ~500 ק״ג בשנה; פחמן־14: סוף המאה ה־10/תחילת ה־9 לפנה״ס; 17 כנפיים + עשרות רגליים מפוחמות → גיא בלוך, מורפומטריה, PNAS 2010: Apis mellifera anatoliaca (טורקיה), לא syriaca (תוקפנית); ייבוא או תחום מחיה — לא הוכרע; מזבח וכד "לנמשי"; "ארץ זבת חלב ודבש" = דבש דבורים. אתגר: π × 15² × 80 ≈ 56.5 ליטר; 500 ÷ 1.4 ≈ 357 ליטר ÷ 56.5 ≈ 6.3 כוורות.' },
+  items: {
+    'predict':       { skill:'estimation',            d:2 },
+    'qc:scale':      { skill:'estimation',            d:2 },
+    'qc:osmQ':       { skill:'mechanism',             d:3 },
+    'qc:dryQ':       { skill:'process',               d:2 },
+    'qc:hiveQ':      { skill:'evidence',              d:3 },
+    'qc:storyQ':     { skill:'epistemology',          d:3 },
+    'qc:openQ':      { skill:'reasoning',             d:3 },
+    'mcq:shared:0':  { skill:'mechanism',             d:2 },
+    'mcq:shared:1':  { skill:'ratio',                 d:3 },
+    'mcq:shared:2':  { skill:'evidence',              d:2 },
+    'mcq:younger:0': { skill:'reasoning',             d:2 },
+    'mcq:older:0':   { skill:'evidence',              d:3 },
+    'order':         { skill:'sequence',              d:3 },
+    'num:younger':   { skill:'multiplication',        d:1 },
+    'num:older':     { skill:'percent',               d:2 },
+    'num:adv':       { skill:'percent-two-step',      d:4 },
+    'challenge':     { skill:'volume-unit-conversion',d:5 },
+    'explain':       { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ osDraw(0); showArtoTip(); } if(n===2) drDraw(0); if(n===3) apDraw(0); if(n===5) jrDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+/* ---------- hero guess: how much of honey is water? ----------
+   Four choices force a real commitment (a watermelon / fresh bread / a dried date / dry sugar): ripe honey is about 17–18% water. data-scale: percent. */
+const SCALE_ANS = 18;                                                 // 17–18% water (15.5–18 when properly ripened)
+const fmtSigns = n => n===90 ? 'כמעט הכל מים — כמו אבטיח' : n===40 ? 'פחות מחצי — כמו לחם טרי' : n===18 ? 'פחות מחמישית — כמו תמר יבש' : 'כמעט כלום — כמו סוכר בשקית';
+const SCALE_FB = {
+  18: '<span class="pill-ok">קלעתם!</span> דבש הוא רק כ־<span class="num">18</span> אחוז מים — והשאר, כ־<span class="num">80</span> אחוז, סוכר. וזה כל הסוד: בלי מים זמינים, שום חיידק ושום עובש לא מצליחים לחיות בו. איך הדבורים מוציאות את המים, ומה מצאו בעמק בית שאן? על זה השיעור.',
+  90: '<span class="pill-bad">הרבה פחות.</span> אבטיח הוא באמת <span class="num">90</span> אחוז מים — אבל דבש הוא רק כ־<span class="num">18</span>, והשאר סוכר. הוא נוזלי כי הסוכר מומס, לא כי יש בו הרבה מים. וזה בדיוק למה הוא לא מתקלקל. איך זה עובד? על זה השיעור.',
+  40: '<span class="pill-bad">פחות מזה.</span> לחם הוא כ־<span class="num">40</span> אחוז מים, ולכן הוא מתעפש תוך שבוע. דבש הוא רק כ־<span class="num">18</span> אחוז מים — והשאר סוכר. ההבדל הזה הוא ההבדל בין שבוע לאלפי שנים. למה? על זה השיעור.',
+  1: '<span class="pill-bad">קצת יותר.</span> דבש הוא לא סוכר יבש — יש בו כ־<span class="num">18</span> אחוז מים, ולכן הוא נוזלי ונמרח. אבל המים האלה "תפוסים" על ידי הסוכר, וחיידקים לא מצליחים להשתמש בהם. איך? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(22,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(22,size); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(22,size); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+/* ---------- small helpers for this edition ---------- */
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* deterministic pseudo-random (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* a generic play/scrub helper: animates a 0–100 range input over `ms` milliseconds, calling draw(1) each frame */
+function xPlayer(id, rangeId, btnId, ms, draw, onLabel, offLabel){
+  const st={ raf:0 };
+  st.toggle=function(){ if(st.raf){ cancelAnimationFrame(st.raf); st.raf=0; st.btn(false); return; }
+    const r=document.getElementById(rangeId); if(+r.value>=100) r.value=0;
+    if(XREDUCED){ r.value=Math.min(100,+r.value+20); draw(1); return; }
+    const t0=performance.now(), start=+r.value; st.btn(true);
+    const step=now=>{ const v=Math.min(100, start+(now-t0)/ms*100); r.value=Math.round(v); draw(1); if(v<100){ st.raf=requestAnimationFrame(step); } else { st.raf=0; st.btn(false); } };
+    st.raf=requestAnimationFrame(step); };
+  st.btn=function(on){ const b=document.getElementById(btnId); b.textContent = on ? onLabel : offLabel; b.classList.toggle('on',on); };
+  return st;
+}
+/* ---------- step 1 (interactive 1): the thirsty sugar — osmosis pulls the water out of a microbe (canvas) ----------
+   a big microbe in a drop of liquid; the sugar slider goes from water (0%) to honey (82%); the cell shrinks and wrinkles as water flows out,
+   and a water-activity meter on the right shows the three thresholds (bacteria 0.91, moulds 0.70, nothing 0.60) */
+const osCv=document.getElementById('osCv'), octx=osCv.getContext('2d');
+const OS={ opened:0, pred:-1, hit:{} };
+function osPredict(k){ OS.pred=k; [0,1,2].forEach(i=>document.getElementById('osP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'osm:predict', kind:'quick', correct:k===2, attempt: wowTry('osm:predict') }); osDraw(1); }
+function osAw(s){ return Math.max(0.55, 1-0.0049*s); }                  // schematic: 0% → 1.0, 82% → ~0.6
+function osFood(s){ return s<5 ? 'מים' : s<25 ? 'מיץ' : s<45 ? 'סירופ' : s<70 ? 'ריבה' : 'דבש'; }
+function osDraw(user){
+  const c=octx, W=osCv.width, H=osCv.height, s=+osS.value, aw=osAw(s), f=s/82;   // f: 0 = water, 1 = honey
+  if(user && !OS.opened){ OS.opened=1; WOW.emit('open', { id:'osm' }); }
+  osOut.textContent=s+'%';
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the drop of liquid: pale blue for water, amber for honey */
+  const mix=(a,b,t)=>a.map((v,i)=>Math.round(v+(b[i]-v)*t));
+  const wc=[190,225,245], hc=[232,168,60], col=mix(wc,hc,f);
+  c.fillStyle='rgb('+col.join(',')+')'; c.beginPath(); c.ellipse(230,290,190,130,0,0,Math.PI*2); c.fill();
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.globalAlpha=.35; c.stroke(); c.globalAlpha=1;
+  /* sugar grains in the liquid (more as the slider rises) */
+  const rnd=prng(41); c.fillStyle='#FFFFFF'; const grains=Math.round(f*140);
+  for(let i=0;i<140;i++){ const a=rnd()*Math.PI*2, r=Math.sqrt(rnd()); const x=230+Math.cos(a)*r*182, y=290+Math.sin(a)*r*122; const sz=1.6+rnd()*2; if(i<grains){ c.globalAlpha=.7; c.fillRect(x,y,sz,sz); } } c.globalAlpha=1;
+  xText(c, osFood(s), 230, 400, 30, '#1B1F33', 'center');
+  /* the microbe: a capsule that shrinks (radius 70 → 30) and wrinkles as sugar rises */
+  const R=70-40*f, cx=230, cy=250;
+  c.save(); c.translate(cx,cy);
+  c.fillStyle=css('--leaf'); c.strokeStyle=css('--leaf2'); c.lineWidth=4;
+  c.beginPath();
+  const wr=prng(7); for(let i=0;i<=48;i++){ const a=i/48*Math.PI*2; const wob = f>0.25 ? (wr()-0.5)*f*22 : 0; const rr=R+wob; const x=Math.cos(a)*rr*1.35, y=Math.sin(a)*rr; if(i===0) c.moveTo(x,y); else c.lineTo(x,y); }
+  c.closePath(); c.fill(); c.stroke();
+  /* eyes, so an 8-year-old reads it as a creature */
+  c.fillStyle='#FFFFFF'; c.beginPath(); c.arc(-R*0.45,-R*0.25,Math.max(5,R*0.16),0,Math.PI*2); c.arc(R*0.15,-R*0.25,Math.max(5,R*0.16),0,Math.PI*2); c.fill();
+  c.fillStyle=css('--ink'); c.beginPath(); c.arc(-R*0.45,-R*0.25,Math.max(2.5,R*0.07),0,Math.PI*2); c.arc(R*0.15,-R*0.25,Math.max(2.5,R*0.07),0,Math.PI*2); c.fill();
+  /* mouth: smile in water, flat in the middle, sad in honey */
+  c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); const m=(0.5-f)*R*0.5; c.moveTo(-R*0.35,R*0.28); c.quadraticCurveTo(-R*0.15,R*0.28+m,R*0.05,R*0.28); c.stroke();
+  c.restore();
+  /* water arrows: out of the cell when sugar is high, into the liquid (growing) when water */
+  if(f>0.15){ c.fillStyle=css('--water'); c.strokeStyle=css('--water'); c.lineWidth=5;
+    const n=Math.round(3+f*5); for(let i=0;i<n;i++){ const a=-Math.PI*0.9+i/(n-1)*Math.PI*0.8; const x0=cx+Math.cos(a)*(R*1.35+6), y0=cy+Math.sin(a)*(R+6); const len=30+40*f; const x1=x0+Math.cos(a)*len, y1=y0+Math.sin(a)*len; c.beginPath(); c.moveTo(x0,y0); c.lineTo(x1,y1); c.stroke(); xArrow(c,x1+Math.cos(a)*8,y1+Math.sin(a)*8,Math.cos(a),Math.sin(a),16); }
+    xTag(c,'המים יוצאים','',cx, cy-R-58, 28, css('--water'),'center',.94);
+  } else {
+    /* multiplying: little copies around */
+    c.fillStyle=css('--leaf'); [[-150,-20],[120,-40],[-110,70],[140,60]].forEach(p=>{ c.beginPath(); c.ellipse(cx+p[0],cy+p[1],22,15,0,0,Math.PI*2); c.fill(); });
+    xTag(c,'הרבה מים — החיידק מתרבה','',cx-30, cy-R-62, 26, css('--leaf2'),'center',.94);
+  }
+  /* the water-activity meter, right */
+  const mx=560, top=60, h=340; const Y=v=>top+h*(1-(v-0.5)/0.5);          // 0.5 at the bottom, 1.0 at the top
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(mx-22,top-8,44,h+16,12); c.fill(); c.strokeStyle=css('--sand'); c.lineWidth=2; c.stroke();
+  /* zones: red (bacteria grow) above 0.91, orange (moulds) 0.7–0.91, yellow (yeasts) 0.6–0.7, green (nothing) below 0.6 */
+  const zone=(a,b,colr)=>{ c.fillStyle=colr; c.globalAlpha=isDark()?.75:.4; c.fillRect(mx-18,Y(b),36,Y(a)-Y(b)); c.globalAlpha=1; };
+  zone(0.91,1.0,css('--bad')); zone(0.7,0.91,css('--sun')); zone(0.6,0.7,css('--aur')); zone(0.5,0.6,css('--ok'));
+  /* the needle */
+  c.fillStyle=css('--ink'); c.beginPath(); c.moveTo(mx-30,Y(aw)); c.lineTo(mx-48,Y(aw)-10); c.lineTo(mx-48,Y(aw)+10); c.closePath(); c.fill();
+  xNum(c, aw.toFixed(2), mx-58, Y(aw), 26, css('--ink'), 'right');
+  /* threshold labels, left of the meter */
+  xTag(c,'חיידקים גדלים','',mx-30, Y(0.935), 22, css('--bad'),'right',.9);
+  xTag(c,'עובש גדל','',mx-30, Y(0.805), 22, css('--sun-deep'),'right',.9);
+  xTag(c,'רק שמרים','',mx-30, Y(0.65), 22, css('--sun-deep'),'right',.9);
+  xTag(c,'שום דבר לא גדל','',mx-30, Y(0.55), 22, css('--ok'),'right',.9);
+  xTag(c,'פעילות מים','',mx, top-34, 24, css('--ink'),'center',.92);
+  if(user && s>=80 && !OS.hit.honey){ OS.hit.honey=1; WOW.emit('item', { id:'osm:honey', kind:'quick', correct:true, attempt: wowTry('osm') }); }
+  const predTxt = OS.pred<0 ? 'נחשו למעלה מה יקרה לחיידק בדבש, ואז גררו את המחוון. ' : '';
+  const verdict = (s>=80 && OS.pred>=0) ? (OS.pred===2?'<span class="pill-ok">ניחשתם נכון.</span> ':'<span class="pill-bad">לא בדיוק.</span> ') : '';
+  osMsg.innerHTML = s<5 ? predTxt+'במים יש הכול: המחט של פעילות המים למעלה, באזור האדום. החיידק שמח, שותה, מתחלק — תוך יום יש מיליונים.'
+    : s<45 ? 'מיץ או סירופ: יש סוכר, אבל עוד הרבה מים זמינים. המחט עדיין באזור שבו חיידקים או עובש מתרבים — לכן מיץ מחמיץ תוך כמה ימים.'
+    : s<70 ? 'ריבה: הרבה סוכר, פעילות מים כ־<span class="num">'+aw.toFixed(2)+'</span>. החיידקים כבר נעצרו — אבל עובש עוד מסתדר, ולכן ריבה פתוחה מתעפשת אחרי חודשים.'
+    : verdict+'דבש: <span class="num">'+s+'</span> אחוז סוכר. הסוכר מושך את המים החוצה מהחיידק דרך הקרום שלו (אוסמוזה), הוא מתכווץ ומתקמט, והמחט ירדה מתחת ל־<span class="num">0.6</span> — שם שום יצור לא מתרבה. אין מים זמינים = אין קלקול.';
+}
+osDraw(0);
+
+/* ---------- step 2 (interactive 2): drying nectar — bees fan a cell until the water drops from 80% to 18% and it gets a wax cap (canvas) ----------
+   time slider 0–100 = 0–3 days; with fanning the water follows an exponential drop and the cell is capped at ≤18%; without fanning it barely dries and starts to ferment */
+const drCv=document.getElementById('drCv'), rctx=drCv.getContext('2d');
+const DR={ opened:0, pred:-1, mode:1, hit:{} };
+const drPl = xPlayer('dr','drT','drPlay',6000,()=>drDraw(1),'עצירה','הפעילו את הכוורת');
+function drPlay(){ drPl.toggle(); }
+function drPredict(k){ DR.pred=k; [0,1,2].forEach(i=>document.getElementById('drP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'dry:predict', kind:'quick', correct:k===2, attempt: wowTry('dry:predict') }); drDraw(1); }
+function drMode(m){ DR.mode=m; drM0.classList.toggle('on',m===0); drM1.classList.toggle('on',m===1); drDraw(1); }
+function drWater(t,m){ return m===1 ? Math.max(18, 18+62*Math.exp(-t*5.5)) : 80-14*t; }     // t in 0..1 (three days)
+function drDraw(user){
+  const c=rctx, W=drCv.width, H=drCv.height, t=+drT.value/100, m=DR.mode, w=drWater(t,m), days=t*3;
+  if(user && !DR.opened){ DR.opened=1; WOW.emit('open', { id:'dry' }); }
+  const capped = m===1 && w<=18.5 && t>0.9, ferment = m===0 && t>0.5;
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* honeycomb background: a few hex cells */
+  const hex=(x,y,r,fill,stroke)=>{ c.beginPath(); for(let i=0;i<6;i++){ const a=Math.PI/6+i*Math.PI/3; const px=x+Math.cos(a)*r, py=y+Math.sin(a)*r; if(i===0) c.moveTo(px,py); else c.lineTo(px,py); } c.closePath(); if(fill){ c.fillStyle=fill; c.fill(); } if(stroke){ c.strokeStyle=stroke; c.lineWidth=4; c.stroke(); } };
+  const rr=62, cx0=250, cy0=300;
+  [[-1.5,-1],[-1.5,1],[1.5,-1],[1.5,1],[0,-2],[0,2],[-3,0],[3,0]].forEach(p=>{ hex(cx0+p[0]*rr*0.9, cy0+p[1]*rr*0.78, rr-4, css('--sun-soft'), css('--earth2')); });
+  /* the big cell: liquid level and colour follow the water content */
+  const R=rr*1.7; hex(cx0,cy0,R,css('--card'),css('--earth2'));
+  const fill = 0.35 + 0.55*(w-18)/62;                                       // the cell is fuller when the nectar is watery
+  const mixc=(a,b,u)=>'rgb('+a.map((v,i)=>Math.round(v+(b[i]-v)*u)).join(',')+')';
+  const liq = mixc([246,232,180],[222,150,40],(80-w)/62);
+  c.save(); c.beginPath(); for(let i=0;i<6;i++){ const a=Math.PI/6+i*Math.PI/3; const px=cx0+Math.cos(a)*(R-6), py=cy0+Math.sin(a)*(R-6); if(i===0) c.moveTo(px,py); else c.lineTo(px,py); } c.closePath(); c.clip();
+  const top=cy0+R-6-2*(R-6)*fill; c.fillStyle=liq; c.fillRect(cx0-R,top,2*R,2*R);
+  if(ferment){ const b=prng(13); c.fillStyle='rgba(255,255,255,.8)'; for(let i=0;i<14;i++){ const x=cx0-R*0.7+b()*R*1.4, y=top+b()*(cy0+R-top); c.beginPath(); c.arc(x,y,3+b()*6,0,Math.PI*2); c.fill(); } }
+  c.restore();
+  if(capped){ hex(cx0,cy0,R-4,'rgba(240,222,170,.92)',css('--earth2')); xTag(c,'התא נאטם בשעווה','',cx0, cy0, 28, css('--sun-deep'),'center',.96); }
+  /* the fanning bees above the cell */
+  const bee=(x,y,wing)=>{ c.fillStyle=css('--aur'); c.strokeStyle='#1B1F33'; c.lineWidth=2; c.beginPath(); c.ellipse(x,y,20,13,0,0,Math.PI*2); c.fill(); c.stroke(); c.strokeStyle='#1B1F33'; c.lineWidth=3; [-8,0,8].forEach(d=>{ c.beginPath(); c.moveTo(x+d,y-12); c.lineTo(x+d,y+12); c.stroke(); }); c.fillStyle='rgba(255,255,255,.85)'; c.strokeStyle='#1B1F33'; c.lineWidth=1.2; c.beginPath(); c.ellipse(x-6,y-16,13,6,wing?-0.6:-0.15,0,Math.PI*2); c.fill(); c.stroke(); c.beginPath(); c.ellipse(x+8,y-16,11,5,wing?0.6:0.15,0,Math.PI*2); c.fill(); c.stroke(); c.fillStyle='#1B1F33'; c.beginPath(); c.arc(x-18,y,4,0,Math.PI*2); c.fill(); };
+  const flap = m===1 && t>0 && t<1 && Math.floor(t*60)%2===0;
+  if(m===1) [[130,120],[250,96],[370,120]].forEach(p=>bee(p[0],p[1],flap)); else { c.globalAlpha=.25; [[130,120],[250,96],[370,120]].forEach(p=>bee(p[0],p[1],false)); c.globalAlpha=1; }
+  if(m===1 && t>0 && !capped){ c.strokeStyle=css('--water'); c.lineWidth=3; c.globalAlpha=.7; for(let i=0;i<5;i++){ const x=cx0-80+i*40, y0=cy0-R-10, y1=y0-40-(t*20)%30; c.beginPath(); c.moveTo(x,y0); c.quadraticCurveTo(x+8,(y0+y1)/2,x,y1); c.stroke(); } c.globalAlpha=1; xTag(c,'המים מתאדים','',cx0+R+10, cy0-R+10, 24, css('--water'),'left',.92); }
+  if(m===0){ xTag(c,'בלי נפנוף','',cx0+R+10, cy0-R+10, 24, css('--muted'),'left',.92); if(ferment) xTag(c,'בועות: הצוף מחמיץ!','',cx0, cy0+R+34, 28, css('--bad'),'center',.96); }
+  /* the water meter, right */
+  const mx=560, mt=70, mh=300; const Y=v=>mt+mh*(1-v/100);
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(mx-22,mt-8,44,mh+16,12); c.fill(); c.strokeStyle=css('--sand'); c.lineWidth=2; c.stroke();
+  c.fillStyle=css('--water'); c.beginPath(); c.roundRect(mx-16,Y(w),32,Y(0)-Y(w),8); c.fill();
+  c.strokeStyle=css('--ok'); c.lineWidth=3; c.setLineDash([5,5]); c.beginPath(); c.moveTo(mx-30,Y(18)); c.lineTo(mx+30,Y(18)); c.stroke(); c.setLineDash([]);
+  xTag(c,'דבש','',mx-32, Y(18), 22, css('--ok'),'right',.9);
+  xTag(c,'צוף','',mx-32, Y(80), 22, css('--water'),'right',.9);
+  xTag(c,'מים','',mx, mt-34, 24, css('--ink'),'center',.92);
+  xNum(c, Math.round(w)+'%', mx, mt+mh+40, 34, capped?css('--ok'):css('--ink'), 'center');
+  /* thermometer, left */
+  const tx=60; c.fillStyle=css('--card'); c.beginPath(); c.roundRect(tx-12,mt,24,mh-20,12); c.fill(); c.strokeStyle=css('--sand'); c.lineWidth=2; c.stroke();
+  c.fillStyle=css('--bad'); c.beginPath(); c.roundRect(tx-6,mt+mh*0.45,12,mh-20-mh*0.45,6); c.fill(); c.beginPath(); c.arc(tx,mt+mh-8,16,0,Math.PI*2); c.fill();
+  xNum(c,'35°',tx,mt+mh+40,28,css('--bad'),'center');
+  /* the day counter, top */
+  xTagN(c, days.toFixed(1), 'ימים', W/2, 36, 28, css('--ink'), 'center');
+  if(user && capped && !DR.hit.cap){ DR.hit.cap=1; WOW.emit('item', { id:'dry:capped', kind:'quick', correct:true, attempt: wowTry('dry') }); }
+  const predTxt = DR.pred<0 ? 'נחשו למעלה כמה מהצוף יתאדה, ואז הפעילו. ' : '';
+  const verdict = (capped && DR.pred>=0) ? (DR.pred===2?'<span class="pill-ok">ניחשתם נכון.</span> ':'<span class="pill-bad">לא בדיוק.</span> ') : '';
+  drMsg.innerHTML = t<=0 ? predTxt+'צוף טרי: <span class="num">80</span> אחוז מים. '+(m===1?'שלוש דבורים מוכנות לנפנף. הכוורת חמה — <span class="num">35</span> מעלות.':'ניסוי: מה קורה לצוף בלי הנפנוף?')
+    : m===0 ? (ferment ? 'בלי נפנוף המים כמעט לא מתאדים, ואחרי יום וחצי שמרים מתחילים לאכול את הסוכר ולפלוט בועות — הצוף מחמיץ. זה מה שהיה קורה לדבש בלי הדבורים. עכשיו הדליקו את המאווררים.' : 'בלי נפנוף המים יורדים לאט מאוד. עוד רגע יופיעו בועות.')
+    : capped ? verdict+'<span class="num">18</span> אחוז מים — דבש! הדבורים אוטמות את התא בשעווה. מארבע כפות צוף נשארה כף אחת של דבש: יותר משלושה רבעים מהמשקל עלו באוויר.'
+    : 'יום <span class="num">'+days.toFixed(1)+'</span>: <span class="num">'+Math.round(w)+'</span> אחוז מים. הנפנוף מזיז אוויר חם מעל הצוף, והמים מתאדים. שימו לב שהנוזל בתא יורד ומתכהה — נשאר בעיקר סוכר.';
+}
+drDraw(0);
+
+/* ---------- step 3 (interactive 3): the apiary in the valley — clay hives in three tiers, honey per year (canvas) ----------
+   the slider adds hives (1–150); the left half shows the rows, the right half one hive in close-up with its dimensions */
+const apCv=document.getElementById('apCv'), actx=apCv.getContext('2d');
+const AP={ opened:0, hit:{} };
+const HONEY_PER_HIVE=5;                                              // kg per hive per year (the paper: 3–5)
+function apDraw(user){
+  const c=actx, W=apCv.width, H=apCv.height, n=+apN.value, kg=n*HONEY_PER_HIVE, jars=kg*2;   // 500 g jars
+  if(user && !AP.opened){ AP.opened=1; WOW.emit('open', { id:'apiary' }); }
+  apOut.textContent=fmt(kg);
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* ground */
+  c.fillStyle=css('--earth'); c.fillRect(0,H-70,W,70);
+  /* the hives: 3 tiers × 50 per tier, drawn as small end-on cylinders (circles with a dark entrance hole) */
+  const perTier=48, cellW=7.6, cellH=34, x0=14, yBase=H-80;
+  for(let i=0;i<n;i++){ const tier=i%3, col=Math.floor(i/3); if(col>=perTier) break;
+    const x=x0+col*cellW, y=yBase-tier*cellH;
+    c.fillStyle=css('--earth2'); c.beginPath(); c.roundRect(x,y-30,cellW-1.2,30,3); c.fill();
+    c.fillStyle='#1B1F33'; c.globalAlpha=.7; c.beginPath(); c.arc(x+cellW/2-0.6,y-22,1.6,0,Math.PI*2); c.fill(); c.globalAlpha=1; }
+  xTag(c,'שלוש קומות','',x0+8, yBase-3*cellH-18, 22, css('--muted'),'left',.9);
+  /* the close-up hive, right: a horizontal cylinder with the entrance hole (left end) and the lid (right end) */
+  const hx=400, hy=250, hl=150, hr=44;
+  c.fillStyle=css('--earth2'); c.beginPath(); c.roundRect(hx,hy-hr,hl,hr*2,10); c.fill(); c.strokeStyle=css('--ink'); c.lineWidth=2; c.stroke();
+  /* straw texture */
+  const st=prng(19); c.strokeStyle='rgba(255,240,200,.45)'; c.lineWidth=1.5; for(let i=0;i<40;i++){ const x=hx+8+st()*(hl-16), y=hy-hr+6+st()*(hr*2-12); c.beginPath(); c.moveTo(x,y); c.lineTo(x+8,y+st()*4-2); c.stroke(); }
+  /* the lid (right end) */
+  c.fillStyle=css('--sand'); c.beginPath(); c.ellipse(hx+hl,hy,14,hr,0,0,Math.PI*2); c.fill(); c.stroke();
+  /* entrance hole (left end) */
+  c.fillStyle='#1B1F33'; c.beginPath(); c.arc(hx+16,hy+8,7,0,Math.PI*2); c.fill();
+  /* a few bees at the entrance */
+  c.fillStyle=css('--aur'); [[hx-14,hy+2],[hx-28,hy+16],[hx-6,hy+24]].forEach(p=>{ c.beginPath(); c.ellipse(p[0],p[1],6,4,0,0,Math.PI*2); c.fill(); });
+  /* dimension lines */
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.beginPath(); c.moveTo(hx,hy-hr-22); c.lineTo(hx+hl,hy-hr-22); c.stroke(); c.beginPath(); c.moveTo(hx,hy-hr-28); c.lineTo(hx,hy-hr-16); c.moveTo(hx+hl,hy-hr-28); c.lineTo(hx+hl,hy-hr-16); c.stroke();
+  xTagN(c,'80','ס״מ', hx+hl/2, hy-hr-48, 24, css('--ink'),'center');
+  c.beginPath(); c.moveTo(hx+hl+30,hy-hr); c.lineTo(hx+hl+30,hy+hr); c.stroke(); c.beginPath(); c.moveTo(hx+hl+24,hy-hr); c.lineTo(hx+hl+36,hy-hr); c.moveTo(hx+hl+24,hy+hr); c.lineTo(hx+hl+36,hy+hr); c.stroke();
+  xTagN(c,'40','ס״מ', hx+hl+30, hy+hr+30, 24, css('--ink'),'center');
+  xTag(c,'חור כניסה','',hx-6, hy+hr+30, 22, css('--muted'),'left',.9);
+  xTag(c,'מכסה','',hx+hl, hy-hr-84, 22, css('--muted'),'center',.9);
+  xTag(c,'חימר וקש','',hx+hl/2, hy+hr+64, 22, css('--muted'),'center',.9);
+  /* the big numbers, top */
+  xTagN(c, String(n), n===1?'כוורת':'כוורות', 190, 40, 34, css('--sun-deep'),'center');
+  xTagN(c, fmt(kg), 'ק״ג דבש בשנה', 190, 96, 30, css('--ok'),'center');
+  xTagN(c, fmt(jars), 'צנצנות של חצי קילו', 190, 148, 24, css('--nile'),'center');
+  if(user && n>=100 && !AP.hit.hundred){ AP.hit.hundred=1; WOW.emit('item', { id:'apiary:hundred', kind:'quick', correct:true, attempt: wowTry('apiary') }); }
+  apMsg.innerHTML = n<10 ? 'כוורת אחת נותנת כ־<span class="num">5</span> קילוגרם דבש בשנה — עשר צנצנות. גררו והוסיפו כוורות; שימו לב שהן נערמות בשלוש קומות, כמו שנמצאו.'
+    : n<30 ? '<span class="num">'+n+'</span> כוורות: <span class="math">'+n+' × 5 = '+fmt(kg)+'</span> קילוגרם בשנה. עוד קצת — בתל רחוב שרדו כ־<span class="num">30</span>.'
+    : n<100 ? '<span class="num">'+n+'</span> כוורות — <span class="num">'+fmt(kg)+'</span> קילוגרם. כל כך הרבה כוורות שרדו בתל רחוב (<span class="num">30</span>), והחוקרים משערים שהיו כמאה. המשיכו.'
+    : '<span class="num">'+n+'</span> כוורות: <span class="math">'+n+' × 5 = '+fmt(kg)+'</span> קילוגרם — '+(n<=110?'<b>כחצי טון דבש בשנה</b>, ואלף צנצנות':'<b>'+fmt(jars)+'</b> צנצנות של חצי קילו')+'. לזה קוראים תעשייה, לפני <span class="num">3,000</span> שנה, באמצע עיר. (ובכנות: ההערכה היא בין <span class="num">100</span> ל־<span class="num">200</span> כוורות, ו־<span class="math">3–5</span> ק״ג לכוורת.)';
+}
+apDraw(0);
+
+/* ---------- step 5 (interactive 4): the open jar — honey pulls water from humid air and starts to ferment (canvas) ----------
+   lid on: nothing changes; lid off: the top layer's water content drifts toward an equilibrium set by the humidity (about 18% at 60% RH, higher above);
+   past ~19% osmophilic yeasts can ferment — bubbles. time slider 0–100 = 0–30 days */
+const jrCv=document.getElementById('jrCv'), jctx=jrCv.getContext('2d');
+const JR={ opened:0, lid:1, hit:{} };
+const jrPl = xPlayer('jr','jrT','jrPlay',5000,()=>jrDraw(1),'עצירה','הריצו חודש');
+function jrPlay(){ jrPl.toggle(); }
+function jrLid(l){ JR.lid=l; jrL0.classList.toggle('on',l===0); jrL1.classList.toggle('on',l===1); jrDraw(1); }
+function jrTarget(rh){ return rh<=60 ? 18-(60-rh)*0.05 : 18+(rh-60)*0.5; }          // schematic equilibrium water content of the top layer
+function jrWater(t,rh,lid){ if(lid) return 18; const tg=jrTarget(rh); return 18+(tg-18)*(1-Math.exp(-t*4)); }
+function jrDraw(user){
+  const c=jctx, W=jrCv.width, H=jrCv.height, t=+jrT.value/100, rh=+jrH.value, lid=JR.lid, w=jrWater(t,rh,lid), days=Math.round(t*30);
+  if(user && !JR.opened){ JR.opened=1; WOW.emit('open', { id:'jar' }); }
+  const ferment = w>=19.5;
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the room air: floating water droplets, more when humid */
+  const rnd=prng(53); c.fillStyle=css('--water'); const drops=Math.round((rh-20)/70*40);
+  for(let i=0;i<40;i++){ const x=rnd()*W, y=40+rnd()*(H-120); if(i<drops){ c.globalAlpha=.45; c.beginPath(); c.arc(x,y,4,0,Math.PI*2); c.fill(); } } c.globalAlpha=1;
+  xTagN(c, String(rh)+'%', 'לחות באוויר', 130, 40, 26, css('--water'),'center');
+  /* the jar */
+  const jx=250, jy=150, jw=170, jh=250;
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(jx,jy,jw,jh,22); c.fill(); c.strokeStyle=css('--ink'); c.lineWidth=3; c.stroke();
+  /* honey: a thin top layer whose colour pales as it takes up water, over the thick amber body */
+  c.fillStyle=css('--sun'); c.beginPath(); c.roundRect(jx+6,jy+46,jw-12,jh-52,18); c.fill();
+  const pale=Math.min(1,(w-18)/14); const mixc=(a,b,u)=>'rgb('+a.map((v,i)=>Math.round(v+(b[i]-v)*u)).join(',')+')';
+  c.fillStyle=mixc([227,162,58],[246,220,150],pale); c.fillRect(jx+6,jy+46,jw-12,26);
+  if(ferment){ const b=prng(61); c.fillStyle='rgba(255,255,255,.85)'; for(let i=0;i<12;i++){ const x=jx+14+b()*(jw-28), y=jy+50+b()*30; c.beginPath(); c.arc(x,y,3+b()*5,0,Math.PI*2); c.fill(); } }
+  /* the lid: on the jar, or beside it */
+  c.fillStyle=css('--earth2'); c.strokeStyle=css('--ink'); c.lineWidth=2;
+  if(lid){ c.beginPath(); c.roundRect(jx-8,jy-14,jw+16,30,8); c.fill(); c.stroke(); }
+  else { c.beginPath(); c.roundRect(jx-130,jy+jh-26,jw*0.6,26,8); c.fill(); c.stroke();
+    /* water drops entering the open mouth */
+    if(rh>60 && t>0){ c.fillStyle=css('--water'); c.strokeStyle=css('--water'); c.lineWidth=4; for(let i=0;i<3;i++){ const x=jx+40+i*45, y0=jy-40, y1=jy+36; c.beginPath(); c.moveTo(x,y0); c.lineTo(x,y1); c.stroke(); xArrow(c,x,y1+6,0,1,14); } xTag(c,'מים נכנסים מהאוויר','',jx+jw/2, jy-64, 26, css('--water'),'center',.94); }
+    else if(rh<=60 && t>0){ xTag(c,'אוויר יבש — כמעט כלום נכנס','',jx+jw/2, jy-64, 24, css('--muted'),'center',.94); }
+  }
+  xTag(c, lid?'מכסה סגור':'מכסה פתוח','', jx+jw/2, jy+jh+36, 26, css('--ink'),'center',.92);
+  /* the water meter of the top layer, right */
+  const mx=560, mt=80, mh=280; const Y=v=>mt+mh*(1-(v-10)/30);       // 10% at the bottom, 40% at the top
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(mx-22,mt-8,44,mh+16,12); c.fill(); c.strokeStyle=css('--sand'); c.lineWidth=2; c.stroke();
+  c.fillStyle=ferment?css('--bad'):css('--water'); c.beginPath(); c.roundRect(mx-16,Y(w),32,Y(10)-Y(w),8); c.fill();
+  c.strokeStyle=css('--bad'); c.lineWidth=3; c.setLineDash([5,5]); c.beginPath(); c.moveTo(mx-30,Y(19.5)); c.lineTo(mx+30,Y(19.5)); c.stroke(); c.setLineDash([]);
+  xTag(c,'תסיסה','',mx-32, Y(19.5), 22, css('--bad'),'right',.9);
+  xTag(c,'מים בשכבה העליונה','',mx+40, mt-40, 22, css('--ink'),'right',.92);
+  xNum(c, w.toFixed(1)+'%', mx, mt+mh+40, 32, ferment?css('--bad'):css('--ink'), 'center');
+  if(ferment) xTag(c,'תוסס!','',jx+jw/2, jy+110, 30, css('--bad'),'center',.96);
+  xTagN(c, String(days), 'ימים', 130, 96, 26, css('--ink'),'center');
+  if(user && ferment && !JR.hit.ferment){ JR.hit.ferment=1; WOW.emit('item', { id:'jar:ferment', kind:'quick', correct:true, attempt: wowTry('jar') }); }
+  jrMsg.innerHTML = lid ? 'מכסה סגור: <span class="num">18</span> אחוז מים, וזה נשאר ככה — שבוע, חודש, אלף שנים. לאוויר שבצנצנת אין מספיק מים לתת. הסירו את המכסה ונסו.'
+    : t<=0 ? 'מכסה פתוח. קבעו את הלחות (בקיץ ליד הים — <span class="num">70</span> עד <span class="num">80</span> אחוז; במדבר — <span class="num">20</span>) והריצו חודש.'
+    : rh<=60 ? 'אוויר יבש: הדבש כמעט לא סופג מים — <span class="num">'+w.toFixed(1)+'</span> אחוז אחרי <span class="num">'+days+'</span> ימים. בכד חרס בקבר יבש במדבר זה בדיוק מה שקורה: כלום.'
+    : ferment ? 'יום <span class="num">'+days+'</span>: השכבה העליונה כבר <span class="num">'+w.toFixed(1)+'</span> אחוז מים — מעל הגבול. שמרים "אוהבי סוכר" מתעוררים, אוכלים סוכר ופולטים בועות: הדבש תוסס ומחמיץ. לכן הדבורים אוטמות תאים, ולכן על הצנצנת כתוב "לסגור היטב".'
+    : 'יום <span class="num">'+days+'</span>: הדבש היגרוסקופי — השכבה העליונה סופגת מים מהאוויר הלח. <span class="num">'+w.toFixed(1)+'</span> אחוז ועולה. עוד קצת והשמרים יתעוררו.';
+}
+jrDraw(0);
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  osmQ:{ q:'למה חיידק שנוחת על דבש לא מצליח לחיות בו?', opts:['כי הדבש קר מדי בשביל חיידקים','כי הסוכר שבדבש מושך את המים החוצה מהחיידק, והוא מתייבש ומתכווץ','כי בדבש אין שום אוכל לחיידקים','כי הדבורים שומרות על הדבש ומגרשות חיידקים'], a:1, fb:'זו אוסמוזה: מים עוברים דרך הקרום של החיידק מהצד שיש בו הרבה מים לצד שיש בו מעט — החוצה, אל הסוכר. דבש הוא כ־<span class="num">80</span> אחוז סוכר ורק כ־<span class="num">18</span> אחוז מים, ואפילו המעטים האלה "תפוסים". אוכל יש בדבש בשפע — אבל בלי מים זמינים אי אפשר לאכול אותו. הדבש גם חומצי ומכיל מעט מי חמצן, אבל המים הם העיקר.', btn:'next1' },
+  dryQ:{ q:'מה הדבורים עושות כדי שהצוף (כ־<span class="num">80</span> אחוז מים) לא יחמיץ?', opts:['מוסיפות לו מלח מהים','מקררות אותו בפינה הקרה של הכוורת','מנפנפות בכנפיים כדי שהמים יתאדו עד כ־<span class="num">18</span> אחוז, ואז אוטמות את התא בשעווה','שומרות אותו בחושך גמור'], a:2, fb:'שלושה שלבים: אנזימים במעבר מפה לפה, נפנוף ב־<span class="num">35</span> מעלות עד שהמים יורדים מ־<span class="num">80</span> ל־<span class="num">18</span> אחוז, ומכסה שעווה. הקירור לא היה עוזר — במקרר הצוף היה מחמיץ, רק לאט יותר; וחושך? בכוורת תמיד חשוך, וזה לא מפריע לחיידקים. הסוד הוא להוציא את המים ולסגור.' },
+  hiveQ:{ q:'איך יודעים שהגלילים מחרס שנמצאו בתל רחוב היו כוורות, ולא סתם צינורות?', opts:['כי כתוב עליהם "דבש"','כי בתוכם נמצאו שאריות מפוחמות של חלות דבש ושל דבורים — כנפיים, רגליים וגלמים','כי הם היו מלאים בדבש נוזלי שאפשר היה לטעום','כי הם עגולים, וכוורות תמיד עגולות'], a:1, fb:'השרפה שהרסה את המכוורת גם שימרה אותה: חלות הדבש התפחמו, ובפחם נשמרו חלקי דבורים — <span class="num">17</span> כנפיים, עשרות רגליים, גלמים. יחד עם חור הכניסה בקצה אחד והמכסה בקצה השני, והדמיון לכוורות חרס מסורתיות, זו ראיה חד־משמעית. דבש נוזלי לא נמצא — הוא נשרף (בכימיה זיהו שאריות דבש ושעווה).' },
+  storyQ:{ q:'מה ידוע באמת על "הדבש הטעים מהקבר המצרי"?', opts:['ארכאולוגים טעמו אותו ב־<span class="num">1922</span> וכתבו שהוא מצוין','אין דו״ח מעבדה ולא שם של ממצא; בכדים מצריים נמצאו לרוב שאריות שחורות — אבל בכלי אטום דבש באמת יכול להחזיק אלפי שנים','הסיפור נכון, והדבש הזה נמכר היום בחנויות','הדבש העתיק ביותר נמצא בתל רחוב, והוא עדיין נוזלי'], a:1, fb:'לאגדה אין מקור, ומה שנמצא בכדים היה בדרך כלל גוש קשה ושחור. אבל הכימיה שלה נכונה: בלי מים זמינים ובכלי סגור, דבש לא מתקלקל. הדבש העתיק ביותר שזוהה בוודאות הוא שאריות בכדים בגאורגיה, כ־<span class="num">5,500</span> שנה. בתל רחוב נמצאו כוורות ודבורים מפוחמות — לא דבש נוזלי. הלקח: לשאול "איך יודעים?".' },
+  openQ:{ q:'צנצנת דבש נשארה פתוחה חודש בחדר לח. מה יקרה?', opts:['שום דבר — דבש לא מתקלקל אף פעם, בשום מצב','הדבש ימשוך מים מהאוויר, השכבה העליונה תיעשה דלילה, ושמרים יוכלו להתחיל לתסוס בה','הדבש יתייבש לגמרי ויהפוך לאבקה','הדבש יהפוך לחומץ תוך יום'], a:1, fb:'דבש הוא היגרוסקופי — מושך מים מהאוויר. כשהשכבה העליונה עוברת כ־<span class="num">19</span> אחוז מים, שמרים "אוהבי סוכר" מתעוררים ומתחילים לתסוס: בועות, ריח של יין, טעם חמוץ. הצנצנת הסגורה היא המשך של מכסה השעווה של הדבורים. באוויר יבש, לעומת זאת, כמעט כלום לא קורה — לכן כד אטום בקבר יבש היה מחזיק.' },
+};
+const MCQ = {
+  shared:[
+    { q:'למה דבש לא מתקלקל, בזמן שלחם מתעפש תוך שבוע?', opts:['כי הדבורים מוסיפות לו חומר משמר מהמפעל','כי בדבש כמעט אין מים זמינים: הוא כ־<span class="num">80</span> אחוז סוכר, והסוכר מושך את המים החוצה מכל חיידק או עובש','כי דבש הוא כל כך מתוק שחיידקים לא אוהבים את הטעם','כי דבש נשמר תמיד במקרר'], a:1, fb:'זה עניין של מים, לא של טעם: כל יצור חי צריך מים זמינים, ובדבש (כ־<span class="num">18</span> אחוז מים, פעילות מים כ־<span class="num">0.6</span>) אין. הסוכר מייבש את החיידק דרך הקרום שלו — אוסמוזה. תוספת: חומציות כמו מיץ תפוזים, ומעט מי חמצן מאנזים של הדבורים. בלחם יש כ־<span class="num">40</span> אחוז מים חופשיים — מסיבה לעובש.' },
+    { q:'מ־<span class="num">1,000</span> גרם צוף יוצאים בערך <span class="num">240</span> גרם דבש. לאן נעלם כל השאר?', opts:['הדבורים אכלו אותו','זה מים שהתאדו: הדבורים מנפנפות בכנפיים בכוורת חמה עד שהמים יורדים מ־<span class="num">80</span> אחוז לכ־<span class="num">18</span>','הוא הפך לשעווה של התאים','הוא נספג בקירות הכוורת'], a:1, fb:'צוף הוא כ־<span class="num">80</span> אחוז מים; ב־<span class="num">1,000</span> גרם יש רק <span class="num">200</span> גרם סוכר. הדבש המוכן הוא <span class="num">82</span> אחוז סוכר, אז <span class="math">200 ÷ 0.82 ≈ 244</span> גרם דבש. יותר משלושה רבעים מהמשקל עלו באוויר בנפנוף. השעווה מגיעה מבלוטות בגוף הדבורה, לא מהצוף.' },
+    { q:'מה מצאו בתל רחוב שבעמק בית שאן ב־<span class="num">2005</span>?', opts:['כדים מלאים בדבש נוזלי בן <span class="num">3,000</span> שנה','שורות של כוורות חרס בנות כ־<span class="num">3,000</span> שנה — כ־<span class="num">30</span> שרדו, ומשערים שהיו כמאה — עם שאריות מפוחמות של דבורים','ציור של דבורים על קיר מקדש','כוורות עץ מודרניות שכוורנים השאירו'], a:1, fb:'גלילי חרס באורך <span class="num">80</span> ס״מ, בשלוש קומות, במרכז עיר מימי המלכים הראשונים — המכוורת העתיקה ביותר שנחשפה בחפירה בעולם. כ־<span class="num">5</span> ק״ג לכוורת, כחצי טון בשנה. הציור העתיק של כוורנים הוא ממצרים (כ־<span class="num">4,400</span> שנה); דבש נוזלי לא שרד — הכוורות נשרפו.' },
+  ],
+  younger:[
+    { q:'דבש בצנצנת נעשה קשה ולבנבן. מה זה אומר?', opts:['הוא התקלקל וצריך לזרוק אותו','הסוכר שבו התגבש — הוא בסדר גמור, ואפשר להחזיר אותו לנוזל בקערת מים חמים','נכנסו אליו חיידקים','הדבורים הוסיפו לו שעווה'], a:1, fb:'גיבוש הוא סוכר שמסתדר בגבישים, כמו בשקית סוכר — לא קלקול. חימום עדין (מים חמים מהברז, לא רותחים) ממיס את הגבישים. קלקול אמיתי בדבש נראה אחרת: בועות, ריח של יין וטעם חמוץ — וזה קורה רק אם נכנסו אליו מים.' },
+  ],
+  older:[
+    { q:'איך ידעו החוקרים שהדבורים בתל רחוב באו מטורקיה?', opts:['מצאו כתובת בכוורת: "דבורים מטורקיה"','מדדו את הוורידים בכנפיים המפוחמות ואת הרגליים, והשוו למאגר של זני דבורים — התוצאה התאימה לדבורה האנטולית ולא לדבורה הסורית המקומית','הדבורים היו גדולות במיוחד, כמו בטורקיה','בדקו את הדבש שנשאר בכוורות'], a:1, fb:'מורפומטריה: לכל זן "טביעת כנף" משלו. <span class="num">17</span> כנפיים ועשרות רגליים הספיקו לגיא בלוך לזיהוי חד־משמעי (PNAS <span class="num">2010</span>). ומה שהמדע לא יודע — הוא אומר: ייבוא של מלכות מרחוק, או תחום מחיה שהשתרע אז דרומה? עוד לא הוכרע.' },
+  ]
+};
+
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'דבורה מלקטת <b>צוף</b> מהפרחים — נוזל מתוק שהוא כ־<span class="num">80</span> אחוז מים.'},
+  {id:'b', t:'בכוורת הצוף עובר <b>מפה לפה</b>, ואנזימים חותכים את הסוכר הגדול לסוכרים קטנים.'},
+  {id:'c', t:'הדבורים מורחות אותו בתאים ו<b>מנפנפות בכנפיים</b> ב־<span class="num">35</span> מעלות — המים מתאדים עד כ־<span class="num">18</span> אחוז.'},
+  {id:'d', t:'כשהדבש סמיך, הדבורים <b>אוטמות את התא</b> במכסה שעווה — שלא ייכנסו מים מהאוויר.'},
+  {id:'e', t:'בלי מים זמינים, הסוכר <b>מייבש כל חיידק</b> שנוחת — ובכלי סגור הדבש מחזיק אלפי שנים.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> צוף מהפרח ← מפה לפה עם אנזימים ← נפנוף ואידוי עד <span class="num">18</span> אחוז ← מכסה שעווה ← ובלי מים זמינים שום דבר לא גדל. שימו לב להיגיון: אי אפשר לאטום תא לפני שהדבש התייבש (אחרת הוא יחמיץ בפנים), ואי אפשר לייבש לפני שהצוף הגיע לכוורת.' : '<span class="pill-bad">לא בדיוק.</span> הטעות הנפוצה: לשים את מכסה השעווה לפני הנפנוף, או את "מייבש כל חיידק" לפני שהמים בכלל יצאו. חשבו על זה כמו על מתכון: קודם החומר הגולמי (צוף), אחר כך העיבוד (אנזימים), אז הייבוש (נפנוף), אז האריזה (שעווה) — ורק דבש יבש וסגור הוא דבש שמחזיק.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const vv=+chalVol.value, hh=+chalHives.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const vOk = chalVol.value!=='' && vv>=55 && vv<=58, hOk = chalHives.value!=='' && hh>=6 && hh<=7;
+  const allOk = vOk && hOk; S.challenge = S.challenge || allOk;
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) הרדיוס הוא חצי מהקוטר: <span class="math">30 ÷ 2 = 15</span> ס״מ. הנפח: <span class="math">3.14 × 15 × 15 × 80 = 56,520</span> סמ״ק, וחלקי <span class="num">1,000</span> — כ־<span class="num">57</span> ליטר (המאמר: כ־<span class="num">56</span>). (ב) <span class="num">500</span> ק״ג דבש הם <span class="math">500 ÷ 1.4 ≈ 357</span> ליטר; <span class="math">357 ÷ 56.5 ≈ 6.3</span> — כל הדבש של שנה שלמה, ממאה כוורות, היה ממלא רק כ־<span class="num">6</span> כוורות עד הסוף. למה? כי רוב הנפח בכוורת תפוס בדבורים, בגלמים, בשעווה ובאוויר — הדבש הוא רק החלק שהכוורן לוקח.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : vOk ? (chalHives.value!=='' ? ((hh>=350 && hh<=365) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) קיבלתם ליטרים של דבש — <span class="num">357</span>. עכשיו חלקו בנפח של כוורת אחת: <span class="math">357 ÷ 56.5 = ?</span>' : (hh>=8 && hh<=10) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חילקתם קילוגרמים בליטרים. קודם המירו את הדבש לליטרים: ליטר דבש שוקל <span class="num">1.4</span> ק״ג, אז <span class="math">500 ÷ 1.4 ≈ 357</span> ליטר. ואז <span class="math">357 ÷ 56.5 = ?</span>' : (hh>=12 && hh<=13) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) הכפלתם ב־<span class="num">1.4</span> במקום לחלק: ליטר דבש שוקל <b>יותר</b> מקילוגרם, אז ב־<span class="num">500</span> ק״ג יש <b>פחות</b> מ־<span class="num">500</span> ליטר: <span class="math">500 ÷ 1.4 ≈ 357</span>.' : '<span class="pill-ok">(א) נכון.</span> (ב) עוד לא. רמז: <span class="math">500 ÷ 1.4 ≈ 357</span> ליטר דבש בשנה. כמה כוורות של <span class="num">56.5</span> ליטר זה ממלא? <span class="math">357 ÷ 56.5 = ?</span>') : '<span class="pill-ok">(א) נכון — כ־<span class="num">57</span> ליטר.</span> עכשיו (ב): כמה ליטרים הם <span class="num">500</span> ק״ג דבש, וכמה כוורות זה ממלא?')
+    : (chalVol.value!=='' && vv>=56000 && vv<=57000) ? '<span class="pill-bad">(א): זה בסמ״ק — <span class="num">56,520</span>.</span> השאלה בליטרים: חלקו ב־<span class="num">1,000</span>.'+(hOk?' (ב) נכון.':'')
+    : (chalVol.value!=='' && vv>=224 && vv<=228) ? '<span class="pill-bad">(א): השתמשתם בקוטר (<span class="num">30</span>) במקום ברדיוס.</span> הרדיוס הוא חצי מהקוטר — <span class="num">15</span> ס״מ: <span class="math">3.14 × 15 × 15 × 80 = ?</span>'+(hOk?' (ב) נכון.':'')
+    : (chalVol.value!=='' && vv>=99 && vv<=102) ? '<span class="pill-bad">(א): לקחתם רדיוס של <span class="num">20</span> — זה הקוטר החיצוני.</span> הדפנות עבות, ובפנים הקוטר כ־<span class="num">30</span>, כלומר רדיוס <span class="num">15</span>: <span class="math">3.14 × 15 × 15 × 80 = ?</span>'+(hOk?' (ב) נכון.':'')
+    : (chalVol.value!=='' && vv>=3700 && vv<=3800) ? '<span class="pill-bad">(א): הכפלתם ברדיוס פעם אחת בלבד.</span> בנפח גליל הרדיוס מופיע פעמיים: <span class="math">3.14 × 15 × 15 × 80 = ?</span> סמ״ק — ואז לליטרים.'+(hOk?' (ב) נכון.':'')
+    : (chalVol.value!=='' && ((vv>=700 && vv<=710) || (vv>=0.69 && vv<=0.72))) ? '<span class="pill-bad">(א): שכחתם להכפיל באורך.</span> <span class="math">3.14 × 15 × 15 = 706.5</span> הוא שטח העיגול בסמ״ר; כפול האורך <span class="num">80</span> — ואז חלקו ב־<span class="num">1,000</span> לליטרים.'+(hOk?' (ב) נכון.':'')
+    : hOk ? '<span class="pill-bad">(ב) נכון, (א) עוד לא.</span> רדיוס <span class="num">15</span> ס״מ: <span class="math">3.14 × 15 × 15 × 80 = ?</span> סמ״ק, ואז חלקו ב־<span class="num">1,000</span> לליטרים.'
+    : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): הרדיוס הוא חצי מהקוטר הפנימי: <span class="math">30 ÷ 2 = 15</span>. נפח גליל: <span class="math">3.14 × 15 × 15 × 80 = ?</span> סמ״ק. וחלקו ב־<span class="num">1,000</span> — ליטרים.';
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const c=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    const aOk=(numAdv.value!=='' && c>=999 && c<=1001), bOk=(numAdvR.value!=='' && r>=299 && r<=311), sc = aOk&&bOk?2:(aOk?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">1,250 × 0.8 = 1,000</span> גרם מים — ליטר שלם, שהדבורים צריכות לאדות. (ב) הסוכר: <span class="math">1,250 − 1,000 = 250</span> גרם. בדבש המוכן הסוכר הוא <span class="num">82</span> אחוז, אז הדבש: <span class="math">250 ÷ 0.82 ≈ 305</span> גרם — צנצנת קטנה מקילו ורבע של צוף. ולמה לא <span class="num">250</span>? כי הדבש עצמו עדיין מכיל <span class="num">18</span> אחוז מים: <span class="math">305 × 0.18 ≈ 55</span> גרם מים נשארו, ו־<span class="num">945</span> גרם התאדו.'
+      : aOk ? ((r>=248 && r<=252) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חישבתם את הסוכר — <span class="num">250</span> גרם. אבל דבש הוא לא סוכר טהור: הסוכר הוא רק <span class="num">82</span> אחוז ממנו, והשאר מים. אז הדבש גדול מהסוכר: <span class="math">250 ÷ 0.82 = ?</span>' : (r>=203 && r<=207) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) הכפלתם את הסוכר ב־<span class="num">0.82</span> במקום לחלק. הסוכר הוא <span class="num">82</span> אחוז מהדבש, אז הדבש = הסוכר חלקי <span class="num">0.82</span> — הוא צריך לצאת <b>גדול</b> מ־<span class="num">250</span>.' : (r>=1020 && r<=1030) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) לקחתם <span class="num">82</span> אחוז מכל הצוף. אבל רוב הצוף הוא מים שמתאדים — רק הסוכר (<span class="math">1,250 − 1,000 = 250</span> גרם) עובר לדבש: <span class="math">250 ÷ 0.82 = ?</span>' : (r>=1215 && r<=1225) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חילקתם את המים ב־<span class="num">0.82</span>. המים מתאדים — מה שעובר לדבש הוא הסוכר: <span class="math">1,250 − 1,000 = 250</span> גרם, ואז <span class="math">250 ÷ 0.82 = ?</span>' : '<span class="pill-ok">(א) נכון — <span class="num">1,000</span> גרם מים.</span> עכשיו (ב): הסוכר בצוף הוא <span class="math">1,250 − 1,000 = 250</span> גרם, והוא <span class="num">82</span> אחוז מהדבש: <span class="math">250 ÷ 0.82 = ?</span>')
+      : (c>=249 && c<=251) ? '<span class="pill-bad">ב־(א) חישבתם את הסוכר (<span class="num">20</span> אחוז).</span> השאלה על המים — <span class="num">80</span> אחוז: <span class="math">1,250 × 0.8 = ?</span>'+(bOk?' (ב) נכון.':'')
+      : (c>=79 && c<=81) ? '<span class="pill-bad">ב־(א) כתבתם את האחוז, לא את הגרמים.</span> <span class="num">80</span> אחוז מ־<span class="num">1,250</span>: <span class="math">1,250 × 0.8 = ?</span>'+(bOk?' (ב) נכון.':'')
+      : (c>=99 && c<=101) ? '<span class="pill-bad">ב־(א) חסר אפס.</span> <span class="math">1,250 × 0.8</span>: <span class="math">1,250 × 8 = 10,000</span>, וחלקי <span class="num">10</span>.'+(bOk?' (ב) נכון.':'')
+      : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): <span class="num">80</span> אחוז הם <span class="num">0.8</span>. <span class="math">1,250 × 0.8 = ?</span> (או: עשירית מ־<span class="num">1,250</span> היא <span class="num">125</span>, כפול <span class="num">8</span>.)';
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const ok=v===100; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= ok?'<span class="pill-ok">נכון!</span> <span class="math">20 × 5 = 100</span> קילוגרם — מאתיים צנצנות של חצי קילו. ובתל רחוב היו כמאה כוורות: פי חמישה מזה, כחצי טון בשנה.':(v===25)?'<span class="pill-bad">חיברתם.</span> כל כוורת נותנת <span class="num">5</span> קילוגרם, ויש <span class="num">20</span> כוורות — צריך להכפיל: <span class="math">20 × 5 = ?</span>':(v===10||v===1000)?'<span class="pill-bad">כמעט — האפסים.</span> <span class="math">20 × 5</span>: עשרים פעמים חמש. <span class="math">20 × 5 = ?</span>':(v===4)?'<span class="pill-bad">חילקתם.</span> הדבש מצטבר מכוורת לכוורת, אז מכפילים: <span class="math">20 × 5 = ?</span>':'<span class="pill-bad">לא בדיוק.</span> רמז: <span class="num">5</span> קילוגרם מכל כוורת, ויש <span class="num">20</span> כוורות. <span class="math">20 × 5 = ?</span>'; }
+  else { const ok=v>=399 && v<=401; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">500 × 0.8 = 400</span> גרם מים — ארבע חמישיות מהצוף. נשארים <span class="num">100</span> גרם סוכר, שמהם ייצאו רק כ־<span class="num">120</span> גרם דבש (כי גם בדבש יש <span class="num">18</span> אחוז מים). הדבורים מאדות כמעט חצי ליטר מים בשביל צנצנת קטנה.':(v>=99 && v<=101)?'<span class="pill-bad">חישבתם את הסוכר.</span> <span class="num">20</span> אחוז הם הסוכר; השאלה על המים — <span class="num">80</span> אחוז: <span class="math">500 × 0.8 = ?</span>':(v>=79 && v<=81)?'<span class="pill-bad">כתבתם את האחוז, לא את הגרמים.</span> <span class="num">80</span> אחוז מ־<span class="num">500</span>: <span class="math">500 × 0.8 = ?</span>':(v>=39 && v<=41)?'<span class="pill-bad">חסר אפס.</span> <span class="math">500 × 0.8</span>: <span class="math">500 × 8 = 4,000</span>, וחלקי <span class="num">10</span>.':(v>=4000 && v<=4001)?'<span class="pill-bad">עודף אפס.</span> <span class="math">500 × 0.8</span> — <span class="num">0.8</span>, לא <span class="num">8</span>. חלקו את <span class="num">4,000</span> ב־<span class="num">10</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: <span class="num">80</span> אחוז הם <span class="num">0.8</span>. <span class="math">500 × 0.8 = ?</span> (או: עשירית מ־<span class="num">500</span> היא <span class="num">50</span>, כפול <span class="num">8</span>.)'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שדבש הוא בעיקר סוכר (כ־<span class="num">80</span> אחוז) ורק מעט מים (כ־<span class="num">18</span> אחוז).',
+  'הסברתי שהסוכר מושך את המים החוצה מהחיידקים והעובש (אוסמוזה), ולכן הם מתייבשים ולא מתרבים.',
+  'ציינתי שהדבורים מנפנפות בכנפיים כדי שהמים יתאדו מהצוף (מכ־<span class="num">80</span> אחוז לכ־<span class="num">18</span>), ואוטמות את התא בשעווה.',
+  'הזכרתי עוד "נשק" של הדבש — החומציות או מי החמצן — או את זה שצנצנת פתוחה סופגת מים ויכולה לתסוס.',
+  'סיפרתי מה מצאו בתל רחוב: כוורות חרס בנות כ־<span class="num">3,000</span> שנה, כ־<span class="num">30</span> שרדו (ומשערים שהיו כמאה), עם שאריות מפוחמות של דבורים שזוהו כדבורים מטורקיה.',
+];
+const MODEL='דבש כמעט לא מתקלקל כי אין בו מים זמינים: הוא כ־<span class="num">80</span> אחוז סוכר ורק כ־<span class="num">18</span> אחוז מים, ואפילו המים האלה "תפוסים" על ידי הסוכר. חיידק או עובש שנוחתים עליו הם בעצם שקיות קטנות מלאות במים, והסוכר שמסביב מושך את המים החוצה דרך הקרום שלהם (אוסמוזה) — הם מתייבשים ומתכווצים ולא מצליחים להתרבות. מדענים מודדים את זה ב"פעילות מים": בדבש היא כ־<span class="num">0.6</span>, ושום יצור לא מתרבה מתחת לזה. בנוסף הדבש חומצי כמו מיץ תפוזים, ואנזים שהדבורים מוסיפות מייצר בו מעט מי חמצן. הדבורים מייצרות אותו כך: הצוף מהפרחים הוא כ־<span class="num">80</span> אחוז מים; בכוורת הוא עובר מפה לפה עם אנזימים שחותכים את הסוכר הגדול לגלוקוז ופרוקטוז; הדבורים מורחות אותו בתאים ומנפנפות בכנפיים בכוורת חמה (<span class="num">35</span> מעלות) עד שהמים יורדים לכ־<span class="num">18</span> אחוז — מ־<span class="num">1,000</span> גרם צוף נשארים רק כ־<span class="num">240</span> גרם דבש; ואז הן אוטמות את התא במכסה שעווה, כי דבש מושך מים מהאוויר, ודבש שנרטב מתחיל לתסוס. הסיפור על הדבש הטעים מהקבר המצרי הוא כנראה אגדה — אין דו״ח, ובכדים נמצאו שאריות שחורות — אבל בכלי אטום דבש באמת יכול להחזיק אלפי שנים; הדבש העתיק ביותר שזוהה הוא מגאורגיה, כ־<span class="num">5,500</span> שנה. ובתל רחוב שבעמק בית שאן מצאו ב־<span class="num">2005</span> את הכוורות העתיקות בעולם: גלילי חרס באורך <span class="num">80</span> ס״מ בשלוש קומות, כ־<span class="num">30</span> שרדו ומשערים שהיו כמאה — כחצי טון דבש בשנה, לפני כ־<span class="num">3,000</span> שנה. הן נשרפו, ובפחם נשמרו <span class="num">17</span> כנפיים של דבורים; גיא בלוך מדד אותן וגילה שאלה דבורים מטורקיה, רגועות יותר מהדבורה הסורית המקומית.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (דבש כ־80% סוכר ו־17–18% מים; אוסמוזה — מים עוברים דרך קרום התא מהצד הדליל לצד הסוכרי, החוצה, והחיידק מתייבש; פעילות מים כ־0.6 — חיידקים צריכים מעל 0.91, עובש מעל 0.7, מתחת ל־0.6 אין התרבות; pH כ־3.9; גלוקוז־אוקסידאז → חומצה גלוקונית ומי חמצן; הדבורים: צוף 80% מים → אינוורטאז מפרק סוכרוז לגלוקוז ופרוקטוז → נפנוף ב־35° ואידוי עד 18% → מכסה שעווה; 1,000 גרם צוף → 200 גרם סוכר → 200 ÷ 0.82 ≈ 244 גרם דבש; היגרוסקופיות — צנצנת פתוחה סופגת מים, מעל כ־19% שמרים אוסמופיליים תוססים; נבגים שורדים ולכן לא לתינוקות; גיבוש אינו קלקול; האגדה המצרית ללא מקור מול גאורגיה 5,500 שנה; תל רחוב: 2005, מזר, ~30 כוורות חרס 80 × 40 ס״מ בשלוש קומות, אומדן 100–200, 3–5 ק״ג לכוורת, ~500 ק״ג בשנה, פחמן־14 סוף המאה ה־10/תחילת ה־9 לפנה״ס, 17 כנפיים מפוחמות, מורפומטריה של גיא בלוך, Apis mellifera anatoliaca ולא syriaca התוקפנית, ייבוא מול תחום מחיה — לא הוכרע) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "הדבש שלא מתקלקל לעולם — והכוורת בת 3,000 השנה בעמק" — למה דבש לא מתקלקל, מה הדבורים עושות לצוף, ומה מצאו בתל רחוב. הרעיונות המרכזיים: (1) דבש הוא כ־80% סוכר ורק כ־18% מים; (2) הסוכר מושך את המים החוצה מחיידקים ועובש דרך הקרום שלהם (אוסמוזה) — הם מתייבשים ולא מתרבים; "פעילות מים" כ־0.6, מתחת ל־0.6 שום דבר לא מתרבה (חיידקים צריכים מעל 0.91, עובש מעל 0.7); (3) נשקים נוספים: חומציות (pH כ־3.9, כמו מיץ תפוזים) ומעט מי חמצן מאנזים (גלוקוז־אוקסידאז); (4) הדבורים: צוף כ־80% מים → מפה לפה עם אנזימים (אינוורטאז: סוכרוז → גלוקוז + פרוקטוז) → מריחה בתאים ונפנוף כנפיים בכוורת חמה (35°) עד כ־18% מים → מכסה שעווה; מ־1,000 גרם צוף (200 גרם סוכר) יוצאים 200 ÷ 0.82 ≈ 244 גרם דבש; (5) דבש היגרוסקופי — צנצנת פתוחה בחדר לח סופגת מים, מעל כ־19% שמרים תוססים (בועות, טעם חמוץ); לכן מכסה; גיבוש אינו קלקול; לא לתינוקות מתחת לגיל שנה (נבגים); (6) האגדה על דבש אכיל מקבר מצרי — בלי דו״ח או ממצא, שאריות שחורות; הדבש העתיק שזוהה: גאורגיה, ~5,500 שנה; (7) תל רחוב, עמק בית שאן, 2005, עמיחי מזר ונאוה פניץ־כהן: כ־30 כוורות חרס (80 × 40 ס״מ) בשלוש קומות, אומדן כמאה (100–200), 3–5 ק״ג דבש לכוורת → כחצי טון בשנה, לפני כ־3,000 שנה; נשרפו ובפחם נשמרו 17 כנפיים ורגליים; גיא בלוך מדד (מורפומטריה) וזיהה דבורים אנטוליות מטורקיה ולא את הדבורה הסורית התוקפנית; ייבוא או תחום מחיה — לא הוכרע; (8) חישובים: 20 × 5 = 100; 500 × 0.8 = 400; 1,250 × 0.8 = 1,000; 250 ÷ 0.82 ≈ 305; 200 ÷ 0.82 ≈ 244; 3.14 × 15 × 15 × 80 = 56,520 סמ״ק ≈ 57 ליטר; 500 ÷ 1.4 ≈ 357; 357 ÷ 56.5 ≈ 6.3.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם את המנגנון (הרבה סוכר ומעט מים, והסוכר מושך את המים מהחיידקים כך שהם לא מתרבים) וגם לפחות אחד משני אלה: מה הדבורים עושות (מנפנפות/מאדות את המים ואוטמות בשעווה) או מה נמצא בתל רחוב (כוורות חרס עתיקות עם דבורים), 1 אם יש רק חלק מזה. תשובה שאומרת ש"דבש לא מתקלקל" בלבד, או ש"יש בו הרבה סוכר" בלי להסביר מה הסוכר עושה למים ולחיידקים, או שמספרת רק על הכוורות בלי המנגנון, לא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', יש לך ראש של '+G('כימאי','כימאית')+' ואף של '+G('ארכאולוג','ארכאולוגית')+'!':pct>=60?name+', יש לך מוח של '+G('מדען','מדענית')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=18;                                                     // about 17–18% water in ripe honey
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. דבש הוא רק <b>כ־<span class="num">18</span> אחוז מים</b> — כמו תמר יבש — והשאר סוכר, שמושך את המים מכל חיידק שנוחת עליו. בלי מים זמינים אין קלקול.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. כ־<span class="num">18</span> אחוז מים, כ־<span class="num">80</span> סוכר. ועכשיו ידוע לך גם למה זה משנה: הסוכר מושך את המים מכל חיידק שנוחת, והדבורים הן שהוציאו את שאר המים בנפנוף.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. המציאות: <b>כ־<span class="num">18</span> אחוז מים</b> — כמו תמר יבש — והשאר סוכר. הדבורים הוציאו מהצוף יותר משלושה רבעים מהמים, וזה ההבדל בין שבוע לאלפי שנים.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה מהדבש הוא מים): '+(S.guess?fmtSigns(S.guess):'—')+' (המציאות: כ־18%)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "הדבש שלא מתקלקל לעולם — והכוורת בת 3,000 השנה בעמק", מהדורה 23, כ׳ בתשרי תשפ״ז (1 באוקטובר 2026, חול המועד סוכות). נושא: למה דבש כמעט לא מתקלקל, איך הדבורים הופכות צוף לדבש, והמכוורת העתיקה בעולם בתל רחוב; כימיה (סוכר, מים, אוסמוזה, פעילות מים, חומציות, מי חמצן, אנזימים), ביולוגיה (דבורים, חיידקים, עובש, שמרים, נבגים), היסטוריה וארכאולוגיה (תל רחוב, מצרים, גאורגיה, המקרא), גאוגרפיה (עמק בית שאן, אנטוליה/טורקיה). המנגנון: דבש הוא כ־80% סוכר (פרוקטוז כ־38%, גלוקוז כ־31%) ורק 17–18% מים; הסוכר "צמא" — מים עוברים דרך קרום החיידק מהצד הדליל לצד המרוכז (אוסמוזה) → החוצה מהתא → החיידק מתייבש ומתכווץ ולא מתרבה; "פעילות מים" = כמה מהמים זמינים: מים 1.0, לחם כ־0.95, ריבה כ־0.8, דבש כ־0.56–0.62; רוב החיידקים לא מתרבים מתחת ל־0.91, רוב העובשים לא מתחת ל־0.7, שמרים אוסמופיליים ("אוהבי סוכר") עד כ־0.62, מתחת ל־0.6 אין התרבות של שום יצור; נשקים נוספים: חומציות pH כ־3.9 (טווח 3.4–4.5; כמו מיץ תפוזים) בעיקר מחומצה גלוקונית, והאנזים גלוקוז־אוקסידאז שמייצר מעט מי חמצן (H₂O₂) — במיוחד כשהדבש נרטב/מדולל; אותו עיקרון עם מלח (דג מלוח, זיתים), סוכר (ריבה), חומצה (מלפפון חמוץ), ייבוש (צימוקים, פסטה). הדבורים: צוף 70–80% מים, בעיקר סוכרוז → הדבורה שומרת ב"בטן דבש" → בכוורת מעבירות מפה לפה, האנזים אינוורטאז מפרק סוכרוז לגלוקוז + פרוקטוז → מורחות בשכבה דקה בתאים, הכוורת כ־35 מעלות, נפנוף כנפיים מזרים אוויר והמים מתאדים → כשהמים יורדים לכ־18% (1–3 ימים) הדבורים אוטמות את התא במכסה שעווה (השעווה מבלוטות בגוף הדבורה); מ־1,000 גרם צוף עם 200 גרם סוכר יוצאים 200 ÷ 0.82 ≈ 244 גרם דבש (יותר משלושה רבעים מהמשקל התאדו; "מארבע כפות צוף כף דבש"); 500 גרם צוף → 500 × 0.8 = 400 גרם מים, 100 גרם סוכר → כ־120 גרם דבש; 1,250 גרם צוף → 1,000 גרם מים, 250 גרם סוכר → 250 ÷ 0.82 ≈ 305 גרם דבש. היגרוסקופיות: דבש מושך מים מהאוויר כשהלחות היחסית מעל כ־60%; בצנצנת פתוחה בחדר לח השכבה העליונה סופגת מים, ומעל כ־19–20% מים שמרים אוסמופיליים תוססים (אוכלים סוכר, פולטים CO₂ ואלכוהול — בועות, ריח יין, טעם חמוץ); הגבול המסחרי: עד כ־20% מים; באוויר יבש (מדבר, קבר אטום) כמעט כלום לא קורה; גיבוש (דבש קשה ולבנבן) הוא הגלוקוז שמתגבש — לא קלקול, חימום עדין במים חמים מהברז (לא רותחים, כי חום הורס את האנזימים) ממיס; נבגים של קלוסטרידיום בוטולינום שורדים בדבש (הדבש לא הורג נבגים, רק מונע התעוררות) — לכן לא לתינוקות מתחת לגיל שנה. האגדה: "דבש בן 3,000 שנה מקבר מצרי שעדיין אכיל" — אין דו״ח מעבדה, אין שם קבר או טועם, ביומני קרטר (תות ענח׳ אמון) אין בדיקה כזאת, השאריות בכדים מצריים היו לרוב "כמו זפת" — כנראה פולקלור, אבל הכימיה נכונה: בכלי אטום ויבש דבש יכול להחזיק אלפי שנים; הדבש העתיק ביותר שזוהה: שאריות בכדי חרס בקבר בגאורגיה, 170 ק״מ מערבית לטביליסי, נחשף ב־2003 בעבודות צינור נפט, כ־5,500 שנה (4,700–5,500), טיליה/פירות יער/פרחי שדה — לא לאכילה; הציור העתיק ביותר של כוורנים: מקדש השמש של ניאוסרע, מצרים, כ־2400 לפנה״ס (כ־4,400 שנה); לוחות שומריים — דבש בכ־30% מהמרשמים; משחות דבש במצרים; תחבושות דבש רפואי מעוקר בבתי חולים היום. תל רחוב: 5 ק״מ דרומית לבית שאן, 3 ק״מ מערבית לירדן, תל של 11 הקטר; חפירות 1997–2012 בראשות עמיחי מזר (האוניברסיטה העברית) עם נאוה פניץ־כהן; המכוורת נחשפה ב־2005 (חפירות 2005–2007), שטח C; כ־30 כוורות חרס שרדו, כ־60 משוחזרות בקומה התחתונה ועד כ־180 בשלוש קומות (ויקיפדיה: 100–200; ScienceDaily: כ־100), שלוש שורות של שלוש קומות; כל כוורת גליל של חימר לא שרוף עם קש, אורך כ־80 ס״מ, קוטר כ־40 ס״מ, דפנות 4 ס״מ, נפח כ־56 ליטר, חור כניסה בקצה אחד ומכסה נשלף בקצה השני (כמו כוורות חרס מסורתיות במזרח התיכון); 3–5 ק״ג דבש ו־0.5–0.7 ק״ג שעווה לכוורת בשנה → 100 כוורות ≈ 500 ק״ג דבש ("כחצי טון"); 11 תאריכי פחמן־14 על גרגרי תבואה: סוף המאה העשירית–תחילת התשיעית לפנה״ס (ימי ממלכת ישראל הצפונית המוקדמת; "כ־3,000 שנה", בפועל כ־2,900–2,950); המכוורת נהרסה בשרפה — חלות הדבש התפחמו ושימרו פועלות, זכרים, גלמים ורימות; ליד: מזבח חרס עם ארבע קרנות ודמויות נשיות, וכד עם הכתובת "לנמשי"; המכוורת העתיקה ביותר שנחשפה בחפירה בעולם; הוצג בתערוכה "ארץ זבת חלב ודבש" במוזיאון ארץ ישראל בתל אביב (2016); שינתה את ההבנה ש"דבש" במקרא הוא רק סירופ תמרים; שמשון מצא דבש בגוויית האריה (שופטים יד). הדבורים: גיא בלוך (האוניברסיטה העברית) ועמיתים, PNAS 2010 "Industrial apiculture in the Jordan valley during Biblical times with Anatolian honeybees": 17 כנפיים מפוחמות ועשרות רגליים, נשמרו בתערובת שעווה וסוכר שהתקשתה; מורפומטריה — מדידת אורכים וזוויות של ורידי הכנף והשוואה למאגר של זנים; התוצאה חד־משמעית: Apis mellifera anatoliaca (הדבורה האנטולית, חיה היום בטורקיה) ולא הזן המקומי Apis mellifera syriaca (הדבורה הסורית — תוקפנית מאוד, נוטה לנטוש); הדבורה האנטולית "מזג נוח יותר ותנובת דבש גבוהה יותר"; שתי השערות — ייבוא מלכות/נחילים במסחר (מאות ק״מ צפונה, לא נמדד מרחק מדויק), או שתחום המחיה של הדבורה האנטולית השתרע אז דרומה — לא הוכרע. הכוורת כמזגן: 35 מעלות כל השנה, בחום מביאות מים ומנפנפות (אידוי), בקור רועדות בשרירי הכנפיים. חישובי השיעור: 20 × 5 = 100 ק״ג (20 כוורות); n × 5 ק״ג; 100 × 5 = 500 ק״ג = כאלף צנצנות של חצי קילו; 500 × 0.8 = 400; 1,250 × 0.8 = 1,000; 1,250 − 1,000 = 250; 250 ÷ 0.82 ≈ 305; 200 ÷ 0.82 ≈ 244; האתגר: קוטר פנימי כ־30 ס״מ (40 חיצוני פחות דפנות של 4; מעוגל), רדיוס 15, 3.14 × 15 × 15 × 80 = 56,520 סמ״ק ≈ 57 ליטר (המאמר: כ־56); צפיפות דבש כ־1.4 ק״ג לליטר (1.38–1.45) → 500 ÷ 1.4 ≈ 357 ליטר → 357 ÷ 56.5 ≈ 6.3 כוורות מלאות (רוב נפח הכוורת: דבורים, גלמים, שעווה, אוויר). ניסויי בית: מרוץ עובש — כפית דבש מול כפית סוכר במים (וחתיכת לחם) שבוע על המדף; פרוסת תפוח בדבש/מלח — אוסמוזה, התפוח מתקמט והדבש נעשה דליל; צנצנת מגובשת — מים חמים מהברז, לא מיקרוגל. חיבורים: ריבה (פעילות מים כ־0.8, ריבה דלת סוכר כ־0.85 חייבת מקרר), מלפפון חמוץ (חומצה), דג מלוח (מלח); ספינות טרופות — כדי שמן ויין אטומים במים קרים בלי חמצן; חמאת ביצות באירלנד — קר, חומצי, בלי חמצן; מרק (פעילות מים כ־0.99) מתקלקל תוך יום. פישוטים במכוון: "החיידק בצנצנת" ממפה אחוז סוכר לפעילות מים בקו ישר (1 − 0.0049 × סוכר) — נכון בקצוות בלבד; "מייבשים צוף" מדגים ייבוש בשלושה ימים ותסיסה בלי נפנוף אחרי יום וחצי — סכמטי; "הצנצנת הפתוחה" — קצב הספיגה סכמטי, שיווי המשקל תלוי בלחות (כ־18% ב־60%); "כ־5 ק״ג לכוורת" הוא הקצה העליון; "כמאה כוורות" הוא האומדן השמרני; "3,000 שנה" מעוגל. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט ומה שלא ידוע (איך הגיעו הדבורים; האגדה המצרית), בלי לחשוף תשובות מבחן; אם ילד שואל על שאלה מהמבחן, לרמוז ולכוון, לא לפתור.';
+const CHIPS = ['למה דבש לא מתקלקל?', 'איך הדבורים מייבשות את הצוף?', 'מה מצאו בתל רחוב?', 'באמת אכלו דבש מקבר מצרי?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים: הרכב הדבש — כ־80% סוכר, 17–18% מים, פרוקטוז וגלוקוז; אוסמוזה — כיוון זרימת המים דרך קרום התא ולמה; פעילות מים והספים 0.91 / 0.7 / 0.62 / 0.6, ולמה דבש "על הגבול"; pH כ־3.9 וחומצה גלוקונית; גלוקוז־אוקסידאז ומי חמצן, ולמה הם פעילים דווקא בדבש מדולל; אינוורטאז — סוכרוז לגלוקוז + פרוקטוז, ולמה יותר מולקולות קטנות = לחץ אוסמוטי גבוה יותר; מאזן המסה 200 ÷ 0.82 ≈ 244 ו־250 ÷ 0.82 ≈ 305; היגרוסקופיות ושיווי משקל עם לחות האוויר, סף התסיסה כ־19–20%, שמרים אוסמופיליים; נבגים מול תאים פעילים; החישוב של האתגר — 3.14 × 15 × 15 × 80 = 56,520 סמ״ק ≈ 57 ליטר, 500 ÷ 1.4 ≈ 357, 357 ÷ 56.5 ≈ 6.3; מורפומטריה של ורידי כנף, מהו זן (תת־מין), ולמה 17 כנפיים מספיקות; פחמן־14 ומה מתארכים; למה הממצא שינה את פרשנות "דבש" במקרא), שאל שאלות המשך שדורשות חשיבה (למשל: למה ריבה דלת סוכר חייבת מקרר וריבה רגילה לא? — פעילות מים כ־0.85 מול 0.8, עובש; למה מלח עובד כמו סוכר? — אוסמוזה, יונים "תופסים" מים; מה היה קורה לדבש בכוורת בלי מכסה שעווה בחורף לח? — ספיגה ותסיסה; למה דבש מדולל דווקא מייצר יותר מי חמצן? — האנזים צריך מים; איך היית מוכיח שהדבורים יובאו ולא חיו כאן? — DNA עתיק, ממצאים דרומיים נוספים, מסמכי מסחר), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה דבש לא מתקלקל?</b> דבש הוא כ־<span class="num">80</span> אחוז סוכר ורק כ־<span class="num">18</span> אחוז מים. הסוכר "צמא": כשחיידק או עובש נוחתים על הדבש, הסוכר מושך את המים החוצה מתוכם, והם מתייבשים ולא מצליחים להתרבות. בנוסף הדבש חומצי כמו מיץ תפוזים, ויש בו מעט מי חמצן.<br><br><b>איך הדבורים מייבשות את הצוף?</b> הצוף מהפרחים הוא כ־<span class="num">80</span> אחוז מים. הדבורים מורחות אותו בתאים ומנפנפות בכנפיים בכוורת חמה, כ־<span class="num">35</span> מעלות, עד שהמים מתאדים ונשארים רק כ־<span class="num">18</span> אחוז. ואז הן סוגרות את התא במכסה שעווה.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
