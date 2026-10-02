@@ -1,0 +1,22 @@
+{
+  "n": 24,
+  "code": "WOW-024",
+  "date": "2026-10-02",
+  "language": "he",
+  "title": "למה בכל כיתה יש שני ילדים עם אותו יום הולדת",
+  "topics": [
+    "מתמטיקה",
+    "טכנולוגיה",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "The birthday paradox: 23 random people give a 50.7% chance that two share a birthday (30 → 70.6%) because you count pairs, not people (23 → 253 pairs, each a 1-in-365 ticket; (364/365)^253 ≈ 0.5); the 'same as mine' game needs 253 people (Johnny Carson's 1980 on-air mistake, ~500 audience); James Fletcher's BBC 2014 World Cup check (16 of 32 squads of 23, five with two pairs; 2010+2014: 31 of 64); the square-root rule n ≈ 1.2√N (100 lockers → 12 kids, 10^6 → ~1,200); the birthday attack on hash fingerprints (Yuval 1979 'How to Swindle Rabin', Michael Rabin of the Hebrew University; 2^32 → ~77,000 tries, hence 2^256); non-uniform birthdays make a match more likely; triples at 88; Knesset 120 → ~20 matching pairs on average. Four canvases: random class on a 365-day ring with tally, web of pairs with tickets meter, two-curves game (any pair vs same-as-mine), lockers collision game (100/25).",
+  "teaser": "כמה ילדים צריכים להיות בכיתה כדי שהסיכוי שלשניים מהם יש אותו יום הולדת יעבור 50%? רק 23 — ולא 183 כמו שהאינסטינקט אומר.\nהסוד: סופרים זוגות, לא ילדים. ובדרך: הטעות של ג'וני קרסון, גביע העולם ב-2014, וההתקפה שמאיימת על טביעות האצבע של המחשבים.",
+  "max_score": 11,
+  "status": "released",
+  "released_at": "2026-10-02T08:11:06.000Z",
+  "password": "עוגה לשניים",
+  "reviewer_verdict": "PASS (2 rounds) — nits left: reviewer estimates ~35 min younger / ~40 min older vs the 30-min tag (same order as #19–#23); 11-px month/axis labels at phone width (inherited canvas scale); challenge (ב) number also appears in a shared MCQ feedback shown after it",
+  "review_url": "https://claude.ai/artifact/WSXUbcKYcvkrtM9Z6cYipC",
+  "editor_note": null
+}
