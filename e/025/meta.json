@@ -1,0 +1,22 @@
+{
+  "n": 25,
+  "code": "WOW-025",
+  "date": "2026-10-03",
+  "language": "he",
+  "title": "הלוויין שהשעון שלו ממהר בכל יום",
+  "topics": [
+    "פיזיקה",
+    "חלל",
+    "טכנולוגיה",
+    "היסטוריה"
+  ],
+  "summary": "GPS and relativity: satellite clocks gain 38 µs/day (special relativity −7 from 3.9 km/s, general relativity +45 from 20,200 km altitude); time → distance at 300 m per µs; one satellite = a circle, four = a point (the receiver solves its own clock); the 1977 NTS-2 relativity switch (442.5 vs 446.5 ppt, ~1%), Hafele–Keating 1971, the pre-launch 10.22999999543 MHz offset; ISS clocks lose 25 µs/day, balance altitude ~3,200 km; the famous (disputed) ~10 km/day estimate; Gladys West and the geoid; Waze from Ra’anana. Four canvases: light ruler (satellites/circles/clock error), two clocks (altitude slider, speed vs gravity bars), the 1977 switch (20-day graph), a day without the switch (drift map of Zikhron Yaakov).",
+  "teaser": null,
+  "max_score": 11,
+  "status": "released",
+  "released_at": "2026-10-03T08:10:50.000Z",
+  "password": "עוגה לשניים",
+  "reviewer_verdict": "PASS (3 rounds) — nits left: reviewer estimates ~40–45 min vs the 30-min tag (same order as #19–#24); challenge (b) can be shortcut via 3.9 × 3,600 from the step-5 text (still a conversion); hero satellite art partly behind the date tags at phone width; demo picker shows bare בן/בת",
+  "review_url": "https://claude.ai/artifact/7fs32ApUHPK35iP5muvyGL",
+  "editor_note": null
+}
