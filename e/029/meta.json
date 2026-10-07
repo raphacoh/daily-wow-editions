@@ -1,0 +1,24 @@
+{
+  "n": 29,
+  "code": "WOW-029",
+  "date": "2026-10-07",
+  "language": "he",
+  "title": "מי מייצר את הריח של הגשם הראשון",
+  "topics": [
+    "כימיה",
+    "ביולוגיה",
+    "פיזיקה",
+    "גאוגרפיה",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "Why the first rain smells (petrichor): plant oil stored in dry dust and geosmin from Streptomyces (Bear & Thomas 1964), the MIT 2015 bubble/aerosol mechanism, the nose's ~100 ppt sensitivity (a teaspoon in 20 Olympic pools, 10,000x a shark), springtails as the evolutionary reason (2020), Kannauj mitti attar, and Israel's yoreh and the Mishna's rain calendar.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: Arto tip briefly overlays a canvas corner on phones; 'אוכל' tag now drawn last; older track runs ~30 min for slow readers",
+  "review_url": "https://claude.ai/artifact/JRfMgGt6oHogFah8JebGGy",
+  "editor_note": null
+}

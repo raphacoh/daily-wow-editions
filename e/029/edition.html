@@ -1,0 +1,1786 @@
+<title>שורשים וכנפיים #29 · מי מייצר את הריח של הגשם הראשון</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#D9923A; --sun-deep:#7F4B12; --sun-soft:#F8E4CB;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#6B3FA0; --shadow-soft:#ECE1F7;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#D9822B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#E8A757; --sun-deep:#F7D5A8; --sun-soft:#4A2E14;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#E8A757; --sun-deep:#F7D5A8; --sun-soft:#4A2E14;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny cloud with a single drop falling onto dry ground */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:40px;height:30px;flex:none}
+.ch .stick::before{content:"";position:absolute;right:2px;top:0;width:36px;height:16px;border-radius:12px;background:var(--nile-soft);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:14px;top:17px;width:10px;height:12px;border-radius:50% 50% 50% 50%/40% 40% 60% 60%;background:var(--nile);border:2px solid var(--ink);box-sizing:border-box}
+
+/* hero: a raindrop landing on dry porous ground, bubbles underneath, scent droplets flying up */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%{transform:translate(150px,170px);opacity:0}15%{opacity:1}100%{transform:translate(196px,40px);opacity:0}}
+@keyframes spark2{0%{transform:translate(132px,172px);opacity:0}15%{opacity:1}100%{transform:translate(70px,52px);opacity:0}}
+/* this edition's widgets */
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 29</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="var(--aur)" stop-opacity=".55"/>
+        <stop offset="60%" stop-color="var(--aur)" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="var(--aur)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- a raindrop that has just landed on dry, porous ground: air bubbles trapped underneath, tiny scent droplets flying up -->
+    <g id="heroDrop">
+      <!-- dry ground with pores -->
+      <rect x="14" y="196" width="272" height="80" rx="8" fill="var(--sun)" stroke="var(--ink)" stroke-width="2"/>
+      <g fill="var(--bg)" opacity=".75">
+        <circle cx="50" cy="222" r="5"/><circle cx="92" cy="246" r="4"/><circle cx="212" cy="230" r="5"/><circle cx="250" cy="256" r="4"/><circle cx="70" cy="260" r="3"/><circle cx="236" cy="212" r="3"/>
+      </g>
+      <!-- the drop, flattened on impact -->
+      <path d="M100 198 q50 -62 100 0 z" fill="var(--nile)" stroke="var(--ink)" stroke-width="2"/>
+      <!-- bubbles trapped under the drop, rising -->
+      <g fill="var(--bg)" stroke="var(--ink)" stroke-width="1.2">
+        <circle cx="130" cy="188" r="5"/><circle cx="150" cy="178" r="6"/><circle cx="168" cy="190" r="4"/><circle cx="142" cy="166" r="4"/>
+      </g>
+    </g>
+    <g class="spark" transform="translate(150,150)">
+      <!-- a scent droplet on its way up to a nose -->
+      <circle r="6" fill="var(--aur)" stroke="var(--ink)" stroke-width="1.5"/>
+    </g>
+    <g class="spark2" transform="translate(120,150)">
+      <circle r="4" fill="var(--aur2)" stroke="var(--ink)" stroke-width="1.5"/>
+    </g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 29</span><span class="tag">יום רביעי, 7 באוקטובר 2026</span><span class="tag">כ״ו בתשרי תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>מי מייצר את הריח של הגשם הראשון</h1>
+  <p class="lede">זוכרים את הרגע הזה? אחרי קיץ שלם בלי טיפה, יורד הגשם הראשון, וכל הרחוב מריח פתאום <b>כמו גשם</b>. אבל הנה דבר מוזר: <b>למים אין ריח בכלל</b>. גשם שנופל על חלון לא מריח כלום. אז מה אנחנו מריחים? שני דברים שחיכו באדמה כל הקיץ: <b>שמן</b> שצמחים אספו באבק ובסלעים, ו<b>גאוסמין</b>, חומר שחיידקים זעירים מייצרים בעפר. האף שלנו מזהה אותו בכמות כל כך קטנה, שאפילו כריש שמריח דם היה מקנא. שני מדענים באוסטרליה נתנו לריח הזה שם בשנת <span class="num">1964</span>: <b>פטריכור</b>, "דם האלים של האבן". השאלה של היום: <b>איך ריח יוצא מהאדמה, ולמה דווקא בגשם הראשון?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">כפית אחת של גאוסמין (חומר הריח של האדמה) מערבבים במים. בכמה מים האף שלכם עדיין מרגיש אותה?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="0.0001"><b>בכוס מים אחת</b><span>כפית סוכר בתה — זה כבר הרבה</span></button>
+      <button type="button" class="scaleopt" data-scale="1"><b>בבריכה אולימפית אחת</b><span><span class="num">2.5</span> מיליון ליטר</span></button>
+      <button type="button" class="scaleopt" data-scale="20"><b>ב־<span class="num">20</span> בריכות אולימפיות</b><span><span class="num">50</span> מיליון ליטר</span></button>
+      <button type="button" class="scaleopt" data-scale="1600000"><b>בכל הכנרת</b><span>יותר ממיליון בריכות</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE TWO INGREDIENTS (interactive 1: the summer stock) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>הריח לא בא מהמים</h2>
+  <p>הריח של הגשם הראשון מגיע מהאדמה, ויש לו שני מרכיבים. הראשון הוא <b>שמן</b>: בקיץ היבש צמחים מפרישים שמן, והוא נספג באבק, בסלעים ובאדמה, ונערם שם חודשים. השני הוא <b>גאוסמין</b>: חומר שמייצרים חיידקים זעירים שחיים בעפר, בני משפחה שנקראת <b>סטרפטומיצס</b>. השם גאוסמין בא מיוונית, ופירושו פשוט "ריח אדמה". שני המרכיבים מחכים באדמה היבשה, ומשתחררים לאוויר כשמגיעים המים.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>תחשבו על האדמה כמו על <b>מחסן</b>. כל הקיץ המחסן מתמלא: עוד קצת שמן מהצמחים, עוד קצת גאוסמין מהחיידקים, שכבה דקיקה על כל גרגר אבק. כשיורד הגשם הראשון, המחסן נפתח בבת אחת, והכול עולה לאוויר. לכן הריח של הגשם הראשון הוא הכי חזק. אחרי הגשם השני והשלישי המחסן כבר כמעט ריק, והאדמה רטובה. באינטראקטיב: הריצו שנה שלמה, ונחשו קודם איזה גשם מריח הכי חזק.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>את השמן גילו שני מדענים אוסטרלים, ג׳וי ביר וריצ׳רד תומאס: הם לקחו סלעים וחרסית מאזורים יבשים, חיממו אותם באדים, ואספו מהם שמן צהבהב. צמחים מפרישים אותו בבצורת, החרסית סופגת אותו, והלחות משחררת אותו. שנה אחר כך הם הראו שהשמן הזה <b>מעכב נביטה</b> של זרעים. אולי זה מסר: "עדיין יבש, חכו." והחיידקים? סטרפטומיצס חיים באדמה כחוטים דקיקים. כשהאדמה מתייבשת הם מייצרים <b>נבגים</b>, תאים רדומים שיכולים לחכות שנים, ובאותו זמן גם גאוסמין. מתוך <span class="num">122</span> מינים של סטרפטומיצס שנבדקו, <span class="num">120</span> יודעים לייצר אותו, אז כנראה שהוא שווה להם משהו (פרק 5). באינטראקטיב: הריצו שנה, ועקבו אחרי המחסן ואחרי מד הריח.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — מחסן הקיץ ===== -->
+  <div class="panel instrument">
+    <h3>מחסן הקיץ</h3>
+    <p class="cap">נחשו קודם: בחורף יורדים הרבה גשמים. איזה מהם מריח הכי חזק?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="skP0" onclick="skPredict(0)">הגשם הראשון של הסתיו</button>
+        <button id="skP1" onclick="skPredict(1)">הגשם החמישי</button>
+        <button id="skP2" onclick="skPredict(2)">כולם אותו דבר</button>
+      </div>
+    </div>
+    <canvas role="img" id="skCv" width="640" height="470" aria-label="חתך של אדמה עם צמח מעליה; לאורך הקיץ מצטברים בעפר נקודות צהובות של שמן ונקודות סגולות של גאוסמין; למעלה שמש, ובסתיו עננים; כשיורד הגשם הראשון הנקודות עפות לאוויר ומד הריח בצד קופץ גבוה; בגשמים הבאים הוא כמעט לא זז"></canvas>
+    <div class="controls">
+      <button class="btn small" id="skPlay" onclick="SK.toggle()">הריצו את השנה</button>
+      <label>הזמן
+        <input type="range" id="skT" min="0" max="100" step="1" value="0" oninput="skDraw(1)" aria-label="הזמן" style="direction:ltr">
+      </label>
+      <div class="readout"><b id="skOut">אפריל</b></div>
+    </div>
+    <p class="cap" id="skMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note"><span class="hand">!</span><p>כלל האצבע של היום: <b>הריח של הגשם הוא לא ריח של מים. הוא ריח של כל מה שהאדמה אספה בזמן שחיכתה להם.</b></p></div>
+
+  <div class="q qc" id="stockQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · HOW THE SMELL GETS OUT (interactive 2: the drop and the bubbles) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>איך הריח יוצא מהאדמה</h2>
+  <p>השמן והגאוסמין שוכבים על האדמה, אבל ריח צריך להגיע לאף, כלומר לעוף באוויר. איך טיפת מים מעיפה ריח למעלה? את זה גילו רק ב־<span class="num">2015</span> שני מהנדסים במכון MIT בארצות הברית, קאלן בואי ויאנג סו ג׳ונג. הם צילמו טיפות נוחתות במצלמות מהירות מאוד: כ־<span class="num">600</span> ניסויים, על <span class="num">28</span> סוגים של משטחים, מאדמת גינה ועד חול מחוף הים.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>וזה מה שראו: כשטיפה נוחתת על אדמה יבשה, שיש בה המון חורים קטנים מלאים אוויר, היא <b>לוכדת מתחתיה בועות אוויר</b>, כמו בכוס סודה. הבועות עולות דרך הטיפה, מתפוצצות למעלה, ומעיפות לאוויר טיפונות זעירות, ועליהן רוכב הריח. הכי הרבה בועות יוצאות <b>בטפטוף עדין על אדמה יבשה</b>. בגשם שוטף הטיפות נוחתות חזק מדי ומתרסקות לפני שהבועות עולות, ועל כביש אין חורים עם אוויר בכלל. באינטראקטיב: בחרו סוג גשם ומשטח, ונחשו קודם מה יעיף הכי הרבה ריח.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הטיפה פוגעת במשטח <b>נקבובי</b>, מלא נקבוביות זעירות עם אוויר, ולוכדת בועות אוויר בנקודת המגע. הבועות עולות דרך הטיפה ומתפוצצות בפני המים, וכל פיצוץ מעיף למעלה טיפונות זעירות, <b>אירוסולים</b>, שנושאות את השמן והגאוסמין. הכול קורה בתוך כמה מיליוניות שנייה. בואי השווה את זה לכוס שמפניה. שני דברים קובעים כמה ריח יוצא: <b>מהירות הטיפה</b> (טיפה איטית או בינונית לוכדת הרבה בועות; טיפה מהירה מתפשטת ונשברת לפני שהבועות מספיקות לעלות) ו<b>כמה המשטח נקבובי</b> (אדמה יבשה עם חורי אוויר: הרבה; אדמה רטובה, שהחורים שלה כבר מלאים מים, או כביש: כמעט כלום). לכן טפטוף אחרי בצורת מריח יותר מסופה. וזה מסביר גם למה לפעמים מריחים את הגשם <b>לפני</b> שהוא מגיע: הרוח נושאת את האירוסולים ממקום שבו הגשם כבר יורד, קילומטרים לפניו. באינטראקטיב: שנו את הגשם ואת המשטח, וספרו חלקיקי ריח.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — הטיפה והבועות ===== -->
+  <div class="panel instrument">
+    <h3>הטיפה והבועות</h3>
+    <p class="cap">נחשו קודם: מה מעיף לאוויר הכי הרבה ריח?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="dpP0" onclick="dpPredict(0)">טפטוף על אדמה יבשה</button>
+        <button id="dpP1" onclick="dpPredict(1)">מבול על אדמה יבשה</button>
+        <button id="dpP2" onclick="dpPredict(2)">מבול על כביש</button>
+      </div>
+    </div>
+    <canvas role="img" id="dpCv" width="640" height="470" aria-label="תקריב ענק של טיפת גשם שנוחתת על משטח: באדמה יבשה יש חורים עם אוויר, הטיפה לוכדת מתחתיה בועות, הבועות עולות דרך הטיפה ומתפוצצות למעלה, ומהן עפות טיפונות זעירות של ריח; בצד מונה של חלקיקי הריח; על אדמה רטובה או על כביש כמעט אין בועות"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="סוג הגשם">
+        <button id="dpS0" onclick="dpSpeed(0)">טפטוף</button>
+        <button id="dpS1" onclick="dpSpeed(1)" class="on">גשם</button>
+        <button id="dpS2" onclick="dpSpeed(2)">מבול</button>
+      </div>
+      <div class="seg" role="group" aria-label="המשטח">
+        <button id="dpG0" onclick="dpGround(0)" class="on">אדמה יבשה</button>
+        <button id="dpG1" onclick="dpGround(1)">אדמה רטובה</button>
+        <button id="dpG2" onclick="dpGround(2)">כביש</button>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn small" id="dpPlay" onclick="DP.toggle()">הפילו טיפה</button>
+      <label>הזמן
+        <input type="range" id="dpT" min="0" max="100" step="1" value="0" oninput="dpDraw(1)" aria-label="הזמן" style="direction:ltr">
+      </label>
+      <div class="readout"><b class="num" id="dpOut">0</b> חלקיקי ריח באוויר</div>
+    </div>
+    <p class="cap" id="dpMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="aha">כלל אצבע: <b>טיפה איטית על אדמה יבשה ומחוררת = הרבה בועות = הרבה ריח.</b> טיפה מהירה, אדמה רטובה או כביש = כמעט כלום.</div>
+
+  <div class="q qc" id="dropQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE NOSE (interactive 3: the dilution ladder) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>האף שמנצח כריש</h2>
+  <p>כמה גאוסמין צריך כדי שנריח אותו? כמעט כלום. האף שלנו מזהה גאוסמין בריכוז של כ־<span class="num">100</span> <b>חלקים לטריליון</b>: חלק אחד מתוך <span class="num">10</span> מיליארד. כפית אחת של גאוסמין ב־<span class="num">20</span> בריכות אולימפיות, והאף עדיין אומר "אדמה רטובה". לשם השוואה: כריש, אלוף הריח של הים, מזהה דם במים רק בריכוז של בערך חלק אחד למיליון. כלומר האף שלנו רגיש לגאוסמין <b>פי <span class="num">10,000</span></b> בערך יותר מכריש לדם.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>"חלק לטריליון" קשה לדמיין, אז נעשה את זה עם כוסות. שמים טיפה של גאוסמין בכוס מים ומערבבים. לוקחים מהכוס טיפה אחת, שמים אותה בכוס חדשה של מים נקיים, ומערבבים. ושוב. בכל כוס הריח נחלש <b>פי <span class="num">10</span></b>. השאלה: כמה כוסות אפשר לעבור עד שהאף מפסיק להרגיש? ואיפה כריש היה מוותר? למה האף שלנו כל כך רגיש דווקא לריח הזה? המדענים משערים: ריח של אדמה רטובה פירושו מים, ומים פירושם חיים. מי שהריח גשם מרחוק, מצא מים. באינטראקטיב: דללו פי <span class="num">10</span> שוב ושוב, וספרו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><span class="num">100</span> חלקים לטריליון זה <span class="math">1 : 10,000,000,000</span>, כלומר <b>עשרה דילולים</b> של פי <span class="num">10</span> בזה אחר זה. בכנות: המספר תלוי במעבדה ובאדם; יש מחקרים שמדדו <span class="num">5</span> חלקים לטריליון, פי <span class="num">20</span> פחות, ויש שמדדו יותר. אבל בכל המדידות האף מנצח את הכריש. גאוסמין נמצא גם במקומות אחרים: ב<b>סלק</b> (לכן יש לו טעם של אדמה), בדגים שגדלים בבריכות, ולפעמים ב<b>מי השתייה</b> בסוף הקיץ: גם ציאנובקטריה בכנרת מייצרות אותו, ואז המים טעימים "כמו אדמה" למרות שהם בטוחים לשתייה. למה אנחנו כל כך רגישים דווקא לו? ההשערה: לאבות שלנו, ריח של אדמה רטובה היה סימן למים, ומי שהריח אותו מרחוק שרד. זו השערה, לא הוכחה. באינטראקטיב: דללו פי <span class="num">10</span> שוב ושוב, ועקבו אחרי האף ואחרי הכריש.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — סולם הדילול ===== -->
+  <div class="panel instrument">
+    <h3>סולם הדילול</h3>
+    <p class="cap">נחשו קודם: טיפה של גאוסמין בכוס מים. כמה פעמים אפשר לדלל פי <span class="num">10</span> עד שהאף מפסיק להרגיש?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="dlP0" onclick="dlPredict(0)">פעמיים או שלוש</button>
+        <button id="dlP1" onclick="dlPredict(1)">חמש או שש</button>
+        <button id="dlP2" onclick="dlPredict(2)">עשר</button>
+      </div>
+    </div>
+    <canvas role="img" id="dlCv" width="640" height="470" aria-label="שורה של כוסות מים; בכוס הראשונה טיפה סגולה של גאוסמין, ובכל כוס הבאה הצבע חיוור פי עשר; מעל הכוסות אף שמחייך כל עוד הוא מריח, וכריש שמפסיק להריח כבר אחרי שש כוסות; למטה כתוב הריכוז: אחד מתוך עשר, מאה, אלף וכן הלאה"></canvas>
+    <div class="controls">
+      <button class="btn small" id="dlStep" onclick="dlDilute()">דללו פי 10</button>
+      <button class="btn small ghost" onclick="dlReset()">מהתחלה</button>
+      <div class="readout"><b class="num" id="dlOut">1 : 1</b></div>
+    </div>
+    <p class="cap" id="dlMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="q qc" id="noseQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE STORY -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>הבשמים ידעו לפני המדענים</h2>
+    <p>במלבורן שבאוסטרליה עבדו שני מדענים, <b>ג׳וי ביר וריצ׳רד תומאס</b>. באוסטרליה יש מדבריות ענקיים, וכולם שם מכירים את הריח של הגשם הראשון. ביר ותומאס רצו לדעת מאיפה הוא בא. הם אספו סלעים וחרסית ממקומות יבשים, חיממו אותם באדים, ומהאדים טפטף <b>שמן צהבהב</b> שהריח בדיוק כמו גשם. ב־<span class="num">7</span> במרץ <span class="num">1964</span> הם פרסמו את התגלית באחד מכתבי העת המדעיים החשובים בעולם, ונתנו לריח שם: <b>פטריכור</b>. ביוונית, "פטרה" זה אבן, ו"איכור" זה הדם הזהוב שזרם, לפי הסיפורים, בעורקים של האלים. "דם האלים של האבן".</p>
+    <p>אבל מישהו ידע את זה הרבה לפניהם. בעיר <b>קנוג׳</b> שבהודו מכינים כבר מאות שנים בושם שנקרא <b>מיטי אטאר</b>, "בושם אדמה". לוקחים דיסקיות של חרס שנאפו בשמש ובתנור, שמים אותן בסיר נחושת ענק עם מים, ומבשלים. האדים עוברים בצינור במבוק אל כלי קטן עם שמן אלגום, והשמן סופג את הריח. זה לוקח לפחות עשרה ימים. התוצאה: בקבוקון של ריח גשם ראשון, לפני שהגשם בכלל הגיע. ובישראל? אצלנו הקיץ יבש כמעט לגמרי, מאפריל עד אוקטובר, אז המחסן של האדמה מתמלא מאוד. לגשם הראשון יש אפילו שם בעברית: <b>יורה</b>. בשבת שעברה, בשמיני עצרת, התחילו בבתי הכנסת לומר "משיב הרוח ומוריד הגשם", ועוד שבוע וחצי, ב־<span class="num">7</span> בחשוון, מתחילים לבקש אותו ממש: "ותן טל ומטר".</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>הבשמים ידעו לפני המדענים</h2>
+    <p>במעבדה של ארגון המחקר האוסטרלי CSIRO במלבורן עבדו <b>איזבל ג׳וי ביר</b>, כימאית שעבדה שם יותר מ־<span class="num">70</span> שנה, ו<b>ריצ׳רד תומאס</b>, שכבר יצא לפנסיה אבל המשיך לחקור. אוסטרליה היא יבשת של בצורות, והריח של הגשם הראשון הוא חלק מהחיים שם. ביר ותומאס אספו סלעים וחרסית מאזורים יבשים, הזרימו דרכם אדים, ואספו <b>שמן צהבהב</b> שריחו ריח גשם, בלי טיפת גשם אחת. ב־<span class="num">7</span> במרץ <span class="num">1964</span> התפרסם המאמר ב־Nature, ובו מילה חדשה: <b>פטריכור</b>, מ"פטרה" (אבן) ו"איכור" (הדם הזהוב של האלים במיתולוגיה היוונית). שנה אחר כך בודדו ננסי גרבר והוברט לשבלייה את המרכיב השני, גאוסמין, מחיידקי אדמה, ואת הבועות צילמו ב־MIT רק ב־<span class="num">2015</span>. מגילוי הריח ועד ההסבר המלא: <span class="num">51</span> שנה.</p>
+    <p>אבל בעיר <b>קנוג׳</b> בצפון הודו ידעו ללכוד את הריח הזה מאות שנים לפני כן. הבושם נקרא <b>מיטי אטאר</b>, "בושם אדמה": אוספים מהקדרים דיסקיות חרס שנאפו בשמש ובתנור, מאות קילוגרמים, מכניסים אותן לדוד נחושת עם מים, ומחממים על אש איטית. האדים עוברים בצינור במבוק אל כלי קטן מלא שמן אלגום, שסופג את הריח. זה נמשך לפחות עשרה ימים, ובקבוקון קטן עולה הון. הבשמים לכדו בדיוק את מה שביר ותומאס תיארו, בלי לדעת למה.</p>
+    <p data-level="standard">ואצלנו? הקיץ בישראל יבש כמעט לגמרי, מאפריל־מאי עד אוקטובר, חצי שנה שבה המחסן של האדמה רק מתמלא. לגשם הראשון יש שם בתנ״ך: <b>יורה</b> (ולאחרון, באביב, <b>מלקוש</b>). חכמי המשנה אפילו קבעו לו לוח זמנים: בשמיני עצרת (השנה: שבת שעברה) מתחילים לומר "משיב הרוח ומוריד הגשם", ב־<span class="num">7</span> בחשוון (השנה: <span class="num">18</span> באוקטובר) מתחילים לבקש "ותן טל ומטר", ואם עד <span class="num">17</span> בחשוון עדיין לא ירד גשם, היחידים מתחילים להתענות. אנשים שחיכו לריח הזה בכל סתיו, אלפי שנים.</p>
+    <p data-level="advanced">ואצלנו? הקיץ בישראל יבש כמעט לגמרי, מאפריל־מאי עד אוקטובר, חצי שנה שבה המחסן של האדמה רק מתמלא, ולכן היורה אצלנו מריח חזק במיוחד. לגשם הראשון יש שם בתנ״ך: <b>יורה</b> (ולאחרון, באביב, <b>מלקוש</b>). חכמי המשנה קבעו לו לוח זמנים מדויק: בשמיני עצרת (השנה: שבת שעברה) מזכירים "משיב הרוח ומוריד הגשם", ב־<span class="num">7</span> בחשוון (השנה: <span class="num">18</span> באוקטובר) מתחילים לבקש "ותן טל ומטר", ואם עד <span class="num">17</span> בחשוון לא ירד גשם, היחידים מתחילים להתענות. שאלה לחשוב עליה: למה דווקא <span class="num">7</span> בחשוון ולא מיד אחרי סוכות? התשובה במשנה: כדי שעולי הרגל האחרונים, שהלכו הביתה עד נהר פרת, יספיקו להגיע לפני שהדרכים נעשות בוץ. חמישה עשר ימי הליכה. הגשם, גם בלוח העברי, הוא עניין של מרחק ומהירות.</p>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>למה החיידקים מייצרים ריח?</h2>
+    <p>נשארה שאלה גדולה: לחיידקים אין אף. למה שהם יטרחו לייצר ריח? התשובה התגלתה רק ב־<span class="num">2020</span>, והיא נוגעת ליצור קטנטן שחי בעפר: <b>זנב־קפיץ</b>. זה יצור זעיר עם שש רגליים, באורך של כמילימטר וחצי (בעברית רשמית: קפזנבאי), שיש לו מתחת לבטן זנב מקופל כמו קפיץ: כשהוא נבהל הוא משחרר אותו וקופץ לגובה פי כמה מהגוף שלו. ולזנב־קפיץ יש <b>מחושים</b> שמריחים גאוסמין.</p>
+    <p>וזה הסיפור: החיידקים מייצרים את הריח, זנבי־הקפיץ מריחים אותו ובאים לאכול את החיידקים. נשמע רע לחיידקים? להפך. <b>הנבגים</b> שלהם, התאים הרדומים, נדבקים לגוף של זנב־הקפיץ ועוברים גם דרך הבטן שלו בלי להיפגע. זנב־הקפיץ הולך הלאה, ומפזר את הנבגים בכל מקום. בדיוק כמו פרח שמייצר ריח כדי שדבורה תבוא ותפזר את האבקה שלו. הריח של הגשם הוא בעצם <b>מודעה</b>: "חיידקים טריים כאן, בואו לאכול!" ואנחנו רק מצותתים. באינטראקטיב: הדליקו וכבו את הריח, ותראו מה קורה לנבגים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>למה החיידקים מייצרים ריח? והאתגר</h2>
+    <p>כמעט כל מיני הסטרפטומיצס מייצרים גאוסמין, וזה מחשיד: ייצור של חומר עולה אנרגיה, ואבולוציה לא משאירה בזבוז כזה במשך מיליוני שנים. ב־<span class="num">2020</span> פרסמו חוקרים מאנגליה ומשבדיה את התשובה: <b>זנבי־קפיץ</b> (קפזנבאים), חיות עפר זעירות עם שש רגליים, כמילימטר וחצי אורך, שהתפצלו מהחרקים לפני כ־<span class="num">500</span> מיליון שנה. המחושים שלהם מגיבים לגאוסמין, ובמלכודות בשדה הם נמשכו אליו; זבובים ותולעים דווקא ברחו, כי לסטרפטומיצס יש רעלים, וזנבי־הקפיץ הם מהיחידים עם אנזימים שמנטרלים אותם. הם אוכלים את החיידקים, ו<b>הנבגים</b> נדבקים לציפוי השעווה שעל גופם ועוברים שלמים דרך מערכת העיכול, אל כל מקום שזנב־הקפיץ הולך: שותפות של מאות מיליוני שנים, כמו פרח ודבורה. הריח הוא מודעה של החיידקים, ואנחנו מצותתים. אגב, אותם חיידקים ממש מייצרים חלק גדול מהאנטיביוטיקות שבבית המרקחת.</p>
+    <p>ועכשיו הפיזיקה של "מריחים את הגשם לפני שהוא מגיע". הרוח נושאת את האירוסולים ממקום שבו הגשם כבר נוחת. אם יודעים כמה זמן עבר מהריח ועד הטיפות, וכמה מהר הרוח נשבה, אפשר לחשב <b>כמה רחוק היה הגשם</b> ברגע שהרחתם אותו. זה בדיוק האתגר.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> בשעה <span class="num">16:00</span> הרחתם גשם, ובשעה <span class="num">16:12</span> נחתו הטיפות הראשונות. הרוח נשבה כל הזמן מכיוון הגשם, במהירות <span class="num">18</span> קילומטר בשעה. (א) כמה <b>מטרים בדקה</b> עוברת הרוח? (רמז: קודם הפכו את הקילומטרים למטרים, בקילומטר יש <span class="num">1,000</span> מטר, ואז חלקו ב־<span class="num">60</span> דקות. מותר מחשבון.) (ב) כמה <b>קילומטרים</b> מכם ירד הגשם ברגע שהרחתם אותו?</p>
+      <div class="controls">
+        <label>(א) מטרים בדקה <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) קילומטרים <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()" data-g="בדוק|בדקי">בדקי</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> באמצע החורף, אחרי עשרה גשמים, יורד גשם חזק על גינה ששתי שעות קודם השקו אותה בממטרות. למה כמעט לא מריחים כלום?</p>
+      <details><summary>הרמז והתשובה</summary><p><b>שלוש סיבות, וכולן מהשיעור.</b> (<span class="num">1</span>) המחסן ריק: את השמן ואת הגאוסמין שהצטברו בקיץ כבר שטפו הגשמים הקודמים, והחיידקים לא מייצרים נבגים חדשים באדמה רטובה. (<span class="num">2</span>) אין בועות: החורים הזעירים באדמה כבר מלאים במים מהממטרות, אז הטיפה לא לוכדת אוויר ואין מה שיעיף את הריח למעלה. (<span class="num">3</span>) הגשם חזק: טיפות מהירות מתרסקות ומתפשטות לפני שהבועות מספיקות לעלות, ולכן גם על אדמה יבשה מבול מעיף פחות ריח מטפטוף. כדי שיהיה ריח צריך גם מחסן מלא, גם אדמה יבשה ומחוררת, וגם טיפה שנוחתת בעדינות: בדיוק המצב של היורה אחרי קיץ ישראלי.</p></details>
+    </div>
+  </div>
+
+  <!-- ===== INTERACTIVE 4 — המודעה של החיידקים ===== -->
+  <div class="panel instrument">
+    <h3>המודעה של החיידקים</h3>
+    <p class="cap">נחשו קודם: למה חיידקי האדמה טורחים לייצר ריח?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="spP0" onclick="spPredict(0)">כדי להבריח אויבים</button>
+        <button id="spP1" onclick="spPredict(1)">כדי למשוך חיות שיפזרו אותם</button>
+        <button id="spP2" onclick="spPredict(2)">במקרה, בלי סיבה</button>
+      </div>
+    </div>
+    <canvas role="img" id="spCv" width="640" height="470" aria-label="מבט מלמעלה על פיסת עפר: באמצע מושבה סגולה של חיידקי סטרפטומיצס עם נבגים; מסביב מסתובבים זנבי־קפיץ קטנים; כשהריח דולק ענן סגול בהיר מתפשט מהמושבה, זנבי־הקפיץ באים אליה, אוכלים, ויוצאים ממנה עם נבגים דבוקים לגוף שהם מפזרים בדרך; מונה של נבגים שפוזרו; כשהריח כבוי הם מסתובבים סתם והמונה לא זז"></canvas>
+    <div class="controls">
+      <button class="btn small" id="spPlay" onclick="SP.toggle()">הריצו את העפר</button>
+      <label>הזמן
+        <input type="range" id="spT" min="0" max="100" step="1" value="0" oninput="spDraw(1)" aria-label="הזמן" style="direction:ltr">
+      </label>
+      <button class="btn small ghost on" id="spSmell" onclick="spToggleSmell()">כבו את הריח</button>
+    </div>
+    <div class="controls">
+      <div class="readout"><b class="num" id="spOut">0</b> נבגים פוזרו</div>
+    </div>
+    <p class="cap" id="spMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>גשם ראשון בשתי צנצנות, ב־<span class="num">5</span> דקות.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — שתי צנצנות (<span class="num">5</span> דקות)</h3>
+    <p class="cap">מה צריך: שתי צנצנות או כוסות, אדמה יבשה לגמרי מהגינה או מעציץ שלא הושקה, אדמה לחה, מים פושרים.</p>
+    <ol>
+      <li>בצנצנת אחת שימו אדמה יבשה־יבשה (מהגינה, אחרי הקיץ, זה קל). בשנייה אדמה לחה, מעציץ שהושקה היום.</li>
+      <li>הריחו את שתיהן לפני. שום דבר מיוחד? יופי.</li>
+      <li>טפטפו לאט קצת מים פושרים לכל צנצנת (טפטוף, לא מבול: זוכרים את הבועות?), כסו ביד למשך <span class="num">30</span> שניות.</li>
+      <li>הסירו את היד והריחו. רק באחת מהן יש ריח של גשם. באיזו, ולמה?</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — גאוסמין במטבח (<span class="num">2</span> דקות)</summary>
+    <p>קלפו סלק אדום (או פתחו קופסה של סלק) והריחו מקרוב. הריח של "אדמה"? זה גאוסמין, אותו חומר ממש. יש אנשים שאוהבים אותו ויש ששונאים, אבל כולם מריחים אותו. ובונוס: אם יש בבית עציץ חרס יבש, טפטפו עליו מים והריחו. זה מה שהבשמים בקנוג׳ עושים עם דיסקיות החרס שלהם.</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — לתפוס את היורה (כשהוא מגיע)</summary>
+    <p>ביום שבו מתקרב הגשם הראשון, צאו החוצה כמה דקות לפני. אם מריחים אותו לפני הטיפות, הסתכלו בשעון: כמה דקות עברו עד שהטיפה הראשונה נחתה עליכם? ומאיזה כיוון נשבה הרוח? (בפרק <span class="num">5</span> יש דרך לחשב מזה כמה רחוק היה הגשם.) ואז, בגשם השלישי של החורף, בדקו שוב: עדיין מריחים?</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הרעיון הגדול: <b>ריח הוא הודעה.</b> חתיכות קטנטנות של חומר עפות באוויר, והאף קורא אותן. החיידקים "מדברים" עם זנבי־הקפיץ, השמן "אומר" לזרעים לחכות, ואנחנו שומעים את הכול בטעות, ואוהבים.</p>
+    <p>והרעיון השני: <b>דברים קטנטנים יכולים להיות עצומים.</b> כפית אחת ב־<span class="num">20</span> בריכות, בועה שמתפוצצת במיליונית שנייה, חיה בגודל מילימטר וחצי שמפזרת חיידקים בכל העולם. כדי לראות אותם צריך לשאול "למה?", ולא להסתפק ב"ככה זה".</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הראשון: <b>האף שלנו הוא מכשיר מדידה.</b> הוא מזהה חומר בריכוז של אחד לעשרה מיליארד, בשבריר שנייה, ועם זיכרון: ריח של גשם ראשון מחזיר אתכם מיד לסתיו אחר. כימיה היא לא רק מבחנות; היא גם מה שקורה באף.</p>
+    <p>הרעיון השני: <b>ריח קיים כי הוא עזר למישהו.</b> הגאוסמין לא נוצר בשבילנו; הוא מודעה של חיידקים לזנבי־קפיץ, בת מאות מיליוני שנים, ואנחנו רק מצותתים. שאלה לחקור: אם הריח הוא של החיידקים, למה דווקא <b>אנחנו</b> כל כך רגישים לו, ועוד אוהבים אותו? (ההשערה מפרק <span class="num">3</span> היא התחלה של תשובה, אבל רק התחלה.)</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ביולוגיה · רפואה</div><h3>החיידק שמריח גשם מציל חיים</h3><p>אותם חיידקי סטרפטומיצס מייצרים כשני שלישים מהאנטיביוטיקות הטבעיות שיש בבית המרקחת. הראשונה שבהן, סטרפטומיצין, התגלתה ב־<span class="num">1943</span> בחיידק אדמה, והייתה התרופה הראשונה נגד שחפת. בפעם הבאה שאתם מריחים גשם, זה הריח של בית מרקחת מתחת לרגליים.</p></div>
+    <div class="tile"><div class="dom">כימיה · טעם</div><h3>למה למים יש לפעמים טעם של אדמה</h3><p>בסוף הקיץ מי הברז בחלק מהארץ טעימים לפעמים "כמו אדמה": ציאנובקטריה בכנרת ובמאגרים מייצרות גאוסמין, והאף שלנו מרגיש אותו גם במיליארדית. המים בטוחים, האף פשוט רגיש מדי. גם לסלק יש בדיוק את הטעם הזה, מאותה סיבה.</p></div>
+    <div class="tile"><div class="dom">פיזיקה · מזג אוויר</div><h3>שני ריחות שמקדימים סופה</h3><p>לפעמים מריחים גשם לפני שהוא מגיע: הרוח נושאת את חלקיקי הריח ממקום שבו הוא כבר יורד. ויש ריח שני, חד, "כמו מכונת צילום": זה <b>אוזון</b> שנוצר מברקים רחוקים ונישא ברוח. שני ריחות, שני סיפורים: אחד מהאדמה, אחד מהשמיים.</p></div>
+    <div class="tile"><div class="dom">היסטוריה · ישראל</div><h3>הגשם שיש לו לוח שנה</h3><p>לגשם הראשון יש שם בתנ״ך, <b>יורה</b>, ולאחרון <b>מלקוש</b>. חכמי המשנה קבעו: מתחילים לבקש גשם ב־<span class="num">7</span> בחשוון, ואם עד <span class="num">17</span> בחשוון לא ירד, מתחילים להתענות. אלפיים שנה של אנשים שהסתכלו לשמיים בסתיו וחיכו לריח.</p></div>
+  </div>
+
+  <details class="bonus" id="latBox">
+    <summary>בונוס (2 דקות): כמה גאוסמין צריך כדי שכל הכנרת תריח גשם</summary>
+    <p>בכנרת יש כ־<span class="num">4</span> קילומטר מעוקב מים, כלומר <span class="num">4</span> מיליארד מטר מעוקב. בריכה אולימפית היא <span class="num">2,500</span> מטר מעוקב: <span class="math">4,000,000,000 ÷ 2,500 = 1,600,000</span> בריכות. כפית גאוסמין מספיקה ל־<span class="num">20</span> בריכות: <span class="math">1,600,000 ÷ 20 = 80,000</span> כפיות. כפית היא <span class="num">5</span> מיליליטר: <span class="math">80,000 × 5 = 400,000</span> מיליליטר, כלומר <span class="num">400</span> ליטר, בערך שתי אמבטיות. שתי אמבטיות, וכל הכנרת מריחה כמו גשם ראשון.</p>
+    <details><summary>שאלה קטנה</summary><p>ובכל זאת, בסוף הקיץ מי הכנרת לפעמים באמת מריחים קצת "אדמה". מי שפך לשם את האמבטיות?</p>
+      <p data-level="advanced">אף אחד. ציאנובקטריה שחיות במים מייצרות גאוסמין בעצמן, בדיוק כמו סטרפטומיצס באדמה (זה אותו אנזים כמעט), ובסוף הקיץ, כשהמים חמים ומלאי דשן, הן מתרבות מאוד. בחישוב גס: אם ריכוז של <span class="num">100</span> חלקים לטריליון מספיק לאף, אז בליטר מים צריך רק <span class="num">0.1</span> מיקרוגרם, עשירית המיליונית של גרם, כדי שנרגיש. מיליארדים של תאים זעירים, כל אחד תורם חלקיק, וביחד הם מגיעים לסף. אין צורך באמבטיה כשיש מיליארדי כפיות קטנטנות.</p>
+      <p data-level="standard">אף אחד. במים חיים יצורים זעירים, ציאנובקטריה, שמייצרים גאוסמין בעצמם, בדיוק כמו החיידקים באדמה. בסוף הקיץ, כשהמים חמים, יש מהם המון, וכל אחד תורם טיפונת. האף שלנו כל כך רגיש, שגם הטיפונות האלה מספיקות לו.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את המסע של ריח הגשם, מהקיץ ועד האף. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: הגשם יורד במרחק <span class="num">1,000</span> מטר מהבית שלכם, והרוח נושאת את הריח לכיוונכם במהירות <span class="num">5</span> מטר בכל שנייה. בעוד כמה שניות הריח יגיע לאף שלכם?</div>
+    <div class="controls"><label>שניות <input type="number" id="numYounger" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')" data-g="בדוק|בדקי">בדוק</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: האף מזהה גאוסמין בריכוז של <span class="num">100</span> חלקים לטריליון, כלומר מיליליטר אחד של גאוסמין מספיק ל־<span class="num">10,000,000,000</span> מיליליטר מים. (א) כפית היא <span class="num">5</span> מיליליטר, ובריכה אולימפית יש <span class="num">2,500,000</span> ליטר. לכמה בריכות אולימפיות מספיקה כפית אחת? (שימו לב ליחידות: בליטר יש <span class="num">1,000</span> מיליליטר.) (ב) טיפה אחת היא <span class="num">0.05</span> מיליליטר. לכמה <b>ליטרים</b> של מים מספיקה טיפה אחת? (מותר מחשבון.)</div>
+    <div class="controls"><label>(א) בריכות <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) ליטרים <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: כפית אחת של גאוסמין מספיקה ל־<span class="num">50,000,000</span> ליטר מים (זה הריכוז שהאף עדיין מזהה). בבריכה אולימפית יש <span class="num">2,500,000</span> ליטר. לכמה בריכות אולימפיות מספיקה כפית אחת?</div>
+    <div class="controls"><label>בריכות <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')" data-g="בדוק|בדקי">בדקי</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>מאיפה בא הריח של הגשם הראשון, איך הוא עולה מהאדמה לאוויר, ולמה הגשם העשירי של החורף כמעט לא מריח?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="למים אין ריח. הריח בא מהאדמה, ש..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. למים אין ריח. הריח של הגשם הראשון בא מהאדמה: <b>שמן</b> שצמחים הפרישו בקיץ ונספג באבק ובסלעים, ו<b>גאוסמין</b> ("ריח אדמה" ביוונית), חומר שמייצרים חיידקי סטרפטומיצס כשהאדמה מתייבשת. שני מדענים מאוסטרליה, ג׳וי ביר וריצ׳רד תומאס, בודדו את השמן מסלעים ונתנו לריח שם ב־<span class="num">1964</span>: <b>פטריכור</b>, "דם האלים של האבן". ובהודו לוכדים את הריח הזה בבושם, מיטי אטאר, כבר מאות שנים.<br>
+    2. איך הריח עולה לאוויר? טיפה שנוחתת על אדמה יבשה ומחוררת לוכדת מתחתיה <b>בועות אוויר</b>; הן עולות דרך הטיפה, מתפוצצות, ומעיפות טיפונות זעירות שעליהן רוכב הריח (צילמו את זה ב־MIT ב־<span class="num">2015</span>). טפטוף מעיף יותר ממבול, ואדמה יבשה יותר מרטובה או מכביש. לכן הגשם הראשון מריח הכי חזק: המחסן של הקיץ מלא והאדמה יבשה. האף שלנו מזהה גאוסמין ב־<span class="num">100</span> חלקים לטריליון, כפית ב־<span class="num">20</span> בריכות אולימפיות, פי <span class="num">10,000</span> יותר רגיש מכריש לדם.<br>
+    3. למה החיידקים מייצרים ריח? כדי למשוך <b>זנבי־קפיץ</b>, חיות עפר זעירות שמריחות אותו במחושים, באות לאכול את החיידקים, ומפזרות את הנבגים שלהם שנדבקים לגוף ועוברים דרך הבטן (התגלה ב־<span class="num">2020</span>). כמו פרח ודבורה, ואנחנו רק מצותתים. ובישראל לגשם הראשון יש שם, <b>יורה</b>, ולוח זמנים במשנה: מבקשים אותו מ־<span class="num">7</span> בחשוון.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>פטריכור: CSIRO, "The smell of rain: how our scientists invented a new word" (<span class="num">2015</span>) — איזבל ג׳וי ביר וריצ׳רד תומאס, המחלקה לכימיה מינרלית במלבורן; "Nature of Argillaceous Odour", Nature, <span class="num">7</span> במרץ <span class="num">1964</span>; שמן צהבהב שבודד בזיקוק באדים מסלעים שנחשפו לתנאים חמים ויבשים ומשתחרר בלחות; מאמר ההמשך "Petrichor and Plant Growth" (<span class="num">1965</span>); פטרה + איכור; תעשיית הבשמים ההודית ("matti ka attar") לוכדת את הריח בשמן אלגום; ביר פרשה ב־<span class="num">2015</span> אחרי יותר מ־<span class="num">70</span> שנות עבודה. Wikipedia, "Petrichor" — צמחים מפרישים את השמן בתקופות יובש, החרסית והסלעים סופגים אותו; הצעת <span class="num">1965</span> שהוא מעכב נביטה; אוזון לפני גשם מברקים; השערת הגמלים (דיווח פופולרי, לא מוכח). גאוסמין: Wikipedia, "Geosmin" — בודד ב־<span class="num">1965</span> על ידי ננסי גרבר והוברט לשבלייה; "ריח אדמה" ביוונית; C12H22O; מיוצר על ידי סטרפטומיצס וציאנובקטריה (אנאבנה, פורמידיום, פלנקטותריקס); סף הזיהוי האנושי משתנה בין מחקרים: <span class="num">5</span> חלקים לטריליון, <span class="num">100</span>, ועד <span class="num">400</span> (<span class="num">0.4</span> חלקים למיליארד, Polak & Provasi <span class="num">1992</span>); הטעם הארצי של סלק, של דגי בריכות ושל מי שתייה; אנזים גאוסמין־סינתאז; השערת האבולוציה (חיפוש מים) לא מוכחת. John Innes Centre, "Research unearths the science behind the smell of spring" (<span class="num">6</span> באפריל <span class="num">2020</span>) ו־Becher et al., Nature Microbiology <span class="num">2020</span> — זנבי־קפיץ (Collembola) באורך כ־<span class="num">1.5</span> מ״מ מזהים גאוסמין ו־2-MIB במחושים (אלקטרואנטנוגרפיה), אוכלים סטרפטומיצס בזכות אנזימים שמנטרלים את הרעלים, ומפזרים נבגים שנדבקים לציפוי השעווה ושורדים את מערכת העיכול; הסף האנושי "<span class="num">100</span> חלקים לטריליון"; Smithsonian Magazine, "What Causes the Smell After Rain" (<span class="num">2020</span>) — <span class="num">120</span> מתוך <span class="num">122</span> מיני סטרפטומיצס שנבדקו נושאים את הגן לגאוסמין; יותר מ־<span class="num">500</span> מינים ידועים; כריש מזהה דם בכחלק אחד למיליון; הפיצול של זנבי־הקפיץ מהחרקים לפני כ־<span class="num">500</span> מיליון שנה; ציטוט מארק באטנר. הבועות: MIT News, "Rainfall can release aerosols" (<span class="num">14</span> בינואר <span class="num">2015</span>) ו־Joung & Buie, Nature Communications <span class="num">2015</span> — כ־<span class="num">600</span> ניסויים, <span class="num">28</span> משטחים (<span class="num">12</span> מהונדסים, <span class="num">16</span> דגימות קרקע), מצלמות מהירות; הטיפה לוכדת בועות אוויר בנקודת המגע עם משטח נקבובי, הן עולות ומתפוצצות ומשחררות אירוסולים ("כמו כוס שמפניה"); גשם קל־בינוני משחרר הכי הרבה, גשם כבד הרבה פחות; "כמה מיקרו־שניות". מיטי אטאר: Big Think, "The ancient Indian perfume that captures the smell of rain" — קנוג׳, אוטר פרדש; דיסקיות חרס אפויות (כ־<span class="num">600</span> ליברות, כ־<span class="num">270</span> ק״ג) בדוד נחושת ("דג"), אדים בצינור במבוק אל כלי עם שמן אלגום, לפחות <span class="num">10</span> ימים; "מיטי" = אדמה. לוח הגשם העברי: chabad.org (עברית), "מתי מתחילים לומר ותן טל ומטר" — בארץ ישראל מ־ז׳ בחשוון, כדי שעולי הרגל האחרונים יספיקו להגיע עד נהר פרת (כ־<span class="num">15</span> יום); "משיב הרוח" משמיני עצרת; משנה תענית א׳ — י״ז בחשוון: היחידים מתענים; "יורה ומלקוש" (דברים י״א, י״ד). Hebcal — כ״ו בתשרי תשפ״ז; שמיני עצרת תשפ״ז: <span class="num">3</span> באוקטובר <span class="num">2026</span>; ז׳ בחשוון: <span class="num">18</span> באוקטובר. סטרפטומיצין: התגלתה ב־<span class="num">1943</span> במעבדתו של זלמן וקסמן (אלברט שץ) מהחיידק Streptomyces griseus, התרופה הראשונה נגד שחפת; סטרפטומיצס מייצרים את רוב האנטיביוטיקות הטבעיות שבשימוש. חישובי השיעור: בריכה אולימפית <span class="math">50 × 25 × 2 = 2,500</span> מ״ק <span class="math">= 2,500,000</span> ליטר; כפית <span class="num">5</span> מ״ל; <span class="num">100</span> חלקים לטריליון <span class="math">= 1 : 10,000,000,000</span>; כפית מספיקה ל־<span class="math">5 × 10,000,000,000 = 50,000,000,000</span> מ״ל <span class="math">= 50,000,000</span> ליטר; <span class="math">50,000,000 ÷ 2,500,000 = 20</span> בריכות; טיפה <span class="num">0.05</span> מ״ל <span class="math">= 1/100</span> כפית → <span class="math">50,000,000 ÷ 100 = 500,000</span> ליטר; כריש: חלק למיליון <span class="math">= 1,000,000</span> חלקים לטריליון, <span class="math">1,000,000 ÷ 100 = 10,000</span>; הצעיר: <span class="math">1,000 ÷ 5 = 200</span> שניות; האתגר: <span class="math">18 × 1,000 = 18,000</span> מ׳ בשעה, <span class="math">18,000 ÷ 60 = 300</span> מ׳ בדקה, <span class="math">300 × 12 = 3,600</span> מ׳ <span class="math">= 3.6</span> ק״מ; בונוס: <span class="math">4,000,000,000 ÷ 2,500 = 1,600,000</span> בריכות, <span class="math">1,600,000 ÷ 20 = 80,000</span> כפיות, <span class="math">80,000 × 5 = 400,000</span> מ״ל <span class="math">= 400</span> ליטר; <span class="num">0.1</span> מיקרוגרם לליטר ≈ <span class="num">100</span> חלקים לטריליון במשקל. פישוטים במכוון: "<span class="num">100</span> חלקים לטריליון" הוא ערך אמצעי מתוך טווח שמשתנה בין מחקרים (<span class="num">5</span>–<span class="num">400</span>), ולכן "<span class="num">20</span> בריכות" ו"פי <span class="num">10,000</span> מכריש" הם סדרי גודל; חלקים לטריליון במשקל ובנפח מטופלים כשווים (צפיפות הגאוסמין קרובה ל־<span class="num">1</span>); "האף רגיש יותר מכריש" משווה שני חומרים שונים, לא את חוש הריח בכלל; "הגשם הראשון מריח הכי חזק" ו"המחסן" הם מודל: הכמות המצטברת תלויה בצמחייה, בסוג הקרקע ובמזג האוויר; מד הריח ומונה החלקיקים באינטראקטיבים הם יחידות סמליות; "החיידקים מייצרים נבגים וגאוסמין כשהאדמה מתייבשת" מפשט תהליך שתלוי בעוד גורמים; "אוזון מברקים" הוא אחד ממקורות הריח שלפני סופה; "הקיץ יבש מאפריל עד אוקטובר" בקירוב (יש שנים עם גשמי אפריל ומאי); החישוב של מרחק הגשם מהרוח מניח רוח קבועה בקו ישר; תאריכי שמיני עצרת ו־ז׳ בחשוון: לוח עברי Hebcal; "רוב האנטיביוטיקות" — הערכות נעות בין שני שלישים ל"רוב". לוח עברי: Hebcal.</p>
+  </details>
+</section>
+
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:29, code:'WOW-029', date:'2026-10-07', title:'מי מייצר את הריח של הגשם הראשון', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15TXqNeV15kg15zXqSDXl9eZ16g='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'chemistry', w:3 }, { id:'biology', w:2 }, { id:'physics', w:1 }, { id:'geography', w:1 } ],
+  /* lint-ignore: math */
+  hero: { name:'מי מייצר את הריח של הגשם הראשון — פטריכור, גאוסמין, הבועות של MIT וזנבי־הקפיץ', fact:'למים אין ריח: ריח הגשם הראשון בא מהאדמה — שמן שצמחים מפרישים בקיץ ונספג באבק ובסלעים (ביר ותומאס, CSIRO מלבורן, Nature 7.3.1964, "פטריכור" = פטרה + איכור; 1965: השמן מעכב נביטה) וגאוסמין ("ריח אדמה"; גרבר ולשבלייה 1965; C12H22O) שמייצרים חיידקי סטרפטומיצס כשהאדמה מתייבשת ומייצרת נבגים (120 מתוך 122 מינים). איך הריח עולה: טיפה על משטח נקבובי יבש לוכדת בועות אוויר, הן עולות דרך הטיפה ומתפוצצות ומשחררות אירוסולים (ג׳ונג ובואי, MIT, Nature Communications 2015; ~600 ניסויים, 28 משטחים; טפטוף/גשם בינוני > מבול; אדמה יבשה > רטובה/כביש). האף: ~100 חלקים לטריליון (טווח 5–400) = 1:10,000,000,000; כפית (5 מ״ל) ב־50,000,000 ליטר = 20 בריכות אולימפיות (2,500,000 ל׳); כריש: דם ב־1 למיליון → פי 10,000. למה: זנבי־קפיץ (1.5 מ״מ, מחושים) נמשכים לגאוסמין, אוכלים סטרפטומיצס ומפזרים נבגים (Becher et al., Nature Microbiology 2020). מיטי אטאר מקנוג׳: דיסקיות חרס, דוד נחושת, שמן אלגום, 10 ימים. ישראל: יורה ומלקוש; משיב הרוח משמיני עצרת (3.10.2026), ותן טל ומטר מ־ז׳ בחשוון (18.10.2026), י״ז בחשוון — היחידים מתענים. מבחן: 1,000 ÷ 5 = 200 שניות; 50,000,000 ÷ 2,500,000 = 20; מתקדם: 500,000 ליטר לטיפה; אתגר: 18,000 ÷ 60 = 300 מ׳ בדקה, 300 × 12 = 3,600 מ׳ = 3.6 ק״מ; בונוס: הכנרת 1,600,000 בריכות, 80,000 כפיות = 400 ליטר.' },
+  items: {
+    'predict':       { skill:'estimation',            d:2 },
+    'qc:scale':      { skill:'estimation',            d:2 },
+    'qc:stockQ':     { skill:'mechanism',             d:2 },
+    'qc:dropQ':      { skill:'mechanism',             d:3 },
+    'qc:noseQ':      { skill:'ratio',                 d:3 },
+    'qc:storyQ':     { skill:'evidence',              d:2 },
+    'qc:deepQ':      { skill:'cause-effect',          d:3 },
+    'mcq:shared:0':  { skill:'mechanism',             d:2 },
+    'mcq:shared:1':  { skill:'mechanism',             d:3 },
+    'mcq:shared:2':  { skill:'cause-effect',          d:3 },
+    'mcq:younger:0': { skill:'cause-effect',          d:2 },
+    'mcq:older:0':   { skill:'transfer',              d:3 },
+    'order':         { skill:'causal-sequence',       d:3 },
+    'num:younger':   { skill:'rate',                  d:1 },
+    'num:older':     { skill:'ratio-and-units',       d:2 },
+    'num:adv':       { skill:'ratio-and-scaling',     d:4 },
+    'challenge':     { skill:'rate-and-units',        d:5 },
+    'explain':       { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ skDraw(0); showArtoTip(); } if(n===2) dpDraw(0); if(n===3) dlDraw(0); if(n===5) spDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: a teaspoon of geosmin — in how much water can the nose still smell it? ----------
+   Four choices on a log scale (a glass / one Olympic pool / 20 pools / the whole Kinneret): at ~100 parts per trillion a 5 ml teaspoon perfumes 50 million litres = 20 Olympic pools. data-scale: pools. */
+const SCALE_ANS = 20;                                                 // 5 ml ÷ 1e-10 = 5e10 ml = 50,000,000 l; ÷ 2,500,000 l per pool = 20 pools
+const fmtSigns = n => n<1 ? 'בכוס מים אחת' : n===1 ? 'בבריכה אולימפית אחת' : n===20 ? 'ב־20 בריכות אולימפיות' : 'בכל הכנרת';
+const SCALE_FB = {
+  20: '<span class="pill-ok">קלעתם!</span> כפית אחת ב־<b><span class="num">20</span> בריכות אולימפיות</b>, <span class="num">50</span> מיליון ליטר, והאף עדיין מרגיש. זה פי <span class="num">10,000</span> יותר רגיש מכריש שמריח דם. למה דווקא לריח הזה? על זה השיעור.',
+  0.0001: '<span class="pill-bad">הרבה, הרבה יותר.</span> לא כוס: כפית אחת מספיקה ל־<b><span class="num">20</span> בריכות אולימפיות</b>, <span class="num">50</span> מיליון ליטר, והאף עדיין מרגיש. פי <span class="num">10,000</span> יותר רגיש מכריש שמריח דם. למה דווקא לריח הזה? על זה השיעור.',
+  1: '<span class="pill-bad">עוד פי עשרים.</span> כפית אחת מספיקה ל־<b><span class="num">20</span> בריכות אולימפיות</b>, <span class="num">50</span> מיליון ליטר, והאף עדיין מרגיש. פי <span class="num">10,000</span> יותר רגיש מכריש שמריח דם. למה דווקא לריח הזה? על זה השיעור.',
+  1600000: '<span class="pill-bad">הרבה פחות מזה.</span> הכנרת היא יותר ממיליון בריכות; כפית אחת מספיקה ל־<b><span class="num">20</span> בריכות אולימפיות</b>, <span class="num">50</span> מיליון ליטר. וגם זה פי <span class="num">10,000</span> יותר רגיש מכריש שמריח דם. למה דווקא לריח הזה? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+/* ---------- small helpers for this edition ---------- */
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* deterministic pseudo-random (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* a generic play/scrub helper: animates a 0–100 range input over `ms` milliseconds, calling draw(1) each frame */
+function xPlayer(id, rangeId, btnId, ms, draw, onLabel, offLabel){
+  const st={ raf:0 };
+  st.toggle=function(){ if(st.raf){ cancelAnimationFrame(st.raf); st.raf=0; st.btn(false); return; }
+    const r=document.getElementById(rangeId); if(+r.value>=100) r.value=0;
+    if(XREDUCED){ r.value=Math.min(100,+r.value+20); draw(1); return; }
+    const t0=performance.now(), start=+r.value; st.btn(true);
+    const step=now=>{ const v=Math.min(100, start+(now-t0)/ms*100); r.value=Math.round(v); draw(1); if(v<100){ st.raf=requestAnimationFrame(step); } else { st.raf=0; st.btn(false); } };
+    st.raf=requestAnimationFrame(step); };
+  st.btn=function(on){ const b=document.getElementById(btnId); b.textContent = on ? onLabel : offLabel; b.classList.toggle('on',on); };
+  return st;
+}
+/* ---------- shared maths for this edition ---------- */
+const PPT_THRESHOLD = 100;             // ~100 parts per trillion: the human detection threshold used in this lesson (studies range 5–400)
+const POOL_L = 2500000;                // an Olympic pool, litres (50 × 25 × 2 m)
+const TEASPOON_ML = 5;
+const POOLS_PER_TEASPOON = TEASPOON_ML * 1e12 / PPT_THRESHOLD / 1000 / POOL_L;   // 20
+const fmt1 = n => (Math.round(n*10)/10).toLocaleString('he-IL');
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+/* this edition's colours */
+const SOIL = () => isDark() ? '#8A5A2B' : '#C98A4A';
+const SOIL_D = () => isDark() ? '#5E3D1C' : '#9A6232';
+const SOIL_WET = () => isDark() ? '#4A3220' : '#7A5235';
+const ASPHALT = () => isDark() ? '#3A3D4A' : '#5A5D68';
+const OIL = () => isDark() ? '#F2C94C' : '#E0A41C';
+const GEO = () => isDark() ? '#C58BF0' : '#7B3FB8';
+const GEO_SOFT = () => isDark() ? 'rgba(197,139,240,.22)' : 'rgba(123,63,184,.16)';
+const RAIN = () => isDark() ? '#7FB3DD' : '#2F6F9F';
+const SKYC = () => isDark() ? '#1D3266' : '#C9E1F2';
+const SUNC = () => isDark() ? '#F6D47A' : '#F4B942';
+function texSoil(c,x,y,w,h,seed,wet){ c.save(); c.beginPath(); c.rect(x,y,w,h); c.clip(); const r=prng(seed||7); const n=Math.round(w*h/900); c.fillStyle = wet ? (isDark()?'rgba(127,179,221,.35)':'rgba(47,111,159,.25)') : (isDark()?'rgba(0,0,0,.18)':'rgba(90,50,10,.16)'); for(let i=0;i<n;i++){ c.beginPath(); c.arc(x+r()*w, y+r()*h, 1.2+r()*2.2, 0, Math.PI*2); c.fill(); } c.restore(); }
+function xSky(c,W,H,night){ const g=c.createLinearGradient(0,0,0,H); g.addColorStop(0,css('--sky1')); g.addColorStop(1,css('--sky2')); c.fillStyle=g; c.fillRect(0,0,W,H); }
+function xCloud(c,x,y,s,col){ c.fillStyle=col; [[0,0,22],[26,-8,26],[56,-2,22],[-18,8,16],[74,10,16]].forEach(([dx,dy,r])=>{ c.beginPath(); c.arc(x+dx*s,y+dy*s,r*s,0,Math.PI*2); c.fill(); }); c.fillRect(x-18*s,y+2*s,92*s,20*s); }
+function xNose(c,x,y,s,happy,col){ /* a big simple nose seen from the side, with two nostrils; a small mouth says happy or not */
+  c.save(); c.translate(x,y); c.scale(s,s); c.lineWidth=2.2; c.strokeStyle=css('--ink'); c.fillStyle=col;
+  c.beginPath(); c.moveTo(-6,-30); c.quadraticCurveTo(18,-10,14,10); c.quadraticCurveTo(6,20,-8,14); c.quadraticCurveTo(-18,10,-10,0); c.closePath(); c.fill(); c.stroke();
+  c.fillStyle=css('--ink'); c.beginPath(); c.ellipse(0,10,4,2.6,0,0,Math.PI*2); c.fill(); c.beginPath(); c.ellipse(9,11,3,2,0,0,Math.PI*2); c.fill();
+  c.beginPath(); if(happy){ c.arc(2,26,8,0.15*Math.PI,0.85*Math.PI); } else { c.arc(2,36,8,1.15*Math.PI,1.85*Math.PI); } c.stroke();
+  c.restore(); }
+function xShark(c,x,y,s,col){ /* a shark fin and a snout, side view */
+  c.save(); c.translate(x,y); c.scale(s,s); c.fillStyle=col; c.strokeStyle=css('--ink'); c.lineWidth=2;
+  c.beginPath(); c.moveTo(-34,8); c.quadraticCurveTo(-10,-6,10,-4); c.lineTo(34,6); c.quadraticCurveTo(10,16,-14,14); c.closePath(); c.fill(); c.stroke();
+  c.beginPath(); c.moveTo(-6,-4); c.lineTo(2,-26); c.lineTo(12,-4); c.closePath(); c.fill(); c.stroke();
+  c.beginPath(); c.moveTo(-34,8); c.lineTo(-44,-2); c.lineTo(-42,16); c.closePath(); c.fill(); c.stroke();
+  c.fillStyle=css('--ink'); c.beginPath(); c.arc(22,2,2,0,Math.PI*2); c.fill();
+  c.restore(); }
+
+/* ---------- step 1 (interactive 1): the summer stock — oil from plants and geosmin from bacteria pile up in dry soil, and the first rain releases them (canvas) ----------
+   the slider runs April → January; rains at fixed points; the stock grows while the ground is dry and most of it leaves with each rain, so the first rain's spike is the biggest */
+const skCv=document.getElementById('skCv'), skctx=skCv.getContext('2d');
+const SK = xPlayer('sk','skT','skPlay',9000,skDraw,'עצרו','הריצו את השנה');
+SK.opened=0; SK.pred=-1; SK.hit={};
+const SK_MONTHS=['אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר','ינואר'];
+const SK_RAINS=[0.63, 0.72, 0.80, 0.88, 0.95];                       // the first rain in mid-October, then four more
+const SK_RAIN_LEN=0.03;
+/* the stock and the smell, precomputed per 1% of the slider (a model: growth while dry, 85% released per rain) */
+const SK_SERIES=(()=>{ const stock=[], smell=[]; let s=0.12, sm=0, wet=0; for(let i=0;i<=100;i++){ const t=i/100; const rain=SK_RAINS.find(r=>t>=r && t<r+SK_RAIN_LEN); if(rain!==undefined && t<rain+0.005){ const rel=s*0.85; s-=rel; sm=rel; wet=0.12; } else { sm*=0.88; } s=Math.min(1, s+(wet>0?0.004:0.014)); if(wet>0) wet-=0.01; stock.push(s); smell.push(sm); } return {stock, smell}; })();
+const skRnd=(()=>{ const r=prng(17); return Array.from({length:160},()=>r()); })();
+function skPredict(k){ SK.pred=k; [0,1,2].forEach(i=>document.getElementById('skP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'stock:predict', kind:'quick', correct:k===0, attempt: wowTry('stock:predict') }); skDraw(1); }
+function skDraw(user){
+  const c=skctx, W=skCv.width, H=skCv.height, revealed=SK.pred>=0;
+  let t=+skT.value/100; if(!revealed) t=Math.min(t,0.6);
+  if(user && !SK.opened){ SK.opened=1; WOW.emit('open', { id:'stock' }); }
+  const i=Math.round(t*100), stock=SK_SERIES.stock[i], smell=SK_SERIES.smell[i];
+  const mi=Math.min(9, Math.floor(t*10)); skOut.textContent=SK_MONTHS[mi];
+  const rainIdx=SK_RAINS.findIndex(r=>t>=r && t<r+SK_RAIN_LEN), raining=rainIdx>=0, rainsSoFar=SK_RAINS.filter(r=>t>=r).length;
+  const summer = t<0.6;
+  xSky(c,W,H);
+  /* the ground */
+  const GY=300; c.fillStyle=SOIL(); c.fillRect(0,GY,W,H-GY); texSoil(c,0,GY,W,H-GY,21,false);
+  if(rainsSoFar>0 && !summer){ c.fillStyle=SOIL_WET(); c.globalAlpha=Math.min(.7, 0.25+0.1*rainsSoFar); c.fillRect(0,GY,W,H-GY); c.globalAlpha=1; }
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.beginPath(); c.moveTo(0,GY); c.lineTo(W,GY); c.stroke();
+  /* a plant: green in spring, drying out through the summer, green again after the rains */
+  const dry = summer ? Math.min(1, t/0.5) : Math.max(0, 1-(t-0.6)/0.3);
+  const leaf = isDark() ? ['#5FBF7F','#B5903A'] : ['#2F7D4F','#A8772A'];
+  const mix=(a,b,u)=>{ const p=x=>parseInt(x,16); const A=[p(a.slice(1,3)),p(a.slice(3,5)),p(a.slice(5,7))], B=[p(b.slice(1,3)),p(b.slice(3,5)),p(b.slice(5,7))]; return 'rgb('+A.map((v,k)=>Math.round(v+(B[k]-v)*u)).join(',')+')'; };
+  const pc=mix(leaf[0],leaf[1],dry);
+  c.strokeStyle=pc; c.lineWidth=5; c.lineCap='round'; c.beginPath(); c.moveTo(120,GY); c.quadraticCurveTo(118,250,124,210); c.stroke();
+  c.fillStyle=pc; [[110,262,-0.6],[134,246,0.7],[112,228,-0.5],[136,216,0.6]].forEach(([x,y,a])=>{ c.save(); c.translate(x,y); c.rotate(a); c.beginPath(); c.ellipse(0,0,22,9,0,0,Math.PI*2); c.fill(); c.restore(); });
+  /* oil leaving the plant in the dry months: little yellow drops drifting down to the dust */
+  if(summer && t>0.08){ c.fillStyle=OIL(); for(let k=0;k<6;k++){ const u=((t*4)+skRnd[k])%1; c.beginPath(); c.arc(150+skRnd[k+6]*120, 230+u*70, 3.2, 0, Math.PI*2); c.fill(); } }
+  /* the stock in the soil: yellow oil dots and purple geosmin dots, more of them as the stock grows */
+  const nOil=Math.round(stock*70), nGeo=Math.round(stock*60);
+  c.strokeStyle=css('--ink'); c.lineWidth=1; c.fillStyle=OIL(); for(let k=0;k<nOil;k++){ c.beginPath(); c.arc(30+skRnd[k]*580, GY+12+skRnd[k+40]*60, 4.6, 0, Math.PI*2); c.fill(); c.stroke(); }
+  c.fillStyle=GEO(); for(let k=0;k<nGeo;k++){ c.beginPath(); c.arc(30+skRnd[k+80]*580, GY+40+skRnd[k+120]*90, 4.6, 0, Math.PI*2); c.fill(); c.stroke(); }
+  /* bacteria: a few purple threads deeper down */
+  c.strokeStyle=GEO(); c.lineWidth=1.6; c.globalAlpha=.7; [[80,420],[260,440],[420,415],[560,445]].forEach(([x,y])=>{ c.beginPath(); c.moveTo(x-18,y); c.quadraticCurveTo(x-6,y-10,x,y); c.quadraticCurveTo(x+8,y+9,x+18,y); c.stroke(); }); c.globalAlpha=1;
+  /* sky: sun in summer, clouds in autumn, rain while it rains */
+  if(summer){ c.fillStyle=SUNC(); c.beginPath(); c.arc(540,90,34,0,Math.PI*2); c.fill(); }
+  else { xCloud(c, 190, 80, 1.1, isDark()?'#AAB2CC':'#FFFFFF'); }
+  if(raining){ c.strokeStyle=RAIN(); c.lineWidth=2.2; c.lineCap='round'; const n=rainIdx===0?70:50; for(let k=0;k<n;k++){ const x=20+skRnd[k]*600, y=100+((skRnd[k+30]*200)+t*4000+k*31)%200; c.beginPath(); c.moveTo(x,y); c.lineTo(x-3,y+14); c.stroke(); } }
+  /* the smell: dots rising out of the ground, as many as the smell is strong */
+  const nUp=Math.round(smell*120);
+  for(let k=0;k<nUp;k++){ const u=((t*30)+skRnd[k+20])%1; const x=40+skRnd[k+60]*560, y=GY-6-u*150; c.fillStyle= k%2 ? OIL() : GEO(); c.globalAlpha=1-u*0.7; c.beginPath(); c.arc(x,y,5,0,Math.PI*2); c.fill(); } c.globalAlpha=1;
+  /* the smell meter on the left (LTR canvas: x grows to the right; the meter sits at the left edge) */
+  const MX=40, MY=152, MH=128; c.fillStyle=css('--card'); c.globalAlpha=.85; c.beginPath(); c.roundRect(MX-4,MY-4,30,MH+8,8); c.fill(); c.globalAlpha=1;
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.strokeRect(MX,MY,22,MH);
+  const lvl=Math.min(1, smell/0.6); c.fillStyle=GEO(); c.fillRect(MX+2, MY+MH-2-(MH-4)*lvl, 18, (MH-4)*lvl);
+  xTag(c,'מד הריח','', 30, MY-28, 15, css('--ink'),'left',.92);
+  /* the timeline across the top */
+  const TX0=70, TX1=610, TY=18; c.strokeStyle=css('--muted'); c.lineWidth=2; c.beginPath(); c.moveTo(TX0,TY+10); c.lineTo(TX1,TY+10); c.stroke();
+  SK_RAINS.forEach(r=>{ const x=TX0+(TX1-TX0)*r; c.fillStyle=RAIN(); c.beginPath(); c.arc(x,TY+10,4,0,Math.PI*2); c.fill(); });
+  const mx=TX0+(TX1-TX0)*t; c.fillStyle=css('--sun-deep'); c.beginPath(); c.moveTo(mx,TY+2); c.lineTo(mx-7,TY-10); c.lineTo(mx+7,TY-10); c.closePath(); c.fill();
+  xTag(c, SK_MONTHS[mi], '', clamp(mx, 80, 560), TY+34, 15, css('--ink'), 'center', .92);
+  /* labels */
+  if(stock>0.2){ xTag(c,'השמן מהצמחים','', 470, GY+28, 15, isDark()?'#F2C94C':'#8A5A10','center',.9); xTag(c,'גאוסמין מהחיידקים','', 455, GY+112, 15, GEO(),'center',.9); }
+  xTag(c, stock>0.85 ? 'המחסן מלא' : stock>0.4 ? 'המחסן מתמלא' : 'המחסן כמעט ריק', '', 150, GY+150, 16, css('--ink'), 'center', .92);
+  if(raining){ xTag(c, rainIdx===0 ? 'הגשם הראשון!' : 'גשם מספר '+(rainIdx+1), '', 320, 120, 20, RAIN(), 'center', .95); }
+  if(!revealed && +skT.value/100>0.6){ xNum(c,'?', 320, 180, 44, css('--shadow'), 'center'); xTag(c, 'נחשו למעלה כדי לראות את הגשם','', 320, 226, 16, css('--shadow'),'center',.95); }
+  if(user && revealed && t>=0.98 && !SK.hit.done){ SK.hit.done=1; WOW.emit('item', { id:'stock:done', kind:'quick', correct:true, attempt: wowTry('stock') }); }
+  const verdict = !revealed ? '' : SK.pred===0 ? '<span class="pill-ok">ניחשתם נכון: הגשם הראשון.</span> ' : SK.pred===1 ? '<span class="pill-bad">לא החמישי: עד אז המחסן כבר ריק.</span> ' : '<span class="pill-bad">לא אותו דבר: הראשון מריח הרבה יותר.</span> ';
+  skMsg.innerHTML = (!revealed && t<0.6 ? 'נחשו למעלה, ואז הריצו את השנה. ' : verdict)
+    + (t<0.1 ? 'אפריל: הגשם האחרון של החורף ירד, האדמה עוד לחה, המחסן כמעט ריק.'
+    : summer ? 'הקיץ: הצמחים מתייבשים ומפרישים שמן, שנספג באבק ובסלעים. החיידקים באדמה היבשה מייצרים נבגים וגאוסמין. המחסן מתמלא, ושום דבר לא יוצא: אין מים שיעיפו אותו.'
+    : !revealed ? 'אוקטובר: עננים. נחשו למעלה מה יקרה בגשם הראשון.'
+    : rainIdx===0 ? '<b>הגשם הראשון!</b> הטיפות נוחתות על אדמה יבשה ומחוררת, והמחסן של כל הקיץ עולה לאוויר בבת אחת: מד הריח קופץ לשיא. זה היורה.'
+    : rainsSoFar===1 ? 'אחרי הגשם הראשון: המחסן כמעט ריק, האדמה רטובה, והחיידקים לא מייצרים נבגים חדשים באדמה רטובה. חכו לגשם הבא ותראו את ההבדל.'
+    : raining ? 'גשם מספר <span class="num">'+(rainIdx+1)+'</span>: מד הריח בקושי זז. אין כמעט מה לשחרר, והאדמה הרטובה לא לוכדת בועות (פרק <span class="num">2</span>).'
+    : 'באמצע החורף: המחסן ריק, האדמה רטובה, הצמחים ירוקים. הריח הגדול הבא יחכה לקיץ הבא. (המספרים הם של מודל, אבל הרעיון אמיתי: הריח הוא של מה שהצטבר.)');
+}
+skDraw(0);
+
+/* ---------- step 2 (interactive 2): the drop and the bubbles — a raindrop on dry porous soil traps air bubbles that rise through it and burst, launching scent aerosols (canvas) ----------
+   aerosol counts per (ground, speed) are model numbers in the spirit of Joung & Buie 2015: light/moderate rain on dry porous ground releases the most; heavy rain, wet soil and asphalt release almost none */
+const dpCv=document.getElementById('dpCv'), dpctx=dpCv.getContext('2d');
+const DP = xPlayer('dp','dpT','dpPlay',3600,dpDraw,'עצרו','הפילו טיפה');
+DP.opened=0; DP.pred=-1; DP.speed=1; DP.ground=0; DP.hit={};
+const DP_SPEED=['טפטוף','גשם','מבול'], DP_GROUND=['אדמה יבשה','אדמה רטובה','כביש'];
+const DP_AERO=[[36,30,6],[3,2,0],[0,0,0]];                         // [ground][speed] → scent particles per drop (model)
+const dpRnd=(()=>{ const r=prng(29); return Array.from({length:120},()=>r()); })();
+function dpPredict(k){ DP.pred=k; [0,1,2].forEach(i=>document.getElementById('dpP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'drop:predict', kind:'quick', correct:k===0, attempt: wowTry('drop:predict') }); dpDraw(1); }
+function dpSpeed(k){ DP.speed=k; [0,1,2].forEach(i=>document.getElementById('dpS'+i).classList.toggle('on',i===k)); dpT.value=0; dpDraw(1); }
+function dpGround(k){ DP.ground=k; [0,1,2].forEach(i=>document.getElementById('dpG'+i).classList.toggle('on',i===k)); dpT.value=0; dpDraw(1); }
+function dpDraw(user){
+  const c=dpctx, W=dpCv.width, H=dpCv.height, t=+dpT.value/100, sp=DP.speed, gr=DP.ground, revealed=DP.pred>=0;
+  if(user && !DP.opened){ DP.opened=1; WOW.emit('open', { id:'drop' }); }
+  const total=DP_AERO[gr][sp];
+  xSky(c,W,H);
+  /* the ground: a huge close-up. dry soil = pores full of air (white holes); wet soil = pores full of water (blue); asphalt = no pores */
+  const GY=320;
+  if(gr===2){ c.fillStyle=ASPHALT(); c.fillRect(0,GY,W,H-GY); c.strokeStyle='rgba(255,255,255,.12)'; c.lineWidth=1; for(let x=0;x<W;x+=23){ c.beginPath(); c.moveTo(x,GY+14); c.lineTo(x+9,GY+30); c.stroke(); } }
+  else { c.fillStyle= gr===1 ? SOIL_WET() : SOIL(); c.fillRect(0,GY,W,H-GY);
+    /* pores: big enough to read */
+    for(let k=0;k<20;k++){ const x=24+dpRnd[k]*592, y=GY+20+dpRnd[k+26]*120, r=9+dpRnd[k+52]*7; c.fillStyle= gr===1 ? RAIN() : (isDark()?'#E8E4F2':'#FFFFFF'); c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fill(); c.strokeStyle=SOIL_D(); c.lineWidth=1.5; c.stroke(); } }
+  c.strokeStyle=css('--ink'); c.lineWidth=2.5; c.beginPath(); c.moveTo(0,GY); c.lineTo(W,GY); c.stroke();
+  /* phases: 0–0.3 the drop falls · 0.3–0.55 impact and the bubbles rise · 0.55–1 the bubbles burst and the aerosols fly */
+  const CX=320, R=52, RD=96;                                       // R: the falling drop; RD: its size once flattened on the ground
+  const fall=clamp(t/0.3,0,1), imp=clamp((t-0.3)/0.25,0,1), fly=clamp((t-0.55)/0.45,0,1);
+  const spread=[1.15,1.5,2.4][sp];                                // a faster drop flattens more
+  if(fall<1){ const y=70+(GY-R-70)*fall*fall; c.fillStyle=RAIN(); c.beginPath(); c.arc(CX,y,R,0,Math.PI*2); c.fill(); c.strokeStyle=css('--ink'); c.lineWidth=2; c.stroke();
+    /* speed arrows beside the drop */
+    const n=[1,2,4][sp]; c.fillStyle=RAIN(); for(let k=0;k<n;k++){ c.fillRect(CX+R+18, y-36+k*18, 5, 12); xArrow(c, CX+R+20.5, y-22+k*18, 0, 1, 11); }
+    xTag(c, DP_SPEED[sp], '', CX+R+52, y-6, 18, RAIN(), 'left', .92); }
+  else { /* the flattened drop on the ground */
+    const rx=RD*spread*(0.6+0.4*Math.min(1,imp*2)), ry=RD*(1/spread)*(1+0.2*(1-imp));
+    c.fillStyle=RAIN(); c.beginPath(); c.ellipse(CX, GY, rx, ry, 0, Math.PI, 0); c.closePath(); c.fill(); c.strokeStyle=css('--ink'); c.lineWidth=2; c.stroke();
+    /* bubbles trapped under the drop, rising through it (only where the ground has air) */
+    const nB=Math.min(12, Math.round(total/3)+(total>0?3:0));
+    if(gr===0 || (gr===1 && total>0)){ for(let k=0;k<nB;k++){ const u=clamp(imp*1.3-dpRnd[k]*0.4,0,1); const bx=CX+(dpRnd[k+30]-0.5)*rx*1.2, by=GY-10-u*(ry-18); if(u<1){ c.fillStyle=isDark()?'#E8E4F2':'#FFFFFF'; c.globalAlpha=.92; c.beginPath(); c.arc(bx,by,9+dpRnd[k+60]*6,0,Math.PI*2); c.fill(); c.globalAlpha=1; c.strokeStyle=css('--ink'); c.lineWidth=1.5; c.stroke(); } } }
+    if(imp>0.2 && total>0 && fly<0.4){ const ly=GY-Math.max(ry*0.5, 46); const lw=xTag(c,'בועות אוויר','', 16, ly, 18, css('--ink'),'left',.92); c.strokeStyle=css('--ink'); c.lineWidth=1.5; c.beginPath(); c.moveTo(16+lw+14, ly); c.lineTo(Math.max(16+lw+30, CX-rx*0.5), ly); c.stroke(); }
+    if(imp>0.2 && total===0) xTag(c, gr===2 ? 'אין חורים — אין בועות' : gr===1 ? 'החורים מלאים מים — אין בועות' : 'הטיפה התרסקה — הבועות לא הספיקו', '', CX, GY-ry-34, 18, css('--bad'),'center',.92);
+    /* the aerosols: scent particles flying up and sideways after the bursts */
+    const nUp=Math.round(total*fly);
+    for(let k=0;k<nUp;k++){ const u=clamp((fly-dpRnd[k]*0.5)/0.5,0,1); const x=CX+(dpRnd[k+30]-0.5)*(80+380*u), y=GY-ry-14-u*(110+dpRnd[k+60]*70); c.fillStyle= k%2 ? OIL() : GEO(); c.globalAlpha=1-u*0.45; c.beginPath(); c.arc(x,y,5.5,0,Math.PI*2); c.fill(); c.globalAlpha=1; }
+    if(nUp>0) xTag(c,'חלקיקי ריח','', CX, 90, 20, GEO(),'center',.92);
+  }
+  dpOut.textContent=fmt(Math.round(total*fly));
+  xTagN(c, fmt(Math.round(total*fly)), 'חלקיקי ריח באוויר', 20, 30, 18, css('--ink'), 'left');
+  xTag(c, DP_GROUND[gr], '', W-16, 30, 18, css('--ink'), 'right', .92);
+  xTag(c, gr===0 ? 'חורים עם אוויר' : gr===1 ? 'החורים מלאים מים' : 'משטח אטום, בלי חורים', '', W-16, GY+130, 15, css('--ink'), 'right', .9);
+  if(user && t>=0.98 && !DP.hit['g'+gr+'s'+sp]){ DP.hit['g'+gr+'s'+sp]=1; WOW.emit('item', { id:'drop:run', kind:'quick', correct:true, attempt: wowTry('drop') }); }
+  const verdict = !revealed ? '' : DP.pred===0 ? '<span class="pill-ok">ניחשתם נכון: טפטוף על אדמה יבשה.</span> ' : DP.pred===1 ? '<span class="pill-bad">לא המבול: טיפות מהירות מתרסקות לפני שהבועות עולות.</span> ' : '<span class="pill-bad">לא על כביש: בלי חורים אין אוויר, ובלי אוויר אין בועות.</span> ';
+  dpMsg.innerHTML = (!revealed ? 'נחשו למעלה, ואז הפילו טיפה. ' : verdict)
+    + (t<0.3 ? DP_SPEED[sp]+' על '+DP_GROUND[gr]+': הפילו טיפה ועקבו אחרי מה שקורה מתחתיה.'
+    : t<0.55 ? (total>0 ? 'הטיפה נחתה ולכדה מתחתיה בועות אוויר מהחורים שבאדמה. הן עולות דרך הטיפה.' : gr===2 ? 'הטיפה נחתה על כביש: אין חורים, אין אוויר, אין בועות.' : sp===2 && gr===0 ? 'הטיפה נחתה חזק מדי: היא התפשטה והתרסקה לפני שהבועות הספיקו לעלות.' : 'החורים באדמה הרטובה כבר מלאים במים, אז הטיפה לא לוכדת אוויר.')
+    : total>0 ? 'הבועות התפוצצו למעלה והעיפו <span class="num">'+fmt(Math.round(total*fly))+'</span> חלקיקי ריח לאוויר. '+(gr===0&&sp===0 ? 'זה המקסימום: טיפה איטית על אדמה יבשה ומחוררת. עכשיו נסו מבול, או אדמה רטובה.' : gr===0&&sp===1 ? 'גשם רגיל על אדמה יבשה: כמעט כמו טפטוף. נסו מבול.' : gr===0 ? 'מבול: הטיפות מהירות ומתרסקות, הרבה פחות בועות. נסו טפטוף.' : 'אדמה רטובה: החורים מלאים מים, כמעט בלי בועות. זו הסיבה שהגשם העשירי לא מריח.')
+    : 'אפס חלקיקים: '+(gr===2 ? 'על כביש או על חלון הגשם לא מריח כלום, כי אין חורים עם אוויר.' : gr===1 ? 'אדמה רטובה לא לוכדת בועות. לכן אחרי הגשם הראשון הריח נעלם.' : 'מבול על אדמה יבשה: הטיפה התרסקה לפני שהבועות עלו. נסו טפטוף.'));
+}
+dpDraw(0);
+
+/* ---------- step 3 (interactive 3): the dilution ladder — a drop of geosmin diluted tenfold again and again; the nose keeps smelling it down to 1 : 10,000,000,000 (100 ppt), a shark would have given up on blood at 1 : 1,000,000 (canvas) ---------- */
+const dlCv=document.getElementById('dlCv'), dlctx=dlCv.getContext('2d');
+const DL={ opened:0, pred:-1, k:0, hit:{} };
+const DL_MAX=11, DL_NOSE=10, DL_SHARK=6;                        // last glass each of them still smells
+function dlPredict(k){ DL.pred=k; [0,1,2].forEach(i=>document.getElementById('dlP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'dilute:predict', kind:'quick', correct:k===2, attempt: wowTry('dilute:predict') }); dlDraw(1); }
+function dlDilute(){ if(DL.k<DL_MAX){ DL.k++; } if(DL.k===DL_NOSE+1 && !DL.hit.nose){ DL.hit.nose=1; WOW.emit('item', { id:'dilute:end', kind:'quick', correct:true, attempt: wowTry('dilute') }); } dlDraw(1); }
+function dlReset(){ DL.k=0; dlDraw(1); }
+const dlPow = k => k===0 ? '1' : '1'+'0'.repeat(k);
+const dlRatio = k => '1 : '+(k===0 ? '1' : Number(dlPow(k)).toLocaleString('en-US'));
+function dlDraw(user){
+  const c=dlctx, W=dlCv.width, H=dlCv.height, k=DL.k, revealed=DL.pred>=0;
+  if(user && !DL.opened){ DL.opened=1; WOW.emit('open', { id:'dilute' }); }
+  xSky(c,W,H);
+  dlOut.textContent=dlRatio(k); document.getElementById('dlStep').disabled = k>=DL_MAX;
+  /* the glasses, left to right (the ratio grows left to right, like a number line) */
+  const n=DL_MAX+1, gw=40, gap=(W-40-n*gw)/(n-1), GY=290, GH=100;
+  for(let j=0;j<n;j++){ const x=20+j*(gw+gap); const active=j<=k;
+    c.fillStyle=css('--card'); c.beginPath(); c.roundRect(x,GY-GH,gw,GH,[3,3,8,8]); c.fill();
+    if(active){ const a=Math.max(0.05, 1-j/DL_NOSE); c.fillStyle=GEO(); c.globalAlpha=a; c.beginPath(); c.roundRect(x+3,GY-GH+18,gw-6,GH-21,[2,2,6,6]); c.fill(); c.globalAlpha=1; if(j>DL_NOSE){ c.fillStyle=RAIN(); c.globalAlpha=.25; c.beginPath(); c.roundRect(x+3,GY-GH+18,gw-6,GH-21,[2,2,6,6]); c.fill(); c.globalAlpha=1; } }
+    else { c.fillStyle=RAIN(); c.globalAlpha=.25; c.beginPath(); c.roundRect(x+3,GY-GH+18,gw-6,GH-21,[2,2,6,6]); c.fill(); c.globalAlpha=1; }
+    c.strokeStyle= j===k ? css('--sun-deep') : css('--ink'); c.lineWidth= j===k ? 3 : 1.5; c.beginPath(); c.roundRect(x,GY-GH,gw,GH,[3,3,8,8]); c.stroke();
+    if(j===k){ /* the drop that just arrived */ c.fillStyle=GEO(); c.beginPath(); c.moveTo(x+gw/2, GY-GH-26); c.quadraticCurveTo(x+gw/2+9, GY-GH-10, x+gw/2, GY-GH-4); c.quadraticCurveTo(x+gw/2-9, GY-GH-10, x+gw/2, GY-GH-26); c.fill(); }
+    /* the glass number, small, LTR */
+    xNum(c, String(j), x+gw/2, GY+14, 13, css('--muted'), 'center');
+  }
+  /* the arrow between glasses while diluting */
+  if(k>0){ const x0=20+(k-1)*(gw+gap)+gw, x1=20+k*(gw+gap); c.strokeStyle=css('--sun-deep'); c.lineWidth=2.5; c.beginPath(); c.moveTo(x0+2,GY-GH-12); c.lineTo(x1-4,GY-GH-12); c.stroke(); c.fillStyle=css('--sun-deep'); xArrow(c, x1-2, GY-GH-12, 1, 0, 9); }
+  /* the nose and the shark, each above the current glass, happy or not */
+  const cx=20+k*(gw+gap)+gw/2;
+  const noseOk=k<=DL_NOSE, sharkOk=k<=DL_SHARK;
+  xNose(c, 180, 62, 1.2, noseOk, noseOk ? css('--sun') : css('--line'));
+  xShark(c, 460, 72, 1.15, sharkOk ? css('--nile') : css('--line'));
+  xTag(c, noseOk ? 'האף מריח' : 'האף ויתר', '', 180, 156, 15, noseOk ? css('--ok') : css('--bad'), 'center', .92);
+  xTag(c, sharkOk ? 'הכריש מריח' : 'הכריש ויתר', '', 460, 156, 15, sharkOk ? css('--ok') : css('--bad'), 'center', .92);
+  /* the ratio, big, LTR */
+  xTag(c, k===0 ? 'טיפה אחת בכוס' : 'חלק אחד מתוך', '', 320, 350, 14, css('--muted'), 'center', .9);
+  xNum(c, dlRatio(k), 320, 395, 26, css('--ink'), 'center');
+  if(k===DL_NOSE){ xTag(c,'100 חלקים לטריליון — האף עדיין מרגיש','', 320, 442, 15, css('--ok'),'center',.95); }
+  else if(k===DL_SHARK+1){ xTag(c,'כאן הכריש כבר לא מריח','', 320, 442, 15, css('--nile'),'center',.95); }
+  else if(k>DL_NOSE){ xTag(c,'כאן גם האף ויתר','', 320, 442, 15, css('--bad'),'center',.95); }
+  else if(k===0){ xTag(c,'לחצו "דללו פי 10"','', 320, 442, 15, css('--muted'),'center',.9); }
+  if(user && k>=DL_MAX && !DL.hit.all){ DL.hit.all=1; WOW.emit('item', { id:'dilute:all', kind:'quick', correct:true, attempt: wowTry('dilute') }); }
+  const verdict = !revealed ? '' : DL.pred===2 ? '<span class="pill-ok">ניחשתם נכון: עשר פעמים.</span> ' : '<span class="pill-bad">הרבה יותר ממה שניחשתם: עשר פעמים.</span> ';
+  dlMsg.innerHTML = (!revealed ? 'נחשו למעלה, ואז דללו. ' : verdict)
+    + (k===0 ? 'טיפה של גאוסמין בכוס מים. בכל לחיצה לוקחים מהכוס טיפה אחת ושמים אותה בכוס חדשה של מים נקיים: הריח נחלש פי <span class="num">10</span>.'
+    : k<=DL_SHARK ? 'דילול מספר <span class="num">'+k+'</span>: חלק אחד מתוך <span class="num">'+Number(dlPow(k)).toLocaleString('en-US')+'</span>. גם האף וגם הכריש עדיין מריחים.'
+    : k===DL_SHARK+1 ? 'חלק אחד מתוך <span class="num">10,000,000</span>: כריש מריח דם רק עד אחד למיליון (הכוס הקודמת), אז כאן הוא כבר ויתר. האף שלנו עדיין מריח גאוסמין בלי בעיה. ממשיכים.'
+    : k<DL_NOSE ? 'דילול מספר <span class="num">'+k+'</span>: חלק אחד מתוך <span class="num">'+Number(dlPow(k)).toLocaleString('en-US')+'</span>. הכריש ויתר מזמן; האף עדיין מריח.'
+    : k===DL_NOSE ? '<b>עשרה דילולים: אחד מתוך עשרה מיליארד, <span class="num">100</span> חלקים לטריליון.</b> כפית בעשרים בריכות אולימפיות, והאף עדיין אומר "אדמה רטובה". פי <span class="num">10,000</span> יותר רגיש מהכריש. (יש אנשים שמריחים אפילו עוד דילול אחד.)'
+    : 'אחד עשר דילולים: כאן רוב האנשים כבר לא מרגישים כלום. הגבול של האף הוא בערך הכוס הקודמת. לחצו "מהתחלה" כדי לנסות שוב.');
+}
+dlDraw(0);
+
+/* ---------- step 5 (interactive 4): the bacteria's advertisement — a Streptomyces colony, its geosmin cloud, and springtails that come to eat and leave carrying spores (canvas) ---------- */
+const spCv=document.getElementById('spCv'), spctx=spCv.getContext('2d');
+const SP = xPlayer('sp','spT','spPlay',7000,spDraw,'עצרו','הריצו את העפר');
+SP.opened=0; SP.pred=-1; SP.smell=true; SP.hit={};
+const SP_N=7, SP_C=[320,250], SP_R=44;
+const spRnd=(()=>{ const r=prng(37); return Array.from({length:SP_N},(_,i)=>{ const a=(i/SP_N)*Math.PI*2+r()*0.6, d=200+r()*60; return { sx:SP_C[0]+Math.cos(a)*d*1.35, sy:SP_C[1]+Math.sin(a)*d*0.85, a, t0:0.05+r()*0.3, ex:(r()-0.5)*Math.PI*0.8, w1:r()*6, w2:r()*6 }; }); })();
+function spPredict(k){ SP.pred=k; [0,1,2].forEach(i=>document.getElementById('spP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'spring:predict', kind:'quick', correct:k===1, attempt: wowTry('spring:predict') }); spDraw(1); }
+function spToggleSmell(){ SP.smell=!SP.smell; spSmell.classList.toggle('on',SP.smell); spSmell.textContent = SP.smell ? 'כבו את הריח' : 'הדליקו את הריח'; spT.value=0; if(!SP.smell && !SP.hit.off){ SP.hit.off=1; WOW.emit('item', { id:'spring:off', kind:'quick', correct:true, attempt: wowTry('spring') }); } spDraw(1); }
+function spBug(c,x,y,ang,spores){ c.save(); c.translate(x,y); c.rotate(ang); c.scale(1.7,1.7); c.strokeStyle=css('--ink'); c.lineWidth=1.6; c.lineCap='round';
+  /* six legs and two antennae */
+  [[-6,-1],[0,-1],[6,-1]].forEach(([lx])=>{ c.beginPath(); c.moveTo(lx,-4); c.lineTo(lx-3,-11); c.moveTo(lx,4); c.lineTo(lx-3,11); c.stroke(); });
+  c.beginPath(); c.moveTo(10,-2); c.lineTo(18,-8); c.moveTo(10,2); c.lineTo(18,8); c.stroke();
+  /* the spring under the belly */
+  c.strokeStyle=css('--muted'); c.beginPath(); c.moveTo(-8,3); c.lineTo(-16,6); c.stroke();
+  c.fillStyle=isDark()?'#B8C4D8':'#6E7C94'; c.beginPath(); c.ellipse(0,0,12,6,0,0,Math.PI*2); c.fill(); c.strokeStyle=css('--ink'); c.stroke();
+  c.fillStyle=css('--ink'); c.beginPath(); c.arc(8,-2,1.4,0,Math.PI*2); c.fill();
+  if(spores){ c.fillStyle=GEO(); [[-4,-3],[2,2],[-1,3],[5,-1]].forEach(([dx,dy])=>{ c.beginPath(); c.arc(dx,dy,1.8,0,Math.PI*2); c.fill(); }); }
+  c.restore(); }
+function spDraw(user){
+  const c=spctx, W=spCv.width, H=spCv.height, t=+spT.value/100, on=SP.smell, revealed=SP.pred>=0;
+  if(user && !SP.opened){ SP.opened=1; WOW.emit('open', { id:'spring' }); }
+  /* the soil seen from above */
+  c.fillStyle=SOIL(); c.fillRect(0,0,W,H); texSoil(c,0,0,W,H,43,false);
+  const [cx,cy]=SP_C;
+  /* the geosmin cloud */
+  if(on && t>0){ for(let r=1;r<=4;r++){ const rr=SP_R+ (30+r*42)*Math.min(1,t*2.5); c.fillStyle=GEO_SOFT(); c.beginPath(); c.ellipse(cx,cy,rr*1.3,rr,0,0,Math.PI*2); c.fill(); } }
+  /* the colony: a purple patch of threads with spores */
+  c.fillStyle=GEO(); c.globalAlpha=.85; c.beginPath(); c.ellipse(cx,cy,SP_R*1.3,SP_R,0,0,Math.PI*2); c.fill(); c.globalAlpha=1;
+  c.strokeStyle=isDark()?'#E6D3F7':'#3E1F63'; c.lineWidth=1.2; const rr=prng(5); for(let k=0;k<22;k++){ const a=rr()*Math.PI*2, d=rr()*SP_R*0.9; c.beginPath(); c.moveTo(cx+Math.cos(a)*d*1.3, cy+Math.sin(a)*d); c.quadraticCurveTo(cx+Math.cos(a+0.4)*(d+14)*1.3, cy+Math.sin(a+0.4)*(d+14), cx+Math.cos(a+0.2)*(d+26)*1.3, cy+Math.sin(a+0.2)*(d+26)); c.stroke(); }
+  c.fillStyle=isDark()?'#F3E8FF':'#2B1545'; for(let k=0;k<16;k++){ const a=rr()*Math.PI*2, d=rr()*SP_R*0.8; c.beginPath(); c.arc(cx+Math.cos(a)*d*1.3, cy+Math.sin(a)*d, 2.4, 0, Math.PI*2); c.fill(); }
+  /* the springtails */
+  let spread=0, eatTag=null;
+  spRnd.forEach((o,i)=>{
+    let x,y,ang,carry=false;
+    if(on){
+      const edgeX=cx+Math.cos(o.a)*SP_R*1.75, edgeY=cy+Math.sin(o.a)*SP_R*1.35;
+      const p1=clamp((t-o.t0)/0.3,0,1);                              // approach
+      const p2=clamp((t-o.t0-0.3)/0.1,0,1);                           // eat
+      const p3=clamp((t-o.t0-0.4)/0.5,0,1);                           // leave with spores
+      if(p3>0){ const la=o.a+o.ex; const lx=cx+Math.cos(la)*(SP_R*1.5+p3*230), ly=cy+Math.sin(la)*(SP_R*1.1+p3*230*0.75); x=lx; y=ly; ang=la; carry=true;
+        /* spores dropped along the way */
+        const nd=Math.floor(p3*6); for(let d=1;d<=nd;d++){ const q=d/6; c.fillStyle=GEO(); c.strokeStyle=css('--bg'); c.lineWidth=1.5; c.beginPath(); c.arc(cx+Math.cos(la)*(SP_R*1.5+q*230), cy+Math.sin(la)*(SP_R*1.1+q*230*0.75), 5, 0, Math.PI*2); c.fill(); c.stroke(); } spread+=nd; }
+      else if(p1>=1){ x=edgeX+Math.sin(t*40+o.w1)*2; y=edgeY+Math.cos(t*40+o.w2)*2; ang=o.a+Math.PI; if(p2>0 && p2<1 && i===0) eatTag=[x,y-30]; }
+      else if(t>=o.t0){ x=o.sx+(edgeX-o.sx)*p1; y=o.sy+(edgeY-o.sy)*p1; ang=Math.atan2(edgeY-o.sy, edgeX-o.sx); }
+      else { x=o.sx+Math.sin(t*20+o.w1)*8; y=o.sy+Math.cos(t*20+o.w2)*8; ang=o.a; }
+    } else { /* no smell: they wander and never find the colony */
+      x=o.sx+Math.sin(t*6+o.w1)*60+Math.sin(t*23+o.w2)*8; y=o.sy+Math.cos(t*5+o.w2)*40+Math.cos(t*19+o.w1)*8; ang=Math.atan2(Math.cos(t*5+o.w2), Math.sin(t*6+o.w1)); }
+    spBug(c, clamp(x,30,W-30), clamp(y,30,H-30), ang, carry);
+  });
+  if(eatTag) xTag(c,'אוכל','', eatTag[0], eatTag[1], 14, css('--ink'),'center',.9);
+  if(on && t>0) xTag(c,'ענן של גאוסמין','', cx, cy-SP_R-70, 16, GEO(),'center',.92);
+  xTag(c,'מושבה של סטרפטומיצס','', cx, cy+SP_R+26, 15, css('--ink'),'center',.92);
+  spOut.textContent=fmt(spread);
+  xTagN(c, fmt(spread), 'נבגים פוזרו', 20, 440, 18, css('--ink'), 'left');
+  xTag(c, on ? 'הריח דולק' : 'הריח כבוי', '', W-16, 440, 18, on ? GEO() : css('--muted'), 'right', .92);
+  xTag(c,'זנבי־קפיץ','', 90, 60, 16, css('--ink'),'left',.9);
+  if(user && on && t>=0.98 && !SP.hit.on){ SP.hit.on=1; WOW.emit('item', { id:'spring:on', kind:'quick', correct:true, attempt: wowTry('spring') }); }
+  const verdict = !revealed ? '' : SP.pred===1 ? '<span class="pill-ok">ניחשתם נכון: כדי למשוך חיות שיפזרו אותם.</span> ' : SP.pred===0 ? '<span class="pill-bad">הפוך: הריח דווקא מושך. את האויבים מרחיקים הרעלים, לא הריח.</span> ' : '<span class="pill-bad">לא במקרה: כמעט כל המינים מייצרים אותו, וזה עולה אנרגיה.</span> ';
+  spMsg.innerHTML = (!revealed ? 'נחשו למעלה, ואז הריצו. ' : verdict)
+    + (t===0 ? (on ? 'מבט מלמעלה על פיסת עפר: באמצע מושבה של חיידקים עם נבגים, ומסביב זנבי־קפיץ. הריצו ותראו מה הריח עושה.' : 'הריח כבוי. הריצו ותראו אם זנבי־הקפיץ מוצאים את המושבה.')
+    : !on ? (t<0.9 ? 'בלי ריח זנבי־הקפיץ מסתובבים סתם. הם לא רואים את המושבה, ואף נבג לא יוצא לדרך.' : 'סוף הסיבוב: <span class="num">0</span> נבגים פוזרו. בלי המודעה, החיידקים נשארים במקום. הדליקו את הריח ונסו שוב.')
+    : t<0.35 ? 'ענן של גאוסמין מתפשט מהמושבה. זנבי־הקפיץ קולטים אותו במחושים ומתחילים ללכת לכיוונו.'
+    : t<0.6 ? 'הם הגיעו ואוכלים את החיידקים. אבל שימו לב מה נדבק להם לגוף: נבגים.'
+    : 'זנבי־הקפיץ ממשיכים הלאה, והנבגים נופלים מהם בדרך: <span class="num">'+fmt(spread)+'</span> נבגים כבר במקומות חדשים. זו המודעה של החיידקים, ואנחנו רק מצותתים. נסו לכבות את הריח.');
+}
+spDraw(0);
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  stockQ:{ q:'למה הגשם הראשון של הסתיו מריח הרבה יותר חזק מהגשם החמישי?', opts:['כי הטיפות של הגשם הראשון גדולות יותר','כי כל הקיץ הצטברו באדמה היבשה שמן מהצמחים וגאוסמין מהחיידקים, והגשם הראשון משחרר את כל המחסן בבת אחת','כי בסתיו האוויר חם יותר, והריח מתפשט מהר','כי בגשם הראשון יש יותר ברקים, והברקים מייצרים את הריח'], a:1, fb:'הריח הוא של מה שהצטבר: בקיץ היבש הצמחים מפרישים שמן שנספג באבק ובסלעים, והחיידקים מייצרים נבגים וגאוסמין. הגשם הראשון מעיף את כל זה לאוויר. אחריו המחסן ריק, האדמה רטובה, והחיידקים לא מייצרים נבגים חדשים באדמה רטובה, אז הגשמים הבאים כמעט לא מריחים. גודל הטיפות, הטמפרטורה והברקים לא קשורים לזה (ברקים מייצרים ריח אחר: אוזון).', btn:'next1' },
+  dropQ:{ q:'למה טפטוף על אדמה יבשה מעיף יותר ריח ממבול על אותה אדמה?', opts:['כי בטפטוף יש יותר טיפות','כי טיפה איטית לוכדת מתחתיה בועות אוויר שעולות ומתפוצצות, ואילו טיפה מהירה מתרסקת ומתפשטת לפני שהבועות מספיקות לעלות','כי מבול שוטף את הריח לנהרות','כי במבול הטיפות קרות יותר, והקור מחזיק את הריח באדמה'], a:1, fb:'זה מה שראו ב־MIT במצלמות המהירות: הטיפה פוגעת באדמה הנקבובית ולוכדת בועות אוויר; הבועות עולות דרך הטיפה ומתפוצצות למעלה, וכל פיצוץ מעיף טיפונות זעירות עם הריח. טיפה איטית או בינונית נותנת לבועות זמן לעלות; טיפה מהירה מתפשטת ונשברת קודם. במבול יש אולי יותר טיפות, אבל כל אחת מהן מעיפה הרבה פחות.' },
+  noseQ:{ q:'האף מזהה גאוסמין ב־<span class="num">100</span> חלקים לטריליון. כריש מזהה דם בחלק אחד למיליון. מי רגיש יותר, ופי כמה?', opts:['הכריש, פי <span class="num">100</span>','האף, פי <span class="num">100</span>','האף, פי <span class="num">10,000</span>','שניהם אותו דבר'], a:2, fb:'חלק אחד למיליון הוא מיליון חלקים לטריליון. <span class="math">1,000,000 ÷ 100 = 10,000</span>: האף שלנו מזהה גאוסמין בריכוז קטן פי עשרת אלפים מהריכוז שבו כריש מזהה דם. זה לא אומר שהאף שלנו טוב יותר מהאף של כריש בכלל, רק שלריח הזה בדיוק אנחנו רגישים להפליא. אולי כי לאבות שלנו הוא סימן מים.' },
+  storyQ:{ q:'איך ביר ותומאס הוכיחו ב־<span class="num">1964</span> שהריח יושב באבנים ובאדמה, ולא במים?', opts:['הם הריחו גשם במקומות שונים בעולם והשוו','הם הזרימו אדים דרך סלעים וחרסית יבשים, ואספו מהם שמן צהבהב שהריח כמו גשם, בלי שום גשם','הם צילמו טיפות במצלמה מהירה','הם שאלו את הבשמים בהודו'], a:1, fb:'במעבדה במלבורן הם לקחו סלעים וחרסית מאזורים יבשים, חיממו אותם באדים, ואספו שמן צהבהב שריחו ריח גשם, בלי טיפת גשם אחת. כך הראו שהריח מחכה באבן ובאדמה, ושהצמחים הם שמפרישים אותו בבצורת. את המצלמות המהירות הביאו ב־MIT רק ב־<span class="num">2015</span>, והבשמים בהודו ידעו ללכוד את הריח מאות שנים קודם, אבל לא ידעו להסביר אותו.' },
+  deepQ:{ q:'מה מרוויחים חיידקי הסטרפטומיצס מזה שזנבי־הקפיץ באים לאכול אותם?', opts:['שום דבר, זה פשוט רע להם','הנבגים שלהם נדבקים לגוף של זנב־הקפיץ ועוברים שלמים דרך הבטן שלו, והוא מפזר אותם במקומות חדשים','זנבי־הקפיץ מגנים על החיידקים מהגשם','זנבי־הקפיץ מביאים להם אוכל'], a:1, fb:'זו עסקה: החיידקים מפרסמים את עצמם בריח, זנבי־הקפיץ באים ואוכלים, אבל הנבגים (התאים הרדומים) נדבקים לציפוי השעווה שעל גופם ושורדים את מערכת העיכול, ונופלים במקומות חדשים. כמו פרח שמאכיל דבורה ומקבל ממנה פיזור של אבקה. שותפות של מאות מיליוני שנים, שהתגלתה רק ב־<span class="num">2020</span>.' },
+};
+const MCQ = {
+  shared:[
+    { q:'מה בעצם מריחים כשיורד הגשם הראשון?', opts:['את המים עצמם: לטיפות גשם יש ריח מיוחד','שמן שצמחים הפרישו בקיץ ונספג באדמה, וגאוסמין שמייצרים חיידקי אדמה, שהגשם מעיף לאוויר','את העננים, שהרוח מורידה למטה','אוזון מהברקים, ורק אותו'], a:1, fb:'למים נקיים אין ריח: גשם על חלון לא מריח כלום. הריח בא מהאדמה: השמן של הצמחים (פטריכור, ביר ותומאס <span class="num">1964</span>) והגאוסמין של חיידקי הסטרפטומיצס. אוזון מברקים הוא ריח אחר, חד, שלפעמים מקדים סופה, אבל הוא לא ריח האדמה הרטובה.' },
+    { q:'איך הריח עולה מהאדמה לאוויר?', opts:['המים ממיסים את השמן, והוא מתאדה לאט בשמש','הטיפה שנוחתת על אדמה מחוררת לוכדת בועות אוויר; הן עולות דרך הטיפה, מתפוצצות, ומעיפות טיפונות זעירות שעליהן רוכב הריח','הרוח של הסופה מרימה אבק, והאבק מריח','הגשם דוחף את החיידקים החוצה מהאדמה, והם עפים באוויר'], a:1, fb:'זה מה שהמצלמות המהירות של MIT ראו ב־<span class="num">2015</span>: בועות אוויר נלכדות מתחת לטיפה, עולות דרכה, ומתפוצצות בפני המים, כמו בכוס שמפניה, וכל פיצוץ משחרר אירוסולים זעירים עם השמן והגאוסמין. הכול בתוך כמה מיליוניות שנייה. בלי בועות, הריח היה נשאר על האדמה.' },
+    { q:'באמצע החורף, אחרי עשרה גשמים, יורד עוד גשם. למה כמעט לא מריחים כלום?', opts:['כי בחורף האף שלנו פחות רגיש','כי המחסן של הקיץ כבר נשטף, והאדמה הרטובה לא לוכדת בועות אוויר','כי בחורף הצמחים ישנים ולא מריחים','כי הגשם בחורף נקי יותר'], a:1, fb:'שתי סיבות מהשיעור: המחסן ריק, השמן והגאוסמין שהצטברו בקיץ כבר עלו לאוויר בגשמים הראשונים, והחיידקים לא מייצרים נבגים חדשים באדמה רטובה; והאדמה הרטובה, שהחורים שלה מלאים מים, לא לוכדת בועות, אז אין מה שיעיף את מעט הריח שנשאר. האף שלנו רגיש אותו דבר כל השנה.' },
+  ],
+  younger:[
+    { q:'למה חיידקי האדמה טורחים לייצר את ריח הגשם?', opts:['כדי שאנחנו נשמח כשיורד גשם','כדי למשוך זנבי־קפיץ שיאכלו אותם ויפזרו את הנבגים שלהם במקומות חדשים','כדי להבריח את הגשם','כדי שהצמחים יידעו שאפשר לנבוט'], a:1, fb:'הריח הוא מודעה: זנבי־הקפיץ מריחים אותו במחושים, באים לאכול את החיידקים, והנבגים נדבקים להם לגוף ועוברים דרך הבטן שלהם, ואז מתפזרים בכל מקום שהם הולכים. בדיוק כמו פרח ודבורה. אנחנו רק מצותתים למודעה, ובמקרה אוהבים אותה.' },
+  ],
+  older:[
+    { q:'יום של יורה. בגינה אחת השקו בממטרות שעתיים לפני הגשם, ובגינה השכנה לא. איפה הריח יהיה חזק יותר, ולמה?', opts:['בגינה שהושקתה: המים כבר התחילו לשחרר את הריח, והגשם רק מוסיף','בגינה שלא הושקתה: האדמה היבשה עוד מחזיקה את כל המחסן, והחורים שלה מלאים אוויר שהטיפות הופכות לבועות','אותו דבר: הריח תלוי רק בגשם, לא באדמה','בגינה שהושקתה: אדמה רטובה לוכדת יותר בועות'], a:1, fb:'הממטרות עשו שני דברים: שחררו כבר חלק מהמחסן (בלי שהרחתם, כי הן משקות ישר על האדמה), ומילאו את החורים הזעירים במים, אז הטיפות של הגשם לא לוכדות בהן אוויר. בגינה היבשה המחסן שלם והאדמה מחוררת ומלאת אוויר: מקסימום בועות, מקסימום ריח. זה גם מה שרואים בצנצנות של "לנסות בבית".' },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'קיץ יבש: הצמחים מפרישים <b>שמן</b> והחיידקים מייצרים <b>גאוסמין</b>, והמחסן באדמה מתמלא.'},
+  {id:'b', t:'סתיו: מגיעים עננים, והטיפות הראשונות <b>נוחתות</b> על אדמה יבשה ומחוררת.'},
+  {id:'c', t:'כל טיפה <b>לוכדת מתחתיה בועות אוויר</b> מהחורים שבאדמה.'},
+  {id:'d', t:'הבועות עולות דרך הטיפה ו<b>מתפוצצות</b>, ומעיפות טיפונות זעירות עם הריח.'},
+  {id:'e', t:'<b>הרוח</b> נושאת את חלקיקי הריח, לפעמים קילומטרים לפני הגשם.'},
+  {id:'f', t:'<b>האף</b> קולט גאוסמין בכמות של <span class="num">100</span> חלקים לטריליון: "גשם!"'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> מחסן ← טיפות ← בועות ← פיצוץ ← רוח ← אף. שימו לב להיגיון: קודם המחסן מתמלא (כל הקיץ), רק אז נוחתות טיפות, רק טיפה שנחתה יכולה ללכוד בועות, הבועות חייבות לעלות לפני שהן מתפוצצות, הפיצוץ הוא שמעיף את הריח לאוויר שהרוח נושאת, והאף תמיד אחרון. חצי שנה בשישה כרטיסים.' : '<span class="pill-bad">לא בדיוק.</span> הטעות הנפוצה: לשים את הבועות לפני שהטיפה נחתה (בלי טיפה אין מי שילכוד אוויר), או את הפיצוץ לפני הבועות (קודם לוכדים אוויר, אחר כך הוא עולה ומתפוצץ). חשבו על זה כמו על שרשרת: הקיץ ממלא, הטיפה נוחתת ולוכדת, הבועה מעיפה, הרוח נושאת, האף קולט.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const aOk = chalA.value!=='' && a>=297 && a<=303, bOk = chalB.value!=='' && b>=3.5 && b<=3.7;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (chalA.value!=='' && a>=17.9 && a<=18.1) ? '(א): אלה קילומטרים בשעה, לא מטרים בדקה. קודם הפכו למטרים: <span class="math">18 × 1,000 = 18,000</span> מטר בשעה, ואז חלקו ב־<span class="num">60</span> דקות.'
+    : (chalA.value!=='' && a>=1079 && a<=1081) ? '(א): הכפלתם ב־<span class="num">60</span> במקום לחלק. בשעה יש <span class="num">60</span> דקות, אז בדקה עוברים <b>פחות</b> מטרים מאשר בשעה: <span class="math">18,000 ÷ 60 = ?</span>'
+    : (chalA.value!=='' && a>=0.29 && a<=0.31) ? '(א): זה בקילומטרים בדקה. השאלה במטרים: הכפילו ב־<span class="num">1,000</span>.'
+    : (chalA.value!=='' && a>=4.9 && a<=5.1) ? '(א): <span class="num">5</span> זה מטרים ב<b>שנייה</b> (חילקתם ב־<span class="num">3,600</span>). השאלה על דקה: <span class="math">18,000 ÷ 60 = ?</span>'
+    : (chalA.value!=='' && ((a>=29 && a<=31) || (a>=2999 && a<=3001))) ? '(א): הנקודה העשרונית זזה. <span class="math">18,000 ÷ 60 = ?</span> (זה בין <span class="num">100</span> ל־<span class="num">1,000</span>.)'
+    : (chalA.value!=='' && a>=17999 && a<=18001) ? '(א): <span class="num">18,000</span> זה מטרים ב<b>שעה</b>. עכשיו חלקו ב־<span class="num">60</span> כדי לקבל מטרים בדקה.'
+    : '(א): רמז — <span class="math">18 × 1,000 = 18,000</span> מטר בשעה. בשעה יש <span class="num">60</span> דקות: <span class="math">18,000 ÷ 60 = ?</span>';
+  const hintB = (chalB.value!=='' && b>=3599 && b<=3601) ? '(ב): זה במטרים. בקילומטר יש <span class="num">1,000</span> מטר: חלקו ב־<span class="num">1,000</span>.'
+    : (chalB.value!=='' && b>=35 && b<=37) ? '(ב): קרוב, הנקודה העשרונית זזה. <span class="math">300 × 12 = 3,600</span> מטר, וזה <span class="num">3.6</span> קילומטר, לא <span class="num">36</span>.'
+    : (chalB.value!=='' && b>=215 && b<=217) ? '(ב): הכפלתם <span class="num">18</span> ב־<span class="num">12</span>, אבל <span class="num">18</span> זה קילומטר ב<b>שעה</b> והגשם לקח <span class="num">12</span> <b>דקות</b>. השתמשו במטרים בדקה מ־(א): <span class="math">300 × 12 = ?</span> מטר.'
+    : (chalB.value!=='' && b>=0.35 && b<=0.37) ? '(ב): חסר אפס. <span class="math">300 × 12 = 3,600</span> מטר <span class="math">= 3.6</span> קילומטר.'
+    : (chalB.value!=='' && b>=24.9 && b<=25.1) ? '(ב): חילקתם במקום להכפיל. הרוח עברה <span class="num">300</span> מטר בכל דקה, במשך <span class="num">12</span> דקות: <span class="math">300 × 12 = ?</span>'
+    : (chalB.value!=='' && b>=11.9 && b<=12.1) ? '(ב): <span class="num">12</span> זה הדקות, לא המרחק. הכפילו את המטרים בדקה מ־(א) ב־<span class="num">12</span>, ואז הפכו לקילומטרים.'
+    : '(ב): רמז — הרוח עברה בכל דקה את המספר שמצאתם ב־(א), במשך <span class="num">12</span> דקות: הכפילו. התוצאה במטרים; חלקו ב־<span class="num">1,000</span> כדי לקבל קילומטרים.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">18 × 1,000 = 18,000</span> מטר בשעה, <span class="math">18,000 ÷ 60 = 300</span> מטר בדקה: הרוח עוברת שלושה מגרשי כדורגל בכל דקה. (ב) <span class="math">300 × 12 = 3,600</span> מטר <span class="math">= 3.6</span> קילומטר. כשהרחתם את הגשם, הוא כבר ירד במרחק שלושה קילומטר וחצי מכם, בערך המרחק מזכרון יעקב לבנימינה. ובכנות: זה בהנחה שהרוח נשבה כל הזמן באותו כיוון ובאותה מהירות, כמו בחישוב שעושים חזאים. בונוס לחשוב: אם הרוח הייתה נושבת פי שניים מהר, הייתם מריחים את הגשם זמן קצר יותר לפניו או ארוך יותר?'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">300</span> מטר בדקה.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — <span class="num">3.6</span> קילומטר.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(chalB.value!==''?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const a=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const aOk=(numAdv.value!=='' && a>=19.5 && a<=20.5), bOk=(numAdvR.value!=='' && r>=495000 && r<=505000), sc = aOk&&bOk?2:(aOk?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) כפית: <span class="math">5 × 10,000,000,000 = 50,000,000,000</span> מיליליטר, כלומר <span class="math">50,000,000</span> ליטר; <span class="math">50,000,000 ÷ 2,500,000 = 20</span> בריכות אולימפיות. (ב) טיפה היא <span class="math">0.05 ÷ 5 = 1/100</span> כפית: <span class="math">50,000,000 ÷ 100 = 500,000</span> ליטר. טיפה אחת מספיקה לחצי מיליון ליטר, יותר מאלפיים אמבטיות, והאף עדיין אומר "אדמה רטובה".'
+      : aOk ? ((r>=499999999 && r<=500000001) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) יצאו לכם מיליליטרים (<span class="num">500,000,000</span>). השאלה בליטרים: חלקו ב־<span class="num">1,000</span>.' : (r>=499 && r<=501) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) חילקתם ב־<span class="num">1,000</span> פעמיים. טיפה היא <span class="math">1/100</span> כפית, וכפית מספיקה ל־<span class="num">50,000,000</span> ליטר: <span class="math">50,000,000 ÷ 100 = ?</span>' : (r>=49999 && r<=50001) || (r>=4999999 && r<=5000001) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) הנקודה העשרונית זזה. בדקו שוב: <span class="math">50,000,000 ÷ 100 = ?</span>' : (r>=4.9 && r<=5.1) || (r>=0.049 && r<=0.051) ? '<span class="pill-ok">(א) נכון.</span> ב־(ב) שכחתם להכפיל ב־<span class="num">10</span> מיליארד. טיפה היא <span class="math">1/100</span> כפית: <span class="math">50,000,000 ÷ 100 = ?</span> ליטר.' : '<span class="pill-ok">(א) נכון — <span class="num">20</span> בריכות.</span> עכשיו (ב): טיפה (<span class="num">0.05</span>) היא <span class="math">1/100</span> כפית (<span class="num">5</span>). כפית מספיקה ל־<span class="num">50,000,000</span> ליטר, אז טיפה: <span class="math">50,000,000 ÷ 100 = ?</span>')
+      : (a>=19999 && a<=20001) ? '<span class="pill-bad">ב־(א) שכחתם להפוך מיליליטרים לליטרים.</span> כפית מספיקה ל־<span class="num">50,000,000,000</span> מיליליטר, כלומר <span class="num">50,000,000</span> ליטר: <span class="math">50,000,000 ÷ 2,500,000 = ?</span>'+(bOk?' (ב) נכון.':'')
+      : (a>=0.049 && a<=0.051) ? '<span class="pill-bad">ב־(א) חילקתם הפוך.</span> כמה בריכות: הליטרים שהכפית מספיקה להם, חלקי הליטרים בבריכה: <span class="math">50,000,000 ÷ 2,500,000 = ?</span>'+(bOk?' (ב) נכון.':'')
+      : (a>=1.9 && a<=2.1) || (a>=199 && a<=201) ? '<span class="pill-bad">ב־(א) הנקודה העשרונית זזה.</span> <span class="math">50,000,000 ÷ 2,500,000 = 20</span>, לא <span class="num">2</span> ולא <span class="num">200</span>.'+(bOk?' (ב) נכון.':'')
+      : (a>=3.9 && a<=4.1) ? '<span class="pill-bad">ב־(א) חישבתם לטיפה במקום לכפית?</span> כפית היא <span class="num">5</span> מיליליטר: <span class="math">5 × 10,000,000,000 = 50,000,000,000</span> מיליליטר <span class="math">= 50,000,000</span> ליטר. ועכשיו חלקו בבריכה.'+(bOk?' (ב) נכון.':'')
+      : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): כפית היא <span class="num">5</span> מיליליטר, וכל מיליליטר מספיק ל־<span class="num">10,000,000,000</span> מיליליטר מים: <span class="math">5 × 10,000,000,000 = 50,000,000,000</span> מיליליטר. הפכו לליטרים (חלקו ב־<span class="num">1,000</span>), ואז חלקו ב־<span class="num">2,500,000</span>.'+(bOk?' (ב) נכון.':'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=v===200; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">1,000 ÷ 5 = 200</span> שניות: יותר משלוש דקות. ככה אפשר להריח גשם לפני שהוא מגיע, ולהספיק להכניס את הכביסה.':(v===5000)?'<span class="pill-bad">הכפלתם במקום לחלק.</span> בכל שנייה הרוח עוברת <span class="num">5</span> מטר. כמה שניות צריך כדי לעבור <span class="num">1,000</span> מטר? <span class="math">1,000 ÷ 5 = ?</span>':(v===995)?'<span class="pill-bad">חיסרתם במקום לחלק.</span> כמה פעמים <span class="num">5</span> מטר נכנסים ב־<span class="num">1,000</span> מטר? <span class="math">1,000 ÷ 5 = ?</span>':(v===1005)?'<span class="pill-bad">חיברתם במקום לחלק.</span> כמה פעמים <span class="num">5</span> נכנס ב־<span class="num">1,000</span>? <span class="math">1,000 ÷ 5 = ?</span>':(v===20||v===2000)?'<span class="pill-bad">אפס אחד זז.</span> בדקו: <span class="math">5 × 200 = 1,000</span>, אז <span class="math">1,000 ÷ 5 = ?</span>':(v===100||v===250)?'<span class="pill-bad">קרוב!</span> בדקו: <span class="math">5 × 200 = 1,000</span>, אז <span class="math">1,000 ÷ 5 = ?</span>':'<span class="pill-bad">לא בדיוק.</span> רמז: בכל שנייה הרוח עוברת <span class="num">5</span> מטר. כמה שניות עד <span class="num">1,000</span> מטר? <span class="math">1,000 ÷ 5 = ?</span>'; }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=v>=19.5 && v<=20.5; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">50,000,000 ÷ 2,500,000 = 20</span>: כפית אחת של גאוסמין מספיקה לעשרים בריכות אולימפיות, והאף עדיין מריח. (טריק: מוחקים אותו מספר אפסים משני הצדדים: <span class="math">500 ÷ 25 = 20</span>.)':(v>=0.049 && v<=0.051)?'<span class="pill-bad">חילקתם הפוך.</span> כמה בריכות: הליטרים שהכפית מספיקה להם חלקי הליטרים בבריכה: <span class="math">50,000,000 ÷ 2,500,000 = ?</span>':(v>=1.9 && v<=2.1)||(v>=199 && v<=201)?'<span class="pill-bad">הנקודה העשרונית זזה.</span> טריק: מוחקים אותו מספר אפסים משני הצדדים: <span class="math">500 ÷ 25 = ?</span>':(v>=47499999 && v<=47500001)?'<span class="pill-bad">חיסרתם.</span> "כמה בריכות" זה חילוק: <span class="math">50,000,000 ÷ 2,500,000 = ?</span>':(v>=1.2e14 && v<=1.3e14)?'<span class="pill-bad">הכפלתם במקום לחלק.</span> כמה פעמים <span class="num">2,500,000</span> נכנס ב־<span class="num">50,000,000</span>? <span class="math">50,000,000 ÷ 2,500,000 = ?</span>':'<span class="pill-bad">לא בדיוק.</span> רמז: כמה פעמים <span class="num">2,500,000</span> ליטר נכנסים ב־<span class="num">50,000,000</span> ליטר? מחקו אותו מספר אפסים משני הצדדים: <span class="math">500 ÷ 25 = ?</span>'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'אמרתי שלמים אין ריח, ושהריח בא מהאדמה: שמן שהצמחים הפרישו בקיץ, וגאוסמין שמייצרים חיידקים (סטרפטומיצס).',
+  'הסברתי שהמחסן מתמלא כל הקיץ היבש, ושהגשם הראשון משחרר אותו בבת אחת, ולכן הוא מריח הכי חזק.',
+  'הסברתי איך הריח עולה לאוויר: הטיפה לוכדת בועות אוויר באדמה המחוררת, הבועות עולות ומתפוצצות ומעיפות טיפונות זעירות עם הריח.',
+  'הסברתי למה הגשם העשירי כמעט לא מריח: המחסן כבר ריק, והאדמה הרטובה לא לוכדת בועות (וגם: טיפות מהירות מעיפות פחות).',
+  'הזכרתי מספר או סיפור: האף מזהה גאוסמין ב־<span class="num">100</span> חלקים לטריליון (כפית ב־<span class="num">20</span> בריכות, פי <span class="num">10,000</span> מכריש); ביר ותומאס ו"פטריכור" ב־<span class="num">1964</span>; זנבי־הקפיץ שמפזרים את הנבגים.',
+];
+const MODEL='למים אין ריח. הריח של הגשם הראשון בא מהאדמה, ויש לו שני מרכיבים: שמן שהצמחים מפרישים בקיץ היבש ושנספג באבק ובסלעים, וגאוסמין, חומר שמייצרים חיידקי סטרפטומיצס כשהאדמה מתייבשת והם מייצרים נבגים. כל הקיץ המחסן הזה מתמלא, ושום דבר לא יוצא כי אין מים. כשיורד הגשם הראשון, הטיפות נוחתות על אדמה יבשה ומלאת חורים עם אוויר, וכל טיפה לוכדת מתחתיה בועות אוויר קטנטנות. הבועות עולות דרך הטיפה ומתפוצצות למעלה, וכל פיצוץ מעיף לאוויר טיפונות זעירות שעליהן רוכב הריח. הרוח נושאת אותן, לפעמים קילומטרים לפני הגשם, והאף שלנו קולט את הגאוסמין כבר ב־<span class="num">100</span> חלקים לטריליון, כפית ב־<span class="num">20</span> בריכות אולימפיות, פי <span class="num">10,000</span> יותר רגיש מכריש לדם. הגשם העשירי של החורף כמעט לא מריח כי המחסן כבר התרוקן בגשמים הקודמים, החיידקים לא מייצרים נבגים חדשים באדמה רטובה, והחורים באדמה הרטובה מלאים מים, אז הטיפות לא לוכדות בועות ואין מה שיעיף ריח. ואגב, החיידקים לא מייצרים את הריח בשבילנו: הוא מודעה לזנבי־קפיץ, חיות עפר זעירות שבאות לאכול אותם ומפזרות את הנבגים שלהם. את השמן גילו ביר ותומאס באוסטרליה ב־<span class="num">1964</span> ונתנו לריח את השם פטריכור, ואת הבועות צילמו ב־MIT ב־<span class="num">2015</span>.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (שני מרכיבים: שמן שצמחים מפרישים בבצורת ונספג בחרסית ובסלעים — ביר ותומאס, CSIRO, Nature 1964, "פטריכור", והשמן מעכב נביטה (1965) — וגאוסמין, שמייצרים חיידקי סטרפטומיצס כשהאדמה מתייבשת והם מייצרים נבגים; ההצטברות לאורך הקיץ היבש = "המחסן"; מנגנון השחרור של ג׳ונג ובואי (MIT 2015): טיפה על משטח נקבובי יבש לוכדת בועות אוויר, הן עולות דרך הטיפה ומתפוצצות בפני המים ומשחררות אירוסולים תוך מיקרו־שניות; למה טיפה איטית/בינונית מעיפה יותר ממהירה (מתפשטת ונשברת לפני שהבועות עולות) ולמה אדמה רטובה או כביש כמעט לא (הנקבוביות מלאות מים / אין נקבוביות); הרוח נושאת את האירוסולים לפני הגשם; הסף של האף ~100 חלקים לטריליון = 1:10,000,000,000, כפית (5 מ״ל) ב־50,000,000 ליטר = 20 בריכות, פי 10,000 מכריש (דם ב־1 למיליון), והאי־ודאות בין מחקרים (5–400); למה הגשם העשירי לא מריח (מחסן ריק + אין נבגים חדשים באדמה רטובה + אין בועות); האבולוציה: גאוסמין הוא אות לזנבי־קפיץ (Becher 2020: מחושים, אנזימים נגד הרעלים, נבגים על השעווה ודרך העיכול) — שותפות של מאות מיליוני שנים; ההשערה הלא־מוכחת שרגישות האדם קשורה לחיפוש מים) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "מי מייצר את הריח של הגשם הראשון" — מאיפה בא ריח הגשם, איך הוא עולה מהאדמה לאוויר, למה דווקא הגשם הראשון מריח, כמה האף רגיש, ולמה החיידקים מייצרים את הריח. הרעיונות המרכזיים: (1) למים אין ריח; הריח בא מהאדמה: שמן שצמחים מפרישים בקיץ היבש ושנספג באבק, בחרסית ובסלעים (ביר ותומאס, CSIRO מלבורן, Nature 7.3.1964, השם "פטריכור" = פטרה + איכור; 1965: השמן מעכב נביטה), וגאוסמין ("ריח אדמה"; גרבר ולשבלייה 1965) שמייצרים חיידקי סטרפטומיצס כשהאדמה מתייבשת והם מייצרים נבגים (120 מתוך 122 מינים); (2) "המחסן": כל הקיץ היבש השמן והגאוסמין מצטברים ושום דבר לא יוצא; הגשם הראשון (היורה) משחרר את הכול בבת אחת, ולכן הוא מריח הכי חזק; (3) מנגנון הבועות (ג׳ונג ובואי, MIT, Nature Communications 2015, ~600 ניסויים, 28 משטחים, מצלמות מהירות): טיפה על אדמה יבשה ונקבובית לוכדת בועות אוויר, הן עולות דרך הטיפה ומתפוצצות ומעיפות אירוסולים זעירים עם הריח, תוך מיקרו־שניות; טפטוף/גשם בינוני מעיף יותר ממבול (טיפה מהירה מתרסקת לפני שהבועות עולות), אדמה יבשה יותר מרטובה (הנקבוביות מלאות מים) או מכביש (אין נקבוביות); (4) הגשם העשירי כמעט לא מריח: המחסן ריק, אין נבגים חדשים באדמה רטובה, ואין בועות; (5) האף: ~100 חלקים לטריליון = 1 מתוך 10,000,000,000 = עשרה דילולים של פי 10; כפית (5 מ״ל) מספיקה ל־50,000,000 ליטר = 20 בריכות אולימפיות (2,500,000 ליטר); כריש מזהה דם ב־1 למיליון → האף רגיש פי 10,000; המספר משתנה בין מחקרים (5–400 חלקים לטריליון); גאוסמין גם בסלק, בדגי בריכות ובמי שתייה (ציאנובקטריה בכנרת); השערה לא מוכחת: רגישות כי ריח אדמה רטובה = מים; (6) למה החיידקים מייצרים אותו: מודעה לזנבי־קפיץ (Becher et al., Nature Microbiology 2020; 1.5 מ״מ, מחושים, אנזימים נגד הרעלים; הנבגים נדבקים לשעווה ועוברים דרך העיכול) שמפזרים את הנבגים, כמו פרח ודבורה; אותם חיידקים מייצרים את רוב האנטיביוטיקות (סטרפטומיצין 1943); (7) מריחים גשם לפני שהוא מגיע כי הרוח נושאת את האירוסולים; אוזון מברקים הוא ריח אחר; (8) הסיפור: ג׳וי ביר וריצ׳רד תומאס, זיקוק באדים של סלעים; מיטי אטאר מקנוג׳ (דיסקיות חרס, דוד נחושת, שמן אלגום, 10 ימים); ישראל: יורה ומלקוש, משיב הרוח משמיני עצרת, ותן טל ומטר מ־ז׳ בחשוון, י״ז בחשוון מתענים; (9) חישובי המבחן: 1,000 ÷ 5 = 200 שניות (הצעיר); 50,000,000 ÷ 2,500,000 = 20 (הבוגר); מתקדם: טיפה = 1/100 כפית → 500,000 ליטר; האתגר: 18,000 ÷ 60 = 300 מ׳ בדקה, 300 × 12 = 3,600 מ׳ = 3.6 ק״מ; בונוס: הכנרת 1,600,000 בריכות, 80,000 כפיות = 400 ליטר.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם את המקור (הריח בא מהאדמה — שמן של צמחים ו/או גאוסמין של חיידקים — ולא מהמים) וגם את המנגנון או את הסיבה לגשם הראשון (בועות אוויר שהטיפה לוכדת ומעיפה, או "המחסן" של הקיץ שמתרוקן ואדמה רטובה שלא לוכדת בועות), 1 אם יש רק חלק מזה. תשובה שאומרת רק "הגשם מריח כי הוא נוגע באדמה" או רק "חיידקים" בלי להסביר איך או למה, לא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', יש לך אף של '+G('בלש','בלשית')+' ומוח של '+G('כימאי','כימאית')+'!':pct>=60?name+', יש לך מוח של '+G('מדען','מדענית')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=20;                                                      // a 5 ml teaspoon at ~100 ppt perfumes 50 million litres = 20 Olympic pools
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: כפית אחת של גאוסמין מספיקה ל־<b><span class="num">20</span> בריכות אולימפיות</b>, <span class="num">50</span> מיליון ליטר, והאף עדיין מריח. פי <span class="num">10,000</span> יותר רגיש מכריש לדם.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. כפית ב־<span class="num">50</span> מיליון ליטר, ועכשיו ידוע לך גם מה הריח הזה, איך הוא עולה מהאדמה, ולמי החיידקים מפרסמים אותו.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. התשובה: כפית אחת של גאוסמין מספיקה ל־<b><span class="num">20</span> בריכות אולימפיות</b>, <span class="num">50</span> מיליון ליטר, והאף עדיין מריח. פי <span class="num">10,000</span> יותר רגיש מכריש לדם, ואת כל זה החיידקים עושים בשביל זנבי־הקפיץ.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כפית גאוסמין — בכמה מים עדיין מריחים): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: ב־20 בריכות אולימפיות)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "מי מייצר את הריח של הגשם הראשון", מהדורה 29, כ״ו בתשרי תשפ״ז (7 באוקטובר 2026). נושא: למים אין ריח — ריח הגשם הראשון (פטריכור) בא מהאדמה; מה שני המרכיבים, איך הריח עולה לאוויר (בועות), למה דווקא הגשם הראשון מריח ולא העשירי, כמה האף רגיש, ולמה החיידקים מייצרים אותו; כימיה (גאוסמין, ריכוזים, חלקים לטריליון, דילול), ביולוגיה (סטרפטומיצס, נבגים, זנבי־קפיץ, אבולוציה, אנטיביוטיקה), פיזיקה (בועות, אירוסולים, מהירות טיפה, רוח ומרחק), גאוגרפיה והיסטוריה (הקיץ היבש בישראל, יורה ומלקוש, לוח הגשם במשנה, אוסטרליה 1964, קנוג׳ בהודו). המרכיבים: (א) שמן צהבהב שצמחים מפרישים בתקופות יובש ושנספג בחרסית, באבק ובסלעים; איזבל ג׳וי ביר וריצ׳רד תומאס, CSIRO, המחלקה לכימיה מינרלית במלבורן, בודדו אותו בזיקוק באדים של סלעים וחרסית מאזורים יבשים ופרסמו ב־Nature ב־7 במרץ 1964 ("Nature of Argillaceous Odour"), וטבעו "פטריכור" = פטרה (אבן) + איכור (הדם הזהוב של האלים ביוונית); 1965: "Petrichor and Plant Growth" — השמן מעכב נביטה (אולי אות לזרעים לחכות); ביר פרשה ב־2015 אחרי 70+ שנות עבודה; (ב) גאוסמין = "ריח אדמה" ביוונית, C12H22O, בודד ב־1965 על ידי ננסי גרבר והוברט לשבלייה; מיוצר על ידי חיידקי סטרפטומיצס (אקטינומיצטים; 120 מתוך 122 מינים שנבדקו נושאים את הגן; יותר מ־500 מינים ידועים) ועל ידי ציאנובקטריה במים (אנאבנה, פלנקטותריקס); גם 2-מתיל־איזובורנאול (2-MIB) דומה; האנזים גאוסמין־סינתאז. "המחסן": בקיץ היבש (בישראל כמעט בלי גשם מאפריל־מאי עד אוקטובר) השמן והגאוסמין מצטברים; כשהאדמה מתייבשת הסטרפטומיצס מייצרים נבגים וגאוסמין; הגשם הראשון משחרר את רוב המחסן; אחריו המחסן ריק, האדמה רטובה, ואין נבגים חדשים — באינטראקטיב "מחסן הקיץ" המספרים הם של מודל (85% משתחררים בכל גשם). מנגנון השחרור: יאנג סו ג׳ונג וקאלן בואי, MIT, Nature Communications, ינואר 2015 — כ־600 ניסויים, 28 משטחים (12 מהונדסים, 16 דגימות קרקע), מצלמות מהירות: טיפה שפוגעת במשטח נקבובי לוכדת בועות אוויר בנקודת המגע, הן עולות דרך הטיפה ומתפוצצות ומשחררות אירוסולים ("כמו כוס שמפניה"), תוך מיקרו־שניות; גשם קל־בינוני משחרר הכי הרבה, גשם כבד הרבה פחות (הטיפה מתפשטת ונשברת לפני שהבועות עולות); אדמה רטובה (נקבוביות מלאות מים) או משטח אטום (כביש, זכוכית) כמעט כלום; מונה "חלקיקי הריח" באינטראקטיב סמלי (36/30/6 ליבש, 3/2/0 לרטוב, 0 לכביש). מריחים גשם לפני שהוא מגיע כי הרוח נושאת את האירוסולים ממקום שבו כבר יורד; ריח שני לפני סופה: אוזון מברקים (חד, "כמו מכונת צילום"); השערה פופולרית לא מוכחת: גמלים מוצאים מים לפי הריח. האף: סף ~100 חלקים לטריליון (1:10,000,000,000; עשרה דילולים של פי 10); מחקרים שונים: 5 עד 400 חלקים לטריליון (0.4 חלקים למיליארד, Polak & Provasi 1992); כריש מזהה דם בכ־1 למיליון → 1,000,000 ÷ 100 = 10,000; כפית (5 מ״ל) × 10,000,000,000 = 50,000,000,000 מ״ל = 50,000,000 ליטר; בריכה אולימפית 50 × 25 × 2 = 2,500 מ״ק = 2,500,000 ליטר → 50,000,000 ÷ 2,500,000 = 20 בריכות (עם 5 חלקים לטריליון היו 400); טיפה 0.05 מ״ל = 1/100 כפית → 500,000 ליטר; הכנרת כ־4 ק״מ מעוקב = 4,000,000,000 מ״ק ÷ 2,500 = 1,600,000 בריכות ÷ 20 = 80,000 כפיות × 5 = 400,000 מ״ל = 400 ליטר ≈ שתי אמבטיות; 0.1 מיקרוגרם לליטר ≈ 100 חלקים לטריליון; גאוסמין בסלק, בדגי בריכות ובמי שתייה (ציאנובקטריה בכנרת ובמאגרים בסוף הקיץ — המים בטוחים); השערה לא מוכחת: הרגישות התפתחה כי ריח אדמה רטובה = מים. למה החיידקים מייצרים אותו: Becher et al., Nature Microbiology, 6.4.2020 (John Innes Centre באנגליה, מארק באטנר; SLU בשבדיה): זנבי־קפיץ (Collembola, כ־1.5 מ״מ, שש רגליים, זנב־קפיץ מקופל מתחת לבטן, התפצלו מהחרקים לפני כ־500 מיליון שנה) מזהים גאוסמין ו־2-MIB במחושים (אלקטרואנטנוגרפיה), נמשכים אליו במלכודות שדה, אוכלים סטרפטומיצס בזכות אנזימים שמנטרלים את הרעלים (שהורגים זבובי פירות ונמטודות), ומפזרים נבגים שנדבקים לציפוי השעווה ושורדים את מערכת העיכול — שותפות של מאות מיליוני שנים, כמו פרח ודבורה; ייצור החומר עולה אנרגיה, לכן אבולוציה שמרה אותו רק כי הוא מועיל; סטרפטומיצס מייצרים את רוב האנטיביוטיקות הטבעיות (סטרפטומיצין, 1943, Streptomyces griseus, מעבדת זלמן וקסמן — אלברט שץ — ברטגרס; התרופה הראשונה נגד שחפת). הסיפור האנושי: מיטי אטאר ("בושם אדמה") מקנוג׳, אוטר פרדש, הודו — מאות שנים: דיסקיות חרס אפויות (כ־270 ק״ג) בדוד נחושת ("דג") עם מים, אדים בצינור במבוק אל כלי ("בהאפקה") עם שמן אלגום, לפחות 10 ימים, אש של עץ וגללים, בקבוקון יקר מאוד. ישראל: יורה = הגשם הראשון, מלקוש = האחרון (דברים י״א, י״ד); משיב הרוח ומוריד הגשם משמיני עצרת (תשפ״ז: שבת 3 באוקטובר 2026); ותן טל ומטר מ־ז׳ בחשוון (18 באוקטובר 2026) כדי שעולי הרגל האחרונים יספיקו להגיע עד נהר פרת (כ־15 יום); משנה תענית א׳: אם עד י״ז בחשוון לא ירד גשם, היחידים מתענים; מזכרון יעקב לבנימינה כ־3.5 ק״מ. ניסויי בית: שתי צנצנות (אדמה יבשה מול לחה, טפטוף מים פושרים, לכסות 30 שניות, להריח — רק היבשה מריחה גשם); סלק = גאוסמין; עציץ חרס יבש + מים = מיטי אטאר ביתי; לתפוס את היורה: כמה דקות בין הריח לטיפה, ומאיזה כיוון הרוח. חישובי המבחן: הצעיר 1,000 ÷ 5 = 200 שניות; הבוגר 50,000,000 ÷ 2,500,000 = 20 בריכות; מתקדם: (א) 20, (ב) 500,000 ליטר; האתגר: 18 × 1,000 = 18,000 מ׳ בשעה, 18,000 ÷ 60 = 300 מ׳ בדקה, 300 × 12 = 3,600 מ׳ = 3.6 ק״מ; בדיקות מהירות: הגשם הראשון — המחסן; טפטוף — בועות; האף פי 10,000; ביר ותומאס — זיקוק באדים; זנבי־קפיץ — נבגים; סידור: המחסן מתמלא בקיץ (שמן + גאוסמין) ← הטיפות הראשונות נוחתות על אדמה יבשה ← כל טיפה לוכדת בועות ← הבועות מתפוצצות ומעיפות טיפונות ← הרוח נושאת ← האף. פישוטים במכוון: "100 חלקים לטריליון" ערך אמצעי מטווח רחב; חלקים לטריליון במשקל ובנפח מטופלים כשווים; "פי 10,000 מכריש" משווה חומרים שונים; "המחסן" ו"85% משתחררים" מודל; "החיידקים מייצרים נבגים וגאוסמין כשהאדמה מתייבשת" מפשט; "הקיץ יבש מאפריל עד אוקטובר" בקירוב; חישוב המרחק מניח רוח קבועה; "רוב האנטיביוטיקות" — הערכות של כשני שלישים. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט ומה שלא ידוע, בלי לחשוף תשובות מבחן; אם ילד שואל על שאלה מהמבחן, לרמוז ולכוון, לא לפתור.';
+const CHIPS = ['למה גשם מריח?', 'מה זה גאוסמין?', 'למה הגשם השני לא מריח?', 'מה זה זנב־קפיץ?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים: שני המרכיבים — השמן של הצמחים (ביר ותומאס 1964, זיקוק באדים, מעכב נביטה) והגאוסמין של הסטרפטומיצס (נבגים כשהאדמה מתייבשת, 120 מתוך 122 מינים); מנגנון הבועות של ג׳ונג ובואי — למה טיפה איטית לוכדת יותר בועות ממהירה (זמן לעלות לפני שהטיפה מתפשטת ונשברת), למה אדמה רטובה וכביש לא (נקבוביות מלאות מים / אין נקבוביות), ומה זה אירוסול; "המחסן" ולמה הגשם העשירי לא מריח; ריכוזים: חלקים לטריליון כעשרה דילולים של פי 10, 1:10,000,000,000, כפית ב־50,000,000 ליטר = 20 בריכות, פי 10,000 מכריש, והאי־ודאות בין מחקרים (5–400); רוח ומרחק: 18,000 ÷ 60 = 300 מ׳ בדקה, 300 × 12 = 3,600 מ׳; האבולוציה — למה גאוסמין שרד (זנבי־קפיץ, נבגים, שותפות של מאות מיליוני שנים) ולמה ההשערה על רגישות האדם אינה מוכחת; ציאנובקטריה בכנרת וסלק; סטרפטומיצס ואנטיביוטיקה), שאל שאלות המשך שדורשות חשיבה (למשל: אם הקיץ היה קצר פי שניים, הגשם הראשון היה מריח יותר או פחות? למה דווקא טיפה בינונית ולא הכי איטית? אם הרוח נושבת מכם אל הגשם, תריחו אותו לפני שהוא מגיע? למה כריש לא זקוק לרגישות של 100 חלקים לטריליון? אם האף מזהה 100 חלקים לטריליון, כמה מולקולות זה בנשימה אחת? למה אין ריח גשם על הירח?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה הגשם הראשון מריח?</b> למים אין ריח. הריח בא מהאדמה: שמן שהצמחים הפרישו בקיץ ונספג באבק ובסלעים, וגאוסמין שמייצרים חיידקי אדמה כשהיא מתייבשת. הטיפות הראשונות נוחתות על אדמה יבשה ומחוררת, לוכדות מתחתיהן בועות אוויר, והבועות עולות ומתפוצצות ומעיפות את הריח לאוויר. כל הקיץ המחסן התמלא, והגשם הראשון מרוקן אותו.<br><br><b>למה הגשם העשירי לא מריח?</b> המחסן כבר ריק, והאדמה הרטובה לא לוכדת בועות: החורים שלה מלאים מים. ואגב, האף שלנו מזהה גאוסמין ב־<span class="num">100</span> חלקים לטריליון, כפית ב־<span class="num">20</span> בריכות אולימפיות.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
+
