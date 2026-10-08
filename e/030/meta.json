@@ -1,0 +1,24 @@
+{
+  "n": 30,
+  "code": "WOW-030",
+  "date": "2026-10-08",
+  "language": "he",
+  "title": "הטלסקופ שעשוי מקרח — והוא מביט כלפי מטה",
+  "topics": [
+    "פיזיקה",
+    "חלל",
+    "הנדסה",
+    "גאוגרפיה",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "IceCube and the 2026 Physics Nobel (Francis Halzen): neutrinos as ghost particles (~100 trillion/s through the body, also at night through the Earth; a person-sized detector waits ~100 years), a cubic km of Antarctic ice with 86×60 = 5,160 sensors at 1,450–2,450 m, Cherenkov light from muons faster than light in ice (n = 1.31), the Earth as a filter (≈1 million cosmic-ray muons per neutrino, so up-going tracks are neutrinos), AMANDA's bubbles vs. clear deep ice, hot-water drilling, Bert & Ernie (2013), TXS 0506+056 (2017), Waxman–Bahcall bound (Weizmann), KM3NeT in the Mediterranean.",
+  "teaser": "בכל שנייה עוברים דרך הגוף שלכם כ־100 טריליון חלקיקים, ואף אחד מהם לא נוגע בכם. כדי לתפוס כמה מהם, מדענים קברו אלפי עיניים אלקטרוניות בקרח של הקוטב הדרומי, ומחפשים חלקיקים שמגיעים דווקא מלמטה, דרך כדור הארץ. למה למטה? והשבוע זה הביא פרס נובל.",
+  "max_score": 11,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — nits left: younger track ~28–32 min for slow readers; small label crowding on phone canvases at 18:00/noon; shared-shell Arto tip and masculine picker header",
+  "review_url": "https://claude.ai/artifact/TdG7aU3niWduHMSUhVYrYi",
+  "editor_note": null
+}
