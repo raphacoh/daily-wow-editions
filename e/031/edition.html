@@ -1,0 +1,1780 @@
+<title>שורשים וכנפיים #31 · למה אסור לנגוס בזית ישר מהעץ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#9DBB4A; --sun-deep:#4A6618; --sun-soft:#E9F1D2;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#6B3FA0; --shadow-soft:#ECE1F7;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#B5D168; --sun-deep:#DCEBB0; --sun-soft:#2A3A16;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#B5D168; --sun-deep:#DCEBB0; --sun-soft:#2A3A16;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny olive on a leaf */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:34px;height:30px;flex:none}
+.ch .stick::before{content:"";position:absolute;right:0;top:12px;width:30px;height:14px;border-radius:0 100% 0 100%;background:var(--leaf2);border:2px solid var(--ink);box-sizing:border-box;transform:rotate(-12deg)}
+.ch .stick::after{content:"";position:absolute;right:13px;top:0;width:15px;height:20px;border-radius:50%;background:var(--sun);border:2px solid var(--ink);box-sizing:border-box}
+
+/* hero: an olive branch with three olives (one bitten) and two specks drifting off it */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 31</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="var(--aur)" stop-opacity=".5"/>
+        <stop offset="60%" stop-color="var(--aur)" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="var(--aur)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- an olive branch: a twig, five leaves, three olives; one olive has a bite taken out of it -->
+    <g id="heroBranch">
+      <path d="M40 70 C110 100 170 140 262 236" fill="none" stroke="var(--earth2)" stroke-width="7" stroke-linecap="round"/>
+      <g fill="var(--leaf2)" stroke="var(--ink)" stroke-width="1.6">
+        <path d="M86 90 C96 52 132 40 150 44 C138 64 116 86 86 90 Z"/>
+        <path d="M120 112 C150 96 190 104 204 118 C180 128 150 126 120 112 Z"/>
+        <path d="M160 150 C162 116 186 92 206 86 C204 112 188 138 160 150 Z"/>
+        <path d="M70 78 C54 104 56 132 64 146 C78 126 82 102 70 78 Z"/>
+        <path d="M214 188 C240 170 268 172 282 180 C262 196 238 198 214 188 Z"/>
+      </g>
+      <g stroke="var(--ink)" stroke-width="2">
+        <ellipse cx="108" cy="140" rx="22" ry="30" fill="var(--leaf)" transform="rotate(-18 108 140)"/>
+        <ellipse cx="178" cy="196" rx="22" ry="30" fill="var(--shadow)" transform="rotate(-24 178 196)"/>
+        <path d="M232 214 a22 30 -20 1 0 18 46 a9 9 0 0 1 -6 -14 a9 9 0 0 1 -4 -16 a9 9 0 0 1 -8 -16 Z" fill="var(--leaf)" transform="rotate(-6 236 236)"/>
+      </g>
+      <g fill="#fff" opacity=".7"><ellipse cx="100" cy="128" rx="5" ry="8"/><ellipse cx="170" cy="184" rx="5" ry="8"/></g>
+    </g>
+    <g class="spark" transform="translate(150,150)"><circle r="6" fill="var(--aur)" stroke="var(--ink)" stroke-width="1.5"/></g>
+    <g class="spark2" transform="translate(120,150)"><circle r="4" fill="var(--aur2)" stroke="var(--ink)" stroke-width="1.5"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 31</span><span class="tag">יום שני, 12 באוקטובר 2026</span><span class="tag">א׳ בחשוון תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>למה אסור לנגוס בזית ישר מהעץ</h1>
+  <p class="lede">עכשיו, בסתיו, עצי הזית בכל הארץ מלאים פרי. אבל מי שקוטף זית ירוק מהעץ ונוגס בו, יורק אותו תוך שנייה: הוא <b>מר בצורה שקשה לתאר</b>. זו לא טעות של הטבע. העץ מייצר את המרירות <b>בכוונה</b>, כמו נשק כימי נגד מי שמנסה לאכול את הפרי. ובכל זאת, אנשים אוכלים זיתים כבר אלפי שנים. מה מנצח את הנשק? <b>מים, מלח וסבלנות</b>. ולא רחוק מזכרון יעקב, מתחת למים מול חוף הכרמל, מצאו ארכאולוגים צוללים את "מפעל" זיתי המאכל הקדום ביותר שידוע לנו, בן <b><span class="num">6,600</span> שנה</b>. השאלה של היום: <b>מה בדיוק עושה את הזית מר, ואיך מים ומלח מוציאים את המרירות החוצה?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">זיתים ירוקים שלמים, ישר מהעץ, טובלים בצנצנת של מים ומלח, בלי שום טריק. כמה זמן עד שהם מוכנים לאכילה?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="0.04"><b>שעה</b><span>מלח עובד מהר</span></button>
+      <button type="button" class="scaleopt" data-scale="1"><b>יום</b><span>לילה אחד בצנצנת</span></button>
+      <button type="button" class="scaleopt" data-scale="7"><b>שבוע</b><span>קצת סבלנות</span></button>
+      <button type="button" class="scaleopt" data-scale="120"><b>כמה חודשים</b><span>הרבה סבלנות</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE TREE'S CHEMICAL WEAPON (interactive 1: the bomb in two drawers) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>הנשק הכימי של העץ</h2>
+  <p>בתוך כל זית יש גלעין, והגלעין הוא הזרע שממנו יכול לצמוח עץ חדש. לעץ "כדאי" שאף אחד לא יאכל את הפרי לפני שהזרע מוכן. עץ לא יכול לברוח ולא יכול לנשוך, אז הוא נלחם ב<b>כימיה</b>: הזית הירוק והצעיר מלא בחומר מר מאוד שנקרא <b>אולאורופאין</b>. השם בא מהשם המדעי של עץ הזית, <span class="math">Olea europaea</span>. בזית ירוק צעיר הוא יכול להגיע עד כמעט שביעית מהמשקל היבש של הפרי.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אבל הטריק האמיתי של העץ הוא <b>שתי מגירות</b>. בתוך התאים של הזית, החומר המר שמור במגירה אחת. במגירה אחרת יש מכונה זעירה, <b>אנזים</b>, שעובדת כמו מספריים. כל עוד הזית שלם, המגירות סגורות והשניים אף פעם לא נפגשים.</p>
+    <p>ואז מגיע חרק, ציפור או ילד רעב, ונוגס. התאים נקרעים, המגירות נשפכות, והמספריים פוגשים את החומר המר. הם גוזרים ממנו חתיכה קטנה, מולקולה של <b>סוכר</b>, ומה שנשאר הופך ל<b>חומר דביק</b> שנדבק לחלבונים, חומרים חשובים באוכל של החרק, והורס אותם. התוצאה: טעם נוראי, ואוכל שלא שווה לאכול. באינטראקטיב: נחשו קודם, ואז נגסו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>אולאורופאין הוא מולקולה עם "תיק גב": מחוברת אליו מולקולה של <b>סוכר</b> (גלוקוז). עם הסוכר הוא יציב ושקט. בתאים של הזית יש גם אנזים בשם <b>בטא־גלוקוזידאז</b>, שתפקידו אחד: לחתוך את הסוכר. אבל האנזים והאולאורופאין שמורים <b>בחלקים שונים של התא</b>, ונפגשים רק כשהתא נקרע.</p>
+    <p>ברגע שהסוכר נחתך, מה שנשאר הופך למולקולה פעילה מאוד, ש<b>נדבקת לחלבונים ומקשרת אותם זה לזה</b>, כמו דבק. ב־<span class="num">1999</span> הראה צוות של קנג׳י קונו מיפן, בעץ ליגוסטרום, קרוב משפחה של הזית, שהדבק הזה הופך עלים למזון גרוע לחרקים: הוא הורס חלק מחומרי המזון שבהם. ב־<span class="num">2015</span> מצא צוות מיוון את האנזים של הזית עצמו. מדענים קוראים לשיטה כזאת <b>הגנה בשני חלקים</b>, או "פצצה": כל חלק לבד לא מזיק, וביחד הם נשק. באינטראקטיב: נחשו, ואז נגסו בחוזקות שונות.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — הפצצה בשתי מגירות ===== -->
+  <div class="panel instrument">
+    <h3>הפצצה בשתי מגירות</h3>
+    <p class="cap">נחשו קודם: מה יקרה בתוך הזית כשחרק נוגס בו?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="bmP0" onclick="bmPredict(0)">כלום, החומר המר פשוט שם</button>
+        <button id="bmP1" onclick="bmPredict(1)">המספריים יפגשו את החומר המר</button>
+        <button id="bmP2" onclick="bmPredict(2)">הזית יתחיל להירקב</button>
+      </div>
+    </div>
+    <canvas role="img" id="bmCv" width="640" height="470" aria-label="תשעה תאים של זית ירוק בשורות; בכל תא שתי מגירות: מגירה ירוקה עם כדורים של החומר המר ומגירה כתומה עם מספריים קטנים, וקיר באמצע; למעלה חרק עם לסת; כשנוגסים, התאים במקום הנגיסה נקרעים, המספריים פוגשים את הכדורים הירוקים, והם הופכים לכתמים חומים דביקים עם חוטים שתופסים חלבון כחול; למעלה מופיעה מילה שאומרת כמה מר הביס"></canvas>
+    <div class="controls">
+      <label>כמה חזק נוגסים
+        <input type="range" id="bmS" min="0" max="100" step="1" value="45" oninput="bmDraw(1)" aria-label="כמה חזק נוגסים" style="direction:ltr">
+      </label>
+      <button class="btn small" id="bmPlay" onclick="BM.toggle()">נגיסה!</button>
+    </div>
+    <div class="controls">
+      <label>הזמן מהנגיסה
+        <input type="range" id="bmT" min="0" max="100" step="1" value="0" oninput="bmDraw(1)" aria-label="הזמן מהנגיסה" style="direction:ltr">
+      </label>
+      <div class="readout">תאים שנקרעו: <b class="num" id="bmOut">0</b></div>
+    </div>
+    <p class="cap" id="bmMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="bmReveal" hidden><span class="hand">!</span><p>כלל האצבע של היום: <b>החומר המר והמספריים שמורים בנפרד, ונפגשים רק כשנוגסים.</b> ככה העץ שומר על הנשק שלו בטוח, ומפעיל אותו בדיוק במקום ובשנייה שמישהו תוקף.</p></div>
+
+  <div class="q qc" id="bombQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · GETTING THE BITTER OUT (interactive 2: the bitterness race) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>איך מוציאים את המרירות החוצה</h2>
+  <p>אי אפשר לגרד את החומר המר עם סכין: הוא נמצא בתוך כל התאים של הפרי. הדרך היחידה היא לתת לו <b>לצאת לבד</b>. מולקולות אף פעם לא עומדות במקום; הן כל הזמן מתרוצצות בלי כיוון. כשבמקום אחד יש הרבה מהן ובמקום אחר מעט, הן לאט לאט מתפזרות אל המקום הריק, כמו ילדים שיוצאים מכיתה צפופה לחצר ריקה. קוראים לזה <b>דיפוזיה</b>. כשטובלים זית במים, המולקולות המרות נודדות מהפרי אל המים. מחליפים את המים, והן ממשיכות לצאת.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>למה זה לוקח כל כך הרבה זמן? מולקולה שנמצאת עמוק בפנים צריכה לנדוד את כל הדרך עד הקליפה. והקליפה של הזית מצופה <b>שעווה</b>, כמו מעיל גשם, וכמעט לא נותנת לעבור. זית שלם יכול לשבת במי מלח <b>חודשים</b> עד שהוא טעים.</p>
+    <p>הטריק של סבתות ברחבי הארץ: <b>לסדוק</b> כל זית במכה קלה של אבן, או לחרוץ בו חתך בסכין. ככה המולקולות מקבלות דלתות חדשות, והדרך שלהן החוצה הרבה יותר קצרה. באינטראקטיב: שלוש צנצנות במרוץ. נחשו קודם מי תנצח, ובכמה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>דיפוזיה היא "הליכה של שיכור": כל מולקולה זזה צעד קטן לכיוון אקראי, שוב ושוב. בגלל זה יש לה חוק מפתיע: <b>הזמן גדל כמו המרחק בריבוע</b>. אם המרחק החוצה כפול, הזמן פי <span class="math">2 × 2 = 4</span>. אם המרחק פי שלושה, הזמן פי <span class="math">3 × 3 = 9</span>. בזית שלם הבשר עבה כמה מילימטרים, והקליפה מצופה שעווה שכמעט לא נותנת לעבור, ולכן זית שלם במי מלח צריך <b>חודשים</b>.</p>
+    <p>מכאן הטריק העתיק: <b>לסדוק</b> או <b>לחרוץ</b> את הזית. הדרך החוצה מתקצרת, והחוק של הריבוע הופך כל מילימטר שנחסך לימים שלמים. ובמפעלים? שם משתמשים ב<b>ליאה</b> (נתרן הידרוקסידי, החומר של אבקות לפתיחת סתימות), שלא מחכה לדיפוזיה אלא <b>מפרק</b> את האולאורופאין כימית: בתמיסה של כ־<span class="num">2%</span> המרירות נעלמת בתוך <span class="math">6–8</span> שעות. זה חומר צורב ומסוכן, למפעלים ולמבוגרים בלבד. באינטראקטיב: שלוש צנצנות במרוץ. נחשו קודם, ואז בדקו אם החוק של הריבוע עובד.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — מרוץ המרירות ===== -->
+  <div class="panel instrument">
+    <h3>מרוץ המרירות</h3>
+    <p class="cap">נחשו קודם: זית שלם, זית עם חתך אחד, וזית סדוק, כל אחד בצנצנת מים שמחליפים כל יום. מי יהיה מוכן לאכילה ראשון?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="rcP0" onclick="rcPredict(0)">כולם ביחד</button>
+        <button id="rcP1" onclick="rcPredict(1)">הסדוק, בהפרש קטן</button>
+        <button id="rcP2" onclick="rcPredict(2)">הסדוק, בהפרש ענק</button>
+      </div>
+    </div>
+    <canvas role="img" id="rcCv" width="640" height="470" aria-label="שלוש צנצנות מים זו ליד זו: בימין זית שלם, באמצע זית עם חתך אחד, ובשמאל זית סדוק; בתוך כל זית נקודות ירוקות כהות של החומר המר; כשהימים עוברים הנקודות יוצאות מהזית אל המים, ומתחת לכל צנצנת פס של מרירות שהולך ומתקצר; כשהפס יורד מתחת לקו, מופיע סימן וי ירוק: מוכן"></canvas>
+    <div class="controls">
+      <button class="btn small" id="rcPlay" onclick="RC.toggle()">התחילו את המרוץ</button>
+      <label>הימים שעברו
+        <input type="range" id="rcT" min="0" max="100" step="1" value="0" oninput="rcDraw(1)" aria-label="הימים שעברו" style="direction:ltr">
+      </label>
+      <div class="readout">יום <b class="num" id="rcOut">0</b></div>
+    </div>
+    <p class="cap" id="rcMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div id="rcReveal" hidden>
+    <div data-track="younger"><p>ראיתם? הזית הסדוק מוכן אחרי כ־<span class="num">10</span> ימים, החתוך אחרי כ־<span class="num">23</span>, והשלם צריך כמעט שלושה חודשים. לא בגלל שהמים "חזקים" יותר. בגלל שהמולקולות המרות של הזית הסדוק צריכות ללכת <b>דרך קצרה</b> הרבה יותר.</p></div>
+    <div data-track="older"><p>במודל הזה המרחק החוצה בזית השלם הוא <span class="num">6</span> מילימטר, בחתוך <span class="num">3</span> ובסדוק <span class="num">2</span>. החוק של הריבוע: חצי מרחק, רבע זמן: <span class="math">90 ÷ 4 = 22.5</span> ימים. שליש מרחק, תשיעית זמן: <span class="math">90 ÷ 9 = 10</span> ימים. המספרים פשוטים, אבל הם קרובים למציאות: זיתים סדוקים במים מוכנים אחרי שבוע עד שבועיים, וזיתים שלמים במי מלח אחרי חודשים.</p></div>
+    <div class="aha">כלל אצבע: <b>הזמן של דיפוזיה תלוי במרחק, והרבה.</b> מי שמקצר את הדרך, מקצר את ההמתנה פי כמה וכמה.</div>
+  </div>
+
+  <div class="q qc" id="raceQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · HOW MUCH SALT? (interactive 3: the brine maker and the egg) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>כמה מלח צריך?</h2>
+  <p>המרירות יצאה, אבל עכשיו יש בעיה חדשה: זית הוא פרי עסיסי, וזיתים במים רגילים מתחילים <b>להירקב</b>. כאן נכנס המלח. במים מלוחים מאוד רוב החיידקים והפטריות שמרקיבים אוכל לא יכולים לחיות, כי המלח שואב מהם את המים. אבל יש חיידקים "חברים" שמסתדרים עם מלח: <b>חיידקי חומצה לקטית</b>, אותה משפחה שהופכת חלב ליוגורט ומלפפון לחמוץ. הם אוכלים סוכרים מהזית ומייצרים חומצה, שמגינה עוד יותר ומוסיפה טעם. מעט מדי מלח, והזיתים נרקבים. הרבה מדי, ואי אפשר לאכול אותם. במפעלים משתמשים במי מלח של <span class="math">8–10%</span> מלח.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>איך יודעים כמה מלח שמים, בלי מאזניים? יש טריק ישן: שמים <b>ביצה טרייה</b> בתוך המים, ומוסיפים מלח עד שהביצה <b>צפה</b>. למה ביצה צפה במים מלוחים? כי מים עם מלח מומס הם <b>כבדים יותר</b> ממים רגילים באותה כמות, ודוחפים את הביצה למעלה חזק יותר. ככה עובד גם ים המלח, שבו אנשים צפים בלי לשחות. באינטראקטיב: הוסיפו מלח לליטר מים, וחפשו את הרגע שבו הביצה עולה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>מה זה "<span class="num">10%</span> מלח"? זה החלק של המלח מתוך <b>כל</b> התמיסה, מלח ומים ביחד: <span class="math">מלח ÷ (מלח + מים) × 100</span>. טעות נפוצה היא לחלק במים בלבד. ליטר מים שוקל כ־<span class="num">1,000</span> גרם, אז <span class="num">100</span> גרם מלח בליטר מים נותנים <span class="math">100 ÷ 1,100 × 100 ≈ 9.1%</span>, לא <span class="num">10%</span>.</p>
+    <p>הטריק הישן של הביצה הוא בעצם מדידה של <b>צפיפות</b>: כמה גרמים יש בכל סנטימטר מעוקב. מים רגילים: כ־<span class="num">1</span> גרם לסמ״ק. כל אחוז של מלח מוסיף בערך <span class="num">0.007</span>. ביצה טרייה צפופה בערך <span class="num">1.08</span>, ולכן היא צפה רק כשהמים צפופים ממנה, בערך מ־<span class="num">11%</span> מלח. ביצה ישנה מכילה יותר אוויר וצפה מוקדם יותר, אז הטריק הוא הערכה, לא מדידה מדויקת. באינטראקטיב: מצאו את נקודת הציפה, ובדקו מה האחוז באמת.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — מכינים מי מלח ===== -->
+  <div class="panel instrument">
+    <h3>מכינים מי מלח</h3>
+    <p class="cap">נחשו קודם: כמה מלח צריך להוסיף לליטר מים כדי שביצה טרייה תצוף?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="brP0" onclick="brPredict(0)">כף אחת, כ־<span class="num">20</span> גרם</button>
+        <button id="brP1" onclick="brPredict(1)">כ־<span class="num">130</span> גרם</button>
+        <button id="brP2" onclick="brPredict(2)">חצי קילו</button>
+      </div>
+    </div>
+    <canvas role="img" id="brCv" width="640" height="470" aria-label="צנצנת גדולה עם ליטר מים וביצה בתוכה; ככל שמוסיפים מלח, המים מתכהים קצת והביצה עולה מהתחתית, נעמדת, ובסוף צפה למעלה; מימין סרגל צבעוני של אחוז המלח: אדום חלש מדי וסכנת ריקבון, צהוב גבולי, ירוק טוב לזיתים, כחול מלוח מאוד, עם חץ שמראה איפה אנחנו"></canvas>
+    <div class="controls">
+      <label>כמה גרם מלח לליטר מים
+        <input type="range" id="brS" min="0" max="200" step="5" value="0" oninput="brDraw(1)" aria-label="כמה גרם מלח" style="direction:ltr">
+      </label>
+      <div class="readout"><b class="num" id="brOut">0</b> גרם</div>
+    </div>
+    <p class="cap" id="brMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="brReveal" hidden><span class="hand">!</span><p>הביצה עולה בערך ב־<span class="num">125</span> גרם מלח לליטר, כ־<span class="num">11%</span>. מי מלח לזיתים צריכים <span class="math">8–10%</span>: כ־<span class="math">90–110</span> גרם לליטר מים. אז הביצה אומרת לנו "<b>מספיק, אפילו קצת יותר</b>". מעט מדי מלח מסוכן, כי הזיתים יכולים להירקב.</p></div>
+
+  <div class="q qc" id="brineQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE STORY (interactive 4: the drowned villages) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>הארכאולוג שצולל אל הכפרים הטבועים</h2>
+    <p><b>אהוד גלילי</b> הוא ארכאולוג מאוניברסיטת חיפה, והוא לא חופר באדמה: הוא <b>צולל</b>. מול חוף הכרמל, בין חיפה לעתלית, שוכבים מתחת למים כפרים עתיקים. לפני אלפי שנים הם היו על החוף, ואז הים עלה וכיסה אותם. אחרי סערות חורף, כשהגלים מזיזים את החול, מופיעים פתאום קירות, כלים ו<b>גלעינים</b>.</p>
+    <p>במקום אחד, <b>כפר סמיר</b>, ליד חוף דדו בחיפה, מצאו גלעינים <b>מרוסקים</b> וקליפות של זיתים, בני <span class="math">7,000–7,500</span> שנה. זו פסולת של הכנת <b>שמן זית</b>, מהעדויות הקדומות בעולם.</p>
+    <p>וכ־<span class="num">1,800</span> מטר משם, במקום שנקרא <b>חישולי כרמל</b>, מצאו משהו אחר: אלפי גלעינים <b>שלמים</b>, בתוך שני מבנים של אבנים, בני <span class="num">6,600</span> שנה. בלי קליפות ובלי אבקת פרחים של זית. גלעינים שלמים פירושם שאף אחד לא ריסק את הזיתים בשביל שמן. אז מה עשו איתם? <b>אכלו אותם</b>. ובמה הוציאו את המרירות, שם ליד הים? <b>במי ים ובמלח</b>. במעבדה בטכניון אפילו ניסו, וזה עבד: זיתים במי ים הפכו לאכילים.</p>
+    <p>זה הגילוי הקדום ביותר של זיתי מאכל שידוע לנו, קדום בכ־<span class="num">4,000</span> שנה מהעדות הקודמת. והוא נמצא כחצי שעה נסיעה צפונה מזכרון יעקב.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>הארכאולוג שצולל אל הכפרים הטבועים</h2>
+    <p><b>ד״ר אהוד גלילי</b> ממכון זינמן לארכאולוגיה באוניברסיטת חיפה חוקר כבר עשרות שנים כפרים שטבעו מול חוף הכרמל. לפני כ־<span class="num">7,000</span> שנה פני הים התיכון היו נמוכים יותר וקו החוף היה מערבה יותר. כשהים עלה, הכפרים נקברו בחול ובמים, וזה מה ששמר עליהם. סערות חורף חושפות אותם לפעמים לכמה ימים, והצוללנים ממהרים לתעד.</p>
+    <p>ב<b>כפר סמיר</b>, מול חוף דדו בחיפה, בן <span class="math">7,000–7,500</span> שנה, נמצאו גלעינים מרוסקים, קליפות ואבקת פרחים של זית: הפסולת הטיפוסית של הפקת שמן. כ־<span class="num">1,800</span> מטר משם, ב<b>חישולי כרמל</b>, בן כ־<span class="num">6,600</span> שנה, כ־<span class="num">120</span> מטר מהחוף ובעומק של עד <span class="num">4</span> מטר, נמצאו שני מבנים סגלגלים של אבנים, ובהם אלפי גלעינים <b>שלמים</b>, בלי קליפות ובלי אבקת פרחים.</p>
+    <p>זו עבודת בילוש: גלעינים שלמים אומרים שלא ריסקו. בלי קליפות ובלי אבקה אומר שהזיתים נשטפו שוב ושוב. ומיקום על שפת הים אומר שהיו בהישג יד מי ים ומלח, בדיוק מה שצריך כדי להוציא מרירות ולשמר. החוקרים, מ־<span class="num">11</span> מוסדות, בדקו את הרעיון: במעבדה של פרופ׳ איילת פישמן בטכניון כבשו זיתים במי ים, והם הפכו לאכילים. המאמר פורסם ב־<span class="num">2021</span> בכתב העת Scientific Reports. גודל הגלעינים מזכיר <b>זית בר</b>, כך שייתכן שהעצים עוד לא היו מתורבתים לגמרי. וזה קדום בכ־<span class="num">4,000</span> שנה מהעדות הקודמת לזיתי מאכל: עוד לפני שהומצא הכתב.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 4 — הכפרים שטבעו ===== -->
+  <div class="panel instrument">
+    <h3>הכפר שטבע</h3>
+    <p class="cap">הזיזו את הזמן מלפני <span class="num">6,600</span> שנה ועד היום, וראו מה קרה לכפר של זיתי המאכל.</p>
+    <canvas role="img" id="cvCv" width="640" height="470" aria-label="חתך מהצד של חוף הים: משמאל הים ומימין רכס הכרמל; על החוף כפר קטן עם בור אבנים מלא זיתים וכדים; כשמזיזים את הזמן לכיוון היום, פני הים עולים, החוף זז ימינה, והכפר נעלם מתחת למים ולחול; בהווה מופיע צוללן ליד בור הגלעינים, ומספר מראה כמה מטרים של מים יש מעליו"></canvas>
+    <div class="controls">
+      <label>לפני כמה שנים
+        <input type="range" id="cvT" min="0" max="100" step="1" value="0" oninput="cvDraw(1)" aria-label="הזמן" style="direction:ltr">
+      </label>
+      <div class="readout"><b id="cvOut">לפני 6,600 שנה</b></div>
+    </div>
+    <p class="cap" id="cvMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>מהעץ אל הצנצנת, היום</h2>
+    <p>אוקטובר ונובמבר הם עונת <b>המסיק</b>, קטיף הזיתים. היום מתחיל חודש חשוון, ובהרבה משפחות בארץ זה הזמן שבו פורסים יריעה מתחת לעץ, מנערים את הענפים, ואוספים זיתים ירוקים ושחורים.</p>
+    <p>מה ההבדל בין זית ירוק לזית שחור? זה <b>אותו פרי</b>, בגילים שונים. זית ירוק נקטף לפני שהבשיל. כשהזית מבשיל הוא משחיר, והעץ מתחיל בעצמו לפרק חלק מהחומר המר: הזרע כבר מוכן, ועכשיו העץ "רוצה" שציפורים יאכלו את הפרי ויפזרו את הגלעין. אבל גם זית שחור ישר מהעץ עדיין מר מאוד.</p>
+    <p>אז איך מכינים בבית? סודקים כל זית ירוק באבן, משרים במים ומחליפים אותם <b>כל יום</b>, שבוע או שבועיים, וטועמים כל כמה ימים. כשהמרירות כמעט נעלמה, מעבירים למי מלח, ומוסיפים לימון, שום, פלפל חריף או עלי דפנה. ויש דבר אחד שצריך במיוחד: <b>סבלנות</b>.</p>
+    <p>ולמה מחליפים את המים כל יום? כי המים מתמלאים בחומר המר, ואז המולקולות כבר לא ממהרות לצאת. מים נקיים הם כמו חצר ריקה: כל הילדים רצים אליה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>החשבון של מי המלח, והאתגר</h2>
+    <p>מה קורה בתוך הצנצנת אחרי שבוע? הזיתים לא רק מוציאים חומר מר. המלח שואב מהם גם <b>מים</b>, והמים מצטרפים לתמיסה. כמות המלח נשארת אותו דבר, אבל התמיסה גדלה, ולכן <b>האחוז יורד</b>. לכן יצרנים מודדים את מי המלח שוב ושוב ומוסיפים מלח: מתחת לכ־<span class="num">6%</span> כבר יש סכנה שחיידקים לא רצויים ינצחו.</p>
+    <p>ועוד שאלה: למה מחליפים את המים כל יום? בדיפוזיה, הקצב תלוי ב<b>הפרש</b> בין בפנים לבחוץ. כשהמים מתמלאים בחומר המר, ההפרש קטן והיציאה מאטה. מים טריים מחזירים את ההפרש לגדול. ככה בדיוק "המרוץ" באינטראקטיב של פרק <span class="num">2</span> עבד. כמה זה באחוזים? זה האתגר.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> סבתא ממיסה <span class="num">120</span> גרם מלח בליטר מים (<span class="num">1,000</span> גרם). (א) כמה <b>אחוזים</b> מהתמיסה הם מלח? (ב) אחרי שבוע הזיתים הוציאו מים, ועכשיו <b>כל התמיסה</b> (מים ומלח ביחד) שוקלת <span class="num">1,400</span> גרם, ובתוכה אותם <span class="num">120</span> גרם מלח. כמה אחוזים מלח יש עכשיו? (עגלו לספרה אחת אחרי הנקודה. מותר מחשבון.)</p>
+      <div class="controls">
+        <label>(א) אחוז <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) אחוז <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()" data-g="בדוק|בדקי">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> מה היה קורה אם היו שמים זיתים ירוקים שלמים ישר במי מלח חזקים מאוד, נניח <span class="num">20%</span>, בלי השריה במים קודם? תנו שתי סיבות שזה רעיון רע.</p>
+      <details><summary>הרמז והתשובה</summary><p><b>שתי סיבות, ושתיהן מהשיעור.</b> (<span class="num">1</span>) <b>החיידקים החברים</b>: חיידקי החומצה הלקטית מסתדרים עם מלח, אבל לא עם הרבה כל כך. בלי התסיסה שלהם אין חומצה, ויש פחות טעם ופחות הגנה. (<span class="num">2</span>) <b>הזית עצמו</b>: מלח חזק כזה שואב מים מהזית מהר, הזית מתכווץ ומתקמט, והוא יוצא מלוח מאוד, עד שצריך להשרות אותו במים כדי להוציא את המלח לפני שאוכלים. בונוס: המרירות עדיין יוצאת רק בדיפוזיה, בקצב של החוק של הריבוע, אז זית שלם עדיין יחכה חודשים.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>החוק של הדרך הקצרה, במטבח שלכם.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — מרוץ הסוכריות (<span class="num">5</span> דקות)</h3>
+    <p class="cap">מה צריך: שתי כוסות שקופות עם מים חמימים (לא רותחים), שתי סוכריות קשות צבעוניות זהות, שקית ניילון ומשהו כבד, כמו ספר עבה.</p>
+    <ol>
+      <li>שימו סוכרייה אחת בשקית ורסקו אותה בספר לחתיכות קטנות, בזהירות ועם מבוגר.</li>
+      <li>באותו רגע: הסוכרייה השלמה לכוס אחת, והחתיכות לכוס השנייה. אל תערבבו.</li>
+      <li>הסתכלו מהצד כל דקה: באיזו כוס הצבע מתפשט מהר יותר?</li>
+      <li>זה בדיוק הזית הסדוק: אותה כמות של חומר, אבל דרך קצרה יותר החוצה ויותר "דלתות".</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — הביצה שצפה (<span class="num">5</span> דקות)</summary>
+    <p>מלאו כוס גבוהה במים והכניסו בעדינות ביצה טרייה (לא מבושלת): היא שוקעת. הוסיפו מלח כף אחר כף, וערבבו היטב אחרי כל כף. ספרו כמה כפות צריך עד שהביצה מתרוממת מהתחתית, ועד שהיא צפה. כף מלח שוקלת בערך <span class="num">15</span> עד <span class="num">20</span> גרם, אז אפשר להעריך כמה גרם מלח יש בכוס.</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — ניסוי של שבוע (בעונת הזיתים, עם מבוגר)</summary>
+    <p>אם יש לכם עץ זית קרוב, קטפו עם מבוגר כעשרה זיתים ירוקים. סדקו חצי מהם במכה קלה של אבן, והשאירו חצי שלמים. שימו כל קבוצה בצנצנת מים, והחליפו את המים כל יום. כל יומיים טעמו ביס קטנטן מזית אחד מכל קבוצה, וירקו. מתי הסדוקים מפסיקים להיות מרים? ומה עם השלמים? בסוף, אפשר להעביר אותם למי מלח עם לימון. קוטפים רק מעץ שמותר לקטוף ממנו ושלא רוסס. וליאה? היא לא לילדים בכלל: היא צורבת עור ועיניים, ורק מבוגר משתמש בה, עם כפפות ומשקפי מגן.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הרעיון הגדול: <b>צמחים לא יכולים לברוח, אז הם נלחמים בכימיה.</b> המרירות של הזית היא לא באג, היא שריון. ואותו טריק של "שתי מגירות" יש גם לחרדל ולוואסאבי: כשלועסים, שני חומרים נפגשים, ומשהו חריף מתפוצץ באף.</p>
+    <p>והרעיון השני: <b>לפעמים הכלי החשוב ביותר הוא סבלנות.</b> אנשים לפני <span class="num">6,600</span> שנה, בלי מעבדות ובלי ספרים, הבינו שמים, מלח וזמן מנצחים את הנשק של העץ. הם לא ידעו את המילה "דיפוזיה", אבל הם ידעו להשתמש בה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הראשון: <b>הגנה בשני חלקים היא רעיון הנדסי מבריק.</b> שומרים את החלקים בנפרד כדי שיהיו בטוחים, והם מתערבבים רק ברגע הצורך. אותו עיקרון יש במקל זוהר: שני נוזלים בנפרד, מכופפים, הם מתערבבים, ויש אור. וגם בדבק אפוקסי של שתי שפופרות.</p>
+    <p>הרעיון השני: <b>טכנולוגיה עתיקה מהכתב.</b> זיתי המאכל של חישולי כרמל ישנים בכ־<span class="num">1,400</span> שנה מהכתב הראשון שידוע לנו. מישהו הבין, בניסוי וטעייה, שמים מלוחים ושטיפות חוזרות עושים את העבודה. שאלה לחקור: למה זיתים ש"מבשילים על העץ" ומשחירים מרים פחות, ומה ה"אינטרס" של העץ בזה?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">כימיה · צמחים</div><h3>הפצצה של החרדל</h3><p>בחרדל, בכרוב ובוואסאבי שמור חומר אחד במקום אחד והאנזים שלו במקום אחר. כשלועסים, הם נפגשים ונוצר החומר החריף. מדענים קוראים לזה "פצצת שמן החרדל". אותו טריק כמו בזית, בטעם אחר.</p></div>
+    <div class="tile"><div class="dom">ביולוגיה · הלשון</div><h3>גלאי אזעקה בפה</h3><p>על הלשון שלנו יש כ־<span class="num">25</span> סוגים של חיישנים לטעם מר. הרבה רעלים בטבע מרים, ולכן מרירות היא סימן אזהרה: "רגע, אולי לא כדאי". הזית מנצל בדיוק את האזעקה הזאת.</p></div>
+    <div class="tile"><div class="dom">פיזיקה · ים המלח</div><h3>הים שבו כולם צפים</h3><p>בים התיכון יש כ־<span class="num">4%</span> מלח, ובים המלח כ־<span class="num">34%</span>. המים שם צפופים כל כך, שאדם צף עליהם כמו הביצה בצנצנת, בלי לשחות.</p></div>
+    <div class="tile"><div class="dom">כימיה · שמן זית</div><h3>השמן שעושה "קוך"</h3><p>שמן זית טרי וטוב צורב קצת בגרון. האשם: חומר בשם אוליאוקנטל, קרוב משפחה של הנשק המר. הצריבה שלו דומה לצריבה של תרופה נגד כאבים (איבופרופן), ובעקבות זה גילו ב־<span class="num">2005</span> שהוא גם פועל קצת כמוה.</p></div>
+  </div>
+
+  <details class="bonus" id="seaBox">
+    <summary>בונוס (2 דקות): האם מי ים מספיקים לזיתים?</summary>
+    <p>החוקרים חושבים שבחישולי כרמל השתמשו במי ים. אבל בים התיכון יש רק כ־<span class="num">4%</span> מלח: בכל ליטר, בערך <span class="num">40</span> גרם. ומי מלח לזיתים צריכים <span class="math">8–10%</span>, וכדי לשמור זמן רב, לא פחות מכ־<span class="num">6%</span>. אז מי ים לבד חלשים מדי לשימור ארוך.</p>
+    <details><summary>אז מה עשו?</summary>
+      <p data-level="advanced">כנראה שתי פעולות: קודם <b>שטפו</b> את הזיתים שוב ושוב במי ים, כדי להוציא את המרירות (לשם כך מלח חזק לא נחוץ), ואחר כך <b>הוסיפו מלח ים</b>, שאפשר לאסוף בשלוליות שמתייבשות על הסלעים. חשבון גס: בליטר מי ים יש כ־<span class="num">40</span> גרם מלח. כדי להגיע ל־<span class="num">8%</span> צריך שהמלח יהיה <span class="math">0.08</span> מכל התמיסה: <span class="math">(40 + x) ÷ (1,000 + x) = 0.08</span>, ומכאן <span class="math">x ≈ 43</span> גרם, כלומר בערך להכפיל את המלח. שאלה לבדוק: האם מישהו יכול היה לדעת את זה בלי מאזניים? רמז: חשבו על הביצה.</p>
+      <p data-level="standard">כנראה שתי פעולות: קודם <b>שטפו</b> את הזיתים שוב ושוב במי ים, כדי להוציא את המרירות, ואחר כך <b>הוסיפו מלח ים</b>, שאפשר לאסוף בשלוליות שמתייבשות על הסלעים. כדי להגיע ל־<span class="num">8%</span> צריך בערך להכפיל את כמות המלח שכבר יש במי הים. ובלי מאזניים? אולי בעזרת טריק כמו הביצה.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את מה שקורה מהרגע שחרק נוגס בזית ירוק. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: משרים זיתים סדוקים במים, ומחליפים את המים כל יום במשך <span class="num">12</span> ימים. בכל החלפה צריך <span class="num">3</span> ליטר מים. כמה ליטר מים צריך בסך הכול?</div>
+    <div class="controls"><label>ליטר <input type="number" id="numYounger" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')" data-g="בדוק|בדקי">בדוק</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: צנצנת גדולה מכילה <span class="num">750</span> גרם מי מלח של <span class="num">8%</span>. (א) כמה <b>גרם מלח</b> יש בצנצנת? (ב) כמה צנצנות <b>שלמות</b> כאלה אפשר להכין משקית של קילו מלח (<span class="num">1,000</span> גרם)? (מותר מחשבון.)</div>
+    <div class="controls"><label>(א) גרם מלח <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) צנצנות <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')" data-g="בדוק|בדקי">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: צנצנת מכילה <span class="num">500</span> גרם מי מלח של <span class="num">8%</span>. כמה <b>גרם מלח</b> יש בצנצנת?</div>
+    <div class="controls"><label>גרם מלח <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')" data-g="בדוק|בדקי">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה אי אפשר לאכול זית ישר מהעץ, ואיך מים, מלח וסבלנות הופכים אותו לטעים?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="זית ישר מהעץ מר כי..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. זית ישר מהעץ מר בכוונה: הוא מלא בחומר בשם <b>אולאורופאין</b>, והתאים שלו שומרים בנפרד גם "מספריים" כימיים. כשנוגסים, השניים נפגשים ונוצר חומר דביק שהורס חלבונים. זו <b>פצצה בשתי מגירות</b>, נשק של עץ שלא יכול לברוח.<br>
+    2. את המרירות מוציאים ב<b>דיפוזיה</b>: המולקולות המרות נודדות לאט מהזית אל המים. זית שלם צריך חודשים, אבל זית סדוק רק כשבוע או שבועיים, כי <b>הזמן גדל כמו המרחק בריבוע</b>. אחר כך מי מלח של <span class="math">8–10%</span> שומרים מפני ריקבון, וביצה טרייה צפה בהם כשהם חזקים מספיק.<br>
+    3. מתחת למים מול חוף הכרמל, כחצי שעה מזכרון יעקב, מצא הארכאולוג הצולל אהוד גלילי אלפי גלעינים שלמים בני <span class="num">6,600</span> שנה: העדות הקדומה ביותר לזיתי מאכל, שכנראה הוכנו במי ים. לידם, בכפר סמיר, הפיקו שמן זית לפני <span class="math">7,000–7,500</span> שנה.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>הנשק הכימי: K. Koudounas et al., "A defence-related Olea europaea β-glucosidase hydrolyses and activates oleuropein into a potent protein cross-linking agent", Journal of Experimental Botany <span class="num">66</span>(<span class="num">7</span>):<span class="math">2093–2106</span> (<span class="num">2015</span>) — אולאורופאין כחלק ממערכת הגנה בשני רכיבים; האנזים מסיר את הסוכר והופך אותו לחומר מקשר חלבונים דמוי גלוטראלדהיד; ביטוי גבוה באיברים צעירים ופירוק האולאורופאין בהבשלה. K. Konno et al., PNAS <span class="num">96</span>:<span class="math">9159–9164</span> (<span class="num">1999</span>), "Enzymatic activation of oleuropein: a protein crosslinker used as a chemical defense in the privet tree" — בליגוסטרום; מקשר חלבונים ומפחית ליזין, מוריד את ערך המזון לחרקים. Velázquez-Palmero et al., Frontiers in Plant Science <span class="num">8</span>:<span class="num">1902</span> (<span class="num">2017</span>) — האנזים והמצע נמצאים בחלקים שונים של התא ונפגשים רק כשהתא נפגע; אולאורופאין, דמתילאולאורופאין וליגסטרוזיד הם הגליקוזידים הפנוליים העיקריים בפרי. ריכוז: עד כ־<span class="num">14%</span> מהמשקל היבש בפרי צעיר (Amiot et al., <span class="num">1986</span>, כפי שמצוטט בספרות על זיתי מאכל; הערכים משתנים מאוד לפי זן ושלב).</p>
+    <p>הכנת זיתים: Wikifarmer, "Table olive industrial processing" — שיטה ספרדית: ליאה <span class="math">1.8–2.2%</span> למשך <span class="math">6–8</span> שעות, שטיפה <span class="math">12–24</span> שעות, מי מלח <span class="math">8–10%</span>, תסיסה לקטית <span class="math">2–3</span> חודשים; שיטה יוונית (זיתים שחורים טבעיים): ישר למי מלח, האולאורופאין יוצא בדיפוזיה לאורך כמה חודשים; מינימום IOC של <span class="num">6%</span> מלח לזיתים טבעיים שאינם מפוסטרים. University of California ANR, Master Food Preservers, דף הדרכה על כבישת זיתים (ucanr.edu) — זיתים חתוכים או סדוקים במים שמוחלפים כל יום, שבוע או יותר; זיתים בשלים במי מלח חצי שנה ויותר; כללי בטיחות לליאה.</p>
+    <p>הארכאולוגיה: E. Galili et al., "Early production of table olives at a mid-7th millennium BP submerged site off the Carmel coast (Israel)", Scientific Reports (<span class="num">2021</span>) — חישולי כרמל: ייצור זיתי מאכל בהיקף גדול; השוואה לכפר סמיר הקדום מעט יותר, אתר של הפקת שמן; מי ים ומלח לסילוק המרירות, נבדק בניסוי; צורת הגלעינים דומה לזית בר. אוניברסיטת חיפה, הודעה לעיתונות (<span class="num">2</span> בפברואר <span class="num">2021</span>) ו־TPS — כ־<span class="num">6,600</span> שנה, כ־<span class="num">500</span> מ׳ מדרום לחופי חיפה, עד <span class="num">120</span> מ׳ מהחוף ועומק עד <span class="num">4</span> מ׳; שני מבנים סגלגלים עם אלפי גלעינים שלמים, ללא קליפות ואבקה; כפר סמיר בן <span class="math">7,000–7,500</span> שנה, כ־<span class="num">1,800</span> מ׳ משם מול חוף דדו; ישן בכ־<span class="num">4,000</span> שנה מהעדות הקודמת; ניסוי בטכניון (פרופ׳ איילת פישמן); <span class="num">11</span> מוסדות. Galili et al., "Evidence for earliest olive-oil production in submerged settlements off the Carmel coast, Israel", Journal of Archaeological Science (<span class="num">1997</span>).</p>
+    <p>חיבורים: ויקיפדיה, "Mustard oil bomb" — גלוקוזינולטים ומירוזינאז מופרדים ומתערבבים בפגיעה ברקמה. TUM / Leibniz-LSB, Meyerhof et al. — כ־<span class="num">25</span> קולטני טעם מר בבני אדם (TAS2R). Beauchamp et al., Nature (<span class="num">2005</span>) — אוליאוקנטל בשמן זית, פעילות דמוית איבופרופן; Peyrot des Gachons et al. (<span class="num">2011</span>) — הצריבה בגרון דרך הקולטן TRPA1. מליחות: הים התיכון כ־<span class="math">3.8–3.9%</span>, ים המלח כ־<span class="num">34%</span>. צפיפות תמיסות מלח (טבלאות כימיה): כ־<span class="num">1.07</span> ב־<span class="num">10%</span>, כ־<span class="num">1.09</span> ב־<span class="num">12%</span>; צפיפות ביצה טרייה כ־<span class="math">1.08–1.09</span>, יורדת עם הזמן. הכתב הקדום ביותר: כ־<span class="num">5,200</span> שנה (שומר). לוח עברי: א׳ בחשוון תשפ״ז הוא <span class="num">12</span> באוקטובר <span class="num">2026</span>.</p>
+    <p>חישובי השיעור: הצעיר <span class="math">12 × 3 = 36</span> ליטר; הבוגר <span class="math">500 × 8 ÷ 100 = 40</span> גרם; מתקדם (א) <span class="math">750 × 8 ÷ 100 = 60</span> גרם, (ב) <span class="math">1,000 ÷ 60 ≈ 16.7</span>, כלומר <span class="num">16</span> צנצנות שלמות; האתגר (א) <span class="math">120 ÷ 1,120 × 100 ≈ 10.7%</span>, (ב) <span class="math">120 ÷ 1,400 × 100 ≈ 8.6%</span>; מרוץ המרירות <span class="math">90 ÷ 4 = 22.5</span>, <span class="math">90 ÷ 9 = 10</span>; נקודת הציפה <span class="math">125 ÷ 1,125 × 100 ≈ 11.1%</span>; בונוס <span class="math">(40 + x) ÷ (1,000 + x) = 0.08</span> → <span class="math">x ≈ 43</span>; <span class="math">6,600 − 5,200 = 1,400</span> שנה לפני הכתב.</p>
+    <p>פישוטים במכוון: "כמעט שביעית מהמשקל היבש" הוא הערך הגבוה שמדווח בפרי צעיר, לא ממוצע; "מגירות" ו"מספריים" הם משל לתאים ולאנזים; ההוכחה לתפקיד ההגנתי של הדבק נעשתה בליגוסטרום, קרוב משפחה של הזית; "המרירות יוצאת בדיפוזיה" — בפועל גם תסיסה וחומציות מפרקות חלק מהאולאורופאין, והקליפה מאטה את היציאה; במרוץ המרירות המרחקים (<span class="math">6 / 3 / 2</span> מ״מ) והזמנים הם מודל של דעיכה מעריכית עם חוק הריבוע, מכויל לזמנים האמיתיים בערך; "ביצה צפה ב־<span class="num">11%</span>" הוא מודל (צפיפות ביצה <span class="num">1.08</span>; ביצים שונות צפות בריכוזים שונים); "ליטר מים שוקל <span class="num">1,000</span> גרם" בקירוב; באינטראקטיב "הכפר שטבע" עליית הים מצוירת בקו ישר ובקנה מידה מוגזם (בפועל כמה מטרים, בקצב לא אחיד), וגם החול שכיסה את הכפר; "חצי שעה מזכרון יעקב" בקירוב (כ־<span class="num">25</span> ק״מ בקו אווירי); "כף מלח שוקלת <span class="math">15–20</span> גרם" בקירוב.</p>
+  </details>
+</section>
+
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:31, code:'WOW-031', date:'2026-10-12', title:'למה אסור לנגוס בזית ישר מהעץ', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '16rXldeg15zXkdeh15Ug15fXnNee'; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'chemistry', w:3 }, { id:'biology', w:3 }, { id:'history', w:2 }, { id:'earth', w:1 } ],
+  /* lint-ignore: math */
+  hero: { name:'למה אסור לנגוס בזית ישר מהעץ — אולאורופאין, הגנה בשני חלקים, דיפוזיה ומי מלח', fact:'זית ירוק: חומר מר + אנזים בנפרד → בנגיסה נוצר דבק שהורס חלבונים; המרירות יוצאת בדיפוזיה (זמן ∝ מרחק בריבוע); מי מלח 8–10%; זיתי מאכל בני 6,600 שנה מול חוף הכרמל.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'estimation',            d:2 },
+    'qc:bombQ':       { skill:'mechanism',             d:2 },
+    'qc:raceQ':       { skill:'cause-effect',          d:2 },
+    'qc:brineQ':      { skill:'mechanism',             d:2 },
+    'qc:storyQ':      { skill:'evidence',              d:2 },
+    'qc:deepQ':       { skill:'cause-effect',          d:3 },
+    'mcq:shared:0':   { skill:'adaptation',            d:2 },
+    'mcq:shared:1':   { skill:'mechanism',             d:3 },
+    'mcq:shared:2':   { skill:'evidence',              d:2 },
+    'mcq:younger:0':  { skill:'density',               d:2 },
+    'mcq:older:0':    { skill:'square-law',            d:4 },
+    'order':          { skill:'causal-sequence',       d:3 },
+    'num:younger':    { skill:'multiplication',        d:2 },
+    'num:older':      { skill:'percent-of',            d:3 },
+    'num:adv':        { skill:'percent-and-division',  d:4 },
+    'challenge':      { skill:'concentration',         d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ bmDraw(0); showArtoTip(); } if(n===2) rcDraw(0); if(n===3) brDraw(0); if(n===4) cvDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: whole green olives in plain brine — how long until they are good to eat? ----------
+   Four choices on a log scale (an hour / a day / a week / a few months): natural brine-cured whole olives take months. data-scale: days. */
+const SCALE_ANS = 120;                                                // wikifarmer / UC ANR: natural (brine-only) olives take several months
+const fmtSigns = n => n<0.5 ? 'שעה' : n<3 ? 'יום' : n<30 ? 'שבוע' : 'כמה חודשים';
+const SCALE_FB = {
+  120: '<span class="pill-ok">קלעתם!</span> זיתים ירוקים <b>שלמים</b> במי מלח צריכים <b>כמה חודשים</b> עד שהמרירות יוצאת. בשיטות טבעיות זה יכול להיות גם חצי שנה. למה כל כך לאט, ואיך מקצרים את זה? על זה השיעור.',
+  0.04: '<span class="pill-bad">הרבה, הרבה יותר.</span> אחרי שעה במי מלח הזית מר בדיוק כמו קודם. זיתים <b>שלמים</b> צריכים <b>כמה חודשים</b> עד שהמרירות יוצאת. למה כל כך לאט, ואיך מקצרים את זה? על זה השיעור.',
+  1: '<span class="pill-bad">הרבה יותר.</span> אחרי לילה אחד הזית עדיין מר מאוד. זיתים <b>שלמים</b> במי מלח צריכים <b>כמה חודשים</b>. למה כל כך לאט, ואיך מקצרים את זה? על זה השיעור.',
+  7: '<span class="pill-bad">עוד הרבה יותר.</span> שבוע מספיק רק לזיתים <b>סדוקים</b>, במים שמחליפים כל יום. זיתים <b>שלמים</b> במי מלח צריכים <b>כמה חודשים</b>. מה ההבדל? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* deterministic pseudo-random (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* a generic play/scrub helper: animates a 0–100 range input over `ms` milliseconds, calling draw(1) each frame */
+function xPlayer(id, rangeId, btnId, ms, draw, onLabel, offLabel){
+  const st={ raf:0 };
+  st.toggle=function(){ if(st.raf){ cancelAnimationFrame(st.raf); st.raf=0; st.btn(false); return; }
+    const r=document.getElementById(rangeId); const top=+(r.max||100); if(+r.value>=top) r.value=0;
+    if(XREDUCED){ r.value=Math.min(top,+r.value+20); draw(1); return; }
+    const t0=performance.now(), start=+r.value; st.btn(true);
+    const step=now=>{ const v=Math.min(top, start+(now-t0)/ms*100); r.value=Math.round(v); draw(1); if(v<top){ st.raf=requestAnimationFrame(step); } else { st.raf=0; st.btn(false); } };
+    st.raf=requestAnimationFrame(step); };
+  st.btn=function(on){ const b=document.getElementById(btnId); b.textContent = on ? onLabel : offLabel; b.classList.toggle('on',on); };
+  return st;
+}
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+/* ---------- shared numbers for this edition ---------- */
+const RACE_DAYS = { whole:90, slit:22.5, cracked:10 };   // model: days until 80% of the bitterness is gone (path 6 / 3 / 2 mm → time ∝ distance²)
+const EGG_RHO = 1.080;                                    // a fresh egg, g/cm³ (model)
+const rhoOf = pct => 1 + 0.0072*pct;                      // brine density, g/cm³, linear fit to the NaCl tables (10% → 1.072)
+/* this edition's colours */
+const OLIVE = () => isDark() ? '#8DBF4E' : '#6E9A2E';
+const OLIVE_D = () => isDark() ? '#5E8A2A' : '#4A6B1C';
+const BITTER = () => isDark() ? '#2FA35A' : '#1E7A3E';
+const ENZ = () => isDark() ? '#FFB061' : '#E07A12';
+const GLUE = () => isDark() ? '#C99A5E' : '#7A4E1E';
+const PROT = () => isDark() ? '#7FB3FF' : '#2E62C9';
+const WATER = () => isDark() ? 'rgba(90,160,220,.30)' : 'rgba(110,180,230,.32)';
+const SEA = () => isDark() ? '#3A86C4' : '#3C8FCB';
+const SAND = () => isDark() ? '#8A7A55' : '#E6D2A2';
+const ROCKC = () => isDark() ? '#6A5A3E' : '#B79A6A';
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const WARN = () => isDark() ? '#F6D47A' : '#D9A21B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const SALTY = () => isDark() ? '#7FB3DD' : '#2F6F9F';
+function xOlive(c,x,y,rx,ry,col,rot){ c.save(); c.translate(x,y); c.rotate(rot||0); c.fillStyle=col; c.strokeStyle=css('--ink'); c.lineWidth=2.5; c.beginPath(); c.ellipse(0,0,rx,ry,0,0,Math.PI*2); c.fill(); c.stroke();
+  c.fillStyle='rgba(255,255,255,.45)'; c.beginPath(); c.ellipse(-rx*.38,-ry*.42,rx*.16,ry*.22,-.3,0,Math.PI*2); c.fill(); c.restore(); }
+function xScissors(c,x,y,s,col,open){ c.save(); c.translate(x,y); c.strokeStyle=col; c.fillStyle=col; c.lineWidth=3*s; c.lineCap='round';
+  const a=(open==null?0.45:open);
+  c.beginPath(); c.moveTo(0,0); c.lineTo(16*s*Math.cos(-a),16*s*Math.sin(-a)); c.moveTo(0,0); c.lineTo(16*s*Math.cos(a),16*s*Math.sin(a)); c.stroke();
+  c.lineWidth=2.2*s; c.beginPath(); c.arc(-6*s,-5*s,4*s,0,Math.PI*2); c.stroke(); c.beginPath(); c.arc(-6*s,5*s,4*s,0,Math.PI*2); c.stroke(); c.restore(); }
+
+/* ---------- step 1 (interactive 1): the bomb in two drawers — oleuropein and its enzyme meet only when cells are torn (canvas) ----------
+   bmS = bite strength (how many cells tear), bmT = time since the bite (0 = whole olive) */
+const bmCv=document.getElementById('bmCv'), bmctx=bmCv.getContext('2d');
+const BM = xPlayer('bm','bmT','bmPlay',4200,bmDraw,'עצרו','נגיסה!');
+BM.opened=0; BM.pred=-1; BM.full=0;
+const bmToggle = BM.toggle;
+BM.toggle=function(){ if(BM.pred<0){ bmMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז נגסו.'; return; } bmToggle(); };
+function bmPredict(k){ BM.pred=k; [0,1,2].forEach(i=>document.getElementById('bmP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'bomb:predict', kind:'quick', correct:k===1, attempt: wowTry('bomb:predict') });
+  bmMsg.innerHTML = k===1 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו לחצו "נגיסה!" ובדקו.' : 'רשמנו את הניחוש. עכשיו לחצו "נגיסה!" ובדקו מה קורה בתוך התאים.'; }
+const BM_CELLS=(()=>{ const a=[]; for(let r=0;r<3;r++) for(let k=0;k<3;k++){ const x=34+k*196, y=112+r*104; a.push({x,y,w:180,h:92,d:Math.hypot((x+90)-560,(y+46)-80)}); } return a.sort((p,q)=>p.d-q.d); })();
+function bmDraw(user){
+  const c=bmctx, W=bmCv.width, H=bmCv.height;
+  if(user && BM.pred<0 && +bmT.value>0){ bmT.value=0; bmMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז נגסו.'; }
+  if(user && !BM.opened){ BM.opened=1; WOW.emit('open', { id:'bomb' }); }
+  const s=+bmS.value/100, t=+bmT.value/100, bit=t>0.12;
+  const nBroken = bit ? Math.max(1, Math.round(1+s*8)) : 0;
+  const p = bit ? clamp((t-0.12)/0.6,0,1) : 0;          // 0 → 1: the scissors reach the bitter balls and turn them into glue
+  bmOut.textContent = nBroken;
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the olive's skin as a big green arc behind the cells */
+  c.fillStyle=OLIVE(); c.globalAlpha=.22; c.beginPath(); c.roundRect(14,96,W-28,330,26); c.fill(); c.globalAlpha=1;
+  /* the bug (top right), its jaws closing during the bite */
+  const bx=560, by=40+(bit?Math.min(1,t/0.12)*14:Math.min(1,t/0.12)*14), jaw=bit?0.12:0.55-0.4*Math.min(1,t/0.12);
+  c.save(); c.translate(bx,by); c.fillStyle=isDark()?'#C9C3B0':'#3C3A33'; c.strokeStyle=css('--ink'); c.lineWidth=2;
+  c.beginPath(); c.ellipse(0,-6,30,20,0,0,Math.PI*2); c.fill();
+  c.fillStyle=isDark()?'#E8E2CC':'#5A564A'; c.beginPath(); c.arc(0,16,15,0,Math.PI*2); c.fill();
+  c.strokeStyle=isDark()?'#E8E2CC':'#3C3A33'; c.lineWidth=5; c.lineCap='round';
+  c.beginPath(); c.moveTo(-6,28); c.lineTo(-6-14*Math.sin(jaw),28+18*Math.cos(jaw)); c.moveTo(6,28); c.lineTo(6+14*Math.sin(jaw),28+18*Math.cos(jaw)); c.stroke();
+  c.lineWidth=3; [-1,1].forEach(side=>{ for(let i=0;i<3;i++){ c.beginPath(); c.moveTo(side*24,-12+i*8); c.lineTo(side*42,-20+i*14); c.stroke(); } });
+  c.fillStyle='#fff'; c.beginPath(); c.arc(-6,12,3.5,0,Math.PI*2); c.arc(6,12,3.5,0,Math.PI*2); c.fill();
+  c.restore();
+  xLabel(c, bit ? 'נגיסה!' : (t>0 ? 'החרק מתקרב…' : 'זית שלם'), 330, 48, 26, bit?css('--bad'):css('--ink'));
+  /* the cells */
+  BM_CELLS.forEach((cell,i)=>{
+    const broken = i<nBroken, {x,y,w,h}=cell;
+    c.fillStyle=css('--card'); c.strokeStyle=css('--ink'); c.lineWidth=2.5;
+    c.setLineDash(broken?[7,6]:[]); c.beginPath(); c.roundRect(x,y,w,h,14); c.fill(); c.stroke(); c.setLineDash([]);
+    /* drawer A (right): the bitter balls; drawer B (left): the scissors */
+    const wallX = x+70;
+    if(!broken){ c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.moveTo(wallX,y+8); c.lineTo(wallX,y+h-8); c.stroke(); }
+    else { c.strokeStyle=css('--muted'); c.lineWidth=2; c.setLineDash([4,6]); c.beginPath(); c.moveTo(wallX,y+8); c.lineTo(wallX,y+h-8); c.stroke(); c.setLineDash([]); }
+    const pp = broken ? p : 0;
+    /* the scissors walk from their drawer into the bitter drawer */
+    const sx = x+34 + pp*70, sy = y+h/2;
+    xScissors(c, sx, sy, 1.3, ENZ(), broken ? 0.15+0.35*Math.abs(Math.sin(pp*9)) : 0.45);
+    /* five bitter balls → glue blobs with strands, once the scissors arrive */
+    const balls=[[100,30],[128,26],[156,34],[114,62],[146,64]];
+    balls.forEach(([bx2,by2],j)=>{ const cx=x+bx2, cy=y+by2, g = clamp(pp*1.6 - j*0.12, 0, 1);
+      if(g<1){ c.fillStyle=BITTER(); c.globalAlpha=1-g; c.beginPath(); c.arc(cx,cy,10,0,Math.PI*2); c.fill(); c.globalAlpha=1; c.strokeStyle=css('--ink'); c.lineWidth=1.4; c.beginPath(); c.arc(cx,cy,10,0,Math.PI*2); c.stroke(); }
+      if(g>0){ c.fillStyle=GLUE(); c.globalAlpha=g; c.beginPath(); c.ellipse(cx,cy,12,9,j,0,Math.PI*2); c.fill(); c.globalAlpha=1; } });
+    if(broken && pp>0.6){ const g2=clamp((pp-0.6)/0.4,0,1); c.strokeStyle=GLUE(); c.lineWidth=2.5; c.globalAlpha=g2;
+      c.beginPath(); balls.forEach(([bx2,by2],j)=>{ const [nx,ny]=balls[(j+1)%balls.length]; c.moveTo(x+bx2,y+by2); c.quadraticCurveTo(x+(bx2+nx)/2, y+(by2+ny)/2+12, x+nx, y+ny); }); c.stroke();
+      /* a protein from the bug's food (blue zig-zag) gets stuck in the glue */
+      c.strokeStyle=PROT(); c.lineWidth=3; c.beginPath(); for(let q=0;q<7;q++){ const px=x+96+q*10, py=y+h/2+(q%2?7:-7); q?c.lineTo(px,py):c.moveTo(px,py); } c.stroke(); c.globalAlpha=1; }
+  });
+  /* legend + the bitterness meter */
+  const leg=[[BITTER(),'חומר מר'],[ENZ(),'מספריים'],[GLUE(),'דבק'],[PROT(),'חלבון']];
+  let lx=W-24;
+  leg.forEach(([col,txt])=>{ c.fillStyle=col; c.beginPath(); c.arc(lx-10,446,10,0,Math.PI*2); c.fill(); const w=xText0(c,txt,lx-28,446,22,css('--ink')); lx -= w+(LS()>1?40:58); });
+  const level = nBroken/9 * p;
+  if(level>0.02){ xLabel(c, level>0.5?'מר מאוד!':(level>0.15?'מר!':'קצת מר'), 110, 48, 26, css('--bad')); }
+  if(user || t>0) bmMessage(nBroken, p, s);
+  if(p>=1 && BM.pred>=0){ bmReveal.hidden=false; if(!BM.full){ BM.full=1; } }
+}
+/* plain RTL text that returns its width (for legends) */
+function xText0(c,txt,x,y,size,col){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign='right'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); const w=c.measureText(txt).width; c.direction='ltr'; return w; }
+function bmMessage(n,p,s){
+  if(n===0){ bmMsg.innerHTML='זית שלם: בכל תא <b>הקיר</b> מפריד בין החומר המר למספריים. שום דבר לא קורה, והזית יכול לחכות ככה חודשים.'; return; }
+  if(p<0.35){ bmMsg.innerHTML='הנגיסה קרעה <b><span class="num">'+n+'</span></b> '+(n===1?'תא':'תאים')+'. הקירות נשברו, והמספריים יוצאים מהמגירה שלהם…'; return; }
+  if(p<1){ bmMsg.innerHTML='המספריים פוגשים את החומר המר וגוזרים ממנו את הסוכר. הכדורים הירוקים הופכים ל<b>דבק</b> חום.'; return; }
+  bmMsg.innerHTML = (s<0.25 ? 'גם נגיסה קטנה מפעילה את הנשק, אבל רק <b>במקום הנגיסה</b>. ' : 'נגיסה גדולה קרעה הרבה תאים, והרבה דבק נוצר. ')
+    + 'הדבק נדבק ל<b>חלבונים</b> (הקו הכחול) והורס אותם. החרק מקבל טעם נוראי ואוכל שלא שווה לאכול.'
+    + (BM.pred===1 ? ' <span class="pill-ok">בדיוק כמו שניחשתם.</span>' : BM.pred===0 ? ' החומר המר לבד "שקט": רק כשהמספריים מגיעים הוא הופך לנשק.' : ' זה לא ריקבון: זה קורה תוך שניות, וזו הגנה, לא קלקול.');
+}
+
+/* ---------- step 2 (interactive 2): the bitterness race — whole vs slit vs cracked olive in water changed daily (canvas) ----------
+   slider = days 0–100; remaining bitterness f = exp(−day/τ), τ = T_ready / ln 5 (so 20% is left on the "ready" day) */
+const rcCv=document.getElementById('rcCv'), rcctx=rcCv.getContext('2d');
+const RC = xPlayer('rc','rcT','rcPlay',9000,rcDraw,'עצרו','התחילו את המרוץ');
+RC.opened=0; RC.pred=-1; RC.done=0;
+const rcToggle = RC.toggle;
+RC.toggle=function(){ if(RC.pred<0){ rcMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז התחילו את המרוץ.'; return; } rcToggle(); };
+function rcPredict(k){ RC.pred=k; [0,1,2].forEach(i=>document.getElementById('rcP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'race:predict', kind:'quick', correct:k===2, attempt: wowTry('race:predict') }); rcMsg.innerHTML='רשמנו. עכשיו התחילו את המרוץ, או גררו את הימים.'; }
+const rcLeft = (kind,day) => Math.exp(-day*Math.log(5)/RACE_DAYS[kind]);
+function rcDraw(user){
+  const c=rcctx, W=rcCv.width, H=rcCv.height;
+  if(user && RC.pred<0 && +rcT.value>0){ rcT.value=0; rcMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז התחילו את המרוץ.'; }
+  if(user && !RC.opened){ RC.opened=1; WOW.emit('open', { id:'race' }); }
+  const day=+rcT.value; rcOut.textContent=day;
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  const jars=[ {k:'whole', x:530, name:'שלם'}, {k:'slit', x:320, name:'חתך אחד'}, {k:'cracked', x:110, name:'סדוק'} ];
+  jars.forEach((j,ji)=>{
+    const f=rcLeft(j.k,day), ready=f<=0.2, readyDay=Math.round(RACE_DAYS[j.k]);
+    xLabel(c, j.name, j.x, 30, 26, css('--ink'));
+    /* the jar */
+    const top=58, bot=318, w=170;
+    c.fillStyle=WATER(); c.beginPath(); c.roundRect(j.x-w/2,top+20,w,bot-top-20,16); c.fill();
+    c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.moveTo(j.x-w/2+10,top); c.lineTo(j.x-w/2,top+24); c.lineTo(j.x-w/2,bot-14); c.quadraticCurveTo(j.x-w/2,bot,j.x-w/2+14,bot); c.lineTo(j.x+w/2-14,bot); c.quadraticCurveTo(j.x+w/2,bot,j.x+w/2,bot-14); c.lineTo(j.x+w/2,top+24); c.lineTo(j.x+w/2-10,top); c.stroke();
+    /* the olive */
+    const ox=j.x, oy=200, rx=52, ry=68;
+    xOlive(c,ox,oy,rx,ry,OLIVE(),0);
+    c.strokeStyle=OLIVE_D(); c.lineWidth=4; c.lineCap='round';
+    if(j.k==='slit'){ c.beginPath(); c.moveTo(ox,oy-ry+6); c.lineTo(ox,oy+ry-6); c.stroke(); }
+    if(j.k==='cracked'){ c.beginPath(); c.moveTo(ox-6,oy-ry+4); c.lineTo(ox+10,oy-20); c.lineTo(ox-8,oy+6); c.lineTo(ox+12,oy+34); c.lineTo(ox-2,oy+ry-4); c.moveTo(ox+10,oy-20); c.lineTo(ox+rx-6,oy-26); c.moveTo(ox-8,oy+6); c.lineTo(ox-rx+4,oy+14); c.stroke(); }
+    /* bitter molecules still inside (dots), and today's escapees in the water */
+    const rnd=prng(17+ji*31), n=Math.round(30*f);
+    c.fillStyle=BITTER();
+    for(let i=0;i<30;i++){ const a=rnd()*Math.PI*2, r=Math.sqrt(rnd())*0.82, px=ox+Math.cos(a)*rx*r, py=oy+Math.sin(a)*ry*r; if(i<n){ c.beginPath(); c.arc(px,py,4.2,0,Math.PI*2); c.fill(); } }
+    const out = Math.round(12*(f - rcLeft(j.k,day+1))/ (1-rcLeft(j.k,1)) * (day>0?1:0));
+    c.globalAlpha=.75; for(let i=0;i<out;i++){ const a=rnd()*Math.PI*2, r=1.1+rnd()*0.35, px=clamp(ox+Math.cos(a)*rx*r, j.x-w/2+8, j.x+w/2-8), py=clamp(oy+Math.sin(a)*ry*r, top+28, bot-8); c.beginPath(); c.arc(px,py,3.6,0,Math.PI*2); c.fill(); } c.globalAlpha=1;
+    /* the longest way out for a bitter molecule (model: 6 / 3 / 2 mm) */
+    const pathPx = {whole:rx, slit:rx/2, cracked:rx/3}[j.k], mm = {whole:'6', slit:'3', cracked:'2'}[j.k], ax0 = j.k==='whole' ? ox : ox+4;
+    c.strokeStyle='#FFFFFF'; c.fillStyle='#FFFFFF'; c.lineWidth=3.5; c.beginPath(); c.moveTo(ax0,oy+ry*0.5); c.lineTo(ax0+pathPx-4,oy+ry*0.5); c.stroke(); xArrow(c,ax0+pathPx,oy+ry*0.5,1,0,10); xArrow(c,ax0,oy+ry*0.5,-1,0,10);
+    xTagN(c, mm, 'מ״מ', j.x, oy+ry+22, 20, css('--ink'), 'center');
+    /* bitterness bar */
+    const bx=j.x-w/2, by=346, bw=w, bh=26;
+    c.fillStyle=css('--line'); c.beginPath(); c.roundRect(bx,by,bw,bh,8); c.fill();
+    c.fillStyle= ready ? GOOD() : (f>0.6 ? DANG() : WARN()); c.beginPath(); c.roundRect(bx+bw*(1-f),by,bw*f,bh,8); c.fill();   // RTL: the bar grows from the right
+    c.strokeStyle=css('--ink'); c.lineWidth=2.5; c.beginPath(); c.moveTo(bx+bw*0.8,by-6); c.lineTo(bx+bw*0.8,by+bh+6); c.stroke();
+    if(ready) xTag(c, 'ביום', String(readyDay), j.x, by+bh+30, 22, GOOD(), 'center'); else xText(c,'מרירות',j.x,by+bh+28,22,css('--muted'));
+    if(ready){ xLabel(c, 'מוכן!', j.x, 100, 24, GOOD()); }
+  });
+  if(user || day>0) rcMessage(day);
+}
+function rcMessage(day){
+  const r = k => rcLeft(k,day)<=0.2;
+  let m;
+  if(day===0) m='יום <span class="num">0</span>: שלושה זיתים מרים באותה מידה. הקו השחור מתחת לכל צנצנת הוא "טעים": כשהמרירות יורדת מתחתיו, אפשר לאכול.';
+  else if(!r('cracked')) m='הנקודות הירוקות יוצאות מהזיתים אל המים. בכל יום מחליפים את המים, ומתחילים מחדש עם מים נקיים.';
+  else if(!r('slit')) m='<b>הסדוק מוכן</b> אחרי כ־<span class="num">10</span> ימים! לשלם עוד נשאר כמעט כל החומר המר.';
+  else if(!r('whole')) m='גם החתוך מוכן, אחרי כ־<span class="num">23</span> ימים. השלם? עדיין מר. מחכים…';
+  else m='גם השלם מוכן, אחרי כ־<span class="num">90</span> ימים: פי <span class="num">9</span> יותר זמן מהסדוק. אותו זית, אותם מים. ההבדל היחיד: <b>אורך הדרך החוצה</b>.';
+  if(r('whole') || (day>=10 && RC.pred>=0)){ rcReveal.hidden=false; }
+  if(day>=10 && RC.pred>=0 && !RC.done){ RC.done=1; }
+  if(day>=90 && RC.pred>=0) m += RC.pred===2 ? ' <span class="pill-ok">ניחשתם נכון: הפרש ענק.</span>' : RC.pred===1 ? ' ההפרש לא קטן בכלל: פי <span class="num">9</span>.' : ' לא ביחד: הדרך הקצרה מנצחת בגדול.';
+  rcMsg.innerHTML=m;
+}
+
+/* ---------- step 3 (interactive 3): the brine maker — grams of salt in 1 litre, the percent, and the floating egg (canvas) ---------- */
+const brCv=document.getElementById('brCv'), brctx=brCv.getContext('2d');
+const BR={ opened:0, pred:-1, floated:0 };
+function brPredict(k){ BR.pred=k; [0,1,2].forEach(i=>document.getElementById('brP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'brine:predict', kind:'quick', correct:k===1, attempt: wowTry('brine:predict') }); brMsg.innerHTML='רשמנו. עכשיו הוסיפו מלח עם המחוון, לאט, וחפשו את הרגע שבו הביצה עולה.'; }
+function brDraw(user){
+  const c=brctx, W=brCv.width, H=brCv.height;
+  if(user && BR.pred<0 && +brS.value>0){ brS.value=0; brMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז הוסיפו מלח.'; }
+  if(user && !BR.opened){ BR.opened=1; WOW.emit('open', { id:'brine' }); }
+  const g=+brS.value, pct=g/(1000+g)*100, rho=rhoOf(pct);
+  brOut.textContent=g;
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the jar (centre-right in RTL reading order) */
+  const jx=300, top=70, bot=440, w=230;
+  c.fillStyle= 'rgba('+(isDark()?'90,160,220':'110,180,230')+','+(0.25+pct/40)+')'; c.beginPath(); c.roundRect(jx-w/2,top+40,w,bot-top-40,18); c.fill();
+  c.strokeStyle=css('--ink'); c.lineWidth=3.5; c.beginPath(); c.moveTo(jx-w/2+14,top); c.lineTo(jx-w/2,top+30); c.lineTo(jx-w/2,bot-18); c.quadraticCurveTo(jx-w/2,bot,jx-w/2+18,bot); c.lineTo(jx+w/2-18,bot); c.quadraticCurveTo(jx+w/2,bot,jx+w/2,bot-18); c.lineTo(jx+w/2,top+30); c.lineTo(jx+w/2-14,top); c.stroke();
+  xTagN(c,'1','ליטר מים', jx, 32, 22, css('--ink'), 'center');
+  /* undissolved-looking salt grains for flavour (just a picture: the salt dissolves) */
+  const rnd=prng(9); c.fillStyle='rgba(255,255,255,.85)'; for(let i=0;i<Math.round(g/4);i++){ c.fillRect(jx-w/2+12+rnd()*(w-24), top+90+rnd()*(bot-top-110), 3, 3); }
+  /* the egg: lies on the bottom → tilts up → floats */
+  const lift = clamp((rho-1.072)/(EGG_RHO-1.072),0,1);          // 0 lying, 1 just floating
+  const floating = rho>=EGG_RHO;
+  const ey = floating ? top+110 : bot-40 - lift*40, tilt = floating ? -1.2 : -lift*1.45;
+  c.save(); c.translate(jx, ey); c.rotate(Math.PI/2 + tilt); c.fillStyle=isDark()?'#F2E6CE':'#FFF6E4'; c.strokeStyle=css('--ink'); c.lineWidth=3;
+  c.beginPath(); c.ellipse(0,0,34,46,0,0,Math.PI*2); c.fill(); c.stroke(); c.restore();
+  xLabel(c, floating ? 'הביצה צפה!' : (lift>0.05 ? 'הביצה מתרוממת…' : 'הביצה בתחתית'), jx, floating ? top+176 : bot-104, 24, floating?GOOD():css('--ink'));
+  /* the salt pile (left) with its weight */
+  const sx=112, sy=400; c.fillStyle='#FFFFFF'; c.strokeStyle=css('--ink'); c.lineWidth=2;
+  const ph = 8 + g*0.42; c.beginPath(); c.moveTo(sx-58,sy); c.quadraticCurveTo(sx,sy-ph*2,sx+58,sy); c.closePath(); c.fill(); c.stroke();
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(sx-70,sy,140,18,8); c.fill(); c.stroke();
+  xTagN(c, String(g), 'גרם מלח', sx, sy+52, 22, css('--ink'), 'center');
+  /* the percent scale (right): zones */
+  const scX=556, scTop=90, scBot=420, maxP=16, yOf=p=>scBot-(p/maxP)*(scBot-scTop);
+  const zones=[[0,6,DANG(),'חלש מדי'],[6,8,WARN(),'גבולי'],[8,10,GOOD(),'טוב לזיתים'],[10,16,SALTY(),'מלוח מאוד']];
+  zones.forEach(([a,b,col])=>{ c.fillStyle=col; c.globalAlpha=.85; c.fillRect(scX-18,yOf(b),36,yOf(a)-yOf(b)); c.globalAlpha=1; });
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.strokeRect(scX-18,scTop,36,scBot-scTop);
+  [0,6,8,10,16].forEach(p=>{ xNum(c, p+'%', scX+24, yOf(p), 18, css('--muted'), 'left'); });
+  /* the arrow at the current percent */
+  const ay=yOf(Math.min(pct,maxP)); c.fillStyle=css('--ink'); c.beginPath(); c.moveTo(scX-20,ay); c.lineTo(scX-34,ay-9); c.lineTo(scX-34,ay+9); c.closePath(); c.fill();
+  xNum(c, pct.toFixed(1)+'%', scX-30, ay, 24, css('--ink'), 'right');
+  const zone = zones.find(z=>pct>=z[0] && pct<z[1]) || zones[3];
+  xLabel(c, zone[3], 100, 40, 24, zone[2]);
+  /* message */
+  if(floating && BR.pred>=0 && !BR.floated){ BR.floated=1; }
+  if(BR.floated) brReveal.hidden=false;
+  if(user || g>0){
+    const f = '<span class="math">'+g+' ÷ ('+g+' + 1,000) × 100 ≈ '+pct.toFixed(1)+'%</span>';
+    const z = pct<6 ? 'חלש מדי: הזיתים עלולים להירקב.' : pct<8 ? 'גבולי: עדיף קצת יותר מלח.' : pct<10 ? '<b>בדיוק טוב לזיתים.</b>' : 'מלוח מאוד: שומר היטב, אבל מלוח.';
+    brMsg.innerHTML = 'מלח: '+f+'. '+z+(floating ? ' והביצה צפה, כי המים כבר <b>צפופים ממנה</b>.' : (lift>0.05 ? ' הביצה כמעט צפה.' : ''))
+      + (floating && BR.pred>=0 ? (BR.pred===1 ? ' <span class="pill-ok">הניחוש שלכם קלע.</span>' : BR.pred===0 ? ' כף אחת רחוקה מזה: צריך בערך פי שש.' : ' חצי קילו? הרבה פחות מספיק.') : '');
+  }
+}
+
+/* ---------- step 4 (interactive 4): the drowned village — sea level rises from 6,600 years ago to today (canvas, side view, exaggerated) ---------- */
+const cvCv=document.getElementById('cvCv'), cvctx=cvCv.getContext('2d');
+const CV={ opened:0 };
+function cvDraw(user){
+  const c=cvctx, W=cvCv.width, H=cvCv.height, t=+cvT.value/100;
+  if(user && !CV.opened){ CV.opened=1; WOW.emit('open', { id:'coast' }); }
+  const yearsAgo = Math.round(6600*(1-t)/100)*100;
+  cvOut.innerHTML = t>=0.995 ? 'היום' : 'לפני <span class="num">'+yearsAgo.toLocaleString('en-US')+'</span> שנה';
+  /* sky */
+  c.fillStyle=isDark()?'#1A2238':'#CFE6F5'; c.fillRect(0,0,W,H);
+  /* the land: a gentle beach rising to the Carmel ridge on the right */
+  const ground = x => x<200 ? 400 + (200-x)*0.5 : x<520 ? 400 - (x-200)*0.32 : 298 - (x-520)*1.6;
+  c.fillStyle=SAND(); c.beginPath(); c.moveTo(0,H); for(let x=0;x<=W;x+=8) c.lineTo(x,ground(x)); c.lineTo(W,H); c.closePath(); c.fill();
+  c.fillStyle=ROCKC(); c.beginPath(); c.moveTo(520,H); for(let x=520;x<=W;x+=8) c.lineTo(x,ground(x)); c.lineTo(W,H); c.closePath(); c.fill();
+  /* a few trees on the ridge */
+  [[560,232],[600,170]].forEach(([x,y])=>{ c.fillStyle=isDark()?'#3E9A62':'#4DA36A'; c.beginPath(); c.arc(x,y,18,0,Math.PI*2); c.fill(); c.fillStyle=isDark()?'#8A7047':'#7A5A36'; c.fillRect(x-3,y+14,6,16); });
+  xLabel(c,'רכס הכרמל',575,120,22,css('--ink'));
+  /* the village on the old beach */
+  const vx=300, vy=ground(300);
+  const sandCover = clamp((t-0.55)/0.4,0,1);
+  /* the stone pit full of olives */
+  c.fillStyle=isDark()?'#9A8C70':'#8C7A5A'; c.beginPath(); c.ellipse(vx,vy+4,46,14,0,0,Math.PI*2); c.fill();
+  c.fillStyle=OLIVE(); const r1=prng(3); for(let i=0;i<14;i++){ c.beginPath(); c.ellipse(vx-34+r1()*68, vy-2+r1()*8, 6,8, r1()*3,0,Math.PI*2); c.fill(); }
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.beginPath(); c.ellipse(vx,vy+4,46,14,0,0,Math.PI*2); c.stroke();
+  if(t<0.6){ /* jars and a person (only while the village is alive) */
+    c.globalAlpha=1-clamp((t-0.4)/0.2,0,1);
+    c.fillStyle=isDark()?'#C97B4A':'#B5652F'; [[vx+70,vy-26],[vx+92,vy-30]].forEach(([x,y])=>{ c.beginPath(); c.ellipse(x,y+12,12,18,0,0,Math.PI*2); c.fill(); c.fillRect(x-5,y-10,10,8); });
+    c.fillStyle=isDark()?'#E8C39E':'#9C6B45'; c.beginPath(); c.arc(vx-80,vy-58,10,0,Math.PI*2); c.fill(); c.fillRect(vx-87,vy-48,14,34);
+    c.strokeStyle=isDark()?'#E8C39E':'#9C6B45'; c.lineWidth=4; c.beginPath(); c.moveTo(vx-87,vy-40); c.lineTo(vx-100,vy-26); c.moveTo(vx-73,vy-40); c.lineTo(vx-58,vy-30); c.stroke();
+    c.globalAlpha=1; }
+  if(sandCover>0){ c.fillStyle=SAND(); c.globalAlpha=0.85*sandCover; c.beginPath(); c.ellipse(vx,vy+2,70,10+18*sandCover,0,Math.PI,0); c.fill(); c.globalAlpha=1; }
+  /* the sea: its level rises (drawn exaggerated) */
+  const seaY = 392 - t*84;
+  c.fillStyle=SEA(); c.globalAlpha=.78; c.beginPath(); c.moveTo(0,seaY);
+  for(let x=0;x<=W;x+=6){ const gy=ground(x); if(gy<seaY) break; c.lineTo(x, seaY+Math.sin(x/18)*2.5); }
+  let shoreX=0; for(let x=0;x<=W;x+=1){ if(ground(x)<seaY){ shoreX=x; break; } }
+  c.lineTo(shoreX,seaY); for(let x=shoreX;x>=0;x-=8) c.lineTo(x,Math.max(seaY,ground(x))); c.lineTo(0,H); c.lineTo(0,seaY); c.closePath(); c.fill(); c.globalAlpha=1;
+  /* re-fill the land under the water so the bottom is visible */
+  c.fillStyle=SAND(); c.globalAlpha=.55; c.beginPath(); c.moveTo(0,H); for(let x=0;x<=shoreX;x+=8) c.lineTo(x,ground(x)); c.lineTo(shoreX,H); c.closePath(); c.fill(); c.globalAlpha=1;
+  if(t<=0.9) xLabel(c,'הים התיכון',90,seaY+34,22,isDark()?'#BFE6F8':'#155B84');
+  /* the shoreline marker */
+  c.strokeStyle=css('--ink'); c.lineWidth=2.5; c.setLineDash([6,5]); c.beginPath(); c.moveTo(shoreX,seaY-10); c.lineTo(shoreX,seaY-(t<0.4?108:70)); c.stroke(); c.setLineDash([]);
+  xLabel(c,'קו החוף',Math.min(shoreX,470),seaY-(t<0.4?130:90),22,css('--ink'));
+  /* the village label, and the diver today */
+  const under = vy>seaY;
+  xLabel(c, under ? 'הכפר, מתחת למים' : 'הכפר והבור עם הזיתים', vx+40, vy+46, 22, under?css('--bad'):css('--ink'));
+  if(t>0.9){ const dx=vx+40, dy=vy-34; c.fillStyle=isDark()?'#F6D47A':'#E8A317'; c.beginPath(); c.ellipse(dx,dy,30,10,-0.2,0,Math.PI*2); c.fill(); c.beginPath(); c.arc(dx-32,dy-4,8,0,Math.PI*2); c.fill();
+    c.fillStyle=css('--ink'); c.fillRect(dx+28,dy-6,18,4); c.fillRect(dx+28,dy+2,18,4);
+    c.fillStyle='rgba(255,255,255,.7)'; [0,1,2].forEach(i=>{ c.beginPath(); c.arc(dx-38-i*4,dy-18-i*16,3+i,0,Math.PI*2); c.fill(); });
+    /* the depth over the pit */
+    c.strokeStyle='#FFFFFF'; c.lineWidth=2.5; c.beginPath(); c.moveTo(vx-56,seaY+2); c.lineTo(vx-56,vy-4); c.stroke(); xArrow(c,vx-56,vy-4,0,1,10); xArrow(c,vx-56,seaY+2,0,-1,10);
+    xTagN(c,'4','מטר מים', vx-150, (seaY+vy)/2, 22, css('--ink'), 'center'); }
+  if(user || t>0) cvMsg.innerHTML = t<0.35 ? 'לפני כ־<span class="num">6,600</span> שנה הכפר היה על החוף. אנשים אספו זיתים, שטפו אותם במי ים, ושמרו אותם בבור של אבנים. הים קרוב: מי ים ומלח בהישג יד.'
+    : t<0.85 ? 'פני הים עולים לאט, מאות ואלפי שנים. החוף זז פנימה, והכפר נקבר בחול ואז במים. החול הוא בעצם מה ששמר על הגלעינים.'
+    : 'היום: הבור עם אלפי הגלעינים השלמים שוכב בעומק של עד <span class="num">4</span> מטר, כ־<span class="num">120</span> מטר מהחוף, מול הקצה הדרומי של חיפה. צוללנים מצאו אותו אחרי סערות חורף.';
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  bombQ:{ q:'למה זית שלם, שאף אחד לא נגס בו, לא "מפעיל" את הנשק הכימי שלו?', opts:['כי בזית שלם עוד אין חומר מר בכלל','כי החומר המר והמספריים שמורים בנפרד, ונפגשים רק כשהתאים נקרעים','כי השמש מכבה את החומר המר בזמן שהזית על העץ','כי הנשק עובד רק בלילה, כשחרקים יוצאים לאכול'], a:1, fb:'החומר המר, האולאורופאין, נמצא בזית כל הזמן, אבל לבד הוא "שקט". המספריים, האנזים שחותך ממנו את הסוכר, שמורים בחלק אחר של התא. רק כשנוגסים והתאים נקרעים הם נפגשים, ונוצר הדבק שהורס חלבונים. ככה הנשק בטוח כשהוא מחכה, ומופעל בדיוק במקום ובזמן של ההתקפה.', btn:'next1' },
+  raceQ:{ q:'למה זית סדוק מאבד את המרירות מהר הרבה יותר מזית שלם?', opts:['כי זית סדוק קטן יותר, ויש בו פחות חומר מר','כי המים חודרים לזית סדוק ושוטפים אותו בכוח','כי לחומר המר יש דרך קצרה יותר החוצה, ובלי מעיל השעווה','כי סדיקה מחממת את הזית, וחום מוציא מרירות'], a:2, fb:'בזית סדוק יש בדיוק אותה כמות של חומר מר. מה שמשתנה הוא <b>הדרך</b>: המולקולות נודדות בדיפוזיה, צעד אקראי אחרי צעד, והזמן גדל כמו המרחק בריבוע. סדק מקצר את הדרך ופותח "דלתות" במקום הקליפה עם השעווה. בגלל זה סדוק מוכן בערך תוך שבוע או שבועיים, ושלם צריך חודשים.' },
+  brineQ:{ q:'אחרי שהמרירות יצאה, למה שומרים את הזיתים במי מלח ולא במים רגילים?', opts:['כי מלח צובע את הזיתים בירוק יפה','כי המלח עוצר את רוב החיידקים שמרקיבים, ונותן לחיידקים "החברים" לעבוד','כי במים רגילים הזיתים צפים, ובמי מלח הם שוקעים','כי מלח מחזיר לזיתים את המרירות שהלכה'], a:1, fb:'זית הוא פרי עסיסי, ובמים רגילים הוא מתחיל להירקב. במי מלח של <span class="math">8–10%</span> רוב חיידקי הריקבון לא שורדים, כי המלח שואב מהם מים. חיידקי החומצה הלקטית, כמו ביוגורט ובמלפפון חמוץ, מסתדרים עם המלח, מייצרים חומצה, ומוסיפים הגנה וטעם. (ובמי מלח חזקים דווקא דברים <b>צפים</b> יותר, כמו הביצה.)' },
+  storyQ:{ q:'איך ידעו החוקרים שבחישולי כרמל הכינו זיתים לאכילה, ולא שמן?', opts:['כי מצאו שם צנצנת עם תווית "זיתים"','כי הגלעינים היו שלמים, בלי קליפות ובלי אבקת פרחים','כי מצאו שם בית בד ענק עם אבני ריסוק','כי בדקו את הטעם של הגלעינים העתיקים'], a:1, fb:'כשמכינים שמן, מרסקים את הזיתים, ונשארים גלעינים שבורים וקליפות, כמו שמצאו בכפר סמיר הסמוך. בחישולי כרמל נמצאו אלפי גלעינים <b>שלמים</b>, בלי קליפות ובלי אבקה, כלומר הזיתים לא רוסקו ונשטפו שוב ושוב. ליד הים היו מי ים ומלח, ובטכניון הראו שזיתים במי ים באמת הופכים לאכילים. בלשים של גלעינים.' },
+  deepQ:{ q:'למה מחליפים את המים של הזיתים כל יום, ולא פעם בשבוע?', opts:['כי מים ישנים מתאדים מהר','כי מים מלאים בחומר מר "מאטים" את היציאה, ומים נקיים מאיצים אותה שוב','כי הזיתים שותים את כל המים תוך יום','כי מים ישנים הופכים את הזיתים לשחורים'], a:1, fb:'בדיפוזיה המולקולות עוברות מהמקום שבו יש הרבה מהן למקום שבו יש מעט. כשהמים כבר מלאים בחומר המר, ההפרש בין בפנים לבחוץ קטן, והיציאה מאטה. מים נקיים הם כמו חצר ריקה: כל הילדים רצים אליה. לכן החלפה יומית מקצרת את ההמתנה.' },
+};
+const MCQ = {
+  shared:[
+    { q:'למה עץ הזית ממלא את הפרי הירוק שלו בחומר מר?', opts:['כדי שהזיתים יגדלו מהר יותר בשמש','כדי להגן על הפרי והזרע מחרקים ומבעלי חיים שינסו לאכול אותו','כי ככה העץ נפטר מפסולת שהוא לא צריך','כי חומר מר עוזר לזית להחזיק מים בקיץ'], a:1, fb:'עץ לא יכול לברוח, אז הוא נלחם בכימיה. האולאורופאין והאנזים שמורים בנפרד, ובנגיסה הם נפגשים והופכים לדבק שהורס חלבונים: טעם נוראי ואוכל גרוע. כשהזית מבשיל והזרע מוכן, העץ מפרק חלק מהחומר המר בעצמו, וציפורים יכולות לאכול את הפרי ולפזר את הגלעין.' },
+    { q:'סבתא סודקת זיתים ומשרה אותם במים. מה בדיוק קורה לחומר המר?', opts:['המים הופכים אותו לסוכר','הוא נודד לאט מהזית אל המים, כי מולקולות מתפזרות אל מקום שבו יש מהן מעט','הוא נשאר בזית, אבל המים מכסים את הטעם שלו','המים מקפיאים אותו, והוא מפסיק להיות מר'], a:1, fb:'זו <b>דיפוזיה</b>: המולקולות המרות מתרוצצות בלי כיוון, ובסוף מתפזרות מהזית, שבו יש הרבה מהן, אל המים, שבהם יש מעט. סדיקה מקצרת את הדרך, והחלפת מים כל יום שומרת על המים "ריקים". המרירות באמת <b>יוצאת</b> מהזית; היא לא מוסתרת.' },
+    { q:'מה מיוחד בגילוי של אהוד גלילי וחבריו מול חוף הכרמל?', opts:['הם מצאו את עץ הזית הזקן ביותר בעולם, שעדיין נותן פרי','הם מצאו את העדות הקדומה ביותר לזיתי מאכל, בת כ־<span class="num">6,600</span> שנה, מתחת למים','הם גילו שבעבר זיתים לא היו מרים בכלל','הם מצאו ספר מתכונים עתיק לזיתים'], a:1, fb:'בחישולי כרמל, מול הקצה הדרומי של חיפה ובעומק של עד <span class="num">4</span> מטר, נמצאו אלפי גלעינים שלמים בני כ־<span class="num">6,600</span> שנה: הכנה של זיתי מאכל, ישנה בכ־<span class="num">4,000</span> שנה מכל עדות קודמת, ועוד לפני שהומצא הכתב. ספר מתכונים לא יכול להיות שם: אף אחד עוד לא ידע לכתוב.' },
+  ],
+  younger:[
+    { q:'מה הטריק הישן לבדוק בלי מאזניים שבמי המלח יש מספיק מלח?', opts:['לשים בהם ביצה טרייה ולהוסיף מלח עד שהיא צפה','לטעום, ולהוסיף מלח עד שהמים מתוקים','לחכות שהמים ישנו צבע לכחול','לשים בהם זית ולראות אם הוא שוקע'], a:0, fb:'מים עם הרבה מלח מומס כבדים יותר ממים רגילים באותה כמות, ודוחפים את הביצה למעלה חזק יותר. כשהביצה צפה, בערך ב־<span class="num">11%</span> מלח, מי המלח חזקים מספיק, ואפילו קצת יותר מה־<span class="math">8–10%</span> שזיתים צריכים. מים מלוחים לא נהיים מתוקים, וגם לא כחולים.' },
+  ],
+  older:[
+    { q:'בזית אחד הדרך של החומר המר החוצה היא <span class="num">4</span> מילימטר, ובזית שנחתך היא <span class="num">2</span> מילימטר. לפי החוק של הדיפוזיה, פי כמה מהר יותר יתנקה הזית החתוך?', opts:['פי <span class="num">2</span>','פי <span class="num">4</span>','פי <span class="num">8</span>','באותו זמן בדיוק'], a:1, fb:'בדיפוזיה הזמן גדל כמו המרחק <b>בריבוע</b>. חצי מרחק: <span class="math">(1/2) × (1/2) = 1/4</span> מהזמן, כלומר פי <span class="num">4</span> מהר יותר. "פי <span class="num">2</span>" היה נכון אם המולקולות היו הולכות בקו ישר, אבל הן הולכות "כמו שיכור", צעד אקראי אחרי צעד, ולכן כל קיצור של הדרך שווה הרבה יותר.' },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'חרק <b>נוגס</b> בזית ירוק.'},
+  {id:'b', t:'<b>הקירות</b> של התאים במקום הנגיסה נקרעים.'},
+  {id:'c', t:'המספריים, <b>האנזים</b>, פוגשים את החומר המר.'},
+  {id:'d', t:'האנזים <b>גוזר את הסוכר</b> מהחומר המר.'},
+  {id:'e', t:'מה שנשאר הופך ל<b>דבק</b> שנדבק לחלבונים והורס אותם.'},
+  {id:'f', t:'החרק מקבל <b>טעם נוראי ואוכל גרוע</b>, ומוותר.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> נגיסה ← תאים נקרעים ← אנזים פוגש חומר מר ← הסוכר נגזר ← דבק ← החרק מוותר. שימו לב להיגיון: בלי נגיסה התאים שלמים והמגירות סגורות, ולכן הכול מתחיל בנגיסה. האנזים לא יכול לגזור לפני שהוא <b>פוגש</b> את החומר המר, והדבק נוצר רק <b>אחרי</b> שהסוכר נגזר. כל השרשרת הזאת קורית תוך שניות, בדיוק במקום הנגיסה.' : '<span class="pill-bad">לא בדיוק.</span> הטעות הנפוצה: לשים את הדבק לפני שהאנזים פוגש את החומר המר (בלי מפגש אין גזירה, ובלי גזירה אין דבק), או לשים את קריעת התאים אחרי המפגש (כל עוד הקירות שלמים, המגירות סגורות). חשבו על זה כמו על שרשרת: נוגס, נקרע, נפגש, נגזר, נדבק, מוותר.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const aOk = chalA.value!=='' && a>=10.65 && a<=10.75, bOk = chalB.value!=='' && b>=8.55 && b<=8.65;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const hintA = (hasA && a>=11.95 && a<=12.05) ? '(א): חילקתם במים בלבד. האחוז הוא מתוך <b>כל</b> התמיסה, מלח ומים ביחד: <span class="math">120 ÷ (120 + 1,000) × 100 = ?</span>'
+    : (hasA && a>=0.1 && a<=0.11) ? '(א): כמעט! זה החלק, אבל עוד לא באחוזים. הכפילו ב־<span class="num">100</span>.'
+    : (hasA && ((a>=106 && a<=108) || (a>=1.06 && a<=1.08))) ? '(א): הנקודה העשרונית זזה. התשובה בין <span class="num">10</span> ל־<span class="num">11</span>: <span class="math">120 ÷ 1,120 × 100 = ?</span>'
+    : (hasA && a>=9.3 && a<=9.35) ? '(א): חילקתם הפוך. מלח חלקי כל התמיסה: <span class="math">120 ÷ 1,120</span>, לא <span class="math">1,120 ÷ 120</span>.'
+    : (hasA && a>=10.6 && a<=10.8) ? '(א): כמעט! עגלו לספרה <b>אחת</b> אחרי הנקודה.'
+    : '(א): רמז — כמה שוקלת כל התמיסה? <span class="math">120 + 1,000 = 1,120</span> גרם. עכשיו: <span class="math">120 ÷ 1,120 × 100 = ?</span>';
+  const hintB = (hasB && b>=7.85 && b<=7.95) ? '(ב): הוספתם את המלח פעמיים. <span class="num">1,400</span> גרם הם כבר <b>כל</b> התמיסה, כולל המלח: <span class="math">120 ÷ 1,400 × 100 = ?</span>'
+    : (hasB && b>=9.35 && b<=9.45) ? '(ב): חילקתם רק במים? בשאלה, <span class="num">1,400</span> גרם הם כל התמיסה, כולל המלח: <span class="math">120 ÷ 1,400 × 100 = ?</span>'
+    : (hasB && b>=0.085 && b<=0.086) ? '(ב): כמעט! הכפילו ב־<span class="num">100</span> כדי לקבל אחוזים.'
+    : (hasB && b>=11.6 && b<=11.7) ? '(ב): חילקתם הפוך: מלח חלקי כל התמיסה, <span class="math">120 ÷ 1,400</span>.'
+    : (hasB && b>=10.6 && b<=10.8) ? '(ב): זה האחוז של ההתחלה. אחרי שבוע התמיסה גדלה ל־<span class="num">1,400</span> גרם, והמלח נשאר <span class="num">120</span>.'
+    : (hasB && b>=8.5 && b<=8.7) ? '(ב): כמעט! עגלו לספרה <b>אחת</b> אחרי הנקודה.'
+    : '(ב): רמז — המלח לא השתנה, <span class="num">120</span> גרם, אבל כל התמיסה עכשיו <span class="num">1,400</span> גרם: <span class="math">120 ÷ 1,400 × 100 = ?</span>';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">120 ÷ 1,120 × 100 ≈ 10.7%</span>: קצת מעל הטווח של <span class="math">8–10%</span>, וזה דווקא טוב בהתחלה. (ב) <span class="math">120 ÷ 1,400 × 100 ≈ 8.6%</span>: המלח לא נעלם, אבל התמיסה גדלה, אז האחוז ירד בכשני אחוזים. עוד שבוע כזה, וזה כבר יכול להתקרב ל־<span class="num">6%</span>. לכן יצרנים מודדים שוב ושוב ומוסיפים מלח. בונוס לחשוב: כמה מלח צריך להוסיף לצנצנת של (ב) כדי לחזור לכ־<span class="num">10.7%</span>?'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : aOk ? '<span class="pill-ok">(א) נכון — כ־<span class="num">10.7%</span>.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">8.6%</span>.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const a=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasR=numAdvR.value!=='';
+    const aOk=(numAdv.value!=='' && a>=59.5 && a<=60.5), bOk=(hasR && r===16), sc = aOk&&bOk?2:(aOk?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintR = (hasR && r>16.5 && r<16.8) ? 'ב־(ב) החילוק נכון! אבל צריך צנצנות <b>שלמות</b>: כמה צנצנות מלאות יוצאות מ־<span class="num">16.7</span>?'
+      : (hasR && r===17) ? 'ב־(ב) עיגלתם למעלה. <span class="math">17 × 60 = 1,020</span>, יותר מקילו: לצנצנת ה־<span class="num">17</span> לא יספיק מלח. כמה צנצנות <b>שלמות</b>?'
+      : (hasR && r>=59000) ? 'ב־(ב) הכפלתם. כמה פעמים <span class="num">60</span> נכנס ב־<span class="num">1,000</span>? <span class="math">1,000 ÷ 60 ≈ ?</span>'
+      : (hasR && r>0.05 && r<0.07) ? 'ב־(ב) חילקתם הפוך: שקית המלח חלקי המלח לצנצנת, <span class="math">1,000 ÷ 60</span>.'
+      : (hasR && r>=12 && r<=13) ? 'ב־(ב) חילקתם ב־<span class="num">80</span>? המלח לצנצנת הוא התשובה של (א): <span class="math">1,000 ÷ 60 ≈ ?</span>'
+      : 'רמז ל־(ב): בכל צנצנת יש כמות המלח של (א). כמה פעמים היא נכנסת ב־<span class="num">1,000</span> גרם? ורק צנצנות <b>שלמות</b>.';
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">750 × 8 ÷ 100 = 60</span> גרם מלח. (ב) <span class="math">1,000 ÷ 60 ≈ 16.7</span>, כלומר <span class="num">16</span> צנצנות שלמות, ונשארים <span class="math">1,000 − 16 × 60 = 40</span> גרם, לא מספיק לעוד אחת. ושימו לב: המים בכל צנצנת הם <span class="math">750 − 60 = 690</span> גרם, לא <span class="num">750</span>. האחוז הוא תמיד מתוך כל התמיסה.'
+      : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">60</span> גרם.</span> '+hintR
+      : (a>=6000 && a<=6000.5) ? '<span class="pill-bad">ב־(א) שכחתם לחלק ב־<span class="num">100</span>.</span> <span class="num">8%</span> זה <span class="num">8</span> מכל <span class="num">100</span>: <span class="math">750 × 8 ÷ 100 = ?</span>'
+      : (a>=93 && a<=94) ? '<span class="pill-bad">ב־(א) חילקתם ב־<span class="num">8</span>.</span> <span class="num">8%</span> זה <span class="num">8</span> מכל <span class="num">100</span>, לא אחד משמונה: <span class="math">750 × 8 ÷ 100 = ?</span>'
+      : (a>=689.5 && a<=690.5) ? '<span class="pill-bad">ב־(א) חישבתם את המים.</span> השאלה היא על <b>המלח</b>: <span class="math">750 × 8 ÷ 100 = ?</span>'
+      : (a>=7.5 && a<=7.6) ? '<span class="pill-bad">ב־(א) חסר אפס.</span> <span class="num">1%</span> מ־<span class="num">750</span> הוא <span class="num">7.5</span>, אז <span class="num">8%</span> הם פי <span class="num">8</span>.'
+      : '<span class="pill-bad">עוד לא.</span> רמז ל־(א): <span class="num">1%</span> מ־<span class="num">750</span> גרם הוא <span class="math">750 ÷ 100 = 7.5</span> גרם. כמה זה <span class="num">8%</span>?';
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=v===36; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">12 × 3 = 36</span> ליטר מים. הרבה מים בשביל צנצנת אחת של זיתים, אבל כל החלפה מוציאה עוד חומר מר.':(v===15)?'<span class="pill-bad">חיברתם במקום להכפיל.</span> בכל אחד מ־<span class="num">12</span> הימים צריך <span class="num">3</span> ליטר: <span class="math">12 × 3 = ?</span>':(v===9)?'<span class="pill-bad">חיסרתם במקום להכפיל.</span> בכל יום <span class="num">3</span> ליטר, במשך <span class="num">12</span> ימים: <span class="math">12 × 3 = ?</span>':(v===4)?'<span class="pill-bad">חילקתם.</span> בסך הכול צריך <b>יותר</b> מים מיום אחד: <span class="math">12 × 3 = ?</span>':(v===3)?'<span class="pill-bad">זה ליום אחד.</span> כמה ליטר במשך <span class="num">12</span> ימים?':(v>=30 && v<=40)?'<span class="pill-bad">קרוב!</span> עשו את זה בחלקים: <span class="math">10 × 3 = 30</span>, ועוד <span class="math">2 × 3 = 6</span>. עכשיו חברו.':'<span class="pill-bad">לא בדיוק.</span> רמז: בכל יום <span class="num">3</span> ליטר, ויש <span class="num">12</span> ימים. עשו בחלקים: <span class="math">10 × 3 = 30</span>, ועוד <span class="math">2 × 3 = ?</span>'; }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=v>=39.5 && v<=40.5; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">500 × 8 ÷ 100 = 40</span> גרם מלח. ושימו לב: המים בצנצנת הם <span class="math">500 − 40 = 460</span> גרם, כי האחוז הוא מתוך כל התמיסה.':(v>=3999.5 && v<=4000.5)?'<span class="pill-bad">שכחתם לחלק ב־<span class="num">100</span>.</span> <span class="num">8%</span> זה <span class="num">8</span> מכל <span class="num">100</span>: <span class="math">500 × 8 ÷ 100 = ?</span>':(v>=62 && v<=63)?'<span class="pill-bad">חילקתם ב־<span class="num">8</span>.</span> <span class="num">8%</span> זה לא אחד משמונה, אלא <span class="num">8</span> מכל <span class="num">100</span>.':(v>=459.5 && v<=460.5)?'<span class="pill-bad">חישבתם את המים.</span> השאלה היא על <b>המלח</b>: כמה זה <span class="num">8%</span> מ־<span class="num">500</span>?':(v>=4.5 && v<=5.5)?'<span class="pill-bad">חסר אפס.</span> <span class="num">1%</span> מ־<span class="num">500</span> הוא <span class="num">5</span> גרם, אז <span class="num">8%</span> הם פי <span class="num">8</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: <span class="num">1%</span> מ־<span class="num">500</span> גרם הוא <span class="math">500 ÷ 100 = 5</span> גרם. כמה זה <span class="num">8%</span>?'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'אמרתי שזית ישר מהעץ מר בגלל חומר מר (אולאורופאין) שהעץ מייצר כדי להגן על הפרי מחרקים ומבעלי חיים.',
+  'הסברתי את הנשק בשני חלקים: החומר המר והאנזים ("המספריים") שמורים בנפרד, ובנגיסה הם נפגשים ונוצר דבק שהורס חלבונים.',
+  'הסברתי איך המרירות יוצאת: משרים במים, והמולקולות המרות נודדות החוצה לאט (דיפוזיה); מחליפים מים, וסודקים כדי שהדרך תהיה קצרה.',
+  'הסברתי למה מלח: מי מלח של <span class="math">8–10%</span> עוצרים חיידקי ריקבון ונותנים לחיידקים "החברים" לעבוד, ואפשר לבדוק אותם עם ביצה שצפה.',
+  'הזכרתי מספר או סיפור: זית שלם צריך חודשים וסדוק כשבוע או שבועיים; הזמן גדל כמו המרחק בריבוע; חישולי כרמל ו־<span class="num">6,600</span> שנה; אהוד גלילי הצולל; כפר סמיר והשמן.',
+];
+const MODEL='זית ירוק ישר מהעץ מר מאוד, כי הוא מלא בחומר בשם אולאורופאין. זה נשק של העץ: בתאים של הזית החומר המר שמור בנפרד מאנזים שעובד כמו מספריים. כשחרק נוגס, התאים נקרעים, האנזים גוזר מהחומר המר את הסוכר, ומה שנשאר הופך לדבק שנדבק לחלבונים והורס אותם, כך שהחרק מקבל טעם נוראי ואוכל גרוע. כדי להוציא את המרירות, סודקים את הזיתים ומשרים אותם במים: המולקולות המרות נודדות לאט מהזית אל המים, בדיפוזיה, ומחליפים את המים כל יום כדי שיהיו "ריקים". זית סדוק מוכן אחרי כשבוע או שבועיים, וזית שלם צריך חודשים, כי הזמן של דיפוזיה גדל כמו המרחק בריבוע. אחר כך שומרים את הזיתים במי מלח של <span class="math">8–10%</span>: המלח עוצר את חיידקי הריקבון, וחיידקי חומצה לקטית מוסיפים טעם. ביצה טרייה צפה כשמי המלח חזקים מספיק. את הטריק הזה מכירים כבר <span class="num">6,600</span> שנה: מתחת למים מול חוף הכרמל מצא הארכאולוג הצולל אהוד גלילי אלפי גלעינים שלמים של זיתי מאכל, שכנראה הוכנו במי ים ומלח.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (אולאורופאין הוא גליקוזיד, חומר מר עם סוכר מחובר, ששמור בנפרד מהאנזים בטא־גלוקוזידאז; בנגיסה התאים נקרעים, האנזים חותך את הסוכר והשארית הופכת לחומר פעיל שמקשר חלבונים כמו דבק — הגנה בשני חלקים; המרירות יוצאת בדיפוזיה, תנועה אקראית מריכוז גבוה לנמוך, והזמן גדל כמו המרחק בריבוע — לכן סדיקה מקצרת חודשים לשבוע־שבועיים, והחלפת מים שומרת על הפרש ריכוזים גדול; מי מלח: אחוז = מלח ÷ (מלח + מים) × 100, 8–10% עוצרים ריקבון ומאפשרים תסיסה לקטית; הביצה צפה כשצפיפות התמיסה גדולה משלה) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "למה אסור לנגוס בזית ישר מהעץ" — למה זית ירוק מר, איך העץ משתמש במרירות כנשק, ואיך מים, מלח וסבלנות מוציאים אותה. הרעיונות המרכזיים: (1) בזית ירוק יש חומר מר מאוד, אולאורופאין (עד כ־14% מהמשקל היבש בפרי צעיר); (2) הגנה בשני חלקים: החומר המר והאנזים (בטא־גלוקוזידאז, "המספריים") שמורים בחלקים שונים של התא; בנגיסה התאים נקרעים, האנזים חותך את הסוכר, והשארית הופכת לחומר דביק שמקשר חלבונים והורס אותם — טעם נוראי ומזון גרוע לחרקים (קונו, 1999, בליגוסטרום; קודונאס, 2015, האנזים של הזית); כשהזית מבשיל העץ מפרק חלק מהחומר המר; (3) דיפוזיה: המולקולות המרות נודדות לאט מהזית אל המים; הקליפה מצופה שעווה; הזמן גדל כמו המרחק בריבוע; זית שלם במי מלח צריך כמה חודשים, סדוק במים שמחליפים כל יום כשבוע־שבועיים; במפעלים ליאה (כ־2%, 6–8 שעות) מפרקת את החומר המר כימית — מסוכנת, למבוגרים בלבד; (4) מי מלח: 8–10% מלח עוצרים חיידקי ריקבון וחיידקי חומצה לקטית תוססים; אחוז = מלח ÷ (מלח + מים) × 100; ביצה טרייה צפה בערך מ־11%; (5) הסיפור: אהוד גלילי, ארכאולוג צולל מאוניברסיטת חיפה; חישולי כרמל, מול הקצה הדרומי של חיפה, עד 4 מ׳ מתחת למים, כ־6,600 שנה: אלפי גלעינים שלמים, בלי קליפות ואבקה → זיתי מאכל, כנראה במי ים ומלח (ניסוי בטכניון); כפר סמיר הסמוך, 7,000–7,500 שנה, גלעינים מרוסקים → שמן; (6) חישובי המבחן: 12 × 3 = 36 ליטר; 500 × 8 ÷ 100 = 40 גרם; מתקדם 750 × 8 ÷ 100 = 60 גרם, 1,000 ÷ 60 ≈ 16.7 → 16 צנצנות; אתגר 120 ÷ 1,120 × 100 ≈ 10.7%, 120 ÷ 1,400 × 100 ≈ 8.6%.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם למה הזית מר (חומר מר שהעץ מייצר להגנה, או החומר והאנזים שנפגשים בנגיסה) וגם איך מוציאים את המרירות (משרים במים והמרירות יוצאת לאט / מחליפים מים / סודקים) — ומלח לשימור הוא בונוס; 1 אם יש רק חלק מזה. תשובה שאומרת רק "שמים במלח" או רק "הזית מר" בלי להסביר למה או איך, לא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', יש לך לשון של '+G('טועם','טועמת')+' ומוח של '+G('כימאי','כימאית')+'!':pct>=60?name+', יש לך מוח של '+G('מדען','מדענית')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=120;                                                     // whole olives in plain brine: a few months (≈120 days)
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: זיתים ירוקים <b>שלמים</b> במי מלח צריכים <b>כמה חודשים</b> עד שהמרירות יוצאת. סדוקים במים שמחליפים כל יום: כשבוע או שבועיים.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. ועכשיו ידוע לך גם למה: דיפוזיה איטית, דרך ארוכה וקליפה עם שעווה. ואיך מקצרים: לסדוק, ולהחליף מים.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. התשובה: זיתים <b>שלמים</b> במי מלח צריכים <b>כמה חודשים</b>, כי המולקולות המרות יוצאות בדיפוזיה, לאט, וזה לוקח זמן שגדל כמו המרחק בריבוע. זית סדוק מוכן בערך תוך שבוע או שבועיים.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (זיתים שלמים במי מלח — כמה זמן עד שאפשר לאכול): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: כמה חודשים)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "למה אסור לנגוס בזית ישר מהעץ", מהדורה 31, א׳ בחשוון תשפ״ז (יום שני, 12 באוקטובר 2026), בעונת המסיק (קטיף הזיתים, אוקטובר–נובמבר). נושא: למה זית ירוק ישר מהעץ מר, איך העץ משתמש במרירות כנשק כימי, ואיך מים, מלח וסבלנות מוציאים אותה; כימיה (גליקוזידים, אנזימים, תמיסות ואחוזים, צפיפות), ביולוגיה (הגנה של צמחים, חרקים, חיידקי חומצה לקטית, טעם מר), פיזיקה (דיפוזיה וחוק הריבוע, ציפה), היסטוריה וגאוגרפיה (אתרים טבועים מול חוף הכרמל, ליד זכרון יעקב). הנשק: בזית ירוק צעיר יש הרבה אולאורופאין (oleuropein; השם מ־Olea europaea, השם המדעי של עץ הזית) — עד כ־14% מהמשקל היבש בפרי צעיר (משתנה מאוד לפי זן ושלב). אולאורופאין הוא גליקוזיד: מולקולה מרה עם סוכר (גלוקוז) מחובר. בתא יש גם אנזים, בטא־גלוקוזידאז ("המספריים"), שחותך את הסוכר; השניים שמורים בחלקים שונים של התא ונפגשים רק כשהתא נקרע (נגיסה, ריסוק). אחרי החיתוך השארית הופכת למולקולה פעילה שנדבקת לחלבונים ומקשרת אותם (דומה לגלוטראלדהיד) — "הגנה בשני חלקים". קנג׳י קונו וצוותו (PNAS, 1999) הראו בליגוסטרום, קרוב משפחה של הזית, שהמנגנון הזה מקשר חלבונים ומפחית את חומצת האמינו ליזין, והופך את העלים למזון גרוע לחרקים; קונסטנטינוס קודונאס וצוותו מיוון (Journal of Experimental Botany, 2015) מצאו את האנזים של הזית עצמו; הביטוי שלו גבוה באיברים צעירים, ובזמן ההבשלה העץ מפרק חלק מהאולאורופאין — לכן זית שחור (בשל) מר פחות, אבל עדיין מר ישר מהעץ. זית ירוק וזית שחור הם אותו פרי בשלבים שונים. באינטראקטיב "הפצצה בשתי מגירות" תשעה תאים, מגירה ירוקה של חומר מר ומגירה כתומה של מספריים; נגיסה קורעת תאים, המספריים פוגשים את הכדורים הירוקים, והם הופכים לדבק חום שתופס חלבון כחול. הוצאת המרירות: דיפוזיה — מולקולות נעות בלי כיוון ומתפזרות מריכוז גבוה לנמוך ("ילדים יוצאים מכיתה צפופה לחצר ריקה"); הקליפה מצופה שעווה; הזמן גדל כמו המרחק בריבוע (מרחק כפול → פי 4 זמן, פי שלושה → פי 9); לכן סודקים או חורצים את הזיתים; מחליפים את המים כל יום כדי לשמור על הפרש ריכוזים גדול. זמנים: זיתים סדוקים או חתוכים במים שמוחלפים כל יום — שבוע ויותר; זיתים שלמים במי מלח (שיטה טבעית, יוונית) — כמה חודשים, ובזיתים בשלים אפילו חצי שנה ויותר. באינטראקטיב "מרוץ המרירות" מודל: מרחק 6 / 3 / 2 מ״מ, מוכן ביום 90 / כ־23 / 10. במפעלים (שיטה ספרדית): ליאה, נתרן הידרוקסידי בריכוז 1.8–2.2%, 6–8 שעות, מפרקת את האולאורופאין כימית; אחריה שטיפה 12–24 שעות ותסיסה במי מלח 8–10% במשך 2–3 חודשים; ליאה צורבת — למבוגרים ולמפעלים בלבד, אף פעם לא לילדים לבד. מי מלח: מלח עוצר את רוב חיידקי הריקבון (שואב מהם מים), וחיידקי חומצה לקטית (כמו ביוגורט ובמלפפון חמוץ) מסתדרים עם מלח, מייצרים חומצה וטעם; מקובל 8–10% מלח; לפי ה־IOC מינימום 6% לזיתים טבעיים שאינם מפוסטרים; אחוז = מלח ÷ (מלח + מים) × 100; 100 גרם בליטר מים = כ־9.1%, לא 10%; הזיתים מוציאים מים לתמיסה והאחוז יורד, ולכן מודדים ומוסיפים מלח. צפיפות: מים כ־1 גרם לסמ״ק, כל אחוז מלח מוסיף כ־0.007; ביצה טרייה כ־1.08 וצפה בערך מ־11% (כ־125 גרם לליטר מים); ביצה ישנה צפה מוקדם יותר (יותר אוויר) — הטריק הוא הערכה. באינטראקטיב "מכינים מי מלח" מוסיפים 0–200 גרם מלח לליטר, וסרגל: אדום חלש מדי (פחות מ־6%), צהוב גבולי, ירוק לזיתים (8–10%), כחול מלוח מאוד. הסיפור: ד״ר אהוד גלילי, מכון זינמן לארכאולוגיה באוניברסיטת חיפה, חוקר כפרים טבועים מול חוף הכרמל; סערות חורף חושפות אותם. כפר סמיר (מול חוף דדו בחיפה), בן 7,000–7,500 שנה: גלעינים מרוסקים, קליפות ואבקת פרחים — פסולת הפקת שמן זית, מהעדויות הקדומות בעולם. חישולי כרמל, כ־1,800 מ׳ משם, כ־500 מ׳ מדרום לחופי חיפה, עד 120 מ׳ מהחוף ובעומק עד 4 מ׳, בן כ־6,600 שנה (התקופה הכלקוליתית): שני מבנים סגלגלים של אבנים עם אלפי גלעינים שלמים, בלי קליפות ובלי אבקה → זיתי מאכל, כנראה שטפו במי ים והוסיפו מלח; ניסוי במעבדה של פרופ׳ איילת פישמן בטכניון הראה שזיתים במי ים הופכים לאכילים; העדות הקדומה ביותר לזיתי מאכל, ישנה בכ־4,000 שנה מהקודמת; גודל הגלעינים מזכיר זית בר; 11 מוסדות; Scientific Reports, 2021. הכתב הומצא לפני כ־5,200 שנה, כלומר זיתי המאכל ישנים ממנו בכ־1,400 שנה. האתרים כחצי שעה נסיעה צפונה מזכרון יעקב. באינטראקטיב "הכפר שטבע" הים עולה (בקנה מידה מוגזם) והכפר נקבר בחול ובמים, וצוללן מגיע בהווה. חיבורים: פצצת שמן החרדל (גלוקוזינולטים ומירוזינאז בחרדל, כרוב, וואסאבי); כ־25 סוגי קולטני טעם מר בלשון; הים התיכון כ־4% מלח, ים המלח כ־34%; אוליאוקנטל בשמן זית טרי צורב בגרון כמו איבופרופן, ובעקבות הצריבה גילו (2005) שהוא גם פועל קצת כמו תרופה נגד כאבים. ניסויי בית: מרוץ סוכריות שלמה מול מרוסקת במים חמימים; ביצה במים ומלח, כף אחר כף (כף מלח כ־15–20 גרם); בעונה ועם מבוגר — זיתים סדוקים מול שלמים במים שמוחלפים כל יום, טועמים ויורקים. חישובי המבחן: הצעיר 12 × 3 = 36 ליטר; הבוגר 500 × 8 ÷ 100 = 40 גרם (המים 460); מתקדם (א) 750 × 8 ÷ 100 = 60 גרם, (ב) 1,000 ÷ 60 ≈ 16.7 → 16 צנצנות שלמות; האתגר (א) 120 ÷ 1,120 × 100 ≈ 10.7%, (ב) 120 ÷ 1,400 × 100 ≈ 8.6% (כל התמיסה 1,400 גרם); בונוס: מי ים כ־40 גרם מלח לליטר, (40 + x) ÷ (1,000 + x) = 0.08 → x ≈ 43 גרם; בדיקות מהירות: למה זית שלם לא מפעיל את הנשק; למה סדוק מהיר; למה מי מלח; איך ידעו שזה זיתי מאכל; למה מחליפים מים כל יום; סידור: נגיסה ← תאים נקרעים ← אנזים פוגש חומר מר ← הסוכר נגזר ← דבק שהורס חלבונים ← החרק מוותר. פישוטים במכוון: "מגירות" ו"מספריים" הם משל; ההוכחה לתפקיד ההגנתי נעשתה בליגוסטרום; גם תסיסה וחומציות מפרקות חלק מהמרירות; האינטראקטיבים הם מודלים. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט ומה שלא ידוע, בלי לחשוף תשובות מבחן; אם ילד שואל על שאלה מהמבחן, לרמוז ולכוון, לא לפתור. בטיחות: לא לעודד ילדים להשתמש בליאה או לאכול זיתים לא מעובדים בכמות; טעימה קטנה ויריקה עם מבוגר בלבד.';
+const CHIPS = ['למה הזית מר?', 'מה זה דיפוזיה?', 'למה ביצה צפה במי מלח?', 'איך מצאו זיתים מתחת לים?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים: אולאורופאין כגליקוזיד — חלק מר + גלוקוז; בטא־גלוקוזידאז שמור בנפרד ונפגש איתו רק כשהתא נקרע; השארית אחרי החיתוך מקשרת חלבונים (כמו גלוטראלדהיד) ומפחיתה ליזין — הגנה בשני חלקים, כמו פצצת שמן החרדל; דיפוזיה כהליכה אקראית: הזמן ∝ המרחק בריבוע, ולכן 6 → 2 מ״מ = פי 9 מהר יותר (90 ÷ 9 = 10 ימים); הקצב תלוי בהפרש הריכוזים, ולכן מחליפים מים; ליאה מפרקת כימית ב־6–8 שעות במקום לחכות לדיפוזיה; אחוז = מלח ÷ (מלח + מים) × 100, 100 ÷ 1,100 × 100 ≈ 9.1%; דילול: 120 ÷ 1,400 × 100 ≈ 8.6%; צפיפות כ־1 + 0.0072 × אחוז, ביצה 1.08 → צפה בערך מ־11%; למה מלח עוצר חיידקים (אוסמוזה) ולמה חיידקי חומצה לקטית שורדים; חישולי כרמל מול כפר סמיר: גלעינים שלמים מול מרוסקים, היעדר קליפות ואבקה כראיה), שאל שאלות המשך שדורשות חשיבה (למשל: אם חותכים זית לארבעה, פי כמה מהר תצא המרירות לעומת זית שלם, ולמה זה לא בדיוק פי 4? למה ליאה מהירה כל כך יותר מדיפוזיה? אם מוסיפים מלח לצנצנת, האם המרירות תצא מהר יותר או לאט יותר? למה ביצה ישנה צפה במים רגילים כמעט? איך היו יכולים אנשים לפני 6,600 שנה לדעת שמי המלח שלהם חזקים מספיק? למה לעץ "כדאי" לפרק את המרירות כשהזית מבשיל?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה זית מהעץ מר?</b> כי הוא מלא בחומר מר בשם אולאורופאין, והתאים שלו שומרים בנפרד "מספריים" כימיים. כשנוגסים, השניים נפגשים ונוצר דבק שהורס חלבונים: נשק של עץ נגד מי שאוכל את הפרי.<br><br><b>איך מוציאים את המרירות?</b> סודקים את הזית ומשרים במים שמחליפים כל יום: המולקולות המרות נודדות החוצה לאט (דיפוזיה), ודרך קצרה יותר פירושה הרבה פחות זמן. אחר כך שומרים במי מלח של <span class="math">8–10%</span>, כדי שהזיתים לא יירקבו.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>

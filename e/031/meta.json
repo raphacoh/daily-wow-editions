@@ -1,0 +1,24 @@
+{
+  "n": 31,
+  "code": "WOW-031",
+  "date": "2026-10-12",
+  "language": "he",
+  "title": "למה אסור לנגוס בזית ישר מהעץ",
+  "topics": [
+    "כימיה",
+    "ביולוגיה",
+    "פיזיקה",
+    "היסטוריה",
+    "גאוגרפיה",
+    "מדע ישראלי"
+  ],
+  "summary": "Why raw olives are bitter: oleuropein + β-glucosidase as a two-part 'bomb' defence (protein cross-linker), debittering by diffusion (time ∝ distance², cracked ~10 days vs whole ~months), lye in factories, 8–10% brine and the floating-egg test, and the 6,600-year-old submerged table-olive site Hishuley Carmel (Galili, Sci. Rep. 2021) next to Kfar Samir's 7,000-year-old oil production off the Carmel coast.",
+  "teaser": "זית שנקטף ישר מהעץ מר כל כך שאי אפשר לבלוע אותו. למה העץ מגן על הפרי שלו בפצצה בת שני חלקים, איך בני אדם למדו לנטרל אותה בתמיסת מלח, ומה מסתתר בשולחן זיתים בן 6,600 שנה מתחת למים ליד הכרמל?",
+  "max_score": 11,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: shared-engine Arto tip wording ('בשביל בדיוק זה') and it briefly overlays a canvas corner; small labels touch the edge on phone canvases (brine salt tag, coast at t=0)",
+  "review_url": "https://claude.ai/artifact/M2xkVZXHAeYHpCaajSt3oq",
+  "editor_note": null
+}
