@@ -1,0 +1,24 @@
+{
+  "n": 32,
+  "code": "WOW-032",
+  "date": "2026-10-13",
+  "language": "he",
+  "title": "למה משולש פיצה נופל — והקיפול שמציל אותו",
+  "topics": [
+    "מתמטיקה",
+    "פיזיקה",
+    "הנדסה",
+    "גאוגרפיה",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "Gauss's Theorema Egregium (1827): a sheet that bends but cannot stretch keeps its Gaussian curvature, so a pizza slice folded across goes stiff along its length; an orange peel laid flat around the navel covers only 4/π² ≈ 41% of the disc whatever the number of gores (Archimedes: sphere = 4 great circles); every flat map must distort — Mercator (1569) stretches lengths by sec(latitude), so Greenland (≈2.2M km², ×3.2 length / ×10 area) looks like Africa (≈30.4M km², 14×); Gauss's Hanover survey from 1818, the heliotrope, the Brocken–Hohehagen–Inselsberg triangle; Gauss's 1822 transverse Mercator behind the Israeli Transverse Mercator grid (since 1998); corrugated cardboard (1856 hat liners), grass blades, eggshells, Torroja's thin roof.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: on phones the map's 'אורך פי 1.0' tag touches 'אותו גודל' near 0° and '20°' sits close to the Israel line; older track may run ~30–35 min with the optional challenge",
+  "review_url": "https://claude.ai/artifact/3bAShxC8YCUfLjQScF8Fgx",
+  "editor_note": null
+}
