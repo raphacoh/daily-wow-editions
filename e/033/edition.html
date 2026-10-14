@@ -1,0 +1,1809 @@
+<title>שורשים וכנפיים #33 · עשרת הימים שלא היו</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#6B3FA0; --shadow-soft:#ECE1F7;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a calendar page that jumps from 4 to 15 under the Sun, and two specks drifting off it */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+.calfig{margin:18px 0 24px}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 33</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="var(--aur)" stop-opacity=".5"/>
+        <stop offset="60%" stop-color="var(--aur)" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="var(--aur)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- a calendar page that jumps from 4 to 15, under a sun -->
+    <g id="heroCal">
+      <circle cx="226" cy="70" r="30" fill="var(--aur)" stroke="var(--ink)" stroke-width="2.4"/>
+      <rect x="62" y="96" width="150" height="160" rx="14" fill="var(--calpage)" stroke="var(--ink)" stroke-width="2.6"/>
+      <rect x="62" y="96" width="150" height="40" rx="14" fill="var(--calred)" stroke="var(--ink)" stroke-width="2.6"/>
+      <rect x="62" y="120" width="150" height="16" fill="var(--calred)"/>
+      <line x1="62" y1="136" x2="212" y2="136" stroke="var(--ink)" stroke-width="2.6"/>
+      <circle cx="98" cy="96" r="7" fill="var(--card)" stroke="var(--ink)" stroke-width="2.2"/>
+      <circle cx="176" cy="96" r="7" fill="var(--card)" stroke="var(--ink)" stroke-width="2.2"/>
+      <text x="137" y="215" text-anchor="middle" font-family="Rubik, Arial" font-weight="800" font-size="72" fill="var(--ink)" direction="ltr">15</text>
+      <path d="M232 150 q34 40 0 84" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M224 228 l8 8 l9 -8" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g class="spark" transform="translate(150,150)"><circle r="6" fill="var(--aur)" stroke="var(--ink)" stroke-width="1.5"/></g>
+    <g class="spark2" transform="translate(120,150)"><circle r="4" fill="var(--aur2)" stroke="var(--ink)" stroke-width="1.5"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 33</span><span class="tag">יום רביעי, 14 באוקטובר 2026</span><span class="tag">ג׳ בחשוון תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>עשרת הימים שלא היו</h1>
+  <p class="lede">היום <span class="num">14</span> באוקטובר. לפני <span class="num">444</span> שנה, בשנת <span class="num">1582</span>, התאריך הזה פשוט <b>לא היה קיים</b>. בספרד, בפורטוגל, באיטליה ובפולין אנשים הלכו לישון ביום חמישי, <span class="num">4</span> באוקטובר, וקמו בבוקר ביום שישי, <span class="num">15</span> באוקטובר. ימים שלמים נמחקו מלוח השנה, בהוראה של האפיפיור. אף אחד לא ישן אותם, הם פשוט דולגו. למה? כי <b>השנה איננה בדיוק <span class="num">365</span> ימים</b>, ושארית קטנה, שאף אחד לא רואה, הצטברה במשך מאות שנים עד שלוח השנה ברח מהשמש. השאלה של היום: <b>איך בונים לוח שנה שלא בורח מהשמש?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">כדור הארץ מקיף את השמש פעם אחת בשנה. כמה זמן לוקח הסיבוב הזה <b>מעבר</b> ל־<span class="num">365</span> ימים שלמים?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="11"><b>כ־<span class="num">11</span> דקות</b><span>כמעט כלום</span></button>
+      <button type="button" class="scaleopt" data-scale="60"><b>שעה אחת</b><span>קצת</span></button>
+      <button type="button" class="scaleopt" data-scale="349"><b>כמעט <span class="num">6</span> שעות</b><span>רבע יום, בערך</span></button>
+      <button type="button" class="scaleopt" data-scale="1440"><b>יום שלם</b><span>הרבה</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE LEFTOVER OF THE YEAR (interactive 1: the orbit and the leftover clock) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>השארית של השנה</h2>
+  <p>שנה היא הזמן שלוקח לכדור הארץ להקיף את השמש ולחזור לאותה נקודה, כך שהעונות חוזרות בדיוק: אותו אביב, אותו קיץ. לוח השנה סופר ימים שלמים, <span class="num">365</span>. אבל כדור הארץ לא מסיים את הסיבוב בדיוק בחצות. הוא צריך עוד <b><span class="num">5</span> שעות ו־<span class="num">49</span> דקות</b>, כמעט רבע יום.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>תחשבו על ריצה סביב מגרש. המאמן שורק "סיימתם!" רגע לפני שהגעתם לקו. פעם אחת זה לא נורא, אבל בכל סיבוב אתם מתחילים עוד קצת מאחור.</p>
+    <p>ככה גם השעות: כמעט <span class="num">6</span> שעות בכל שנה. אחרי <span class="num">4</span> שנים הן מצטברות לכמעט <b>יום שלם</b>. באינטראקטיב: נחשו קודם, ואז הזיזו את השנים וראו איך "שעון השארית" מתמלא.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>האסטרונומים קוראים לזה <b>שנה טרופית</b>: מאביב לאביב, מיום שוויון ליום שוויון. האורך שלה הוא בערך <span class="num">365.2422</span> ימים. החלק אחרי הנקודה, <span class="num">0.2422</span>, הוא בדיוק השארית: <span class="math">0.2422 × 24 ≈ 5.81</span> שעות, כלומר <span class="num">5</span> שעות ו־<span class="num">49</span> דקות.</p>
+    <p>אחרי <span class="num">4</span> שנים השארית מצטברת ל־<span class="math">4 × 5:49 = 23:16</span> שעות. הפתרון המתבקש: יום נוסף כל <span class="num">4</span> שנים. אבל <span class="math">23:16</span> זה <b>לא בדיוק</b> <span class="math">24:00</span>. באינטראקטיב: נחשו, הזיזו, והפעילו את היום המעובר.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — שעון השארית ===== -->
+  <div class="panel instrument">
+    <h3>שעון השארית</h3>
+    <p class="cap">נחשו קודם: אם לא מוסיפים אף פעם יום מעובר, כמה רחוק יהיה לוח השנה מהשמש אחרי <span class="num">4</span> שנים?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="yrP0" onclick="yrPredict(0)">בכלל לא</button>
+        <button id="yrP1" onclick="yrPredict(1)">כמעט יום שלם</button>
+        <button id="yrP2" onclick="yrPredict(2)">חודש שלם</button>
+      </div>
+    </div>
+    <canvas role="img" id="yrCv" width="640" height="470" aria-label="משמאל: שמש גדולה במרכז ומסלול עגול סביבה; דגל מסמן את הנקודה שבה כדור הארץ התחיל את השנה; בסוף כל שנה של 365 ימים כדור הארץ עוד לא הגיע לדגל, וקשת אדומה מראה כמה חסר (המרחק מצויר גדול מהאמת כדי שיהיה אפשר לראות). מימין: שעון של 24 שעות שמתמלא בשארית של כל שנה; כשהוא מתמלא ויש יום מעובר, מופיע דף לוח של 29 בפברואר והשעון מתרוקן; בלי יום מעובר, ימים שלמים נערמים"></canvas>
+    <div class="controls">
+      <label>כמה שנים עברו
+        <input type="range" id="yrN" min="0" max="12" step="1" value="0" oninput="yrDraw(1)" aria-label="כמה שנים עברו" style="direction:ltr">
+      </label>
+      <button class="btn small ghost" id="yrLeap" onclick="yrToggleLeap()">יום מעובר: כבוי</button>
+    </div>
+    <div class="controls">
+      <div class="readout">שנים: <b class="num" id="yrOut">0</b></div>
+      <div class="readout">הפער: <b class="num" id="yrOut2">0</b> שעות</div>
+    </div>
+    <p class="cap" id="yrMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="yrReveal" hidden><span class="hand">!</span><p>כמעט <span class="num">6</span> שעות בכל שנה, ואחרי <span class="num">4</span> שנים כמעט יום שלם. לכן יוליוס קיסר קבע, לפני יותר מ־<span class="num">2,000</span> שנה: <b>כל שנה רביעית תקבל יום נוסף</b>, <span class="num">29</span> בפברואר. אבל "כמעט" זה לא "בדיוק". השארית הזעירה שנשארת היא כל הסיפור של היום.</p></div>
+
+  <div class="q qc" id="orbitQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE CALENDAR THAT CRAWLED (interactive 2: the spring equinox over 1,700 years) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>הלוח שזחל</h2>
+  <p>הלוח של יוליוס קיסר, "הלוח היוליאני", התחיל לפעול ב־<span class="num">1</span> בינואר בשנה <span class="num">45</span> לפני הספירה. כדי להתחיל אותו נכון, השנה שלפניו נמתחה ל־<span class="num">445</span> ימים, וכינו אותה "שנת הבלבול". מאז, כל שנה רביעית מעוברת. נשמע מושלם. אבל היום המעובר <b>קצת גדול מדי</b>: הוא מתקן יותר ממה שצריך. השנה הממוצעת בלוח יצאה ארוכה מהשנה האמיתית בכ־<span class="num">11</span> דקות, וכל שנה הלוח מפגר עוד קצת אחרי השמש.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><span class="num">11</span> דקות זה פחות מהפסקה בבית הספר. אף אחד לא מרגיש אותן. אבל הן לא נעלמות, הן נערמות: בערך <b>יום שלם בכל <span class="num">128</span> שנה</b>.</p>
+    <p>איך יודעים? יש יום מיוחד באביב, <b>יום השוויון</b>, שבו היום והלילה ארוכים בערך אותו דבר. בשנת <span class="num">325</span>, בכנס גדול של ראשי הכנסייה בעיר <b>ניקאה</b>, קבעו לפיו את חג הפסחא, והוא נפל אז ב־<span class="num">21</span> במרץ. מה קרה לו במשך השנים? באינטראקטיב: נחשו, ואז הזיזו את השנים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>החשבון: בלוח היוליאני שנה ממוצעת היא <span class="math">365 + 1 ÷ 4 = 365.25</span> ימים. השנה האמיתית היא <span class="num">365.2422</span>. ההפרש, <span class="num">0.0078</span> של יום, הוא בערך <span class="num">11</span> דקות. כמה שנים צריך כדי שזה יצטבר ליום שלם? <span class="math">1 ÷ 0.0078 ≈ 128</span>.</p>
+    <p>המדד שכולם עקבו אחריו היה <b>יום השוויון האביבי</b>, היום שבו השמש עוברת מעל קו המשווה ויום ולילה כמעט שווים. בשנת <span class="num">325</span>, בוועידת ניקאה, קבעו לפיו את מועד חג הפסחא הנוצרי, והוא נפל אז בערך ב־<span class="num">21</span> במרץ. מכיוון שהשנה בלוח ארוכה מדי, יום השוויון האמיתי הגיע בכל פעם קצת יותר <b>מוקדם</b> לפי הלוח, ותאריך יום השוויון הלך ונסוג. באינטראקטיב: נחשו בכמה ימים, והזיזו.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — הלוח שזחל ===== -->
+  <div class="panel instrument">
+    <h3>יום השוויון הבורח</h3>
+    <p class="cap">נחשו קודם: בשנת <span class="num">325</span> יום השוויון נפל ב־<span class="num">21</span> במרץ. בכמה ימים הוא זז בלוח עד שנת <span class="num">1582</span>?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="drP0" onclick="drPredict(0)">יום אחד</button>
+        <button id="drP1" onclick="drPredict(1)">בערך עשרה ימים</button>
+        <button id="drP2" onclick="drPredict(2)">בערך מאה ימים</button>
+      </div>
+    </div>
+    <canvas role="img" id="drCv" width="640" height="470" aria-label="גרף: לרוחב השנים, משנת 325 עד היום; לגובה התאריך של יום השוויון באביב בלוח, מ־21 במרץ למעלה עד 7 במרץ למטה. קו אדום יורד לאט: הלוח הישן זוחל ויום השוויון נופל מוקדם יותר ויותר, עד 11 במרץ בשנת 1582. שם הקו הירוק קופץ חזרה ל־21 במרץ ונשאר ישר עד היום, בזמן שהלוח הישן, בקו מקווקו, ממשיך לרדת. בפינה דף לוח גדול מראה את התאריך בשנה שנבחרה"></canvas>
+    <div class="controls">
+      <label>השנה
+        <input type="range" id="drY" min="325" max="2026" step="1" value="325" oninput="drDraw(1)" aria-label="השנה" style="direction:ltr">
+      </label>
+      <div class="readout">שנת <b class="num" id="drOut">325</b></div>
+    </div>
+    <div class="controls">
+      <button class="btn small ghost" onclick="drJump(1000)">קפיצה ל־<span class="num">1000</span></button>
+      <button class="btn small ghost" onclick="drJump(1582)">קפיצה ל־<span class="num">1582</span></button>
+      <button class="btn small ghost" onclick="drJump(2026)">קפיצה להיום</button>
+    </div>
+    <p class="cap" id="drMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div id="drReveal" hidden>
+    <div data-track="younger"><p>ראיתם? עד <span class="num">1582</span> יום השוויון זחל מ־<span class="num">21</span> במרץ ל־<span class="num">11</span> במרץ. כלומר, יום השוויון האמיתי הגיע עשרה ימים לפני התאריך שבלוח. ואם לא היו מתקנים, הלוח היה ממשיך לזחול, ובעוד עשרות אלפי שנים חג המולד של הנוצרים היה נופל באמצע הקיץ.</p></div>
+    <div data-track="older"><p>החשבון מתאים: מ־<span class="num">325</span> עד <span class="num">1582</span> עברו <span class="num">1,257</span> שנים, ו־<span class="math">1257 ÷ 128 ≈ 9.8</span>. כמעט בדיוק עשרה ימים. באתגר בפרק <span class="num">5</span> תעשו חשבון כזה בעצמכם.</p></div>
+    <div class="aha">כלל אצבע: <b>טעות זעירה שחוזרת על עצמה בכל פעם היא כבר לא זעירה.</b> <span class="num">11</span> דקות בשנה הפכו לעשרה ימים.</div>
+  </div>
+
+  <div class="q qc" id="driftQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE LEAP-YEAR MACHINE (interactive 3: the three-gate rule and 400 years) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>מכונת השנים המעוברות</h2>
+  <p>לתקן את מה שכבר קרה זה דבר אחד: מוחקים עשרה ימים. אבל איך מונעים מהלוח לזחול שוב? צריך <b>לבטל</b> מדי פעם יום מעובר, כי ראינו שיש יותר מדי מהם. הכלל החדש, שנמצא בלוח שלנו עד היום, הוא שלוש שאלות, אחת אחרי השנייה.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>שאלה 1:</b> האם השנה מתחלקת ב־<span class="num">4</span>? אם לא, היא רגילה. <b>שאלה 2:</b> האם היא שנה "עגולה" של מאה, כמו <span class="num">1900</span> או <span class="num">2100</span>? אם לא, היא מעוברת. <b>שאלה 3:</b> אם כן, האם היא מתחלקת ב־<span class="num">400</span>? רק אז היא מעוברת.</p>
+    <p>כך יוצא ש־<span class="num">2000</span> הייתה מעוברת, אבל <span class="num">1900</span> לא, וגם <span class="num">2100</span> לא תהיה. באינטראקטיב: נחשו על <span class="num">1900</span>, ואז הכניסו שנים למכונה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>כמה ימים מעוברים מיותרים יש? בכל שנה הלוח היוליאני ארוך ב־<span class="num">0.0078</span> של יום, ולכן ב־<span class="num">400</span> שנה: <span class="math">400 × 0.0078 ≈ 3.1</span> ימים. אז הכלל מבטל בדיוק <b><span class="num">3</span> ימים מעוברים בכל <span class="num">400</span> שנה</b>: את שנות המאה שלא מתחלקות ב־<span class="num">400</span>. מכל <span class="num">400</span> שנה, <span class="num">100</span> מתחלקות ב־<span class="num">4</span>, ומהן יורדות <span class="num">3</span>.</p>
+    <p>הכלל בשלוש שאלות: מתחלקת ב־<span class="num">4</span>? מתחלקת ב־<span class="num">100</span>? מתחלקת ב־<span class="num">400</span>? באינטראקטיב: נחשו על <span class="num">1900</span>, הכניסו שנים למכונה, וספרו בעצמכם את המעוברות ב־<span class="num">400</span> שנה.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — מכונת השנים המעוברות ===== -->
+  <div class="panel instrument">
+    <h3>מכונת השנים המעוברות</h3>
+    <p class="cap">נחשו קודם: <span class="num">1900</span> מתחלקת ב־<span class="num">4</span> בלי שארית. האם היא הייתה שנה מעוברת?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="lpP0" onclick="lpPredict(0)">כן, היה בה <span class="num">29</span> בפברואר</button>
+        <button id="lpP1" onclick="lpPredict(1)">לא, היא הייתה רגילה</button>
+      </div>
+    </div>
+    <canvas role="img" id="lpCv" width="640" height="470" aria-label="למעלה מספר שנה גדול. מתחתיו שלוש תחנות בשורה, מימין לשמאל: מתחלקת ב־4? מתחלקת ב־100? מתחלקת ב־400? מתחת לכל תחנה שהשנה הגיעה אליה מופיע כן בירוק או לא באדום, ובמרכז תיבה גדולה עם התשובה: שנה מעוברת, 366 ימים, או שנה רגילה, 365 ימים. למטה רשת של 400 משבצות, השנים 2001 עד 2400: המעוברות בצהוב, ושלוש שנות המאה שדילגו עליהן באדום; השנה שנבחרה מסומנת במסגרת"></canvas>
+    <div class="controls">
+      <label>השנה
+        <input type="range" id="lpY" min="1600" max="2400" step="1" value="2026" oninput="lpDraw(1)" aria-label="השנה" style="direction:ltr">
+      </label>
+      <div class="readout">שנת <b class="num" id="lpOut">2026</b></div>
+    </div>
+    <div class="controls">
+      <button class="btn small ghost" onclick="lpJump(2024)"><span class="num">2024</span></button>
+      <button class="btn small ghost" onclick="lpJump(1900)"><span class="num">1900</span></button>
+      <button class="btn small ghost" onclick="lpJump(2000)"><span class="num">2000</span></button>
+      <button class="btn small ghost" onclick="lpJump(2100)"><span class="num">2100</span></button>
+      <button class="btn small ghost" id="lpJul" onclick="lpToggleJul()">הכלל הישן של יוליוס: כבוי</button>
+    </div>
+    <p class="cap" id="lpMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="lpReveal" hidden><span class="hand">!</span><p>בכלל של יוליוס, כל שנה רביעית מעוברת: <span class="num">100</span> ימים מעוברים בכל <span class="num">400</span> שנה. בכלל החדש <span class="num">97</span>. שלוש שנות המאה האדומות הן התיקון: בלעדיהן, הלוח היה זוחל שוב.</p></div>
+
+  <div class="q qc" id="leapQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE STORY: THE DOCTOR, THE POPE AND THE NIGHT THAT SKIPPED -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+
+  <figure class="calfig" aria-label="דף לוח של אוקטובר 1582: יום חמישי 4 באוקטובר, ומיד אחריו יום שישי 15 באוקטובר; הימים 5 עד 14 חסרים">
+    <svg viewBox="0 0 560 330" role="img" aria-hidden="true" focusable="false">
+      <rect x="8" y="8" width="544" height="314" rx="18" fill="var(--calpage)" stroke="var(--ink)" stroke-width="3"/>
+      <rect x="8" y="8" width="544" height="58" rx="18" fill="var(--calred)" stroke="var(--ink)" stroke-width="3"/>
+      <rect x="8" y="44" width="544" height="22" fill="var(--calred)"/>
+      <line x1="8" y1="66" x2="552" y2="66" stroke="var(--ink)" stroke-width="3"/>
+      <text x="280" y="48" text-anchor="middle" font-family="Secular One, Rubik, Arial" font-size="34" fill="#FFFFFF" direction="rtl">אוקטובר 1582</text>
+      <g font-family="Rubik, Arial" font-weight="700" font-size="30" fill="var(--muted)" text-anchor="middle" direction="rtl">
+        <text x="510" y="100">א׳</text><text x="436" y="100">ב׳</text><text x="362" y="100">ג׳</text><text x="288" y="100">ד׳</text><text x="214" y="100">ה׳</text><text x="140" y="100">ו׳</text><text x="66" y="100">ש׳</text>
+      </g>
+      <g font-family="Rubik, Arial" font-weight="800" font-size="36" fill="var(--ink)" text-anchor="middle" direction="ltr">
+        <text x="436" y="148">1</text><text x="362" y="148">2</text><text x="288" y="148">3</text><text x="214" y="148">4</text><text x="140" y="148" fill="var(--calred)">15</text><text x="66" y="148">16</text>
+        <text x="510" y="202">17</text><text x="436" y="202">18</text><text x="362" y="202">19</text><text x="288" y="202">20</text><text x="214" y="202">21</text><text x="140" y="202">22</text><text x="66" y="202">23</text>
+        <text x="510" y="256">24</text><text x="436" y="256">25</text><text x="362" y="256">26</text><text x="288" y="256">27</text><text x="214" y="256">28</text><text x="140" y="256">29</text><text x="66" y="256">30</text>
+        <text x="510" y="306">31</text>
+      </g>
+      <rect x="182" y="114" width="64" height="48" rx="10" fill="none" stroke="var(--calred)" stroke-width="3"/>
+      <rect x="108" y="114" width="64" height="48" rx="10" fill="none" stroke="var(--calred)" stroke-width="3"/>
+      <path d="M180 138 L174 138" stroke="var(--calred)" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <figcaption>אוקטובר <span class="num">1582</span>: אחרי יום חמישי, <span class="num">4</span>, בא מיד יום שישי, <span class="num">15</span>. שימו לב: <b>ימי השבוע לא נשברו</b>. חמישי, ואחריו שישי, כמו תמיד. רק המספרים קפצו.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>הרופא, האפיפיור והלילה שדילג</h2>
+    <p>מי מצא את הפתרון? לא מלך ולא אסטרונום מפורסם, אלא <b>רופא</b> מדרום איטליה, אלויסיוס ליליוס, שאהב כוכבים וחשבון. אחיו, אנטוניו, הביא את ההצעה שלו לאפיפיור, גרגוריוס ה־<span class="num">13</span>. ליליוס עצמו מת ב־<span class="num">1576</span>, ולא זכה לראות את הרעיון שלו מתקבל.</p>
+    <p>ועדה של חכמים בדקה את ההצעה כמה שנים, והמתמטיקאי כריסטופר קלביוס הגן עליה. בפברואר <span class="num">1582</span> פרסם האפיפיור את ההוראה: בלילה שאחרי <span class="num">4</span> באוקטובר, מדלגים ישר ל־<span class="num">15</span>. באותו לילה נפטרה בספרד נזירה מפורסמת, תרזה מאווילה, ועד היום מציינים את יום הזיכרון שלה ב־<span class="num">15</span> באוקטובר.</p>
+    <p>לא כולם עברו מיד. בריטניה חיכתה <span class="num">170</span> שנה, ובינתיים הלוח הישן זחל עוד, אז היא נאלצה למחוק <span class="num">11</span> ימים. רוסיה עברה רק ב־<span class="num">1918</span>, ומחקה <span class="num">13</span>.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>הרופא שתיקן את הזמן</h2>
+    <p>את הרעיון הגה <b>אלויסיוס ליליוס</b>, רופא ואסטרונום מקלבריה שבדרום איטליה. אחיו אנטוניו הביא את כתב היד לאפיפיור גרגוריוס ה־<span class="num">13</span>, וליליוס מת ב־<span class="num">1576</span>, לפני שהרפורמה יצאה לדרך. המתמטיקאי הישועי <b>כריסטופר קלביוס</b> הפך את הרעיון לשיטה מסודרת והגן עליו מול המבקרים.</p>
+    <p>ב־<span class="num">24</span> בפברואר <span class="num">1582</span> פורסמה ההוראה, ובה שני חלקים, בדיוק כמו בפרקים שלנו: (1) <b>תיקון חד־פעמי</b>: מחיקת <span class="num">10</span> ימים, כדי להחזיר את יום השוויון ל־<span class="num">21</span> במרץ של ניקאה; (2) <b>כלל חדש</b>: שלוש השאלות, כדי שהלוח לא יזחל שוב. ספרד, פורטוגל, רוב איטליה ופולין דילגו מיום חמישי, <span class="num">4</span> באוקטובר, ליום שישי, <span class="num">15</span> באוקטובר. באותו לילה נפטרה בספרד תרזה מאווילה, ולכן יום הזיכרון שלה הוא <span class="num">15</span> באוקטובר.</p>
+    <p>מדינות פרוטסטנטיות ואורתודוקסיות סירבו בהתחלה, ומי שחיכה שילם יותר. בריטניה עברה ב־<span class="num">1752</span>, מ־<span class="num">2</span> בספטמבר ישר ל־<span class="num">14</span>: <span class="num">11</span> ימים, כי ב־<span class="num">1700</span> הלוח הישן הוסיף יום מעובר שהחדש ביטל. (הסיפור על המון שצעק "תחזירו לנו את <span class="num">11</span> הימים" הוא כנראה אגדה.) רוסיה עברה ב־<span class="num">1918</span>, עם <span class="num">13</span> ימים.</p>
+    <p>ובישראל: הכנסיות האורתודוקסיות בירושלים ובבית לחם נשארו עם הלוח היוליאני, ולכן חג המולד שלהן חל ב־<span class="num">7</span> בינואר. והיום, <span class="num">14</span> באוקטובר, הוא אצלן <span class="num">1</span> באוקטובר.</p>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: THE MOON'S CALENDAR (interactive 4) (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>הלוח שלנו סופר גם את הירח</h2>
+  <p>ללוח העברי יש בעיה קשה עוד יותר. החודשים שלו הולכים לפי <b>הירח</b>: מולד ועוד מולד, בערך <span class="num">29.5</span> ימים. <span class="num">12</span> חודשים כאלה הם בערך <span class="num">354</span> ימים, כלומר <b><span class="num">11</span> ימים פחות</b> משנת השמש. אבל בתורה כתוב שפסח צריך לחול ב"חודש האביב". אז איך מחזיקים את פסח באביב?</p>
+
+  <!-- ===== INTERACTIVE 4 — הירח מול השמש ===== -->
+  <div class="panel instrument">
+    <h3>איפה יהיה פסח?</h3>
+    <p class="cap">נחשו קודם: אם הלוח העברי היה סופר רק <span class="num">12</span> חודשים בכל שנה, איפה היה נופל פסח אחרי <span class="num">19</span> שנים?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="lnP0" onclick="lnPredict(0)">עדיין באביב</button>
+        <button id="lnP1" onclick="lnPredict(1)">בספטמבר, כמעט חצי שנה קודם</button>
+        <button id="lnP2" onclick="lnPredict(2)">בדיוק באותו יום</button>
+      </div>
+    </div>
+    <canvas role="img" id="lnCv" width="640" height="470" aria-label="משמאל: גלגל עונות גדול בארבעה צבעים, חורף, אביב, קיץ וסתיו, ועליו דגל של פסח. מימין: שורה של 19 שנים, שבע מהן מסומנות כשנים מעוברות, עם אדר א׳, ומתחתיה פס שמראה בכמה ימים פסח זז מהמקום המקורי שלו. בלי אדר א׳, בכל שנה פסח זז 11 ימים מוקדם יותר, ואחרי 19 שנה הוא כבר בסוף ספטמבר; עם אדר א׳, בכל שנה מעוברת הוא קופץ חזרה כחודש, ונשאר באביב"></canvas>
+    <div class="controls">
+      <label>כמה שנים עברו
+        <input type="range" id="lnY" min="0" max="19" step="1" value="0" oninput="lnDraw(1)" aria-label="כמה שנים עברו" style="direction:ltr">
+      </label>
+      <button class="btn small ghost" id="lnAdar" onclick="lnToggleAdar()">חודש מעובר: כבוי</button>
+    </div>
+    <div class="controls">
+      <div class="readout">שנים: <b class="num" id="lnOut">0</b></div>
+      <div class="readout">פסח זז: <b class="num" id="lnOut2">0</b> ימים</div>
+    </div>
+    <p class="cap" id="lnMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הפתרון של הלוח העברי: מדי פעם מוסיפים <b>חודש שלם</b>, אדר א׳, לפני אדר הרגיל. זה קורה <span class="num">7</span> פעמים בכל <span class="num">19</span> שנים. שנה כזאת נקראת "שנה מעוברת", בדיוק כמו אצל השמש, רק שאצלנו מעברים בחודש ולא ביום. והשנה, תשפ״ז, היא שנה מעוברת: יהיו בה אדר א׳ ואדר ב׳, ופורים יחול באדר ב׳.</p>
+    <p>יש לוחות שלא עושים את זה. הלוח המוסלמי סופר רק את הירח, ולכן חודש הרמדאן מקדים בכל שנה בערך ב־<span class="num">11</span> ימים, ועובר בין כל העונות. שלושה לוחות, אותה בעיה בדיוק: השמיים לא מתחלקים במספרים שלמים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>החשבון שמאחורי <span class="num">19</span> השנים: <span class="math">19 × 365.2422 ≈ 6,939.6</span> ימים של שמש, ו־<span class="math">235 × 29.5306 ≈ 6,939.7</span> ימים של ירח. כמעט שווה! כלומר <span class="num">19</span> שנות שמש הן <span class="num">235</span> חודשי ירח. ב־<span class="num">19</span> שנים רגילות של <span class="num">12</span> חודשים יש רק <span class="math">19 × 12 = 228</span>, ולכן חסרים <span class="math">235 − 228 = 7</span> חודשים. הם נכנסים כאדר א׳ בשנים <span class="math">3, 6, 8, 11, 14, 17, 19</span> של המחזור. תשפ״ז היא השנה ה־<span class="num">11</span> במחזור, ולכן מעוברת. (לפי המסורת, הלל השני קבע את הלוח המחושב בסביבות <span class="num">359</span>; היסטוריונים חושבים שחלק מהכללים התגבשו מאות שנים אחר כך.)</p>
+    <p>גם ללוח העברי יש שארית: הוא זוחל בערך יום אחד בכל <span class="num">216</span> שנה. וגם הגרגוריאני לא מושלם: השנה הממוצעת שלו ארוכה מהאמיתית בכ־<span class="num">27</span> שניות, כלומר יום שלם בערך בכל <span class="math">86,400 ÷ 27 = 3,200</span> שנה (ביום יש <span class="num">86,400</span> שניות). כל לוח הוא בחירה של איזו טעות מוכנים לסבול.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> שנה יוליאנית היא <span class="num">365.25</span> ימים, והשנה האמיתית <span class="num">365.2422</span>. (א) בכמה <b>שניות</b> השנה היוליאנית ארוכה מדי? (ביום יש <span class="math">24 × 60 × 60 = 86,400</span> שניות.) (ב) נניח שהעולם היה נשאר עם הלוח של יוליוס. כמה <b>ימים</b> היו מצטברים מוועידת ניקאה, בשנת <span class="num">325</span>, ועד השנה, <span class="num">2026</span>? (עגלו לספרה אחת אחרי הנקודה. מותר מחשבון.)</p>
+      <div class="controls">
+        <label>(א) שניות בשנה <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) ימים <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> הלוח של יוליוס קיסר התחיל בשנה <span class="num">45</span> לפני הספירה, כמעט <span class="num">370</span> שנה לפני ניקאה. אז למה האפיפיור מחק רק <span class="num">10</span> ימים, ולא <span class="num">13</span>, כדי לחזור לימי יוליוס?</p>
+      <details><summary>הרמז והתשובה</summary><p><b>כי המטרה לא הייתה לחזור לימי יוליוס, אלא לימי ניקאה.</b> בשנת <span class="num">325</span> קבעו את חג הפסחא לפי יום השוויון, שנפל אז בערך ב־<span class="num">21</span> במרץ, והכנסייה רצתה להחזיר אותו בדיוק לשם. בימי יוליוס יום השוויון נפל בתאריך אחר, בסביבות <span class="math">23–25</span> במרץ, ואת זה אף אחד לא ביקש לשחזר. כלומר, גם תיקון מדעי תלוי בשאלה מה רוצים לשמור.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>לוח השנה על השולחן שלכם, והשמש בחצר.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — בלשי השנים המעוברות (<span class="num">5</span> דקות)</h3>
+    <p class="cap">מה צריך: דף, עיפרון, ואת שנות הלידה של כל מי שבבית.</p>
+    <ol>
+      <li>רשמו את שנות הלידה של כולם במשפחה, גם של סבא וסבתא.</li>
+      <li>העבירו כל שנה בשלוש השאלות: מתחלקת ב־<span class="num">4</span>? מתחלקת ב־<span class="num">100</span>? מתחלקת ב־<span class="num">400</span>?</li>
+      <li>למי מכם היה <span class="num">29</span> בפברואר בשנת הלידה? ומי נולד בשנה עם <span class="num">365</span> ימים בלבד?</li>
+      <li>חידה לארוחת ערב: האם סבא או סבתא של סבא שלכם חיו בשנת <span class="num">1900</span>? אם כן, באותה שנה לא היה להם <span class="num">29</span> בפברואר.</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — הצל שמודד את השנה (שבוע, <span class="num">2</span> דקות ביום)</summary>
+    <p>תקעו מקל ישר בעציץ או באדמה, במקום שיש בו שמש בצהריים. בכל יום, באותה שעה בדיוק, למשל ב־<span class="math">12:45</span>, סמנו באבן או בגיר איפה נגמר הצל. אחרי שבוע תראו שהסימנים זזים: עכשיו, באוקטובר, הצל מתארך מיום ליום, כי השמש נמוכה יותר. בעוד שנה, באותו יום, הצל יחזור כמעט בדיוק לאותו סימן. ככה הקדמונים ידעו מתי השנה נגמרת, הרבה לפני שהיו לוחות.</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — שני לוחות בטלפון (<span class="num">3</span> דקות, עם מבוגר)</summary>
+    <p>בהגדרות של לוח השנה בטלפון אפשר להוסיף גם את הלוח העברי. חפשו את חודש פברואר <span class="num">2027</span>: תמצאו שם את אדר א׳, כי תשפ״ז מעוברת. ועכשיו בדקו: באיזה יום בשבוע יחול <span class="num">7</span> בינואר <span class="num">2027</span>, חג המולד של הכנסיות האורתודוקסיות בירושלים?</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הרעיון הגדול: <b>השמיים לא מתחלקים במספרים שלמים.</b> שנה היא לא בדיוק <span class="num">365</span> ימים, וחודש של ירח הוא לא בדיוק <span class="num">30</span>. כל לוח שנה בעולם הוא תכסיס חכם להסתיר את השאריות האלה: יום מעובר, חודש מעובר, ומדי פעם מחיקה.</p>
+    <p>והרעיון השני: <b>טעות קטנה שחוזרת הרבה פעמים הופכת לטעות גדולה.</b> <span class="num">11</span> דקות בשנה הפכו לעשרה ימים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הראשון: <b>לוח שנה הוא קירוב של מספר לא שלם בעזרת שברים.</b> <span class="num">365.2422</span> הוא בערך <span class="math">365 + 1 ÷ 4</span>, וקירוב טוב יותר הוא <span class="math">365 + 97 ÷ 400</span>. הלוח העברי עושה אותו דבר עם <span class="math">235 ÷ 19</span> חודשים בשנה.</p>
+    <p>הרעיון השני: <b>טעות שתמיד לאותו כיוון מצטברת.</b> הלוח היוליאני טעה תמיד לאותו כיוון, ולכן הטעות גדלה בקו ישר. שאלה לחקור: הלוח הגרגוריאני טועה <span class="num">27</span> שניות בשנה, תמיד לאותו כיוון. איזה כלל הייתם מוסיפים כדי לתקן גם את זה?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">היסטוריה · רוסיה</div><h3>מהפכת אוקטובר שקרתה בנובמבר</h3><p>המהפכה ברוסיה פרצה ב־<span class="num">25</span> באוקטובר <span class="num">1917</span> לפי הלוח הרוסי הישן. בלוח שלנו זה <span class="num">7</span> בנובמבר. רוסיה עברה ללוח החדש רק כמה חודשים אחר כך.</p></div>
+    <div class="tile"><div class="dom">ישראל · ירושלים</div><h3>חג המולד ב־<span class="num">7</span> בינואר</h3><p>הכנסיות האורתודוקסיות בירושלים ובבית לחם חוגגות לפי הלוח הישן. היום הפער <span class="num">13</span> ימים. אחרי <span class="num">2100</span>, שבלוח הישן תהיה מעוברת ובחדש לא, הוא יהיה <span class="num">14</span>.</p></div>
+    <div class="tile"><div class="dom">מתמטיקה · מחשבים</div><h3>הבאג של <span class="num">1900</span></h3><p>תוכנת הגיליונות Excel חושבת עד היום ש־<span class="num">1900</span> הייתה מעוברת. זו טעות ישנה מתוכנה קודמת, ומיקרוסופט השאירה אותה בכוונה, כדי שקבצים ישנים לא יישברו.</p></div>
+    <div class="tile"><div class="dom">גאוגרפיה · לוחות</div><h3>החודש שמסתובב בין העונות</h3><p>הלוח המוסלמי הולך רק לפי הירח, בלי חודש מעובר. לכן הרמדאן מקדים בכל שנה בכ־<span class="num">11</span> ימים, ובתוך כ־<span class="num">33</span> שנים עובר בכל העונות.</p></div>
+  </div>
+
+  <details class="bonus" id="leapBox">
+    <summary>בונוס (<span class="num">2</span> דקות): כמה ימי הולדת יש למי שנולד ב־<span class="num">29</span> בפברואר?</summary>
+    <p>נועם נולד ב־<span class="num">29</span> בפברואר <span class="num">2016</span>. כשימלאו לו <span class="num">12</span>, כמה פעמים כבר היה לו יום הולדת "אמיתי", בתאריך שלו בדיוק? נסו לבד לפני שפותחים.</p>
+    <details><summary>התשובה</summary>
+      <p>השנים המעוברות אחרי <span class="num">2016</span>: <span class="math">2020, 2024, 2028</span>. ב־<span class="num">2028</span> ימלאו לו בדיוק <span class="num">12</span>. אז <span class="num">3</span> ימי הולדת אמיתיים בלבד. ובשאר השנים? רוב האנשים שנולדו ב־<span class="num">29</span> בפברואר חוגגים ב־<span class="num">28</span> בפברואר או ב־<span class="num">1</span> במרץ.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את האירועים לפי הזמן, מהמוקדם למאוחר. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: בכל שנה נשארת שארית של כמעט <span class="num">6</span> שעות. אם לא מוסיפים אף יום מעובר, כמה שעות מצטברות ב־<span class="num">8</span> שנים? (חשבו בדיוק <span class="num">6</span> שעות בכל שנה.)</div>
+    <div class="controls"><label>שעות <input type="number" id="numYounger" inputmode="numeric" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: בלוח הגרגוריאני מחזור שלם הוא <span class="num">400</span> שנה, ויש בו <span class="num">97</span> שנים מעוברות. (א) כמה ימים יש בסך הכול ב־<span class="num">400</span> השנים? (ב) השנה האמיתית היא <span class="num">365.2422</span> ימים. בכמה <b>שניות</b> השנה הממוצעת בלוח שלנו ארוכה ממנה? (ביום <span class="num">86,400</span> שניות. עגלו לשנייה שלמה. מותר מחשבון.)</div>
+    <div class="controls"><label>(א) ימים <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) שניות <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: בלוח הגרגוריאני, בכל <span class="num">400</span> שנה יש <span class="num">97</span> שנים מעוברות, ובכל אחת מהן יום נוסף. כמה ימים יש בסך הכול ב־<span class="num">400</span> השנים האלה?</div>
+    <div class="controls"><label>ימים <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה בשנת <span class="num">1582</span> היה צריך למחוק עשרה ימים, ואיך הכלל החדש שומר שהלוח לא יזחל שוב?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="שנה היא לא בדיוק 365 ימים..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. בשנת <span class="num">1582</span>, בספרד ובאיטליה, אחרי יום חמישי, <span class="num">4</span> באוקטובר, בא מיד יום שישי, <span class="num">15</span> באוקטובר. האפיפיור מחק <b>עשרה ימים</b>, כי השנה בלוח הישן של יוליוס קיסר הייתה ארוכה מעט מדי, והלוח פיגר אחרי השמש: בכל שנה כ־<span class="num">11</span> דקות, ובמשך מאות שנים עשרה ימים.<br>
+    2. השנה האמיתית היא <span class="num">365</span> ימים ועוד <span class="num">5</span> שעות ו־<span class="num">49</span> דקות. לכן כל שנה רביעית מעוברת, <b>חוץ</b> משנות מאה שלא מתחלקות ב־<span class="num">400</span>: <span class="num">2000</span> הייתה מעוברת, <span class="num">1900</span> לא, ו־<span class="num">2100</span> לא תהיה.<br>
+    3. הלוח העברי הולך לפי הירח, ו־<span class="num">12</span> חודשי ירח קצרים בכ־<span class="num">11</span> ימים משנת שמש. לכן <span class="num">7</span> פעמים בכל <span class="num">19</span> שנים מוסיפים חודש שלם, אדר א׳, כדי שפסח יישאר באביב. והשנה, תשפ״ז, היא בדיוק שנה כזאת.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>הבולה והמעבר: ויקיפדיה, "Inter gravissimas" — הוצאה ב־<span class="num">24</span> בפברואר <span class="num">1582</span> בידי גרגוריוס ה־<span class="num">13</span>; הושמטו <span class="math">5–14</span> באוקטובר <span class="num">1582</span>, יום חמישי <span class="num">4</span> באוקטובר ואחריו יום שישי <span class="num">15</span>; המטרה: להחזיר את יום השוויון האביבי ל־<span class="num">21</span> במרץ כבימי ניקאה (<span class="num">325</span>); כלל שנות המאה (<span class="num">1700</span>, <span class="num">1800</span>, <span class="num">1900</span> רגילות; <span class="num">1600</span>, <span class="num">2000</span> מעוברות). Britannica, "Ten days that vanished". ויקיפדיה, "Adoption of the Gregorian calendar" — ספרד, פורטוגל, מדינות איטליה ופולין־ליטא באוקטובר <span class="num">1582</span>; צרפת <span class="math">9 → 20</span> בדצמבר <span class="num">1582</span>; בריטניה <span class="math">2 → 14</span> בספטמבר <span class="num">1752</span>; רוסיה <span class="math">31.1 → 14.2.1918</span>, מהפכת אוקטובר = <span class="num">7</span> בנובמבר; יוון <span class="num">1923</span>. ויקיפדיה, "Calendar (New Style) Act 1750" — סיפור המהומות "Give us our eleven days" כנראה מיתוס (צ׳סטרפילד, הציור של הוגארת׳). ויקיפדיה, "Aloysius Lilius" — רופא ואסטרונום מצ׳ירו שבקלבריה, נפטר ב־<span class="num">1576</span>; אחיו אנטוניו הגיש את כתב היד; קלביוס. Aleteia (<span class="num">2024</span>), על תרזה מאווילה — נפטרה בלילה שבו הוחלף הלוח; יום הזיכרון שלה <span class="num">15</span> באוקטובר.</p>
+    <p>המספרים: timeanddate.com, "How accurate are calendars?" — שנה טרופית ממוצעת כ־<span class="num">365.242189</span> ימים; הלוח היוליאני ארוך בכ־<span class="num">11</span> דקות, יום בכל כ־<span class="num">128</span> שנה; הגרגוריאני ארוך בכ־<span class="num">27</span> שניות, יום בכל כ־<span class="num">3,236</span> שנה (בטקסט עוגל ל־<span class="num">3,200</span>); הלוח העברי — יום בכל כ־<span class="num">216</span> שנה. ויקיפדיה, "Julian calendar" — נכנס לתוקף ב־<span class="num">1</span> בינואר <span class="num">45</span> לפנה״ס, <span class="num">46</span> לפנה״ס בת <span class="num">445</span> ימים ("שנת הבלבול"), סוסיגנס מאלכסנדריה; פער של <span class="num">13</span> ימים בשנים <span class="math">1901–2099</span>. Al Jazeera (ינואר <span class="num">2026</span>) — חג המולד האורתודוקסי ב־<span class="num">7</span> בינואר, פער <span class="num">13</span> ימים שיגדל ל־<span class="num">14</span>. Microsoft Learn, "Excel incorrectly assumes that the year 1900 is a leap year" — תאימות ל־<span class="math">Lotus 1-2-3</span>.</p>
+    <p>הלוח העברי: timeanddate.com, "Jewish leap year" — <span class="num">7</span> שנים מעוברות במחזור של <span class="num">19</span> (<span class="math">3, 6, 8, 11, 14, 17, 19</span>), אדר א׳ נוסף לפני אדר; שנה רגילה <span class="num">354</span> ימים (כסדרה). ויקיפדיה, "Hebrew calendar" — מחזור מטוני: <span class="num">235</span> חודשים ב־<span class="num">19</span> שנים; חודש ממוצע <span class="num">29.530594</span> ימים; שנה ממוצעת <span class="num">365.2468</span>; המסורת מייחסת את הלוח המחושב להלל השני (<span class="math">358–359</span> לספירה), ומחקר מודרני מאחר חלק מכלליו למאות ה־<span class="math">7–8</span>. תשפ״ז היא השנה ה־<span class="num">11</span> במחזור ולכן מעוברת.</p>
+    <p>חישובי השיעור: הצעיר <span class="math">8 × 6 = 48</span> שעות; הבוגר <span class="math">400 × 365 + 97 = 146,097</span> ימים; מתקדם (א) <span class="num">146,097</span>, (ב) <span class="math">(146,097 ÷ 400 − 365.2422) × 86,400 = 0.0003 × 86,400 ≈ 26</span> שניות (בטקסט "כ־27", לפי השנה המדויקת יותר <span class="num">365.242189</span>); האתגר (א) <span class="math">(365.25 − 365.2422) × 86,400 ≈ 674</span> שניות (<span class="num">11</span> דקות ו־<span class="num">14</span> שניות), (ב) <span class="math">(2026 − 325) × 0.0078 ≈ 13.3</span> ימים — הפער של <span class="num">13</span> ימים בין הלוחות היום; בונוס: <span class="math">2020, 2024, 2028</span> — <span class="num">3</span> ימי הולדת.</p>
+    <p>פישוטים במכוון: באינטראקטיב הראשון המרחק של כדור הארץ מהדגל מצויר גדול בהרבה מהאמת, כדי שיהיה אפשר לראות אותו; באינטראקטיב השני יום השוויון מחושב בקו ישר מ־<span class="num">21</span> במרץ ב־<span class="num">325</span>, יום אחד בכל <span class="num">128</span> שנה, ואחרי <span class="num">1582</span> מוצג כקבוע (במציאות הוא נע בין <span class="num">19</span> ל־<span class="num">21</span> במרץ במחזור של <span class="num">400</span> שנה); ב־<span class="num">2026</span> יום השוויון היה ב־<span class="num">20</span> במרץ, כלומר <span class="num">7</span> במרץ בלוח היוליאני, והמודל מראה כ־<span class="num">8</span>; באינטראקטיב הרביעי פסח מתחיל ב־<span class="num">20</span> באפריל, ושנת ירח מחושבת כ־<span class="num">354.37</span> ימים; "יום השוויון של ימי יוליוס, <span class="math">23–25</span> במרץ" — הערכה, ותלוי בחישוב; סיפור תרזה מאווילה מסופר בכמה גרסאות לגבי השעה המדויקת.</p>
+  </details>
+</section>
+
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:33, code:'WOW-033', date:'2026-10-14', title:'עשרת הימים שלא היו', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '153Xmdee15zXoteg15Qg153Xmdee15nXlCDXqteo16nXog=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'math', w:3 }, { id:'space', w:2 }, { id:'history', w:2 }, { id:'earth', w:1 } ],
+  /* lint-ignore: math */
+  hero: { name:'עשרת הימים שלא היו — השארית של השנה, הכלל של 400 והחודש המעובר', fact:'שנה היא 365 ימים ו־5:49 שעות; היום המעובר מתקן קצת יותר מדי, ולכן ב־1582 נמחקו 10 ימים.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'estimation',            d:2 },
+    'qc:orbitQ':      { skill:'mechanism',             d:2 },
+    'qc:driftQ':      { skill:'cause-effect',          d:3 },
+    'qc:leapQ':       { skill:'rule-application',      d:2 },
+    'qc:storyQ':      { skill:'history',               d:2 },
+    'qc:deepQ':       { skill:'mechanism',             d:2 },
+    'mcq:shared:0':   { skill:'principle',             d:3 },
+    'mcq:shared:1':   { skill:'rule-application',      d:2 },
+    'mcq:shared:2':   { skill:'cause-effect',          d:3 },
+    'mcq:younger:0':  { skill:'recall',                d:2 },
+    'mcq:older:0':    { skill:'rate-estimate',         d:4 },
+    'order':          { skill:'chronology',            d:3 },
+    'num:younger':    { skill:'multiplication',        d:2 },
+    'num:older':      { skill:'multi-step',            d:3 },
+    'num:adv':        { skill:'average',               d:4 },
+    'challenge':      { skill:'error-accumulation',    d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ yrDraw(0); showArtoTip(); } if(n===2) drDraw(0); if(n===3) lpDraw(0); if(n===5) lnDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: how much longer than 365 whole days is one trip around the Sun? ----------
+   Four choices on a log scale, in minutes (11 / 60 / 349 / 1440): the tropical year is about 365.2422 days, so the leftover is about 349 min (5 h 49 min). data-scale: minutes. */
+const SCALE_ANS = 349;                                                // timeanddate: tropical year ≈ 365.242189 days → 5 h 48 m 45 s ≈ 5 h 49 min
+const fmtSigns = n => n<30 ? 'כ־11 דקות' : n<200 ? 'שעה אחת' : n<900 ? 'כמעט 6 שעות' : 'יום שלם';
+const SCALE_FB = {
+  349: '<span class="pill-ok">קלעתם!</span> שנה היא <span class="num">365</span> ימים ועוד <span class="num">5</span> שעות ו־<span class="num">49</span> דקות, כמעט רבע יום. רבע יום בכל שנה נשמע מעט. אבל מה קורה כשהוא מצטבר במשך מאות שנים? על זה השיעור.',
+  11: '<span class="pill-bad">הרבה יותר.</span> שנה היא <span class="num">365</span> ימים ועוד <span class="num">5</span> שעות ו־<span class="num">49</span> דקות, כמעט רבע יום. דווקא <span class="num">11</span> דקות יופיעו בשיעור, כטעות קטנה שגרמה לבלגן גדול. על זה השיעור.',
+  60: '<span class="pill-bad">יותר.</span> שנה היא <span class="num">365</span> ימים ועוד <span class="num">5</span> שעות ו־<span class="num">49</span> דקות, כמעט רבע יום. מה קורה כשרבע יום מצטבר במשך מאות שנים? על זה השיעור.',
+  1440: '<span class="pill-bad">קצת פחות.</span> שנה היא <span class="num">365</span> ימים ועוד <span class="num">5</span> שעות ו־<span class="num">49</span> דקות, כמעט רבע יום, לא יום שלם. מה קורה כשרבע יום מצטבר במשך מאות שנים? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* deterministic pseudo-random (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* a generic play/scrub helper: animates a 0–100 range input over `ms` milliseconds, calling draw(1) each frame */
+function xPlayer(id, rangeId, btnId, ms, draw, onLabel, offLabel){
+  const st={ raf:0 };
+  st.toggle=function(){ if(st.raf){ cancelAnimationFrame(st.raf); st.raf=0; st.btn(false); return; }
+    const r=document.getElementById(rangeId); const top=+(r.max||100); if(+r.value>=top) r.value=0;
+    if(XREDUCED){ r.value=Math.min(top,+r.value+20); draw(1); return; }
+    const t0=performance.now(), start=+r.value; st.btn(true);
+    const step=now=>{ const v=Math.min(top, start+(now-t0)/ms*100); r.value=Math.round(v); draw(1); if(v<top){ st.raf=requestAnimationFrame(step); } else { st.raf=0; st.btn(false); } };
+    st.raf=requestAnimationFrame(step); };
+  st.btn=function(on){ const b=document.getElementById(btnId); b.textContent = on ? onLabel : offLabel; b.classList.toggle('on',on); };
+  return st;
+}
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+/* ---------- shared numbers for this edition ---------- */
+const PI = Math.PI;
+const TROPICAL = 365.2422;                     // days, spring equinox to spring equinox (timeanddate: 365.242189)
+const YEAR_H = 5+49/60;                        // 5 h 49 min left over every year (0.2422 × 24 ≈ 5.81 h)
+const JUL_DRIFT = 128;                         // the Julian calendar slips one day every ~128 years
+const MONTH_D = 29.5306, LUNAR_Y = 12*MONTH_D, LN_DIFF = TROPICAL-LUNAR_Y;   // 354.37 days; 10.875 days short of the Sun
+const LN_LEAPS = [3,6,8,11,14,17,19];          // leap years of the 19-year cycle (Adar I added)
+const isLeapG = y => (y%4===0 && (y%100!==0 || y%400===0));
+const isLeapJ = y => y%4===0;
+/* this edition's colours */
+const SUNC = () => isDark() ? '#F6C454' : '#F2B33D';
+const SUND = () => isDark() ? '#E79A2C' : '#C77F12';
+const EARTH = () => isDark() ? '#5AA9E6' : '#2F7FC0';
+const LAND = () => isDark() ? '#6BC48A' : '#3F9A5E';
+const CALRED = () => isDark() ? '#F2806F' : '#C8452D';
+const PAGE = () => isDark() ? '#2A2F55' : '#FFFDF6';
+const GRIDC = () => isDark() ? 'rgba(242,237,224,.30)' : 'rgba(27,31,51,.22)';
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const SEASON = () => isDark() ? { w:'#3D6FA8', sp:'#3E9A62', su:'#C9932A', au:'#B8612E' } : { w:'#8DBDE6', sp:'#8CCB8F', su:'#F2C96B', au:'#E9A06A' };
+function hm(h){ const a=Math.abs(h), H=Math.floor(a+1e-9), M=Math.round((a-H)*60); return M===60 ? (H+1)+':00' : H+':'+String(M).padStart(2,'0'); }
+function xSun(c,x,y,r){ c.save(); c.strokeStyle=SUND(); c.lineWidth=4; c.lineCap='round';
+  for(let i=0;i<12;i++){ const a=i*PI/6; c.beginPath(); c.moveTo(x+Math.cos(a)*(r+8),y+Math.sin(a)*(r+8)); c.lineTo(x+Math.cos(a)*(r+22),y+Math.sin(a)*(r+22)); c.stroke(); }
+  c.fillStyle=SUNC(); c.strokeStyle=css('--ink'); c.lineWidth=2.5; c.beginPath(); c.arc(x,y,r,0,PI*2); c.fill(); c.stroke(); c.restore(); }
+function xEarth(c,x,y,r){ c.save(); c.fillStyle=EARTH(); c.strokeStyle=css('--ink'); c.lineWidth=2.5; c.beginPath(); c.arc(x,y,r,0,PI*2); c.fill();
+  c.clip(); c.fillStyle=LAND(); c.beginPath(); c.ellipse(x-r*0.3,y-r*0.2,r*0.45,r*0.3,0.5,0,PI*2); c.fill(); c.beginPath(); c.ellipse(x+r*0.4,y+r*0.35,r*0.35,r*0.25,-0.4,0,PI*2); c.fill(); c.restore();
+  c.strokeStyle=css('--ink'); c.lineWidth=2.5; c.beginPath(); c.arc(x,y,r,0,PI*2); c.stroke(); }
+/* a little calendar page: red band on top, a big LTR number, an optional Hebrew word under it */
+function xPage(c,x,y,w,h,num,word,col,alpha){ c.save(); c.globalAlpha=alpha||1;
+  c.fillStyle=PAGE(); c.strokeStyle=css('--ink'); c.lineWidth=2.5; c.beginPath(); c.roundRect(x,y,w,h,10); c.fill(); c.stroke();
+  c.fillStyle=col||CALRED(); c.beginPath(); c.roundRect(x,y,w,h*0.24,[10,10,0,0]); c.fill(); c.stroke();
+  c.restore(); c.save(); c.globalAlpha=alpha||1;
+  xNum(c,num,x+w/2,y+h*(word?0.53:0.6),Math.min(46,h*0.38),css('--ink'));
+  if(word) xText(c,word,x+w/2,y+h*0.83,20,css('--muted'));
+  c.restore(); }
+
+/* ---------- step 1 (interactive 1): the leftover clock — 365 whole days, and the Earth still has 5 h 49 min to go (canvas) ----------
+   yrN = years gone by (0–12); YR.leap = add 29 February every 4th year. Gap in hours: +5.81 h a year, −24 h on every leap day.
+   Left: the orbit; the Earth's distance from the start flag is drawn ~40× larger than real so it can be seen. Right: a 24-hour clock filling with the leftover. */
+const yrCv=document.getElementById('yrCv'), yrctx=yrCv.getContext('2d');
+const YR={ opened:0, pred:-1, revealed:0, leap:false };
+function yrPredict(k){ YR.pred=k; [0,1,2].forEach(i=>document.getElementById('yrP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'orbit:predict', kind:'quick', correct:k===1, attempt: wowTry('orbit:predict') });
+  yrMsg.innerHTML = k===1 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו הזיזו את מספר השנים ובדקו.' : 'רשמנו את הניחוש. עכשיו הזיזו את מספר השנים ובדקו.'; }
+function yrToggleLeap(){ if(YR.pred<0){ yrMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז נסו.'; return; } YR.leap=!YR.leap; const b=document.getElementById('yrLeap'); b.textContent = YR.leap ? 'יום מעובר: פועל' : 'יום מעובר: כבוי'; b.classList.toggle('on',YR.leap); WOW.emit('item', { id:'orbit:leap', kind:'toggle', on: YR.leap }); yrDraw(1); }
+function yrGap(n, leap){ let g=0, d=0; for(let i=1;i<=n;i++){ g+=YEAR_H; if(leap && i%4===0){ g-=24; d++; } } return { g, d }; }
+function yrDraw(user){
+  const c=yrctx, W=yrCv.width, H=yrCv.height;
+  if(user && YR.pred<0 && +yrN.value>0){ yrN.value=0; yrMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז הזיזו.'; }
+  if(user && !YR.opened){ YR.opened=1; WOW.emit('open', { id:'orbit' }); }
+  const n=+yrN.value, { g, d } = yrGap(n, YR.leap);
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* --- left: the orbit --- */
+  const cx=175, cy=250, R=138;
+  c.strokeStyle=GRIDC(); c.lineWidth=3; c.setLineDash([8,8]); c.beginPath(); c.arc(cx,cy,R,0,PI*2); c.stroke(); c.setLineDash([]);
+  xSun(c,cx,cy,42);
+  /* the start flag at the top of the orbit */
+  const fx=cx, fy=cy-R;
+  c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.moveTo(fx,fy+16); c.lineTo(fx,fy-44); c.stroke();
+  c.fillStyle=CALRED(); c.beginPath(); c.moveTo(fx,fy-44); c.lineTo(fx-34,fy-34); c.lineTo(fx,fy-24); c.closePath(); c.fill(); c.stroke();
+  xLabel(c,'ההתחלה',fx+78,fy-30,22,css('--ink'));
+  /* the Earth when the calendar says "new year": behind the flag by g hours (drawn 1.6° per hour); ahead if g<0 */
+  const lag = clamp(g*1.6, -40, 125)*PI/180, a = -PI/2 - lag;
+  const ex=cx+R*Math.cos(a), ey=cy+R*Math.sin(a);
+  if(Math.abs(g)>0.01){
+    c.strokeStyle = g>0 ? DANG() : GOOD(); c.lineWidth=8; c.lineCap='round'; c.beginPath();
+    if(g>0) c.arc(cx,cy,R,a,-PI/2); else c.arc(cx,cy,R,-PI/2,a); c.stroke(); c.lineCap='butt';
+  }
+  xEarth(c,ex,ey,18);
+  if(n===0) xLabel(c,'יוצאים לדרך',cx,cy+R+34,22,css('--ink'));
+  else if(g>0.01) xTag(c, 'חסרות (שעות):', hm(g), cx, cy+R+34, 22, DANG(), 'center');
+  else xLabel(c, g<-0.01 ? 'כמעט בדיוק!' : 'בדיוק!', cx, cy+R+34, 22, GOOD());
+  /* --- right: the 24-hour leftover clock --- */
+  const px=505, py=165, pr=82;
+  xText(c,'שעון השארית',px,30,22,css('--muted'));
+  c.fillStyle=css('--card'); c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.arc(px,py,pr,0,PI*2); c.fill(); c.stroke();
+  const part = g>0 ? (g/24 - Math.floor(g/24)) : 0;
+  if(part>0.001){ c.fillStyle=DANG(); c.globalAlpha=.75; c.beginPath(); c.moveTo(px,py); c.arc(px,py,pr-3,-PI/2,-PI/2+part*PI*2); c.closePath(); c.fill(); c.globalAlpha=1; }
+  c.strokeStyle=css('--ink'); c.lineWidth=2;
+  for(let h=0;h<24;h+=6){ const t=-PI/2+h/24*PI*2; c.beginPath(); c.moveTo(px+Math.cos(t)*(pr-12),py+Math.sin(t)*(pr-12)); c.lineTo(px+Math.cos(t)*pr,py+Math.sin(t)*pr); c.stroke(); }
+  xNum(c,'24',px,py-pr-16,20,css('--muted')); xNum(c,'12',px,py+pr+18,20,css('--muted')); xNum(c,'6',px+pr+22,py,20,css('--muted')); xNum(c,'18',px-pr-28,py,20,css('--muted'));
+  xNum(c, hm(Math.max(0,g)-Math.floor(Math.max(0,g)/24)*24), px, py, 25, css('--ink'));
+  /* pages: whole days the calendar ran ahead of the Sun (no leap day) or 29 February pages (leap day) */
+  const full = g>0 ? Math.floor(g/24) : 0, pages = YR.leap ? d : full;
+  const pw=74, ph=72, gap=10, y0=292, x0=px-((pw+gap)*3-gap)/2;
+  for(let i=0;i<3;i++){ const x=x0+(2-i)*(pw+gap);
+    if(i<pages) xPage(c,x,y0,pw,ph, YR.leap?'29':'+1', null, YR.leap?GOOD():DANG());
+    else { c.strokeStyle=GRIDC(); c.lineWidth=2; c.setLineDash([6,6]); c.beginPath(); c.roundRect(x,y0,pw,ph,10); c.stroke(); c.setLineDash([]); } }
+  xLabel(c, YR.leap ? '29 בפברואר' : 'ימים שהלוח ממהר', px, y0+ph+34, 20, YR.leap?GOOD():DANG());
+  /* readouts & message */
+  yrOut.textContent=n; yrOut2.textContent = (g<-0.01?'−':'')+hm(g);
+  if(n>=4 && !YR.revealed){ YR.revealed=1; yrReveal.hidden=false; }
+  if(user || n>0) yrMsg.innerHTML = n===0 ? 'שנה <span class="num">0</span>: כדור הארץ ליד הדגל. הזיזו את השנים.'
+    : !YR.leap ? (n<4 ? 'כל שנה הלוח אומר "שנה חדשה!" אחרי <span class="num">365</span> ימים, אבל כדור הארץ צריך עוד <span class="math">5:49</span> שעות. הפער גדל: עכשיו <span class="math">'+hm(g)+'</span> שעות.'
+      : 'בלי יום מעובר הפער רק גדל: <span class="num">'+full+'</span> '+(full===1?'יום שלם':'ימים שלמים')+' ועוד <span class="math">'+hm(g-full*24)+'</span> שעות. עכשיו נסו להפעיל את היום המעובר.')
+    : (n<4 ? 'עם יום מעובר: בשנים הראשונות הפער גדל כרגיל. חכו לשנה הרביעית.'
+      : 'עם יום מעובר, כל שנה רביעית מקבלת <span class="num">29</span> בפברואר והפער כמעט נעלם. אבל רק כמעט: <span class="math">4 × 5:49 = 23:16</span>, לא <span class="math">24:00</span>. היום המעובר מתקן <b>קצת יותר מדי</b>, והלוח מפגר עכשיו אחרי השמש ב־<span class="math">'+hm(g)+'</span> שעות.');
+}
+
+/* ---------- step 2 (interactive 2): the runaway equinox — the date of the spring equinox in the calendar, 325 → 2026 (canvas) ----------
+   Model: in the Julian calendar the equinox date = 21 March − (year − 325) ÷ 128; Gregory (1582) jumps it back to 21 March and it stays put. */
+const drCv=document.getElementById('drCv'), drctx=drCv.getContext('2d');
+const DR={ opened:0, pred:-1, revealed:0 };
+const julEq = y => 21 - (y-325)/JUL_DRIFT;
+function drPredict(k){ DR.pred=k; [0,1,2].forEach(i=>document.getElementById('drP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'drift:predict', kind:'quick', correct:k===1, attempt: wowTry('drift:predict') });
+  drMsg.innerHTML = k===1 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו הזיזו את השנים ובדקו.' : 'רשמנו את הניחוש. עכשיו הזיזו את השנים ובדקו.'; }
+function drJump(y){ if(DR.pred<0){ drMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז קפצו.'; return; } drY.value=y; drDraw(1); }
+function drDraw(user){
+  const c=drctx, W=drCv.width, H=drCv.height;
+  if(user && DR.pred<0 && +drY.value>325){ drY.value=325; drMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז הזיזו.'; }
+  if(user && !DR.opened){ DR.opened=1; WOW.emit('open', { id:'drift' }); }
+  const y=+drY.value;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  const X0=150, X1=612, Y0=70, Y1=400, yrA=300, yrB=2050, dTop=22, dBot=6;
+  const X = t => X0 + (t-yrA)/(yrB-yrA)*(X1-X0), Y = d => Y0 + (dTop-d)/(dTop-dBot)*(Y1-Y0);
+  /* grid + date labels */
+  [21,16,11,7].forEach(dd=>{ c.strokeStyle=GRIDC(); c.lineWidth=1.5; c.beginPath(); c.moveTo(X0,Y(dd)); c.lineTo(X1,Y(dd)); c.stroke(); xTagN(c, String(dd), 'במרץ', X0-10, Y(dd), 20, css('--muted'), 'right'); });
+  /* years on the axis */
+  [[325,'325'],[1000,'1000'],[1582,'1582'],[2026,'2026']].forEach(([t,s])=>{ c.strokeStyle=GRIDC(); c.lineWidth=1.5; c.beginPath(); c.moveTo(X(t),Y1); c.lineTo(X(t),Y1+8); c.stroke(); if(t===2026) xNum(c,s,W-6,Y1+44,20,css('--muted'),'right'); else xNum(c,s,clamp(X(t),X0+24,X1-26),Y1+44,20,css('--muted')); });
+  /* the old calendar: solid until min(y,1582), dashed ghost after 1582 */
+  const yJ = Math.min(y,1582);
+  c.strokeStyle=DANG(); c.lineWidth=6; c.lineCap='round'; c.beginPath(); c.moveTo(X(325),Y(julEq(325))); c.lineTo(X(yJ),Y(julEq(yJ))); c.stroke();
+  if(y>1582){ c.setLineDash([10,9]); c.lineWidth=4; c.globalAlpha=.7; c.beginPath(); c.moveTo(X(1582),Y(julEq(1582))); c.lineTo(X(y),Y(julEq(y))); c.stroke(); c.setLineDash([]); c.globalAlpha=1; }
+  /* Gregory's fix: a jump back to 21 March in 1582, then flat */
+  if(y>=1582){ c.strokeStyle=GOOD(); c.lineWidth=6; c.beginPath(); c.moveTo(X(1582),Y(julEq(1582))); c.lineTo(X(1582),Y(21)); c.lineTo(X(Math.max(1583,y)),Y(21)); c.stroke();
+    c.fillStyle=GOOD(); xArrow(c,X(1582),Y(21)+4,0,-1,16);
+    xLabel(c,'מחקו 10 ימים', 425, Y(9.6), 20, GOOD()); }
+  c.lineCap='butt';
+  /* events */
+  xLabel(c,'ניקאה',X(325)+40,Y(21)-34,20,css('--muted'));
+  if(y>=1582) xLabel(c,'גרגוריוס',X(1582),Y(21)-34,20,GOOD());
+  if(y>=1900) xLabel(c,'הלוח הישן',clamp(X(y)-75,X(1582)+70,X1-75),Y(julEq(y))+34,20,DANG());
+  /* the current year: a cursor and a dot on the calendar in use */
+  const cur = y>=1582 ? 21 : julEq(y);
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.setLineDash([4,6]); c.beginPath(); c.moveTo(X(y),Y0-10); c.lineTo(X(y),Y1); c.stroke(); c.setLineDash([]);
+  c.fillStyle = y>=1582 ? GOOD() : DANG(); c.strokeStyle=css('--ink'); c.lineWidth=2.5; c.beginPath(); c.arc(X(y),Y(cur),10,0,PI*2); c.fill(); c.stroke();
+  /* the big calendar page (bottom-left, below the line) */
+  const day = Math.round(cur);
+  xText(c,'יום השוויון באביב',262,250,20,css('--muted'));
+  xPage(c,200,274,110,116,String(day),'במרץ', y>=1582?GOOD():DANG());
+  /* readouts & message */
+  drOut.textContent=y;
+  if(y>=1582 && !DR.revealed){ DR.revealed=1; drReveal.hidden=false; }
+  const slip = Math.round(21-julEq(Math.min(y,1582)));
+  if(user || y>325) drMsg.innerHTML = y<700 ? 'הלוח זוחל לאט מאוד: עכשיו יום השוויון בלוח הוא <span class="num">'+day+'</span> במרץ. כמעט אף אחד לא שם לב.'
+    : y<1582 ? 'כבר <span class="num">'+slip+'</span> ימים: האביב האמיתי מגיע <span class="num">'+slip+'</span> ימים לפני שהלוח "מצפה" לו. אסטרונומים מתחילים לדאוג.'
+    : y<1600 ? 'שנת <span class="num">1582</span>: יום השוויון נופל ב־<span class="num">11</span> במרץ. גרגוריוס מוחק <span class="num">10</span> ימים, והוא קופץ חזרה ל־<span class="num">21</span> במרץ.'
+    : 'עם הכלל החדש הקו הירוק נשאר ישר. הלוח הישן, בקו המקווקו, ממשיך לזחול: בשנת <span class="num">'+y+'</span> הוא היה מראה בערך <span class="num">'+Math.round(julEq(y))+'</span> במרץ, פער של <span class="num">'+Math.round(21-julEq(y))+'</span> ימים.';
+}
+
+/* ---------- step 3 (interactive 3): the leap-year machine — three gates, and 400 years at a glance (canvas) ----------
+   lpY = the year (1600–2400); LP.jul = Caesar's old rule (every 4th year). The strip shows 2001–2400: 97 leap years (Gregorian) or 100 (Julian). */
+const lpCv=document.getElementById('lpCv'), lpctx=lpCv.getContext('2d');
+const LP={ opened:0, pred:-1, revealed:0, jul:false, seen:{} };
+function lpPredict(k){ LP.pred=k; [0,1].forEach(i=>document.getElementById('lpP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'leap:predict', kind:'quick', correct:k===1, attempt: wowTry('leap:predict') });
+  lpMsg.innerHTML = k===1 ? '<span class="pill-ok">ניחוש חד.</span> לחצו על <span class="num">1900</span> ובדקו במכונה.' : 'רשמנו את הניחוש. לחצו על <span class="num">1900</span> ובדקו במכונה.'; }
+function lpJump(y){ if(LP.pred<0){ lpMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז נסו.'; return; } lpY.value=y; lpDraw(1); }
+function lpToggleJul(){ if(LP.pred<0){ lpMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז נסו.'; return; } LP.jul=!LP.jul; const b=document.getElementById('lpJul'); b.textContent = LP.jul ? 'הכלל הישן של יוליוס: פועל' : 'הכלל הישן של יוליוס: כבוי'; b.classList.toggle('on',LP.jul); WOW.emit('item', { id:'leap:julian', kind:'toggle', on: LP.jul }); lpDraw(1); }
+function lpDraw(user){
+  const c=lpctx, W=lpCv.width, H=lpCv.height;
+  if(user && LP.pred<0 && +lpY.value!==2026){ lpY.value=2026; lpMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז נסו.'; }
+  if(user && !LP.opened){ LP.opened=1; WOW.emit('open', { id:'leap' }); }
+  const y=+lpY.value; if(user) LP.seen[y]=1;
+  const g4=y%4===0, g100=y%100===0, g400=y%400===0, leap = LP.jul ? g4 : isLeapG(y);
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  xTag(c,'שנת',String(y),320,36,34,css('--ink'),'center');
+  /* the three gates, right → left */
+  const gates=[ { x:530, t:'מתחלקת ב־4', ans:g4, reach:true },
+                { x:320, t:'מתחלקת ב־100', ans:g100, reach:g4 && !LP.jul },
+                { x:110, t:'מתחלקת ב־400', ans:g400, reach:g4 && g100 && !LP.jul } ];
+  gates.forEach((gt,i)=>{ const bw=176, bh=84, bx=gt.x-bw/2, by=84;
+    const off = LP.jul && i>0;
+    c.globalAlpha = off ? .35 : 1;
+    c.fillStyle=css('--card'); c.strokeStyle = gt.reach ? css('--ink') : GRIDC(); c.lineWidth = gt.reach ? 3 : 2; c.beginPath(); c.roundRect(bx,by,bw,bh,14); c.fill(); c.stroke();
+    const [l1,l2]=gt.t.split(' '); xText(c,l1,gt.x,by+bh*0.3,21,gt.reach?css('--ink'):css('--muted')); xText(c,l2,gt.x,by+bh*0.72,21,gt.reach?css('--ink'):css('--muted'));
+    if(i<2){ c.strokeStyle=GRIDC(); c.lineWidth=3; c.beginPath(); c.moveTo(bx-4,by+bh/2); c.lineTo(bx-30,by+bh/2); c.stroke(); c.fillStyle=GRIDC(); xArrow(c,bx-30,by+bh/2,-1,0,10); }
+    c.globalAlpha=1;
+    if(gt.reach){ const yes=gt.ans; xLabel(c, yes?'כן':'לא', gt.x, by+bh+28, 22, yes?GOOD():DANG()); }
+  });
+  if(LP.jul) xLabel(c,'ביוליאני: רק שאלה אחת',215,198,20,css('--muted'));
+  /* the verdict */
+  const vx=320, vy=222;
+  c.fillStyle = leap ? (isDark()?'rgba(79,208,143,.18)':'rgba(31,138,91,.12)') : css('--card'); c.strokeStyle = leap ? GOOD() : css('--ink'); c.lineWidth=3;
+  c.beginPath(); c.roundRect(vx-170,vy,340,86,16); c.fill(); c.stroke();
+  xText(c, leap?'שנה מעוברת':'שנה רגילה', vx, vy+28, 24, leap?GOOD():css('--ink'));
+  xText(c, leap?'366 ימים':'365 ימים', vx, vy+64, 22, leap?GOOD():css('--ink'), 'center', '600');
+  /* 400 years: 2001–2400, right → left in rows of 40 */
+  let count=0; for(let t=2001;t<=2400;t++) if(LP.jul?isLeapJ(t):isLeapG(t)) count++;
+  xTag(c, LP.jul?'מעוברות ב־400 שנה (יוליוס):':'מעוברות ב־400 שנה:', String(count), 320, 336, 20, css('--ink'), 'center');
+  const cw=12, ch=11, gx0=W/2+25*cw, gy0=366;
+  for(let t=2001;t<=2400;t++){ const k=t-2001, row=Math.floor(k/50), col=k%50, x=gx0-(col+1)*cw, yy=gy0+row*ch;
+    const lp = LP.jul ? isLeapJ(t) : isLeapG(t), skipped = !LP.jul && isLeapJ(t) && !isLeapG(t);
+    c.fillStyle = skipped ? DANG() : lp ? GOLD() : (isDark()?'rgba(242,237,224,.12)':'rgba(27,31,51,.08)');
+    c.fillRect(x+1,yy+1,cw-2,ch-2);
+    if(skipped){ c.strokeStyle=DANG(); c.lineWidth=3; c.beginPath(); c.arc(x+cw/2,yy+ch/2,10,0,PI*2); c.stroke(); }
+    if(t===y){ c.strokeStyle=css('--ink'); c.lineWidth=3; c.strokeRect(x-1,yy-1,cw+2,ch+2); } }
+  /* readouts & message */
+  lpOut.textContent=y;
+  const seenN=Object.keys(LP.seen).length, sawCentury=[1700,1800,1900,2000,2100,2200,2300,2400,1600].some(t=>LP.seen[t]);
+  if(seenN>=3 && sawCentury && !LP.revealed){ LP.revealed=1; lpReveal.hidden=false; }
+  if(user) lpMsg.innerHTML = LP.jul
+      ? (g4 ? 'בכלל של יוליוס מספיקה שאלה אחת: <span class="num">'+y+'</span> מתחלקת ב־<span class="num">4</span>, אז היא מעוברת. גם שנות המאה. ב־<span class="num">400</span> שנה יוצאות <span class="num">100</span> מעוברות, <span class="num">3</span> יותר מדי.' : 'בכלל של יוליוס: <span class="num">'+y+'</span> לא מתחלקת ב־<span class="num">4</span>, אז היא רגילה.')
+    : !g4 ? '<span class="num">'+y+'</span> לא מתחלקת ב־<span class="num">4</span>, אז המכונה עוצרת כבר בתחנה הראשונה: שנה רגילה.'
+    : !g100 ? '<span class="num">'+y+'</span> מתחלקת ב־<span class="num">4</span>, ואיננה שנת מאה: שנה מעוברת, עם <span class="num">29</span> בפברואר.'
+    : !g400 ? '<span class="num">'+y+'</span> היא שנת מאה שלא מתחלקת ב־<span class="num">400</span>: המכונה <b>מבטלת</b> את היום המעובר. בשנה כזאת אין <span class="num">29</span> בפברואר. ברשת למטה, אלה המשבצות האדומות.'
+    : '<span class="num">'+y+'</span> מתחלקת אפילו ב־<span class="num">400</span>, ולכן היא מעוברת למרות שהיא שנת מאה. כך היה בשנת <span class="num">2000</span>.';
+}
+
+/* ---------- step 5 (interactive 4): where will Passover be? — 12 moon months fall 10.9 days short of the Sun every year (canvas) ----------
+   lnY = years gone by (0–19); LN.adar = add a 13th month (Adar I) in years 3, 6, 8, 11, 14, 17, 19 of the cycle. Passover starts at 20 April (model). */
+const lnCv=document.getElementById('lnCv'), lnctx=lnCv.getContext('2d');
+const LN={ opened:0, pred:-1, adar:false };
+const LN_BASE = 110;                                     // day of the year of 20 April (model start; keeps the 19-year range at ~25 March – 21 April)
+function lnOffset(n, adar){ let o=0; for(let i=1;i<=n;i++){ o-=LN_DIFF; if(adar && LN_LEAPS.includes(i)) o+=MONTH_D; } return o; }
+function lnPredict(k){ LN.pred=k; [0,1,2].forEach(i=>document.getElementById('lnP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'moon:predict', kind:'quick', correct:k===1, attempt: wowTry('moon:predict') });
+  lnMsg.innerHTML = k===1 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו הזיזו את השנים, בלי חודש מעובר.' : 'רשמנו את הניחוש. עכשיו הזיזו את השנים, בלי חודש מעובר.'; }
+function lnToggleAdar(){ if(LN.pred<0){ lnMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז נסו.'; return; } LN.adar=!LN.adar; const b=document.getElementById('lnAdar'); b.textContent = LN.adar ? 'חודש מעובר: פועל' : 'חודש מעובר: כבוי'; b.classList.toggle('on',LN.adar); WOW.emit('item', { id:'moon:adar', kind:'toggle', on: LN.adar }); lnDraw(1); }
+const MONTHS_HE = ['בינואר','בפברואר','במרץ','באפריל','במאי','ביוני','ביולי','באוגוסט','בספטמבר','באוקטובר','בנובמבר','בדצמבר'];
+function doyDate(doy){ const d=new Date(2026,0,1); d.setDate(1+Math.round(((doy%365)+365)%365)); return { day:d.getDate(), m:MONTHS_HE[d.getMonth()] }; }
+function lnDraw(user){
+  const c=lnctx, W=lnCv.width, H=lnCv.height;
+  if(user && LN.pred<0 && +lnY.value>0){ lnY.value=0; lnMsg.innerHTML='<b>נחשו קודם</b> (למעלה), ואז הזיזו.'; }
+  if(user && !LN.opened){ LN.opened=1; WOW.emit('open', { id:'moon' }); }
+  const n=+lnY.value, off=lnOffset(n, LN.adar), doy=LN_BASE+off;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* the seasons wheel: 1 January at the top, clockwise */
+  const cx=205, cy=250, R=165, ang = dd => -PI/2 + dd/365.24*PI*2, S4=SEASON();
+  const segs=[ [-11,79,S4.w,'חורף'], [79,172,S4.sp,'אביב'], [172,265,S4.su,'קיץ'], [265,355,S4.au,'סתיו'] ];
+  segs.forEach(([a,b,col])=>{ c.fillStyle=col; c.beginPath(); c.moveTo(cx,cy); c.arc(cx,cy,R,ang(a),ang(b)); c.closePath(); c.fill(); });
+  c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.arc(cx,cy,R,0,PI*2); c.stroke();
+  segs.forEach(([a,b,,name])=>{ const m=ang((a+b)/2); xText(c,name,cx+Math.cos(m)*R*0.45,cy+Math.sin(m)*R*0.45,26,isDark()?'#FFFFFF':'#1B1F33'); });
+  /* where Passover started (ghost) and where it is now */
+  const a0=ang(LN_BASE), a1=ang(doy);
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.setLineDash([5,5]); c.beginPath(); c.arc(cx+Math.cos(a0)*R*0.8, cy+Math.sin(a0)*R*0.8, 20, 0, PI*2); c.stroke(); c.setLineDash([]);
+  if(Math.abs(off)>2){ c.strokeStyle = Math.abs(off)>35 ? DANG() : GOOD(); c.lineWidth=6; c.lineCap='round'; c.beginPath(); c.arc(cx,cy,R*0.8, Math.min(a0,a1), Math.max(a0,a1)); c.stroke(); c.lineCap='butt'; }
+  const px=cx+Math.cos(a1)*R*0.8, py=cy+Math.sin(a1)*R*0.8;
+  c.fillStyle=css('--card'); c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.arc(px,py,20,0,PI*2); c.fill(); c.stroke();
+  xLabel(c,'פסח',px,py,22,Math.abs(off)>35?DANG():GOOD(),.95);
+  /* right: the 19-year row (two rows), leap years ringed in gold */
+  xText(c,'מחזור של 19 שנים',505,40,20,css('--muted'));
+  for(let i=1;i<=19;i++){ const row=i<=10?0:1, col=row?i-11:i-1, x=610-col*26, yy=72+row*32, isL=LN_LEAPS.includes(i);
+    c.fillStyle = i<=n ? (isL&&LN.adar ? GOLD() : css('--ink')) : (isDark()?'rgba(242,237,224,.15)':'rgba(27,31,51,.12)');
+    c.beginPath(); c.arc(x,yy,9,0,PI*2); c.fill();
+    if(isL){ c.strokeStyle=GOLD(); c.lineWidth=3; c.beginPath(); c.arc(x,yy,13,0,PI*2); c.stroke(); } }
+  xLabel(c,'זהב = מעוברת',505,138,18,css('--muted'));
+  /* right: how far Passover moved, as a bar (down = earlier) */
+  const bx=440, zeroY=222, k=0.9, bh=clamp(-off*k,-40,190);
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.beginPath(); c.moveTo(bx-40,zeroY); c.lineTo(bx+40,zeroY); c.stroke();
+  xText(c,'המקום המקורי',505,zeroY-20,18,css('--muted'));
+  c.fillStyle = Math.abs(off)>35 ? DANG() : GOOD(); c.globalAlpha=.85; c.fillRect(bx-28, Math.min(zeroY,zeroY+bh), 56, Math.abs(bh)); c.globalAlpha=1;
+  const dt=doyDate(doy);
+  const ly=clamp(zeroY+Math.max(bh,0)/2+10,255,390), lx=LS()>1?562:568;
+  if(Math.abs(off)<0.5) xLabel(c,'במקום המקורי',505,ly,20,css('--ink'));
+  else { xTagN(c, String(Math.round(Math.abs(off))), 'ימים', lx, ly, 20, css('--ink'), 'center'); xText(c, off<0?'מוקדם יותר':'מאוחר יותר', lx, ly+(LS()>1?46:32), 20, css('--muted')); }
+  /* readouts & message */
+  lnOut.textContent=n; lnOut2.textContent=Math.round(Math.abs(off));
+  if(user || n>0) lnMsg.innerHTML = n===0 ? 'פסח ב־<span class="num">20</span> באפריל, באביב. הזיזו את השנים.'
+    : !LN.adar ? 'בלי חודש מעובר, כל שנה של <span class="num">12</span> חודשי ירח קצרה ב־<span class="num">11</span> ימים, ופסח מקדים: עכשיו בערך ב־<span class="num">'+dt.day+'</span> '+dt.m+', <span class="num">'+Math.round(-off)+'</span> ימים מוקדם יותר.'+(n>=19?' אחרי <span class="num">19</span> שנה הוא כבר בתחילת הסתיו. עכשיו הפעילו את החודש המעובר.':'')
+    : 'עם חודש מעובר: בכל שנה מעוברת מוסיפים חודש שלם, ופסח קופץ חזרה. הוא נשאר בין סוף מרץ לסוף אפריל, תמיד באביב. עכשיו בערך ב־<span class="num">'+dt.day+'</span> '+dt.m+'.';
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  orbitQ:{ q:"למה כל שנה רביעית מקבלת יום נוסף, <span class=\"num\">29</span> בפברואר?", opts:["כי פברואר קצר מדי, וצריך להשלים לו ימים","כי בכל שנה נשארת שארית של כמעט <span class=\"num\">6</span> שעות, ואחרי <span class=\"num\">4</span> שנים היא מצטברת לכמעט יום שלם","כי כל <span class=\"num\">4</span> שנים כדור הארץ מסתובב לאט יותר","כי ככה יוצאים יותר ימי חופש"], a:1, fb:"כדור הארץ צריך <span class=\"num\">365</span> ימים ועוד כמעט <span class=\"num\">6</span> שעות כדי לחזור לאותה נקודה סביב השמש. הלוח סופר רק ימים שלמים, אז השארית נערמת: <span class=\"math\">4 × 6 = 24</span> שעות, כמעט יום שלם. היום המעובר ״מחזיר״ אותו. פברואר נבחר רק כי בלוח הרומי הוא היה החודש האחרון בשנה.", btn:"next1" },
+  driftQ:{ q:"למה יום השוויון באביב זחל בלוח של יוליוס מ־<span class=\"num\">21</span> במרץ ל־<span class=\"num\">11</span> במרץ?", opts:["כי כדור הארץ האט את הסיבוב שלו","כי היום המעובר תיקן קצת יותר מדי: השנה בלוח יצאה ארוכה בכ־<span class=\"num\">11</span> דקות, והדקות האלה הצטברו במשך מאות שנים לעשרה ימים","כי במשך מאות שנים שכחו להוסיף ימים מעוברים","כי השמש זזה למקום אחר בשמיים"], a:1, fb:"השארית האמיתית היא <span class=\"math\">5:49</span> שעות, אבל יום מעובר כל <span class=\"num\">4</span> שנים מוסיף בממוצע <span class=\"math\">6:00</span> שעות לשנה. ההפרש, כ־<span class=\"num\">11</span> דקות, תמיד לאותו כיוון. יום שלם בכל כ־<span class=\"num\">128</span> שנה, ועשרה ימים מ־<span class=\"num\">325</span> עד <span class=\"num\">1582</span>. כדור הארץ והשמש לא השתנו: הלוח הוא שזחל." },
+  leapQ:{ q:"איזו מהשנים האלה הייתה שנה מעוברת?", opts:["<span class=\"num\">1700</span>","<span class=\"num\">1800</span>","<span class=\"num\">1900</span>","<span class=\"num\">2000</span>"], a:3, fb:"כל ארבע השנים מתחלקות ב־<span class=\"num\">4</span>, וכולן שנות מאה. אז השאלה השלישית מכריעה: רק <span class=\"num\">2000</span> מתחלקת ב־<span class=\"num\">400</span>. ב־<span class=\"num\">1700</span>, <span class=\"num\">1800</span> ו־<span class=\"num\">1900</span> לא היה <span class=\"num\">29</span> בפברואר. ככה הכלל מוריד <span class=\"num\">3</span> ימים מעוברים בכל <span class=\"num\">400</span> שנה." },
+  storyQ:{ q:"מה קרה בספרד בבוקר שאחרי יום חמישי, <span class=\"num\">4</span> באוקטובר <span class=\"num\">1582</span>?", opts:["כולם ישנו עשרה ימים ברצף","זה היה יום שישי, <span class=\"num\">15</span> באוקטובר: עשרה תאריכים דולגו, וימי השבוע המשיכו כרגיל","זה היה שוב יום חמישי, <span class=\"num\">4</span> באוקטובר","הזיזו את השעונים שעה אחת קדימה"], a:1, fb:"אף אחד לא ישן עשרה ימים ושום יום לא ״אבד״: פשוט דילגו על <b>המספרים</b> מ־<span class=\"num\">5</span> עד <span class=\"num\">14</span>. ימי השבוע לא נשברו, ואחרי חמישי בא שישי, כמו תמיד. כך הוחזר יום השוויון ל־<span class=\"num\">21</span> במרץ." },
+  deepQ:{ q:"למה הלוח העברי מוסיף מדי פעם חודש שלם, אדר א׳?", opts:["כי <span class=\"num\">12</span> חודשי ירח קצרים בכ־<span class=\"num\">11</span> ימים משנת שמש, ובלי תוספת פסח היה זוחל מהאביב לעונות אחרות","כי בחודש אדר יש הכי הרבה חגים","כי הירח מתרחק מכדור הארץ בכל שנה","כדי שבכל שנה יהיו שני חגי פורים"], a:0, fb:"חודש ירח הוא כ־<span class=\"num\">29.5</span> ימים, ו־<span class=\"num\">12</span> כאלה הם כ־<span class=\"num\">354</span>. כל שנה חסרים <span class=\"num\">11</span> ימים, ופסח היה מקדים בכל שנה. חודש נוסף, <span class=\"num\">7</span> פעמים ב־<span class=\"num\">19</span> שנים, מחזיר אותו לאביב. נכון שבשנה מעוברת יש שני אדר, אבל פורים חוגגים רק באחד מהם, באדר ב׳." },
+};
+const MCQ = {
+  shared:[
+    { q:"למה היה צריך בכלל לתקן את הלוח של יוליוס קיסר?", opts:["כי השנה הממוצעת בלוח שלו הייתה ארוכה בכ־<span class=\"num\">11</span> דקות מהשנה האמיתית, והטעות הצטברה לעשרה ימים","כי בלוח שלו לא היה חודש פברואר","כי בשנת <span class=\"num\">1582</span> כדור הארץ התחיל להסתובב מהר יותר","כי קשה לזכור לוח עם <span class=\"num\">365</span> ימים"], a:0, fb:"יום מעובר כל <span class=\"num\">4</span> שנים הופך את השנה הממוצעת ל־<span class=\"num\">365.25</span> ימים, אבל השנה האמיתית קצרה מעט יותר, כ־<span class=\"num\">365.2422</span>. ההפרש, כ־<span class=\"num\">11</span> דקות בשנה, היה תמיד לאותו כיוון, ולכן הצטבר: יום בכל <span class=\"num\">128</span> שנה, ועשרה ימים עד <span class=\"num\">1582</span>. בלוח של יוליוס היה פברואר, וכדור הארץ לא שינה את המהירות שלו." },
+    { q:"לפי הכלל שבלוח שלנו, איזו מהשנים האלה <b>לא</b> הייתה מעוברת?", opts:["<span class=\"num\">1600</span>","<span class=\"num\">2000</span>","<span class=\"num\">2024</span>","<span class=\"num\">1900</span>"], a:3, fb:"<span class=\"num\">1900</span> מתחלקת ב־<span class=\"num\">4</span>, אבל היא שנת מאה שלא מתחלקת ב־<span class=\"num\">400</span>, אז היום המעובר שלה בוטל. <span class=\"num\">1600</span> ו־<span class=\"num\">2000</span> מתחלקות ב־<span class=\"num\">400</span>, ולכן מעוברות. <span class=\"num\">2024</span> מתחלקת ב־<span class=\"num\">4</span> ואיננה שנת מאה, ולכן מעוברת." },
+    { q:"ספרד מחקה <span class=\"num\">10</span> ימים ב־<span class=\"num\">1582</span>, ובריטניה מחקה <span class=\"num\">11</span> ב־<span class=\"num\">1752</span>. למה יותר?", opts:["כי בבריטניה טעו בחשבון","כי בזמן שבריטניה חיכתה, הלוח הישן המשיך לזחול: בשנת <span class=\"num\">1700</span> הוא הוסיף יום מעובר שהלוח החדש ביטל","כי בבריטניה השנה ארוכה יותר, בגלל הקור","כי בריטניה רצתה לחזור לימי יוליוס קיסר"], a:1, fb:"כל מי שחיכה, שילם יותר. הלוח הישן עשה את <span class=\"num\">1700</span> לשנה מעוברת, והלוח החדש לא, אז הפער גדל מ־<span class=\"num\">10</span> ל־<span class=\"num\">11</span>. רוסיה, שחיכתה עד <span class=\"num\">1918</span>, עברה גם את <span class=\"num\">1800</span> ו־<span class=\"num\">1900</span>, ומחקה <span class=\"num\">13</span>. השנה עצמה, כמובן, באורך זהה בכל מקום על כדור הארץ." },
+  ],
+  younger:[
+    { q:"כמה פעמים בכל <span class=\"num\">19</span> שנים מוסיפים חודש שלם, אדר א׳, ללוח העברי?", opts:["פעם אחת","<span class=\"num\">7</span> פעמים","<span class=\"num\">12</span> פעמים","בכל שנה"], a:1, fb:"<span class=\"num\">7</span> פעמים בכל <span class=\"num\">19</span> שנים, בערך פעם בשנתיים או שלוש. חודש בכל שנה היה יותר מדי: פסח היה בורח לכיוון הקיץ. והשנה, תשפ״ז, היא אחת משבע השנים האלה." },
+  ],
+  older:[
+    { q:"הלוח הגרגוריאני ארוך מהשנה האמיתית בכ־<span class=\"num\">27</span> שניות בשנה. בערך כל כמה שנים הוא יזחל יום שלם? (ביום יש <span class=\"num\">86,400</span> שניות.)", opts:["כ־<span class=\"num\">30</span> שנה","כ־<span class=\"num\">300</span> שנה","כ־<span class=\"num\">3,200</span> שנה","אף פעם, הוא מושלם"], a:2, fb:"<span class=\"math\">86,400 ÷ 27 = 3,200</span>. כלומר בערך בשנת <span class=\"num\">4800</span> הלוח שלנו יזחל יום שלם, אם שום דבר אחר לא ישתנה. (גם אורך השנה והיום משתנים מעט לאורך אלפי שנים, אז אף אחד לא מתכנן את התיקון עדיין.) מושלם הוא לא, אבל פי <span class=\"num\">25</span> בערך מדויק יותר מהלוח של יוליוס." },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'יוליוס קיסר קובע: <b>כל שנה רביעית</b> תהיה מעוברת.'},
+  {id:'b', t:'ועידת ניקאה: יום השוויון באביב נופל ב־<span class="num">21</span> במרץ.'},
+  {id:'c', t:'הרופא ליליוס מציע כלל חדש, ואחיו מביא אותו לאפיפיור.'},
+  {id:'d', t:'בספרד ובאיטליה מדלגים מ־<span class="num">4</span> באוקטובר ל־<span class="num">15</span>: <b>עשרה</b> ימים.'},
+  {id:'e', t:'בריטניה מדלגת <b>אחד־עשר</b> ימים.'},
+  {id:'f', t:'רוסיה מדלגת <b>שלושה־עשר</b> ימים.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> יוליוס ← ניקאה ← ליליוס ← עשרה ימים ← אחד־עשר ← שלושה־עשר. שימו לב להיגיון שבסוף: מכיוון שהלוח הישן <b>המשיך לזחול</b>, כל מדינה שעברה מאוחר יותר הייתה צריכה למחוק יותר ימים. מספר הימים עצמו הוא שעון שמראה מתי כל אחת עברה.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) ניקאה קבעה את <span class="num">21</span> במרץ, ורק <b>אחרי</b> מאות שנים של זחילה היה צריך למחוק, אז יוליוס וניקאה בהתחלה, וליליוס לפני המחיקה הראשונה. (2) הלוח הישן המשיך לזחול, ולכן מי שעבר מאוחר יותר מחק <b>יותר</b> ימים: <span class="math">10 → 11 → 13</span>.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const aOk = chalA.value!=='' && a>=670 && a<=678, bOk = chalB.value!=='' && b>=13.1 && b<=13.4;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const hintA = (hasA && a>=0.0075 && a<=0.0081) ? '(א): זה ההפרש <b>בימים</b>. ביום יש <span class="num">86,400</span> שניות: <span class="math">0.0078 × 86,400 = ?</span>'
+    : (hasA && a>=10.5 && a<=11.5) ? '(א): אלה <b>דקות</b>. השאלה בשניות: כפלו עוד ב־<span class="num">60</span>, או חשבו ישר <span class="math">0.0078 × 86,400</span>.'
+    : (hasA && a>=0.18 && a<=0.19) ? '(א): זה ההפרש <b>בשעות</b>. כפלו עוד ב־<span class="math">60 × 60 = 3,600</span>.'
+    : (hasA && a>=640 && a<=700) ? '(א): קרוב! חשבו שוב בזהירות: <span class="math">365.25 − 365.2422 = 0.0078</span>, ואז <span class="math">0.0078 × 86,400 = ?</span>'
+    : '(א): רמז — קודם ההפרש בימים: <span class="math">365.25 − 365.2422 = ?</span>, ואז כפול <span class="num">86,400</span> שניות ביום.';
+  const hintB = (hasB && b>=9.6 && b<=10.0) ? '(ב): זה החשבון עד <span class="num">1582</span>. השאלה עד <b>היום</b>: <span class="math">2026 − 325 = ?</span> שנים.'
+    : (hasB && b>=15.6 && b<=16.0) ? '(ב): כפלתם ב־<span class="num">2,026</span> שנים. סופרים <b>מניקאה</b>: <span class="math">2026 − 325 = ?</span>'
+    : (hasB && b>=3.3 && b<=3.6) ? '(ב): ספרתם רק מ־<span class="num">1582</span>. הלוח של יוליוס זוחל <b>מניקאה</b>: <span class="math">2026 − 325 = ?</span>'
+    : (hasB && b>=12.5 && b<13.1) ? '(ב): כמעט! עגלו לספרה אחת אחרי הנקודה: <span class="math">1,701 × 0.0078 = ?</span>'
+    : (hasB && b>=1000) ? '(ב): זו התשובה <b>בשניות</b> או בדקות. כדי לקבל ימים, כפלו את מספר השנים ב־<span class="num">0.0078</span> של יום.'
+    : '(ב): רמז — כמה שנים עברו מניקאה עד היום? בכל שנה הצטברו <span class="num">0.0078</span> של יום. כפלו.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">365.25 − 365.2422 = 0.0078</span> של יום, ו־<span class="math">0.0078 × 86,400 ≈ 674</span> שניות: <span class="num">11</span> דקות ו־<span class="num">14</span> שניות בכל שנה. (ב) <span class="math">2026 − 325 = 1,701</span> שנים, ו־<span class="math">1,701 × 0.0078 ≈ 13.3</span> ימים. וזה כמעט בדיוק הפער בין הלוח הישן ללוח שלנו היום: <span class="num">13</span> ימים. לכן חג המולד האורתודוקסי, <span class="num">25</span> בדצמבר בלוח הישן, חל אצלנו ב־<span class="num">7</span> בינואר.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : aOk ? '<span class="pill-ok">(א) נכון — כ־<span class="num">674</span> שניות.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">13.3</span> ימים.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const a=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasR=numAdvR.value!=='', hasA=numAdv.value!=='';
+    const aOk=(hasA && a>=25.5 && a<=26.5), bOk=(hasR && Math.abs(r-146097)<0.5), sc = aOk&&bOk?2:((aOk||bOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintR = (hasR && Math.abs(r-146000)<0.5) ? 'ב־(א) שכחתם את <span class="num">97</span> הימים המעוברים: <span class="math">400 × 365 + 97 = ?</span>'
+      : (hasR && Math.abs(r-146100)<0.5) ? 'ב־(א) זה הלוח של יוליוס, עם <span class="num">100</span> שנים מעוברות. בגרגוריאני רק <span class="num">97</span>.'
+      : (hasR && Math.abs(r-146400)<0.5) ? 'ב־(א) חישבתם כאילו כל השנים בנות <span class="num">366</span>. רק <span class="num">97</span> מהן: <span class="math">400 × 365 + 97 = ?</span>'
+      : (hasR && Math.abs(r-35502)<1) ? 'ב־(א) כפלתם <span class="math">97 × 366</span>. גם לשנים הרגילות יש ימים: <span class="math">400 × 365 + 97 = ?</span>'
+      : 'רמז ל־(א): כל <span class="num">400</span> השנים מקבלות <span class="num">365</span> ימים, ו־<span class="num">97</span> מהן עוד יום אחד.';
+    const hintA = (hasA && a>=26.6 && a<=27.5) ? 'ב־(ב) זה המספר המעוגל מהשיעור. חשבו עם המספרים שבשאלה: <span class="math">146,097 ÷ 400 = ?</span>, פחות <span class="num">365.2422</span>, כפול <span class="num">86,400</span>.'
+      : (hasA && Math.abs(a-0.0003)<0.00005) ? 'ב־(ב) זה ההפרש <b>בימים</b>. כפלו ב־<span class="num">86,400</span> שניות.'
+      : (hasA && Math.abs(a-365.2425)<0.0002) ? 'ב־(ב) זו השנה הממוצעת בלוח. עכשיו החסירו את השנה האמיתית, <span class="num">365.2422</span>, וכפלו ב־<span class="num">86,400</span>.'
+      : (hasA && a>=600 && a<=700) ? 'ב־(ב) זה ההפרש של הלוח של <b>יוליוס</b>. בלוח שלנו השנה הממוצעת היא <span class="math">146,097 ÷ 400</span>.'
+      : (hasA && a>=0.4 && a<=0.45) ? 'ב־(ב) אלה דקות. השאלה בשניות: כפלו ב־<span class="num">60</span>.'
+      : 'רמז ל־(ב): שלושה צעדים — שנה ממוצעת = <span class="math">146,097 ÷ 400</span>; ההפרש מ־<span class="num">365.2422</span>; ואז כפול <span class="num">86,400</span> שניות.';
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">400 × 365 + 97 = 146,097</span> ימים. (ב) <span class="math">146,097 ÷ 400 = 365.2425</span>, ו־<span class="math">365.2425 − 365.2422 = 0.0003</span> של יום, כלומר <span class="math">0.0003 × 86,400 ≈ 26</span> שניות בשנה. (בשיעור כתוב כ־<span class="num">27</span>, כי שם השתמשו בשנה המדויקת עוד יותר, <span class="num">365.242189</span>.) אצל יוליוס ההפרש היה כ־<span class="num">674</span> שניות, גדול פי <span class="num">25</span> בערך.'
+      : aOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">26</span> שניות.</span> '+hintR
+      : bOk ? '<span class="pill-ok">(א) נכון — <span class="num">146,097</span> ימים.</span> '+hintA
+      : '<span class="pill-bad">עוד לא.</span> '+hintR+(hasA?' '+hintA:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=v===48; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">8 × 6 = 48</span> שעות, כלומר <b>שני ימים שלמים</b>. לכן כל <span class="num">4</span> שנים מוסיפים יום אחד: ב־<span class="num">8</span> שנים, שני ימים מעוברים. (ובאמת השארית היא רק כמעט <span class="num">6</span> שעות, ולכן היום המעובר מתקן קצת יותר מדי.)':(v===14)?'<span class="pill-bad">חיברתם.</span> <span class="num">6</span> שעות <b>בכל</b> שנה, במשך <span class="num">8</span> שנים: <span class="math">8 × 6 = ?</span>':(v===2)?'<span class="pill-bad">חיסרתם.</span> השארית מצטברת בכל שנה: <span class="math">8 × 6 = ?</span>':(v===24)?'<span class="pill-bad">זה אחרי <span class="num">4</span> שנים.</span> ב־<span class="num">8</span> שנים יש פי <span class="num">2</span>: <span class="math">8 × 6 = ?</span>':(v===46 || v===46.5)?'<span class="pill-bad">כמעט!</span> עם השארית האמיתית, <span class="math">5:49</span>, באמת יוצא כ־<span class="num">46.5</span>. אבל בשאלה ביקשנו בדיוק <span class="num">6</span> שעות בשנה: <span class="math">8 × 6 = ?</span>':(v===2880)?'<span class="pill-bad">אלה דקות?</span> השאלה בשעות: <span class="math">8 × 6 = ?</span>':'<span class="pill-bad">לא בדיוק.</span> רמז: <span class="num">6</span> שעות בכל שנה, במשך <span class="num">8</span> שנים. אפשר לחבר: <span class="math">6 + 6 + 6 + 6</span> הם <span class="num">24</span>, ועוד פעם.'; }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-146097)<0.5; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">400 × 365 + 97 = 146,097</span> ימים. אם תחלקו ב־<span class="num">400</span>, תקבלו את אורך השנה הממוצעת בלוח שלנו: <span class="num">365.2425</span> ימים, קרוב מאוד ל־<span class="num">365.2422</span> האמיתית.':(Math.abs(v-146000)<0.5)?'<span class="pill-bad">שכחתם את הימים המעוברים.</span> <span class="num">97</span> שנים קיבלו יום נוסף: <span class="math">400 × 365 + 97 = ?</span>':(Math.abs(v-146100)<0.5)?'<span class="pill-bad">זה הלוח של יוליוס</span>, עם <span class="num">100</span> שנים מעוברות. בלוח שלנו <span class="num">97</span>: <span class="math">400 × 365 + 97 = ?</span>':(Math.abs(v-146400)<0.5)?'<span class="pill-bad">לא כל השנים בנות <span class="num">366</span>.</span> רק <span class="num">97</span> מהן: <span class="math">400 × 365 + 97 = ?</span>':(Math.abs(v-862)<0.5)?'<span class="pill-bad">חיברתם את המספרים שבשאלה.</span> כל שנה היא <span class="num">365</span> ימים: <span class="math">400 × 365 = ?</span>, ועוד <span class="num">97</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: קודם <span class="math">400 × 365 = 146,000</span>, ואחר כך הוסיפו יום אחד על כל שנה מעוברת.'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'אמרתי ששנה היא לא בדיוק <span class="num">365</span> ימים: כדור הארץ צריך עוד כמעט <span class="num">6</span> שעות (<span class="math">5:49</span>) כדי להשלים סיבוב סביב השמש.',
+  'הסברתי שהיום המעובר של יוליוס קיסר, כל <span class="num">4</span> שנים, מתקן קצת יותר מדי (כ־<span class="num">11</span> דקות בשנה), ושהטעות הזאת הצטברה.',
+  'אמרתי שעד <span class="num">1582</span> הצטברו כעשרה ימים: יום השוויון זז מ־<span class="num">21</span> במרץ ל־<span class="num">11</span> במרץ, ולכן מחקו עשרה ימים (מ־<span class="num">4</span> באוקטובר ישר ל־<span class="num">15</span>).',
+  'הסברתי את הכלל החדש: שנות מאה מעוברות רק אם הן מתחלקות ב־<span class="num">400</span> (<span class="num">2000</span> כן, <span class="num">1900</span> לא), וכך יורדים <span class="num">3</span> ימים מעוברים בכל <span class="num">400</span> שנה.',
+  'הזכרתי עוד מספר או סיפור: ליליוס הרופא; בריטניה מחקה <span class="num">11</span> ימים ורוסיה <span class="num">13</span>; אדר א׳ <span class="num">7</span> פעמים ב־<span class="num">19</span> שנים; חג המולד האורתודוקסי ב־<span class="num">7</span> בינואר.',
+];
+const MODEL='כדור הארץ מקיף את השמש ב־<span class="num">365</span> ימים ועוד כמעט <span class="num">6</span> שעות. לכן יוליוס קיסר הוסיף יום אחד כל <span class="num">4</span> שנים. אבל השארית האמיתית היא <span class="math">5:49</span> ולא <span class="math">6:00</span>, אז היום המעובר תיקן קצת יותר מדי: השנה הממוצעת בלוח הייתה ארוכה בכ־<span class="num">11</span> דקות. הטעות הייתה תמיד לאותו כיוון, ולכן הצטברה, יום בכל <span class="num">128</span> שנה בערך. עד <span class="num">1582</span> יום השוויון באביב כבר נפל ב־<span class="num">11</span> במרץ במקום ב־<span class="num">21</span>. האפיפיור גרגוריוס, לפי הרעיון של הרופא ליליוס, מחק עשרה ימים: אחרי יום חמישי, <span class="num">4</span> באוקטובר, בא יום שישי, <span class="num">15</span> באוקטובר. כדי שזה לא יקרה שוב, נוסף כלל: שנת מאה מעוברת רק אם היא מתחלקת ב־<span class="num">400</span>. לכן <span class="num">2000</span> הייתה מעוברת ו־<span class="num">1900</span> לא, ובכל <span class="num">400</span> שנה יש <span class="num">97</span> ימים מעוברים במקום <span class="num">100</span>. השנה הממוצעת ארוכה מהאמיתית רק בכ־<span class="num">27</span> שניות, ויום שלם מצטבר רק בכל כ־<span class="num">3,200</span> שנה.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (השנה הטרופית כ־365.2422 ימים, כלומר 365 ימים ועוד 5 שעות ו־49 דקות; יום מעובר כל 4 שנים נותן שנה ממוצעת של 365.25 — ארוכה ב־0.0078 יום, כ־11 דקות, תמיד לאותו כיוון, ולכן מצטברת: יום בכל כ־128 שנה; מניקאה (325, יום השוויון כ־21 במרץ) עד 1582 עברו 1,257 שנים, 1,257 × 0.0078 ≈ 9.8 — לכן נמחקו 10 ימים ויום השוויון חזר מ־11 במרץ ל־21; הכלל החדש מבטל 3 ימים מעוברים בכל 400 שנה (400 × 0.0078 ≈ 3.1): שנת מאה מעוברת רק אם מתחלקת ב־400, ולכן 97 מעוברות, 146,097 ימים, ושנה ממוצעת 146,097 ÷ 400 = 365.2425 — שגיאה של כ־27 שניות, יום בכ־3,200 שנה) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "עשרת הימים שלא היו": למה בשנת 1582 נמחקו עשרה ימים מלוח השנה, ואיך עובד הכלל של השנים המעוברות. הרעיונות המרכזיים: (1) שנה היא הזמן שכדור הארץ מקיף את השמש וחוזר לאותה נקודה (מאביב לאביב): 365 ימים ועוד 5 שעות ו־49 דקות (365.2422); הלוח סופר ימים שלמים, ולכן השארית מצטברת — כמעט יום שלם ב־4 שנים; (2) יוליוס קיסר (45 לפנה״ס, בעזרת סוסיגנס מאלכסנדריה) הוסיף יום מעובר כל שנה רביעית, אבל זה תיקון קצת גדול מדי: שנה ממוצעת 365.25, ארוכה בכ־11 דקות, תמיד לאותו כיוון, יום בכל כ־128 שנה; (3) יום השוויון באביב היה בניקאה (325) כ־21 במרץ, ועד 1582 זחל בלוח ל־11 במרץ; (4) הרופא אלויסיוס ליליוס הציע את התיקון (מת ב־1576, אחיו אנטוניו הביא אותו לאפיפיור), קלביוס הגן עליו, והאפיפיור גרגוריוס ה־13 פרסם ב־24 בפברואר 1582: אחרי יום חמישי 4 באוקטובר בא יום שישי 15 באוקטובר — ימי השבוע לא נשברו; תרזה מאווילה נפטרה באותו לילה; (5) הכלל החדש: שנה מעוברת אם מתחלקת ב־4, אבל שנת מאה רק אם מתחלקת ב־400 (1900 לא, 2000 כן, 2100 לא) — 97 מעוברות ב־400 שנה, שנה ממוצעת 365.2425, טעות של כ־27 שניות, יום בכ־3,200 שנה; (6) מי שעבר מאוחר מחק יותר: בריטניה 1752 — 11 ימים, רוסיה 1918 — 13, יוון 1923; הכנסיות האורתודוקסיות בירושלים חוגגות חג מולד ב־7 בינואר; (7) הלוח העברי: חודשי ירח (כ־29.5 ימים), 12 חודשים ≈ 354 ימים, 11 ימים פחות משנת שמש; לכן 7 פעמים ב־19 שנים מוסיפים אדר א׳ כדי שפסח יישאר באביב; תשפ״ז מעוברת. חישובי המבחן: 8 × 6 = 48; 400 × 365 + 97 = 146,097; מתקדם (146,097 ÷ 400 − 365.2422) × 86,400 ≈ 26 שניות; אתגר 0.0078 × 86,400 ≈ 674 שניות, 1,701 × 0.0078 ≈ 13.3 ימים.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם למה הלוח זחל (השנה לא בדיוק 365 ימים, והיום המעובר כל 4 שנים מתקן קצת יותר מדי, והטעות הצטברה לעשרה ימים) וגם מה עשו (מחקו עשרה ימים, ו/או הכלל של שנות המאה שמתחלקות ב־400); 1 אם יש רק חלק מזה. תשובה שאומרת רק "כי הלוח היה לא נכון" בלי להסביר למה, לא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', יש לך מוח של '+G('אסטרונום','אסטרונומית')+' ודיוק של '+G('מתמטיקאי','מתמטיקאית')+'!':pct>=60?name+', יש לך מוח של '+G('מדען','מדענית')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=349;                                                     // tropical year − 365 days ≈ 0.2422 × 1440 ≈ 349 min (5 h 49 min)
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: שנה היא <span class="num">365</span> ימים ועוד <span class="num">5</span> שעות ו־<span class="num">49</span> דקות, כמעט רבע יום. מהשארית הזאת נולדו היום המעובר, עשרת הימים שנמחקו, והכלל של <span class="num">400</span>.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. ועכשיו ידוע לך גם מה עושים עם השארית: יום מעובר כל <span class="num">4</span> שנים, ותיקון קטן בשנות המאה, כי <span class="math">5:49</span> זה לא בדיוק <span class="math">6:00</span>.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. התשובה: <span class="num">5</span> שעות ו־<span class="num">49</span> דקות, כמעט רבע יום. ודווקא ההבדל הקטן בין <span class="math">5:49</span> ל־<span class="math">6:00</span>, כ־<span class="num">11</span> דקות בשנה, הוא שגרם למחיקת עשרת הימים.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה זמן השנה ארוכה מ־365 ימים): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: 5 שעות ו־49 דקות)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "עשרת הימים שלא היו", מהדורה 33, ג׳ בחשוון תשפ״ז (יום רביעי, 14 באוקטובר 2026). נושא: למה בשנת 1582 נמחקו עשרה ימים מלוח השנה, איך עובד הכלל של השנים המעוברות, ואיך הלוח העברי מחבר בין הירח לשמש; מתמטיקה (שאריות, שברים, הצטברות טעות, חלוקה וכפל), אסטרונומיה (שנה טרופית, יום השוויון, חודש ירח), היסטוריה (יוליוס קיסר, ניקאה, ליליוס, גרגוריוס ה־13, המעבר במדינות שונות) וגאוגרפיה (מדינות ולוחות שונים, ירושלים). היום, 14 באוקטובר, לא היה קיים ב־1582 בספרד, פורטוגל, רוב איטליה ופולין: אחרי יום חמישי 4 באוקטובר בא יום שישי 15 באוקטובר (הבולה Inter gravissimas של האפיפיור גרגוריוס ה־13, 24 בפברואר 1582); ימי השבוע לא נשברו, רק המספרים דולגו; תרזה מאווילה נפטרה בספרד באותו לילה, ויום הזיכרון שלה הוא 15 באוקטובר. השנה: הזמן שכדור הארץ מקיף את השמש וחוזר לאותה נקודה ביחס לעונות (שנה טרופית, מאביב לאביב), כ־365.2422 ימים = 365 ימים ועוד 5 שעות ו־49 דקות (timeanddate: 365.242189). הלוח סופר ימים שלמים, ולכן השארית מצטברת: 4 × 5:49 ≈ 23:16 שעות ב־4 שנים. באינטראקטיב "שעון השארית" מזיזים שנים (0–12): בלי יום מעובר כדור הארץ "מאחר" לדגל וימים שלמים נערמים; עם יום מעובר כל שנה רביעית מקבלת 29 בפברואר והפער כמעט נעלם — אבל נשארות כ־45 דקות כל 4 שנים לכיוון השני (התיקון גדול מדי); המרחק מהדגל מצויר גדול מהאמת. הלוח היוליאני: יוליוס קיסר, בעזרת האסטרונום סוסיגנס מאלכסנדריה, החל ב־1 בינואר 45 לפנה״ס; השנה שלפניו (46 לפנה״ס) נמתחה ל־445 ימים, "שנת הבלבול"; כל שנה רביעית מעוברת → שנה ממוצעת 365.25, ארוכה מהאמיתית ב־0.0078 יום ≈ 11 דקות (11 דקות ו־14 שניות), תמיד לאותו כיוון — יום בכל כ־128 שנה. ועידת ניקאה (325) קבעה את מועד הפסחא לפי יום השוויון האביבי, שנפל אז כ־21 במרץ; עד 1582 הוא זחל בלוח ל־11 במרץ (1,257 שנים × 0.0078 ≈ 9.8 ימים). באינטראקטיב "יום השוויון הבורח" רואים את תאריך יום השוויון מ־325 עד 2026: קו אדום יורד, קפיצה ירוקה ב־1582 חזרה ל־21 במרץ, והלוח הישן (מקווקו) ממשיך לזחול לכ־8 במרץ בדגם (במציאות 7 במרץ יוליאני = 20 במרץ גרגוריאני ב־2026); במודל יום השוויון אחרי 1582 קבוע, במציאות נע בין 19 ל־21 במרץ. הרפורמה: הרופא והאסטרונום אלויסיוס ליליוס (לואיג׳י ליליו) מצ׳ירו שבקלבריה, נפטר ב־1576; אחיו אנטוניו הביא את כתב היד לאפיפיור; ועדה דנה בו; המתמטיקאי הישועי כריסטופר קלביוס הגן עליו וכתב עליו ספרים; ליליוס תיקן גם את חישוב הירח (אפקטים) בשביל הפסחא. שני חלקים: מחיקה חד־פעמית של 10 ימים, וכלל חדש: מתחלקת ב־4 → מעוברת, אלא אם שנת מאה; שנת מאה מעוברת רק אם מתחלקת ב־400 (1600 ו־2000 כן; 1700, 1800, 1900, 2100 לא). 400 × 0.0078 ≈ 3.1 → מבטלים 3 ימים מעוברים ב־400 שנה: 97 מעוברות, 400 × 365 + 97 = 146,097 ימים, שנה ממוצעת 365.2425, ארוכה בכ־27 שניות — יום בכ־3,200 שנה (timeanddate: 3,236). באינטראקטיב "מכונת השנים המעוברות" שלוש תחנות (מתחלקת ב־4? ב־100? ב־400?), תיבת תשובה (366/365 ימים), ורשת של 400 שנה (2001–2400) עם 97 מעוברות ושלוש שנות מאה אדומות (2100, 2200, 2300); מתג "הכלל של יוליוס" מראה 100. מדינות: ספרד, פורטוגל, מדינות איטליה ופולין־ליטא באוקטובר 1582; צרפת 9 → 20 בדצמבר 1582; פרוטסטנטים ואורתודוקסים סירבו בהתחלה; בריטניה 1752: מיום רביעי 2 בספטמבר ליום חמישי 14 בספטמבר, 11 ימים (כי ב־1700 הישן הוסיף יום מעובר שהחדש ביטל); סיפור המהומות "תחזירו לנו את 11 הימים" כנראה מיתוס (צ׳סטרפילד, ציור של הוגארת׳); רוסיה 1918: 31 בינואר → 14 בפברואר, 13 ימים — מהפכת אוקטובר (25 באוקטובר 1917 בלוח הישן) = 7 בנובמבר; יוון 1923. הכנסיות האורתודוקסיות בירושלים ובבית לחם נשארו בלוח היוליאני לחגים: חג המולד 25 בדצמבר יוליאני = 7 בינואר; הפער היום 13 ימים, ואחרי 2100 יהיה 14; היום, 14 באוקטובר, הוא 1 באוקטובר בלוח הישן. הלוח העברי: חודשים לפי הירח, חודש ממוצע כ־29.5306 ימים; 12 חודשים ≈ 354 ימים — 11 ימים פחות משנת שמש; בתורה פסח צריך לחול בחודש האביב; לכן מעברים: 7 פעמים ב־19 שנים (שנים 3, 6, 8, 11, 14, 17, 19 במחזור) מוסיפים אדר א׳ לפני אדר, ופורים חל באדר ב׳; 19 × 365.2422 ≈ 6,939.6 ימים ≈ 235 × 29.5306 ≈ 6,939.7 (מחזור מטוני: 235 חודשים ב־19 שנים; 19 × 12 = 228, חסרים 7); תשפ״ז היא השנה ה־11 במחזור, ולכן מעוברת (אדר א׳ ואדר ב׳ ב־2027). לפי המסורת הלל השני קבע את הלוח המחושב בסביבות 359 לספירה; היסטוריונים חושבים שחלק מהכללים התגבשו רק במאות ה־7–8. שנה עברית ממוצעת כ־365.2468 — זוחלת יום בכ־216 שנה. הלוח המוסלמי ירחי בלבד: רמדאן מקדים כ־11 ימים בשנה ועובר בין כל העונות בכ־33 שנים. באינטראקטיב "איפה יהיה פסח?" גלגל עונות, דגל פסח (מתחיל ב־20 באפריל בדגם) ושורה של 19 שנים: בלי חודש מעובר פסח מקדים 11 ימים בשנה ואחרי 19 שנה הוא בסוף ספטמבר; עם חודש מעובר הוא נשאר בערך בין 25 במרץ ל־21 באפריל. Excel מתייחס בטעות ל־1900 כמעוברת (תאימות ל־Lotus 1-2-3). ניסויי בית: לבדוק שנות לידה במשפחה בשלוש השאלות; מקל וצל באותה שעה במשך שבוע (באוקטובר הצל מתארך); להוסיף לוח עברי בטלפון ולמצוא את אדר א׳ בפברואר 2027. בונוס: נולד ב־29 בפברואר 2016 — עד גיל 12 יש לו 3 ימי הולדת אמיתיים (2020, 2024, 2028). חישובי המבחן: הצעיר 8 × 6 = 48 שעות (בלי יום מעובר, 8 שנים); הבוגר 400 × 365 + 97 = 146,097 ימים; מתקדם (א) 146,097, (ב) 146,097 ÷ 400 = 365.2425, פחות 365.2422 = 0.0003 יום × 86,400 ≈ 26 שניות (בשיעור כתוב כ־27, לפי 365.242189); האתגר (א) (365.25 − 365.2422) × 86,400 ≈ 674 שניות = 11 דקות ו־14 שניות, (ב) (2026 − 325) × 0.0078 ≈ 13.3 ימים — הפער של 13 ימים בין הלוחות היום; דוגמה פתורה בשיעור: 1,257 ÷ 128 ≈ 9.8 ימים עד 1582; שאלת המחשבה: מחקו 10 ולא 13 כי המטרה הייתה לחזור ליום השוויון של ניקאה (21 במרץ), לא לימי יוליוס; בדיקות מהירות: למה יום מעובר כל 4 שנים; למה יום השוויון זחל; איזו שנה מעוברת (2000); מה קרה אחרי 4 באוקטובר 1582 (15 באוקטובר, יום שישי); למה אדר א׳; סידור: יוליוס ← ניקאה ← ליליוס מציע ואחיו מביא לאפיפיור ← 10 ימים בספרד ← 11 בבריטניה ← 13 ברוסיה (מי שעבר מאוחר מחק יותר). פישוטים במכוון: "כמעט 6 שעות"; האינטראקטיבים הם מודלים; תאריך יום השוויון בימי יוליוס הוא הערכה; השעה המדויקת של מות תרזה מסופרת בגרסאות שונות. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט ומה שלא ידוע, בלי לחשוף תשובות מבחן; אם ילד שואל על שאלה מהמבחן, לרמוז ולכוון, לא לפתור. בטיחות: לא להסתכל ישר לשמש כשמסמנים צל.';
+const CHIPS = ['למה מחקו עשרה ימים?', 'למה 1900 לא הייתה מעוברת?', 'למה יש שני אדר השנה?', 'מה קרה לאנשים בימים שנמחקו?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים: שנה טרופית 365.2422; יוליאני 365.25, ארוך ב־0.0078 יום ≈ 11.2 דקות, יום בכל 1 ÷ 0.0078 ≈ 128 שנה; 1,257 × 0.0078 ≈ 9.8 ימים מניקאה עד 1582; 400 × 0.0078 ≈ 3.1 ולכן 3 ימים מעוברים פחות ב־400 שנה; 400 × 365 + 97 = 146,097, ו־146,097 ÷ 400 = 365.2425, טעות של כ־27 שניות, 86,400 ÷ 27 = 3,200 שנה; בריטניה 11 ימים בגלל 1700, רוסיה 13 בגלל 1700, 1800, 1900; הלוח העברי: 19 × 365.2422 ≈ 235 × 29.5306 ≈ 6,939.6, 235 − 228 = 7 חודשים מעוברים, שנה ממוצעת 365.2468, יום בכ־216 שנה), שאל שאלות המשך שדורשות חשיבה (למשל: למה 365 + 1 ÷ 4 הוא קירוב טוב, ו־365 + 97 ÷ 400 טוב יותר? איזה כלל נוסף היה מתקן גם את 27 השניות? למה ספרד מחקה 10 ובריטניה 11? כמה ימים היה צריך למחוק אם היו מחכים עד היום? למה דווקא 19 שנים בלוח העברי? מה היה קורה לפסח בלי אדר א׳ אחרי 100 שנה?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה מחקו עשרה ימים?</b> שנה היא <span class="num">365</span> ימים ועוד כמעט <span class="num">6</span> שעות, ולכן יוליוס קיסר הוסיף יום כל <span class="num">4</span> שנים. אבל זה קצת יותר מדי, כ־<span class="num">11</span> דקות בכל שנה. במשך יותר מאלף שנה זה הצטבר לעשרה ימים, ובשנת <span class="num">1582</span> האפיפיור פשוט דילג עליהם: אחרי <span class="num">4</span> באוקטובר בא <span class="num">15</span> באוקטובר.<br><br><b>למה <span class="num">1900</span> לא הייתה מעוברת?</b> כדי שהלוח לא יזחל שוב, שנות מאה מעוברות רק אם הן מתחלקות ב־<span class="num">400</span>. <span class="num">2000</span> כן, <span class="num">1900</span> לא, וגם <span class="num">2100</span> לא תהיה.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
