@@ -12,10 +12,10 @@
     "מדע ישראלי"
   ],
   "summary": "Why 4–15 October 1582 skipped ten days: the tropical year (365.2422 d = 365 d 5 h 49 min), Caesar's leap day every 4 years over-correcting by ~11 min/yr (1 day/128 yr), the spring equinox creeping from 21 March (Nicaea, 325) to 11 March, Lilius/Clavius/Gregory XIII's Inter gravissimas (two parts: delete 10 days + the 4/100/400 rule, 97 leap years per 400, 146,097 days, ~27 s/yr error), Teresa of Ávila, Britain 1752 (11 days), Russia 1918 (13), Orthodox Christmas on 7 January in Jerusalem; the Hebrew calendar's 19-year cycle (235 months, Adar I 7 times; 5787 is a leap year) keeping Passover in spring.",
-  "teaser": null,
-  "max_score": null,
+  "teaser": "היום 14 באוקטובר. בשנת 1582 התאריך הזה פשוט לא היה קיים: בספרד ובאיטליה הלכו לישון ביום חמישי, 4 באוקטובר, וקמו ביום שישי, 15 באוקטובר. מי מחק עשרה ימים מלוח השנה, ולמה? והאם זה יכול לקרות שוב?",
+  "max_score": 11,
   "status": "released",
-  "released_at": "2026-10-14T08:11:31.003Z",
+  "released_at": "2026-10-14T08:11:32.732Z",
   "password": null,
   "reviewer_verdict": "PASS (3 rounds) — nits left: lesson text ~10–15% over the word target (≈25–30 min younger, 30–35 older + challenge); drCv phone axis labels 1582/2026 sit close; old-calendar dashed line unlabelled before 1900",
   "review_url": "https://claude.ai/artifact/1GtxZabQJ2xzVSvjd3jUA4",
