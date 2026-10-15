@@ -1,0 +1,1804 @@
+<title>שורשים וכנפיים #34 · העצם שבנויה כמו מגדל אייפל</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#6B3FA0; --shadow-soft:#ECE1F7;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a calendar page that jumps from 4 to 15 under the Sun, and two specks drifting off it */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:210px;height:210px;left:-34px;top:44px;opacity:.8}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+.calfig{margin:18px 0 24px}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 34</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="var(--aur)" stop-opacity=".5"/>
+        <stop offset="60%" stop-color="var(--aur)" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="var(--aur)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- the top of a thigh bone, cut open: a hollow shaft, and a head full of struts -->
+    <g id="heroBone">
+      <clipPath id="heroBoneClip"><path d="M182 240 L182 150 Q184 118 206 100 L216 86 Q228 70 218 60 L200 58 Q170 96 128 104 Q118 84 96 72 Q66 60 50 84 Q38 108 58 128 Q96 176 150 176 L150 240 Z"/></clipPath>
+      <path d="M182 240 L182 150 Q184 118 206 100 L216 86 Q228 70 218 60 L200 58 Q170 96 128 104 Q118 84 96 72 Q66 60 50 84 Q38 108 58 128 Q96 176 150 176 L150 240 Z" fill="var(--calpage)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+      <rect x="160" y="190" width="14" height="50" rx="6" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/>
+      <g clip-path="url(#heroBoneClip)"><g stroke="var(--nile)" stroke-width="3" fill="none" stroke-linecap="round">
+        <path d="M60 92 Q110 120 152 196"/><path d="M76 78 Q120 110 156 176"/><path d="M96 74 Q132 104 160 160"/>
+      </g>
+      <g stroke="var(--calred)" stroke-width="3" fill="none" stroke-linecap="round">
+        <path d="M178 190 Q150 100 70 116"/><path d="M180 168 Q156 96 92 128"/><path d="M182 146 Q166 104 116 132"/>
+      </g></g>
+    </g>
+    <g class="spark" transform="translate(234,120)"><circle r="6" fill="var(--aur)" stroke="var(--ink)" stroke-width="1.5"/></g>
+    <g class="spark2" transform="translate(240,170)"><circle r="4" fill="var(--aur2)" stroke="var(--ink)" stroke-width="1.5"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 34</span><span class="tag">יום חמישי, 15 באוקטובר 2026</span><span class="tag">ד׳ בחשוון תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>העצם שבנויה כמו מגדל אייפל</h1>
+  <p class="lede">בתוך הירך שלכם נמצאת העצם הארוכה ביותר בגוף: <b>עצם הירך</b>. היא נושאת אתכם בכל צעד, בכל ריצה ובכל קפיצה. ובכל זאת, באמצע שלה היא <b>חלולה</b>, כמו צינור. ובקצה העליון שלה, ליד המפרק, מסתתר בפנים ספוג של עמודונים זעירים. בשנת <span class="num">1866</span> מהנדס בציריך הציץ בעצם כזאת שנחתכה לאורכה, ולפי הסיפור קרא בהפתעה: <b>"זה המנוף שלי!"</b> העמודונים עמדו בדיוק על הקווים שהוא עצמו שרטט כדי לתכנן מנוף. השאלה של היום: <b>איך עצם, בלי מהנדס ובלי מחשב, יודעת איפה לשים חומר?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">כשאתם הולכים, בכל צעד כל המשקל עובר דרך רגל אחת. כמה כוח לוחץ על מפרק הירך באותו רגע?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="5"><b>חצי מהמשקל שלי</b><span>הרגל השנייה עוזרת</span></button>
+      <button type="button" class="scaleopt" data-scale="10"><b>בדיוק המשקל שלי</b><span>לא פחות ולא יותר</span></button>
+      <button type="button" class="scaleopt" data-scale="24"><b>פי <span class="num">2</span> וחצי</b><span>יותר מהמשקל שלי</span></button>
+      <button type="button" class="scaleopt" data-scale="100"><b>פי <span class="num">10</span></b><span>כמו פסנתר</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · HOLLOW AND STRONGER (interactive 1: rod → tube with the same material) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>חלול — וחזק יותר</h2>
+  <p>קחו דף נייר והחזיקו אותו בקצה: הוא מתקפל ונופל. עכשיו גלגלו אותו לצינור, והוא פתאום מחזיק ספר. אותו נייר בדיוק, אותה כמות חומר. מה השתנה? <b>המקום של החומר.</b> כבר בשנת <span class="num">1638</span> כתב גלילאו גליליי שצינור חלול חזק יותר ממוט מלא באותו משקל, ושהטבע משתמש בזה בעצמות של ציפורים ובגבעולים של קנים.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>כשמוט מתכופף, הצד העליון שלו נלחץ, והצד התחתון נמתח כמו גומייה. את רוב העבודה עושה החומר שבשוליים, הרחוק מהאמצע. החומר שבדיוק באמצע כמעט לא עובד, הוא רק מוסיף משקל.</p>
+    <p>לכן עצם הירך שלכם היא צינור: קיר קשה בחוץ, ובאמצע חלל מלא במח עצם רך. באינטראקטיב: נחשו קודם, ואז "נפחו" את המוט לצינור. שימו לב: כמות החומר לא משתנה אף פעם.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בכיפוף צד אחד נמתח וצד אחד נלחץ, ובאמצע יש קו שלא נמתח בכלל. ככל שפיסת חומר רחוקה יותר מהקו הזה, היא נמתחת יותר ועוזרת יותר, וגם מקבלת "מנוף" גדול יותר. המהנדסים מסכמים את זה כך: בצינור עגול עם רדיוס חוץ R ורדיוס חלל r, כמות החומר גדלה כמו <span class="math">R² − r²</span>, והקשיחות כמו <span class="math">R⁴ − r⁴</span>. (בשניהם יש גם π, והוא מצטמצם כשמשווים.)</p>
+    <p>דוגמה: מוט מלא ברדיוס <span class="num">1</span>. מנפחים אותו לצינור ברדיוס חוץ <span class="num">1.5</span>, עם אותו חומר. צריך <span class="math">1.5² − r² = 1</span>, ולכן <span class="math">r² = 1.25</span>. הקשיחות: <span class="math">1.5⁴ − 1.25² = 5.0625 − 1.5625 = 3.5</span>. (כי <span class="math">r⁴ = r² × r²</span>.) <b>פי <span class="num">3.5</span></b> יותר קשיח, באותו משקל. באינטראקטיב: נחשו, ובדקו את החשבון.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — מוט מלא מול צינור ===== -->
+  <div class="panel instrument">
+    <h3>מוט מלא או צינור?</h3>
+    <p class="cap">נחשו קודם: יש לנו כמות חומר קבועה. מה יתכופף <b>פחות</b> מתחת לאותה משקולת?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="tbP0" onclick="tbPredict(0)">מוט מלא</button>
+        <button id="tbP1" onclick="tbPredict(1)">צינור חלול</button>
+        <button id="tbP2" onclick="tbPredict(2)">אותו דבר</button>
+      </div>
+    </div>
+    <canvas role="img" id="tbCv" width="640" height="470" aria-label="משמאל: חתך עגול של המוט, החומר בחום והחלל באמצע ריק; כשמנפחים, העיגול גדל והחור באמצע גדל איתו, כך שכמות החומר נשארת זהה. מימין למעלה: המוט מונח על שתי תמיכות ומשקולת תלויה באמצע; ככל שהצינור רחב יותר, הוא מתכופף פחות. מימין למטה: שני עמודים, משקל וקשיחות; המשקל תמיד אותו דבר, והקשיחות גדלה"></canvas>
+    <div class="controls">
+      <label>כמה לנפח
+        <input type="range" id="tbN" min="0" max="8" step="1" value="0" oninput="tbDraw(1)" aria-label="כמה לנפח" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">רדיוס חוץ: <b class="num" id="tbOut">1.0</b></div>
+      <div class="readout">קשיח פי <b class="num" id="tbOut2">1.0</b></div>
+    </div>
+    <p class="cap" id="tbMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="tbReveal" hidden><span class="hand">!</span><p>אותו חומר, אותו משקל, אבל הצינור קשיח פי כמה. זה הטריק הראשון של העצם: <b>להעביר את החומר החוצה</b>, לשוליים, ולהשאיר באמצע חלל קל. ככה גם בנויים קני במבוק, גבעולי חיטה ומסגרות של אופניים.</p></div>
+
+  <div class="q qc" id="tubeQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE CRANE INSIDE THE HIP (interactive 2: stress lines, bone ⇄ crane) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>המנוף שבתוך הירך</h2>
+  <p>בקצה העליון, עצם הירך מתעקלת הצידה כמו זרוע של מנוף, ובקצה הזרוע יש "כדור" שנכנס לשקע באגן. המשקל שלכם נשען על הכדור הזה מלמעלה ומהצד, כמו משא שתלוי על הוו של מנוף. וכשהולכים, הכוח שם הוא בערך <b>פי <span class="num">2</span> וחצי</b> מהמשקל שלכם, כי גם השרירים מושכים חזק כדי לשמור על שיווי משקל על רגל אחת.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>כשלוחצים על זרוע עקומה, היא מנסה להתכופף: הצד העליון שלה נמתח, כמו גומייה, והצד התחתון נמעך, כמו ספוג שלוחצים עליו.</p>
+    <p>בתוך הקצה של העצם יש ספוג קשה של עמודונים קטנטנים, דקים כמו שערה. הם לא מפוזרים סתם: הם עומדים בשורות, לאורך הדרכים שבהן הכוח עובר. באינטראקטיב: נחשו איפה העצם נמתחת, ואז החליפו בין העצם למנוף.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>מהנדסים מציירים "קווי מאמץ": קווים שלאורכם החומר רק נלחץ או רק נמתח. בזרוע מתכופפת יש שתי משפחות של קווים כאלה, קווי לחיצה וקווי מתיחה, והן חוצות זו את זו בערך בזווית ישרה.</p>
+    <p><b>קרל קולמן</b>, פרופסור להנדסה בפוליטכניון של ציריך, פיתח שיטה לפתור בעיות של כוחות בעזרת שרטוט במקום נוסחאות, "סטטיקה גרפית". בשנת <span class="num">1866</span> הוא שרטט כך את קווי המאמץ של מנוף עקום. כשראה עצם ירך חתוכה אצל עמיתו, האנטומאי <b>הרמן פון מאייר</b>, הוא זיהה בה את אותן שתי משפחות של קווים. באינטראקטיב: הגדילו את המשקל, והחליפו בין העצם למנוף.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — המנוף של קולמן ===== -->
+  <div class="panel instrument">
+    <h3>עצם או מנוף?</h3>
+    <p class="cap">נחשו קודם: כשהמשקל לוחץ על הכדור שבראש העצם, איפה הצוואר של העצם <b>נמתח</b>?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="crP0" onclick="crPredict(0)">בצד העליון</button>
+        <button id="crP1" onclick="crPredict(1)">בצד התחתון</button>
+        <button id="crP2" onclick="crPredict(2)">בשום מקום, רק נלחץ</button>
+      </div>
+    </div>
+    <canvas role="img" id="crCv" width="640" height="470" aria-label="הקצה העליון של עצם הירך: גוף ישר בצד ימין, צוואר שמתעקל שמאלה למעלה, וכדור בראשו; חץ גדול לוחץ על הכדור מלמעלה. בתוך העצם שתי משפחות של קווים: קווים כחולים של לחיצה, מהכדור למטה אל הקיר הפנימי, וקווים אדומים של מתיחה, מהקיר החיצוני בקשת מעל הצוואר אל הכדור. במצב מנוף, אותה צורה מצוירת כמנוף ברזל עם וו ומשא, ואותם קווים בדיוק נשארים במקומם"></canvas>
+    <div class="controls">
+      <label>המשקל
+        <input type="range" id="crL" min="0" max="10" step="1" value="0" oninput="crDraw(1)" aria-label="המשקל" style="direction:ltr">
+      </label>
+      <button class="btn small ghost" id="crMode" onclick="crToggle()">מציגים: עצם הירך</button>
+    </div>
+    <p class="cap" id="crMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div id="crReveal" hidden>
+    <div data-track="younger"><p>ראיתם? בצד העליון של הצוואר העצם נמתחת (אדום), ובצד התחתון היא נלחצת (כחול). והעמודונים שבתוך העצם עומדים בדיוק על הקווים האלה. העצם שמה חומר רק איפה שהכוח עובר.</p></div>
+    <div data-track="older"><p>שתי המשפחות חוצות זו את זו כמעט בזווית ישרה, וזה בדיוק מה שהופיע בשרטוט של קולמן. כך יוצא מבנה קל: אין חומר מיותר, וכל עמודון עובד רק בלחיצה או רק במתיחה, הדרך הכי חסכונית לשאת כוח.</p></div>
+    <div class="aha">כלל אצבע: <b>שמים חומר רק לאורך הדרך שבה הכוח זורם.</b> מנוף, גשר ועצם עושים בדיוק את אותו דבר.</div>
+  </div>
+
+  <div class="q qc" id="craneQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE BONE THAT REBUILDS ITSELF (interactive 3: struts that grow or vanish with use) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>העצם שבונה את עצמה</h2>
+  <p>אז איך העצם יודעת איפה לשים עמודונים? אין לה מהנדס. יש לה צוות של תאים זעירים: תאים שמפרקים עצם, ותאים שבונים עצם חדשה. ובתוך העצם עצמה חיים תאים נוספים, <b>שמרגישים</b> כמה העצם סביבם נלחצת ומתכופפת. עמודון שעובד קשה מקבל חיזוק. עמודון שלא נושא כלום מפורק, והחומר שלו ממוחזר. וזה קורה כל הזמן: בכל שנה מתחלף חלק גדול מהשלד.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>זה כמו שביל בדשא. איפה שכולם הולכים כל יום, נוצר שביל ברור. איפה שאף אחד לא דורך, הדשא חוזר והשביל נעלם.</p>
+    <p>בעצם זה אותו דבר: איפה שהכוח עובר כל יום, העמודונים מתעבים. איפה שאין כוח, הם נעלמים. באינטראקטיב: בחרו מאיפה הכוח בא, ולחצו "עוד חודש" שוב ושוב.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בשנת <span class="num">1892</span> פרסם המנתח הגרמני <b>יוליוס וולף</b> ספר שבו טען: כשהעומס על עצם משתנה, גם המבנה הפנימי שלה משתנה, לפי חוקים של מתמטיקה. היום קוראים לזה "חוק וולף". את המנגנון הבינו רק מאוחר יותר: התאים הכלואים בתוך העצם מרגישים את המתיחה הזעירה של החומר סביבם ושולחים אותות. התאים הבונים מוסיפים עצם במקום שנמתח הרבה, והמפרקים מסלקים עצם במקום שכמעט לא נמתח.</p>
+    <p>זו <b>לולאת משוב</b>: עומס, חישה, בנייה, ושוב עומס, בלי שום תוכנית. באינטראקטיב: בחרו כיוון לכוח, הריצו חודשים, ואז שנו את הכיוון.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — העצם שבונה את עצמה ===== -->
+  <div class="panel instrument">
+    <h3>חודש אחרי חודש</h3>
+    <p class="cap">נחשו קודם: הכוח מגיע תמיד <b>מלמעלה</b>. אילו עמודונים יישארו אחרי כמה חודשים?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="wfP0" onclick="wfPredict(0)">העומדים</button>
+        <button id="wfP1" onclick="wfPredict(1)">השוכבים</button>
+        <button id="wfP2" onclick="wfPredict(2)">כולם, אותו דבר</button>
+      </div>
+    </div>
+    <canvas role="img" id="wfCv" width="640" height="470" aria-label="רשת של עמודונים בתוך ריבוע, עומדים, שוכבים ואלכסוניים, כולם באותו עובי בהתחלה. חץ גדול מראה מאיפה בא הכוח. בכל חודש העמודונים שהכוח עובר לאורכם מתעבים, ואלה שלא נושאים כלום מתדלדלים ונעלמים. בצד: מונה חודשים ופס שמראה כמה עצם יש בסך הכול. בלי משקל, כמו בחלל, כל העמודונים מתדלדלים"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="מאיפה הכוח">
+        <button id="wfD0" class="on" onclick="wfDir(0)">מלמעלה</button>
+        <button id="wfD1" onclick="wfDir(1)">באלכסון</button>
+        <button id="wfD2" onclick="wfDir(2)">בלי משקל</button>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn small" onclick="wfStep(1)">עוד חודש ←</button>
+      <button class="btn small ghost" onclick="wfStep(6)">חצי שנה ←</button>
+      <button class="btn small ghost" onclick="wfReset()">מהתחלה</button>
+      <div class="readout">חודשים: <b class="num" id="wfOut">0</b></div>
+      <div class="readout">עצם: <b class="num" id="wfOut2">100%</b></div>
+    </div>
+    <p class="cap" id="wfMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="wfReveal" hidden><span class="hand">!</span><p>אף אחד לא תכנן את הצורה. כל עמודון רק "מרגיש" אם הוא עובד, והצורה הנכונה מופיעה מעצמה. ואם הכוח משנה כיוון, העצם מסתדרת מחדש. זה הטריק השני של העצם: <b>להשתמש או לאבד</b>.</p></div>
+
+  <div class="q qc" id="wolffQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE STORY: THE CRANE, THE STUDENT AND THE TOWER -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+
+  <figure class="calfig" aria-label="משמאל: מגדל רשת מברזל, רחב למטה וצר למעלה, עם רגליים מתעקלות; מימין: הקצה העליון של עצם הירך, חתוכה לאורכה, עם עמודונים בפנים. בשניהם החומר בנוי מקורות דקות ויש בהם הרבה אוויר">
+    <svg viewBox="0 0 560 330" role="img" aria-hidden="true" focusable="false">
+      <rect x="8" y="8" width="544" height="314" rx="18" fill="var(--card2)" stroke="var(--line)" stroke-width="2"/>
+      <!-- the lattice tower -->
+      <g fill="none" stroke="var(--iron)" stroke-width="3" stroke-linejoin="round">
+        <path d="M60 300 Q120 230 136 120 L146 30 L150 30 L160 120 Q176 230 236 300"/>
+        <path d="M96 300 Q130 250 148 210 Q166 250 200 300" />
+        <line x1="104" y1="236" x2="192" y2="236"/><line x1="128" y1="160" x2="168" y2="160"/>
+        <path d="M84 300 L120 236 L148 300 L176 236 L212 300"/>
+        <path d="M120 236 L136 160 L148 236 L160 160 L176 236"/>
+        <path d="M136 160 L142 96 L148 160 L154 96 L160 160"/>
+        <path d="M142 96 L146 40 L150 96"/>
+      </g>
+      <text x="262" y="66" text-anchor="middle" font-family="Rubik, Arial" font-weight="700" font-size="34" fill="var(--muted)">מגדל</text>
+      <!-- the bone -->
+      <g transform="translate(300,10)">
+        <clipPath id="figBoneClip"><path d="M176 290 L176 160 Q178 128 196 112 L206 98 Q216 84 206 74 L190 72 Q162 108 122 116 Q112 94 90 82 Q58 70 42 96 Q30 122 52 142 Q90 190 144 190 L144 290 Z"/></clipPath>
+        <path d="M176 290 L176 160 Q178 128 196 112 L206 98 Q216 84 206 74 L190 72 Q162 108 122 116 Q112 94 90 82 Q58 70 42 96 Q30 122 52 142 Q90 190 144 190 L144 290 Z" fill="var(--calpage)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+        <rect x="153" y="206" width="14" height="84" rx="6" fill="var(--card2)" stroke="var(--ink)" stroke-width="2"/>
+        <g clip-path="url(#figBoneClip)"><g stroke="var(--nile)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M54 104 Q104 132 146 210"/><path d="M70 90 Q114 122 150 190"/><path d="M90 86 Q126 116 154 174"/></g>
+        <g stroke="var(--calred)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M172 204 Q144 112 64 128"/><path d="M174 182 Q150 108 86 140"/><path d="M176 160 Q160 116 110 144"/></g></g>
+        <text x="70" y="286" text-anchor="middle" font-family="Rubik, Arial" font-weight="700" font-size="34" fill="var(--muted)">עצם</text>
+      </g>
+    </svg>
+    <figcaption>מגדל של קורות ברזל, ועצם של עמודונים. בשניהם <b>רוב הנפח הוא אוויר</b>, והחומר עומד רק איפה שהכוח עובר.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>המנוף, התלמיד והמגדל</h2>
+    <p>בשנת <span class="num">1866</span>, בעיר ציריך שבשווייץ, ביקר המהנדס <b>קרל קולמן</b> אצל חבר, רופא שחקר עצמות, וראה עצם ירך חתוכה. "זה המנוף שלי!" קרא. (את הסיפור כתבו רק שנים אחר כך, אז אולי המילים היו קצת אחרות. הדמיון אמיתי.)</p>
+    <p>לקולמן היו תלמידים, והטוב שבהם היה <b>מוריס קשלן</b>. בשנת <span class="num">1884</span>, בערב אחד בבית, קשלן שרטט רעיון: מגדל ברזל בגובה <span class="num">300</span> מטר. החברה שבה עבד הייתה של <b>גוסטב אייפל</b>, והמגדל נפתח בפריז בשנת <span class="num">1889</span>: <span class="num">18,038</span> חלקי ברזל ו־<span class="num">2,500,000</span> מסמרות.</p>
+    <p>אז האם מגדל אייפל הועתק מעצם הירך? כנראה שלא. אין שום מסמך שמראה את זה. הקשר האמיתי יפה יותר: אותו רעיון, לשים חומר רק לאורך הכוח, עבר מהמורה לתלמיד. וקשלן תכנן את המגדל לפי הכוח של <b>הרוח</b>.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>מה באמת הקשר בין עצם הירך למגדל אייפל?</h2>
+    <p>הסיפור מוכר מספרו של הביולוג הסקוטי <b>ד׳ארסי תומפסון</b> משנת <span class="num">1917</span>: ב־<span class="num">1866</span> ראה קולמן אצל פון מאייר עצם ירך חתוכה וקרא בצרפתית "Voilà ma grue!", "הנה המנוף שלי!". את המילים המדויקות קשה לאמת, אבל ההשוואה עומדת עד היום.</p>
+    <p>מכאן לפריז: <b>מוריס קשלן</b> למד בפוליטכניון של ציריך, ולפי המוזיאון הלאומי של שווייץ היה התלמיד המוכשר ביותר של קולמן. ב־<span class="num">6</span> ביוני <span class="num">1884</span> שרטט בביתו "עמוד בגובה <span class="num">300</span> מטר", ורשם עליו את עומסי הרוח. הוא עבד בחברה של גוסטב אייפל, ועם עמיתיו הרעיון הפך למגדל, שנבנה בשנים <span class="math">1887–1889</span>.</p>
+    <p>האם המגדל "הועתק" מעצם הירך? אין לכך הוכחה, ומומחים קוראים לזה אגדה. השורש המשותף הוא השיטה של קולמן. והמגדל חסכוני: <span class="num">7,300</span> טון ברזל בלבד במסגרת, על בסיס ריבועי של כ־<span class="num">125</span> מטר. ברזל כבד: כל מטר מעוקב שלו שוקל כ־<span class="num">7.8</span> טון. כדי לדעת כמה מקום היה תופס ברזל במשקל ידוע אילו היה גוש אחד, מחלקים את המשקל ב־<span class="num">7.8</span>. המגדל עצמו הוא כמעט כולו אוויר, בדיוק כמו העצם הספוגית.</p>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: USE IT OR LOSE IT — SPACE (interactive 4) (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>מה קורה לעצמות בחלל?</h2>
+  <p>בתחנת החלל הבינלאומית אין משקל. אסטרונאוטים מרחפים, והרגליים כמעט לא נושאות כלום. והעצמות מגיבות בדיוק כמו שראינו: הן מפרקות את מה שלא עובד. כמה מהר? נחשו ובדקו.</p>
+
+  <!-- ===== INTERACTIVE 4 — חודשים בחלל ===== -->
+  <div class="panel instrument">
+    <h3>חצי שנה בחלל</h3>
+    <p class="cap">נחשו קודם: אסטרונאוט שלא מתאמן בכלל, אחרי <span class="num">6</span> חודשים בחלל. כמה עצם יאבד בירך?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="spP0" onclick="spPredict(0)">כמעט כלום</button>
+        <button id="spP1" onclick="spPredict(1)">בערך <span class="num">6</span> אחוזים</button>
+        <button id="spP2" onclick="spPredict(2)">חצי מהעצם</button>
+      </div>
+    </div>
+    <canvas role="img" id="spCv" width="640" height="470" aria-label="משמאל: אסטרונאוט מרחף בתחנת חלל, או ילד עומד על הקרקע. מימין: חתך גדול של עצם הירך, טבעת קשה בחוץ ועמודונים בפנים; ככל שעוברים חודשים בחלל, הטבעת נעשית דקה יותר ועמודונים נעלמים. למטה פס שמראה כמה אחוזים מהעצם נשארו; עם התעמלות הפס יורד הרבה פחות"></canvas>
+    <div class="controls">
+      <label>חודשים
+        <input type="range" id="spM" min="0" max="12" step="1" value="0" oninput="spDraw(1)" aria-label="חודשים" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="איפה">
+        <button id="spW0" onclick="spWhere(0)">על כדור הארץ</button>
+        <button id="spW1" class="on" onclick="spWhere(1)">בחלל</button>
+        <button id="spW2" onclick="spWhere(2)">בחלל + אימון</button>
+      </div>
+      <div class="readout">נשאר: <b class="num" id="spOut">100%</b></div>
+    </div>
+    <p class="cap" id="spMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="spReveal" hidden><span class="hand">!</span><p>בירכיים וברגליים אסטרונאוטים מאבדים כ<b>אחוז אחד מהעצם בכל חודש</b>, יותר מפי <span class="num">10</span> מהר יותר מאשר במחלת עצמות קשה על כדור הארץ. לכן הם מתאמנים כשעתיים ביום על מכונה שמושכת אותם בכוח, כמעט כמו הרמת משקולות.</p></div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>וזה עובד גם לכיוון השני. אצל שחקני טניס, ביד שמחזיקה את המחבט יש הרבה יותר עצם מאשר ביד השנייה, לפעמים כמעט פי <span class="num">1.4</span>. אותו אדם, אותם גנים, רק עבודה אחרת.</p>
+    <p>ולכם יש יתרון: בגיל שלכם העצמות נבנות מהר מאוד. ריצה, קפיצות, טיפוס ומשחקי כדור הם בדיוק מה שהעצמות "מרגישות" ומתחזקות ממנו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>מחקר על שחקני טניס צעירים מצא שבזרוע של המחבט יש ב־<span class="num">39</span> אחוזים יותר מינרל בעצם הזרוע העליונה מאשר בזרוע השנייה. זה כמעט ניסוי מושלם: אותו גוף, אותה תזונה, אותם גנים, ורק העומס שונה.</p>
+    <p>ולא כל האסטרונאוטים חוזרים לגמרי לצפיפות העצם שהייתה להם לפני הטיסה. החוקרים עדיין לומדים למה.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> זוכרים את הצינור מפרק <span class="num">1</span>? מוט מלא ברדיוס <span class="num">1</span>. הפעם מנפחים אותו לצינור ברדיוס חוץ <span class="num">2</span>, עם אותה כמות חומר בדיוק. (א) מה הרדיוס של החלל, r? (עגלו לשתי ספרות אחרי הנקודה. מותר מחשבון.) (ב) פי כמה הצינור קשיח יותר מהמוט המלא? (רמז: כמות החומר כמו <span class="math">R² − r²</span>, והקשיחות כמו <span class="math">R⁴ − r⁴</span>.)</p>
+      <div class="controls">
+        <label>(א) r <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) פי <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> באמצע, עצם הירך היא צינור חלול. אבל בשני הקצוות שלה, ליד המפרקים, היא רחבה ומלאה בספוג של עמודונים. למה לא לעשות אותה צינור דק לכל האורך?</p>
+      <details><summary>הרמז והתשובה</summary><p><b>כי בכל מקום הכוח עושה משהו אחר.</b> באמצע העצם הכוח בעיקר מכופף אותה, ולכן הכי משתלם להעביר את החומר לשוליים: צינור. בקצוות הכוח נכנס דרך המפרק, משטח עגול ורחב שמכוסה סחוס, ומגיע מכיוונים שמשתנים עם כל תנועה. משטח רחב מפזר את הלחץ, והעמודונים אוספים את הכוח מכל המשטח ומובילים אותו, לאורך קווי הלחיצה והמתיחה, אל הקירות של הצינור. צינור דק בקצה היה נמעך מתחת למפרק, כמו פחית שדורכים עליה.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>נייר, ספרים, ועצם עוף מארוחת הערב.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — הצינור שמחזיק ספרים (<span class="num">5</span> דקות)</h3>
+    <p class="cap">מה צריך: שלושה דפי נייר רגילים, סלוטייפ, וערימה של ספרים דקים או מחברות.</p>
+    <ol>
+      <li>העמידו דף אחד שטוח על הקצה שלו, ונסו להניח עליו מחברת. מה קרה?</li>
+      <li>גלגלו דף שני לצינור, בערך בעובי של אגודל, והדביקו. העמידו אותו זקוף.</li>
+      <li>גלגלו את הדף השלישי לצינור צר מאוד, בעובי של עיפרון.</li>
+      <li>הניחו מחברות אחת אחרי השנייה על כל צינור, בעדינות, עד שהוא קורס. איזה צינור החזיק יותר? ומה קרה לצינור הרחב מדי, אם ניסיתם גם כזה?</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — מה יש בתוך עצם של עוף (<span class="num">5</span> דקות, עם מבוגר)</summary>
+    <p>אחרי ארוחה עם כרעי עוף, בקשו ממבוגר לשטוף עצם של שוק ולחתוך אותה לאורכה, או לשבור אותה באמצע. התבוננו: באמצע תמצאו צינור עם קיר קשה וחלל, ובקצוות, ליד המפרקים, ספוג של עמודונים זעירים. אפשר להיעזר בזכוכית מגדלת. אחר כך שוטפים ידיים היטב.</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — העצם שהתגמשה (<span class="num">3</span> ימים, עם מבוגר)</summary>
+    <p>שימו עצם נקייה של עוף בצנצנת מלאה חומץ, וסגרו. אחרי שלושה ימים הוציאו, שטפו, ונסו לכופף בעדינות. החומץ ממיס את המינרל הקשה, ומה שנשאר הוא בעיקר הסיבים של הקולגן, גמישים כמו גומי. עכשיו ברור למה העצם צריכה את שניהם: מינרל בשביל קשיחות, וסיבים כדי לא להישבר כמו זכוכית.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הרעיון הגדול: <b>חומר שמים רק איפה שהכוח עובר.</b> באמצע העצם החומר זז החוצה ויוצר צינור. בקצוות העמודונים עומדים לאורך הקווים של הכוח. כך העצם גם חזקה וגם קלה, בדיוק כמו מנוף או מגדל מברזל.</p>
+    <p>והרעיון השני: <b>העצם חיה ומשתנה.</b> מה שעובד מתחזק, ומה שלא עובד נעלם. לכן אסטרונאוטים מתאמנים כל יום, ולכן ריצה וקפיצות בונות לכם עצמות חזקות.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הראשון: <b>הצורה עוקבת אחרי הכוח.</b> בכיפוף, חומר רחוק מהציר שווה הרבה יותר, כי הקשיחות גדלה כמו <span class="math">R⁴ − r⁴</span> והמשקל רק כמו <span class="math">R² − r²</span>. ובמקום שבו הכוח מגיע מכמה כיוונים, עמודונים לאורך קווי הלחיצה והמתיחה נושאים אותו בלי חומר מיותר.</p>
+    <p>הרעיון השני: <b>לולאת משוב יכולה "לתכנן" בלי מתכנן.</b> כל תא עושה רק דבר אחד פשוט, מוסיף איפה שנמתח הרבה ומסלק איפה שלא, והצורה הנכונה מופיעה מעצמה. שאלה לחקור: למה לולאה כזאת היא גם סכנה, למשל לאסטרונאוט בטיסה למאדים שתימשך שנים?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ביולוגיה · ציפורים</div><h3>עצמות מלאות אוויר</h3><p>אצל עופות רבים העצמות הגדולות חלולות, ובחלקן יש בפנים תמוכות דקות באלכסון, כמו בגשר רכבת. כך הכנף קלה מספיק לעוף וקשיחה מספיק לא להתקפל.</p></div>
+    <div class="tile"><div class="dom">צמחים · שדה</div><h3>הקנה שלא נשבר ברוח</h3><p>גבעול של חיטה וקנה של במבוק הם צינורות חלולים, ולבמבוק יש גם "מחיצות" במרווחים, שמונעות מהצינור להימעך. גלילאו כבר הזכיר אותם ב־<span class="num">1638</span>.</p></div>
+    <div class="tile"><div class="dom">הנדסה · מחשבים</div><h3>חלקים שגדלים כמו עצם</h3><p>היום מהנדסים נותנים למחשב "לגדל" חלקים של מטוסים ומכוניות: הוא מוסיף חומר איפה שיש מאמץ ומוריד איפה שאין, שוב ושוב. החלקים שיוצאים נראים מוזר, כמו עצמות, וחוסכים הרבה משקל.</p></div>
+    <div class="tile"><div class="dom">ישראל · מכון ויצמן</div><h3>שבע הקומות של העצם</h3><p>במכון ויצמן ברחובות תיארו את העצם כבניין של עד <span class="num">7</span> רמות, מגבישים זעירים ועד הצינור שבירך. המחקר הזה עוזר לפתח חומרים חדשים שמחקים עצם.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): למה אין ענקים בגובה של בניין?</summary>
+    <p>גלילאו שאל: מה יקרה לאדם שגדל פי <span class="num">2</span> בכל כיוון, בגובה, ברוחב ובעומק? נסו לבד לפני שפותחים.</p>
+    <details><summary>התשובה</summary>
+      <p>המשקל תלוי בנפח: <span class="math">2 × 2 × 2 = 8</span>, פי <span class="num">8</span>. אבל החוזק של עצם תלוי בשטח החתך שלה: <span class="math">2 × 2 = 4</span>, רק פי <span class="num">4</span>. כלומר על כל סנטימטר רבוע של עצם לוחץ פי <span class="num">2</span> יותר משקל. ענק אמיתי היה צריך עצמות עבות בצורה מוגזמת, ולכן לפיל יש רגליים כמו עמודים, ולצבי רגליים דקות.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את האירועים לפי הזמן, מהמוקדם למאוחר. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: כשהולכים, הכוח במפרק הירך הוא בערך פי <span class="num">2</span> וחצי מהמשקל. ילד ששוקל <span class="num">30</span> ק״ג הולך ברחוב. כמה ק״ג "לוחצים" על מפרק הירך שלו בכל צעד? (חשבו בדיוק פי <span class="num">2.5</span>.)</div>
+    <div class="controls"><label>ק״ג <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: במסגרת של מגדל אייפל יש <span class="num">7,300</span> טון ברזל, וכל מטר מעוקב של ברזל שוקל <span class="num">7.8</span> טון. (א) אילו היו מתיכים את כל הברזל לגוש אחד, מה היה הנפח שלו, במטרים מעוקבים? (עגלו למספר שלם.) (ב) עכשיו פורסים את הברזל המותך לשכבה שטוחה בדיוק על הבסיס של המגדל, ריבוע של <span class="num">125</span> על <span class="num">125</span> מטר. מה עובי השכבה, ב<b>סנטימטרים</b>? (עגלו לספרה אחת אחרי הנקודה. מותר מחשבון.)</div>
+    <div class="controls"><label>(א) מ״ק <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) ס״מ <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: במסגרת של מגדל אייפל יש <span class="num">7,300</span> טון ברזל, וכל מטר מעוקב של ברזל שוקל <span class="num">7.8</span> טון. אילו היו מתיכים את כל הברזל לגוש אחד, מה היה הנפח שלו, במטרים מעוקבים? (עגלו למספר שלם. מותר מחשבון.)</div>
+    <div class="controls"><label>מ״ק <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה עצם הירך חלולה באמצע ומלאה עמודונים בקצוות, ואיך היא "יודעת" איפה לשים חומר?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="באמצע העצם החומר נמצא בשוליים, כי..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. עצם הירך חלולה באמצע, כמו צינור, ודווקא בגלל זה היא חזקה: חומר רחוק מהאמצע מתנגד לכיפוף הרבה יותר. צינור יכול להיות קשיח פי כמה ממוט מלא <b>באותו משקל בדיוק</b>. גלילאו כתב על זה כבר ב־<span class="num">1638</span>.<br>
+    2. בשנת <span class="num">1866</span> המהנדס קרל קולמן ראה עצם ירך חתוכה, ולפי הסיפור קרא: "זה המנוף שלי!" העמודונים שבתוך העצם עומדים על אותם קווי כוח שהוא שרטט למנוף. התלמיד הכי טוב שלו, מוריס קשלן, שרטט אחר כך את <b>מגדל אייפל</b>. אבל הטענה שהמגדל הועתק מעצם היא אגדה.<br>
+    3. העצם בונה את עצמה לפי העבודה שלה: מה שנושא כוח מתחזק, ומה שלא, מפורק. אסטרונאוטים מאבדים בחלל כאחוז אחד מהעצם בירך בכל חודש, ולכן מתאמנים כשעתיים ביום. ובזרוע של שחקני טניס יש הרבה יותר עצם מאשר בזרוע השנייה.</p>
+  </div>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>הסיפור: ויקיפדיה (צרפתית) ו־techno-science.net, "Karl Culmann" — ב־<span class="num">1866</span> ביקר קולמן אצל עמיתו מאייר בחדר הניתוחים וקרא "Voilà ma grue!", לפי ד׳ארסי תומפסון; קולמן לימד בפוליטכניון של ציריך, ובין תלמידיו מוריס קשלן. arXiv 1110.1286, "Structural Optimisation: Biomechanics of the Femur" — ההשוואה בין העצם הספוגית בראש הירך לקווי המאמץ של מנוף עקום (Fairbairn); קולמן, "Die graphische Statik" (<span class="num">1866</span>); פון מאייר, "Die Architektur der Spongiosa" (<span class="num">1867</span>); וולף, "Das Gesetz der Transformation der Knochen" (<span class="num">1892</span>). ויקיפדיה, "On Growth and Form" (<span class="num">1917</span>) — תומפסון משווה את העצם הספוגית בירך ל"דיאגרמה של קווי המאמץ" ולראש של מנוף. ויקיפדיה, "Two New Sciences" (<span class="num">1638</span>) — גלילאו: גליל חלול חזק מגליל מלא באותו משקל; עצמות של בעלי חיים גדולים צריכות להיות עבות יחסית.</p>
+    <p>המגדל: האתר הרשמי של מגדל אייפל (toureiffel.paris), "Key figures" — <span class="num">7,300</span> טון במסגרת המתכת, <span class="num">10,100</span> טון בסך הכול, <span class="num">18,038</span> חלקים, <span class="num">2,500,000</span> מסמרות, בסיס ריבועי ברוחב כ־<span class="num">410</span> רגל (כ־<span class="num">125</span> מטר); "Maurice Koechlin, the engineer without whom the Tower would not exist" — למד אצל קולמן, שרטוט ראשון ב־<span class="num">6</span> ביוני <span class="num">1884</span>, עם נוגייה וסובסטר. המוזיאון הלאומי של שווייץ (<span class="num">2025</span>), "The Swiss magician of iron" — "התלמיד המוכשר ביותר של קולמן", סיים ראשון במחזור ב־<span class="num">1877</span>; עומסי הרוח רשומים על השרטוט. IMechE, "Fairy stories and magical thinking obscure origins of Crystal Palace and Eiffel Tower" (ג׳וליאן וינסנט) — הטענה שהמגדל הועתק מעצם הירך היא "אגדה"; אייפל תכנן בעזרת חישובים וניסויי רוח. צפיפות הברזל: כ־<span class="num">7.8</span> טון למטר מעוקב (ערך מקובל לברזל ופלדה; ברזל מחושל מעט פחות).</p>
+    <p>הגוף: Bergmann ועמיתים, J. Biomechanics (<span class="num">2001</span>), "Hip contact forces and gait patterns from routine activities" — שתלים עם חיישנים: בהליכה כ־<span class="num">238%</span> ממשקל הגוף, במדרגות כ־<span class="math">251–260%</span>. Lang ועמיתים, J. Bone Miner. Res. (<span class="num">2004</span>) ו־scienceblog.com (<span class="num">2026</span>) — אובדן של כ־<span class="math">1–1.6%</span> בחודש בירך ובעמוד השדרה בטיסות ארוכות, יותר מפי <span class="num">10</span> מאוסטאופורוזיס קשה; לא כולם מתאוששים לגמרי. NASA OCHMO Technical Brief, "Bone loss" — אימון יומי (בעבר שעתיים ביום), מכשיר ARED עד <span class="num">600</span> ליברות־כוח. The Physiological Society, "Upper limb muscle-bone asymmetries in elite junior tennis players" — בזרוע המחבט כ־<span class="num">39%</span> יותר מינרל בקליפת עצם הזרוע העליונה. Frontiers in Endocrinology (<span class="num">2015</span>) — תאי העצם הכלואים (אוסטאוציטים) חשים את העיוות ומכוונים את הבנייה; בכל שנה מתחלף חלק ניכר מהשלד אצל מבוגרים. Weiner &amp; Wagner, Annu. Rev. Mater. Sci. <span class="num">28</span> (<span class="num">1998</span>), "The material bone" (מכון ויצמן) — עד <span class="num">7</span> רמות היררכיות.</p>
+    <p>חישובי השיעור: הצעיר <span class="math">30 × 2.5 = 75</span> ק״ג; הבוגר <span class="math">7,300 ÷ 7.8 ≈ 936</span> מ״ק; מתקדם (א) <span class="num">936</span>, (ב) <span class="math">125 × 125 = 15,625</span> מ״ר, <span class="math">936 ÷ 15,625 ≈ 0.060</span> מ׳ <span class="math">≈ 6.0</span> ס״מ (זה גם הנתון הידוע "<span class="num">6</span> ס״מ"); האתגר (א) <span class="math">r² = 2² − 1 = 3</span>, <span class="math">r ≈ 1.73</span>, (ב) <span class="math">2⁴ − 3² = 16 − 9 = 7</span>, פי <span class="num">7</span>; דוגמה פתורה: <span class="math">R = 1.5</span>, <span class="math">r² = 1.25</span>, <span class="math">5.0625 − 1.5625 = 3.5</span>; בונוס: נפח פי <span class="num">8</span>, שטח חתך פי <span class="num">4</span>.</p>
+    <p>פישוטים במכוון: "קשיחות כמו <span class="math">R⁴ − r⁴</span>" נכון לצינור עגול בכיפוף (מומנט התמד), בלי לבדוק קריסה מקומית של קיר דק; עצם אמיתית איננה עגולה ואחידה. באינטראקטיב השני הקווים הם ציור סכמטי של שתי משפחות הקווים, לא חישוב; במציאות יש בראש הירך כמה קבוצות של עמודונים, ופון מאייר וּוולף ציירו אותן קצת אחרת. באינטראקטיב השלישי כלל הבנייה מומצא ופשוט: עמודון שמקביל לכוח מתעבה, ושאר העמודונים מתדלדלים; בעצם אמיתית נשארים גם עמודוני מתיחה שחוצים את קווי הלחיצה. באינטראקטיב הרביעי האובדן בחלל הוא <span class="num">1%</span> בחודש בקו ישר, וההתעמלות מורידה אותו בדגם לשליש — הערכה בלבד, בפועל זה שונה מאדם לאדם. הציטוט "זה המנוף שלי" נמסר בעקיפין, עשרות שנים אחר כך. "פי <span class="num">2</span> וחצי" מעוגל מ־<span class="num">2.38</span>.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:34, code:'WOW-034', date:'2026-10-15', title:'העצם שבנויה כמו מגדל אייפל', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15nXnNepINej15XXoNee15Qg15TXlg=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'life', w:3 }, { id:'engineering', w:3 }, { id:'math', w:2 }, { id:'history', w:1 } ],
+  /* lint-ignore: math */
+  hero: { name:'העצם שבנויה כמו מגדל אייפל — צינור חלול, קווי הכוח של קולמן, וחוק וולף', fact:'צינור קשיח פי כמה ממוט מלא באותו משקל; העמודונים בראש הירך עומדים על קווי הלחיצה והמתיחה, והעצם בונה את עצמה לפי העומס.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'estimation',            d:2 },
+    'qc:tubeQ':       { skill:'mechanism',             d:2 },
+    'qc:craneQ':      { skill:'observation',           d:2 },
+    'qc:wolffQ':      { skill:'cause-effect',          d:2 },
+    'qc:storyQ':      { skill:'history',               d:3 },
+    'qc:deepQ':       { skill:'cause-effect',          d:2 },
+    'mcq:shared:0':   { skill:'principle',             d:2 },
+    'mcq:shared:1':   { skill:'mechanism',             d:3 },
+    'mcq:shared:2':   { skill:'prediction',            d:3 },
+    'mcq:younger:0':  { skill:'recall',                d:2 },
+    'mcq:older:0':    { skill:'calculation',           d:4 },
+    'order':          { skill:'chronology',            d:3 },
+    'num:younger':    { skill:'multiplication',        d:2 },
+    'num:older':      { skill:'division',              d:3 },
+    'num:adv':        { skill:'multi-step',            d:4 },
+    'challenge':      { skill:'powers-and-roots',      d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ tbDraw(0); showArtoTip(); } if(n===2) crDraw(0); if(n===3) wfDraw(0); if(n===5) spDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: how hard does the hip joint get pushed while walking? ----------
+   Four choices on a log scale, in tenths of body weight (5 / 10 / 24 / 100): instrumented hip implants measured ≈ 2.38 × body weight while walking (Bergmann 2001). data-scale: tenths of body weight. */
+const SCALE_ANS = 24;                                                 // Bergmann et al. 2001: walking ≈ 238 % BW → "about 2.5×"
+const fmtSigns = n => n<7 ? 'חצי מהמשקל' : n<15 ? 'בדיוק המשקל' : n<50 ? 'פי 2 וחצי' : 'פי 10';
+const SCALE_FB = {
+  24: '<span class="pill-ok">קלעתם!</span> מדענים בברלין הכניסו חיישנים לתוך מפרקי ירך מלאכותיים, ומדדו: בהליכה רגילה הכוח הוא בערך פי <span class="num">2</span> וחצי מהמשקל של האדם. למה יותר מהמשקל? כי גם השרירים מושכים חזק, כדי שלא ניפול הצידה על רגל אחת. ועצם שנושאת את כל זה, אלפי פעמים ביום, היא חלולה. איך? על זה השיעור.',
+  5: '<span class="pill-bad">הרבה יותר.</span> בכל צעד כל המשקל עובר דרך רגל אחת, ובנוסף השרירים מושכים חזק כדי לשמור על שיווי משקל. מדידות בחיישנים בתוך מפרקי ירך הראו: בערך פי <span class="num">2</span> וחצי מהמשקל. ועצם שנושאת את כל זה היא חלולה. איך? על זה השיעור.',
+  10: '<span class="pill-bad">יותר.</span> המשקל הוא רק חלק מהסיפור: השרירים מושכים חזק כדי שלא ניפול הצידה על רגל אחת. מדידות בחיישנים בתוך מפרקי ירך הראו: בערך פי <span class="num">2</span> וחצי מהמשקל. ועצם שנושאת את כל זה היא חלולה. איך? על זה השיעור.',
+  100: '<span class="pill-bad">פחות.</span> בהליכה רגילה מדדו בערך פי <span class="num">2</span> וחצי מהמשקל, ובירידה במדרגות קצת יותר. עדיין המון, אלפי פעמים ביום. ועצם שנושאת את כל זה היא חלולה. איך? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* deterministic pseudo-random (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* a generic play/scrub helper: animates a 0–100 range input over `ms` milliseconds, calling draw(1) each frame */
+function xPlayer(id, rangeId, btnId, ms, draw, onLabel, offLabel){
+  const st={ raf:0 };
+  st.toggle=function(){ if(st.raf){ cancelAnimationFrame(st.raf); st.raf=0; st.btn(false); return; }
+    const r=document.getElementById(rangeId); const top=+(r.max||100); if(+r.value>=top) r.value=0;
+    if(XREDUCED){ r.value=Math.min(top,+r.value+20); draw(1); return; }
+    const t0=performance.now(), start=+r.value; st.btn(true);
+    const step=now=>{ const v=Math.min(top, start+(now-t0)/ms*100); r.value=Math.round(v); draw(1); if(v<top){ st.raf=requestAnimationFrame(step); } else { st.raf=0; st.btn(false); } };
+    st.raf=requestAnimationFrame(step); };
+  st.btn=function(on){ const b=document.getElementById(btnId); b.textContent = on ? onLabel : offLabel; b.classList.toggle('on',on); };
+  return st;
+}
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+/* ---------- shared numbers for this edition ---------- */
+const PI = Math.PI;
+const HIP_X = 2.38;                            // hip contact force while walking ≈ 238% of body weight (Bergmann 2001) → "about 2.5×"
+const SPACE_LOSS = 1;                          // % of hip bone lost per month in orbit without exercise (≈1–1.6%, Lang 2004); the model: a straight line
+const EXER_LOSS = 1/3;                         // model only: daily exercise cuts the loss to about a third
+/* tube with the same material as a solid rod of radius 1: R² − r² = 1 → r = √(R² − 1); stiffness ∝ R⁴ − r⁴ = 2R² − 1 */
+const tubeR = R => Math.sqrt(Math.max(0, R*R-1));
+const tubeK = R => Math.pow(R,4) - Math.pow(tubeR(R),4);
+/* this edition's colours */
+const BONE = () => isDark() ? '#E9DDC0' : '#F3E6C8';
+const BONED = () => isDark() ? '#C9B48A' : '#B89A62';
+const MARROW = () => isDark() ? '#5A3B47' : '#F2C9B8';
+const IRON = () => isDark() ? '#D9A27E' : '#8C5A3C';
+const STEEL = () => isDark() ? '#8E9BB8' : '#6B7891';
+const COMP = () => isDark() ? '#7FB3FF' : '#2563C9';    // compression: blue
+const TENS = () => isDark() ? '#FF8A7A' : '#C8352D';    // tension: red
+const GRIDC = () => isDark() ? 'rgba(242,237,224,.30)' : 'rgba(27,31,51,.22)';
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const SKYN = () => isDark() ? '#0B1226' : '#1E2A4A';
+function f1(x){ return (Math.round(x*10)/10).toFixed(1); }
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+
+/* ---------- step 1 (interactive 1): a solid rod blown up into a tube with the SAME material (canvas) ----------
+   tbN 0–8 → outer radius R = 1.0 … 1.8 (a solid rod of radius 1 has R = 1). Hole r = √(R² − 1), so R² − r² = 1 always (same material).
+   Stiffness ∝ R⁴ − r⁴ (= 2R² − 1): ×1 … ×5.5. The beam's sag is drawn ∝ 1 / stiffness. */
+const tbCv=document.getElementById('tbCv'), tbctx=tbCv.getContext('2d');
+const TB={ opened:0, pred:-1, revealed:0 };
+function tbPredict(k){ TB.pred=k; [0,1,2].forEach(i=>document.getElementById('tbP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'tube:predict', kind:'quick', correct:k===1, attempt: wowTry('tube:predict') });
+  tbMsg.innerHTML = k===1 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו הזיזו את המחוון ובדקו.' : 'רשמנו את הניחוש. עכשיו הזיזו את המחוון ובדקו.'; }
+function tbDraw(user){
+  const c=tbctx, W=tbCv.width, H=tbCv.height;
+  let blocked=false; if(user && TB.pred<0 && +tbN.value>0){ tbN.value=0; blocked=true; }
+  if(user && !TB.opened){ TB.opened=1; WOW.emit('open', { id:'tube' }); }
+  const n=+tbN.value, R=1+n/10, r=tubeR(R), k=tubeK(R);
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* --- left: the cross-section --- */
+  const cx=165, cy=230, S=70;
+  xText(c,'החתך',cx,34,22,css('--muted'));
+  c.fillStyle=BONE(); c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.arc(cx,cy,R*S,0,PI*2); c.fill(); c.stroke();
+  if(r>0.01){ c.fillStyle=css('--card2'); c.beginPath(); c.arc(cx,cy,r*S,0,PI*2); c.fill(); c.lineWidth=2; c.setLineDash([6,5]); c.stroke(); c.setLineDash([]); }
+  /* the ghost of the original rod */
+  c.strokeStyle=GOLD(); c.lineWidth=3; c.setLineDash([4,6]); c.beginPath(); c.arc(cx,cy,S,0,PI*2); c.stroke(); c.setLineDash([]);
+  if(r>0.25) xLabel(c,'חלל',cx,cy,22,css('--muted'));
+  xLabel(c, n===0 ? 'מוט מלא' : 'צינור', cx, cy+R*S+34, 22, css('--ink'));
+  if(n>0 && n<=3) xText(c,'המוט בהתחלה',cx,cy-R*S-22,18,GOLD());
+  xTag(c,'חומר:','אותו דבר',cx,H-28,20,GOOD(),'center');
+  /* --- right top: the beam on two supports, a weight in the middle --- */
+  const x1=372, x2=612, by=118, mid=(x1+x2)/2, sag=78/k, th=8+R*9;
+  xText(c,'אותה משקולת',mid,30,20,css('--muted'));
+  c.fillStyle=css('--muted'); [x1,x2].forEach(x=>{ c.beginPath(); c.moveTo(x,by+th/2+2); c.lineTo(x-16,by+th/2+30); c.lineTo(x+16,by+th/2+30); c.closePath(); c.fill(); });
+  c.strokeStyle=css('--ink'); c.lineWidth=th+4; c.lineCap='round'; c.beginPath(); c.moveTo(x1,by); c.quadraticCurveTo(mid,by+sag*2,x2,by); c.stroke();
+  c.strokeStyle=BONED(); c.lineWidth=th; c.beginPath(); c.moveTo(x1,by); c.quadraticCurveTo(mid,by+sag*2,x2,by); c.stroke(); c.lineCap='butt';
+  const wy=by+sag+th/2; c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.moveTo(mid,wy); c.lineTo(mid,wy+22); c.stroke();
+  c.fillStyle=STEEL(); c.beginPath(); c.roundRect(mid-30,wy+22,60,46,8); c.fill(); c.stroke();
+  /* the sag, measured against a dashed straight line */
+  c.strokeStyle=DANG(); c.lineWidth=2; c.setLineDash([6,5]); c.beginPath(); c.moveTo(x1,by); c.lineTo(x2,by); c.stroke(); c.setLineDash([]);
+  /* --- right bottom: two bars, weight vs stiffness --- */
+  const base=430, bw=60, bx1=412, bx2=566, U=20;
+  c.strokeStyle=GRIDC(); c.lineWidth=2; c.beginPath(); c.moveTo(390,base); c.lineTo(630,base); c.stroke();
+  c.fillStyle=GOLD(); c.fillRect(bx1-bw/2,base-U,bw,U); c.strokeStyle=css('--ink'); c.strokeRect(bx1-bw/2,base-U,bw,U);
+  c.fillStyle=GOOD(); c.fillRect(bx2-bw/2,base-U*k,bw,U*k); c.strokeRect(bx2-bw/2,base-U*k,bw,U*k);
+  xNum(c,'×1.0',bx1,base-U-20,22,css('--ink')); xNum(c,'×'+f1(k),bx2,base-U*k-20,22,css('--ink'));
+  xText(c,'משקל',bx1,base+22,20,css('--ink')); xText(c,'קשיחות',bx2,base+22,20,css('--ink'));
+  /* readouts & message */
+  tbOut.textContent=f1(R); tbOut2.textContent=f1(k);
+  if(n>=4 && !TB.revealed){ TB.revealed=1; tbReveal.hidden=false; }
+  if(blocked) predictFirst(tbMsg,'הזיזו'); else if(user || n>0) tbMsg.innerHTML = n===0 ? 'מוט מלא ברדיוס <span class="num">1</span>. הזיזו את המחוון ו"נפחו" אותו.'
+    : (S.track==='older' ? 'רדיוס חוץ <span class="num">'+f1(R)+'</span>, חלל <span class="math">r ≈ '+r.toFixed(2)+'</span>. החומר: <span class="math">'+f1(R)+'² − '+r.toFixed(2)+'² = 1</span>, בדיוק כמו המוט. הקשיחות: <span class="math">'+f1(R)+'⁴ − '+r.toFixed(2)+'⁴ ≈ '+f1(k)+'</span>.'
+      : 'אותה כמות חומר, רק רחוקה יותר מהאמצע. הצינור קשיח פי <span class="num">'+f1(k)+'</span> מהמוט, והוא כמעט לא מתכופף.')
+      + (n===8 ? ' (וזה הגבול: קיר דק מדי כבר יימעך כמו פחית.)' : '');
+}
+
+/* ---------- step 2 (interactive 2): Culmann's crane — the stress lines in the top of the femur (canvas) ----------
+   A schematic: two families of lines, compression (blue) from the head down to the inner wall, tension (red) arching from the outer wall
+   over the neck into the head. crL = the load (0–10) → line weight and opacity. CR.crane swaps the drawing (bone ⇄ iron crane); the lines stay. */
+const crCv=document.getElementById('crCv'), crctx=crCv.getContext('2d');
+const CR={ opened:0, pred:-1, revealed:0, crane:false, seenCrane:false };
+const HEAD={ x:215, y:156, r:62 };
+function crPredict(k){ CR.pred=k; [0,1,2].forEach(i=>document.getElementById('crP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'crane:predict', kind:'quick', correct:k===0, attempt: wowTry('crane:predict') });
+  crMsg.innerHTML = k===0 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו הוסיפו משקל ובדקו.' : 'רשמנו את הניחוש. עכשיו הוסיפו משקל ובדקו.'; }
+function crToggle(){ if(CR.pred<0){ predictFirst(crMsg); return; } CR.crane=!CR.crane; if(CR.crane) CR.seenCrane=true; const b=document.getElementById('crMode'); b.textContent = CR.crane ? 'מציגים: המנוף של קולמן' : 'מציגים: עצם הירך'; b.classList.toggle('on',CR.crane); WOW.emit('item', { id:'crane:toggle', kind:'toggle', on: CR.crane }); crDraw(1); }
+function crOutline(c){
+  const h=HEAD, a0=Math.atan2(206-h.y,252-h.x), a1=Math.atan2(112-h.y,268-h.x);
+  c.beginPath(); c.moveTo(382,462); c.lineTo(382,330); c.quadraticCurveTo(318,300,252,206);
+  c.arc(h.x,h.y,h.r,a0,a1,false);
+  c.quadraticCurveTo(340,138,408,158); c.quadraticCurveTo(440,118,482,132); c.quadraticCurveTo(508,160,472,222); c.lineTo(472,462); c.closePath();
+}
+const CR_COMP = [ /* [start angle on the head (deg), end y on the inner wall, control points] */
+  { a:-150, ey:450, c1:[200,200], c2:[372,250] }, { a:-125, ey:420, c1:[230,190], c2:[366,250] }, { a:-100, ey:392, c1:[250,180], c2:[358,246] },
+  { a:-75,  ey:366, c1:[270,170], c2:[350,240] }, { a:-52,  ey:344, c1:[290,165], c2:[344,232] } ];
+const CR_TENS = [ /* [start y on the outer wall, end angle on the head (deg), control points] */
+  { sy:372, a:150, c1:[452,170], c2:[300,96] }, { sy:330, a:125, c1:[446,166], c2:[318,108] }, { sy:290, a:100, c1:[440,164], c2:[332,122] },
+  { sy:254, a:75,  c1:[432,166], c2:[340,138] } ];
+function crLines(c, load){
+  const h=HEAD, al=0.25+0.75*load/10, lw=2.5+load*0.55;
+  c.save(); crOutline(c); c.clip(); c.globalAlpha=al; c.lineCap='round'; c.lineWidth=lw;
+  c.strokeStyle=COMP(); CR_COMP.forEach(l=>{ const t=l.a*PI/180; c.beginPath(); c.moveTo(h.x+Math.cos(t)*(h.r-6), h.y+Math.sin(t)*(h.r-6)); c.bezierCurveTo(l.c1[0],l.c1[1],l.c2[0],l.c2[1],392,l.ey); c.stroke(); });
+  c.strokeStyle=TENS(); CR_TENS.forEach(l=>{ const t=l.a*PI/180; c.beginPath(); c.moveTo(462,l.sy); c.bezierCurveTo(l.c1[0],l.c1[1],l.c2[0],l.c2[1],h.x+Math.cos(t)*(h.r-6), h.y+Math.sin(t)*(h.r-6)); c.stroke(); });
+  c.restore();
+}
+function crDraw(user){
+  const c=crctx, W=crCv.width, H=crCv.height;
+  let blocked=false; if(user && CR.pred<0 && +crL.value>0){ crL.value=0; blocked=true; }
+  if(user && !CR.opened){ CR.opened=1; WOW.emit('open', { id:'crane' }); }
+  const load=+crL.value, h=HEAD;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  if(!CR.crane){
+    /* the bone: outline, the hollow shaft below, and the struts */
+    crOutline(c); c.fillStyle=BONE(); c.fill(); c.strokeStyle=css('--ink'); c.lineWidth=4; c.stroke();
+    c.fillStyle=MARROW(); c.beginPath(); c.roundRect(404,372,46,94,[18,18,0,0]); c.fill();
+    c.save(); crOutline(c); c.clip(); c.strokeStyle=BONED(); c.lineWidth=1.5; c.globalAlpha=.5; const rnd=prng(7);
+    for(let i=0;i<46;i++){ const x=170+rnd()*300, y=96+rnd()*280; c.beginPath(); c.moveTo(x,y); c.lineTo(x+(rnd()-.5)*26,y+(rnd()-.5)*26); c.stroke(); } c.restore();
+    xLabel(c,'עצם הירך',560,40,22,css('--ink'));
+    xLabel(c,'מח עצם',575,400,20,css('--muted')); c.strokeStyle=css('--muted'); c.lineWidth=2; c.setLineDash([5,5]); c.beginPath(); c.moveTo(528,404); c.lineTo(452,420); c.stroke(); c.setLineDash([]);
+  } else {
+    /* the crane: the same shape, in iron, with a hook and a load */
+    crOutline(c); c.fillStyle=css('--card'); c.fill(); c.strokeStyle=STEEL(); c.lineWidth=7; c.stroke();
+    c.save(); crOutline(c); c.clip(); c.strokeStyle=STEEL(); c.lineWidth=2; c.globalAlpha=.45;
+    for(let d=-400;d<700;d+=40){ c.beginPath(); c.moveTo(100+d,40); c.lineTo(100+d+440,480); c.moveTo(100+d+440,40); c.lineTo(100+d,480); c.stroke(); } c.restore();
+    c.fillStyle=css('--card'); c.strokeStyle=STEEL(); c.lineWidth=5; c.beginPath(); c.arc(h.x,h.y,30,0,PI*2); c.fill(); c.stroke(); for(let i=0;i<6;i++){ const t=i*PI/3; c.beginPath(); c.moveTo(h.x,h.y); c.lineTo(h.x+Math.cos(t)*30,h.y+Math.sin(t)*30); c.stroke(); }
+    c.fillStyle=STEEL(); for(let y=220;y<460;y+=40){ [388,466].forEach(x=>{ c.beginPath(); c.arc(x,y,4,0,PI*2); c.fill(); }); }
+    /* hook + load under the tip */
+    c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.moveTo(h.x-30,h.y); c.lineTo(h.x-30,300); c.stroke();
+    c.beginPath(); c.arc(h.x-30,312,12,-PI/2,PI*0.9); c.stroke();
+    c.fillStyle=STEEL(); c.strokeStyle=css('--ink'); c.beginPath(); c.roundRect(h.x-30-50,330,100,64,8); c.fill(); c.stroke();
+    xLabel(c,'המנוף',560,40,22,css('--ink'));
+  }
+  crLines(c, load);
+  /* the load arrow on the head */
+  if(load>0){ const L=22+load*5; c.fillStyle=css('--ink'); c.strokeStyle=css('--ink'); c.lineWidth=6; c.beginPath(); c.moveTo(h.x-30,h.y-h.r-14-L); c.lineTo(h.x-30,h.y-h.r-22); c.stroke(); xArrow(c,h.x-30,h.y-h.r-8,0,1,22);
+    xTag(c,'מתיחה','',330,64,22,TENS(),'center'); xTag(c,'לחיצה','',300,350,22,COMP(),'center');
+    c.strokeStyle=TENS(); c.lineWidth=2; c.setLineDash([5,5]); c.beginPath(); c.moveTo(330,84); c.lineTo(335,132); c.stroke();
+    c.strokeStyle=COMP(); c.beginPath(); c.moveTo(318,330); c.lineTo(340,290); c.stroke(); c.setLineDash([]); }
+  if(load>=4 && !CR.revealed){ CR.revealed=1; crReveal.hidden=false; }
+  if(blocked) predictFirst(crMsg,'הוסיפו משקל'); else if(user || load>0) crMsg.innerHTML = load===0 ? 'אין משקל: הקווים כמעט שקטים. הוסיפו משקל.'
+    : !CR.crane ? 'הצוואר מתכופף: <b style="color:var(--bad)">בצד העליון נמתח</b>, <b style="color:var(--nile)">בצד התחתון נלחץ</b>. ככל שהמשקל גדל, הקווים עובדים קשה יותר. עכשיו החליפו למנוף.'
+    : 'אותה צורה, אותם קווים בדיוק. זה מה שקולמן ראה: העמודונים בעצם עומדים על הקווים שהוא שרטט למנוף.';
+}
+
+/* ---------- step 3 (interactive 3): the bone that rebuilds itself — struts that thicken with work and vanish without it (canvas) ----------
+   A 5 × 5 lattice: horizontal, vertical and diagonal struts, all of thickness 0.6 at first. Load direction θ (90° = from above, 45° = along "/", none).
+   Every month: w += 0.25 × (cos²(strut − θ) − 0.6) (+ a little noise); w ≤ 0.05 → the strut is gone; with no load all struts lose 0.15. A made-up rule, sped up. */
+const wfCv=document.getElementById('wfCv'), wfctx=wfCv.getContext('2d');
+const WF={ opened:0, pred:-1, revealed:0, dir:0, month:0, s:[] };
+const WF_BOX={ x:70, y:80, n:5, cell:66 };
+(function wfInit(){ const b=WF_BOX, rnd=prng(34); const add=(x1,y1,x2,y2,ang)=>WF.s.push({x1,y1,x2,y2,ang,w:0.6,j:(rnd()-.5)*0.06});
+  for(let i=0;i<=b.n;i++) for(let j=0;j<b.n;j++){ add(j,i,j+1,i,0); add(i,j,i,j+1,90); }
+  for(let i=0;i<b.n;i++) for(let j=0;j<b.n;j++){ add(j,i+1,j+1,i,45); add(j,i,j+1,i+1,135); } })();
+const WF_THETA=[90,45,null];
+function wfPredict(k){ WF.pred=k; [0,1,2].forEach(i=>document.getElementById('wfP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'wolff:predict', kind:'quick', correct:k===0, attempt: wowTry('wolff:predict') });
+  wfMsg.innerHTML = k===0 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו לחצו "עוד חודש" ובדקו.' : 'רשמנו את הניחוש. עכשיו לחצו "עוד חודש" ובדקו.'; }
+function wfDir(k){ if(WF.pred<0){ predictFirst(wfMsg); return; } WF.dir=k; [0,1,2].forEach(i=>document.getElementById('wfD'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'wolff:dir', kind:'toggle', on:k }); wfDraw(1); }
+function wfStep(m){ if(WF.pred<0){ predictFirst(wfMsg,'הריצו חודשים'); return; }
+  for(let t=0;t<m;t++){ const th=WF_THETA[WF.dir]; WF.month++;
+    WF.s.forEach(s=>{ const work = th===null ? 0 : Math.pow(Math.cos((s.ang-th)*PI/180),2); s.w += th===null ? -0.06 : 0.25*(work-0.52)+s.j; s.w=clamp(s.w,0,1.5); if(s.w<0.05) s.w=0; }); }
+  wfDraw(1); }
+function wfReset(){ WF.month=0; WF.s.forEach(s=>s.w=0.6); wfDraw(1); }
+function wfDraw(user){
+  const c=wfctx, W=wfCv.width, H=wfCv.height, b=WF_BOX, X=i=>b.x+i*b.cell, Y=j=>b.y+j*b.cell;
+  if(user && !WF.opened){ WF.opened=1; WOW.emit('open', { id:'wolff' }); }
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  const side=b.n*b.cell;
+  c.fillStyle=MARROW(); c.globalAlpha=.35; c.fillRect(b.x,b.y,side,side); c.globalAlpha=1;
+  /* struts */
+  WF.s.forEach(s=>{ if(s.w<=0){ c.strokeStyle=GRIDC(); c.lineWidth=1.5; c.setLineDash([3,6]); } else { c.strokeStyle=BONED(); c.lineWidth=1.5+s.w*9; c.setLineDash([]); }
+    c.lineCap='round'; c.beginPath(); c.moveTo(X(s.x1),Y(s.y1)); c.lineTo(X(s.x2),Y(s.y2)); c.stroke(); });
+  c.setLineDash([]); c.lineCap='butt';
+  c.strokeStyle=css('--ink'); c.lineWidth=3; c.strokeRect(b.x,b.y,side,side);
+  /* the load arrow */
+  const th=WF_THETA[WF.dir], mx=b.x+side/2, my=b.y+side/2;
+  if(th!==null){ const d=th*PI/180, ux=Math.cos(d), uy=-Math.sin(d), L=side/2+48, tipx=mx+ux*(side/2+6), tipy=my+uy*(side/2+6);
+    /* arrow comes from outside the box, pointing in */
+    const sx=mx+ux*L+ux*40, sy=my+uy*L+uy*40;
+    c.strokeStyle=DANG(); c.fillStyle=DANG(); c.lineWidth=9; c.beginPath(); c.moveTo(clamp(sx,14,W-14),clamp(sy,10,H-10)); c.lineTo(tipx+ux*14,tipy+uy*14); c.stroke(); xArrow(c,tipx,tipy,-ux,-uy,28);
+    xLabel(c,'הכוח',th===90?mx+86:mx+70,th===90?40:36,22,DANG()); }
+  else xLabel(c,'אין משקל — כמו בחלל',mx,40,22,css('--ink'));
+  /* right panel: months and how much bone */
+  const px=540;
+  xText(c,'חודשים',px,96,22,css('--muted')); xNum(c,String(WF.month),px,140,44,css('--ink'));
+  const tot=WF.s.reduce((a,s)=>a+s.w,0)/(WF.s.length*0.6)*100, bh=200, by=420;
+  c.strokeStyle=css('--ink'); c.lineWidth=3; c.strokeRect(px-34,by-bh,68,bh);
+  const fh=Math.min(bh, bh*tot/150); c.fillStyle=tot<60?DANG():BONED(); c.fillRect(px-31,by-fh,62,fh);
+  c.strokeStyle=GOLD(); c.lineWidth=3; c.setLineDash([6,5]); c.beginPath(); c.moveTo(px-44,by-bh*100/150); c.lineTo(px+44,by-bh*100/150); c.stroke(); c.setLineDash([]); xText(c,'בהתחלה',px-58,by-bh*100/150,18,GOLD(),'right');
+  xText(c,'כמה עצם',px,by+28,20,css('--ink'));
+  const vertical=WF.s.filter(s=>s.ang===90&&s.w>0).length, horiz=WF.s.filter(s=>s.ang===0&&s.w>0).length;
+  wfOut.textContent=WF.month; wfOut2.textContent=Math.round(tot)+'%';
+  if(WF.month>=6 && !WF.revealed){ WF.revealed=1; wfReveal.hidden=false; }
+  if(user) wfMsg.innerHTML = WF.month===0 ? 'כל העמודונים באותו עובי. בחרו מאיפה הכוח בא, ולחצו "עוד חודש".'
+    : WF.dir===2 ? 'בלי משקל אף עמודון לא עובד, ולכן כולם מתדלדלים. נשאר <span class="num">'+Math.round(tot)+'%</span> מהעצם. (בדגם זה קורה הרבה יותר מהר מהמציאות.)'
+    : WF.dir===0 ? (horiz>0 ? 'העמודונים העומדים, שהכוח עובר לאורכם, מתעבים. השוכבים כמעט לא עובדים ומתדלדלים. המשיכו.' : 'השוכבים נעלמו, והעומדים עבים וחזקים. עכשיו שנו את הכוח ל"באלכסון" והמשיכו.')
+    : 'הכוח בא באלכסון. עכשיו דווקא העמודונים שבכיוון שלו מתעבים, ואחרים נעלמים. העצם "מתכננת" את עצמה מחדש.';
+}
+
+/* ---------- step 5 (interactive 4): months in space — bone that is not loaded is taken apart (canvas) ----------
+   spM 0–12 months; SP.where 0 = on Earth (no change), 1 = in space (−1 % a month), 2 = in space + exercise (model: a third of that).
+   The cross-section's change is drawn 4× bigger than the real percentage so it can be seen (labelled). */
+const spCv=document.getElementById('spCv'), spctx=spCv.getContext('2d');
+const SP={ opened:0, pred:-1, where:1 };
+function spPredict(k){ SP.pred=k; [0,1,2].forEach(i=>document.getElementById('spP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'space:predict', kind:'quick', correct:k===1, attempt: wowTry('space:predict') });
+  spMsg.innerHTML = k===1 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו הזיזו את החודשים ובדקו.' : 'רשמנו את הניחוש. עכשיו הזיזו את החודשים ובדקו.'; }
+function spWhere(k){ if(SP.pred<0){ predictFirst(spMsg); return; } SP.where=k; [0,1,2].forEach(i=>document.getElementById('spW'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'space:where', kind:'toggle', on:k }); spDraw(1); }
+function spLoss(m, where){ return where===0 ? 0 : where===1 ? m*SPACE_LOSS : m*SPACE_LOSS*EXER_LOSS; }
+function spDraw(user){
+  const c=spctx, W=spCv.width, H=spCv.height;
+  let blocked=false; if(user && SP.pred<0 && +spM.value>0){ spM.value=0; blocked=true; }
+  if(user && !SP.opened){ SP.opened=1; WOW.emit('open', { id:'space' }); }
+  const m=+spM.value, loss=spLoss(m,SP.where), left=100-loss;
+  c.clearRect(0,0,W,H);
+  /* --- left: the scene --- */
+  const sx=0, sw=250;
+  if(SP.where===0){ c.fillStyle=isDark()?'#1D3266':'#C9E1F2'; c.fillRect(sx,0,sw,H); c.fillStyle=isDark()?'#3E5A33':'#7DBB6E'; c.fillRect(sx,380,sw,H-380); }
+  else { c.fillStyle=SKYN(); c.fillRect(sx,0,sw,H); const rnd=prng(5); c.fillStyle='#FFFFFF'; for(let i=0;i<40;i++){ c.globalAlpha=.4+rnd()*.6; c.beginPath(); c.arc(rnd()*sw, rnd()*H, 1+rnd()*1.6, 0, PI*2); c.fill(); } c.globalAlpha=1; }
+  c.save(); const fx=125, fy = SP.where===0 ? 250 : 220, tilt = SP.where===0 ? 0 : -0.35;
+  c.translate(fx,fy); c.rotate(tilt);
+  const suit = SP.where===0 ? (isDark()?'#5AA9E6':'#2F7FC0') : '#F2F2F2';
+  c.strokeStyle='#1B1F33'; c.lineWidth=3; c.fillStyle=suit;
+  c.beginPath(); c.roundRect(-34,-50,68,100,18); c.fill(); c.stroke();                         // body
+  c.beginPath(); c.roundRect(-30,46,24,82,10); c.fill(); c.stroke(); c.beginPath(); c.roundRect(6,46,24,82,10); c.fill(); c.stroke();   // legs
+  c.beginPath(); c.roundRect(-62,-44,26,74,10); c.fill(); c.stroke(); c.beginPath(); c.roundRect(36,-44,26,74,10); c.fill(); c.stroke(); // arms
+  c.fillStyle = SP.where===0 ? '#F2C9A0' : '#F2F2F2'; c.beginPath(); c.arc(0,-82,32,0,PI*2); c.fill(); c.stroke();                       // head / helmet
+  if(SP.where!==0){ c.fillStyle='#2A3A6A'; c.beginPath(); c.roundRect(-22,-96,44,30,12); c.fill(); }
+  if(SP.where===2){ c.strokeStyle=GOLD(); c.lineWidth=5; c.beginPath(); c.moveTo(-50,-30); c.lineTo(-90,180); c.moveTo(50,-30); c.lineTo(90,180); c.stroke(); }
+  c.restore();
+  xLabel(c, SP.where===0 ? 'על כדור הארץ' : SP.where===1 ? 'בחלל' : 'בחלל + אימון', 125, 440, 22, css('--ink'), .92);
+  /* --- right: the cross-section of the thigh bone --- */
+  c.fillStyle=css('--card2'); c.fillRect(sw,0,W-sw,H);
+  const cx=445, cy=176, Ro=108, t0=40, shrink=Math.min(0.9, loss*4/100), t=t0*(1-shrink), ri=Ro-t;
+  c.fillStyle=BONE(); c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.arc(cx,cy,Ro,0,PI*2); c.fill(); c.stroke();
+  c.fillStyle=MARROW(); c.beginPath(); c.arc(cx,cy,ri,0,PI*2); c.fill(); c.stroke();
+  /* the struts inside (fewer as bone is lost) */
+  c.save(); c.beginPath(); c.arc(cx,cy,ri-2,0,PI*2); c.clip(); const rnd=prng(11), keep=1-shrink; c.strokeStyle=BONED(); c.lineWidth=4; c.lineCap='round';
+  for(let i=0;i<34;i++){ const a=rnd()*PI*2, d=rnd()*(ri-10), x=cx+Math.cos(a)*d, y=cy+Math.sin(a)*d, b=rnd()*PI, L=14+rnd()*18, alive=rnd()<keep; if(!alive) continue; c.beginPath(); c.moveTo(x-Math.cos(b)*L/2,y-Math.sin(b)*L/2); c.lineTo(x+Math.cos(b)*L/2,y+Math.sin(b)*L/2); c.stroke(); }
+  c.restore();
+  if(m===0){ c.strokeStyle=GOLD(); c.lineWidth=2; } else { c.strokeStyle=GOLD(); c.lineWidth=3; c.setLineDash([6,5]); c.beginPath(); c.arc(cx,cy,Ro-t0,0,PI*2); c.stroke(); c.setLineDash([]); }
+  xText(c,'חתך של עצם הירך',cx,34,22,css('--muted'));
+  if(loss>0) xLabel(c,'השינוי מוגדל בציור',cx,cy+Ro+24,18,css('--muted'));
+  /* the bar: % of bone left */
+  const bx=280, bw=330, by=400, bh=34;
+  c.strokeStyle=css('--ink'); c.lineWidth=3; c.strokeRect(bx,by,bw,bh);
+  const fw=bw*(left-80)/20; c.fillStyle= left<95?DANG():GOOD(); c.fillRect(bx+bw-Math.max(0,fw),by+3,Math.max(0,fw)-3,bh-6);
+  xNum(c,'80%',bx,by+bh+20,20,css('--muted'),'left'); xNum(c,'100%',bx+bw,by+bh+20,20,css('--muted'),'right');
+  xTag(c,'נשאר:',f1(left)+'%',cx,by-30,22,css('--ink'),'center');
+  spOut.textContent=f1(left)+'%';
+  if(SP.where===1 && m>=6 && spReveal.hidden) spReveal.hidden=false;
+  if(blocked) predictFirst(spMsg,'הזיזו'); else if(user || m>0) spMsg.innerHTML = m===0 ? 'בהתחלה: <span class="num">100%</span> מהעצם. הזיזו את החודשים.'
+    : SP.where===0 ? 'על כדור הארץ, עם הליכה ומשחק, העצם נשמרת. היא כל הזמן נבנית ומתפרקת, אבל במאזן שווה.'
+    : SP.where===1 ? 'בחלל, בלי שום משקל על הרגליים, נעלם כאחוז אחד מהעצם בכל חודש: אחרי <span class="num">'+m+'</span> חודשים בערך <span class="num">'+f1(loss)+'%</span>. בציור השינוי מוגדל פי <span class="num">4</span>, כדי שיהיה אפשר לראות.'
+    : 'התעמלות יומית על המכונה מחזירה לעצם חלק מהעבודה, והאובדן קטן בהרבה. (בדגם שלנו: שליש. אצל אסטרונאוטים אמיתיים זה משתנה מאדם לאדם.)';
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  tubeQ:{ q:"למה צינור חלול מתכופף פחות ממוט מלא, כשיש בשניהם בדיוק אותה כמות חומר?", opts:["כי באוויר שבתוך הצינור יש לחץ שדוחף החוצה","כי בצינור החומר רחוק יותר מהאמצע, ושם הוא נמתח ונלחץ הכי הרבה, ולכן עוזר הכי הרבה נגד כיפוף","כי צינור תמיד כבד יותר ממוט","כי לצינור יש שני קירות, ולכן הוא כפול"], a:1, fb:"כשמוט מתכופף, הצד האחד נמתח והשני נלחץ, ובאמצע כמעט שום דבר לא קורה. החומר שבאמצע \"מבוזבז\". בצינור כל החומר הועבר לשוליים, שם הוא עובד הכי קשה. האוויר שבפנים לא עוזר בכלום, ואת המשקל השארנו זהה.", btn:"next1" },
+  craneQ:{ q:"מה קולמן ראה כשהסתכל על עצם הירך החתוכה?", opts:["שהעצם מלאה לגמרי, בלי חללים","שהעמודונים בתוך העצם מסודרים לאורך אותם קווי כוח שהוא שרטט כדי לתכנן מנוף","שהעצם עשויה מברזל","שהעמודונים מפוזרים באקראי, כמו בספוג רחצה"], a:1, fb:"קולמן תכנן מנוף עקום ושרטט את הקווים שלאורכם הוא נלחץ ונמתח. בעצם החתוכה הוא ראה את אותן שתי משפחות של קווים: עמודוני לחיצה ועמודוני מתיחה, שחוצים זה את זה. העמודונים לא מפוזרים סתם: הם עומדים איפה שהכוח עובר." },
+  wolffQ:{ q:"עמודון בתוך העצם שכמעט לא נושא שום כוח, במשך חודשים. מה יקרה לו?", opts:["הוא יתעבה, ליתר ביטחון","שום דבר, עצם לא משתנה אחרי שגדלה","תאים יפרקו אותו, והחומר שלו ימוחזר","הוא יהפוך לשריר"], a:2, fb:"העצם חיה: תאים בתוכה מרגישים כמה החומר סביבם נמתח. איפה שיש הרבה עבודה, תאים בונים עצם; איפה שאין, תאים אחרים מפרקים אותה. זה \"חוק וולף\": הצורה של העצם עוקבת אחרי העומס שעליה. ולכן עצם משתנה כל החיים, לא רק כשגדלים." },
+  storyQ:{ q:"האם מגדל אייפל הועתק מעצם הירך?", opts:["כן, אייפל עצמו חתך עצם ירך והעתיק אותה","אין לכך הוכחה. אבל המהנדס ששרטט את המגדל, מוריס קשלן, היה תלמיד של קולמן, ושניהם השתמשו באותו רעיון: לשים חומר לאורך הכוח","כן, זה כתוב על המגדל","לא, ואין שום קשר בין מגדלים לעצמות"], a:1, fb:"זה סיפור שמסתובב הרבה, אבל אין שום מסמך שמראה שהמגדל הועתק מעצם. הקשר האמיתי הוא דרך השיטה: קולמן לימד בציריך איך למצוא את קווי הכוח בשרטוט, קשלן היה התלמיד הכי טוב שלו, ושרטט את המגדל לפי כוח הרוח. אותו רעיון, שני \"מתכננים\" שונים: מהנדס, ותאים חיים." },
+  deepQ:{ q:"למה אסטרונאוטים מתאמנים כשעתיים ביום בתחנת החלל?", opts:["כדי להתחמם, כי קר בחלל","כי בלי משקל העצמות כמעט לא נושאות כוח, והגוף מפרק אותן, בערך אחוז אחד בחודש בירך","כדי לרזות לפני החזרה","כי אין להם מה לעשות"], a:1, fb:"בחלל הרגליים לא נושאות את הגוף, אז מבחינת העצם \"אין עבודה\", והיא מתפרקת, יותר מפי <span class=\"num\">10</span> מהר יותר מאשר במחלת עצמות קשה. מכונה שמושכת את האסטרונאוט בכוח מחזירה לעצמות חלק מהעומס, והאובדן קטן בהרבה." },
+};
+const MCQ = {
+  shared:[
+    { q:"עצם הירך חלולה באמצע. למה זה דווקא טוב?", opts:["כי ככה היא קלה, ובכל זאת קשיחה: החומר נמצא בשוליים, איפה שהוא עוזר הכי הרבה נגד כיפוף","כי החלל מלא אוויר שעוזר לצוף במים","כי אין לגוף מספיק חומר לעצם מלאה","כי עצם חלולה גדלה מהר יותר"], a:0, fb:"בכיפוף, החומר שבשוליים נמתח ונלחץ הכי הרבה, ולכן עושה את רוב העבודה. החומר שבאמצע כמעט לא עובד. העברה של החומר החוצה נותנת צינור קשיח פי כמה, באותו משקל. החלל בעצם מלא במח עצם, לא באוויר, ואין שום קשר לציפה." },
+    { q:"בתוך הקצה העליון של עצם הירך יש ספוג של עמודונים. איך הם מסודרים?", opts:["באקראי, כמו חורים בגבינה","בשורות ישרות של ימין ושמאל, כמו לבנים","לאורך הקווים שבהם הכוח זורם: קווי לחיצה וקווי מתיחה שחוצים זה את זה","כולם מצביעים לכיוון הברך"], a:2, fb:"זה מה שהפתיע את קולמן: העמודונים עומדים בדיוק לאורך קווי המאמץ, כמו בשרטוט של מנוף. משפחה אחת נושאת לחיצה ומשפחה אחת מתיחה, והן חוצות זו את זו כמעט בזווית ישרה. כך אין חומר מיותר." },
+    { q:"שחקנית טניס משחקת עם יד ימין כבר שש שנים. מה סביר שנמצא בצילום של שתי הזרועות שלה?", opts:["שתי הזרועות זהות לגמרי","בזרוע ימין יש הרבה יותר עצם, כי היא עובדת קשה יותר","בזרוע ימין יש פחות עצם, כי היא נשחקת","העצמות לא משתנות, רק השרירים"], a:1, fb:"עצם שעובדת קשה מתחזקת. מחקרים על שחקני טניס צעירים מצאו בזרוע של המחבט הרבה יותר מינרל בעצם, בעצם הזרוע העליונה אפילו כ־<span class=\"num\">39%</span> יותר. אותו גוף, אותם גנים, ורק העומס שונה. זה חוק וולף בפעולה." },
+  ],
+  younger:[
+    { q:"מה גלילאו גליליי גילה כבר בשנת <span class=\"num\">1638</span>?", opts:["שעצמות עשויות מברזל","שצינור חלול חזק יותר ממוט מלא שיש בו אותה כמות חומר","שלציפורים אין עצמות","שמגדלים צריכים להיות עשויים מעצם"], a:1, fb:"גלילאו כתב שצינור חלול מחזיק יותר ממוט מלא באותו משקל, ושהטבע משתמש בזה: בעצמות של ציפורים ובגבעולים של קנים. מאות שנים לפני שהבינו בדיוק למה, הוא כבר ראה את זה." },
+  ],
+  older:[
+    { q:"מוט מלא ברדיוס <span class=\"num\">1</span> הופך לצינור ברדיוס חוץ <span class=\"num\">1.5</span>, עם אותה כמות חומר. הקשיחות גדלה כמו <span class=\"math\">R⁴ − r⁴</span>. בערך פי כמה הצינור קשיח יותר?", opts:["פי <span class=\"num\">1.5</span>, כמו הרדיוס","פי <span class=\"num\">3.5</span>","פי <span class=\"num\">5.06</span>, כי <span class=\"math\">1.5⁴ = 5.0625</span>","בדיוק אותו דבר, כי החומר זהה"], a:1, fb:"אותו חומר: <span class=\"math\">1.5² − r² = 1</span>, כלומר <span class=\"math\">r² = 1.25</span>. הקשיחות: <span class=\"math\">1.5⁴ − 1.25² = 5.0625 − 1.5625 = 3.5</span>. אם בחרתם <span class=\"num\">5.06</span>, שכחתם להוריד את החלל; אם בחרתם <span class=\"num\">1.5</span>, חשבתם שהקשיחות גדלה כמו הרדיוס, אבל היא גדלה הרבה יותר מהר." },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'גלילאו כותב: צינור חלול חזק יותר ממוט מלא <b>באותו משקל</b>.'},
+  {id:'b', t:'קולמן רואה עצם ירך חתוכה וקורא: "זה המנוף שלי!"'},
+  {id:'c', t:'מוריס קשלן, התלמיד של קולמן, משרטט בבית מגדל ברזל בגובה <span class="num">300</span> מטר.'},
+  {id:'d', t:'מגדל אייפל נפתח בפריז.'},
+  {id:'e', t:'יוליוס וולף מפרסם ספר: עצם משנה את המבנה שלה לפי העומס.'},
+  {id:'f', t:'אסטרונאוטים בתחנת החלל מתאמנים כל יום כדי לא לאבד עצם.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> גלילאו ← קולמן ← קשלן ← המגדל ← וולף ← החלל. שימו לב להיגיון: קודם רעיון (צינור חלול), אחר כך תצפית (העצם כמו מנוף), אחר כך הנדסה (המגדל), ורק אחר כך הסבר איך העצם עושה את זה (וולף). והחלל הוא הניסוי הגדול שמוכיח את וולף: בלי עומס, העצם מתפרקת.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) קשלן היה <b>תלמיד</b> של קולמן, אז הוא בא אחריו, והמגדל נבנה רק אחרי השרטוט. (2) גלילאו חי מאות שנים לפני כולם, והספר של וולף יצא שלוש שנים <b>אחרי</b> שהמגדל נפתח.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const aOk = chalA.value!=='' && a>=1.72 && a<=1.74, bOk = chalB.value!=='' && b>=6.9 && b<=7.1;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const hintA = (hasA && Math.abs(a-3)<0.01) ? '(א): זה <b>r²</b>. כדי לקבל את r, הוציאו שורש: <span class="math">√3 = ?</span>'
+    : (hasA && Math.abs(a-1)<0.01) ? '(א): כמות החומר לא תלויה בהפרש של הרדיוסים אלא בהפרש של <b>הריבועים</b>: <span class="math">2² − r² = 1</span>.'
+    : (hasA && Math.abs(a-2.24)<0.02) ? '(א): חיברתם במקום לחסר. החומר הוא מה שבין שני העיגולים: <span class="math">2² − r² = 1</span>, כלומר <span class="math">r² = 4 − 1</span>.'
+    : (hasA && a>=1.6 && a<=1.9) ? '(א): קרוב! חשבו שוב: <span class="math">r² = 4 − 1 = 3</span>, ו־<span class="math">√3 = ?</span> (שתי ספרות אחרי הנקודה).'
+    : '(א): רמז — במוט המלא <span class="math">1² = 1</span>. בצינור צריך שיתקיים <span class="math">2² − r² = 1</span>. מה r²? ומה r?';
+  const hintB = (hasB && Math.abs(b-16)<0.01) ? '(ב): <span class="num">16</span> זה <span class="math">2⁴</span>, אבל שכחתם להוריד את החלל: <span class="math">2⁴ − r⁴</span>.'
+    : (hasB && Math.abs(b-13)<0.01) ? '(ב): הורדתם את r² במקום r⁴. <span class="math">r⁴ = r² × r² = 3 × 3 = ?</span>'
+    : (hasB && Math.abs(b-1)<0.01) ? '(ב): זו כמות <b>החומר</b>, שנשארה <span class="num">1</span>. הקשיחות היא <span class="math">R⁴ − r⁴</span>.'
+    : (hasB && Math.abs(b-3.5)<0.01) ? '(ב): זו הדוגמה מפרק <span class="num">1</span>, עם רדיוס <span class="num">1.5</span>. הפעם <span class="math">R = 2</span>.'
+    : (hasB && Math.abs(b-2)<0.01) ? '(ב): הקשיחות לא גדלה כמו הרדיוס. השתמשו ב־<span class="math">R⁴ − r⁴</span>.'
+    : '(ב): רמז — <span class="math">2⁴ = 16</span>, ו־<span class="math">r⁴ = r² × r²</span>. החסירו.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">2² − r² = 1</span>, אז <span class="math">r² = 3</span> ו־<span class="math">r = √3 ≈ 1.73</span>. (ב) <span class="math">2⁴ − r⁴ = 16 − 3 × 3 = 16 − 9 = 7</span>. <b>פי <span class="num">7</span></b> יותר קשיח, באותו משקל בדיוק! והקיר? רק <span class="math">2 − 1.73 ≈ 0.27</span>, דק יותר מרבע מהרדיוס של המוט. ככה גם הטבע עושה: הקיר של עצם הירך עבה מספיק כדי לא להימעך, והחלל גדול ככל האפשר.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="math">r ≈ 1.73</span>.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — פי <span class="num">7</span>.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const a=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasR=numAdvR.value!=='', hasA=numAdv.value!=='';
+    const aOk=(hasA && a>=5.8 && a<=6.2), bOk=(hasR && r>=935 && r<=937), sc = aOk&&bOk?2:((aOk||bOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintR = (hasR && Math.abs(r-56940)<1) ? 'ב־(א) כפלתם. כל <span class="num">7.8</span> טון תופסים מטר מעוקב אחד, אז כדי לדעת כמה מטרים מעוקבים, <b>מחלקים</b>: <span class="math">7,300 ÷ 7.8 = ?</span>'
+      : (hasR && Math.abs(r-7292.2)<1) ? 'ב־(א) חיסרתם. כמה פעמים <span class="num">7.8</span> נכנס ב־<span class="num">7,300</span>? <span class="math">7,300 ÷ 7.8 = ?</span>'
+      : (hasR && r>0 && r<0.01) ? 'ב־(א) חילקתם הפוך. המשקל הכולל חלקי המשקל של מטר מעוקב: <span class="math">7,300 ÷ 7.8</span>.'
+      : (hasR && r>=930 && r<=940) ? 'ב־(א) כמעט! עגלו למספר שלם: <span class="math">7,300 ÷ 7.8 ≈ ?</span>'
+      : 'רמז ל־(א): כל מטר מעוקב של ברזל שוקל <span class="num">7.8</span> טון. כמה מטרים מעוקבים יש ב־<span class="num">7,300</span> טון? מחלקים.';
+    const hintA = (hasA && a>=0.058 && a<=0.062) ? 'ב־(ב) זו התשובה <b>במטרים</b>. במטר יש <span class="num">100</span> ס״מ.'
+      : (hasA && a>=7.3 && a<=7.6) ? 'ב־(ב) חילקתם באורך הצלע, <span class="num">125</span>. השכבה פרוסה על <b>שטח</b>: <span class="math">125 × 125 = 15,625</span> מ״ר.'
+      : (hasA && a>=598 && a<=600) ? 'ב־(ב) הכפלתם ב־<span class="num">100</span> פעמיים. <span class="math">936 ÷ 15,625</span> נותן מטרים, וכפול <span class="num">100</span> פעם אחת בלבד.'
+      : (hasA && a>=59 && a<=60.5) ? 'ב־(ב) זה במילימטרים. בסנטימטר יש <span class="num">10</span> מילימטרים: חלקו ב־<span class="num">10</span>.'
+      : (hasA && a>=0.5 && a<=0.7) ? 'ב־(ב) בדקו את המעבר ליחידות: <span class="math">0.06</span> מטר הם כמה סנטימטרים?'
+      : 'רמז ל־(ב): נפח = שטח × עובי. השטח: <span class="math">125 × 125</span>. אז העובי = נפח ÷ שטח, במטרים, ואז כפול <span class="num">100</span>.';
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">7,300 ÷ 7.8 ≈ 936</span> מטרים מעוקבים, קובייה של בערך <span class="math">9.8 × 9.8 × 9.8</span> מטר. (ב) <span class="math">125 × 125 = 15,625</span> מ״ר, ו־<span class="math">936 ÷ 15,625 ≈ 0.06</span> מטר, כלומר כ־<span class="num">6</span> ס״מ בלבד! מגדל בגובה <span class="num">300</span> מטר, ואם מתיכים אותו, שכבה דקה כמו כף יד. זה כמה אוויר יש בו.'
+      : aOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">6</span> ס״מ.</span> '+hintR
+      : bOk ? '<span class="pill-ok">(א) נכון — כ־<span class="num">936</span> מ״ק.</span> '+hintA
+      : '<span class="pill-bad">עוד לא.</span> '+hintR+(hasA?' '+hintA:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-75)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">30 × 2.5 = 75</span> ק״ג. אפשר גם ככה: <span class="math">30 × 2 = 60</span>, ועוד חצי מ־<span class="num">30</span>, שזה <span class="num">15</span>: <span class="math">60 + 15 = 75</span>. כמעט כמו מבוגר שלם שעומד על המפרק, בכל צעד, אלפי פעמים ביום. ועצם הירך עומדת בזה בלי בעיה.':(Math.abs(v-32.5)<0.01)?'<span class="pill-bad">חיברתם.</span> "פי <span class="num">2.5</span>" זה כפל: <span class="math">30 × 2.5 = ?</span>':(Math.abs(v-60)<0.01)?'<span class="pill-bad">כמעט!</span> <span class="math">30 × 2 = 60</span>, אבל צריך עוד חצי פעם: חצי מ־<span class="num">30</span>.':(Math.abs(v-90)<0.01)?'<span class="pill-bad">זה פי <span class="num">3</span>.</span> צריך פי <span class="num">2</span> וחצי: <span class="math">30 × 2 = 60</span>, ועוד חצי מ־<span class="num">30</span>.':(Math.abs(v-12)<0.01)?'<span class="pill-bad">חילקתם.</span> הכוח <b>גדול</b> מהמשקל, אז כופלים: <span class="math">30 × 2.5 = ?</span>':(Math.abs(v-30)<0.01)?'<span class="pill-bad">זה רק המשקל.</span> הכוח בירך גדול ממנו פי <span class="num">2.5</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: פי <span class="num">2</span> זה <span class="math">30 + 30</span>, ועוד חצי פעם זה חצי מ־<span class="num">30</span>.'; }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=v>=935 && v<=937; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">7,300 ÷ 7.8 ≈ 936</span> מטרים מעוקבים. זו קובייה של בערך <span class="math">9.8 × 9.8 × 9.8</span> מטר, בערך בגובה של בניין בן שלוש קומות. כל המגדל, בגובה <span class="num">300</span> מטר, עשוי מכמות ברזל שנכנסת בקובייה כזאת. כל השאר אוויר.':(Math.abs(v-56940)<1)?'<span class="pill-bad">כפלתם.</span> כל <span class="num">7.8</span> טון תופסים מטר מעוקב אחד. כמה פעמים <span class="num">7.8</span> נכנס ב־<span class="num">7,300</span>? <span class="math">7,300 ÷ 7.8 = ?</span>':(Math.abs(v-7292.2)<1)?'<span class="pill-bad">חיסרתם.</span> צריך לדעת כמה פעמים <span class="num">7.8</span> נכנס ב־<span class="num">7,300</span>: מחלקים.':(v>0 && v<0.01)?'<span class="pill-bad">חילקתם הפוך.</span> המשקל הכולל חלקי המשקל של מטר מעוקב: <span class="math">7,300 ÷ 7.8</span>.':(v>=930 && v<=940)?'<span class="pill-bad">כמעט!</span> עגלו למספר שלם: <span class="math">7,300 ÷ 7.8 ≈ ?</span>':'<span class="pill-bad">לא בדיוק.</span> רמז: מטר מעוקב אחד שוקל <span class="num">7.8</span> טון. כדי לדעת כמה מטרים מעוקבים יש ב־<span class="num">7,300</span> טון, מחלקים.'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'אמרתי שבאמצע עצם הירך היא צינור חלול, ושצינור מתכופף פחות ממוט מלא עם אותה כמות חומר, כי החומר בשוליים עובד הכי הרבה נגד כיפוף.',
+  'אמרתי שבקצוות יש ספוג של עמודונים, ושהם עומדים לאורך הקווים שבהם הכוח עובר (קווי לחיצה וקווי מתיחה).',
+  'הזכרתי את קולמן: הוא ראה שהעמודונים בעצם עומדים על אותם קווים שהוא שרטט למנוף.',
+  'הסברתי איך העצם "יודעת": תאים מרגישים את העומס; איפה שיש הרבה עבודה בונים עצם, ואיפה שאין, מפרקים (חוק וולף).',
+  'הזכרתי דוגמה: אסטרונאוטים מאבדים כאחוז עצם בחודש בחלל; בזרוע של שחקני טניס יש יותר עצם; או מגדל אייפל והתלמיד קשלן.',
+];
+const MODEL='עצם הירך היא צינור חלול באמצע. כשעצם מתכופפת, צד אחד נמתח וצד אחד נלחץ, והחומר שבאמצע כמעט לא עובד. לכן כדאי להעביר את החומר לשוליים: צינור קשיח פי כמה ממוט מלא עם אותה כמות חומר, וגם קל. בקצוות, ליד המפרקים, הכוח מגיע מכמה כיוונים, ושם יש ספוג של עמודונים שעומדים לאורך קווי הלחיצה והמתיחה. בשנת <span class="num">1866</span> המהנדס קולמן ראה שהקווים האלה הם בדיוק הקווים שהוא שרטט למנוף. העצם "יודעת" איפה לבנות כי תאים בתוכה מרגישים כמה החומר נמתח: איפה שיש הרבה עבודה, בונים עצם, ואיפה שאין, מפרקים אותה. זה חוק וולף. לכן אסטרונאוטים בחלל מאבדים בערך אחוז אחד מהעצם בירך בכל חודש ומתאמנים כל יום, ולכן בזרוע של שחקני טניס יש הרבה יותר עצם מאשר בזרוע השנייה.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (בכיפוף צד אחד נמתח וצד אחד נלחץ והציר באמצע כמעט לא עובד, ולכן חומר רחוק מהציר שווה יותר — בצינור הקשיחות גדלה כמו R⁴ − r⁴ והחומר רק כמו R² − r², למשל R = 1.5 נותן פי 3.5 באותו משקל; בקצוות העמודונים עומדים לאורך שתי משפחות של קווי מאמץ, לחיצה ומתיחה, שחוצות זו את זו כמעט בזווית ישרה — מה שקולמן זיהה ב־1866 כקווי המאמץ של מנוף; והמנגנון שמייצר את זה: לולאת משוב שבה תאים כלואים בעצם חשים את העיוות, ותאים בונים מוסיפים עצם איפה שהעומס גדול ותאים מפרקים מסלקים איפה שהוא קטן — חוק וולף, 1892; ולכן אובדן של כ־1% בחודש בחלל) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "העצם שבנויה כמו מגדל אייפל": למה עצם הירך חלולה באמצע ומלאה עמודונים בקצוות, ואיך היא "יודעת" איפה לשים חומר. הרעיונות המרכזיים: (1) בכיפוף צד אחד נמתח וצד אחד נלחץ, והחומר שבאמצע כמעט לא עובד; לכן צינור חלול קשיח הרבה יותר ממוט מלא עם אותה כמות חומר (גלילאו, 1638); בצינור הקשיחות גדלה כמו R⁴ − r⁴ והחומר כמו R² − r² — R = 1.5 נותן פי 3.5; עצם הירך היא צינור, ובחלל יש מח עצם; (2) בקצה העליון העצם מתעקלת כמו זרוע של מנוף, ובהליכה הכוח על מפרק הירך כ־2.5 פעמים משקל הגוף (גם השרירים מושכים); בצוואר העצם הצד העליון נמתח והתחתון נלחץ; העמודונים בספוג עומדים לאורך קווי הלחיצה והמתיחה, שחוצים זה את זה; (3) ב־1866 המהנדס קרל קולמן מציריך ראה אצל האנטומאי הרמן פון מאייר עצם ירך חתוכה וקרא "זה המנוף שלי!" — העמודונים עמדו על קווי המאמץ ששרטט למנוף (הסיפור מובא אצל ד׳ארסי תומפסון, 1917); (4) התלמיד הטוב ביותר של קולמן, מוריס קשלן, שרטט ב־6 ביוני 1884 את המגדל בגובה 300 מטר לחברה של אייפל, לפי עומסי הרוח; המגדל נפתח ב־1889 — אבל הטענה שהמגדל הועתק מעצם היא אגדה; (5) חוק וולף (1892): העצם בונה את עצמה לפי העומס — תאים בתוך העצם חשים כמה היא נמתחת; איפה שיש עבודה בונים, איפה שאין מפרקים; (6) בחלל אסטרונאוטים מאבדים כ־1% מהעצם בירך בחודש ומתאמנים כשעתיים ביום; בזרוע המחבט של שחקני טניס יש הרבה יותר עצם. חישובי המבחן: 30 × 2.5 = 75 ק״ג; 7,300 ÷ 7.8 ≈ 936 מ״ק; מתקדם 936 ÷ 15,625 ≈ 0.06 מ׳ = 6 ס״מ; אתגר r = √3 ≈ 1.73, 16 − 9 = 7.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם למה העצם בנויה כך (באמצע צינור, כי חומר בשוליים עובד הכי הרבה נגד כיפוף; ו/או בקצוות עמודונים לאורך קווי הכוח) וגם איך היא "יודעת" (התאים בונים איפה שיש עומס ומפרקים איפה שאין); 1 אם יש רק חלק מזה. תשובה שאומרת רק "כי ככה היא חזקה" בלי להסביר למה, לא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', יש לך מוח של '+G('מהנדס','מהנדסת')+' ועין של '+G('ביולוג','ביולוגית')+'!':pct>=60?name+', יש לך מוח של '+G('מדען','מדענית')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=24;                                                      // hip contact force while walking ≈ 2.38 × body weight (Bergmann 2001), in tenths
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: בהליכה הכוח על מפרק הירך הוא בערך פי <span class="num">2</span> וחצי מהמשקל, כי גם השרירים מושכים. ועצם הירך עומדת בזה, אלפי פעמים ביום, למרות שהיא חלולה.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. ועכשיו ידוע לך גם איך העצם עומדת בזה: צינור חלול באמצע, עמודונים לאורך קווי הכוח בקצוות, ותאים שמחזקים כל מקום שעובד קשה.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. התשובה: בערך פי <span class="num">2</span> וחצי מהמשקל, כי גם השרירים מושכים כדי לשמור על שיווי משקל. ועצם הירך, צינור חלול עם עמודונים בקצוות, נושאת את זה אלפי פעמים ביום.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה כוח על מפרק הירך בהליכה): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: בערך פי 2 וחצי מהמשקל)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "העצם שבנויה כמו מגדל אייפל", מהדורה 34, ד׳ בחשוון תשפ״ז (יום חמישי, 15 באוקטובר 2026). נושא: למה עצם הירך חלולה באמצע ומלאה עמודונים בקצוות, ואיך העצם "יודעת" איפה לשים חומר; ביולוגיה (מבנה העצם, תאים בונים ומפרקים, חוק וולף), הנדסה ופיזיקה (כיפוף, מתיחה ולחיצה, קווי מאמץ, מנוף, מגדל), מתמטיקה (ריבועים וחזקות רביעיות, שורש, צפיפות ונפח, יחס ריבוע־קובייה) והיסטוריה (גלילאו, קולמן, פון מאייר, קשלן ואייפל, וולף). עצם הירך היא העצם הארוכה בגוף. בהליכה הכוח על מפרק הירך כ־2.4 פעמים משקל הגוף (שתלים עם חיישנים, Bergmann ועמיתים, ברלין, 2001), ובמדרגות כ־2.5–2.6 — יותר מהמשקל כי גם השרירים מושכים כדי לשמור על שיווי משקל על רגל אחת; בשיעור: "בערך פי 2 וחצי". פרק 1, חלול וחזק יותר: גלילאו (1638, "שני מדעים חדשים") כתב שגליל חלול חזק יותר ממוט מלא באותו משקל, והזכיר עצמות של ציפורים וקנים. בכיפוף צד אחד נמתח וצד אחד נלחץ, ובאמצע קו שלא נמתח; חומר רחוק מהקו עובד יותר. בצינור עגול: חומר כמו R² − r², קשיחות כמו R⁴ − r⁴ (π מצטמצם). מוט מלא ברדיוס 1 → צינור עם אותו חומר: r² = R² − 1, וקשיחות 2R² − 1; דוגמה פתורה R = 1.5: r² = 1.25, 5.0625 − 1.5625 = 3.5, פי 3.5. באינטראקטיב "מוט מלא או צינור?" מנפחים את המוט (R מ־1.0 עד 1.8): החתך גדל והחור באמצע גדל, כמות החומר קבועה; קורה על שתי תמיכות עם משקולת שוקעת פחות; עמודים: משקל ×1, קשיחות עד ×5.5; ב־1.8 הקיר דק וכבר עלול להימעך כמו פחית (הדגם לא מחשב קריסה מקומית). עצם הירך: קיר קשה בחוץ ובאמצע חלל עם מח עצם. גבעולי חיטה, במבוק ומסגרות אופניים בנויים כך. פרק 2, המנוף שבתוך הירך: בקצה העליון העצם מתעקלת כמו זרוע של מנוף (צוואר וראש עגול שנכנס לשקע באגן); המשקל לוחץ על הראש; בצוואר הצד העליון נמתח והתחתון נלחץ; בפנים ספוג של עמודונים דקים (עצם ספוגית) שעומדים בשתי משפחות: עמודוני לחיצה מהראש למטה אל הקיר הפנימי, ועמודוני מתיחה מהקיר החיצוני בקשת מעל הצוואר אל הראש; הם חוצים זה את זה כמעט בזווית ישרה. קרל קולמן (1821–1881), פרופסור בפוליטכניון של ציריך, ממציא ה"סטטיקה הגרפית" (ספר ב־1866), שרטט את קווי המאמץ של מנוף עקום; ב־1866 ראה אצל עמיתו האנטומאי הרמן פון מאייר עצם ירך חתוכה וקרא "Voilà ma grue!" ("הנה המנוף שלי!") — הסיפור מובא אצל ד׳ארסי תומפסון ב"על גדילה וצורה" (1917), המילים המדויקות לא מאומתות; פון מאייר פרסם ב־1867 את "האדריכלות של העצם הספוגית". באינטראקטיב "עצם או מנוף?" מוסיפים משקל (0–10) והקווים מתעבים: אדום מתיחה למעלה, כחול לחיצה למטה; כפתור מחליף בין ציור של עצם לציור של מנוף ברזל עם וו ומשא, והקווים נשארים זהים; הקווים הם ציור סכמטי. פרק 3, העצם שבונה את עצמה: תאים שמפרקים עצם ותאים שבונים עצם, ותאים כלואים בתוך העצם שחשים כמה היא נמתחת ומאותתים; איפה שיש עבודה בונים, איפה שאין מפרקים וממחזרים; בכל שנה מתחלף חלק גדול מהשלד אצל מבוגרים. יוליוס וולף, מנתח גרמני, 1892, "חוק השינוי של העצמות" — "חוק וולף": המבנה עוקב אחרי העומס; לולאת משוב בלי מתכנן. משל לצעירים: שביל בדשא. באינטראקטיב "חודש אחרי חודש" רשת של 5 × 5 תאים עם עמודונים עומדים, שוכבים ואלכסוניים; בוחרים כוח מלמעלה, באלכסון או בלי משקל, ולוחצים "עוד חודש": עמודונים בכיוון הכוח מתעבים, האחרים מתדלדלים ונעלמים, ובלי משקל כולם מתדלדלים; מד "כמה עצם"; הכלל מומצא ומהיר מהמציאות, ובעצם אמיתית נשארים גם עמודוני מתיחה. פרק 4, הסיפור: קשלן (מוריס קשלן, 1856–1946) למד בפוליטכניון של ציריך מ־1873, "התלמיד המוכשר ביותר של קולמן" (המוזיאון הלאומי של שווייץ), סיים ראשון ב־1877; ב־6 ביוני 1884 שרטט בביתו "עמוד בגובה 300 מטר" ורשם עליו את עומסי הרוח; עבד בחברה של גוסטב אייפל עם המהנדס אמיל נוגייה והאדריכל סטפן סובסטר; נבנה 1887–1889 לתערוכה העולמית בפריז. 18,038 חלקי ברזל, 2,500,000 מסמרות, 7,300 טון במסגרת המתכת (10,100 טון בסך הכול), בסיס ריבועי כ־125 מטר. הטענה שהמגדל הועתק מעצם הירך היא אגדה ללא הוכחה (ג׳וליאן וינסנט, IMechE); הקשר האמיתי: השיטה של קולמן, לשים חומר לאורך קווי הכוח. ברזל: כ־7.8 טון למטר מעוקב. פרק 5, חלל: אסטרונאוטים מאבדים כ־1% (1–1.6%) מצפיפות העצם בירך וברגליים בכל חודש, יותר מפי 10 מאוסטאופורוזיס קשה; מתאמנים כשעתיים ביום (מכשיר ARED עד 600 ליברות כוח); לא כולם חוזרים לגמרי לצפיפות שלפני הטיסה. באינטראקטיב "חצי שנה בחלל" בוחרים כדור הארץ / חלל / חלל + התעמלות ומזיזים חודשים (0–12): חתך עצם שהקיר שלו מתדלדל (השינוי מוגדל פי 4 בציור) ופס של אחוז העצם שנשאר; בחלל 1% בחודש בקו ישר, ועם התעמלות שליש מזה (הערכה בדגם). שחקני טניס צעירים: בזרוע המחבט כ־39% יותר מינרל בקליפת עצם הזרוע העליונה (The Physiological Society). מכון ויצמן: סטיב ויינר ודניאל וגנר (1998, "The material bone") תיארו את העצם בעד 7 רמות היררכיות, מגבישי מינרל וסיבי קולגן ועד הצינור. ילדים: ריצה, קפיצות, טיפוס ומשחקי כדור בונים עצם. ניסויי בית: צינורות נייר מחזיקים מחברות (דף שטוח קורס); עצם שוק של עוף חתוכה עם מבוגר — צינור באמצע וספוג בקצוות; עצם עוף בחומץ שלושה ימים מתגמשת (החומץ ממיס את המינרל, נשאר קולגן). חיבורים: עצמות ציפורים חלולות עם תמוכות; קנים ובמבוק; מחשבים שמגדלים חלקים כמו עצם; מכון ויצמן. בונוס: גלילאו והענקים — פי 2 בגודל → פי 8 במשקל, פי 4 בשטח חתך העצם, ולכן עצמות של בעלי חיים גדולים עבות יחסית. חישובי המבחן: הצעיר 30 × 2.5 = 75 ק״ג; הבוגר 7,300 ÷ 7.8 ≈ 936 מ״ק; מתקדם (א) 936, (ב) 125 × 125 = 15,625 מ״ר, 936 ÷ 15,625 ≈ 0.06 מ׳ ≈ 6 ס״מ; האתגר (א) r² = 4 − 1 = 3, r ≈ 1.73, (ב) 16 − 9 = 7, פי 7; שאלת המחשבה: באמצע הכוח בעיקר מכופף ולכן צינור; בקצוות הכוח נכנס דרך מפרק רחב ומכיוונים משתנים, המשטח הרחב מפזר את הלחץ והעמודונים מובילים את הכוח אל הקירות; צינור דק בקצה היה נמעך. בדיקות מהירות: למה צינור מתכופף פחות; מה קולמן ראה; מה קורה לעמודון שלא עובד; האם המגדל הועתק מעצם (אין הוכחה, הקשר דרך קשלן); למה אסטרונאוטים מתאמנים. סידור: גלילאו 1638 ← קולמן 1866 ← שרטוט קשלן 1884 ← פתיחת המגדל 1889 ← וולף 1892 ← אסטרונאוטים בתחנת החלל. פישוטים במכוון: "פי 2 וחצי"; האינטראקטיבים הם מודלים; הציטוט של קולמן נמסר בעקיפין. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט ומה שלא ידוע, בלי לחשוף תשובות מבחן; אם ילד שואל על שאלה מהמבחן, לרמוז ולכוון, לא לפתור. בטיחות: חיתוך עצם עוף רק בידי מבוגר, ושטיפת ידיים.';
+const CHIPS = ['למה העצם חלולה?', 'מה קולמן ראה בעצם?', 'איך העצם יודעת איפה לבנות?', 'מה קורה לעצמות בחלל?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: בכיפוף מאמץ גדל עם המרחק מהציר, ולכן בצינור הקשיחות כמו R⁴ − r⁴ והחומר כמו R² − r² — עם אותו חומר r² = R² − 1, והקשיחות יוצאת 2R² − 1, למשל R = 1.5 → פי 3.5; שתי משפחות של קווי מאמץ, לחיצה ומתיחה, ניצבות זו לזו, והעמודונים עומדים לאורכן; כוח של כ־2.4 משקל גוף בהליכה (Bergmann 2001); חוק וולף כלולאת משוב — תאים כלואים חשים עיוות ומאותתים לתאים הבונים ולמפרקים; כ־1% אובדן בחודש בחלל, ~39% יותר מינרל בזרוע המחבט; 7,300 ÷ 7.8 ≈ 936 מ״ק ברזל במגדל, שכבה של כ־6 ס״מ על בסיס של 125 × 125 מ׳; גלילאו וחוק הריבוע־קובייה: פי 2 בגודל → פי 8 במשקל, פי 4 בשטח חתך), שאל שאלות המשך שדורשות חשיבה (למשל: למה לא לעשות את הקיר דק עוד ועוד? מה היה קורה לעצם אם העומס היה מגיע תמיד מהצד? למה צינור מרובע פחות טוב מעגול בכל הכיוונים? איך לולאת משוב יכולה "לתכנן" בלי מתכנן? למה לפיל רגליים עבות כל כך?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה העצם חלולה?</b> כשעצם מתכופפת, החומר שבשוליים עושה את רוב העבודה, והחומר שבאמצע כמעט לא עובד. לכן צינור, עם החומר בשוליים, קשיח הרבה יותר ממוט מלא באותו משקל.<br><br><b>איך העצם יודעת איפה לבנות?</b> תאים בתוך העצם מרגישים איפה היא נלחצת ונמתחת. שם בונים עוד עצם, ואיפה שאין עבודה, מפרקים. לכן בחלל, בלי משקל, אסטרונאוטים מאבדים עצם ומתאמנים כל יום.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>

@@ -1,0 +1,24 @@
+{
+  "n": 34,
+  "code": "WOW-034",
+  "date": "2026-10-15",
+  "language": "he",
+  "title": "העצם שבנויה כמו מגדל אייפל",
+  "topics": [
+    "ביולוגיה",
+    "הנדסה",
+    "מתמטיקה",
+    "פיזיקה",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "Why the femur is a hollow tube with spongy ends: same material as a rod but far stiffer (Galileo 1638; stiffness ∝ R⁴ − r⁴ vs material ∝ R² − r², ×3.5 at R = 1.5); trabeculae along compression/tension stress lines (Culmann's 'Voilà ma grue!' 1866, von Meyer 1867); Wolff's law (1892) as a feedback loop of bone cells; Koechlin, Culmann's best student, sketched the Eiffel Tower (6 June 1884; 7,300 t iron ≈ 936 m³ ≈ a 6 cm slab on its 125 m base) — the femur-copy story is a myth; hip load ≈ 2.4× body weight; astronauts lose ~1%/month of hip bone; tennis racquet arm +39%; Weizmann's 7 levels of bone.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: lesson runs ~28–33 min (at/just above the 30-min bound); diagonal struts in the Wolff sim stay nearly constant under vertical load",
+  "review_url": "https://claude.ai/artifact/Uv3a2Npaqg5moHkNu48c1z",
+  "editor_note": null
+}
