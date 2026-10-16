@@ -1,0 +1,23 @@
+{
+  "n": 35,
+  "code": "WOW-035",
+  "date": "2026-10-16",
+  "language": "he",
+  "title": "הקול מ־1860 שאף אחד לא התכוון שיישמע",
+  "topics": [
+    "פיזיקה",
+    "טכנולוגיה",
+    "היסטוריה",
+    "מתמטיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "Scott de Martinville's phonautograph (patent 25 March 1857; typesetter inspired by an ear-physiology book, 1853–54): horn, membrane and bristle tracing sound on soot; high pitch = dense waves, wavelength = paper speed ÷ frequency; Koenig's 250 Hz tuning fork as a drawn clock (ratio of wave counts gives the voice frequency at any crank speed); 'Au clair de la lune', 9 April 1860, never meant to be heard; First Sounds/LBNL (Giovannoni, Feaster, Haber, Cornell) played it in March 2008 as a ~10 s 'woman' — the time trace had been read as a 500 Hz fork; 'Aminta' in 2009 revealed the 250 Hz fork, so at half speed it is a man (almost certainly Scott), ~20 s; playback speed scales pitch (octave) and duration together; Edison's 1877 groove vs Scott's scratch; Haber's IRENE and Bell's voice; Idelsohn's 1911–1913 Jerusalem recordings in the Vienna Phonogrammarchiv.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: fork-count tags in the fork interactive sit below the strips rather than beside them; prediction buttons wrap 2+1 on phones; older track ≈30 min with the optional challenge",
+  "review_url": "https://claude.ai/artifact/YZEcnyLkL8JYJ8vx6jWXty",
+  "editor_note": null
+}

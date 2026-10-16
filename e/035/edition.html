@@ -1,0 +1,1687 @@
+<title>שורשים וכנפיים #35 · הקול מ־1860 שאף אחד לא התכוון שיישמע</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#6B3FA0; --shadow-soft:#ECE1F7;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a calendar page that jumps from 4 to 15 under the Sun, and two specks drifting off it */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+.calfig{margin:18px 0 24px}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 35</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="var(--aur)" stop-opacity=".5"/>
+        <stop offset="60%" stop-color="var(--aur)" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="var(--aur)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- a crescent moon over a strip of soot with a white wiggly voice line -->
+    <path d="M196 54 A44 44 0 1 0 236 116 A34 34 0 1 1 196 54 Z" fill="var(--aur)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="34" y="176" width="232" height="70" rx="10" fill="#1B1F33" stroke="var(--ink)" stroke-width="3"/>
+    <path d="M44 211 q6 -18 12 0 t12 0 t12 0 q5 -26 10 0 t10 0 t10 0 q4 -14 8 0 t8 0 t8 0 q6 -24 12 0 t12 0 t12 0 q5 -18 10 0 t10 0 t10 0 q4 -10 8 0 t8 0" fill="none" stroke="#F2EDE0" stroke-width="3" stroke-linecap="round"/>
+    <g class="spark" transform="translate(234,120)"><circle r="6" fill="var(--aur)" stroke="var(--ink)" stroke-width="1.5"/></g>
+    <g class="spark2" transform="translate(240,170)"><circle r="4" fill="var(--aur2)" stroke="var(--ink)" stroke-width="1.5"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 35</span><span class="tag">יום שישי, 16 באוקטובר 2026</span><span class="tag">ה׳ בחשוון תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>הקול מ־1860 שאף אחד לא התכוון שיישמע</h1>
+  <p class="lede">באביב <span class="num">1860</span>, בפריז, איש אחד שר שיר ילדים צרפתי, "לאור הירח", לתוך משפך גדול. בקצה המשפך הייתה שערה דקה, והיא שרטטה <b>קו מתפתל</b> על נייר מכוסה בפיח שחור. האיש לא רצה לשמוע את השיר שוב. הוא רצה <b>לראות</b> איך נראה קול, כמו שרואים מילים כתובות. אף מכונה בעולם לא ידעה לנגן קו כזה. ואז, <span class="num">148</span> שנים אחר כך, מחשב "קרא" את הקו — והשיר נשמע בפעם הראשונה. אבל הקול שיצא היה של מישהו אחר לגמרי... השאלה של היום: <b>איך אפשר לצייר קול, ואיך אפשר להחזיר ציור לקול?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">מקליטים איש ששר, ואז מנגנים את ההקלטה <b>מהר פי <span class="num">2</span></b> (כמו ריצה מהירה של סרטון). איך יישמע הקול?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="5"><b>נמוך ועמוק</b><span>כמו ענק</span></button>
+      <button type="button" class="scaleopt" data-scale="10"><b>אותו קול בדיוק</b><span>רק השיר נגמר מהר יותר</span></button>
+      <button type="button" class="scaleopt" data-scale="20"><b>גבוה יותר</b><span>כמו אישה או ילד</span></button>
+      <button type="button" class="scaleopt" data-scale="40"><b>צפצוף דק מאוד</b><span>כמו עכבר מצויר</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · SEEING SOUND (interactive 1: the phonautograph draws a note) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>לראות קול</h2>
+  <p>שימו יד על הגרון ואמרו "אאאא" ארוך. מרגישים רטט? כל קול בעולם הוא <b>רעידה</b>. מיתרי הקול בגרון רועדים, הם דוחפים את האוויר הלוך ושוב, והאוויר הרועד מגיע לאוזן ומרעיד בה קרום דק, <b>עור התוף</b>. משם המוח שומע.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>יש רעידות איטיות ויש רעידות מהירות. רעידה מהירה נשמעת <b>גבוהה</b>, כמו ציוץ של ציפור. רעידה איטית נשמעת <b>נמוכה</b>, כמו תוף גדול. ויש גם רעידות חזקות, שנשמעות חזק, ורעידות חלשות, שנשמעות בשקט.</p>
+    <p>האיש מפריז בנה מכונה שמציירת את הרעידה: משפך שאוסף את הקול, קרום דק שרועד בקצה המשפך, כמו עור התוף שלכם, ושערה קטנה שמחוברת לקרום ומשרטטת על נייר שחור שזז. באינטראקטיב: נחשו קודם, ואז שנו את הצליל וראו מה קורה לקו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>לרעידה יש שני מאפיינים. הראשון הוא <b>התדירות</b>: כמה פעמים בשנייה היא חוזרת. סופרים אותה ב<b>הרץ</b>: <span class="num">200</span> הרץ הם <span class="num">200</span> רעידות בשנייה. תדירות גבוהה נשמעת גבוהה. השני הוא <b>המשרעת</b>: כמה רחוק הקרום זז בכל רעידה. משרעת גדולה נשמעת חזק.</p>
+    <p>במכונה של היום, השערה מחוברת לקרום ומשרטטת על נייר שזז במהירות קבועה. בכל רעידה היא מציירת גל אחד. אם הנייר זז <span class="num">100</span> סנטימטרים בשנייה והצליל הוא <span class="num">200</span> הרץ, אז בשנייה אחת נכנסים <span class="num">200</span> גלים ב־<span class="num">100</span> סנטימטרים, וכל גל תופס <span class="math">100 ÷ 200 = 0.5</span> ס״מ. כלל שכדאי לזכור: <span class="math">אורך גל = מהירות הנייר ÷ תדירות</span>. באינטראקטיב: נחשו, ובדקו את החשבון.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — המכונה שמציירת קול ===== -->
+  <div class="panel instrument">
+    <h3>המכונה שמציירת קול</h3>
+    <p class="cap">נחשו קודם: שרים צליל <b>גבוה</b> יותר. מה יקרה לגלים שהשערה מציירת על הפיח?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="phP0" onclick="phPredict(0)">צפופים יותר</button>
+        <button id="phP1" onclick="phPredict(1)">מרווחים יותר</button>
+        <button id="phP2" onclick="phPredict(2)">לא משתנים</button>
+      </div>
+    </div>
+    <canvas role="img" id="phCv" width="640" height="470" aria-label="למעלה: ילד שר לתוך משפך גדול; בקצה הצר של המשפך קרום דק, ושערה יורדת ממנו אל רצועה שחורה של פיח שזזה שמאלה. על הרצועה השערה משרטטת קו לבן מתפתל. צליל גבוה: הגלים צפופים. צליל נמוך: הגלים מרווחים. קול חזק: הגלים גבוהים. קול שקט: הגלים נמוכים"></canvas>
+    <div class="controls">
+      <label>גובה הצליל (שמאלה: נמוך, ימינה: גבוה)
+        <input type="range" id="phF" min="0" max="8" step="1" value="2" oninput="phDraw(1)" aria-label="גובה הצליל" style="direction:ltr">
+      </label>
+      <label>עוצמה (שמאלה: שקט, ימינה: חזק)
+        <input type="range" id="phA" min="1" max="5" step="1" value="3" oninput="phDraw(1)" aria-label="עוצמה" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">רעידות בשנייה: <b class="num" id="phOut">150</b></div>
+      <div class="readout" data-track="older">אורך גל על הנייר: <b class="num" id="phOut2">0.67</b> ס״מ</div>
+      <button class="btn small ghost" id="phPlay" onclick="phSound()">השמיעו את הצליל</button>
+    </div>
+    <p class="cap" id="phMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="phReveal" hidden><span class="hand">!</span><p>צליל גבוה = הרבה רעידות בשנייה = <b>גלים צפופים</b> על הנייר. צליל חזק = הקרום זז רחוק = <b>גלים גבוהים</b>. ככה אפשר "לקרוא" צליל בעיניים, בלי לשמוע אותו בכלל.</p></div>
+
+  <div class="q qc" id="soundQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE MAN WHO WANTED TO READ SOUND (interactive 2: the tuning fork as a clock) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>האיש שרצה לקרוא קול</h2>
+  <p>קוראים לו <b>אדואר־לאון סקוט דה מרטינוויל</b>, והוא לא היה מדען. הוא היה <b>סדר דפוס</b> בבית הוצאה לאור בפריז: האיש שמסדר אותיות עופרת כדי להדפיס ספרים. בשנים <span class="math">1853–1854</span> הוא סידר ספר על גוף האדם, וקרא בו איך בנויה האוזן. אז עלה לו רעיון: אם המצלמה יכולה "לכתוב" תמונה, למה שלא תהיה מכונה ש<b>כותבת</b> דיבור? הוא קרא לה <b>פונאוטוגרף</b>, "כותב הקול", וקיבל עליה פטנט במרץ <span class="num">1857</span>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>סקוט העתיק את האוזן: המשפך הוא כמו האוזן החיצונית שאוספת את הקול, הקרום הוא כמו עור התוף, והשערה היא "העיפרון". הנייר היה מלופף על גליל, ומישהו סובב ידית כדי שהנייר יזוז.</p>
+    <p>אבל יש בעיה: יד שמסובבת ידית לא זזה תמיד באותה מהירות. כשהיד מאטה, הגלים נדחסים. כשהיד ממהרת, הם נמתחים. אז איך יודעים אם צליל באמת היה גבוה, או שרק היד הייתה איטית? הפתרון: מצמידים לנייר עוד שערה, על <b>מזלג קול</b>, מזלג מתכת שרועד תמיד באותה מהירות בדיוק. הקו שלו הוא כמו שעון. באינטראקטיב: נחשו, ואז סובבו מהר ולאט.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>ב־<span class="num">1859</span> חבר סקוט ל<b>רודולף קניג</b>, בונה מכשירים מדויקים, והפונאוטוגרף נמכר למעבדות. בגרסה הזאת הנייר מלופף על גליל שמסובבים ביד, ולצד שערת הקול משרטטת שערה שנייה, שמחוברת ל<b>מזלג קול</b> של <span class="num">250</span> הרץ. מזלג קול רועד תמיד באותה תדירות, ולכן הקו שלו הוא סרגל של זמן: כל גל שלו הוא בדיוק <span class="math">1 ÷ 250</span> של שנייה.</p>
+    <p>הטריק: לא צריך לדעת כמה מהר הנייר זז. מספיק <b>לספור</b>. אם באותו קטע נייר יש <span class="num">10</span> גלים של המזלג, הקטע נמשך <span class="math">10 ÷ 250 = 0.04</span> שנייה. ואם באותו קטע יש <span class="num">8</span> גלים של הקול, התדירות של הקול היא <span class="math">8 ÷ 0.04 = 200</span> הרץ. כשהיד ממהרת או מאטה, שני הקווים נמתחים יחד, והיחס ביניהם נשאר. באינטראקטיב: נחשו, ואז שנו את המהירות ותנו ליד לרעוד.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — המזלג שהוא שעון ===== -->
+  <div class="panel instrument">
+    <h3>המזלג שהוא שעון</h3>
+    <p class="cap">נחשו קודם: מסובבים את הגליל <b>מהר יותר</b>. כמה גלים של הקול ייכנסו ליד <span class="num">10</span> גלים של המזלג?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="fkP0" onclick="fkPredict(0)">יותר</button>
+        <button id="fkP1" onclick="fkPredict(1)">פחות</button>
+        <button id="fkP2" onclick="fkPredict(2)">אותו מספר</button>
+      </div>
+    </div>
+    <canvas role="img" id="fkCv" width="640" height="470" aria-label="רצועת פיח שחורה עם שני קווים לבנים מתפתלים: למעלה הקו של מזלג הקול, גלים שווים לגמרי; למטה הקו של הקול, גלים קצת יותר מרווחים. מסגרת צהובה מסמנת קטע שבו יש בדיוק 10 גלים של המזלג, ובתוכה סופרים 8 גלים של הקול. כשמסובבים מהר, כל הגלים נמתחים והמסגרת גדלה, אבל בתוכה תמיד 10 ו־8. כשהיד רועדת, הגלים נדחסים ונמתחים, ושני הקווים משתנים יחד"></canvas>
+    <div class="controls">
+      <label>מהירות הסיבוב (שמאלה: לאט, ימינה: מהר)
+        <input type="range" id="fkS" min="0" max="4" step="1" value="2" oninput="fkDraw(1)" aria-label="מהירות הסיבוב" style="direction:ltr">
+      </label>
+      <button class="btn small ghost" id="fkWob" onclick="fkWobble()">יד רועדת: כבוי</button>
+    </div>
+    <div class="controls">
+      <div class="readout">גלי מזלג במסגרת: <b class="num" id="fkOut">10</b></div>
+      <div class="readout">גלי קול במסגרת: <b class="num" id="fkOut2">8</b></div>
+    </div>
+    <p class="cap" id="fkMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div id="fkReveal" hidden>
+    <div data-track="younger"><p>ראיתם? כשמסובבים מהר, כל הגלים נמתחים, גם של המזלג וגם של הקול. אבל ליד כל <span class="num">10</span> גלים של המזלג יש תמיד <span class="num">8</span> גלים של הקול. המזלג הוא השעון, והוא אף פעם לא משקר.</p></div>
+    <div data-track="older"><p>זה רעיון חזק במדע: כשאי אפשר לסמוך על המכשיר, מודדים <b>יחס</b> לדבר שידוע בדיוק. <span class="math">250 × 8 ÷ 10 = 200</span> הרץ, בכל מהירות של היד. וכשהיד רועדת, הקטעים הצפופים והמרווחים מופיעים בשני הקווים יחד, ולכן אפשר "ליישר" את הקול לפי המזלג.</p></div>
+    <div class="aha">כלל אצבע: <b>כדי למדוד זמן, צריך משהו שחוזר על עצמו בקצב קבוע.</b> מטוטלת, מזלג קול, או גביש בשעון של הטלפון.</div>
+  </div>
+
+  <div class="q qc" id="forkQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE COMPUTER THAT READ THE SOOT (interactive 3: playback speed) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>המחשב שקרא את הפיח</h2>
+  <p>במשך <span class="num">148</span> שנים הדפים של סקוט שכבו בארכיונים בפריז. בשנת <span class="num">2008</span> חיפשו אותם שני חוקרים אמריקאים של הקלטות ישנות, <b>דייוויד ג׳ובנוני</b> ו<b>פטריק פיסטר</b>. הם צילמו את הדפים בדיוק גבוה מאוד, ושלחו את הצילומים למעבדה הלאומית לורנס ברקלי בקליפורניה. שם, הפיזיקאי <b>קרל הייבר</b> והמהנדס <b>ארל קורנל</b> כתבו תוכנה שעושה משהו מוזר: היא "נוסעת" לאורך הקו בתמונה, כמו מחט דמיונית, ומתרגמת כל עלייה וירידה של הקו לתנועה של רמקול. הרמקול מרעיד את האוויר, והאוויר מגיע לאוזן. הציור הפך בחזרה לקול.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אבל כדי לנגן ציור של קול, צריך להחליט <b>כמה מהר</b> לקרוא אותו. אם קוראים את הקו מהר מדי, כל הרעידות קורות מהר יותר: הקול נשמע גבוה, והשיר נגמר מהר. אם קוראים לאט מדי, הקול נשמע נמוך ועבה, והשיר נמשך הרבה זמן.</p>
+    <p>באינטראקטיב: נחשו קודם, ואז הזיזו את כפתור המהירות. שימו לב לשני דברים: איזה קול שומעים, וכמה זמן השיר נמשך.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>כשמנגנים קו מהר פי <span class="num">2</span>, כל גל עובר ברמקול בחצי מהזמן. אז בכל שנייה עוברים פי <span class="num">2</span> גלים: <b>התדירות מוכפלת</b>. ובאותו זמן כל השיר נמשך <b>חצי</b> מהזמן. שני השינויים קשורים: <span class="math">תדירות × משך = מספר הגלים</span>, ומספר הגלים בקו לא משתנה, הוא מצויר על הנייר.</p>
+    <p>האוזן שלנו שומעת יחסים: הכפלה של התדירות נשמעת כ<b>אוקטבה</b> אחת למעלה, אותו צליל, רק גבוה יותר. קול דיבור של גבר הוא בערך <span class="math">85–155</span> הרץ, ושל אישה בערך <span class="math">165–255</span>. אז גבר שמנגנים אותו מהר פי <span class="num">2</span> "עובר" לתחום של אישה או של ילד. באינטראקטיב: נחשו, ובדקו.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — כפתור המהירות ===== -->
+  <div class="panel instrument">
+    <h3>כפתור המהירות</h3>
+    <p class="cap">נחשו קודם: השיר נמשך <span class="num">20</span> שניות כשמנגנים אותו נכון. מנגנים אותו <b>לאט פי <span class="num">2</span></b>, בחצי מהירות. כמה זמן הוא יימשך?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="pbP0" onclick="pbPredict(0)"><span class="num">10</span> שניות</button>
+        <button id="pbP1" onclick="pbPredict(1)"><span class="num">20</span> שניות</button>
+        <button id="pbP2" onclick="pbPredict(2)"><span class="num">40</span> שניות</button>
+      </div>
+    </div>
+    <canvas role="img" id="pbCv" width="640" height="470" aria-label="למעלה: קטע של הקו המתפתל, ומעליו מספר גדול שמראה פי כמה מנגנים. באמצע: סרגל של גובה הקול, מנמוך לגבוה, מחולק לשלושה אזורים צבעוניים: קול של גבר, קול של אישה, וקול של ילד או ציפור; חץ מראה איפה נמצא הקול עכשיו. למטה: פס של זמן שמראה כמה שניות השיר נמשך. מנגנים מהר: החץ זז לגבוה והפס מתקצר. מנגנים לאט: החץ זז לנמוך והפס מתארך"></canvas>
+    <div class="controls">
+      <label>מהירות הניגון (שמאלה: לאט, ימינה: מהר)
+        <input type="range" id="pbS" min="0" max="4" step="1" value="2" oninput="pbDraw(1)" aria-label="מהירות הניגון" style="direction:ltr">
+      </label>
+      <button class="btn small ghost" id="pbPlay" onclick="pbSound()">השמיעו את המנגינה</button>
+    </div>
+    <div class="controls">
+      <div class="readout">מנגנים: <b class="num" id="pbOut">×1</b></div>
+      <div class="readout">השיר נמשך: <b class="num" id="pbOut2">20</b> שניות</div>
+      <div class="readout" data-track="older">הצליל הראשון: <b class="num" id="pbOut3">110</b> הרץ</div>
+    </div>
+    <p class="cap" id="pbMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="pbReveal" hidden><span class="hand">!</span><p>מהירות הניגון משנה <b>שני דברים בבת אחת</b>: מהר יותר = קול גבוה יותר <b>וגם</b> שיר קצר יותר. לאט יותר = קול נמוך יותר <b>וגם</b> שיר ארוך יותר. ואם לא יודעים באיזו מהירות הנייר זז, אי אפשר לדעת איזה קול נכון.</p></div>
+
+  <div class="q qc" id="playQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE STORY: THE GIRL WHO WAS A MAN -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+
+  <figure class="calfig" aria-label="משמאל: דף נייר שחור מפיח עם קו לבן מתפתל ותאריך 1860. חץ ארוך מוביל ימינה אל רמקול שממנו יוצאים גלי קול, ומעליו 2008. בין שניהם: 148 שנים">
+    <svg viewBox="0 0 560 300" role="img" aria-hidden="true" focusable="false">
+      <rect x="8" y="8" width="544" height="284" rx="18" fill="var(--card2)" stroke="var(--line)" stroke-width="2"/>
+      <rect x="40" y="70" width="200" height="140" rx="8" fill="#1B1F33" stroke="var(--ink)" stroke-width="3"/>
+      <path d="M52 140 q8 -30 16 0 t16 0 t16 0 q6 -40 12 0 t12 0 t12 0 q5 -22 10 0 t10 0 t10 0 q7 -34 14 0 t14 0" fill="none" stroke="#F2EDE0" stroke-width="3" stroke-linecap="round"/>
+      <text x="140" y="250" text-anchor="middle" font-family="Rubik, Arial" font-weight="700" font-size="30" fill="var(--ink)" direction="ltr">1860</text>
+      <path d="M260 140 L380 140" stroke="var(--sun-deep)" stroke-width="5" stroke-linecap="round"/>
+      <path d="M380 126 L402 140 L380 154 Z" fill="var(--sun-deep)"/>
+      <text x="330" y="118" text-anchor="middle" font-family="Rubik, Arial" font-weight="700" font-size="26" fill="var(--muted)" direction="ltr">148</text>
+      <path d="M420 120 L446 120 L476 96 L476 184 L446 160 L420 160 Z" fill="var(--nile)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+      <g fill="none" stroke="var(--nile)" stroke-width="4" stroke-linecap="round"><path d="M492 118 Q506 140 492 162"/><path d="M506 104 Q528 140 506 176"/></g>
+      <text x="470" y="250" text-anchor="middle" font-family="Rubik, Arial" font-weight="700" font-size="30" fill="var(--ink)" direction="ltr">2008</text>
+    </svg>
+    <figcaption>קו בפיח מ־<span class="num">1860</span>, ורמקול ב־<span class="num">2008</span>. ביניהם <b><span class="num">148</span> שנים</b> שבהן אף אחד לא שמע את השיר.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <h2>הילדה שהתבררה כגבר</h2>
+    <p>במרץ <span class="num">2008</span> השמיעו החוקרים לעולם את השיר מ־<span class="num">1860</span>. כולם שמעו קול דק וגבוה, ואמרו: "זו אישה, או אולי ילדה, ששרה לפני <span class="num">148</span> שנה!" עיתונים בכל העולם כתבו על "הקול הראשון שהוקלט".</p>
+    <p>אבל משהו לא הסתדר. בשנת <span class="num">2009</span> החוקרים שמעו הקלטה אחרת של סקוט, שבה הוא רומז שהמדבר הוא הוא עצמו. אז הם בדקו שוב את השעון, את הקו של מזלג הקול. והתברר: הם חשבו שהמזלג רועד <span class="num">500</span> פעמים בשנייה, אבל הוא רעד רק <span class="num">250</span>. בגלל הטעות ניגנו את הקו <b>מהר פי <span class="num">2</span></b>. כשניגנו לאט פי <span class="num">2</span>, נשמע <b>גבר</b> ששר לאט, בקול נמוך. כנראה סקוט עצמו. המזלג לא שיקר: רק קראו אותו לא נכון.</p>
+    <p>ומה קרה לסקוט? בשנת <span class="num">1877</span> <b>תומאס אדיסון</b> באמריקה בנה מכונה שגם מקליטה וגם מנגנת. סקוט כעס שאיש לא זוכר שהוא היה הראשון. הוא נפטר ב־<span class="num">1879</span>, ולא ידע שיום אחד ישמעו גם את השיר שלו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <h2>טעות של פי <span class="num">2</span></h2>
+    <p>ההקלטה של "לאור הירח" מתוארכת ל־<span class="num">9</span> באפריל <span class="num">1860</span>. במרץ <span class="num">2008</span> הציגו אותה ג׳ובנוני והצוות בכנס של אספני הקלטות באוניברסיטת סטנפורד: קטע של כ־<span class="num">10</span> שניות, שבו נשמעת "אישה" שרה. זה היה מוקדם ב־<span class="num">17</span> שנה מההקלטה של אדיסון, שעד אז נחשבה לקול האנושי הראשון שהוקלט.</p>
+    <p>בתחילת <span class="num">2009</span> הצוות שמע הקלטה אחרת של סקוט, "אמינטה", שבה סקוט רומז שהמדבר הוא הוא עצמו, גבר. אז איך גבר נשמע כמו אישה? התשובה הייתה בשעון. ב־<span class="num">2008</span> הניחו שקו הזמן שליד הקול נכתב על ידי מזלג של <span class="num">500</span> הרץ, בין השאר כי בקצב הזה השירה "נשמעה נכון". אבל המזלג היה של <span class="num">250</span> הרץ: כל גל שלו נמשך <span class="math">1 ÷ 250</span> שנייה ולא <span class="math">1 ÷ 500</span>, פי <span class="num">2</span> יותר זמן. לכן כל הקטע נוגן מהר פי <span class="num">2</span>. בקצב הנכון הקטע נמשך כ־<span class="num">20</span> שניות, וכל התדירויות יורדות לחצי, אוקטבה אחת למטה: גבר ששר לאט מאוד, כמעט בוודאות סקוט עצמו. השעון היה נכון; הקריאה שלו לא. ושימו לב לזהירות של המדענים: "כמעט בוודאות", לא "בטוח".</p>
+    <p>ולמה סקוט לא יכול היה לשמוע את ההקלטה בעצמו? כי הוא רצה רק לראות. הקו שלו הוא שריטה דקה בשכבת פיח, ואין בה שום דבר שיכול להזיז מחט. ב־<span class="num">1877</span> אדיסון חשב הפוך: המחט שלו <b>חרטה חריץ</b> ברדיד בדיל. העומק של החריץ עולה ויורד לפי הרעידות, וכשמעבירים מחט שוב בתוך החריץ, הקרקעית שלו מזיזה אותה למעלה ולמטה. המחט מרעידה קרום, והקרום מרעיד את האוויר. אותו רעיון בדיוק, רק הפוך.</p>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: OCTAVES, VOICES AND JERUSALEM (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>הכפלה אחת, קול אחר</h2>
+  <p>למה הכפלה של המהירות הפכה גבר ל"ילדה"? כי גובה הקול תלוי בתדירות, וקולות של אנשים שונים נבדלים בעיקר בה. מיתרי קול ארוכים ועבים רועדים לאט יותר, וקצרים ודקים רועדים מהר יותר. לגברים מבוגרים יש בדרך כלל מיתרי קול ארוכים יותר, ולילדים קצרים במיוחד. לכן ילדים מדברים בקול גבוה.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ניסוי קטן: שירו "לה" נמוך, ואז את אותו "לה" כמה שיותר גבוה. אם הגבוה נשמע כמו אותו צליל, רק "למעלה", כנראה קפצתם <b>אוקטבה</b>: הרעידות נעשו מהירות פי <span class="num">2</span>. זה בדיוק מה שקרה להקלטה של סקוט.</p>
+    <p>וגם בארץ ישראל הקליטו קולות ישנים. בשנים <span class="math">1911–1913</span> חוקר מוזיקה בשם <b>אברהם צבי אידלסון</b> הסתובב בירושלים עם מכשיר הקלטה שקיבל מהאקדמיה למדעים בווינה, והקליט שירים ותפילות של קהילות יהודיות מתימן, מפרס, מבוכרה ומעוד מקומות. ההקלטות נשמרות עד היום בארכיון בווינה, ואפשר לשמוע אותן.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בשפה של פיזיקה: מה שראינו הוא <b>יחס</b>. הקו על הנייר לא "יודע" כמה הרץ הוא. הוא רק אוסף של גלים באורכים מסוימים. התדירות שנשמעת תלויה במהירות שבה קוראים אותו: <span class="math">תדירות = מהירות ÷ אורך גל</span>. אם המחשב מניח שהנייר זז פי <span class="num">2</span> מהר מכפי שזז באמת, כל תדירות יוצאת פי <span class="num">2</span> גבוהה מדי.</p>
+    <p>וזו בדיוק הייתה הטעות של <span class="num">2008</span>: השעון היה על הנייר, אבל חשבו שהוא מתקתק <span class="num">500</span> פעמים בשנייה במקום <span class="num">250</span>. טעות פי <span class="num">2</span> בשעון היא טעות פי <span class="num">2</span> בכל התדירויות.</p>
+    <p>וגם בארץ ישראל הקליטו קולות ישנים: בשנים <span class="math">1911–1913</span> הקליט <b>אברהם צבי אידלסון</b> בירושלים, במכשיר של האקדמיה למדעים בווינה, שירה ותפילות של קהילות יהודיות מתימן, מפרס, מבוכרה ועוד. ההקלטות נשמרות בארכיון הקולות בווינה, ויצאו לאור בדיסקים.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> על דף של פונאוטוגרף, מזלג הקול של קניג (<span class="num">250</span> הרץ) צייר <span class="num">25</span> גלים לאורך קטע של <span class="num">10</span> ס״מ. (א) באיזו מהירות זז הנייר, בסנטימטרים לשנייה? (ב) באותו קטע של <span class="num">10</span> ס״מ, הקו של הקול מצייר <span class="num">22</span> גלים. מה התדירות של הקול, בהרץ? (רמז: קודם מצאו כמה זמן נמשך הקטע.)</p>
+      <div class="controls">
+        <label>(א) ס״מ בשנייה <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) הרץ <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> הפונאוטוגרף של סקוט צייר קול כבר ב־<span class="num">1857</span>, אבל אף אחד לא הצליח לנגן את הקווים שלו עד <span class="num">2008</span>. המכונה של אדיסון, <span class="num">20</span> שנה אחר כך, ניגנה מיד. מה ההבדל בין שני הקווים שמאפשר לאחד מהם להפוך בחזרה לקול?</p>
+      <details><summary>הרמז והתשובה</summary><p><b>כדי לנגן, הקו צריך להזיז משהו.</b> הקו של סקוט הוא שריטה דקה בשכבת פיח על נייר שטוח: מחט שתעבור עליו לא תרגיש כלום, אין שם שום דבר שדוחף אותה. אדיסון חרט <b>חריץ</b> עמוק ברדיד מתכת, והעומק שלו עולה ויורד בדיוק לפי הרעידות. מחט שעוברת בחריץ נדחפת למעלה ולמטה על ידי הקרקעית שלו, מרעידה קרום, והקרום מרעיד את האוויר. ב־<span class="num">2008</span> המחשב עשה את התפקיד של המחט: הוא "ראה" את הקו בתמונה, וחישב איך מחט הייתה זזה.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>קערה, ניילון נצמד, קצת אורז, וסרגל.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — אורז שרוקד מקול (<span class="num">5</span> דקות)</h3>
+    <p class="cap">מה צריך: קערה, ניילון נצמד, גומייה, וכפית של אורז לא מבושל (או מלח גס).</p>
+    <ol>
+      <li>מתחו ניילון נצמד חזק על פי הקערה, כמו עור של תוף, וסגרו עם גומייה.</li>
+      <li>פזרו מעט אורז במרכז.</li>
+      <li>קרבו את הפה לקערה, בלי לנשוף, ושירו "אאאא" חזק. מה האורז עושה?</li>
+      <li>נסו צליל נמוך, ואז צליל גבוה. בקול שקט ובקול חזק. מתי האורז קופץ הכי הרבה? הניילון שלכם הוא בדיוק הקרום של סקוט.</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — הסרגל המזמזם (<span class="num">3</span> דקות)</summary>
+    <p>הניחו סרגל על קצה שולחן, כך שרובו בולט החוצה. החזיקו חזק את החלק שעל השולחן, ו"פרטו" על הקצה הבולט. עכשיו הזיזו את הסרגל כך שרק חלק קצר בולט, ופרטו שוב. החלק הקצר רועד מהר יותר, והצליל גבוה יותר. כמו מיתרי קול קצרים של ילדים.</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — לצייר את הקול שלכם (<span class="num">10</span> דקות, רק עם מבוגר)</summary>
+    <p>מבוגר מחזיק צלחת זכוכית ישנה מעל להבה של נר, עד שמתחתיה נוצרת שכבה שחורה של פיח, ומניח לה להתקרר. גלגלו נייר לחרוט והדביקו בקצה הצר קיסם קטן, כך שיבלוט קצת. זמזמו לתוך החרוט, ובזמן הזמזום גררו את הקיסם בעדינות על הפיח. ראיתם קו מתפתל? זה הקול שלכם, בדיוק כמו של סקוט. נרות ואש רק עם מבוגר, ובסוף שוטפים ידיים.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הרעיון הגדול: <b>קול הוא רעידה, ואפשר לצייר אותה.</b> רעידה מהירה מציירת גלים צפופים ונשמעת גבוה. רעידה חזקה מציירת גלים גבוהים ונשמעת חזק. סקוט העתיק את האוזן כדי לבנות מכונה שמציירת קול.</p>
+    <p>והרעיון השני: <b>כדי להחזיר ציור לקול, צריך לדעת כמה מהר לנגן.</b> מהר מדי, והקול גבוה מדי והשיר קצר. לאט מדי, והקול נמוך והשיר ארוך. לכן חשוב שעון, כמו מזלג הקול. ובגלל טעות של פי <span class="num">2</span>, כולם חשבו שנה שלמה שגבר הוא ילדה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הראשון: <b>הקלטה היא תרגום של זמן למקום.</b> הנייר שזז הופך כל רגע לנקודה על הקו, ולכן <span class="math">אורך גל = מהירות ÷ תדירות</span>. כדי לתרגם בחזרה, ממקום לזמן, צריך לדעת את המהירות, או לפחות שעון שמצויר ליד, כמו מזלג קול.</p>
+    <p>הרעיון השני: <b>שינוי מהירות הניגון משנה את התדירות ואת המשך באותו יחס.</b> פי <span class="num">2</span> מהר = פי <span class="num">2</span> בתדירות, אוקטבה למעלה, וחצי מהזמן. שאלה לחקור: אפליקציות רבות מנגנות הודעות קוליות מהר יותר בלי שהקול נעשה גבוה. איך אפשר לעשות את זה, אם הקו הוא אותו קו?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ביולוגיה · האוזן</div><h3>המכונה שסקוט העתיק</h3><p>באוזן שלכם עור התוף רועד, שלוש עצמות זעירות מעבירות את הרעידה פנימה, ושם, בשבלול, תאי שערה מיוחדים מרגישים כל אחד תדירות אחרת. המוח מקבל רשימה של "כמה מכל תדירות", ושומע מוזיקה.</p></div>
+    <div class="tile"><div class="dom">טכנולוגיה · הטלפון</div><h3>קרום בתוך הטלפון</h3><p>גם במיקרופון של הטלפון יש קרום דק שרועד מהקול. במקום שערה ופיח, הרעידה הופכת לחשמל, ואחר כך למספרים. ברמקול זה קורה הפוך: מספרים, חשמל, קרום, אוויר.</p></div>
+    <div class="tile"><div class="dom">פיזיקה · הצלה של קולות</div><h3>הקול של גרהם בל</h3><p>קרל הייבר, הפיזיקאי שניגן את סקוט, בנה מערכת שמצלמת חריצים של הקלטות ישנות ושבירות מכדי לנגן אותן במחט. כך נשמע ב־<span class="num">2013</span> הקול של אלכסנדר גרהם בל, ממציא הטלפון, בהקלטה היחידה הידועה שלו.</p></div>
+    <div class="tile"><div class="dom">ישראל · ירושלים</div><h3>שירים מירושלים, לפני מאה שנה</h3><p>אברהם צבי אידלסון הקליט בירושלים בשנים <span class="math">1911–1913</span> שירה של קהילות מכל העולם היהודי. בלי ההקלטות האלה, חלק מהמנגינות היו נשכחות.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): למה לא שומעים את דופק הלב כצליל?</summary>
+    <p>הלב פועם בערך פעם או פעמיים בשנייה. גם זו רעידה! אז למה אנחנו לא שומעים אותה כמו צליל נמוך? נסו לנחש לפני שפותחים.</p>
+    <details><summary>התשובה</summary>
+      <p>האוזן שומעת רעידה כ<b>צליל</b> רק כשהיא מהירה מספיק: מבערך <span class="num">20</span> רעידות בשנייה ומעלה. רעידות איטיות יותר נשמעות כמו דפיקות נפרדות, "טוק... טוק...". ויש גם גבול למעלה: מעל כ־<span class="num">20,000</span> רעידות בשנייה האוזן האנושית כבר לא שומעת, אבל עטלפים וכלבים כן. ילדים שומעים צלילים גבוהים יותר ממבוגרים.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את האירועים לפי הזמן, מהמוקדם למאוחר. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: ההקלטה של סקוט נמשכת בערך <span class="num">20</span> שניות. לידה רעד מזלג קול שרועד <span class="num">250</span> פעמים בכל שנייה. כמה פעמים רעד המזלג במשך כל <span class="num">20</span> השניות?</div>
+    <div class="controls"><label>פעמים <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: גליל של פונאוטוגרף מסתובב כך שהנייר זז <span class="num">60</span> סנטימטרים בשנייה. לידו רועד מזלג קול של <span class="num">250</span> הרץ. (א) מה המרחק בין שני גלים שכנים של המזלג על הנייר, בסנטימטרים? (ב) באותו דף, <span class="num">15</span> גלים של הקול תופסים יחד <span class="num">7.5</span> ס״מ. מה התדירות של הקול, בהרץ? (מותר מחשבון.)</div>
+    <div class="controls"><label>(א) ס״מ <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) הרץ <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: גליל של פונאוטוגרף מסתובב כך שהנייר זז <span class="num">100</span> סנטימטרים בשנייה. לידו רועד מזלג קול של <span class="num">250</span> הרץ. מה המרחק בין שני גלים שכנים של המזלג על הנייר, בסנטימטרים?</div>
+    <div class="controls"><label>ס״מ <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>איך סקוט צייר קול ב־<span class="num">1860</span>, ולמה ב־<span class="num">2008</span> שמעו בהקלטה שלו אישה במקום גבר?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="קול הוא רעידה. סקוט..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. ההקלטה הראשונה של קול אדם לא נעשתה כדי לשמוע אותה. בשנת <span class="num">1860</span> סדר דפוס מפריז, סקוט דה מרטינוויל, צייר את הקול שלו כקו בפיח, כי רצה <b>לראות</b> איך נראה דיבור. אף מכונה לא יכלה לנגן את זה.<br>
+    2. ב־<span class="num">2008</span> מחשב "קרא" את הקו מתוך צילום, כמו מחט דמיונית, והשיר "לאור הירח" נשמע בפעם הראשונה אחרי <span class="num">148</span> שנים. כולם שמעו אישה, אבל ב־<span class="num">2009</span> התברר שניגנו מהר פי <span class="num">2</span>, כי חשבו שמזלג הקול רועד <span class="num">500</span> פעמים בשנייה ולא <span class="num">250</span>. בקצב הנכון זה גבר, כמעט בוודאות סקוט עצמו.<br>
+    3. ניגון מהר פי <span class="num">2</span> מכפיל את מספר הרעידות בשנייה, והקול קופץ אוקטבה למעלה, <b>וגם</b> השיר מתקצר לחצי. לכן בהקלטות ישנות ציירו ליד הקול קו של מזלג קול, שרועד בקצב קבוע: שעון שמצויר על הנייר.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>הממציא והמכשיר: National Park Service, Thomas Edison NHP, "Origins of Sound Recording: Édouard-Léon Scott de Martinville" — סדר דפוס ועורך בהוצאה מדעית בפריז; הרעיון ב־<span class="math">1853–1854</span> מתוך ספר פיזיולוגיה על האוזן; משפך עם קרום ("עור התוף") וזיז משערת חזיר בר; בגרסה הראשונה לוח זכוכית מפויח שזז כמטר בשנייה; מ־<span class="num">1859</span> שיתוף פעולה עם רודולף קניג, שסיפק מזלג קול של <span class="num">250</span> הרץ שמשרטט לצד הקול כמדד זמן; הקלטות במרץ–אפריל <span class="num">1860</span>. ויקיפדיה, "Phonautograph" — פטנט צרפתי מ־<span class="num">25</span> במרץ <span class="num">1857</span>; "Au clair de la lune" ב־<span class="num">9</span> באפריל <span class="num">1860</span>; נוגן בתחילה מהר פי <span class="num">2</span> ונשמע כאישה או ילד; בקצב הנכון גבר, "כמעט בוודאות" סקוט; אדיסון ב־<span class="num">1877</span> — הקלטה ונגינה. סקוט: <span class="math">1817–1879</span>.</p>
+    <p>הגילוי: NBC News / AP (מרץ <span class="num">2008</span>), "Experts find oldest voice recording, from 1860" — ג׳ובנוני ופיסטר; סריקות מהאקדמיה הצרפתית למדעים; קרל הייבר וארל קורנל (מעבדת לורנס ברקלי) עם "מחט וירטואלית"; קטע של <span class="num">10</span> שניות; מוקדם ב־<span class="num">17</span> שנה מאדיסון; הוצג בכנס ARSC בסטנפורד. firstsounds.org, "Our approach" — פיסטר תיקן ידנית את אות הזמן; מזלג הקול כמדד מהירות. firstsounds.org, "Earlier playbacks" — ב־<span class="num">2008</span> אות הזמן פורש כמזלג של <span class="num">500</span> הרץ (גם כי כך השירה "נשמעה נכון", כאישה או נער); בתחילת <span class="num">2009</span> ההקלטה "Aminta", שבה סקוט רומז שהוא הדובר, הראתה שהקצב מהיר מדי; המזלג היה <span class="num">250</span> הרץ. NPR (<span class="num">1</span> ביוני <span class="num">2009</span>), "Reconsidering Earliest Known Recording" — התיקון למהירות הנכונה. MacArthur Foundation, "Carl Haber" (<span class="num">2013</span>) — מערכת IRENE; הקלטת 1860 והקלטה היחידה הידועה של קולו של גרהם בל. ETHW, "Phonograph" — אדיסון, <span class="num">1877</span>, רדיד בדיל על גליל, חריץ, נגינה חוזרת.</p>
+    <p>ירושלים: האקדמיה האוסטרית למדעים, Phonogrammarchiv, Series 9: "The Collection of Abraham Zvi Idelsohn (<span class="math">1911–1913</span>)"; המרכז לחקר המוזיקה היהודית, האוניברסיטה העברית, "Abraham Zvi Idelsohn" — הגיע לירושלים ב־<span class="num">1906</span>, מענק ומכשיר הקלטה מהאקדמיה בווינה, קהילות תימן, בבל, פרס, בוכרה, ספרד ועוד. טווחי קול דיבור (<span class="math">85–155</span> הרץ לגבר, <span class="math">165–255</span> לאישה) וטווח שמיעה (<span class="math">20–20,000</span> הרץ) — ערכים מקובלים בספרי לימוד, משתנים מאדם לאדם.</p>
+    <p>חישובי השיעור: הצעיר <span class="math">250 × 20 = 5,000</span>; הבוגר <span class="math">100 ÷ 250 = 0.4</span> ס״מ; מתקדם (א) <span class="math">60 ÷ 250 = 0.24</span> ס״מ, (ב) <span class="math">7.5 ÷ 15 = 0.5</span> ס״מ לגל, <span class="math">60 ÷ 0.5 = 120</span> הרץ; האתגר (א) <span class="math">25 ÷ 250 = 0.1</span> שנייה, <span class="math">10 ÷ 0.1 = 100</span> ס״מ בשנייה, (ב) <span class="math">22 ÷ 0.1 = 220</span> הרץ; פרק 1 <span class="math">100 ÷ 200 = 0.5</span> ס״מ; פרק 2 <span class="math">250 × 8 ÷ 10 = 200</span> הרץ.</p>
+    <p>פישוטים במכוון: באינטראקטיבים הקולות הם גלים פשוטים (קול אמיתי מורכב מתדירויות רבות); בפרק 2 קול של <span class="num">200</span> הרץ ומהירויות נייר מומצאים לדוגמה; בפרק 3 הצליל הראשון במנגינה נקבע בדגם ל־<span class="num">110</span> הרץ (לה נמוך), והמנגינה המושמעת היא שחזור פשוט של שיר העם, לא ההקלטה עצמה; "<span class="num">20</span> שניות" הוא אורך משוער. במבחן מהירויות הנייר (<span class="num">100</span>, <span class="num">60</span> ס״מ בשנייה) הן לדוגמה. הדיוק בניסוח "כנראה סקוט עצמו" מכוון: זה מה שהחוקרים כותבים.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:35, code:'WOW-035', date:'2026-10-16', title:'הקול מ־1860 שאף אחד לא התכוון שיישמע', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15fXqNeZ15Qg16jXldeQ15w='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'physics', w:3 }, { id:'engineering', w:2 }, { id:'history', w:2 }, { id:'math', w:2 } ],
+  /* lint-ignore: math */
+  hero: { name:'הקול מ־1860 שאף אחד לא התכוון שיישמע — הפונאוטוגרף של סקוט, מזלג הקול, ומהירות הניגון', fact:'צליל גבוה מצייר גלים צפופים; מזלג קול הוא שעון שמצויר על הנייר; ניגון מהר פי 2 מכפיל את התדירות ומקצר את השיר לחצי.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'prediction',            d:2 },
+    'qc:soundQ':      { skill:'mechanism',             d:2 },
+    'qc:forkQ':       { skill:'measurement',           d:3 },
+    'qc:playQ':       { skill:'cause-effect',          d:2 },
+    'qc:storyQ':      { skill:'history',               d:2 },
+    'qc:deepQ':       { skill:'mechanism',             d:2 },
+    'mcq:shared:0':   { skill:'history',               d:2 },
+    'mcq:shared:1':   { skill:'observation',           d:2 },
+    'mcq:shared:2':   { skill:'prediction',            d:3 },
+    'mcq:younger:0':  { skill:'recall',                d:2 },
+    'mcq:older:0':    { skill:'ratio',                 d:4 },
+    'order':          { skill:'chronology',            d:3 },
+    'num:younger':    { skill:'multiplication',        d:2 },
+    'num:older':      { skill:'division',              d:3 },
+    'num:adv':        { skill:'multi-step',            d:4 },
+    'challenge':      { skill:'rates',                 d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ phDraw(0); showArtoTip(); } if(n===2) fkDraw(0); if(n===3) pbDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: what happens to a voice played twice as fast? ----------
+   Four choices, in tenths of the true pitch: 5 = ×½ (lower), 10 = same, 20 = ×2 (an octave up — the right answer), 40 = ×4. data-scale: tenths. */
+const SCALE_ANS = 20;                                                 // doubling the playback speed doubles every frequency: one octave up
+const fmtSigns = n => n<7 ? 'נמוך ועמוק' : n<15 ? 'אותו קול בדיוק' : n<30 ? 'גבוה יותר, כמו אישה או ילד' : 'צפצוף דק מאוד';
+const SCALE_FB = {
+  20: '<span class="pill-ok">קלעתם!</span> כשמנגנים מהר פי <span class="num">2</span>, כל רעידה עוברת מהר פי <span class="num">2</span>, והקול קופץ למעלה: גבר נשמע כמו אישה או ילד. בדיוק זה קרה ב־<span class="num">2008</span> להקלטה הכי עתיקה בעולם. איך? על זה השיעור.',
+  5: '<span class="pill-bad">הפוך.</span> כשמנגנים <b>מהר</b>, כל רעידה עוברת מהר יותר, והקול נשמע <b>גבוה</b> יותר: גבר נשמע כמו אישה או ילד. קול של ענק מקבלים כשמנגנים לאט. בדיוק זה קרה ב־<span class="num">2008</span> להקלטה הכי עתיקה בעולם. איך? על זה השיעור.',
+  10: '<span class="pill-bad">לא רק השיר מתקצר.</span> כשמנגנים מהר פי <span class="num">2</span>, גם כל רעידה עוברת מהר פי <span class="num">2</span>, והקול נשמע גבוה יותר: גבר נשמע כמו אישה או ילד. בדיוק זה קרה ב־<span class="num">2008</span> להקלטה הכי עתיקה בעולם. איך? על זה השיעור.',
+  40: '<span class="pill-bad">קצת פחות.</span> מהר פי <span class="num">2</span> מעלה את הקול "קומה" אחת: גבר נשמע כמו אישה או ילד. צפצוף של עכבר מצויר מקבלים בערך במהירות פי <span class="num">4</span>. בדיוק זה קרה ב־<span class="num">2008</span> להקלטה הכי עתיקה בעולם. איך? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* deterministic pseudo-random (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* a generic play/scrub helper: animates a 0–100 range input over `ms` milliseconds, calling draw(1) each frame */
+function xPlayer(id, rangeId, btnId, ms, draw, onLabel, offLabel){
+  const st={ raf:0 };
+  st.toggle=function(){ if(st.raf){ cancelAnimationFrame(st.raf); st.raf=0; st.btn(false); return; }
+    const r=document.getElementById(rangeId); const top=+(r.max||100); if(+r.value>=top) r.value=0;
+    if(XREDUCED){ r.value=Math.min(top,+r.value+20); draw(1); return; }
+    const t0=performance.now(), start=+r.value; st.btn(true);
+    const step=now=>{ const v=Math.min(top, start+(now-t0)/ms*100); r.value=Math.round(v); draw(1); if(v<top){ st.raf=requestAnimationFrame(step); } else { st.raf=0; st.btn(false); } };
+    st.raf=requestAnimationFrame(step); };
+  st.btn=function(on){ const b=document.getElementById(btnId); b.textContent = on ? onLabel : offLabel; b.classList.toggle('on',on); };
+  return st;
+}
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+/* ---------- shared numbers for this edition ---------- */
+const PI = Math.PI;
+const FORK_HZ = 250;                           // Koenig's tuning fork traced beside the voice (NPS, "Origins of Sound Recording")
+const SONG_S = 20;                             // "Au clair de la lune", 9 April 1860: ≈ 20 s at the right speed (≈ 10 s as first released at ×2)
+const BASE_HZ = 110;                           // model only: the first note of the tune, A2, sung low by a man (×2 → 220 Hz, mid 'woman')
+const PH_F = [100,125,150,200,250,300,350,400,450];   // interactive 1: the note, in Hz
+const PH_V = 100;                              // interactive 1: paper speed, cm per second (Scott's first glass plate moved about 1 m/s)
+const FK_V = [60,80,100,120,140];              // interactive 2: paper speed, cm per second (model)
+const FK_VOICE = 200;                          // interactive 2: the voice, Hz (model) → 8 voice waves per 10 fork waves
+const PB_X = [0.5,0.75,1,1.5,2];               // interactive 3: playback speed
+/* this edition's colours */
+const SOOT = () => isDark() ? '#05070F' : '#1B1F33';
+const TRACE = () => '#F2EDE0';
+const HORN = () => isDark() ? '#C9A46A' : '#D9B676';
+const HORND = () => isDark() ? '#8A6A3A' : '#9C7A3E';
+const MEMB = () => isDark() ? '#7FB3DD' : '#2F6F9F';
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const MANC = () => isDark() ? '#7FB3FF' : '#2563C9';
+const WOMC = () => isDark() ? '#C9A4F0' : '#6B3FA0';
+const KIDC = () => isDark() ? '#F6C454' : '#C98A12';
+function f1(x){ return (Math.round(x*10)/10).toFixed(1); }
+function f2(x){ return (Math.round(x*100)/100).toFixed(2); }
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+/* sound: the Web Audio API, started only from a button press */
+let AC=null;
+function audio(){ try{ if(!AC){ const C=window.AudioContext||window.webkitAudioContext; if(!C) return null; AC=new C(); } if(AC.state==='suspended') AC.resume(); return AC; }catch(e){ return null; } }
+function tone(freq, t0, dur, vol, type){ const ac=audio(); if(!ac) return; try{ const o=ac.createOscillator(), g=ac.createGain(); o.type=type||'triangle'; o.frequency.value=freq; const s=ac.currentTime+t0;
+  g.gain.setValueAtTime(0.0001,s); g.gain.exponentialRampToValueAtTime(vol,s+0.03); g.gain.setValueAtTime(vol,s+Math.max(0.04,dur-0.08)); g.gain.exponentialRampToValueAtTime(0.0001,s+dur); o.connect(g); g.connect(ac.destination); o.start(s); o.stop(s+dur+0.02); }catch(e){} }
+
+/* ---------- step 1 (interactive 1): the phonautograph draws a note (canvas) ----------
+   phF 0–8 → the note f (100…450 Hz); phA 1–5 → the amplitude. The paper moves left at PH_V cm/s; the strip shows 5 cm (106 px per cm),
+   so one wave is 106 × PH_V ÷ f px long (f = 100 → 5 waves, f = 450 → 22.5 waves). The trace is written at the bristle tip and slides left. */
+const phCv=document.getElementById('phCv'), phctx=phCv.getContext('2d');
+const PH={ opened:0, pred:-1, revealed:0, moves:0, last:'2|3' };
+function phPredict(k){ PH.pred=k; [0,1,2].forEach(i=>document.getElementById('phP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'phono:predict', kind:'quick', correct:k===0, attempt: wowTry('phono:predict') });
+  phMsg.innerHTML = k===0 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו הזיזו את גובה הצליל ובדקו.' : 'רשמנו את הניחוש. עכשיו הזיזו את גובה הצליל ובדקו.'; }
+function phDraw(user){
+  const c=phctx, W=phCv.width, H=phCv.height;
+  let blocked=false; if(user && PH.pred<0 && (+phF.value!==2 || +phA.value!==3)){ phF.value=2; phA.value=3; blocked=true; }
+  if(user && !PH.opened){ PH.opened=1; WOW.emit('open', { id:'phono' }); }
+  const n=+phF.value, a=+phA.value, f=PH_F[n], lam=106*PH_V/f, A=a*11;
+  const key=n+'|'+a; if(user && !blocked && key!==PH.last){ PH.moves++; PH.last=key; }
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* the singer */
+  const hx=50, hy=136;
+  c.fillStyle=isDark()?'#E2B48A':'#F2C9A0'; c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.arc(hx,hy,34,0,PI*2); c.fill(); c.stroke();
+  c.fillStyle=css('--ink'); c.beginPath(); c.arc(hx-10,hy-10,4,0,PI*2); c.arc(hx+12,hy-10,4,0,PI*2); c.fill();
+  c.beginPath(); c.ellipse(hx+12,hy+12,7,4+a*1.6,0,0,PI*2); c.fill();
+  /* sound arcs: more of them for a higher note, thicker for a louder one */
+  c.strokeStyle=MEMB(); c.lineWidth=1.5+a*0.8; const arcs=2+Math.round(n/3);
+  for(let i=0;i<arcs;i++){ const r=14+i*(46/arcs); c.beginPath(); c.arc(hx+26,hy+6,r+12,-0.6,0.6); c.stroke(); }
+  /* the horn: wide mouth at x 150, narrow end at x 420 */
+  c.fillStyle=HORN(); c.strokeStyle=css('--ink'); c.lineWidth=3;
+  c.beginPath(); c.moveTo(170,74); c.lineTo(420,124); c.lineTo(420,148); c.lineTo(170,198); c.closePath(); c.fill(); c.stroke();
+  c.fillStyle=HORND(); c.beginPath(); c.ellipse(170,136,16,62,0,0,PI*2); c.fill(); c.stroke();
+  xLabel(c,'משפך',300,136,22,css('--ink'),.9);
+  /* the membrane bulges with the loudness */
+  c.strokeStyle=MEMB(); c.lineWidth=6; c.beginPath(); c.moveTo(428,114); c.quadraticCurveTo(428+a*4,136,428,158); c.stroke();
+  xText(c,'קרום',488,104,22,MEMB());
+  /* the strip of soot */
+  const sx=20, sw=600, sy=252, sh=150, cy=sy+sh/2, tipX=560;
+  c.fillStyle=SOOT(); c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.roundRect(sx,sy,sw,sh,10); c.fill(); c.stroke();
+  /* the bristle: from the membrane down to the soot */
+  c.strokeStyle=HORND(); c.lineWidth=4; c.lineCap='round'; c.beginPath(); c.moveTo(430+a*3,136); c.quadraticCurveTo(530,160,tipX,cy); c.stroke(); c.lineCap='butt';
+  /* the trace: written at the tip, slid to the left */
+  c.save(); c.beginPath(); c.rect(sx+4,sy+4,sw-8,sh-8); c.clip();
+  c.strokeStyle=TRACE(); c.lineWidth=3; c.beginPath();
+  for(let x=sx+6; x<=tipX; x+=1){ const y=cy - A*Math.sin(2*PI*(tipX-x)/lam); if(x===sx+6) c.moveTo(x,y); else c.lineTo(x,y); }
+  c.stroke(); c.restore();
+  c.fillStyle=GOLD(); c.beginPath(); c.arc(tipX,cy,7,0,PI*2); c.fill();
+  /* one wave, measured above the strip */
+  const b1=tipX-lam, by=sy-16; c.strokeStyle=GOLD(); c.lineWidth=3; c.beginPath(); c.moveTo(b1,by-8); c.lineTo(b1,by+8); c.moveTo(b1,by); c.lineTo(tipX,by); c.moveTo(tipX,by-8); c.lineTo(tipX,by+8); c.stroke(); xText(c,'גל אחד',tipX-lam-14-40*LS(),by,20,GOLD());
+  /* the paper moves to the left */
+  c.fillStyle=css('--ink'); c.strokeStyle=css('--ink'); c.lineWidth=4; c.beginPath(); c.moveTo(380,436); c.lineTo(200,436); c.stroke(); xArrow(c,190,436,-1,0,18);
+  xText(c,'הנייר זז',470,436,22,css('--ink'));
+  xTagN(c,String(f),'רעידות בשנייה',320,32,22,css('--ink'),'center');
+  /* readouts & message */
+  phOut.textContent=f; phOut2.textContent=f2(PH_V/f);
+  if(PH.moves>=2 && PH.pred>=0 && !PH.revealed){ PH.revealed=1; phReveal.hidden=false; }
+  if(blocked) predictFirst(phMsg,'הזיזו'); else if(user) phMsg.innerHTML = (S.track==='older'
+      ? '<span class="num">'+f+'</span> רעידות בשנייה, והנייר זז <span class="num">'+PH_V+'</span> ס״מ בשנייה: כל גל תופס <span class="math">'+PH_V+' ÷ '+f+' ≈ '+f2(PH_V/f)+'</span> ס״מ. '+(n>=6?'צליל גבוה: גלים קצרים וצפופים.':n<=1?'צליל נמוך: גלים ארוכים ומרווחים.':'')
+      : (n>=6?'צליל גבוה! הקרום רועד מהר, והגלים צפופים מאוד.':n<=1?'צליל נמוך. הקרום רועד לאט, והגלים רחבים.':'הקרום רועד <span class="num">'+f+'</span> פעמים בשנייה.'))
+    + ' ' + (a>=5?'וקול חזק מאוד: הגלים גבוהים.':a<=1?'וקול שקט: הגלים נמוכים.':'');
+}
+function phSound(){ const f=PH_F[+phF.value], a=+phA.value; tone(f,0,0.9,0.05+a*0.04,'sine'); if(!audio()) phMsg.textContent='הדפדפן הזה לא משמיע צלילים, אבל הציור מראה הכול.'; }
+
+/* ---------- step 2 (interactive 2): the tuning fork is a clock (canvas) ----------
+   Two traces on the same moving paper: the fork (FORK_HZ) above, the voice (FK_VOICE) below. fkS 0–4 → paper speed FK_V (cm/s), 70 px per cm.
+   A window of exactly 10 fork periods (0.04 s) holds 10 × FK_VOICE ÷ FORK_HZ = 8 voice waves, whatever the speed.
+   "Shaky hand": the speed wobbles ±30 % at 15 Hz; x(t) = 20 + 70·v·(t + 0.3·(1 − cos 2π15t) ÷ (2π15)) — both traces stretch together. */
+const fkCv=document.getElementById('fkCv'), fkctx=fkCv.getContext('2d');
+const FK={ opened:0, pred:-1, revealed:0, moves:0, wob:false, last:2 };
+function fkPredict(k){ FK.pred=k; [0,1,2].forEach(i=>document.getElementById('fkP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'fork:predict', kind:'quick', correct:k===2, attempt: wowTry('fork:predict') });
+  fkMsg.innerHTML = k===2 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו שנו את המהירות ובדקו.' : 'רשמנו את הניחוש. עכשיו שנו את המהירות ובדקו.'; }
+function fkWobble(){ if(FK.pred<0){ predictFirst(fkMsg,'הפעילו'); return; } FK.wob=!FK.wob; FK.moves++; const b=document.getElementById('fkWob'); b.textContent='יד רועדת: '+(FK.wob?'פועל':'כבוי'); b.classList.toggle('on',FK.wob); fkDraw(1); }
+function fkX(t,v){ const w=2*PI*15; return 20 + 70*v*(t + (FK.wob ? 0.3*(1-Math.cos(w*t))/w : 0)); }
+function fkDraw(user){
+  const c=fkctx, W=fkCv.width, H=fkCv.height;
+  let blocked=false; if(user && FK.pred<0 && +fkS.value!==2){ fkS.value=2; blocked=true; }
+  if(user && !FK.opened){ FK.opened=1; WOW.emit('open', { id:'fork' }); }
+  const si=+fkS.value, v=FK_V[si]; if(user && !blocked && si!==FK.last){ FK.moves++; FK.last=si; }
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  const s1={y:62,h:112}, s2={y:232,h:112};
+  xText(c,'הקו של מזלג הקול',320,34,22,css('--ink'));
+  xText(c,'הקו של הקול',320,204,22,css('--ink'));
+  [s1,s2].forEach(s=>{ c.fillStyle=SOOT(); c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.roundRect(14,s.y,612,s.h,10); c.fill(); c.stroke(); });
+  /* the window: 10 fork periods */
+  const t0=0.004, t1=t0+10/FORK_HZ, xa=fkX(t0,v), xb=fkX(t1,v);
+  c.fillStyle=isDark()?'rgba(246,196,84,.18)':'rgba(226,162,31,.22)'; c.fillRect(xa,s1.y-6,xb-xa,s2.y+s2.h-s1.y+12);
+  c.strokeStyle=GOLD(); c.lineWidth=4; c.strokeRect(xa,s1.y-6,xb-xa,s2.y+s2.h-s1.y+12);
+  /* the traces */
+  const tr=(cy,amp,fn)=>{ c.save(); c.beginPath(); c.rect(18,cy-60,604,120); c.clip(); c.strokeStyle=TRACE(); c.lineWidth=3; c.beginPath(); let first=true;
+    for(let t=0; ; t+=1/(FORK_HZ*60)){ const x=fkX(t,v); if(x>622) break; const y=cy-amp*fn(t); if(first){ c.moveTo(x,y); first=false; } else c.lineTo(x,y); } c.stroke(); c.restore(); };
+  const fork=t=>Math.sin(2*PI*FORK_HZ*t), voice=t=>0.86*Math.sin(2*PI*FK_VOICE*t)+0.14*Math.sin(2*PI*2*FK_VOICE*t+0.6);
+  tr(s1.y+s1.h/2,36,fork); tr(s2.y+s2.h/2,38,voice);
+  /* a gold dot on every crest inside the window: count them */
+  c.fillStyle=GOLD();
+  for(let k=0;k<10;k++){ const t=t0+(k+0.25)/FORK_HZ; c.beginPath(); c.arc(fkX(t,v),s1.y+s1.h/2-36,6,0,PI*2); c.fill(); }
+  for(let k=0;k<8;k++){ const t=t0+(k+0.25)/FK_VOICE; c.beginPath(); c.arc(fkX(t,v),s2.y+s2.h/2-38*voice(t),6,0,PI*2); c.fill(); }
+  xTag(c,'מזלג:','10',170,386,22,css('--ink'),'center');
+  xTag(c,'קול:','8',470,386,22,css('--ink'),'center');
+  xTag(c,'הנייר זז (ס״מ בשנייה):',(FK.wob?'≈':'')+String(v),320,438,22,css('--muted'),'center');
+  fkOut.textContent='10'; fkOut2.textContent='8';
+  if(FK.moves>=2 && FK.pred>=0 && !FK.revealed){ FK.revealed=1; fkReveal.hidden=false; }
+  if(blocked) predictFirst(fkMsg,'הזיזו'); else if(user) fkMsg.innerHTML = (FK.wob ? 'היד רועדת: יש קטעים צפופים וקטעים מרווחים, אבל <b>בשני הקווים יחד</b>. ' : '')
+    + (S.track==='older' ? 'בתוך המסגרת: <span class="num">10</span> גלי מזלג = <span class="math">10 ÷ 250 = 0.04</span> שנייה, ו־<span class="num">8</span> גלי קול: <span class="math">8 ÷ 0.04 = 200</span> הרץ. בכל מהירות.'
+      : (v>100 ? 'מהר! הגלים נמתחו, והמסגרת גדלה. ספרו את הנקודות: עדיין <span class="num">10</span> ו־<span class="num">8</span>.' : v<100 ? 'לאט. הגלים נדחסו, והמסגרת קטנה. ספרו את הנקודות: עדיין <span class="num">10</span> ו־<span class="num">8</span>.' : 'ספרו את הנקודות הצהובות: <span class="num">10</span> גלי מזלג, ו־<span class="num">8</span> גלי קול.'));
+}
+
+/* ---------- step 3 (interactive 3): the playback-speed knob (canvas) ----------
+   pbS 0–4 → playback ×0.5 … ×2. The first note f = BASE_HZ × speed; the song lasts SONG_S ÷ speed.
+   The pitch bar is logarithmic, 50–600 Hz; voice zones: man 85–155, woman 165–255, child 255–450 Hz (typical speaking ranges). */
+const pbCv=document.getElementById('pbCv'), pbctx=pbCv.getContext('2d');
+const PB={ opened:0, pred:-1, revealed:0, moves:0, last:2 };
+function pbPredict(k){ PB.pred=k; [0,1,2].forEach(i=>document.getElementById('pbP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'playback:predict', kind:'quick', correct:k===2, attempt: wowTry('playback:predict') });
+  pbMsg.innerHTML = k===2 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו הזיזו את כפתור המהירות ובדקו.' : 'רשמנו את הניחוש. עכשיו הזיזו את כפתור המהירות ובדקו.'; }
+const pbXf = f => 40 + 560*Math.log(f/50)/Math.log(12);
+function pbFmtX(s){ return s===0.5?'×½':s===0.75?'×¾':s===1.5?'×1½':'×'+s; }
+function pbDraw(user){
+  const c=pbctx, W=pbCv.width, H=pbCv.height;
+  let blocked=false; if(user && PB.pred<0 && +pbS.value!==2){ pbS.value=2; blocked=true; }
+  if(user && !PB.opened){ PB.opened=1; WOW.emit('open', { id:'playback' }); }
+  const si=+pbS.value, s=PB_X[si], f=Math.round(BASE_HZ*s), dur=SONG_S/s; if(user && !blocked && si!==PB.last){ PB.moves++; PB.last=si; }
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* top: the speed, and what the speaker plays in the same short moment */
+  xNum(c,pbFmtX(s),92,82,58,s===1?GOOD():s>1?DANG():MANC());
+  xText(c,'מה הרמקול מנגן ברגע אחד',400,16,18,css('--muted'));
+  c.fillStyle=SOOT(); c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.roundRect(180,40,440,96,10); c.fill(); c.stroke();
+  c.save(); c.beginPath(); c.rect(184,44,432,88); c.clip(); c.strokeStyle=TRACE(); c.lineWidth=3; c.beginPath();
+  const waves=f/20; for(let x=186;x<=614;x++){ const y=88-32*Math.sin(2*PI*(x-186)/428*waves); if(x===186) c.moveTo(x,y); else c.lineTo(x,y); } c.stroke(); c.restore();
+  /* middle: the pitch bar with voice zones */
+  const by=228, bh=40;
+  c.fillStyle=css('--line'); c.fillRect(40,by,560,bh);
+  [[85,155,MANC(),'גבר'],[165,255,WOMC(),'אישה'],[255,450,KIDC(),'ילד']].forEach(z=>{ const x1=pbXf(z[0]), x2=pbXf(z[1]); c.fillStyle=z[2]; c.globalAlpha=.85; c.fillRect(x1,by,x2-x1,bh); c.globalAlpha=1; xText(c,z[3],(x1+x2)/2,by+bh+26,22,z[2]); });
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.strokeRect(40,by,560,bh);
+  xText(c,'נמוך',62,by+bh+26,20,css('--muted')); xText(c,'גבוה',578,by+bh+26,20,css('--muted'));
+  const px=pbXf(f); c.fillStyle=css('--ink'); c.beginPath(); c.moveTo(px,by+4); c.lineTo(px-14,by-20); c.lineTo(px+14,by-20); c.closePath(); c.fill();
+  c.strokeStyle=css('--ink'); c.lineWidth=4; c.beginPath(); c.moveTo(px,by-4); c.lineTo(px,by+bh); c.stroke();
+  xTagN(c,String(f),'הרץ',px,by-42,22,css('--ink'),'center');
+  /* bottom: how long the song lasts, on a 0–40 s scale */
+  const ty=372, th=34, tx=40, tw=560;
+  c.fillStyle=css('--line'); c.fillRect(tx,ty,tw,th);
+  c.fillStyle=s===1?GOOD():s>1?DANG():MANC(); c.fillRect(tx,ty,tw*Math.min(1,dur/40),th);
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.strokeRect(tx,ty,tw,th);
+  c.strokeStyle=css('--ink'); c.setLineDash([5,5]); c.beginPath(); c.moveTo(tx+tw/2,ty-6); c.lineTo(tx+tw/2,ty+th+6); c.stroke(); c.setLineDash([]);
+  xTag(c,'השיר נמשך (שניות):',(dur%1?f1(dur):String(dur)),320,ty-26,22,css('--ink'),'center');
+  xNum(c,'0',tx+10,ty+th+24,20,css('--muted')); xNum(c,'20',tx+tw/2,ty+th+24,20,css('--muted')); xNum(c,'40',tx+tw-14,ty+th+24,20,css('--muted'));
+  pbOut.textContent=pbFmtX(s); pbOut2.textContent=(dur%1?f1(dur):String(dur)); pbOut3.textContent=f;
+  if(PB.moves>=2 && PB.pred>=0 && !PB.revealed){ PB.revealed=1; pbReveal.hidden=false; }
+  if(blocked) predictFirst(pbMsg,'הזיזו'); else if(user) pbMsg.innerHTML = s===1 ? 'המהירות הנכונה: גבר ששר לאט, ושיר של <span class="num">20</span> שניות.'
+    : (S.track==='older' ? 'מהירות <span class="num">'+pbFmtX(s)+'</span>: התדירות <span class="math">'+BASE_HZ+' × '+s+' ≈ '+f+'</span> הרץ, והמשך <span class="math">20 ÷ '+s+' ≈ '+(dur%1?f1(dur):dur)+'</span> שניות. '+(s===2?'זה בדיוק מה ששמעו ב־<span class="num">2008</span>: "אישה" בקטע של <span class="num">10</span> שניות.':'')
+      : (s>1 ? 'מהר יותר: הקול עלה ונשמע כמו '+(f>=230?'אישה או ילד':f>=160?'אישה':'גבר')+', והשיר נמשך רק <span class="num">'+(dur%1?f1(dur):dur)+'</span> שניות.'+(s===2?' זה בדיוק מה ששמעו ב־<span class="num">2008</span>!':'') : 'לאט יותר: הקול ירד ונעשה עמוק, והשיר נמשך <span class="num">'+(dur%1?f1(dur):dur)+'</span> שניות.'));
+}
+/* the tune, rebuilt simply (a public-domain folk song): semitones above the first note, in beats */
+const TUNE = [[0,1],[0,1],[0,1],[2,1],[4,2],[2,2],[0,1],[4,1],[2,1],[2,1],[0,4]];
+function pbSound(){ const s=PB_X[+pbS.value], beat=0.42/s; let t=0; if(!audio()){ pbMsg.textContent='הדפדפן הזה לא משמיע צלילים, אבל הציור מראה הכול.'; return; }
+  TUNE.forEach(([st,b])=>{ tone(BASE_HZ*s*Math.pow(2,st/12), t, b*beat*0.92, 0.16, 'triangle'); t+=b*beat; }); }
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  soundQ:{ q:"שרים צליל גבוה מאוד לתוך המשפך של סקוט. איך ייראה הקו על הפיח?", opts:["גלים גבוהים מאוד, כי צליל גבוה תמיד חזק","גלים צפופים, כי הקרום רועד הרבה פעמים בכל שנייה","קו ישר, כי צליל גבוה לא מזיז את הקרום","גלים רחבים ומרווחים"], a:1, fb:"צליל גבוה הוא רעידה מהירה: הקרום זז הלוך ושוב הרבה פעמים בכל שנייה, אז השערה מציירת הרבה גלים על אותו קטע נייר, והם יוצאים צפופים. הגובה של הגלים תלוי בדבר אחר, בעוצמה: קול חזק מזיז את הקרום רחוק יותר.", btn:"next1" },
+  forkQ:{ q:"למה הצמידו לנייר של הפונאוטוגרף גם מזלג קול?", opts:["כדי שהמכונה תשמיע צליל יפה","כי המזלג רועד תמיד באותו קצב, אז הקו שלו הוא כמו שעון שמראה כמה מהר הנייר זז","כדי לנקות את הפיח","כדי שהשיר יישמע נמוך יותר"], a:1, fb:"היד שסובבה את הגליל לא זזה תמיד באותה מהירות. המזלג רועד בקצב קבוע לגמרי, ולכן כל גל שלו הוא אותה חתיכת זמן בדיוק. סופרים כמה גלי קול יש ליד הגלים של המזלג, ויודעים את הקצב של הקול, בלי לדעת כמה מהר זזה היד." },
+  playQ:{ q:"מנגנים הקלטה מהר פי <span class=\"num\">2</span>. מה קורה?", opts:["רק הקול עולה, והשיר נמשך אותו זמן","רק השיר מתקצר, והקול נשאר אותו דבר","הקול נשמע גבוה יותר וגם השיר נמשך חצי מהזמן","הקול נשמע נמוך יותר והשיר מתארך"], a:2, fb:"מהירות הניגון משנה שני דברים בבת אחת: כל רעידה עוברת בחצי מהזמן, אז בכל שנייה יש פי <span class=\"num\">2</span> רעידות והקול גבוה יותר. ומכיוון שהקו נשאר אותו קו, כל השיר עובר בחצי מהזמן." },
+  storyQ:{ q:"ב־<span class=\"num\">2008</span> כולם חשבו שבהקלטה מ־<span class=\"num\">1860</span> שרה אישה. מה התברר אחר כך?", opts:["שזו באמת אישה, אשתו של סקוט","שניגנו את הקו מהר פי <span class=\"num\">2</span>; בקצב הנכון שומעים גבר, כנראה סקוט עצמו","שזה בכלל לא קול אלא ציפור","שהמחשב המציא את השיר"], a:1, fb:"ב־<span class=\"num\">2009</span> החוקרים שמעו הקלטה אחרת שבה סקוט רומז שהוא עצמו המדבר, ובדקו שוב את השעון: הם חשבו שמזלג הקול רועד <span class=\"num\">500</span> פעמים בשנייה, אבל הוא רעד <span class=\"num\">250</span>. לכן הקטע נוגן מהר פי <span class=\"num\">2</span>. כשניגנו לאט פי <span class=\"num\">2</span>, הקול ירד אוקטבה ונשמע גבר ששר לאט. החוקרים כותבים \"כמעט בוודאות סקוט\", כי אי אפשר להיות בטוחים במאה אחוז." },
+  deepQ:{ q:"למה לילדים יש בדרך כלל קול גבוה יותר מאשר למבוגרים?", opts:["כי הם צועקים יותר","כי מיתרי הקול שלהם קצרים ודקים יותר, והם רועדים מהר יותר","כי האוזניים שלהם קטנות","כי האוויר בריאות שלהם חם יותר"], a:1, fb:"גובה הקול תלוי בכמה מהר מיתרי הקול רועדים. מיתרים קצרים ודקים רועדים מהר, כמו החלק הקצר של סרגל שבולט מהשולחן. לכן ילדים מדברים בקול גבוה, ולכן גבר שמנגנים אותו מהר פי <span class=\"num\">2</span> נשמע כמו ילד." },
+};
+const MCQ = {
+  shared:[
+    { q:"בשביל מה בנה סקוט את הפונאוטוגרף?", opts:["כדי להקליט שירים ולמכור אותם","כדי לראות את הקול כקו על נייר, ולחקור אותו בעיניים, כמו כתב","כדי לשלוח קול בטלפון","כדי להשמיע מוזיקה במסיבות"], a:1, fb:"סקוט היה סדר דפוס, איש של אותיות. הוא רצה שהקול ייכתב, כמו מילים, כדי שאפשר יהיה להסתכל עליו. הוא בכלל לא חשב לנגן את הקו בחזרה. את זה עשה מחשב, <span class=\"num\">148</span> שנים אחר כך." },
+    { q:"על הנייר של סקוט יש שני קווים. בראשון הגלים צפופים מאוד, ובשני מרווחים. מה אפשר להגיד?", opts:["הקו הראשון הוא צליל גבוה יותר","הקו הראשון הוא צליל חזק יותר","הקו השני הוא צליל גבוה יותר","אי אפשר לדעת כלום מהקו"], a:0, fb:"גלים צפופים = הרבה רעידות על אותו קטע נייר, כלומר הרבה רעידות בשנייה, וזה צליל גבוה. עוצמה רואים בגובה של הגלים, לא במרווח ביניהם. (בהנחה ששני הקווים צוירו באותה מהירות של נייר. בגלל זה צריך את המזלג.)" },
+    { q:"מנגנים הקלטה של גבר לאט פי <span class=\"num\">2</span>, בחצי מהירות. מה שומעים?", opts:["קול גבוה כמו של ילד, ושיר קצר","קול נמוך ועמוק מאוד, ושיר שנמשך פי <span class=\"num\">2</span> יותר זמן","אותו קול, רק עם הפסקות","שקט מוחלט"], a:1, fb:"לאט פי <span class=\"num\">2</span> = חצי מהרעידות בכל שנייה, אז הקול יורד אוקטבה ונשמע עמוק, כמו של ענק. ובאותו זמן כל השיר נמשך פי <span class=\"num\">2</span> יותר. זה בדיוק ההפך ממה שקרה ב־<span class=\"num\">2008</span>." },
+  ],
+  younger:[
+    { q:"איזה חלק במכונה של סקוט עובד כמו עור התוף שבאוזן שלכם?", opts:["המשפך","הקרום הדק שרועד בקצה המשפך","הפיח השחור","הידית שמסובבים"], a:1, fb:"סקוט העתיק את האוזן: המשפך אוסף את הקול כמו האוזן החיצונית, והקרום הדק רועד מהאוויר, בדיוק כמו עור התוף. השערה שמחוברת לקרום מציירת את הרעידה על הפיח." },
+  ],
+  older:[
+    { q:"על קטע נייר אחד, מזלג קול של <span class=\"num\">250</span> הרץ צייר <span class=\"num\">50</span> גלים, והקו של הקול צייר באותו קטע <span class=\"num\">44</span> גלים. מה התדירות של הקול?", opts:["<span class=\"num\">44</span> הרץ","<span class=\"num\">220</span> הרץ","<span class=\"num\">284</span> הרץ","<span class=\"num\">250</span> הרץ"], a:1, fb:"<span class=\"num\">50</span> גלים של מזלג שרועד <span class=\"num\">250</span> פעמים בשנייה הם <span class=\"math\">50 ÷ 250 = 0.2</span> שנייה. בזמן הזה הקול רעד <span class=\"num\">44</span> פעמים: <span class=\"math\">44 ÷ 0.2 = 220</span> הרץ. (או ביחס: <span class=\"math\">250 × 44 ÷ 50 = 220</span>.) אם בחרתם <span class=\"num\">44</span>, שכחתם שהקטע קצר משנייה; אם <span class=\"num\">284</span>, הפכתם את היחס (<span class=\"math\">250 × 50 ÷ 44</span>)." },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'סקוט מסדר ספר על גוף האדם, קורא איך בנויה האוזן, ומקבל רעיון.'},
+  {id:'b', t:'סקוט מקבל פטנט על הפונאוטוגרף, "כותב הקול".'},
+  {id:'c', t:'סקוט שר "לאור הירח" לתוך המשפך, והשערה מציירת קו בפיח.'},
+  {id:'d', t:'תומאס אדיסון בונה מכונה שגם מקליטה וגם <b>מנגנת</b>.'},
+  {id:'e', t:'אברהם צבי אידלסון מקליט בירושלים שירה של קהילות יהודיות.'},
+  {id:'f', t:'מחשב "קורא" את הקו מ־<span class="num">1860</span>, והשיר נשמע בפעם הראשונה.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> הרעיון (<span class="math">1853–1854</span>) ← הפטנט (<span class="num">1857</span>) ← השיר (<span class="num">1860</span>) ← אדיסון (<span class="num">1877</span>) ← ירושלים (<span class="math">1911–1913</span>) ← המחשב (<span class="num">2008</span>). שימו לב להיגיון: קודם רעיון, אחר כך מכונה, אחר כך הקלטה. ואחרי שאדיסון המציא את הנגינה, אפשר היה להקליט ולשמוע, כמו אידלסון. רק את הקו של סקוט, שנבנה בלי נגינה, היה צריך לחכות למחשב.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) אצל סקוט: רעיון, אחר כך פטנט על מכונה, ורק אז הקלטה בעזרתה. (2) אידלסון הקליט במכשיר שגם <b>מנגן</b>, רעיון שנולד רק אחרי אדיסון. והמחשב בא הכי מאוחר.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const aOk = chalA.value!=='' && Math.abs(a-100)<0.5, bOk = chalB.value!=='' && Math.abs(b-220)<0.5;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const hintA = (hasA && Math.abs(a-0.1)<0.001) ? '(א): <span class="num">0.1</span> זה <b>הזמן</b> בשניות. עכשיו: <span class="num">10</span> ס״מ בעשירית שנייה, כמה ס״מ בשנייה שלמה?'
+    : (hasA && Math.abs(a-25)<0.01) ? '(א): <span class="num">25</span> זה מספר הגלים. קודם מצאו כמה זמן הם נמשכים: <span class="math">25 ÷ 250 = ?</span>'
+    : (hasA && Math.abs(a-10)<0.01) ? '(א): <span class="num">10</span> ס״מ זה המרחק, אבל הוא עבר בפחות משנייה. כמה זמן? <span class="math">25 ÷ 250</span>.'
+    : (hasA && Math.abs(a-1)<0.01) ? '(א): בדקו את החילוק: <span class="math">10 ÷ 0.1</span> הוא לא <span class="num">1</span>. כמה פעמים <span class="num">0.1</span> נכנס ב־<span class="num">10</span>?'
+    : '(א): רמז — כל גל של המזלג נמשך <span class="math">1 ÷ 250</span> שנייה. כמה זמן נמשכים <span class="num">25</span> גלים? ואז: מרחק ÷ זמן.';
+  const hintB = (hasB && Math.abs(b-22)<0.01) ? '(ב): <span class="num">22</span> גלים, אבל לא בשנייה שלמה, אלא ב־<span class="num">0.1</span> שנייה. כמה בשנייה?'
+    : (hasB && Math.abs(b-2.2)<0.01) ? '(ב): הכפלתם במקום לחלק: <span class="math">22 ÷ 0.1 = ?</span>'
+    : (hasB && Math.abs(b-250)<0.5) ? '(ב): זו התדירות של המזלג. לקול יש פחות גלים באותו קטע: <span class="num">22</span> במקום <span class="num">25</span>.'
+    : (hasB && Math.abs(b-284.1)<0.6) ? '(ב): הפכתם את היחס. לקול יש <b>פחות</b> גלים מהמזלג, אז התדירות שלו נמוכה מ־<span class="num">250</span>: <span class="math">250 × 22 ÷ 25</span>.'
+    : '(ב): רמז — באותו זמן בדיוק (התשובה לשאלה על זמן הקטע) הקול רעד <span class="num">22</span> פעמים. רעידות ÷ זמן = הרץ.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">25 ÷ 250 = 0.1</span> שנייה, ו־<span class="math">10 ÷ 0.1 = 100</span> ס״מ בשנייה, מטר שלם בשנייה. (ב) <span class="math">22 ÷ 0.1 = 220</span> הרץ. אפשר גם ביחס, בלי לדעת את המהירות בכלל: <span class="math">250 × 22 ÷ 25 = 220</span>. זה בדיוק הכוח של מזלג הקול: הוא שעון שמצויר על הנייר.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">100</span> ס״מ בשנייה.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — <span class="num">220</span> הרץ.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const a=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasR=numAdvR.value!=='', hasA=numAdv.value!=='';
+    const aOk=(hasA && a>=119 && a<=121), bOk=(hasR && r>=0.235 && r<=0.245), sc = aOk&&bOk?2:((aOk||bOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintR = (hasR && Math.abs(r-15000)<1) ? 'ב־(א) כפלתם. בשנייה אחת הנייר זז <span class="num">60</span> ס״מ ובהם <span class="num">250</span> גלים, אז כל גל קטן: <span class="math">60 ÷ 250 = ?</span>'
+      : (hasR && Math.abs(r-4.17)<0.02) ? 'ב־(א) חילקתם הפוך. המרחק בשנייה חלקי מספר הגלים בשנייה: <span class="math">60 ÷ 250</span>.'
+      : (hasR && Math.abs(r-0.4)<0.001) ? 'ב־(א) זו התשובה למהירות של <span class="num">100</span> ס״מ בשנייה. כאן הנייר זז <span class="num">60</span>.'
+      : (hasR && r>=2.3 && r<=2.5) ? 'ב־(א) בדקו את הנקודה העשרונית: <span class="math">60 ÷ 250</span> קטן מ־<span class="num">1</span>.'
+      : 'רמז ל־(א): בכל שנייה הנייר זז <span class="num">60</span> ס״מ, ועליהם המזלג מצייר <span class="num">250</span> גלים. כמה ס״מ לכל גל? מחלקים.';
+    const hintA = (hasA && Math.abs(a-0.5)<0.001) ? 'ב־(ב) <span class="num">0.5</span> ס״מ זה <b>אורך גל אחד</b> של הקול. עכשיו: כמה גלים כאלה נכנסים ב־<span class="num">60</span> ס״מ, שהם שנייה אחת?'
+      : (hasA && Math.abs(a-2)<0.001) ? 'ב־(ב) נכון, <span class="num">2</span> גלים בכל ס״מ. אבל בשנייה עוברים <span class="num">60</span> ס״מ. כמה גלים בשנייה?'
+      : (hasA && Math.abs(a-30)<0.01) ? 'ב־(ב) כפלתם במקום לחלק: <span class="math">60 ÷ 0.5 = ?</span>'
+      : (hasA && Math.abs(a-8)<0.01) ? 'ב־(ב) <span class="num">8</span> זה כמה קטעים של <span class="num">7.5</span> ס״מ עוברים בשנייה. בכל קטע כזה יש <span class="num">15</span> גלים.'
+      : (hasA && Math.abs(a-250)<0.5) ? 'ב־(ב) זו התדירות של המזלג. לקול יש גלים ארוכים יותר, אז התדירות שלו אחרת.'
+      : (hasA && Math.abs(a-200)<0.5) ? 'ב־(ב) זה נכון לנייר שזז <span class="num">100</span> ס״מ בשנייה. כאן הוא זז <span class="num">60</span>.'
+      : 'רמז ל־(ב): קודם מצאו את אורך הגל של הקול: <span class="math">7.5 ÷ 15</span>. ואז: כמה גלים כאלה עוברים בשנייה, כשהנייר זז <span class="num">60</span> ס״מ?';
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">60 ÷ 250 = 0.24</span> ס״מ בין גלים של המזלג. (ב) <span class="math">7.5 ÷ 15 = 0.5</span> ס״מ לכל גל של הקול, ו־<span class="math">60 ÷ 0.5 = 120</span> הרץ: קול של גבר. בדיקה ביחס, בלי המהירות בכלל: <span class="math">250 × 0.24 ÷ 0.5 = 120</span>. זה הכוח של המזלג: הוא שעון שמצויר על הנייר.'
+      : aOk ? '<span class="pill-ok">(ב) נכון — <span class="num">120</span> הרץ.</span> '+hintR
+      : bOk ? '<span class="pill-ok">(א) נכון — <span class="num">0.24</span> ס״מ.</span> '+hintA
+      : '<span class="pill-bad">עוד לא.</span> '+hintR+(hasA?' '+hintA:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-5000)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">250 × 20 = 5,000</span>. אפשר גם ככה: <span class="math">25 × 2 = 50</span>, ומוסיפים את שני האפסים: <span class="num">5,000</span>. חמשת אלפים גלים קטנים, ובכל אחד מהם בדיוק אותה חתיכת זמן. זה השעון של סקוט.':(Math.abs(v-270)<0.01)?'<span class="pill-bad">חיברתם.</span> <span class="num">250</span> פעמים בכל שנייה, ויש <span class="num">20</span> שניות: כופלים, <span class="math">250 × 20 = ?</span>':(Math.abs(v-500)<0.01)?'<span class="pill-bad">כמעט!</span> זה בשתי שניות. צריך <span class="num">20</span> שניות, פי <span class="num">10</span> יותר.':(Math.abs(v-250)<0.01)?'<span class="pill-bad">זה בשנייה אחת.</span> ההקלטה נמשכת <span class="num">20</span> שניות.':(Math.abs(v-12.5)<0.01)?'<span class="pill-bad">חילקתם.</span> בכל שנייה יש <span class="num">250</span> רעידות, אז בהרבה שניות יש <b>יותר</b>: כופלים.':(Math.abs(v-50000)<0.01)?'<span class="pill-bad">יש אפס מיותר.</span> <span class="math">25 × 2 = 50</span>, ומוסיפים שני אפסים בלבד.':'<span class="pill-bad">לא בדיוק.</span> רמז: בשנייה אחת <span class="num">250</span>, בשתי שניות <span class="num">500</span>. ובעשרים שניות?'; }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-0.4)<0.005; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">100 ÷ 250 = 0.4</span> ס״מ, ארבעה מילימטרים. בכל שנייה הנייר זז <span class="num">100</span> ס״מ, והמזלג מצייר עליהם <span class="num">250</span> גלים, אז כל גל תופס <span class="num">0.4</span> ס״מ. זה בדיוק הכלל: <span class="math">אורך גל = מהירות ÷ תדירות</span>.':(Math.abs(v-25000)<1)?'<span class="pill-bad">כפלתם.</span> <span class="num">250</span> גלים מתחלקים על <span class="num">100</span> ס״מ, אז כל גל קטן: <span class="math">100 ÷ 250 = ?</span>':(Math.abs(v-2.5)<0.01)?'<span class="pill-bad">חילקתם הפוך.</span> <span class="num">2.5</span> זה מספר הגלים בכל ס״מ. השאלה היא כמה ס״מ לכל גל: <span class="math">100 ÷ 250</span>.':(Math.abs(v-4)<0.01)?'<span class="pill-bad">בדקו את היחידות.</span> <span class="num">4</span> זה במילימטרים. בסנטימטרים?':(Math.abs(v-150)<0.01||Math.abs(v-350)<0.01)?'<span class="pill-bad">לא מחברים ולא מחסירים.</span> מחלקים את המרחק בשנייה במספר הגלים בשנייה.':'<span class="pill-bad">לא בדיוק.</span> רמז: בשנייה אחת הנייר זז <span class="num">100</span> ס״מ, ועליהם יש <span class="num">250</span> גלים. כמה ס״מ לכל גל?'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'אמרתי שקול הוא רעידה, ושצליל גבוה הוא רעידה מהירה (הרבה רעידות בשנייה).',
+  'הסברתי איך סקוט צייר קול: משפך, קרום שרועד כמו עור התוף, ושערה שמשרטטת גלים על נייר מפויח שזז.',
+  'אמרתי שסקוט רצה רק לראות את הקול, ושהקו שלו לא יכול היה להתנגן, עד שמחשב "קרא" אותו ב־<span class="num">2008</span>.',
+  'הסברתי שניגנו מהר פי <span class="num">2</span>: הרעידות הוכפלו, הקול עלה (אוקטבה) ונשמע כמו אישה, ובקצב הנכון זה גבר, כנראה סקוט.',
+  'הזכרתי שכדי לנגן נכון צריך לדעת כמה מהר הנייר זז, ושמזלג קול שרועד בקצב קבוע הוא כמו שעון על הנייר.',
+];
+const MODEL='קול הוא רעידה של האוויר. צליל גבוה הוא רעידה מהירה, עם הרבה רעידות בכל שנייה, וצליל חזק הוא רעידה רחבה. בשנת <span class="num">1860</span> סקוט שר לתוך משפך. בקצה המשפך היה קרום דק, כמו עור התוף, ועליו שערה ששרטטה את הרעידות כקו מתפתל על נייר מכוסה פיח שזז. צליל גבוה מצייר גלים צפופים. סקוט רצה רק לראות את הקול, ולא היה אפשר לנגן את הקו. ב־<span class="num">2008</span> מחשב "קרא" את הקו מתמונה, כמו מחט דמיונית, והפך אותו לקול. אבל כדי לנגן צריך לדעת כמה מהר הנייר זז, והחוקרים ניגנו מהר פי <span class="num">2</span>: כל הרעידות הוכפלו, הקול עלה אוקטבה ונשמע כמו אישה, והשיר התקצר לחצי. ב־<span class="num">2009</span> התברר שהמזלג רעד <span class="num">250</span> פעמים בשנייה ולא <span class="num">500</span>; ניגנו לאט פי <span class="num">2</span> ושמעו גבר, כנראה סקוט עצמו. בשביל זה ציירו ליד הקול גם קו של מזלג קול, שרועד תמיד <span class="num">250</span> פעמים בשנייה: הוא שעון שמראה את הקצב האמיתי.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המכניזם (קול הוא רעידה; תדירות = רעידות בשנייה, ועל נייר שזז במהירות קבועה אורך גל = מהירות ÷ תדירות, למשל 100 ÷ 200 = 0.5 ס״מ; קריאה של הקו במהירות כפולה מכפילה כל תדירות — אוקטבה למעלה — ומקצרת את המשך לחצי, ולכן גבר נשמע כאישה בקטע של 10 שניות במקום 20; כדי לנגן נכון צריך את מהירות הנייר, ומזלג קול של 250 הרץ שמצויר ליד הקול הוא שעון: היחס בין מספרי הגלים נותן את התדירות בכל מהירות, 250 × 8 ÷ 10 = 200; ולמה הקו של סקוט לא התנגן — שריטה בפיח לא מזיזה מחט, בניגוד לחריץ של אדיסון) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "הקול מ־1860 שאף אחד לא התכוון שיישמע": איך סקוט דה מרטינוויל צייר קול ב־1860, ולמה ב־2008 ההקלטה נשמעה כמו אישה. הרעיונות המרכזיים: (1) קול הוא רעידה; צליל גבוה = רעידה מהירה (הרבה רעידות בשנייה, הרץ), צליל חזק = רעידה רחבה; (2) הפונאוטוגרף (פטנט 1857): משפך, קרום כמו עור התוף, ושערה שמשרטטת את הרעידה כקו מתפתל על נייר או זכוכית מכוסים פיח שזזים; צליל גבוה מצייר גלים צפופים; סקוט, סדר דפוס בפריז, רצה לראות ולקרוא את הקול, לא לשמוע אותו, והקו שלו לא יכול היה להתנגן; (3) מזלג קול של 250 הרץ (של קניג) שצויר לצד הקול הוא שעון: גם כשהיד מסובבת לא אחיד, היחס בין גלי הקול לגלי המזלג נותן את התדירות; (4) ב־9 באפריל 1860 שר סקוט "לאור הירח"; ב־2008 ג׳ובנוני ופיסטר מצאו את הדפים בפריז, ובמעבדת לורנס ברקלי (קרל הייבר, ארל קורנל) תוכנה "קראה" את הקו מתמונה כמחט דמיונית; נוגן מהר פי 2 ונשמע כאישה בקטע של 10 שניות; ב־2009 תוקן — קו הזמן פורש כמזלג של 500 הרץ אבל המזלג היה 250 — ובקצב הנכון גבר ששר לאט, כמעט בוודאות סקוט, כ־20 שניות; (5) ניגון מהר פי 2 מכפיל את התדירות (אוקטבה למעלה) ומקצר את המשך לחצי; (6) אדיסון 1877 — חריץ שמזיז מחט, ולכן הקלטה שמתנגנת; אידלסון הקליט בירושלים 1911–1913. חישובי המבחן: 250 × 20 = 5,000; 100 ÷ 250 = 0.4 ס״מ; מתקדם 60 ÷ 250 = 0.24 ס״מ, 7.5 ÷ 15 = 0.5 ס״מ, 60 ÷ 0.5 = 120 הרץ; אתגר 25 ÷ 250 = 0.1 שנייה, 10 ÷ 0.1 = 100 ס״מ בשנייה, 22 ÷ 0.1 = 220 הרץ.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם איך צוייר הקול (רעידה → קרום → שערה → קו על פיח) וגם למה נשמעה אישה (ניגון מהר מדי מכפיל את הרעידות בשנייה, והקול עולה); 1 אם יש רק חלק מזה. תשובה שאומרת רק "כי המחשב טעה" בלי להסביר במה, לא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', יש לך אוזן של '+G('פיזיקאי','פיזיקאית')+' ועין של '+G('בלש','בלשית')+'!':pct>=60?name+', יש לך מוח של '+G('מדען','מדענית')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=20;                                                      // playing ×2 doubles every frequency: ×2 pitch, in tenths
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: ניגון מהר פי <span class="num">2</span> מכפיל את מספר הרעידות בשנייה, והקול עולה: גבר נשמע כמו אישה או ילד. בדיוק זה קרה ב־<span class="num">2008</span> להקלטה של סקוט.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. ועכשיו ידוע לך גם למה: כל רעידה עוברת בחצי מהזמן, אז יש פי <span class="num">2</span> רעידות בשנייה, הקול קופץ אוקטבה למעלה, והשיר מתקצר לחצי.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. התשובה: גבוה יותר, כמו אישה או ילד. ניגון מהר פי <span class="num">2</span> מכפיל את מספר הרעידות בשנייה, ולכן ב־<span class="num">2008</span> כולם חשבו שסקוט הוא אישה.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (מה קורה לקול שמנגנים מהר פי 2): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: גבוה יותר, כמו אישה או ילד)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "הקול מ־1860 שאף אחד לא התכוון שיישמע", מהדורה 35, ה׳ בחשוון תשפ״ז (יום שישי, 16 באוקטובר 2026). נושא: איך אפשר לצייר קול, ואיך מחזירים ציור לקול; פיזיקה (קול כרעידה, תדירות בהרץ, משרעת, אורך גל = מהירות ÷ תדירות, אוקטבה = הכפלת תדירות), טכנולוגיה (פונאוטוגרף, פונוגרף, סריקה אופטית ומחט וירטואלית, מיקרופון ורמקול), היסטוריה (סקוט, קניג, אדיסון, אידלסון בירושלים, First Sounds) ומתמטיקה (כפל וחילוק, יחס, יחידות). הסיפור: אדואר־לאון סקוט דה מרטינוויל (1817–1879), סדר דפוס ועורך בהוצאה מדעית בפריז, קרא ב־1853–1854 ספר פיזיולוגיה על האוזן וקיבל רעיון: מכונה שכותבת דיבור, כמו שהצילום כותב תמונה. הפונאוטוגרף ("כותב הקול", פטנט צרפתי 25 במרץ 1857): משפך, בקצה הצר קרום דק כמו עור התוף, ועליו זיז משערת חזיר בר באורך כסנטימטר שנוגע בשכבת פיח; בגרסה הראשונה לוח זכוכית מפויח שזז כמטר בשנייה, אחר כך נייר מפויח על גליל שמסובבים ביד. מ־1859 עם בונה המכשירים רודולף קניג; מזלג קול של 250 הרץ שירטט לצד הקול כמדד זמן. סקוט רצה לראות ולחקור את הקול, לא לנגן אותו; הקו שלו הוא שריטה בפיח ולא חריץ, ולכן אי אפשר היה לנגן אותו. ב־9 באפריל 1860 שר את שיר העם הצרפתי "Au clair de la lune" ("לאור הירח"). ב־1877 תומאס אדיסון בנה פונוגרף: מחט חורטת חריץ ברדיד בדיל על גליל, ובמעבר חוזר החריץ מזיז את המחט ואת הקרום — הקלטה ונגינה; סקוט כעס שלא זוכרים שהיה ראשון, ומת ב־1879. ב־2008 חוקרי ההקלטות האמריקאים דייוויד ג׳ובנוני ופטריק פיסטר (קבוצת First Sounds) מצאו את הדפים בארכיונים בפריז (משרד הפטנטים, האקדמיה הצרפתית למדעים); במעבדה הלאומית לורנס ברקלי הפיזיקאי קרל הייבר והמהנדס ארל קורנל הפכו את הסריקות לקול בעזרת "מחט וירטואלית"; הוצג במרץ 2008 בכנס בסטנפורד — קטע של כ־10 שניות שנשמע כאישה או ילד, מוקדם ב־17 שנה מאדיסון. בתחילת 2009 הצוות שמע את ההקלטה "Aminta" שבה סקוט רומז שהוא עצמו הדובר, ובדק שוב: ב־2008 קו הזמן פורש כמזלג של 500 הרץ (גם כי כך השירה "נשמעה נכון"), אבל המזלג היה 250 הרץ — ולכן הקטע נוגן מהר פי 2; בקצב הנכון כ־20 שניות, גבר ששר לאט, כמעט בוודאות סקוט עצמו. הייבר זכה במענק מקארתור ב־2013 על מערכת IRENE שמצלמת חריצים של הקלטות שבירות; כך נשמע גם הקול של אלכסנדר גרהם בל. בירושלים: אברהם צבי אידלסון (הגיע ב־1906) הקליט ב־1911–1913, במכשיר הקלטה ובמענק של האקדמיה למדעים בווינה, שירה ותפילות של קהילות יהודיות (תימן, פרס, בוכרה, בבל, ספרד ועוד); ההקלטות בארכיון הקולות בווינה, ויצאו לאור בדיסקים. פרק 1, לראות קול: יד על הגרון; קול הוא רעידה; תדירות (הרץ) ומשרעת; אינטראקטיב "המכונה שמציירת קול": ילד שר למשפך, קרום, שערה, רצועת פיח שזזה שמאלה במהירות 100 ס״מ בשנייה; גובה הצליל 100–450 הרץ ועוצמה 1–5; צליל גבוה = גלים צפופים, חזק = גלים גבוהים; כפתור משמיע את הצליל. פרק 2, מזלג הקול: יד מסובבת לא אחיד; אינטראקטיב "המזלג שהוא שעון": שני קווים, מזלג 250 הרץ וקול של 200 הרץ (דגם), מסגרת של 10 גלי מזלג = 0.04 שנייה ובה תמיד 8 גלי קול, בכל מהירות (60–140 ס״מ בשנייה) וגם כשהיד רועדת; 250 × 8 ÷ 10 = 200. פרק 3, המחשב שקרא את הפיח: אינטראקטיב "כפתור המהירות" — ניגון ×½ עד ×2; הצליל הראשון בדגם 110 הרץ (לה נמוך) כפול המהירות, ×2 נותן 220 באזור של אישה; סרגל קול עם אזורים: גבר כ־85–155 הרץ, אישה כ־165–255, ילד מעל; השיר נמשך 20 ÷ מהירות שניות; כפתור משמיע מנגינה פשוטה של שיר העם במהירות שנבחרה. פרק 4: הסיפור של 2008–2009 והפונוגרף של אדיסון. פרק 5: אוקטבה, מיתרי קול ארוכים ועבים רועדים לאט, ילדים בקול גבוה; תדירות = מהירות ÷ אורך גל; למה צריך את המזלג; אידלסון. ניסויי בית: אורז על ניילון נצמד מעל קערה קופץ מקול; סרגל על קצה שולחן — קצר יותר, צליל גבוה יותר; לצייר קול בפיח על צלחת זכוכית עם קיסם וחרוט נייר — נר ואש רק עם מבוגר. חיבורים: האוזן (עור התוף, שלוש עצמות, שבלול), מיקרופון ורמקול בטלפון, IRENE והקול של בל, אידלסון בירושלים. בונוס: מתחת לכ־20 רעידות בשנייה שומעים דפיקות ולא צליל; מעל כ־20,000 בני אדם לא שומעים, עטלפים וכלבים כן. חישובי המבחן: הצעיר 250 × 20 = 5,000; הבוגר 100 ÷ 250 = 0.4 ס״מ; מתקדם (נייר של 60 ס״מ בשנייה) (א) 60 ÷ 250 = 0.24 ס״מ, (ב) 15 גלי קול ב־7.5 ס״מ: 7.5 ÷ 15 = 0.5 ס״מ לגל, 60 ÷ 0.5 = 120 הרץ; האתגר (א) 25 ÷ 250 = 0.1 שנייה, 10 ÷ 0.1 = 100 ס״מ בשנייה, (ב) 22 ÷ 0.1 = 220 הרץ; שאלת המחשבה: שריטה בפיח לא מזיזה מחט, חריץ של אדיסון כן. סידור: רעיון 1853–1854 ← פטנט 1857 ← השיר 1860 ← אדיסון 1877 ← אידלסון 1911–1913 ← המחשב 2008. פישוטים במכוון: הגלים באינטראקטיבים פשוטים; מספרים מסוימים הם לדוגמה; "כנראה סקוט". סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט ומה שלא ידוע, בלי לחשוף תשובות מבחן; אם ילד שואל על שאלה מהמבחן, לרמוז ולכוון, לא לפתור. בטיחות: נר ופיח רק עם מבוגר.';
+const CHIPS = ['איך מכונה מציירת קול?', 'למה צריך מזלג קול?', 'למה שמעו אישה ולא גבר?', 'איך המחשב ניגן ציור?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: תדירות בהרץ ומשרעת; על נייר שזז במהירות v אורך הגל הוא v ÷ f, למשל 100 ÷ 200 = 0.5 ס״מ; מזלג קול של 250 הרץ כשעון — היחס בין מספרי הגלים באותו קטע נותן את תדירות הקול בלי לדעת את v, 250 × 8 ÷ 10 = 200; ניגון מהר פי k מכפיל כל תדירות ב־k ומחלק את המשך ב־k, ולכן ×2 = אוקטבה למעלה וחצי זמן — 10 שניות במקום 20; אוקטבה = יחס 2:1, האוזן שומעת יחסים; למה שריטה בפיח לא מתנגנת וחריץ של אדיסון כן), שאל שאלות המשך שדורשות חשיבה (למשל: איך אפליקציה מנגנת הודעה מהר בלי שהקול יעלה? מה היה קורה אם המזלג עצמו היה מזויף? למה צליל של 20,000 הרץ קשה לצייר בפיח? כמה מהר היה צריך להזיז את הנייר כדי שגל של 1,000 הרץ יהיה באורך 1 מ״מ?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>איך מכונה מציירת קול?</b> קול הוא רעידה. המשפך של סקוט אסף את הקול, קרום דק רעד כמו עור התוף, ושערה קטנה על הקרום ציירה את הרעידות כקו מתפתל על נייר מפויח שזז. צליל גבוה מצייר גלים צפופים.<br><br><b>למה שמעו אישה ולא גבר?</b> ב־<span class="num">2008</span> ניגנו את הקו מהר פי <span class="num">2</span>. כל הרעידות הוכפלו, אז הקול עלה ונשמע כמו אישה, והשיר התקצר. בקצב הנכון שומעים גבר, כנראה סקוט עצמו.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
