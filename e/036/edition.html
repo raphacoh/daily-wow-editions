@@ -1,0 +1,1749 @@
+<title>שורשים וכנפיים #36 · דובי המים שהגיעו לירח בחללית ישראלית</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#6B3FA0; --shadow-soft:#ECE1F7;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a calendar page that jumps from 4 to 15 under the Sun, and two specks drifting off it */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+.calfig{margin:18px 0 24px}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 36</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="var(--aur)" stop-opacity=".5"/>
+        <stop offset="60%" stop-color="var(--aur)" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="var(--aur)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- a grey Moon with craters, and a tiny eight-legged water bear sitting on it -->
+    <circle cx="150" cy="170" r="96" fill="#C9C6BC" stroke="var(--ink)" stroke-width="3"/>
+    <circle cx="112" cy="140" r="16" fill="#A9A59A"/><circle cx="190" cy="205" r="22" fill="#A9A59A"/><circle cx="120" cy="218" r="10" fill="#A9A59A"/>
+    <g transform="translate(150,74)">
+      <ellipse cx="0" cy="0" rx="40" ry="20" fill="#E9B79C" stroke="var(--ink)" stroke-width="3"/>
+      <circle cx="38" cy="-4" r="13" fill="#E9B79C" stroke="var(--ink)" stroke-width="3"/>
+      <circle cx="42" cy="-8" r="2.6" fill="var(--ink)"/>
+      <g stroke="var(--ink)" stroke-width="3" stroke-linecap="round"><path d="M-26 16 v12"/><path d="M-9 19 v12"/><path d="M8 19 v12"/><path d="M24 16 v12"/></g>
+    </g>
+    <g class="spark" transform="translate(234,120)"><circle r="6" fill="var(--aur)" stroke="var(--ink)" stroke-width="1.5"/></g>
+    <g class="spark2" transform="translate(240,170)"><circle r="4" fill="var(--aur2)" stroke="var(--ink)" stroke-width="1.5"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 36</span><span class="tag">שבת, 17 באוקטובר 2026</span><span class="tag">ו׳ בחשוון תשפ״ז</span><span class="tag">כ־30 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>דובי המים שהגיעו לירח בחללית ישראלית</h1>
+  <p class="lede">באפריל <span class="num">2019</span> התרסקה על הירח החללית הישראלית <b>בראשית</b>. אחר כך התגלה סוד: בתוכה היו <b>אלפי חיות זעירות</b>, מיובשות לגמרי. קוראים להן <b>דובי מים</b>. הן קטנות כמו גרגר מלח, ושרדו כבר קור של מינוס <span class="num">272</span> מעלות ואפילו עשרה ימים בחלל הפתוח. אז אולי הן שוכבות עכשיו על הירח ומחכות? השאלה של היום: <b>איך חיה יכולה "לכבות" את עצמה בלי למות, ומה היה קורה לה על הירח?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">במעבדה באנגליה ייבשו והקפיאו דובי מים, הכניסו אותם לכדור קטן, ו<b>ירו</b> אותו מתותח מיוחד לתוך ערימת חול. מה המהירות הכי גבוהה שבה דובי המים עוד שרדו?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="10"><b><span class="num">10</span> מטרים בשנייה</b><span>כמו אופניים מהירים</span></button>
+      <button type="button" class="scaleopt" data-scale="30"><b><span class="num">30</span> מטרים בשנייה</b><span>כמו מכונית בכביש מהיר</span></button>
+      <button type="button" class="scaleopt" data-scale="250"><b><span class="num">250</span> מטרים בשנייה</b><span>כמו מטוס נוסעים</span></button>
+      <button type="button" class="scaleopt" data-scale="825"><b><span class="num">825</span> מטרים בשנייה</b><span>יותר מפי <span class="num">3</span> ממטוס נוסעים</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · MEET THE WATER BEAR (interactive 1: from bear to barrel) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>תכירו: דוב המים</h2>
+  <p>דוב מים הוא חיה אמיתית, עם פה, מוח קטן ושרירים, אבל הוא ארוך בערך חצי מילימטר. יש לו <b>שמונה רגליים</b> שמנמנות עם טפרים קטנים. הוא גר כמעט בכל מקום בעולם, ובעיקר ב<b>טחב</b>, הצמח הירוק והרך שגדל על קירות אבן ועל גגות, בתוך שכבה דקה של מים.</p>
+  <p>בשנת <span class="num">1773</span> כומר גרמני בשם <b>יוהאן גצה</b> ראה אותו במיקרוסקופ, וקרא לו "דוב מים קטן", כי הוא הולך לאט ומתנדנד, כמו דוב.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אבל בקיץ הטחב מתייבש לגמרי, ודוב המים איטי מדי כדי לברוח. אז הוא עושה טריק: מוציא מהגוף כמעט את כל המים, מקפל פנימה את הראש ואת הרגליים, ונעשה <b>חבית</b> קטנה ויבשה. בתוך החבית כמעט הכול נעצר: הוא לא אוכל, לא זז, ולא צריך כלום.</p>
+    <p>וכשיורד גשם? החבית שותה מים, והרגליים יוצאות. אחרי כמה דקות או שעות, דוב המים קם והולך. באינטראקטיב: נחשו קודם, ואז ייבשו את הטחב.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>כשהטחב מתייבש, דוב המים נכנס למצב שנקרא <b>אנהידרוביוזה</b>, "חיים בלי מים": הוא מקפל פנימה את הראש והרגליים, ומאבד בערך <span class="num">95%</span> מהמים שבגוף. הצורה הזאת נקראת באנגלית <b>tun</b>, <b>חבית</b>.</p>
+    <p>בחבית <b>חילוף החומרים</b>, כל התהליכים הכימיים של החיים, נעצר כמעט לגמרי. זה לא מוות: החלקים של התאים נשארים שלמים ומסודרים. כשמגיעים מים, התאים מתמלאים, והחיים ממשיכים מאותה נקודה, אצל חלק מהמינים תוך פחות מחמש דקות. באינטראקטיב: נחשו, ואז ייבשו והרטיבו.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — מדוב לחבית ===== -->
+  <div class="panel instrument">
+    <h3>מדוב לחבית</h3>
+    <p class="cap">נחשו קודם: השמש מייבשת את הטחב <b>לגמרי</b>. מה יעשה דוב המים?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="drP0" onclick="drPredict(0)">ימות</button>
+        <button id="drP1" onclick="drPredict(1)">יברח לטחב אחר</button>
+        <button id="drP2" onclick="drPredict(2)">יתכווץ ויחכה</button>
+      </div>
+    </div>
+    <canvas role="img" id="drCv" width="640" height="470" aria-label="דוב מים גדול, מוגדל מאוד, עומד על ענף של טחב ירוק בתוך טיפת מים. כשמזיזים את הכפתור לכיוון יבש, המים נעלמים, הטחב מצהיב, ודוב המים מקפל את הראש ואת שמונה הרגליים ונעשה חבית חומה וקטנה. בצד: מד של מים בגוף ומד של פעילות, ששניהם יורדים כמעט לאפס. טיפת מים מחזירה אותו לחיים">
+    </canvas>
+    <div class="controls">
+      <label>מים בטחב (שמאלה: יבש, ימינה: רטוב)
+        <input type="range" id="drW" min="0" max="10" step="1" value="10" oninput="drDraw(1)" aria-label="מים בטחב" style="direction:ltr">
+      </label>
+      <button class="btn small ghost" id="drDrop" onclick="drDropWater()">טיפת מים!</button>
+    </div>
+    <div class="controls">
+      <div class="readout">מים בגוף: <b class="num" id="drOut">100%</b></div>
+      <div class="readout">מצב: <b id="drOut2">פעיל</b></div>
+    </div>
+    <p class="cap" id="drMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="drReveal" hidden><span class="hand">!</span><p>דוב המים לא בורח מהיובש, הוא <b>מחכה לו</b>. בלי מים הוא נעשה חבית, והחיים שלו כמעט עוצרים. טיפת מים, והוא חוזר לחיים. מדענים מצאו דובי מים שחיכו ככה <b>שנים</b>.</p></div>
+
+  <div class="q qc" id="dryQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE EXTREME TESTS (interactive 2: the thermometer) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>מבחני הקיצון</h2>
+  <p>מדענים בדקו את החביות בכל דרך: הקפיאו אותן עד מינוס <span class="num">272</span> מעלות, מעלה אחת מעל הקור הכי גדול שיכול להיות. חיממו אותן ליותר מ־<span class="num">150</span> מעלות לכמה דקות. הפציצו אותן בקרינה חזקה פי מאות ממה שאדם יכול לשאת. והחבית שרדה.</p>
+  <p>ובספטמבר <span class="num">2007</span> בערך <span class="num">3,000</span> דובי מים טסו בחללית רוסית בשם <b>פוטון</b>, בניסוי של סוכנות החלל האירופית, ובילו <span class="num">10</span> ימים <b>בחוץ</b>, בחלל הפתוח, בלי אוויר. רוב אלה שהיו מוגנים מאור השמש שרדו. חלק שרדו אפילו את האור הישיר של השמש בחלל. ואחרי שחזרו והורטבו, הם הטילו ביצים, ונולדו להם תינוקות בריאים.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אבל רגע: זה נכון רק לחבית היבשה! דוב מים <b>רטוב ופעיל</b> הוא בכלל לא גיבור. הוא לא אוהב חום, ואם מחזיקים אותו כמה זמן במים חמים, הוא מת.</p>
+    <p>למה המים כל כך חשובים? כי כשמים קופאים בתוך גוף, הם נעשים <b>קרח</b> עם קצוות חדים שקורעים את התאים. וכשמים מתחממים מאוד, החלקים הקטנים שבתאים מתפרקים, כמו חלבון של ביצה שנעשה לבן במחבת. בחבית כמעט אין מים, אז אין קרח ואין מה שיתבשל. באינטראקטיב: נחשו, ואז שנו את הטמפרטורה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>חשוב לדייק: דובי מים הם לא "חיות של קיצון". הם לא חיים בקור או בחום, הם רק יודעים <b>לחכות</b> שיעברו. דוב מים פעיל ורטוב מת אחרי יממה או שתיים במים של כ־<span class="num">37</span> מעלות, חום של גוף אדם.</p>
+    <p>הסיבה היא כימיה של מים. כשמים קופאים בתוך תא, נוצרים <b>גבישי קרח</b> שגדלים וקורעים את קרומי התאים. בחום, <b>החלבונים</b>, המכונות הזעירות של התא שמקופלות בצורה מדויקת בתוך המים, נפתחים ומאבדים את הצורה. זה נקרא <b>דנטורציה</b>, כמו חלבון ביצה במחבת. בלי מים אין גבישים, ואין מים שבתוכם חלבונים נפתחים. באינטראקטיב: נחשו, ובדקו כל טמפרטורה.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — המדחום של דוב המים ===== -->
+  <div class="panel instrument">
+    <h3>המדחום של דוב המים</h3>
+    <p class="cap">נחשו קודם: שמים במים רותחים, <span class="num">100</span> מעלות, לכמה דקות, גם דוב מים פעיל וגם חבית יבשה. מי ישרוד?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="thP0" onclick="thPredict(0)">הפעיל</button>
+        <button id="thP1" onclick="thPredict(1)">החבית</button>
+        <button id="thP2" onclick="thPredict(2)">שניהם</button>
+        <button id="thP3" onclick="thPredict(3)">אף אחד</button>
+      </div>
+    </div>
+    <canvas role="img" id="thCv" width="640" height="470" aria-label="משמאל: מדחום גדול, מכחול קר בתחתית ועד אדום חם למעלה, עם שם של כל טמפרטורה. מימין: שני כרטיסים. בכרטיס העליון דוב מים פעיל עם רגליים, ובתחתון חבית יבשה. ליד כל אחד עיגול גדול: וי ירוק אם הוא שורד, סימן קריאה כתום אם זה מסוכן, ואיקס אדום אם הוא לא שורד. מלמעלה כתוב אם המים הם קרח, נוזל או אדים">
+    </canvas>
+    <div class="controls">
+      <label>טמפרטורה (שמאלה: קר, ימינה: חם)
+        <input type="range" id="thT" min="0" max="10" step="1" value="5" oninput="thDraw(1)" aria-label="טמפרטורה" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">טמפרטורה: <b class="num" id="thOut">20°</b></div>
+      <div class="readout">מים: <b id="thOut2">נוזל</b></div>
+    </div>
+    <p class="cap" id="thMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div id="thReveal" hidden>
+    <div data-track="younger"><p>ראיתם? כמעט בכל טמפרטורה, החבית היבשה שורדת, והדוב הרטוב לא. הסוד הוא לא שריון חזק. הסוד הוא <b>לא להחזיק מים</b> בזמן הקשה.</p></div>
+    <div data-track="older"><p>זה אולי הרעיון הכי מפתיע של היום: המים, שבלעדיהם אין חיים, הם גם הנקודה החלשה. כמעט כל דרך להרוס תא עוברת דרך המים שבו: קרח שקורע, חלבונים שנפתחים במים חמים, ומולקולות פגועות שנוצרות במים כשקרינה פוגעת בהם. בחבית, כמעט כל המים יצאו.</p></div>
+    <div class="aha">כלל אצבע: <b>מה שאין בו מים, קשה לבשל ולהקפיא.</b> לכן אפשר לשמור קמח, אורז ושמרי אפייה יבשים חודשים בארון.</div>
+  </div>
+
+  <div class="q qc" id="heatQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · BERESHEET (the story) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>הספרייה שנסעה לירח</h2>
+  <p>בשנת <span class="num">2011</span> שלושה מהנדסים צעירים, <b>יריב בש</b>, <b>כפיר דמרי</b> ו<b>יונתן וינטראוב</b>, הקימו עמותה בשם <b>SpaceIL</b> כדי להנחית חללית ישראלית על הירח. יחד עם התעשייה האווירית הם בנו את <b>בראשית</b>: חללית בגובה מטר וחצי, שעם הדלק שקלה <span class="num">585</span> קילוגרם.</p>
+
+  <figure class="calfig" aria-label="כדור הארץ באמצע, ומסביבו שלוש לולאות שהולכות וגדלות. הלולאה הגדולה מגיעה עד הירח, משמאל. ליד כדור הארץ כתוב 22.2.2019, ליד הירח 4.4.2019, ונקודה על הירח מסומנת 11.4.2019">
+    <svg viewBox="0 0 560 300" role="img" aria-hidden="true" focusable="false">
+      <rect x="8" y="8" width="544" height="284" rx="18" fill="var(--night)" stroke="var(--line)" stroke-width="2"/>
+      <g fill="#F2EDE0" opacity=".7"><circle cx="40" cy="40" r="1.6"/><circle cx="300" cy="30" r="1.4"/><circle cx="510" cy="60" r="1.8"/><circle cx="470" cy="250" r="1.4"/><circle cx="60" cy="260" r="1.6"/><circle cx="250" cy="270" r="1.2"/></g>
+      <g fill="none" stroke="var(--aur)" stroke-width="3" stroke-dasharray="7 6">
+        <ellipse cx="400" cy="150" rx="70" ry="44"/>
+        <ellipse cx="350" cy="150" rx="125" ry="70"/>
+        <ellipse cx="290" cy="150" rx="190" ry="98"/>
+      </g>
+      <circle cx="430" cy="150" r="30" fill="#3E9BD6" stroke="#F2EDE0" stroke-width="3"/>
+      <path d="M418 136 q10 -6 18 4 q-4 10 -14 8 z M436 158 q8 -2 10 6 q-8 6 -14 0 z" fill="#4DA36A"/>
+      <circle cx="100" cy="150" r="24" fill="#C9C6BC" stroke="#F2EDE0" stroke-width="3"/>
+      <circle cx="94" cy="142" r="5" fill="#A9A59A"/><circle cx="108" cy="158" r="4" fill="#A9A59A"/>
+      <circle cx="112" cy="133" r="6" fill="var(--aur2)" stroke="#1B1F33" stroke-width="2"/>
+      <text x="430" y="210" text-anchor="middle" font-family="Rubik, Arial" font-weight="700" font-size="22" fill="#F2EDE0" direction="ltr">22.2.2019</text>
+      <text x="100" y="208" text-anchor="middle" font-family="Rubik, Arial" font-weight="700" font-size="22" fill="#F2EDE0" direction="ltr">4.4.2019</text>
+      <text x="140" y="104" text-anchor="middle" font-family="Rubik, Arial" font-weight="700" font-size="22" fill="var(--aur2)" direction="ltr">11.4.2019</text>
+    </svg>
+    <figcaption>בראשית לא טסה ישר. היא הסתובבה סביב כדור הארץ בלולאות שהלכו וגדלו, עד שהירח "תפס" אותה. כל המסע: <b>כ־<span class="num">48</span> ימים</b>. (הציור לא בקנה מידה.)</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ב־<span class="num">22</span> בפברואר <span class="num">2019</span> טיל לקח את בראשית לחלל. היא טסה בלולאות סביב כדור הארץ, כל אחת גדולה יותר, עד שב־<span class="num">4</span> באפריל הירח "תפס" אותה, וישראל נעשתה המדינה השביעית ששלחה חללית להקיף את הירח. ב־<span class="num">11</span> באפריל, בנחיתה, חיישן קטן התקלקל והמנוע נכבה. הדליקו אותו שוב, אבל מאוחר מדי, ובראשית התרסקה ב<b>ים השלווה</b>, מישור גדול ואפור על הירח.</p>
+    <p>בתוך בראשית הייתה <b>ספרייה</b> קטנה בגודל של דיסק, עם יותר מ־<span class="num">30</span> מיליון עמודים, ובהם כל ויקיפדיה באנגלית. באוגוסט <span class="num">2019</span> סיפר נובה ספיבק, האיש שהכין אותה, שברגע האחרון הוסיפו לה <b>אלפי דובי מים מיובשים</b>, בתוך דבק שקוף שהתקשה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בראשית שוגרה ב־<span class="num">22</span> בפברואר <span class="num">2019</span> מפלורידה, על טיל של SpaceX. כדי לחסוך דלק היא לא טסה ישר: בכל פעם שהתקרבה לכדור הארץ הפעילה את המנוע לרגע, והלולאה הבאה נמתחה רחוק יותר. ב־<span class="num">4</span> באפריל נכנסה למסלול סביב הירח, וישראל נעשתה המדינה השביעית שהגיעה לשם.</p>
+    <p>ב־<span class="num">11</span> באפריל, בנחיתה, נכשל <b>ג׳ירוסקופ</b>, חיישן שמודד את הסיבוב של החללית. פקודה שנשלחה כדי לתקן גרמה לשרשרת תקלות, והמחשב כיבה את המנוע הראשי. בשידור האחרון בראשית הייתה <span class="num">150</span> מטרים מעל הקרקע: היא נפלה למטה בכ־<span class="num">134</span> מטרים בשנייה, ובאותו זמן טסה הצידה בכ־<span class="num">950</span> מטרים בשנייה. היא פגעה בים השלווה, אחרי כ־<span class="num">48</span> ימים בדרך.</p>
+    <p>על הסיפון: "הספרייה הירחית" של קרן ארץ׳ (Arch Mission Foundation), ארכיון בגודל של דיסק עם יותר מ־<span class="num">30</span> מיליון עמודים על שכבות דקות של ניקל. באוגוסט <span class="num">2019</span> סיפר מייסד הקרן, <b>נובה ספיבק</b>, שברגע האחרון הוסיפו בין השכבות דגימות DNA ו<b>אלפי דובי מים מיובשים</b>, כלואים בשרף אפוקסי. לדבריו, אולי הם שרדו. האם הוא צודק?</p>
+  </div>
+
+  <div class="q qc" id="beresheetQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · DID THEY SURVIVE? (interactive 3: the impact gun) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>האם הם חיים שם עכשיו?</h2>
+  <p>השאלה הזאת סקרנה שני מדענים מאוניברסיטת קנט שבאנגליה, <b>אלחנדרה טרספס</b> ו<b>מרק בורצ׳ל</b>. הם הקפיאו דובי מים כך שנעשו חביות, שמו שניים־שלושה בתוך כדור ניילון חלול, וירו אותו מ<b>תותח גז</b> של מעבדה לתוך ערימת חול. אחר כך הכניסו אותם למים, וחיכו לראות אם יתעוררו. את התוצאות פרסמו ב־<span class="num">2021</span>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>התוצאה: עד מהירות של <span class="num">825</span> מטרים בשנייה, דובי המים התעוררו! זה מהר יותר מפי <span class="num">3</span> ממטוס נוסעים. במהירות של <span class="num">901</span> מטרים בשנייה ויותר, המכה הייתה חזקה מדי, ובחול מצאו רק חתיכות.</p>
+    <p>ובראשית? ברגעים האחרונים היא טסה הצידה מהר יותר מ־<span class="num">900</span> מטרים בשנייה, ופגעה בסלע קשה ולא בחול רך. לכן דובי המים <b>כנראה</b> לא שרדו. וגם אם אחד מהם שרד, הוא לא יכול להתעורר: על הירח אין מים נוזליים, אין טיפת גשם שתעיר את החבית. באינטראקטיב: נחשו, ואז ירו בכל מהירות.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>התוצאה: דובי המים שרדו פגיעות עד <span class="num">825</span> מטרים בשנייה, אבל לקח להם יותר זמן להתעורר, סימן לנזק פנימי. ב־<span class="num">901</span> מטרים בשנייה ומעלה מצאו רק שברים. מה שהורג אותם הוא לא המהירות עצמה אלא <b>הלחץ</b> ברגע הפגיעה, גל הלם שעובר דרך הגוף. הגבול: <span class="num">1.14</span> ג׳יגה־פסקל, יותר מפי <span class="num">10,000</span> מלחץ האוויר שסביבנו.</p>
+    <p>כדי להשוות למהירויות שאנחנו מכירים, מעבירים ממטרים בשנייה לקילומטרים בשעה. בשעה יש <span class="math">60 × 60 = 3,600</span> שניות, ובקילומטר <span class="num">1,000</span> מטרים. לכן <span class="math">1 מ׳/ש׳ = 3,600 ÷ 1,000 = 3.6 קמ״ש</span>, כלומר כופלים ב־<span class="num">3.6</span>. מטוס נוסעים טס בערך <span class="num">900</span> קמ״ש. כדי לדעת פי כמה משהו מהיר יותר, <b>מחלקים</b> את המהירות שלו במהירות של המטוס.</p>
+    <p>ובראשית? בשידור האחרון היא טסה הצידה בכ־<span class="num">950</span> מטרים בשנייה, יותר מ־<span class="num">901</span>, ופגעה בסלע ולא בחול. החוקרים הסיקו שהלחץ בפגיעה עבר את הגבול, ולכן דובי המים <b>כנראה</b> לא שרדו. ויש עוד מחסום: על הירח אין אוויר, ולכן מים לא נשארים נוזליים על פני השטח; ביום חם שם יותר מ־<span class="num">100</span> מעלות, ובלילה קר יותר ממינוס <span class="num">100</span>. חבית שלא פוגשת מים נוזליים לא תתעורר. באינטראקטיב: נחשו, ובדקו כל מהירות.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — תותח המעבדה ===== -->
+  <div class="panel instrument">
+    <h3>תותח המעבדה</h3>
+    <p class="cap">נחשו קודם: יורים חבית של דוב מים ב־<span class="num">1,000</span> מטרים בשנייה לתוך החול. מה ימצאו החוקרים?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="imP0" onclick="imPredict(0)">דוב מים שמתעורר</button>
+        <button id="imP1" onclick="imPredict(1)">רק חתיכות</button>
+      </div>
+    </div>
+    <canvas role="img" id="imCv" width="640" height="470" aria-label="משמאל: קנה של תותח מעבדה. כדור צהוב קטן ובתוכו חבית של דוב מים עף ימינה אל קופסה של חול. אחרי הפגיעה: אם המהירות לא גבוהה מדי, דוב המים מתעורר בכוס מים עם וי ירוק; אם היא גבוהה מדי, רואים רק חתיכות ואיקס אדום. למטה: סרגל מהירויות, ירוק עד הגבול של 825 מטרים בשנייה ואדום אחריו, עם סימון של מטוס נוסעים">
+    </canvas>
+    <div class="controls">
+      <label>מהירות הירייה (שמאלה: לאט, ימינה: מהר)
+        <input type="range" id="imS" min="0" max="4" step="1" value="0" oninput="imDraw(1)" aria-label="מהירות הירייה" style="direction:ltr">
+      </label>
+      <button class="btn small ghost" id="imFire" onclick="imShoot()">אש!</button>
+    </div>
+    <div class="controls">
+      <div class="readout">מהירות: <b class="num" id="imOut">556</b> מ׳ בשנייה</div>
+      <div class="readout" data-track="older">כלומר: <b class="num" id="imOut2">2,001.6</b> קמ״ש</div>
+    </div>
+    <p class="cap" id="imMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="imReveal" hidden><span class="hand">!</span><p>יש גבול גם לחבית: מכה חזקה מדי מפרקת אותה. ומה שחשוב לזכור על הירח: גם חבית שלמה <b>לא יכולה להתעורר בלי מים</b>. אז אם נשארו שם דובי מים שלמים, הם ישנים. אף אחד לא יודע בוודאות, כי עוד אף אחד לא חזר לשם לבדוק.</p></div>
+
+  <div class="q qc" id="impactQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: GLASS, A DNA SHIELD, 30 YEARS (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>שלושה סודות של החבית</h2>
+  <p>איך בדיוק החבית מחזיקה מעמד? מדענים עדיין חוקרים, אבל כבר גילו שלושה סודות. <b>הראשון: זכוכית במקום מים.</b> כשדוב המים מתייבש, חלבונים מיוחדים שלו נעשים ג׳ל, ואחר כך משהו שדומה לזכוכית, שמחזיק כל חלק בתא במקומו. <b>השני: מגן ל־DNA.</b> <b>השלישי: סבלנות.</b></p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>על המגן: ב־DNA כתובות כל ההוראות של הגוף, כמו ספר מתכונים. לדובי מים יש חלבון בשם <b>Dsup</b> שעוטף את ה־DNA ושומר עליו מקרינה. ב־<span class="num">2016</span> מדענים ביפן הכניסו אותו לתאים של בני אדם במעבדה, והתאים נפגעו פחות.</p>
+    <p>ועל הסבלנות: ב־<span class="num">1983</span> אספו חוקרים מיפן טחב באנטארקטיקה ושמו אותו במקפיא. ב־<span class="num">2014</span>, אחרי יותר מ־<span class="num">30</span> שנה, הפשירו אותו, ושני דובי מים וביצה אחת חזרו לחיים!</p>
+    <p>ואולי דובי מים גרים גם לידכם: כמעט בכל טחב בעולם, כנראה גם על קירות האבן הישנים בזכרון יעקב, יש דובי מים. בפעם הבאה שתראו טחב יבש על קיר, אולי יש בו עכשיו מאות חביות שמחכות לגשם.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>על הזכוכית: לדובי המים יש חלבונים שאין להם צורה קבועה במים. כשהמים יוצאים, הם נצמדים זה לזה, נעשים ג׳ל, ובסוף מצב <b>זכוכיתי</b>: מוצק שהמולקולות בו לא מסודרות בגבישים, כמו סוכריית זכוכית. בתוכו החלבונים של התא לא יכולים לזוז, להיפתח או להידבק זה לזה.</p>
+    <p>על המגן: קרינה פוגעת ב־DNA ישירות, וגם יוצרת במים שסביבו מולקולות תוקפניות. החלבון <b>Dsup</b> ("מדכא נזק") נצמד ל־DNA ומגן עליו; ב־<span class="num">2016</span> הכניסו אותו בטוקיו לתאים של בני אדם, והנזק מקרני רנטגן ירד בכ־<span class="num">40%</span>. ועל הסבלנות: טחב מאנטארקטיקה שהוקפא ב־<span class="num">1983</span> במינוס <span class="num">20</span> מעלות הופשר ב־<span class="num">2014</span>, ושני דובי מים וביצה אחת התעוררו והתרבו.</p>
+    <p>ובארץ: דובי מים נמצאים כמעט בכל טחב, ולכן כנראה גם על קירות האבן בזכרון יעקב. בטחב צפוף יכולים לגור יותר משני מיליון דובי מים במטר מרובע.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> על קיר אבן ישן יש כתם טחב צפוף בגודל <span class="math">30 × 20</span> סנטימטרים. נניח שבטחב כזה גרים <span class="num">2,000,000</span> דובי מים במטר מרובע. (א) מה השטח של הכתם, <b>במטרים מרובעים</b>? (ב) כמה דובי מים גרים בכתם? (רמז: קודם הפכו סנטימטרים למטרים.)</p>
+      <div class="controls">
+        <label>(א) מטרים מרובעים <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) דובי מים <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> דוב מים פעיל ורטוב מת אם מקפיאים אותו מהר מאוד, אבל חבית יבשה שורדת מינוס <span class="num">272</span> מעלות. ומה היה קורה לחבית שמייבשים רק <b>חצי</b> מהמים שבה, ואז מקפיאים?</p>
+      <details><summary>הרמז והתשובה</summary><p><b>מה שהורג בקור הוא הקרח, לא הקור עצמו.</b> כשמים קופאים בתוך תא נוצרים גבישים שגדלים, תופסים יותר מקום, וקורעים את קרומי התאים. בחבית יבשה כמעט אין מים, אז אין ממה ליצור גבישים, והחלבונים כלואים במצב זכוכיתי שלא משתנה בקור. חבית שיובשה רק לחצי עדיין מלאה במים, ולכן כשהיא קופאת נוצרים בה גבישים, והיא כנראה תיפגע. לכן דובי מים מתייבשים <b>לאט</b>, וחוקרים שמייבשים אותם במעבדה מקפידים לייבש לאט: צריך זמן להוציא כמעט את כל המים ולבנות את "הזכוכית".</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>שמרים יבשים, סוכר, מים פושרים, בקבוק ובלון.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — להעיר יצור מיובש (<span class="num">20</span> דקות)</h3>
+    <p class="cap">מה צריך: כפית שמרים יבשים לאפייה, כפית סוכר, חצי כוס מים פושרים (חמים כמו אמבטיה, לא רותחים), בקבוק פלסטיק קטן ובלון.</p>
+    <ol>
+      <li>הסתכלו על השמרים היבשים: גרגרים חומים שלא זזים. הם שכבו ככה בארון חודשים. קשה להאמין, אבל הם <b>חיים</b>: אלה יצורים זעירים מתאים בודדים, שיובשו בדיוק כמו חבית של דוב מים.</li>
+      <li>שימו בבקבוק את השמרים ואת הסוכר, ושפכו פנימה את המים הפושרים. נערו קצת.</li>
+      <li>מתחו את פי הבלון על פי הבקבוק.</li>
+      <li>חכו ותסתכלו: אחרי כמה דקות מופיעות בועות, ואחרי רבע שעה עד חצי שעה הבלון מתחיל להתנפח. השמרים התעוררו, אוכלים את הסוכר, ונושפים גז.</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — כמה חם זה חם מדי? (<span class="num">20</span> דקות, רק עם מבוגר)</summary>
+    <p>עשו שני בקבוקים: באחד מים פושרים, ובשני מים רותחים שמבוגר שופך מקומקום (זהירות, כוויות!). הוסיפו לשניהם שמרים וסוכר, וחכו. באיזה בקבוק הבלון מתנפח? שמרים <b>פעילים</b>, כמו דוב מים פעיל, לא שורדים חום גבוה. זו בדיוק הסיבה שעוגה שנאפית בתנור כבר לא "חיה".</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — ציד דובי מים (לילה אחד, עם מבוגר)</summary>
+    <p>קחו חתיכה קטנה של טחב יבש מקיר או מגג, ושימו בצלחת עם קצת מים (עדיף מי גשם או מים מבקבוק). השאירו ללילה. בבוקר סחטו את הטחב מעל צלחת שקופה, והסתכלו על הטיפות דרך זכוכית מגדלת חזקה מאוד או מיקרוסקופ לילדים. מחפשים "דובון" שקוף שזוחל לאט. זה לא תמיד מצליח בפעם הראשונה, ובכל זאת שווה לנסות! בסוף מחזירים את הטחב למקומו ושוטפים ידיים.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הרעיון הגדול: <b>דוב המים לא שורד כי הוא חזק, אלא כי הוא יודע לעצור.</b> כשאין מים, הוא מוציא כמעט את כל המים מהגוף, נעשה חבית, והחיים שלו כמעט נעצרים. בלי מים אין קרח שקורע ואין מה שיתבשל, ולכן החבית שורדת קור, חום וחלל.</p>
+    <p>והרעיון השני: <b>כדי לחזור לחיים, צריך מים.</b> לכן גם אם דובי המים מבראשית שרדו את ההתרסקות, וכנראה שלא, הם לא יתעוררו על הירח. הם יחכו שם, אולי לתמיד.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הראשון: <b>המים הם גם התנאי לחיים וגם הנקודה החלשה שלהם.</b> כמעט כל נזק לתא עובר דרך המים: גבישי קרח, חלבונים שנפתחים בחום, מולקולות תוקפניות שנוצרות במים מקרינה. דוב המים מוציא את המים ומחליף אותם ב"זכוכית" של חלבונים, ולכן החבית שורדת את מה שהורג את הדוב הפעיל.</p>
+    <p>הרעיון השני: <b>לכל הגנה יש גבול, ומדע אמיתי מודד אותו.</b> הניסוי בתותח מצא את הגבול: <span class="num">825</span> מטרים בשנייה, לחץ של <span class="num">1.14</span> ג׳יגה־פסקל. שאלה לחקור: אם דובי מים שורדים מכה של סלע שנזרק מכוכב לכת, האם חיים יכולים "לטוס" על סלעים מכוכב לכוכב?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הרעיון הזה?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ביולוגיה · ישנים בארון</div><h3>זרעים ושמרים</h3><p>זרע יבש של חיטה או של שעועית הוא כמו חבית: כמעט בלי מים, והחיים בו כמעט עוצרים. תנו לו מים, והוא נובט. גם שמרי האפייה בארון שלכם ישנים ככה.</p></div>
+    <div class="tile"><div class="dom">חלל · חיים על סלעים</div><h3>אפשר לטוס בין כוכבים?</h3><p>כשאבן ענקית פוגעת בכוכב לכת, היא זורקת סלעים לחלל, ולפעמים הם נוחתים על כוכב אחר. החוקרים מקנט רצו לדעת אם יצור כמו דוב מים יכול לשרוד נסיעה כזאת. התשובה: רק כשהפגיעה איטית יחסית.</p></div>
+    <div class="tile"><div class="dom">הנדסה · חיישן קטן</div><h3>תקלה אחת, נחיתה אחת</h3><p>בראשית התרסקה בגלל חיישן אחד ושרשרת של פקודות. מהנדסי חלל לומדים מכל תקלה: הם מכפילים חלקים חשובים, ובודקים מראש מה יקרה אם משהו יתקלקל באמצע.</p></div>
+    <div class="tile"><div class="dom">ישראל · הצעד הבא</div><h3>בראשית 2</h3><p>יומיים אחרי ההתרסקות SpaceIL הכריזה על בראשית <span class="num">2</span>. הפרויקט עבר הרבה שינויים, וב־<span class="num">2025</span> הוא הוקפא בגלל חוסר בכסף. אולי מישהו מכם יבנה את החללית הבאה?</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): כמה דובי מים נכנסים בשורה על הציפורן שלכם?</summary>
+    <p>דוב מים ממוצע ארוך בערך חצי מילימטר. רוחב הציפורן של האצבע הקטנה בערך <span class="num">1</span> סנטימטר. נסו לחשב לפני שפותחים.</p>
+    <details><summary>התשובה</summary>
+      <p>בסנטימטר יש <span class="num">10</span> מילימטרים, ובכל מילימטר נכנסים <span class="num">2</span> דובי מים. אז <span class="math">10 × 2 = 20</span> דובי מים בשורה אחת על הציפורן. והמינים הכי גדולים ארוכים יותר ממילימטר, כמעט כמו גרגר של חול גס.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את האירועים לפי הזמן, מהמוקדם למאוחר. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: לכל דוב מים יש <span class="num">8</span> רגליים. בטיפה אחת של מים מהטחב מצאו <span class="num">25</span> דובי מים. כמה רגליים יש להם ביחד?</div>
+    <div class="controls"><label>רגליים <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: אחת היריות בניסוי בקנט נורתה במהירות של <span class="num">728</span> מטרים בשנייה. (א) מה המהירות הזאת בקילומטרים לשעה? (ב) מטוס נוסעים טס <span class="num">900</span> קמ״ש. פי כמה מהר יותר עף הכדור? (עגלו לספרה אחת אחרי הנקודה. מותר מחשבון.)</div>
+    <div class="controls"><label>(א) קמ״ש <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) פי <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: במעבדה בקנט, דובי מים שרדו ירייה במהירות של <span class="num">825</span> מטרים בשנייה. מה המהירות הזאת בקילומטרים לשעה?</div>
+    <div class="controls"><label>קמ״ש <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>איך דוב מים שורד ייבוש, קור ואפילו את החלל — ולמה גם אם שרד את ההתרסקות של בראשית, הוא לא יתעורר על הירח?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="כשהטחב מתייבש, דוב המים..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. יש חיה בגודל חצי מילימטר, דוב המים, שכשהטחב שלה מתייבש היא מוציאה כמעט את כל המים מהגוף, נעשית "חבית", ומחכה. ככה היא שורדת קור של מינוס <span class="num">272</span> מעלות, חום של יותר ממים רותחים, ואפילו <span class="num">10</span> ימים בחלל הפתוח. טיפת מים, והיא חוזרת לחיים.<br>
+    2. בחללית הישראלית בראשית, שהתרסקה על הירח ב־<span class="num">2019</span>, היו אלפי דובי מים מיובשים, בתוך ספרייה קטנה. ניסוי שבו <b>ירו</b> דובי מים מתותח מצא שהם שורדים מכות עד <span class="num">825</span> מטרים בשנייה, אבל ההתרסקות הייתה כנראה חזקה מדי.<br>
+    3. וגם אם אחד מהם שרד, הוא לא יתעורר: על הירח אין מים נוזליים. אולי הוא שוכב שם עכשיו, חבית קטנה שמחכה לגשם שלא יבוא.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>דובי המים: ויקיפדיה, "Tardigrade" — גצה (Goeze) קרא להם "kleiner Wasserbär" ב־<span class="num">1773</span>, ספאלנצני קרא לקבוצה Tardigrada ("הולכים לאט") ב־<span class="num">1776</span>; רוב המינים <span class="math">0.05–0.5</span> מ״מ, הגדולים עד כ־<span class="num">1.3</span> מ״מ; ארבעה זוגות רגליים עם טפרים; טחב יכול להכיל יותר משני מיליון לכל מ״ר; במצב tun אין פעילות מטבולית מדידה. ויקיפדיה, "Environmental tolerance in tardigrades" — tun שורד מינוס <span class="num">272</span> לזמן קצר ו־<span class="num">151</span> מעלות לכמה דקות; חצי מהפעילים הלא מאוקלמים מתים אחרי <span class="num">48</span> שעות ב־<span class="num">37.1</span> מעלות; מנת קרינה קטלנית לחצי מהם כ־<span class="num">5,000</span> גריי (אדם: <span class="math">5–10</span>); "סבולניים, לא אקסטרמופילים"; Dsup וחלבוני CAHS. אוניברסיטת מונפלייה, "Has the mystery of tardigrades' extreme resilience finally been solved?" —ב־tun מאבדים כ־<span class="num">95%</span> מהמים; התעוררות אצל מינים מסוימים בפחות מחמש דקות.</p>
+    <p>החלל: ESA, "Tiny animals survive exposure to space" — פוטון M3 (חללית רוסית; ניסוי TARDIS על פלטפורמת Biopan-6 של ESA), ספטמבר <span class="num">2007</span>, כ־<span class="num">3,000</span> דובי מים, פרויקט TARDIS של אינגמר יונסון. ScienceDaily (<span class="num">2008</span>), על פי Jönsson et al., Current Biology — גובה כ־<span class="num">270</span> ק״מ; רובם שרדו ריק וקרינה קוסמית, חלק שרדו גם UV של השמש (פי יותר מ־<span class="num">1,000</span> מעל פני הקרקע), והניצולים התרבו. ויקיפדיה — <span class="num">10</span> ימי חשיפה. NIPR (<span class="num">2016</span>) — טחב מאנטארקטיקה שנאסף בנובמבר <span class="num">1983</span>, נשמר במינוס <span class="num">20</span>, הופשר במאי <span class="num">2014</span>: שני פרטים וביצה אחת (Acutuncus antarcticus) התעוררו, וביצים בקעו (Tsujimoto et al., Cryobiology). ScienceAlert (<span class="num">2016</span>), על פי Hashimoto et al., Nature Communications — Dsup מ־Ramazzottius varieornatus הקטין נזק מקרני רנטגן בתאים אנושיים בכ־<span class="num">40%</span>.</p>
+    <p>בראשית: ויקיפדיה, "Beresheet" — שוגרה <span class="num">22</span> בפברואר <span class="num">2019</span> על Falcon 9; נכנסה למסלול סביב הירח ב־<span class="num">4</span> באפריל; התרסקה ב־<span class="num">11</span> באפריל במארה סרניטטיס; <span class="num">585</span> ק״ג עם דלק, גובה <span class="num">1.5</span> מ׳; תקלה בג׳ירוסקופ ביחידת המדידה האינרציאלית (IMU2) וכיבוי המנוע; בשידור האחרון <span class="num">150</span> מ׳ מעל הקרקע ביותר מ־<span class="num">500</span> קמ״ש. Planetary Society ו־ScienceAlert — מהירות אנכית כ־<span class="num">134</span> מ׳ בשנייה ואופקית כ־<span class="num">947</span> מ׳ בשנייה בשידור האחרון; הספרייה: יותר מ־<span class="num">30</span> מיליון עמודים, דובי מים ודגימות גנטיות שנוספו ברגע האחרון בשרף אפוקסי; מחקר <span class="num">2021</span> קבע שכנראה נהרסו בפגיעה. ויקיפדיה, "SpaceIL" — נוסדה ב־<span class="num">2011</span> על ידי יריב בש, כפיר דמרי ויונתן וינטראוב; המדינה השביעית שהגיעה למסלול סביב הירח; בראשית <span class="num">2</span> הושעתה ב־<span class="num">2025</span> מחוסר מימון. Times of Israel (<span class="num">6</span> באוגוסט ו־<span class="num">17</span> באפריל <span class="num">2019</span>) — "אלפי" דובי מים, דברי נובה ספיבק; <span class="math">5–6</span> ניסיונות להדליק מחדש את המנוע. Inverse — דובי המים בין יריעות ניקל דקות ובאפוקסי; התעוררות על הירח לא סבירה בלי מים.</p>
+    <p>הניסוי בתותח: ScienceAlert ו־Smithsonian (מאי <span class="num">2021</span>), על פי Traspas &amp; Burchell, Astrobiology — Hypsibius dujardini הואכלו בטחב, הוקפאו ל־tun, <span class="math">2–3</span> בכל כדור ניילון, תותח גז דו־שלבי; שרדו עד <span class="num">825</span> מ׳ בשנייה (התאוששו לאט יותר), ב־<span class="num">901</span> נמצאו רק שברים; גבול לחץ הלם <span class="num">1.14</span> GPa. אוניברסיטת קנט — דוב מים שחולץ אחרי ירייה של <span class="num">728</span> מ׳ בשנייה. טמפרטורות פני הירח (מעל <span class="num">100</span> ביום, מתחת למינוס <span class="num">100</span> בלילה) — ערכים מקובלים של NASA, משתנים לפי מקום.</p>
+    <p>חישובי השיעור: הצעיר <span class="math">25 × 8 = 200</span>; הבוגר <span class="math">825 × 3.6 = 2,970</span> קמ״ש; מתקדם (א) <span class="math">728 × 3.6 = 2,620.8</span> קמ״ש, (ב) <span class="math">2,620.8 ÷ 900 ≈ 2.9</span>; האתגר (א) <span class="math">0.3 × 0.2 = 0.06</span> מ״ר, (ב) <span class="math">0.06 × 2,000,000 = 120,000</span>; בונוס <span class="math">10 × 2 = 20</span>; פרק 4 <span class="math">3,600 ÷ 1,000 = 3.6</span>.</p>
+    <p>פישוטים במכוון: באינטראקטיב הראשון "מים בגוף" יורד מ־<span class="num">100%</span> ל־<span class="num">5%</span> מכמות המים הרגילה, ולוח הזמנים מקוצר. במדחום, גבולות הדוב הפעיל (בערך <span class="math">0–35</span> מעלות; "מסוכן" ליד מינוס <span class="num">20</span> ו־<span class="num">40</span>) מעוגלים ותלויים במין ובמשך החשיפה; לחבית, "שורד" ב־<span class="num">100</span> וב־<span class="num">150</span> מעלות רק לכמה דקות. בתותח מוצגות רק מהירויות שנבדקו (<span class="math">556–1,000</span> מ׳ בשנייה); מהירות המטוס (כ־<span class="num">900</span> קמ״ש, <span class="num">250</span> מ׳ בשנייה) לצורך השוואה. ש"דובי המים על הירח כנראה לא שרדו" — מסקנת החוקרים, לא תצפית. "כנראה יש דובי מים בטחב בזכרון יעקב" — הסקה מכך שהם נפוצים בטחב בכל העולם, לא ממחקר מקומי. כמות של "<span class="num">2,000,000</span> למ״ר" באתגר היא הנחה בגבול העליון.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:36, code:'WOW-036', date:'2026-10-17', title:'דובי המים שהגיעו לירח בחללית ישראלית', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15fXqNeZ15Qg15zXoiDXqteZ15HXlw=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'biology', w:3 }, { id:'space', w:2 }, { id:'physics', w:2 }, { id:'history', w:1 }, { id:'math', w:2 } ],
+  /* lint-ignore: math */
+  hero: { name:'דובי המים שהגיעו לירח בחללית ישראלית — חבית בלי מים, מבחני קיצון, בראשית ותותח המעבדה', fact:'בלי מים דוב המים נעשה חבית ששורדת קור, חום, חלל וירייה של 825 מ׳ בשנייה — אבל רק מים מעירים אותה.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'prediction',            d:2 },
+    'qc:dryQ':        { skill:'mechanism',             d:2 },
+    'qc:heatQ':       { skill:'cause-effect',          d:3 },
+    'qc:beresheetQ':  { skill:'history',               d:2 },
+    'qc:impactQ':     { skill:'observation',           d:2 },
+    'qc:deepQ':       { skill:'recall',                d:2 },
+    'mcq:shared:0':   { skill:'mechanism',             d:2 },
+    'mcq:shared:1':   { skill:'observation',           d:2 },
+    'mcq:shared:2':   { skill:'reasoning',             d:3 },
+    'mcq:younger:0':  { skill:'recall',                d:2 },
+    'mcq:older:0':    { skill:'cause-effect',          d:4 },
+    'order':          { skill:'chronology',            d:3 },
+    'num:younger':    { skill:'multiplication',        d:2 },
+    'num:older':      { skill:'unit-conversion',       d:3 },
+    'num:adv':        { skill:'multi-step',            d:4 },
+    'challenge':      { skill:'area-and-rates',        d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ drDraw(0); showArtoTip(); } if(n===2) thDraw(0); if(n===4) imDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: how fast can a dried water bear be shot and still survive? ----------
+   Four choices, in metres per second: 10 (a fast bike), 30 (a car on a highway), 250 (an airliner), 825 (the right answer: Traspas & Burchell 2021). data-scale: m/s. */
+const SCALE_ANS = 825;                                                // the fastest shot the tuns survived (901 m/s and up: fragments only)
+const fmtSigns = n => n<20 ? 'כמו אופניים מהירים' : n<100 ? 'כמו מכונית בכביש מהיר' : n<500 ? 'כמו מטוס נוסעים' : 'יותר מפי 3 ממטוס נוסעים';
+const SCALE_FB = {
+  825: '<span class="pill-ok">קלעתם!</span> <span class="num">825</span> מטרים בשנייה, יותר מפי <span class="num">3</span> ממטוס נוסעים. ואחרי המכה, טיפת מים, ודוב המים התעורר. איך יצור כל כך קטן שורד דבר כזה, ולמה זה קשור לירח? על זה השיעור.',
+  10: '<span class="pill-bad">הרבה יותר!</span> דובי המים שרדו עד <span class="num">825</span> מטרים בשנייה, יותר מפי <span class="num">3</span> ממטוס נוסעים. ואחרי המכה, טיפת מים, ודוב המים התעורר. איך יצור כל כך קטן שורד דבר כזה, ולמה זה קשור לירח? על זה השיעור.',
+  30: '<span class="pill-bad">הרבה יותר!</span> דובי המים שרדו עד <span class="num">825</span> מטרים בשנייה, יותר מפי <span class="num">3</span> ממטוס נוסעים. ואחרי המכה, טיפת מים, ודוב המים התעורר. איך יצור כל כך קטן שורד דבר כזה, ולמה זה קשור לירח? על זה השיעור.',
+  250: '<span class="pill-bad">עוד יותר!</span> דובי המים שרדו עד <span class="num">825</span> מטרים בשנייה, יותר מפי <span class="num">3</span> ממטוס נוסעים. ואחרי המכה, טיפת מים, ודוב המים התעורר. איך יצור כל כך קטן שורד דבר כזה, ולמה זה קשור לירח? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* deterministic pseudo-random (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* a generic play/scrub helper: animates a 0–100 range input over `ms` milliseconds, calling draw(1) each frame */
+function xPlayer(id, rangeId, btnId, ms, draw, onLabel, offLabel){
+  const st={ raf:0 };
+  st.toggle=function(){ if(st.raf){ cancelAnimationFrame(st.raf); st.raf=0; st.btn(false); return; }
+    const r=document.getElementById(rangeId); const top=+(r.max||100); if(+r.value>=top) r.value=0;
+    if(XREDUCED){ r.value=Math.min(top,+r.value+20); draw(1); return; }
+    const t0=performance.now(), start=+r.value; st.btn(true);
+    const step=now=>{ const v=Math.min(top, start+(now-t0)/ms*100); r.value=Math.round(v); draw(1); if(v<top){ st.raf=requestAnimationFrame(step); } else { st.raf=0; st.btn(false); } };
+    st.raf=requestAnimationFrame(step); };
+  st.btn=function(on){ const b=document.getElementById(btnId); b.textContent = on ? onLabel : offLabel; b.classList.toggle('on',on); };
+  return st;
+}
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+/* ---------- shared numbers for this edition ---------- */
+const PI = Math.PI;
+const BODY_WATER_MIN = 5;                      // a tun keeps ≈ 5 % of its water (it loses ≈ 95 %: Univ. Montpellier)
+const LIMIT_MS = 825;                          // fastest shot survived (Traspas & Burchell, Astrobiology 2021)
+const DEAD_MS = 901;                           // only fragments recovered from this speed up
+const IM_SP = [556,728,825,901,1000];          // interactive 3: speeds actually tested (556–1000 m/s); 728 = a survivor recovered (Univ. Kent)
+const PLANE_MS = 250;                          // comparison only: an airliner ≈ 900 km/h ≈ 250 m/s
+/* interactive 2: the thermometer. a = active (wet) water bear, t = tun; 'ok' | 'risk' | 'dead'. Rounded on purpose (see the adults' notes). */
+const TH = [
+  { t:-272, n:'קר כמעט כמו החלל',      a:'dead', tu:'ok' },
+  { t:-196, n:'חנקן נוזלי',            a:'dead', tu:'ok' },
+  { t:-80,  n:'חורף באנטארקטיקה',      a:'dead', tu:'ok' },
+  { t:-20,  n:'מקפיא בבית',            a:'risk', tu:'ok' },
+  { t:0,    n:'קרח נמס',               a:'ok',   tu:'ok' },
+  { t:20,   n:'יום נעים',              a:'ok',   tu:'ok' },
+  { t:40,   n:'יום חם מאוד',           a:'risk', tu:'ok' },
+  { t:60,   n:'מים חמים מאוד',         a:'dead', tu:'ok' },
+  { t:100,  n:'מים רותחים',            a:'dead', tu:'min' },
+  { t:150,  n:'חם יותר ממים רותחים',   a:'dead', tu:'min' },
+  { t:200,  n:'תנור אפייה',            a:'dead', tu:'dead' }
+];
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const WARN = () => isDark() ? '#F6C454' : '#C97A12';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const WATER = () => isDark() ? 'rgba(79,168,224,.30)' : 'rgba(62,155,214,.25)';
+const WATERL = () => isDark() ? '#4FA8E0' : '#3E9BD6';
+function mix(a,b,t){ const pa=[1,3,5].map(i=>parseInt(a.substr(i,2),16)), pb=[1,3,5].map(i=>parseInt(b.substr(i,2),16)); return '#'+pa.map((v,i)=>Math.round(v+(pb[i]-v)*t).toString(16).padStart(2,'0')).join(''); }
+const BEAR = d => mix(isDark()?'#E9B79C':'#F0BFA3', isDark()?'#A57B52':'#9C6B3E', d);
+function fmtN(n){ return Number(n).toLocaleString('en-US'); }
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+
+/* a water bear, head to the right. d = 0 → active (legs out); d = 1 → a tun (legs and head pulled in, shorter, wrinkled, browner). s = scale. */
+function drawBear(c, cx, cy, s, d){
+  const rx=(150-72*d)*s, ry=(60-6*d)*s, ink=css('--ink'), col=BEAR(d);
+  c.lineWidth=Math.max(2,3*s); c.strokeStyle=ink; c.lineCap='round';
+  /* legs: 4 along the bottom (and the far ones, darker, a little behind) */
+  const L=48*(1-d)*s;
+  if(L>2){ [-0.72,-0.24,0.24,0.66].forEach((f,i)=>{ const x=cx+f*rx, y0=cy+ry*0.72;
+      c.fillStyle=mix(col,'#000000',.22); c.beginPath(); c.roundRect(x+10*s,y0-10*s,18*s,L*0.8+6*s,8*s); c.fill(); c.stroke();
+      c.fillStyle=col; c.beginPath(); c.roundRect(x-11*s,y0-4*s,22*s,L+4*s,10*s); c.fill(); c.stroke();
+      if(d<0.75){ c.beginPath(); for(let k=-1;k<=1;k++){ c.moveTo(x+k*6*s,y0+L); c.lineTo(x+k*8*s,y0+L+9*s); } c.stroke(); } }); }
+  /* body */
+  c.fillStyle=col; c.beginPath(); c.ellipse(cx,cy,rx,ry,0,0,PI*2); c.fill(); c.stroke();
+  /* segments */
+  c.strokeStyle=mix(col,'#000000',.35); c.lineWidth=Math.max(1.5,2*s);
+  [-0.5,0,0.5].forEach(f=>{ const x=cx+f*rx; const h=ry*Math.sqrt(1-f*f)*0.92; c.beginPath(); c.moveTo(x-6*s,cy-h); c.quadraticCurveTo(x+6*s,cy,x-6*s,cy+h); c.stroke(); });
+  if(d>0.5){ c.globalAlpha=(d-0.5)*2; for(let i=0;i<5;i++){ const x=cx-rx*0.7+i*rx*0.35; c.beginPath(); c.moveTo(x,cy-ry*0.5); c.lineTo(x+10*s,cy-ry*0.35); c.moveTo(x-4*s,cy+ry*0.3); c.lineTo(x+8*s,cy+ry*0.45); c.stroke(); } c.globalAlpha=1; }
+  /* head */
+  const hr=34*(1-d)*s;
+  if(hr>3){ const hx=cx+rx-6*s, hy=cy-8*s; c.fillStyle=col; c.strokeStyle=ink; c.lineWidth=Math.max(2,3*s); c.beginPath(); c.arc(hx,hy,hr,0,PI*2); c.fill(); c.stroke();
+    if(d<0.6){ c.fillStyle=ink; c.beginPath(); c.arc(hx+hr*0.25,hy-hr*0.3,Math.max(2,4*s),0,PI*2); c.fill(); c.beginPath(); c.arc(hx+hr*0.72,hy+hr*0.1,Math.max(2,5*s),0,PI*2); c.stroke(); } }
+}
+/* status icons: ok = green tick, risk = orange "!", dead = red cross, min = green tick + clock (only minutes) */
+function statusIcon(c,x,y,r,st){
+  const col = st==='ok'||st==='min' ? GOOD() : st==='risk' ? WARN() : DANG();
+  c.fillStyle=col; c.beginPath(); c.arc(x,y,r,0,PI*2); c.fill();
+  c.strokeStyle='#FFFFFF'; c.lineWidth=r*0.2; c.lineCap='round'; c.lineJoin='round'; c.beginPath();
+  if(st==='ok'||st==='min'){ c.moveTo(x-r*0.45,y+r*0.02); c.lineTo(x-r*0.1,y+r*0.38); c.lineTo(x+r*0.5,y-r*0.36); c.stroke(); }
+  else if(st==='risk'){ c.moveTo(x,y-r*0.5); c.lineTo(x,y+r*0.12); c.stroke(); c.fillStyle='#FFFFFF'; c.beginPath(); c.arc(x,y+r*0.45,r*0.12,0,PI*2); c.fill(); }
+  else { c.moveTo(x-r*0.4,y-r*0.4); c.lineTo(x+r*0.4,y+r*0.4); c.moveTo(x+r*0.4,y-r*0.4); c.lineTo(x-r*0.4,y+r*0.4); c.stroke(); }
+  c.lineCap='butt'; c.lineJoin='miter';
+}
+/* a horizontal meter with a Hebrew label on its right */
+function meter(c, label, val, y, col){
+  const x0=40, x1=440; c.fillStyle=css('--line'); c.beginPath(); c.roundRect(x0,y-14,x1-x0,28,14); c.fill();
+  c.fillStyle=col; const fw=Math.max(28,(x1-x0)*val/100); c.beginPath(); c.roundRect(x1-fw,y-14,fw,28,14); c.fill();   // RTL: fills from the right
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.beginPath(); c.roundRect(x0,y-14,x1-x0,28,14); c.stroke();
+  xText(c,label,620,y,22,css('--ink'),'right');
+}
+
+/* ---------- step 1 (interactive 1): from bear to barrel (canvas) ----------
+   drW 0–10 = water in the moss (w = value ÷ 10). The bear curls when the moss dries: d = 0 for w ≥ 0.6, d = 1 for w ≤ 0.1, smooth between.
+   Body water (% of normal) = 5 + 95 × (1 − d); activity = 100 × (1 − d)², shown as "almost 0" in a tun. A drop of water animates w back to 1. */
+const drCv=document.getElementById('drCv'), drctx=drCv.getContext('2d');
+const DR={ opened:0, pred:-1, revealed:0, moves:0, last:10, tun:0, anim:0 };
+function drPredict(k){ DR.pred=k; [0,1,2].forEach(i=>document.getElementById('drP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'dry:predict', kind:'quick', correct:k===2, attempt: wowTry('dry:predict') });
+  drMsg.innerHTML = k===2 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו ייבשו את הטחב ובדקו.' : 'רשמנו את הניחוש. עכשיו ייבשו את הטחב ובדקו.'; }
+function drDropWater(){
+  if(DR.pred<0){ predictFirst(drMsg,'ייבשו והרטיבו'); return; }
+  if(+drW.value>=10){ drMsg.innerHTML='הטחב כבר רטוב. קודם ייבשו אותו (הזיזו את הכפתור שמאלה).'; return; }
+  if(DR.anim) return;
+  const from=+drW.value, t0=performance.now(), ms=XREDUCED?0:1400; DR.moves++;
+  const step=now=>{ const p=ms?Math.min(1,(now-t0)/ms):1; drW.value=Math.round(from+(10-from)*p); drDraw(2); if(p<1){ DR.anim=requestAnimationFrame(step); } else { DR.anim=0; drDraw(3); } };
+  DR.anim=requestAnimationFrame(step);
+}
+function drDraw(user){
+  const c=drctx, W=drCv.width, H=drCv.height;
+  let blocked=false; if(user===1 && DR.pred<0 && +drW.value!==10){ drW.value=10; blocked=true; }
+  if(user && !DR.opened){ DR.opened=1; WOW.emit('open', { id:'dry' }); }
+  const v=+drW.value, w=v/10, d=clamp((0.6-w)/0.5,0,1);
+  if(user===1 && !blocked && v!==DR.last){ DR.moves++; DR.last=v; }
+  if(d>=1) DR.tun=1;
+  c.clearRect(0,0,W,H);
+  c.fillStyle = mix(isDark()?'#1D3266':'#D7E8F4', isDark()?'#3A2A12':'#FBE7C2', 1-w); c.fillRect(0,0,W,H);
+  /* the sun gets stronger as the moss dries */
+  const sr=22+20*(1-w); c.fillStyle=GOLD(); c.beginPath(); c.arc(70,170,sr,0,PI*2); c.fill();
+  c.strokeStyle=GOLD(); c.lineWidth=4; for(let i=0;i<8;i++){ const a=i*PI/4; c.beginPath(); c.moveTo(70+Math.cos(a)*(sr+8),170+Math.sin(a)*(sr+8)); c.lineTo(70+Math.cos(a)*(sr+20),170+Math.sin(a)*(sr+20)); c.stroke(); }
+  /* moss at the bottom: green when wet, straw-brown when dry */
+  const R=prng(7), mc=mix(isDark()?'#5FBF7F':'#4DA36A', isDark()?'#8A7047':'#B89A5A', 1-w), md=mix(isDark()?'#3E9A62':'#2F7D4F', isDark()?'#5E4E33':'#8A6E3A', 1-w);
+  c.fillStyle=md; c.fillRect(0,400,W,H-400);
+  for(let i=0;i<70;i++){ const x=R()*W, h=24+R()*40, lean=(R()-0.5)*24; c.strokeStyle=R()<0.5?mc:md; c.lineWidth=5; c.lineCap='round'; c.beginPath(); c.moveTo(x,H); c.quadraticCurveTo(x+lean,H-h*0.6,x+lean*1.4,400-h*0.4); c.stroke(); }
+  c.lineCap='butt';
+  /* the film of water around the bear */
+  if(w>0.08){ c.fillStyle=WATER(); c.strokeStyle=WATERL(); c.lineWidth=3; c.beginPath(); c.ellipse(320,300,90+200*w,30+120*w,0,0,PI*2); c.fill(); c.globalAlpha=.6; c.stroke(); c.globalAlpha=1; }
+  /* the bear (hugely magnified) */
+  drawBear(c, 320, 280, 1, d);
+  /* meters */
+  const bw=Math.round(BODY_WATER_MIN+(100-BODY_WATER_MIN)*(1-d)), act=Math.round(100*(1-d)*(1-d));
+  meter(c,'מים בגוף',bw,40,WATERL()); meter(c,'פעילות',act,92,GOOD());
+  const state = d<=0 ? 'פעיל: הולך ואוכל' : d<1 ? 'מתייבש: מקפל את הרגליים' : 'חבית: מחכה למים';
+  xLabel(c,state,320,440,24,css('--ink'),.9);
+  /* readouts & message */
+  drOut.textContent=bw+'%'; drOut2.textContent = d<=0 ? 'פעיל' : d<1 ? 'מתקפל' : 'חבית';
+  if(DR.moves>=2 && DR.pred>=0 && DR.tun && !DR.revealed){ DR.revealed=1; drReveal.hidden=false; }
+  if(blocked){ predictFirst(drMsg,'הזיזו'); return; }
+  if(user===3){ drMsg.innerHTML = (S.track==='older' ? 'המים חזרו לתאים, ו"הזכוכית" שהחזיקה אותם נמסה. במציאות זה לוקח בין כמה דקות לכמה שעות, לפי המין ולפי כמה זמן חיכה.' : 'שתה מים, התנפח, והרגליים יצאו! במציאות זה לוקח בין כמה דקות לכמה שעות.'); return; }
+  if(user===1) drMsg.innerHTML = d>=1 ? (S.track==='older' ? 'חבית: נשארו בערך <span class="num">5%</span> מהמים, ו<b>חילוף החומרים כמעט נעצר</b>. עכשיו נסו את הכפתור "טיפת מים!".' : 'חבית! כמעט בלי מים, וכמעט בלי חיים. עכשיו נסו את הכפתור "טיפת מים!".')
+    : d>0 ? 'הטחב מתייבש. דוב המים מוציא מים מהגוף ומקפל את הרגליים פנימה.' : 'יש מספיק מים: דוב המים הולך, אוכל, וחי רגיל.';
+}
+
+/* ---------- step 2 (interactive 2): the water bear's thermometer (canvas) ----------
+   thT 0–10 → TH[i]. Left: a thermometer with 11 evenly spaced stops (not to scale — the stops are named). Right: two cards, the active bear and the tun, each with a status icon. */
+const thCv=document.getElementById('thCv'), thctx=thCv.getContext('2d');
+const TV={ opened:0, pred:-1, revealed:0, moves:0, last:5, seen:{} };
+function thPredict(k){ TV.pred=k; [0,1,2,3].forEach(i=>document.getElementById('thP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'thermo:predict', kind:'quick', correct:k===1, attempt: wowTry('thermo:predict') });
+  thMsg.innerHTML = k===1 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו הזיזו את הטמפרטורה ובדקו.' : 'רשמנו את הניחוש. עכשיו הזיזו את הטמפרטורה ובדקו.'; }
+const ST_HE = { ok:'שורד', min:'רק לכמה דקות', risk:'מסוכן', dead:'לא שורד' };
+function thDraw(user){
+  const c=thctx, W=thCv.width, H=thCv.height;
+  let blocked=false; if(user && TV.pred<0 && +thT.value!==5){ thT.value=5; blocked=true; }
+  if(user && !TV.opened){ TV.opened=1; WOW.emit('open', { id:'thermo' }); }
+  const i=+thT.value, P=TH[i];
+  if(user && !blocked && i!==TV.last){ TV.moves++; TV.last=i; TV.seen[i]=1; }
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* the thermometer */
+  const tx=72, ty0=100, ty1=400, by=432, f=i/(TH.length-1), level=ty1-(ty1-ty0)*f;
+  const g=c.createLinearGradient(0,ty1,0,ty0); g.addColorStop(0,'#3E7BD6'); g.addColorStop(0.42,'#7FB3DD'); g.addColorStop(0.55,'#E8A33D'); g.addColorStop(1,'#C8452D');
+  c.fillStyle=css('--card'); c.strokeStyle=css('--ink'); c.lineWidth=3; c.beginPath(); c.roundRect(tx-20,ty0-20,40,ty1-ty0+40,20); c.fill(); c.stroke();
+  c.fillStyle=g; c.beginPath(); c.roundRect(tx-11,level,22,by-level,11); c.fill();
+  c.beginPath(); c.arc(tx,by,30,0,PI*2); c.fill(); c.stroke();
+  c.strokeStyle=css('--ink'); c.lineWidth=2; for(let k=0;k<TH.length;k++){ const y=ty1-(ty1-ty0)*k/(TH.length-1); c.beginPath(); c.moveTo(tx+20,y); c.lineTo(tx+(k===i?40:30),y); c.stroke(); }
+  c.fillStyle=css('--ink'); xArrow(c,tx+52,level,-1,0,14);
+  /* the top line: temperature + its name; and the state of water */
+  const water = P.t<0 ? 'מים: קרח' : P.t<100 ? 'מים: נוזל' : 'מים: רותחים, נעשים אדים';
+  xTagN(c, (P.t>0?'+':P.t<0?'\u2212':'')+Math.abs(P.t)+'°', P.n, 400, 36, 26, P.t<0?'#2F6FB8':P.t>=60?DANG():css('--ink'), 'center');   // a long minus sign, coloured cold/hot, so it never reads as a dash
+  xText(c, water, 400, 80, 20, P.t<0?'#3E7BD6':P.t<100?WATERL():DANG(), 'center');
+  /* the two cards */
+  [[P.a,'דוב מים פעיל (רטוב)',0,116],[P.tu,'חבית יבשה',1,296]].forEach(([st,name,d,y])=>{
+    c.fillStyle=css('--card'); c.strokeStyle=st==='dead'?DANG():st==='risk'?WARN():GOOD(); c.lineWidth=4; c.beginPath(); c.roundRect(150,y,474,164,16); c.fill(); c.stroke();
+    xText(c,name,606,y+30,22,css('--ink'),'right');
+    drawBear(c, d?330:320, y+92, d?0.42:0.34, d);
+    statusIcon(c,212,y+86,40,st);
+    xText(c,ST_HE[st],606,y+136,20,st==='dead'?DANG():st==='risk'?WARN():GOOD(),'right');
+  });
+  /* readouts & message */
+  thOut.textContent=(P.t>0?'+':P.t<0?'\u2212':'')+Math.abs(P.t)+'°'; thOut2.textContent = P.t<0?'קרח':P.t<100?'נוזל':'רותחים';
+  if(TV.moves>=2 && TV.pred>=0 && !TV.revealed){ TV.revealed=1; thReveal.hidden=false; }
+  if(blocked){ predictFirst(thMsg,'הזיזו'); return; }
+  if(user) thMsg.innerHTML = P.t<=-80 ? (S.track==='older' ? 'בדוב הרטוב המים קופאים לגבישי קרח שקורעים את התאים. בחבית כמעט אין מים, אז אין גבישים.' : 'הדוב הרטוב קופא, והקרח קורע לו את התאים. בחבית כמעט אין מים, אז אין קרח.')
+    : P.t===-20 ? 'קפיאה רגילה: חלק מדובי המים הרטובים שורדים אותה, אם הקור מגיע לאט. החבית שורדת בקלות.'
+    : P.t<=20 ? 'טמפרטורה נעימה: כאן דוב המים חי, הולך ואוכל.'
+    : P.t===40 ? (S.track==='older' ? 'חום של יום קיץ: דוב רטוב לא שורד הרבה זמן גם ב־<span class="num">37</span> מעלות.' : 'חם מאוד: דוב רטוב לא שורד הרבה זמן בחום כזה.')
+    : P.t<200 ? (S.track==='older' ? 'בדוב הרטוב החלבונים נפתחים ונהרסים, כמו חלבון ביצה במחבת. החבית שורדת'+(P.t>=100?', אבל רק לכמה דקות.':'.') : 'הדוב הרטוב "מתבשל", כמו ביצה. החבית שורדת'+(P.t>=100?', לכמה דקות.':'.'))
+    : 'בתנור אפייה גם החבית לא שורדת. לכל הגנה יש גבול.';
+}
+
+/* ---------- step 4 (interactive 3): the lab gun (canvas) ----------
+   imS 0–4 → IM_SP (m/s). "Fire" animates the capsule from the barrel into the sand box (≈ 0.8 s). Outcome: ≤ LIMIT_MS survives (≥ 700 m/s: wakes slowly), ≥ DEAD_MS fragments.
+   Bottom: a speed ruler 0–1100 m/s (x = 40 + v × 560 ÷ 1100) with the airliner and the limit marked. */
+const imCv=document.getElementById('imCv'), imctx=imCv.getContext('2d');
+const IM={ opened:0, pred:-1, revealed:0, shots:0, p:0, hit:false, anim:0, last:0 };
+function imPredict(k){ IM.pred=k; [0,1].forEach(i=>document.getElementById('imP'+i).classList.toggle('on',i===k)); WOW.emit('item', { id:'gun:predict', kind:'quick', correct:k===1, attempt: wowTry('gun:predict') });
+  imMsg.innerHTML = k===1 ? '<span class="pill-ok">ניחוש חד.</span> עכשיו בחרו מהירות ולחצו "אש!".' : 'רשמנו את הניחוש. עכשיו בחרו מהירות ולחצו "אש!".'; }
+function imShoot(){
+  if(IM.pred<0){ predictFirst(imMsg,'ירו'); return; }
+  if(IM.anim) return;
+  IM.hit=false; IM.p=0; const t0=performance.now(), ms=XREDUCED?0:800;
+  const step=now=>{ IM.p=ms?Math.min(1,(now-t0)/ms):1; imDraw(0); if(IM.p<1){ IM.anim=requestAnimationFrame(step); } else { IM.anim=0; IM.hit=true; IM.shots++; imDraw(2); } };
+  IM.anim=requestAnimationFrame(step);
+}
+function imDraw(user){
+  const c=imctx, W=imCv.width, H=imCv.height;
+  let blocked=false; if(user===1 && IM.pred<0 && +imS.value!==0){ imS.value=0; blocked=true; }
+  if(user && !IM.opened){ IM.opened=1; WOW.emit('open', { id:'gun' }); }
+  const i=+imS.value, v=IM_SP[i];
+  if(user===1 && !blocked && i!==IM.last){ IM.last=i; IM.hit=false; IM.p=0; }
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* the barrel */
+  c.fillStyle=isDark()?'#5A6080':'#4A4F66'; c.strokeStyle=css('--ink'); c.lineWidth=3;
+  c.beginPath(); c.roundRect(20,104,170,48,8); c.fill(); c.stroke(); c.beginPath(); c.roundRect(14,92,40,72,8); c.fill(); c.stroke();
+  xText(c,'תותח גז',105,58,20,css('--muted'));
+  /* the sand box */
+  c.fillStyle=isDark()?'#8A7047':'#E3CC9E'; c.beginPath(); c.roundRect(470,70,150,120,10); c.fill(); c.stroke();
+  const R=prng(3); c.fillStyle=isDark()?'#5E4E33':'#B08A55'; for(let k=0;k<60;k++){ c.beginPath(); c.arc(478+R()*134,78+R()*104,2,0,PI*2); c.fill(); }
+  xText(c,'חול',545,40,20,css('--muted'));
+  /* the capsule: in the barrel, flying, or in the sand */
+  const bx = IM.hit ? 500 : 178+IM.p*(470-178+28), by=128;
+  { c.fillStyle=GOLD(); c.strokeStyle=css('--ink'); c.lineWidth=2.5; c.beginPath(); c.roundRect(bx-24,by-14,48,28,14); c.fill(); c.stroke(); c.fillStyle=BEAR(1); c.beginPath(); c.arc(bx,by,7,0,PI*2); c.fill(); }
+  if(IM.p>0 && IM.p<1){ c.strokeStyle=css('--muted'); c.lineWidth=3; for(let k=1;k<=3;k++){ c.beginPath(); c.moveTo(bx-30-k*14,by-10+k*5); c.lineTo(bx-30-k*14-26,by-10+k*5); c.stroke(); } }
+  /* the outcome, after the hit */
+  if(IM.hit){
+    const ok=v<=LIMIT_MS, slow=v>=700;
+    if(ok){ c.fillStyle=WATER(); c.strokeStyle=WATERL(); c.lineWidth=4; c.beginPath(); c.moveTo(256,262); c.lineTo(266,338); c.lineTo(374,338); c.lineTo(384,262); c.stroke(); c.beginPath(); c.moveTo(258,280); c.lineTo(266,338); c.lineTo(374,338); c.lineTo(382,280); c.closePath(); c.fill();
+      drawBear(c,320,306,0.26,0); statusIcon(c,446,300,32,'ok');
+      xLabel(c, slow ? 'התעורר במים, אבל לאט' : 'התעורר במים!', 320, 228, 22, GOOD(), .92); }
+    else { const Q=prng(11); c.fillStyle=BEAR(1); c.strokeStyle=css('--ink'); c.lineWidth=2; for(let k=0;k<9;k++){ const x=262+Q()*116, y=272+Q()*62, r=5+Q()*7; c.beginPath(); c.ellipse(x,y,r,r*0.7,Q()*3,0,PI*2); c.fill(); c.stroke(); }
+      statusIcon(c,446,300,32,'dead'); xLabel(c,'רק חתיכות', 320, 228, 22, DANG(), .92); }
+  } else if(!IM.p){ xLabel(c,'לחצו "אש!"', 320, 300, 22, css('--muted'), .9); }
+  /* the speed ruler */
+  const X = s => 40+s*560/1100, ry=430;
+  c.fillStyle=GOOD(); c.fillRect(X(0),ry-8,X(LIMIT_MS)-X(0),16);
+  c.fillStyle=WARN(); c.fillRect(X(LIMIT_MS),ry-8,X(DEAD_MS)-X(LIMIT_MS),16);
+  c.fillStyle=DANG(); c.fillRect(X(DEAD_MS),ry-8,X(1100)-X(DEAD_MS),16);
+  c.strokeStyle=css('--ink'); c.lineWidth=2; c.strokeRect(X(0),ry-8,X(1100)-X(0),16);
+  c.fillStyle=css('--ink'); c.beginPath(); c.moveTo(X(PLANE_MS),ry+10); c.lineTo(X(PLANE_MS),ry+18); c.stroke(); xText(c,'מטוס',X(PLANE_MS),ry+30,18,css('--muted'));
+  xNum(c,'825',X(LIMIT_MS),ry+30,18,GOOD());
+  /* current speed marker */
+  c.fillStyle=css('--ink'); xArrow(c,X(v),ry-10,0,1,16); xTagN(c,fmtN(v),'מ׳ בשנייה',clamp(X(v),150,490),ry-48,22,css('--ink'),'center');
+  /* readouts & message */
+  imOut.textContent=fmtN(v); imOut2.textContent=fmtN(Math.round(v*3.6*10)/10);
+  if(IM.shots>=2 && IM.pred>=0 && !IM.revealed){ IM.revealed=1; imReveal.hidden=false; }
+  if(blocked){ predictFirst(imMsg,'הזיזו'); return; }
+  if(user===2){ const ok=v<=LIMIT_MS; imMsg.innerHTML = ok
+      ? (S.track==='older' ? 'ב־<span class="num">'+fmtN(v)+'</span> מ׳ בשנייה, <span class="math">'+fmtN(v)+' × 3.6 = '+fmtN(Math.round(v*36)/10)+'</span> קמ״ש, דוב המים שרד'+(v>=700?', אבל התעורר לאט יותר: סימן לנזק בפנים.':'.') : 'שרד! '+(v>=700?'הוא התעורר לאט יותר מהרגיל, אבל התעורר.':'אחרי שהכניסו אותו למים, הוא התעורר.'))
+      : (S.track==='older' ? 'ב־<span class="num">'+fmtN(v)+'</span> מ׳ בשנייה גל ההלם יצר לחץ גבוה מ־<span class="num">1.14</span> ג׳יגה־פסקל, והחבית התפרקה.' : 'המכה הייתה חזקה מדי, והחבית התפרקה.'); }
+  else if(user===1) imMsg.innerHTML='בחרתם <span class="num">'+fmtN(v)+'</span> מ׳ בשנייה. לחצו "אש!".';
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  dryQ:{ q:"הטחב מתייבש בשמש של הקיץ. מה עושה דוב המים?", opts:["חופר בור עמוק ומסתתר בו","מוציא כמעט את כל המים מהגוף, מקפל את הרגליים ונעשה חבית שמחכה לגשם","שותה את כל המים שנשארו ומתנפח","בורח מהר לטחב רטוב"], a:1, fb:"דוב המים איטי מדי כדי לברוח. במקום זה הוא מוציא כמעט את כל המים מהגוף, מקפל פנימה את הראש ואת שמונה הרגליים, ונעשה חבית קטנה ויבשה. בתוכה החיים כמעט עוצרים, עד שמגיעים מים.", btn:"next1" },
+  heatQ:{ q:"למה חבית יבשה שורדת קור שהורג דוב מים רטוב?", opts:["כי יש לה פרווה חמה","כי כמעט אין בה מים, אז לא נוצר בה קרח שקורע את התאים","כי היא זזה כל הזמן ומתחממת","כי היא גדולה יותר מדוב רטוב"], a:1, fb:"מה שהורג בקור הוא הקרח: כשמים קופאים בתוך תא, נוצרים גבישים חדים שקורעים אותו. בחבית כמעט אין מים, ולכן אין ממה לבנות גבישים. אותו דבר בחום: בלי מים, אין מה שיתבשל." },
+  beresheetQ:{ q:"מה היה בתוך הספרייה הקטנה שבחללית בראשית?", opts:["רק מפות של הירח","מיליוני עמודים של ידע, ואלפי דובי מים מיובשים שנוספו ברגע האחרון","דובי מים חיים ששוחים בתוך מים","זרעים של עצים מישראל"], a:1, fb:"הספרייה, בגודל של דיסק, הכילה יותר מ־<span class=\"num\">30</span> מיליון עמודים, כולל כל ויקיפדיה באנגלית. ברגע האחרון הוסיפו לה דגימות DNA ואלפי דובי מים <b>מיובשים</b>, כלואים בדבק שקוף שהתקשה. העולם שמע על זה רק באוגוסט <span class=\"num\">2019</span>." },
+  impactQ:{ q:"ב־<span class=\"num\">2021</span> ירו חוקרים דובי מים מיובשים מתותח לתוך חול. מה גילו?", opts:["הם שורדים כל מהירות","הם שרדו עד <span class=\"num\">825</span> מטרים בשנייה, ובמהירות גבוהה יותר התפרקו","הם מתו כבר במהירות של מכונית","הם התעוררו עוד בתוך התותח"], a:1, fb:"עד <span class=\"num\">825</span> מטרים בשנייה, יותר מפי <span class=\"num\">3</span> ממטוס נוסעים, דובי המים התעוררו אחרי שהכניסו אותם למים. מ־<span class=\"num\">901</span> מטרים בשנייה מצאו רק חתיכות. לכל הגנה יש גבול, והניסוי מדד אותו." },
+  deepQ:{ q:"מה עושה החלבון Dsup של דובי המים?", opts:["עוזר להם לשחות מהר","עוטף את ה־DNA ושומר עליו מקרינה","צובע אותם בחום כשהם מתייבשים","עוזר להם לעכל טחב"], a:1, fb:"Dsup נצמד ל־DNA, ספר ההוראות של התא, ושומר עליו מפגיעה של קרינה. כשמדענים ביפן הכניסו אותו לתאים של בני אדם במעבדה, הנזק מקרני רנטגן ירד בכ־<span class=\"num\">40%</span>." },
+};
+const MCQ = {
+  shared:[
+    { q:"מה זה בעצם \"החבית\" של דוב המים?", opts:["קונכייה קשה שהוא בונה מאבנים","דוב המים עצמו, אחרי שהוציא כמעט את כל המים מהגוף וקיפל פנימה את הראש והרגליים","ביצה שממנה ייצא דוב מים חדש","בית קטן בתוך הטחב"], a:1, fb:"החבית היא דוב המים עצמו, במצב של \"השהיה\": כמעט בלי מים, והחיים בו כמעט עוצרים. היא לא מתה, כי כל החלקים של התאים נשארים שלמים. כשמגיעים מים, החבית מתמלאת, הרגליים יוצאות, והוא ממשיך לחיות." },
+    { q:"ב־<span class=\"num\">2007</span> דובי מים מיובשים בילו <span class=\"num\">10</span> ימים בחלל הפתוח, בחללית פוטון. מה קרה?", opts:["כולם מתו מהריק","רובם שרדו את הריק, ואחרי שחזרו והורטבו אפילו הטילו ביצים","הם התעוררו בחלל והתחילו ללכת","הם גדלו בחלל פי שניים"], a:1, fb:"רובם שרדו את הריק ואת הקרינה של החלל, וחלק שרדו אפילו את האור הישיר של השמש. ובחזרה בכדור הארץ, אחרי טיפת מים, הם התעוררו והתרבו כרגיל. בחלל עצמו הם לא התעוררו: אין שם מים." },
+    { q:"נניח שדוב מים אחד מבראשית שרד את ההתרסקות. למה הוא לא יתעורר על הירח?", opts:["כי על הירח אין מים נוזליים שימלאו אותו שוב","כי על הירח חושך כל הזמן","כי אין לו שם חברים","כי כוח המשיכה על הירח חלש"], a:0, fb:"כדי לצאת מהחבית צריך מים נוזליים. על הירח אין אוויר, ולכן מים לא יכולים להישאר שם נוזליים על פני השטח: ביום חם מאוד, ובלילה קפוא. בלי טיפת מים, החבית ממשיכה לחכות. (על הירח יש גם ימים וגם לילות, וכוח המשיכה לא משנה לחבית.)" },
+  ],
+  younger:[
+    { q:"איך הגיעו דובי מים לירח?", opts:["הם טיפסו על טיל","בתוך ספרייה קטנה בחללית הישראלית בראשית, שהתרסקה על הירח ב־<span class=\"num\">2019</span>","הם תמיד גרו על הירח","רוח חזקה העיפה אותם מכדור הארץ"], a:1, fb:"בראשית, החללית של SpaceIL והתעשייה האווירית, נשאה ספרייה קטנה בגודל של דיסק, ובתוכה אלפי דובי מים מיובשים. כשבראשית התרסקה בים השלווה, הספרייה נשארה על הירח, ואיתה דובי המים." },
+  ],
+  older:[
+    { q:"דוב מים רטוב מת אחרי יממה או שתיים במים של <span class=\"num\">37</span> מעלות, אבל חבית יבשה שורדת כמה דקות ב־<span class=\"num\">150</span> מעלות. מה ההסבר הכי טוב?", opts:["לחבית יש עור עבה שמבודד את החום","בדוב הרטוב החלבונים נמצאים במים, ובחום הם נפתחים ונהרסים; בחבית כמעט אין מים, והחלבונים תפוסים במצב שדומה לזכוכית","החבית קרה מבפנים כי היא ישנה","בחום, דובי מים מזיעים ומתקררים"], a:1, fb:"חלבון עובד רק כשהוא מקופל בצורה מדויקת, ובמים, כשמחממים, הוא נפתח ומאבד את הצורה: דנטורציה, כמו חלבון ביצה במחבת. בחבית כמעט כל המים יצאו, והחלבונים כלואים בג׳ל זכוכיתי שבו הם לא יכולים לזוז ולהיפתח. לכן החבית שורדת חום שהורג את הדוב הרטוב. (גם לחבית יש גבול: אחרי זמן ארוך בחום, או בחום של תנור, גם היא לא שורדת.)" },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'כומר גרמני רואה במיקרוסקופ יצור זעיר וקורא לו "דוב מים קטן".'},
+  {id:'b', t:'חוקרים מיפן אוספים טחב באנטארקטיקה ושמים אותו במקפיא.'},
+  {id:'c', t:'אלפי דובי מים מיובשים טסים <span class="num">10</span> ימים בחלל הפתוח, בחללית פוטון.'},
+  {id:'d', t:'הטחב מאנטארקטיקה מופשר אחרי יותר מ־<span class="num">30</span> שנה, ודובי מים מתעוררים.'},
+  {id:'e', t:'החללית בראשית מתרסקת על הירח, ובתוכה דובי מים מיובשים.'},
+  {id:'f', t:'מדענים באנגליה יורים דובי מים מתותח, כדי לבדוק אם יכלו לשרוד את ההתרסקות.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> השם (<span class="num">1773</span>) ← הטחב למקפיא (<span class="num">1983</span>) ← החלל (<span class="num">2007</span>) ← ההפשרה (<span class="num">2014</span>) ← בראשית (<span class="num">2019</span>) ← התותח (<span class="num">2021</span>). שימו לב להיגיון: כדי להפשיר טחב, קודם צריך להקפיא אותו; ואת השאלה "האם שרדו את ההתרסקות?" אפשר לשאול רק אחרי ההתרסקות.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) הטחב מאנטארקטיקה חיכה במקפיא יותר מ־<span class="num">30</span> שנה, אז בין ההקפאה להפשרה עבר הרבה זמן, ובאמצע טסו דובי מים לחלל. (2) הניסוי בתותח נעשה כדי לענות על שאלה שנולדה מההתרסקות.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const aOk = chalA.value!=='' && Math.abs(a-0.06)<0.0005, bOk = chalB.value!=='' && Math.abs(b-120000)<1;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const hintA = (hasA && Math.abs(a-600)<0.5) ? '(א): <span class="num">600</span> זה השטח ב<b>סנטימטרים</b> מרובעים. קודם הפכו כל צלע למטרים: <span class="math">30 ס״מ = 0.3 מ׳</span>.'
+    : (hasA && Math.abs(a-6)<0.01) ? '(א): בדקו את הנקודה העשרונית: <span class="math">0.3 × 0.2</span> קטן מ־<span class="num">1</span>, כי הכתם קטן הרבה ממטר על מטר.'
+    : (hasA && Math.abs(a-0.6)<0.001) ? '(א): כמעט! <span class="math">3 × 2 = 6</span>, ושתי ספרות אחרי הנקודה: <span class="math">0.3 × 0.2 = ?</span>'
+    : (hasA && Math.abs(a-50)<0.01) ? '(א): חיברתם את הצלעות. שטח של מלבן = אורך <b>כפול</b> רוחב.'
+    : (hasA && Math.abs(a-0.5)<0.001) ? '(א): <span class="math">0.3 + 0.2</span> זה חיבור. שטח = כפל: <span class="math">0.3 × 0.2</span>.'
+    : '(א): רמז — במטר יש <span class="num">100</span> ס״מ, אז <span class="math">30 ס״מ = 0.3 מ׳</span> ו־<span class="math">20 ס״מ = 0.2 מ׳</span>. שטח = אורך × רוחב.';
+  const hintB = (hasB && Math.abs(b-1200000)<1) ? '(ב): זה לשטח של <span class="num">0.6</span> מ״ר. בדקו קודם את (א).'
+    : (hasB && Math.abs(b-1200000000)<10) ? '(ב): כפלתם בסנטימטרים מרובעים. הכמות נתונה <b>למטר</b> מרובע, אז צריך את השטח במטרים מרובעים.'
+    : (hasB && Math.abs(b-12000)<1) ? '(ב): יש אפס חסר. <span class="math">0.06 × 2,000,000</span>: קודם <span class="math">6 × 2 = 12</span>, ואז ספרו אפסים.'
+    : (hasB && Math.abs(b-2000000)<1) ? '(ב): זה במטר מרובע שלם. הכתם קטן יותר.'
+    : '(ב): רמז — בכל מטר מרובע <span class="num">2,000,000</span>. הכתם הוא חלק קטן ממטר מרובע: כופלים את השטח שמצאתם ב־<span class="num">2,000,000</span>.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">0.3 × 0.2 = 0.06</span> מ״ר, שש מאיות של מטר מרובע. (ב) <span class="math">0.06 × 2,000,000 = 120,000</span> דובי מים, בכתם בגודל של דף מחברת! בדיקה בדרך אחרת: <span class="math">30 × 20 = 600</span> סמ״ר, ובמטר מרובע יש <span class="math">100 × 100 = 10,000</span> סמ״ר, אז <span class="math">600 ÷ 10,000 = 0.06</span>. זו הנחה בגבול העליון, אבל היא מראה כמה הם נפוצים.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">0.06</span> מ״ר.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — <span class="num">120,000</span>.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const a=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasR=numAdvR.value!=='', hasA=numAdv.value!=='';
+    const aOk=(hasA && a>=2.85 && a<=2.95), bOk=(hasR && r>=2620 && r<=2621.5), sc = aOk&&bOk?2:((aOk||bOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintR = (hasR && Math.abs(r-202.2)<0.2) ? 'ב־(א) חילקתם ב־<span class="num">3.6</span>. קמ״ש הוא מספר <b>גדול</b> יותר: בשעה עוברים הרבה יותר מטרים. כופלים: <span class="math">728 × 3.6</span>.'
+      : (hasR && Math.abs(r-43680)<1) ? 'ב־(א) כפלתם ב־<span class="num">60</span>: זה מטרים בדקה. לקמ״ש: <span class="math">728 × 3,600 ÷ 1,000</span>, כלומר <span class="math">728 × 3.6</span>.'
+      : (hasR && Math.abs(r-2620800)<10) ? 'ב־(א) שכחתם להפוך מטרים לקילומטרים: מחלקים ב־<span class="num">1,000</span>.'
+      : (hasR && Math.abs(r-2970)<1) ? 'ב־(א) זו המהירות של <span class="num">825</span> מ׳ בשנייה. כאן הכדור עף <span class="num">728</span>.'
+      : 'רמז ל־(א): <span class="math">1 מ׳/ש׳ = 3.6 קמ״ש</span>, אז כופלים את <span class="num">728</span> ב־<span class="num">3.6</span>.';
+    const hintA = (hasA && Math.abs(a-0.34)<0.02) ? 'ב־(ב) הפכתם את החילוק: הכדור מהיר יותר, אז התשובה גדולה מ־<span class="num">1</span>. מחלקים את מהירות הכדור במהירות המטוס.'
+      : (hasA && Math.abs(a-0.81)<0.02) ? 'ב־(ב) חילקתם מטרים בשנייה בקמ״ש. שתי המהירויות צריכות להיות באותן יחידות: השתמשו בתשובה של (א).'
+      : (hasA && Math.abs(a-1720.8)<1) ? 'ב־(ב) החסרתם. "פי כמה" שואלים בחילוק: <span class="math">2,620.8 ÷ 900</span>.'
+      : (hasA && Math.abs(a-3.3)<0.05) ? 'ב־(ב) זה נכון לכדור של <span class="num">825</span> מ׳ בשנייה. כאן הכדור עף <span class="num">728</span>.'
+      : (hasA && a>=2.95 && a<=3.05) ? 'ב־(ב) כמעט: <span class="math">2,620.8 ÷ 900</span> קצת פחות מ־<span class="num">3</span>. עגלו לספרה אחת אחרי הנקודה.'
+      : 'רמז ל־(ב): "פי כמה" = מחלקים את מהירות הכדור (בקמ״ש, מ־(א)) במהירות המטוס, <span class="num">900</span> קמ״ש.';
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">728 × 3.6 = 2,620.8</span> קמ״ש. (ב) <span class="math">2,620.8 ÷ 900 ≈ 2.9</span>: הכדור עף כמעט פי <span class="num">3</span> ממטוס נוסעים, ודוב המים שבתוכו נמצא שלם. דרך קיצור: מטוס של <span class="num">900</span> קמ״ש עף <span class="math">900 ÷ 3.6 = 250</span> מ׳ בשנייה, ו־<span class="math">728 ÷ 250 ≈ 2.9</span>.'
+      : aOk ? '<span class="pill-ok">(ב) נכון — בערך פי <span class="num">2.9</span>.</span> '+hintR
+      : bOk ? '<span class="pill-ok">(א) נכון — <span class="num">2,620.8</span> קמ״ש.</span> '+hintA
+      : '<span class="pill-bad">עוד לא.</span> '+hintR+(hasA?' '+hintA:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-200)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">25 × 8 = 200</span>. אפשר גם ככה: <span class="math">25 × 4 = 100</span>, ופעמיים זה <span class="num">200</span>. מאתיים רגליים קטנטנות בטיפה אחת!':(Math.abs(v-33)<0.01)?'<span class="pill-bad">חיברתם.</span> לכל אחד מ־<span class="num">25</span> דובי המים יש <span class="num">8</span> רגליים: כופלים, <span class="math">25 × 8 = ?</span>':(Math.abs(v-100)<0.01)?'<span class="pill-bad">כמעט!</span> זה לארבע רגליים לכל אחד. לדוב מים יש <span class="num">8</span>, פי <span class="num">2</span>.':(Math.abs(v-160)<0.01||Math.abs(v-180)<0.01)?'<span class="pill-bad">קרוב, אבל בדקו את הכפל.</span> <span class="math">20 × 8 = 160</span>, ועוד <span class="math">5 × 8 = 40</span>.':(Math.abs(v-25)<0.01||Math.abs(v-8)<0.01)?'<span class="pill-bad">זה רק אחד מהמספרים.</span> לכל דוב <span class="num">8</span> רגליים, ויש <span class="num">25</span> דובים.':'<span class="pill-bad">לא בדיוק.</span> רמז: לדוב מים אחד <span class="num">8</span> רגליים, לשניים <span class="num">16</span>. ולעשרים וחמישה?'; }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-2970)<1; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">825 × 3.6 = 2,970</span> קמ״ש. בשעה יש <span class="num">3,600</span> שניות, אז בשעה הכדור עובר <span class="math">825 × 3,600 = 2,970,000</span> מטרים, שהם <span class="num">2,970</span> קילומטרים. יותר מפי <span class="num">3</span> ממטוס נוסעים.':(Math.abs(v-229.17)<0.1)?'<span class="pill-bad">חילקתם.</span> בשעה עוברים <b>הרבה</b> יותר מאשר בשנייה, אז המספר בקמ״ש גדול יותר: כופלים, <span class="math">825 × 3.6</span>.':(Math.abs(v-49500)<1)?'<span class="pill-bad">כפלתם ב־<span class="num">60</span>.</span> זה מטרים בדקה. לקמ״ש כופלים ב־<span class="num">3.6</span>.':(Math.abs(v-2970000)<10)?'<span class="pill-bad">זה במטרים.</span> כמה קילומטרים זה? מחלקים ב־<span class="num">1,000</span>.':(Math.abs(v-297)<0.5||Math.abs(v-29700)<1)?'<span class="pill-bad">בדקו את הנקודה העשרונית.</span> <span class="math">825 × 3.6</span>: קודם <span class="math">825 × 36</span>, ואז מחלקים ב־<span class="num">10</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: <span class="math">1 מ׳/ש׳ = 3.6 קמ״ש</span>. כמה זה <span class="math">825 × 3.6</span>?'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'אמרתי שכשהטחב מתייבש, דוב המים מוציא כמעט את כל המים מהגוף, מקפל את הרגליים ונעשה "חבית", והחיים בו כמעט עוצרים.',
+  'הסברתי למה החבית שורדת: בלי מים אין קרח שקורע את התאים, ואין חלבונים שנהרסים בחום.',
+  'אמרתי שמים מחזירים את דוב המים לחיים, אחרי דקות או שעות, ושכך הוא שרד אפילו <span class="num">10</span> ימים בחלל.',
+  'סיפרתי שבחללית בראשית היו אלפי דובי מים מיובשים, ושבניסוי בתותח הם שרדו רק עד בערך <span class="num">825</span> מטרים בשנייה, ולכן כנראה לא שרדו את ההתרסקות.',
+  'הסברתי שגם דוב מים שלם לא יתעורר על הירח, כי אין שם מים נוזליים.',
+];
+const MODEL='דוב מים הוא חיה זעירה שגרה בטחב. כשהטחב מתייבש, הוא לא בורח: הוא מוציא כמעט את כל המים מהגוף, בערך <span class="num">95%</span>, מקפל פנימה את הראש ואת הרגליים, ונעשה "חבית". בחבית החיים כמעט עוצרים, אבל התאים נשארים שלמים. בלי מים אין קרח שיקרע את התאים בקור, ואין חלבונים שייפתחו וייהרסו בחום, כי החלבונים כלואים במצב שדומה לזכוכית. לכן החבית שורדת קור של מינוס <span class="num">272</span>, חום של יותר ממים רותחים לכמה דקות, ואפילו <span class="num">10</span> ימים בחלל הפתוח. כשמגיעים מים, היא מתמלאת, ודוב המים חוזר לחיים. בחללית הישראלית בראשית, שהתרסקה על הירח ב־<span class="num">2019</span>, היו אלפי דובי מים מיובשים. בניסוי ב־<span class="num">2021</span> ירו דובי מים מתותח: הם שרדו עד <span class="num">825</span> מטרים בשנייה, אבל ההתרסקות יצרה כנראה לחץ חזק יותר, ולכן הם כנראה לא שרדו. וגם אם אחד שרד, הוא לא יתעורר על הירח, כי אין שם מים נוזליים שימלאו אותו שוב.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון (אנהידרוביוזה: איבוד של כ־95% מהמים ומצב tun שבו חילוף החומרים כמעט נעצר אבל התאים שלמים; למה המים הם הנקודה החלשה — גבישי קרח שגדלים וקורעים קרומים, ודנטורציה של חלבונים במים חמים — ולמה ייבוש מגן: חלבונים מיוחדים יוצרים ג׳ל ומצב זכוכיתי שמקבע את התא; ההתעוררות דורשת מים נוזליים; לכל הגנה יש גבול — בירי מתותח שרדו עד 825 מ׳ בשנייה, לחץ הלם של כ־1.14 ג׳יגה־פסקל, ומ־901 מ׳ בשנייה רק שברים; ועל הירח אין אוויר ולכן אין מים נוזליים על פני השטח) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "דובי המים שהגיעו לירח בחללית ישראלית": איך דוב מים שורד ייבוש, קור, חום וחלל, ולמה דובי המים שהיו בחללית בראשית כנראה לא שרדו, וגם אם שרדו לא יתעוררו על הירח. הרעיונות המרכזיים: (1) דוב מים (טרדיגרדה) הוא חיה של כחצי מילימטר עם שמונה רגליים שגרה בעיקר בטחב, בתוך שכבה דקה של מים; גצה קרא לו "דוב מים קטן" ב־1773; (2) כשהטחב מתייבש הוא מאבד כ־95% מהמים, מקפל את הראש והרגליים ונעשה "חבית" (tun); חילוף החומרים כמעט נעצר אבל התאים שלמים; עם מים הוא מתעורר אחרי דקות עד שעות; (3) החבית שורדת מינוס 272 מעלות, כ־150 מעלות לכמה דקות, קרינה חזקה, ו־10 ימים בחלל הפתוח (פוטון, 2007; רובם שרדו את הריק, והניצולים התרבו); דוב מים רטוב ופעיל חלש — מת אחרי יממה או שתיים ב־37 מעלות; (4) הסיבה: בלי מים אין גבישי קרח שקורעים תאים, ואין חלבונים שנפתחים בחום; חלבונים מיוחדים יוצרים ג׳ל זכוכיתי; החלבון Dsup מגן על ה־DNA מקרינה; טחב מאנטארקטיקה שהוקפא ב־1983 הופשר ב־2014 ודובי מים התעוררו; (5) בראשית של SpaceIL (נוסדה 2011) שוגרה ב־22 בפברואר 2019, נכנסה למסלול סביב הירח ב־4 באפריל, והתרסקה בים השלווה ב־11 באפריל אחרי תקלה בחיישן וכיבוי המנוע; בספרייה הקטנה של קרן ארץ׳ היו אלפי דובי מים מיובשים באפוקסי; (6) ב־2021 טרספס ובורצ׳ל ירו דובי מים קפואים מתותח גז לתוך חול: שרדו עד 825 מ׳ בשנייה, מ־901 רק שברים; המסקנה — בראשית כנראה פגעה חזק מדי; ועל הירח אין מים נוזליים שיעירו אותם. חישובי המבחן: 25 × 8 = 200; 825 × 3.6 = 2,970 קמ״ש; מתקדם 728 × 3.6 = 2,620.8 קמ״ש ו־2,620.8 ÷ 900 ≈ 2.9; אתגר 0.3 × 0.2 = 0.06 מ״ר ו־0.06 × 2,000,000 = 120,000.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם איך דוב המים שורד (מוציא את המים ונעשה חבית שבה החיים כמעט עוצרים, ובלי מים אין קרח או חלבונים שנהרסים; מים מחזירים אותו לחיים) וגם למה לא יתעורר על הירח (אין שם מים נוזליים; ובנוסף, ההתרסקות כנראה הייתה חזקה מדי); 1 אם יש רק חלק מזה. תשובה שאומרת רק "כי הוא חזק" בלי להסביר את תפקיד המים, לא שווה יותר מ־1. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', יש לך סבלנות של דוב מים ומוח של '+G('חוקר חלל','חוקרת חלל')+'!':pct>=60?name+', יש לך מוח של '+G('מדען','מדענית')+'!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=825;                                                     // the fastest shot the tuns survived, in m/s
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: דובי מים מיובשים שרדו ירייה של <span class="num">825</span> מטרים בשנייה, יותר מפי <span class="num">3</span> ממטוס נוסעים. במהירות גבוהה יותר הם התפרקו.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>'+fmtSigns(S.guess)+'</b> — וקלעת. ועכשיו ידוע לך גם למה: חבית בלי מים כמעט לא נפגעת, עד שהלחץ במכה עובר גבול של בערך <span class="num">1.14</span> ג׳יגה־פסקל.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. התשובה: <span class="num">825</span> מטרים בשנייה, יותר מפי <span class="num">3</span> ממטוס נוסעים. החבית היבשה הרבה יותר קשוחה ממה שנראה, אבל גם לה יש גבול.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (הירייה הכי מהירה שדובי מים שרדו): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: 825 מטרים בשנייה)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "דובי המים שהגיעו לירח בחללית ישראלית", מהדורה 36, ו׳ בחשוון תשפ״ז (שבת, 17 באוקטובר 2026). נושא: איך חיה זעירה "מכבה" את עצמה בלי למות, ומה קרה לדובי המים שהיו בחללית בראשית; ביולוגיה (אנהידרוביוזה, מצב tun, חלבונים מגנים, Dsup), כימיה ופיזיקה של מים (גבישי קרח, דנטורציה של חלבונים, מצב זכוכיתי, לחץ הלם), חלל (פוטון 2007, בראשית 2019, תנאים על הירח), היסטוריה (גצה 1773, ספאלנצני 1776, SpaceIL) ומתמטיקה (המרת יחידות, כפל וחילוק, שטח). דובי מים: רוב המינים 0.05–0.5 מ״מ, הגדולים עד כ־1.3 מ״מ; ארבעה זוגות רגליים עם טפרים; כ־1,500 מינים; גרים בים, באדמה ובעיקר בטחב ובחזזיות, בתוך שכבה דקה של מים, ואוכלים בעיקר מיץ של צמחים ואצות; בטחב יכולים להיות יותר משני מיליון במטר מרובע. ב־1773 הכומר הגרמני יוהאן אוגוסט אפרים גצה קרא להם "kleiner Wasserbär", דוב מים קטן; ב־1776 לצרו ספאלנצני קרא לקבוצה Tardigrada, "ההולכים לאט". כשהטחב מתייבש: אנהידרוביוזה — מאבדים כ־95% מהמים, מקפלים את הראש והרגליים ונעשים tun ("חבית"); חילוף החומרים כמעט נעצר ואינו מדיד, אבל מבנה התאים נשמר; עם מים מתעוררים, אצל חלק מהמינים בפחות מחמש דקות ואצל אחרים אחרי שעות. סבולניים, לא אקסטרמופילים: הם לא חיים בקיצון אלא מחכים שיעבור. החבית שורדת מינוס 272 מעלות לזמן קצר, כ־151 מעלות לכמה דקות, קרינה (מנה שהורגת חצי מהם כ־5,000 גריי, פי מאות מהמנה שמסוכנת לאדם), ולחצים גבוהים מאוד; דוב מים פעיל ורטוב מת אחרי כ־48 שעות ב־37 מעלות. פוטון M3 (חללית רוסית, ספטמבר 2007, ניסוי TARDIS של אינגמר יונסון על פלטפורמה של ESA): כ־3,000 דובי מים, גובה כ־270 ק״מ, 10 ימים בחלל הפתוח; רוב המיובשים שרדו ריק וקרינה קוסמית, חלק שרדו גם UV ישיר של השמש (פי יותר מ־1,000 מעל פני הקרקע), והניצולים התרבו. המנגנון: כמעט כל נזק לתא עובר דרך המים — גבישי קרח שגדלים וקורעים קרומים, חלבונים שנפתחים בחום (דנטורציה, כמו חלבון ביצה), ומולקולות תוקפניות שקרינה יוצרת במים; בחבית יש חלבונים מיוחדים (כמו CAHS) שנעשים ג׳ל ומצב זכוכיתי שמקבע את התא; בחיות אחרות, כמו ביצי שרימפס מלח, הסוכר טרהלוז עושה עבודה דומה; Dsup ("מדכא נזק", מהמין Ramazzottius varieornatus) נצמד ל־DNA, ובתאים אנושיים במעבדה (טוקיו, 2016) הקטין נזק מקרני רנטגן בכ־40%; טחב מאנטארקטיקה שנאסף בנובמבר 1983 ונשמר במינוס 20 הופשר במאי 2014 — שני פרטים וביצה אחת התעוררו והתרבו. בראשית: SpaceIL נוסדה ב־2011 על ידי יריב בש, כפיר דמרי ויונתן וינטראוב, ובנתה את בראשית עם התעשייה האווירית; גובה 1.5 מ׳, 585 ק״ג עם דלק; שוגרה ב־22 בפברואר 2019 מקייפ קנוורל על Falcon 9 של SpaceX; טסה בלולאות שהלכו וגדלו סביב כדור הארץ; נכנסה למסלול סביב הירח ב־4 באפריל (ישראל — המדינה השביעית שהגיעה למסלול סביב הירח); ב־11 באפריל, בנחיתה, כשל של ג׳ירוסקופ ביחידת המדידה האינרציאלית ופקודת תיקון גרמו לכיבוי המנוע הראשי; ההדלקה מחדש הצליחה מאוחר מדי; בשידור האחרון, 150 מ׳ מעל הקרקע, נפלה בכ־134 מ׳ בשנייה (מעל 500 קמ״ש) וטסה הצידה בכ־950 מ׳ בשנייה — יותר מ־901 — ופגעה בסלע; התרסקה בים השלווה (Mare Serenitatis) אחרי כ־48 ימים. על הסיפון: "הספרייה הירחית" של Arch Mission Foundation — ארכיון בגודל של דיסק עם יותר מ־30 מיליון עמודים על שכבות ניקל דקות, כולל כל ויקיפדיה באנגלית; ברגע האחרון נוספו דגימות DNA ואלפי דובי מים מיובשים בשרף אפוקסי; נובה ספיבק סיפר על כך באוגוסט 2019 ואמר שאולי שרדו. הניסוי: אלחנדרה טרספס ומרק בורצ׳ל (אוניברסיטת קנט, Astrobiology, 2021) האכילו Hypsibius dujardini בטחב, הקפיאו ל־tun, שמו 2–3 בכדור ניילון וירו מתותח גז דו־שלבי לתוך חול; שרדו עד 825 מ׳ בשנייה (התעוררו לאט יותר), אחת היריות נורתה ב־728 מ׳ בשנייה, ומ־901 מ׳ בשנייה רק שברים; גבול לחץ ההלם כ־1.14 ג׳יגה־פסקל (יותר מפי 10,000 מלחץ האוויר); המסקנה: בראשית כנראה יצרה לחץ גבוה מהגבול, ולכן דובי המים כנראה לא שרדו — מסקנה, לא תצפית. גם אם שרדו: על הירח אין אוויר ולכן אין מים נוזליים על פני השטח (ביום מעל 100 מעלות, בלילה מתחת למינוס 100), אז חבית לא תתעורר. בראשית 2 הוכרזה יומיים אחרי ההתרסקות והושעתה ב־2025 מחוסר מימון. המרת יחידות: 1 מ׳/ש׳ = 3,600 ÷ 1,000 = 3.6 קמ״ש; מטוס נוסעים כ־900 קמ״ש (כ־250 מ׳ בשנייה); מהירות הקול כ־343 מ׳ בשנייה. פרק 1, אינטראקטיב "מדוב לחבית": טחב עם שמש; כפתור "מים בטחב" 0–10; דוב המים מקפל רגליים וראש ונעשה חבית; מדים של מים בגוף (100% עד 5%) ופעילות (עד כמעט אפס); כפתור "טיפת מים!" מחזיר אותו לחיים. פרק 2, אינטראקטיב "המדחום של דוב המים": 11 נקודות ממינוס 272 עד 200 מעלות (קר כמעט כמו החלל, חנקן נוזלי, חורף באנטארקטיקה, מקפיא, קרח נמס, יום נעים, יום חם, מים חמים מאוד, מים רותחים, חם יותר ממים רותחים, תנור); כרטיס לדוב פעיל וכרטיס לחבית עם וי/סימן קריאה/איקס; הדוב הפעיל שורד בערך 0–20 מעלות (מסוכן במינוס 20 ובארבעים), החבית שורדת עד 150 (ב־100 וב־150 רק לכמה דקות) ולא שורדת בתנור. פרק 3: הסיפור של בראשית עם ציור של הלולאות. פרק 4, אינטראקטיב "תותח המעבדה": מהירויות שנבדקו 556, 728, 825, 901, 1,000 מ׳ בשנייה; כפתור "אש!"; עד 825 דוב המים מתעורר בכוס מים (מ־728 לאט יותר), מ־901 רק חתיכות; סרגל עם מטוס והגבול. פרק 5: שלושה סודות — זכוכית במקום מים, Dsup, סבלנות (30 שנה בקרח); דובי מים כנראה גרים גם בטחב על קירות האבן בזכרון יעקב (הסקה, לא מחקר מקומי). ניסויי בית: שמרים יבשים עם סוכר ומים פושרים בבקבוק עם בלון — מתעוררים ומנפחים את הבלון; שמרים במים רותחים לא מתעוררים (רק עם מבוגר); ציד דובי מים בטחב שהושרה בלילה, עם זכוכית מגדלת חזקה או מיקרוסקופ. חיבורים: זרעים ושמרים יבשים, חיים שנוסעים על סלעים בין כוכבים, הנדסה של תקלה אחת, בראשית 2. בונוס: 20 דובי מים בשורה על ציפורן של 1 ס״מ. חישובי המבחן: הצעיר 25 × 8 = 200 רגליים; הבוגר 825 × 3.6 = 2,970 קמ״ש; מתקדם (א) 728 × 3.6 = 2,620.8 קמ״ש, (ב) 2,620.8 ÷ 900 ≈ 2.9; האתגר (א) 0.3 × 0.2 = 0.06 מ״ר, (ב) 0.06 × 2,000,000 = 120,000; שאלת המחשבה: מה שהורג בקור הוא הקרח, ולכן חבית שיובשה רק לחצי תיפגע — צריך לייבש לאט. סידור: גצה 1773 ← טחב למקפיא 1983 ← פוטון 2007 ← הפשרה 2014 ← בראשית 2019 ← התותח 2021. פישוטים במכוון: באינטראקטיבים מספרים מעוגלים, גבולות הטמפרטורה תלויים במין ובמשך; "כנראה לא שרדו" ו"כנראה בזכרון יעקב" הם הסקות. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט ומה שלא ידוע, בלי לחשוף תשובות מבחן; אם ילד שואל על שאלה מהמבחן, לרמוז ולכוון, לא לפתור. בטיחות: מים רותחים רק עם מבוגר; טחב מחזירים למקום ושוטפים ידיים.';
+const CHIPS = ['מה זה בעצם החבית?', 'למה בלי מים קשה להרוג אותם?', 'איך דובי מים הגיעו לירח?', 'הם חיים שם עכשיו?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: אנהידרוביוזה — איבוד של כ־95% מהמים ומצב tun שבו חילוף החומרים כמעט נעצר; למה המים הם הנקודה החלשה — גבישי קרח שגדלים וקורעים קרומים, דנטורציה של חלבונים במים חמים, מולקולות תוקפניות שקרינה יוצרת במים; ג׳ל ומצב זכוכיתי של חלבונים מגנים, Dsup שמגן על DNA ומקטין נזק בכ־40% בתאים אנושיים; גבול הירי — 825 מ׳ בשנייה, לחץ הלם של כ־1.14 ג׳יגה־פסקל; המרת יחידות 1 מ׳/ש׳ = 3.6 קמ״ש, ולמה; למה על הירח אין מים נוזליים בלי אוויר), שאל שאלות המשך שדורשות חשיבה (למשל: למה צריך לייבש דוב מים לאט ולא מהר? מה היה קורה לחבית ששרדה על הירח אחרי שנים של קרינת שמש? למה דווקא הלחץ ולא המהירות קובע אם שורדים מכה? אם בכל מ״ר של טחב יש 2,000,000 דובי מים, כמה יש על גג של 50 מ״ר?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>מה זה בעצם החבית?</b> כשהטחב מתייבש, דוב המים מוציא כמעט את כל המים מהגוף, מקפל פנימה את הראש ואת הרגליים, ונעשה חבית קטנה ויבשה. בתוכה החיים כמעט עוצרים, עד שמגיעים מים.<br><br><b>הם חיים שם עכשיו?</b> כנראה לא: ההתרסקות של בראשית הייתה כנראה חזקה יותר ממה שדובי מים שרדו בניסוי (עד <span class="num">825</span> מטרים בשנייה). וגם אם אחד שרד, על הירח אין מים נוזליים שיעירו אותו.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
