@@ -13,10 +13,10 @@
     "מדע ישראלי"
   ],
   "summary": "Tardigrades: anhydrobiosis (tun loses ~95% of its water, metabolism nearly stops), why water is the weak point (ice crystals, protein denaturation) and the glass-like protective proteins/Dsup; tuns survive −272 °C, ~150 °C for minutes and 10 days of open space (Foton-M3, 2007) while active animals die at ~37 °C; Beresheet (SpaceIL, launched 22 Feb 2019, crashed in Mare Serenitatis 11 Apr 2019) carried thousands of dried tardigrades in the Arch Mission lunar library; Traspas & Burchell (2021) fired tuns from a light-gas gun — survival up to 825 m/s, fragments from 901 m/s (1.14 GPa) — so the Moon tardigrades most likely died, and with no liquid water they could not revive anyway; m/s→km/h (×3.6); Antarctic moss revived after 30 years; tardigrades in the moss of Zikhron Yaakov's stone walls.",
-  "teaser": null,
-  "max_score": null,
+  "teaser": "בתוך החללית הישראלית בראשית, שהתרסקה על הירח, הסתתרו אלפי חיות זעירות מיובשות — דובי מים.\nהן כבר שרדו קור של מינוס 272 מעלות ועשרה ימים בחלל הפתוח.\nאז האם הן שוכבות עכשיו על הירח ומחכות?",
+  "max_score": 11,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-10-17T08:11:12.766Z",
   "password": null,
   "reviewer_verdict": "PASS (2 rounds) — nits left: est. 32–36 min with the test (hero tag now says ~30 min); canvas minus sign reads close to its label",
   "review_url": "https://claude.ai/artifact/7tUkG6fV5EHpZMpWK8eSq6",
