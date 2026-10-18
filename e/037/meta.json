@@ -1,0 +1,23 @@
+{
+  "n": 37,
+  "code": "WOW-037",
+  "date": "2026-10-18",
+  "language": "he",
+  "title": "למה שוקלים יהלומים בזרעי חרוב",
+  "topics": [
+    "מתמטיקה",
+    "היסטוריה",
+    "ביולוגיה",
+    "פיזיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "The carat is named after the carob seed (Greek kerátion → qīrāṭ → carato → carat); a pan balance compares a gem with seed weights, so heavier seeds give a smaller count; Constantine's solidus (c. 312, ~4.5 g) was reckoned at 24 keratia, hence 24-karat gold (18k = 75%); pre-metric carats varied ~5% (commonest ~205 mg) until the 200 mg metric carat (4th CGPM, Oct 1907; US 1913, UK 1914); Turnbull et al. 2006 (Biology Letters) weighed seeds from 28 carob trees in Mallorca: CV ≈23% vs ≈25% for 63 species — no special uniformity; people judge ~5% differences by eye, matching the ~5% spread of old carats, so the myth likely came from merchants selecting seeds (evidence, not proof); averaging n seeds shrinks the spread by √n; carob trees on the Carmel and at Ramat Hanadiv, Honi HaMe'agel, E410, the 2019 kilogram.",
+  "teaser": "את המשקל של יהלום מודדים ב״קרט״, מילה שבאה מזרע קטן וחום של עץ החרוב, שגדל גם על הכרמל.\nבמשך מאות שנים כולם האמינו שכל זרעי החרוב שוקלים בדיוק אותו דבר. ואז, ב־2006, מדענים פשוט שקלו אותם.\nמה הם גילו, ואיך כולם טעו כל כך הרבה זמן?",
+  "max_score": 11,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: est. 30–35 min with the test (hero tag says ~30); Greek word in the step-2 figure ≈13px on phones; optional challenge still counts toward max 11 (template behaviour)",
+  "review_url": "https://claude.ai/artifact/StLDcnagv2sm9d7bronMmt",
+  "editor_note": null
+}
