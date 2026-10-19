@@ -1,0 +1,24 @@
+{
+  "n": 38,
+  "code": "WOW-038",
+  "date": "2026-10-19",
+  "language": "he",
+  "title": "החול שנגמר לעולם — ולמה חול מדבר לא עוזר",
+  "topics": [
+    "גאולוגיה",
+    "פיזיקה",
+    "הנדסה",
+    "גאוגרפיה",
+    "מתמטיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "The world is running out of the right sand: ~50 bn t of sand & gravel a year (UNEP 2022, a 27 m × 27 m wall around Earth), mostly for concrete (aggregates 60–75%); desert sand is useless for it because saltation (low hops, unpadded landings) rounds and frosts the grains while water cushions river grains; round smooth grains don't interlock or grip the paste (angle of repose ~34° sand vs ~45° crushed, lower for round grains), and wind-sorted uniform fine grains leave voids — so even the UAE imports sand; Israel's beach sand came from the Nile along a ~650 km longshore conveyor (Damietta 860k → Ashkelon 450k → Tel Aviv 100k → Carmel coast ~70k m³/yr), cut off by the Aswan High Dam (1964), the same year Israel banned beach sand mining; kurkar = lithified dunes; fixes: crushed quarry sand, recycled concrete, ore-sand.",
+  "teaser": "לעולם נגמר החול. נשמע כמו בדיחה, אבל זה רציני — ובסהרה יש מדבר שלם של חול שאף אחד לא יכול לבנות ממנו.\nאיך ייתכן? ומה הקשר בין הנילוס לחול בחוף של זכרון יעקב? היום נגלה, עם גרגר אחד בזכוכית מגדלת.",
+  "max_score": 11,
+  "status": "released",
+  "released_at": "2026-10-19T08:09:48.000Z",
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — nits left: ~30–35 min incl. test (top of target, like 037); 'מכרה' map label tight at the phone edge; concrete-figure caption ~16 px on phones",
+  "review_url": "https://claude.ai/artifact/BKCxQQjmdPsEqeVsTKm55K",
+  "editor_note": null
+}
