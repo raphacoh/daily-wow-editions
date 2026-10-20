@@ -1,0 +1,23 @@
+{
+  "n": 39,
+  "code": "WOW-039",
+  "date": "2026-10-20",
+  "language": "he",
+  "title": "הילד שצחקו עליו — ולמה מים חמים קופאים לפעמים ראשונים",
+  "topics": [
+    "פיזיקה",
+    "כימיה",
+    "מתמטיקה",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "The Mpemba effect: Erasto Mpemba (13, Magamba school, Tanganyika, 1963) saw hot ice-cream mix freeze before cold; teacher 'that cannot happen', Mkwawa teacher 'Mpemba's physics'; Osborne tested it, 'Cool?' (Physics Education 1969), 'No question should be ridiculed'; Aristotle >2,300 years ago, Bacon, Descartes, Black 1775; Newton's law of cooling (rate ∝ difference) makes the hot cup faster but it must pass the cold cup's start temperature and then lags (≈42 min in the model) — so it can win only if something changed on the way: evaporation, supercooling, frost/contact, dissolved gases; definition of 'frozen' (0 °C vs first ice vs solid); water densest at 4 °C → layers, ice on top, thermometer height can fake the effect (Burridge & Linden 2016, no evidence for reaching 0 °C first; RSC 2012 competition, 22,000 entries); Lu & Raz (Weizmann, PNAS 2017) non-equilibrium shortcut, Kumar & Bechhoefer (Nature 2020) 1.5 µm beads cooled 10x faster; still debated.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: est. ~30–34 min for the younger track (hero tag says ~30); a few canvas name/reading plates touch on phones; two awkward phrasings polished after round 2",
+  "review_url": "https://claude.ai/artifact/GAcsAHfzoVheSd1Di8YsGo",
+  "editor_note": null
+}
