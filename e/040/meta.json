@@ -1,0 +1,24 @@
+{
+  "n": 40,
+  "code": "WOW-040",
+  "date": "2026-10-21",
+  "language": "he",
+  "title": "התאנה שאינה פרי — והצרעה שבתוכה",
+  "topics": [
+    "ביולוגיה",
+    "היסטוריה",
+    "מתמטיקה",
+    "כימיה",
+    "גאוגרפיה",
+    "מדע ישראלי"
+  ],
+  "summary": "A young fig (syconium) is an inside-out bouquet of hundreds of flowers behind a scale-lined eye (ostiole); the 1.5–2 mm female fig wasp squeezes in, loses her wings, spreads pollen, lays eggs in short-style flowers (galls) while long-style flowers become seeds, and dies inside (ficin); wingless males open the exit, females leave with pollen and have ~1–2 days to find another tree's receptive figs — within-tree synchrony, between-tree asynchrony (4-tree model); Namib Ficus sycomorus pollen carried 160–164 km by wind (Ahmed et al. 2009); Gilgal figs 11,400 yrs, parthenocarpic, planted from cuttings ~1,000 yrs before wheat (Kislev, Hartmann, Bar-Yosef 2006; disputed); sycamore in Israel lacks its wasp, gashing + ethylene ripens it in 3–4 days, Amos 'בולס שקמים'; Galil & Eisikowitch (TAU); 1,274 vertebrate species eat figs.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: ~30 min with the test (word count at the series norm, above the 1,100-word target); step-4 shared text gently hints that trees must differ in timing before the guess",
+  "review_url": "https://claude.ai/artifact/H5yRctKsJGvkyzfc6xCKE9",
+  "editor_note": null
+}
