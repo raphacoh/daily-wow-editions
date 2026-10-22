@@ -1,0 +1,23 @@
+{
+  "n": 41,
+  "code": "WOW-041",
+  "date": "2026-10-22",
+  "language": "he",
+  "title": "למה לחלון במטוס אין פינות",
+  "topics": [
+    "הנדסה",
+    "פיזיקה",
+    "היסטוריה",
+    "מתמטיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "Why airplane windows have no corners: the de Havilland Comet (first jet airliner, 2 May 1952) broke up in flight twice in 1954 (Elba 10 Jan, 35 dead, G-ALYP after ~1,290 pressurised flights; Naples 8 Apr, 21 dead, ~900); each flight is one pressure cycle (cabin ~75 kPa vs ~22.6 kPa at 11 km — >50 kg per 10×10 cm square, ~half a tonne per window; hoop stress 2× axial); stress concentration at openings (Kirsch ×3 for a circle, Inglis 1913 K = 1+2√(a/ρ)); metal fatigue — a tiny corner crack grows each flight and accelerates; RAE water-tank test of G-ALYU (~3,060 cycles, escape-hatch corner; water because it barely compresses); G-ALYP crack began at a rivet hole at the ADF window cut-out corner, not a passenger window; 10,000-cycle design life; fixes: oval windows, thicker skin, full-scale fatigue tests, inspections, crack-stop holes; Comet 4 first transatlantic jet service 4 Oct 1958; IAI freighter-conversion cargo doors, Liberty ships, window bleed hole.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-10-22T08:10:34.438Z",
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: est. ~32–34 min (prose above the 1,100-word target, older track esp.); timeline year/label pairing could be clearer",
+  "review_url": "https://claude.ai/artifact/5EEnZHTQ11XLTwXZEJubwM",
+  "editor_note": null
+}
