@@ -1,0 +1,23 @@
+{
+  "n": 42,
+  "code": "WOW-042",
+  "date": "2026-10-23",
+  "language": "he",
+  "title": "הכדור שפונה באוויר באמצע הדרך",
+  "topics": [
+    "פיזיקה",
+    "מתמטיקה",
+    "היסטוריה",
+    "ספורט",
+    "הנדסה"
+  ],
+  "summary": "Roberto Carlos's 'impossible' free kick (3 June 1997, Lyon, Brazil–France 1–1, ~35 m, Barthez didn't move, a ball boy ducked) and the Magnus effect: a spinning ball drags its boundary layer, throws its wake to one side and is pushed the other way (curves toward where its front spins); backspin lifts, topspin dips (tennis, ping-pong, How Ridiculous basketball off 126.5 m Gordon Dam, 2015); why the swerve is sharpest at the end — drag slows the ball fast while spin decays slowly, Magnus ∝ v but turning needs ∝ v², so the turning radius shrinks into a spiral (Dupeux, Le Goff, Quéré, Clanet, NJP 2010, balls in water; 20–25 m kicks stay circular); Asai curve kick ~27 m/s, ~8 rev/s; history: Newton's tennis 1672, Robins 1742, Magnus 1852, Rayleigh 1877, Flettner rotor ship Buckau 1924 / Baden-Baden across the Atlantic 1926, modern rotor sails 5–20%; maths: km/h → m/s (÷3.6), time = distance ÷ speed, surface speed and percent.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": "בעיטת בננה",
+  "reviewer_verdict": "PASS (2 rounds) — nits left: younger track ~975 words (≈22–25 min, a bit under the 1,100 target); dam paths drawn as near-straight diagonals (honest model, no dramatic swoop)",
+  "review_url": "https://claude.ai/artifact/JCfLZg3YDoUpwFHtqTRAam",
+  "editor_note": null
+}
