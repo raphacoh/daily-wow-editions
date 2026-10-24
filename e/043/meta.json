@@ -1,0 +1,22 @@
+{
+  "n": 43,
+  "code": "WOW-043",
+  "date": "2026-10-24",
+  "language": "he",
+  "title": "החרק שמחכה באדמה שבע־עשרה שנה בדיוק",
+  "topics": [
+    "ביולוגיה",
+    "מתמטיקה",
+    "היסטוריה",
+    "טבע"
+  ],
+  "summary": "Periodical cicadas (Magicicada): 7 species in eastern North America with 13- or 17-year cycles emerge together (up to ~370/m²; Broods XIII+XIX co-emerged in 2024, >1 trillion, last in 1803, next 2245); Benjamin Banneker saw Brood X at 17 in 1749 and recorded 1766/1783, predicting 1800; predator satiation (toy model: 17,000 cicadas, birds eat ≤1,000/yr → 0% survive spread out vs 94% together); prime numbers and the sieve of Eratosthenes (25 primes ≤100); predator cycles meet a prime cycle only at the LCM = product (4×17 = 68, 25% of emergences) while 12 is hit by 2,3,4,6 every time; Karban 2000 peach trees flowering twice → emerged a year early (they count spring sap cycles); emergence at ~18 °C soil; hybridization-avoidance hypothesis and 4-year stragglers (17−4=13); the reason for primes is still debated.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-10-24T08:08:54.050Z",
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — nits left: Banneker timeline year '1749' sits close to the figure's edge on phones (labels ~16 CSS px); floating Arto button covers the end of a message line on phones (template); older track with the challenge runs ~30 min",
+  "review_url": "https://claude.ai/artifact/CRKTtZapeTCYSbgyVoShsi",
+  "editor_note": null
+}

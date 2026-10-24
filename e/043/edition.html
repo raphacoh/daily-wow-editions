@@ -1,0 +1,1712 @@
+<title>שורשים וכנפיים #43 · החרק שמחכה באדמה שבע־עשרה שנה בדיוק</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#6B3FA0; --shadow-soft:#ECE1F7;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a goal seen from above, a ball path that swings wide and curls back in */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+.calfig{margin:18px 0 24px}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+/* the sieve of Eratosthenes: a 10 × 10 grid of numbers, read left to right like a hundred chart */
+.sieve{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px;direction:ltr;margin:14px 0 4px}
+.sieve span{aspect-ratio:1/1;display:grid;place-items:center;border-radius:9px;background:var(--card);border:2px solid var(--line);font-weight:700;font-size:1.1rem;font-variant-numeric:tabular-nums;transition:opacity .25s,background .25s,border-color .25s}
+.sieve span.out{opacity:.3;text-decoration:line-through;background:var(--card2);border-color:transparent}
+.sieve span.hit{background:var(--bad-soft);border-color:var(--bad);opacity:1;text-decoration:none}
+.sieve span.base{background:var(--sun-soft);border-color:var(--sun-deep)}
+.sieve span.prime{background:var(--ok-soft);border-color:var(--ok)}
+.sieve span.cic{outline:4px solid var(--sun-deep);outline-offset:1px}
+@media (max-width:640px){.sieve{gap:3px;margin:14px -12px 4px}.sieve span{font-size:.8rem;border-radius:6px;border-width:1.5px;letter-spacing:-.02em}}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 43</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="#8FD19E" stop-opacity=".55"/>
+        <stop offset="60%" stop-color="#8FD19E" stop-opacity=".14"/>
+        <stop offset="100%" stop-color="#8FD19E" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- a periodical cicada seen from above: clear wings, dark body, red eyes; the two prime numbers float beside it -->
+    <g transform="translate(160,165) rotate(-18) scale(.72)" opacity=".6">
+      <ellipse cx="-30" cy="18" rx="30" ry="78" transform="rotate(-14 -30 18)" fill="#FFFFFF" fill-opacity=".72" stroke="var(--ink)" stroke-width="3"/>
+      <ellipse cx="30" cy="18" rx="30" ry="78" transform="rotate(14 30 18)" fill="#FFFFFF" fill-opacity=".72" stroke="var(--ink)" stroke-width="3"/>
+      <path d="M-34 -30 L-44 60 M34 -30 L44 60" stroke="#E8A33D" stroke-width="3" opacity=".9"/>
+      <ellipse cx="0" cy="10" rx="20" ry="58" fill="#2E2A24" stroke="var(--ink)" stroke-width="3"/>
+      <ellipse cx="0" cy="-52" rx="26" ry="16" fill="#2E2A24" stroke="var(--ink)" stroke-width="3"/>
+      <circle cx="-22" cy="-56" r="9" fill="#D33C2E" stroke="var(--ink)" stroke-width="2.5"/>
+      <circle cx="22" cy="-56" r="9" fill="#D33C2E" stroke="var(--ink)" stroke-width="2.5"/>
+    </g>
+    <g font-family="Secular One, Rubik, Arial" font-size="40" fill="var(--ink)" text-anchor="middle">
+      <text x="52" y="78">13</text>
+      <text x="250" y="262">17</text>
+    </g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 43</span><span class="tag">יום שבת, 24 באוקטובר 2026</span><span class="tag">י״ג בחשוון תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>החרק שמחכה באדמה שבע־עשרה שנה בדיוק</h1>
+  <p class="lede">מתחת לאדמה במזרח אמריקה חיים מיליארדי חרקים קטנים. הם יושבים שם בחושך, ומוצצים מיץ משורשים של עצים. שנה, שנתיים, עשר שנים... ואז, אחרי <b><span class="num">17</span> שנה בדיוק</b>, כולם יוצאים החוצה ביחד, באותו שבוע. אין להם לוח שנה ואין להם שעון. השאלה של היום: <b>איך חרק סופר עד <span class="num">17</span>, ולמה דווקא <span class="num">17</span>?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">בשנה שבה הן יוצאות, <b>כמה ציקדות</b> יכולות לצאת מהאדמה בחתיכת אדמה קטנה, מטר על מטר, בגודל של שטיח קטן?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>אחת</b><span>ציקדה אחת, אולי אף לא אחת</span></button>
+      <button type="button" class="scaleopt" data-scale="10"><b><span class="num">10</span> בערך</b><span>כמו האצבעות בשתי הידיים</span></button>
+      <button type="button" class="scaleopt" data-scale="300"><b>כמה מאות</b><span>כמו כל הילדים בבית ספר קטן</span></button>
+      <button type="button" class="scaleopt" data-scale="100000"><b>מאה אלף</b><span>כמו כל האנשים בעיר גדולה</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE BOY WHO COUNTED YEARS (figure: Banneker's timeline) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>הנער שספר שנים</h2>
+  <p>באביב של שנת <span class="num">1749</span>, בחווה קטנה ליד העיר בולטימור שבאמריקה, ראה נער בשם <b>בנג׳מין בנקר</b> משהו שלא ראה מעולם. מתוך האדמה, מתחת לעצים, יצאו אלפי חרקים שמנים עם עיניים אדומות. הם טיפסו על הגזעים, על העשב ועל הגדר, ותוך כמה ימים כיסו את העצים, וזמזמו כל כך חזק שבקושי שמעו משהו אחר. בנקר היה אז בן <span class="num">17</span>. הוא חשב שהחרקים יהרסו את היבול, וניסה להרוג אותם, אבל מהר מאוד הבין שאין לזה סיכוי: היו פשוט יותר מדי.</p>
+  <p>אחרי כמה שבועות הם נעלמו, כאילו לא היו. בנקר, נער סקרן שלימד את עצמו מתמטיקה וכוכבים, ובנה לבד שעון מעץ, כתב את מה שראה. בשנת <span class="num">1766</span> החרקים חזרו. ושוב בשנת <span class="num">1783</span>. ובנקר שם לב: בין כל פעם לפעם עברו <b>בדיוק <span class="num">17</span> שנים</b>. בשנת <span class="num">1800</span>, כשכבר היה זקן, הוא כתב ביומן שהם יחזרו באותה שנה. והם חזרו.</p>
+
+  <figure class="calfig" aria-label="ציר זמן: ציקדה מצוירת מעל כל אחת מהשנים 1749, 1766, 1783 ו־1800. בין כל שתי שנים קשת עם הכתובת פלוס 17. אחרי נקודות, ציקדה מעל 2021, וסימן שאלה בסוף">
+    <svg viewBox="0 0 560 230" role="img" aria-hidden="true" focusable="false">
+      <rect x="8" y="8" width="544" height="214" rx="18" fill="var(--card2)" stroke="var(--line)" stroke-width="2"/>
+      <g transform="translate(10,0)"><path d="M30 150 L530 150" stroke="var(--ink)" stroke-width="4"/>
+      <g fill="none" stroke="#C97A12" stroke-width="3.5" stroke-dasharray="4 7" stroke-linecap="round">
+        <path d="M56 116 Q 100 66 144 116"/><path d="M144 116 Q 188 66 232 116"/><path d="M232 116 Q 276 66 320 116"/><path d="M410 116 Q 454 66 498 116"/>
+      </g>
+      <g font-family="Rubik, Arial" font-weight="700" font-size="28" fill="#8A5410" text-anchor="middle" direction="ltr">
+        <text x="100" y="64" direction="ltr">+17</text><text x="188" y="64" direction="ltr">+17</text><text x="276" y="64" direction="ltr">+17</text><text x="454" y="64" direction="ltr">+17</text>
+      </g>
+      <g id="tlCic">
+        <g transform="translate(56,128)"><ellipse cx="-7" cy="2" rx="7" ry="16" fill="#FFFFFF" stroke="#1B1F33" stroke-width="2"/><ellipse cx="7" cy="2" rx="7" ry="16" fill="#FFFFFF" stroke="#1B1F33" stroke-width="2"/><ellipse cx="0" cy="0" rx="6" ry="15" fill="#2E2A24"/><circle cx="-6" cy="-14" r="4" fill="#D33C2E"/><circle cx="6" cy="-14" r="4" fill="#D33C2E"/></g>
+      </g>
+      <use href="#tlCic" x="88"/><use href="#tlCic" x="176"/><use href="#tlCic" x="264"/><use href="#tlCic" x="354"/>
+      <circle cx="498" cy="128" r="17" fill="var(--sun-soft)" stroke="#8A5410" stroke-width="3"/>
+      <text x="498" y="137" font-family="Secular One, Rubik, Arial" font-size="26" fill="#8A5410" text-anchor="middle">?</text>
+      <g font-family="Rubik, Arial" font-size="26" fill="var(--ink)" text-anchor="middle" font-weight="700">
+        <circle cx="56" cy="150" r="6" fill="var(--ink)"/><circle cx="144" cy="150" r="6" fill="var(--ink)"/><circle cx="232" cy="150" r="6" fill="var(--ink)"/><circle cx="320" cy="150" r="6" fill="var(--ink)"/><circle cx="410" cy="150" r="6" fill="var(--ink)"/><circle cx="498" cy="150" r="6" fill="var(--ink)"/>
+        <text x="56" y="188">1749</text><text x="144" y="188">1766</text><text x="232" y="188">1783</text><text x="320" y="188">1800</text><text x="365" y="156" font-size="30">…</text><text x="410" y="188">2021</text><text x="498" y="188">?</text>
+      </g></g>
+    </svg>
+    <figcaption>הציקדות שבנקר ראה יוצאות פעם ב־<span class="num">17</span> שנה. הצאצאים שלהן יצאו גם בשנת <span class="num">2021</span>. ומתי בפעם הבאה? את זה תחשבו בעצמכם במבחן.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>היום יודעים איך קוראים לחרקים האלה: <b>ציקדות מחזוריות</b>. בנקר קרא להם "ארבה", כמו רוב האנשים בזמנו, אבל הם בכלל לא ארבה. ציקדה היא חרק בגודל של אגודל, עם ארבע כנפיים שקופות. ציקדות יש בהרבה מקומות בעולם, גם בישראל, ושם יוצאות קצת ציקדות בכל קיץ. אבל הציקדות המחזוריות, שחיות רק במזרח אמריקה, מחכות כולן ביחד ויוצאות כולן ביחד. יש להקות שמחכות <span class="num">17</span> שנה, ויש להקות שמחכות <span class="num">13</span>.</p>
+    <p>תחשבו על זה: ציקדה שבקעה מהביצה בקיץ שבו נולדתם תצא מהאדמה רק כשתהיו בכיתה י״ב. וכל השנים האלה היא שם, מתחת לרגליים של מישהו, בחושך.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>היום מכירים <span class="num">7</span> מינים של ציקדות מחזוריות: לשלושה מהם יש מחזור של <span class="num">17</span> שנה, ולארבעה מחזור של <span class="num">13</span>. כל קבוצה שיוצאת באותה שנה ובאותו אזור נקראת "<b>להקה</b>". בשנת <span class="num">1907</span> נתן להן החוקר צ׳רלס מרלט מספרים רומיים, והציקדות של בנקר הן להקה <span class="num">X</span>, להקה עשר. היום מכירים <span class="num">15</span> להקות שעדיין חיות, ושתיים נכחדו.</p>
+    <p>בנקר עצמו היה אדם יוצא דופן. הוא נולד בשנת <span class="num">1731</span> לאב שהיה עבד ששוחרר, בתקופה שבה רוב השחורים באמריקה היו עבדים. הוא הוציא לאור לוחות שנה עם חישובים של מיקום הכוכבים, ובשנת <span class="num">1791</span> שלח אחד מהם לתומס ג׳פרסון, יחד עם מכתב שבו טען שהעבדות אינה צודקת. יש היסטוריונים שחושבים שהוא היה מהראשונים שתיעדו את המחזור של <span class="num">17</span> שנה, אבל אי אפשר לדעת בוודאות שהוא היה הראשון.</p>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · ALL AT ONCE (interactive 1: the birds' feast) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>כולן יחד, בבת אחת</h2>
+  <p>ציקדה היא ארוחה מצוינת: היא שמנה, איטית, ולא עוקצת ולא נושכת. ציפורים, סנאים, צבים, דגים ואפילו כלבים אוכלים אותן בשמחה. אז איך הן שורדות? התשובה מפתיעה: <b>בזכות זה שהן רבות כל כך</b>. בשנה שבה להקה יוצאת, על כל מטר רבוע של אדמה יכולות לצאת מאות ציקדות. ובשנת <span class="num">2024</span> יצאו באותו אביב שתי להקות ענקיות, אחת של <span class="num">13</span> שנה ואחת של <span class="num">17</span>, וההערכות דיברו על יותר מ<b>טריליון</b> ציקדות, אלף מיליארד.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>דמיינו מסיבת יום הולדת עם <span class="num">10</span> ילדים. אם יש בדיוק <span class="num">10</span> פרוסות עוגה, כל העוגה נגמרת. אבל אם יש <span class="num">1,000</span> פרוסות, הילדים אוכלים עד שהבטן מלאה, ורוב העוגה נשארת. הציפורים הן הילדים, והציקדות הן הפרוסות. ציפור יכולה לאכול רק כמה ציקדות ביום, ואחר כך היא שבעה.</p>
+    <p>אם הציקדות היו יוצאות קצת בכל שנה, הציפורים היו אוכלות כמעט את כולן. אבל כשכולן יוצאות באותו שבוע, הציפורים שבעות מהר, ורוב הציקדות נשארות בחיים. במעבדה למטה תבדקו בעצמכם.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>לשיטה הזאת קוראים <b>השבעת טורפים</b>. חוקרים שספרו ציקדות בארקנסו מצאו שהטורפים אוכלים הרבה בימים הראשונים של היציאה, ואז הם פשוט שבעים, ורוב הציקדות שורדות. וחשוב לא פחות: הטורפים לא יכולים "להתכונן". ציפור לא יכולה להגדיל את המשפחה שלה פי <span class="num">100</span> בשנה אחת, ובשנים שבין היציאות אין להן ציקדות לאכול בכלל.</p>
+    <p>הנה החשבון. נניח שהציפורים בחצר מסוגלות לאכול <span class="num">1,000</span> ציקדות בעונה. אם יוצאות <span class="num">2,000</span>, שורדות <span class="math">2,000 − 1,000 = 1,000</span>, כלומר <span class="math">1,000 ÷ 2,000 = 50%</span>. אבל אם יוצאות <span class="num">20,000</span>, שורדות <span class="math">19,000 ÷ 20,000 = 95%</span>. ככל שיוצאות יותר, <b>האחוז</b> ששורד גדל. במעבדה: נסו לפזר את הציקדות על פני <span class="num">17</span> שנים, או לשחרר את כולן באותה שנה.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — המשתה של הציפורים ===== -->
+  <div class="panel instrument">
+    <h3>המשתה של הציפורים</h3>
+    <p class="cap">בחצר אחת חיות מתחת לאדמה <span class="num">17,000</span> ציקדות. בכל שנה, הציפורים יכולות לאכול לכל היותר <span class="num">1,000</span>. נחשו קודם: מה עדיף לציקדות?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="satP0" onclick="satPredict(0)">לצאת קצת בכל שנה</button>
+        <button id="satP1" onclick="satPredict(1)">לצאת כולן באותה שנה</button>
+        <button id="satP2" onclick="satPredict(2)">אין הבדל</button>
+      </div>
+    </div>
+    <canvas role="img" id="satCv" width="640" height="470" aria-label="17 עמודות, אחת לכל שנה, עומדות על פס של אדמה חומה. בכל עמודה החלק התחתון אדום, אלה הציקדות שהציפורים אכלו, והחלק העליון ירוק, אלה הציקדות ששרדו. קו מקווקו מסמן כמה הציפורים מסוגלות לאכול. כשהציקדות מתפזרות על כל השנים, כל העמודות אדומות. כשכולן יוצאות באותה שנה, יש עמודה אחת ענקית, כמעט כולה ירוקה">
+    </canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="איך יוצאות">
+        <button id="satM0" class="on" onclick="satMode(0)">קצת בכל שנה</button>
+        <button id="satM1" onclick="satMode(1)">כולן באותה שנה</button>
+      </div>
+    </div>
+    <div class="controls">
+      <label>כמה ציקדות בחצר, בסך הכול (שמאלה: מעט, ימינה: המון)
+        <input type="range" id="satN" min="1" max="20" step="1" value="10" oninput="satDraw(1)" aria-label="כמה ציקדות בחצר" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">ציקדות בחצר: <b id="satOut">17,000</b></div>
+      <div class="readout">שרדו: <b id="satOut2">—</b></div>
+    </div>
+    <p class="cap" id="satMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="satReveal" hidden><span class="hand">!</span><p>כשהציקדות מתפזרות, בכל שנה יוצאות מעט, והציפורים אוכלות כמעט את כולן. כשכולן יוצאות <b>באותה שנה</b>, הציפורים שבעות אחרי אלף הראשונות, וכל השאר שורדות. לכן חשוב כל כך לצאת ביחד, ולכן ציקדה שיוצאת שנה מוקדם, לבד, כמעט תמיד נאכלת.</p></div>
+
+  <div class="q qc" id="pressQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE NUMBERS THAT WON'T SPLIT (interactive 2: the sieve) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>המספרים שאי אפשר לחלק</h2>
+  <p>אבל למה דווקא <span class="num">13</span> ו־<span class="num">17</span>? למה לא <span class="num">12</span>, או <span class="num">15</span>? נסו לחלק <span class="num">12</span> סוכריות לקבוצות שוות: אפשר <span class="num">2</span> קבוצות של <span class="num">6</span>, <span class="num">3</span> של <span class="num">4</span>, <span class="num">4</span> של <span class="num">3</span>, <span class="num">6</span> של <span class="num">2</span>. ועכשיו <span class="num">13</span> סוכריות: אי אפשר! רק קבוצה אחת של <span class="num">13</span>, או <span class="num">13</span> קבוצות של סוכרייה אחת. מספר שמתחלק בשווה רק ב־<span class="num">1</span> ובעצמו נקרא <b>מספר ראשוני</b>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>לפני יותר מ־<span class="num">2,200</span> שנה, בעיר אלכסנדריה שבמצרים, חי חכם יווני בשם <b>ארטוסתנס</b>. הוא היה ראש הספרייה הגדולה של אלכסנדריה, אותה ספרייה שממנה מגיע ארטו שלנו. ארטוסתנס מצא דרך פשוטה לגלות מספרים ראשוניים: כותבים את כל המספרים, ומוחקים כל מספר שהוא כפולה של מספר קטן ממנו (חוץ מ־<span class="num">1</span>). מה שנשאר בסוף, ראשוני.</p>
+    <p>קוראים לזה <b>הנפה של ארטוסתנס</b>. כמו נפה של קמח: הגושים נשארים למעלה, והקמח נופל למטה. כאן המספרים ה"רגילים" נופלים, והראשוניים נשארים. בלוח למטה תעשו את זה בעצמכם.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>את השיטה למצוא ראשוניים המציא <b>ארטוסתנס</b>, מתמטיקאי יווני שעמד בראש הספרייה הגדולה של אלכסנדריה לפני יותר מ־<span class="num">2,200</span> שנה. היא נקראת <b>הנפה של ארטוסתנס</b>: מוחקים את כל הכפולות של <span class="num">2</span> (חוץ מ־<span class="num">2</span> עצמו), אחר כך את הכפולות של <span class="num">3</span>, של <span class="num">5</span> ושל <span class="num">7</span>, ומה שנשאר ראשוני.</p>
+    <p>למה מספיק לעצור ב־<span class="num">7</span>, אם הלוח מגיע עד <span class="num">100</span>? כי כל מספר שאינו ראשוני הוא מכפלה של שני מספרים, ולפחות אחד מהם קטן מ־<span class="num">10</span> או שווה לו (אילו שניהם היו גדולים מ־<span class="num">10</span>, המכפלה הייתה גדולה מ־<span class="num">100</span>). והראשוניים עד <span class="num">10</span> הם בדיוק <span class="math">2, 3, 5, 7</span>. ועוד עובדה עתיקה: אוקלידס, עוד לפני ארטוסתנס, הוכיח שהראשוניים <b>לא נגמרים לעולם</b>.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — הנפה של ארטוסתנס ===== -->
+  <div class="panel instrument">
+    <h3>הנפה של ארטוסתנס</h3>
+    <p class="cap">בלוח יש את כל המספרים מ־<span class="num">1</span> עד <span class="num">100</span>. נחשו קודם: <b>כמה</b> מהם הם מספרים ראשוניים?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="svP0" onclick="svPredict(0)">בערך <span class="num">5</span></button>
+        <button id="svP1" onclick="svPredict(1)">בערך <span class="num">25</span></button>
+        <button id="svP2" onclick="svPredict(2)">בערך <span class="num">50</span></button>
+      </div>
+    </div>
+    <div class="sieve" id="sieve" role="img" aria-label="לוח של המספרים מ־1 עד 100, עשרה בכל שורה. מספר שנמחק הופך חיוור ומחוק בקו. המספרים הראשוניים שנשארים נצבעים בירוק, ו־13 ו־17 מסומנים במסגרת כתומה"></div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="מוחקים כפולות">
+        <button id="sv2" onclick="svCross(2)">מוחקים כפולות של <span class="num">2</span></button>
+        <button id="sv3" onclick="svCross(3)">של <span class="num">3</span></button>
+        <button id="sv5" onclick="svCross(5)">של <span class="num">5</span></button>
+        <button id="sv7" onclick="svCross(7)">של <span class="num">7</span></button>
+      </div>
+      <button class="btn small ghost" onclick="svReset()">מהתחלה</button>
+    </div>
+    <div class="controls">
+      <div class="readout">נשארו בנפה: <b id="svOut">99</b></div>
+      <div class="readout">נמחקו עכשיו: <b id="svOut2">—</b></div>
+    </div>
+    <p class="cap" id="svMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="svReveal" hidden><span class="hand">!</span><p>מכל <span class="num">100</span> המספרים נשארו רק <b><span class="num">25</span> ראשוניים</b>, ו־<span class="num">13</span> ו־<span class="num">17</span> ביניהם. ו־<span class="num">12</span>, <span class="num">14</span>, <span class="num">15</span>, <span class="num">16</span>? כולם נפלו מהנפה, כי אפשר לחלק אותם. המספר <span class="num">1</span> לא נחשב ראשוני: הוא מתחלק רק בעצמו, ולכן הוא כבר מחוק מההתחלה.</p></div>
+
+  <div class="q qc" id="cornerQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · WHEN DO THEY MEET? (interactive 3: the meeting board) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>מתי נפגשים?</h2>
+  <p>ועכשיו נחזור לציקדות. נניח שיש טורף, חיה שאוכלת ציקדות, שגם אצלו יש "שנים טובות", למשל פעם ב־<span class="num">4</span> שנים יש ממנו המון. אם הציקדות יוצאות כל <span class="num">12</span> שנה, מתי הן נתקלות בו? הטורף: <span class="math">4, 8, <b>12</b>, 16, 20, <b>24</b></span>... והציקדות: <span class="math"><b>12</b>, <b>24</b></span>... <b>בכל פעם</b> שהציקדות יוצאות, הטורף מחכה להן! ומה אם הן יוצאות כל <span class="num">13</span> שנה? <span class="math">13, 26, 39, 52</span>: הפגישה הראשונה רק בשנה ה־<span class="num">52</span>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>זה כמו שני ילדים שעולים במדרגות ארוכות. אחד דורך על כל מדרגה רביעית, והשני על כל מדרגה שתים־עשרה. כל פעם שהשני דורך, הוא נוחת בדיוק על מדרגה שהראשון כבר דרך עליה. אבל אם השני דורך על כל מדרגה שלוש־עשרה, הם נפגשים רק לעתים רחוקות.</p>
+    <p>מספר כמו <span class="num">12</span> מתחלק בהמון מספרים, ולכן הרבה טורפים "נופלים" עליו. מספר ראשוני כמו <span class="num">13</span> או <span class="num">17</span> לא מתחלק בשום מספר קטן, ולכן הוא חומק כמעט מכולם. בלוח הפגישות למטה תבחרו מחזור לציקדות ומחזור לטורף, ותראו מתי הם נפגשים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>השנה הראשונה שמופיעה בשתי הרשימות נקראת <b>הכפולה המשותפת הקטנה ביותר</b>. כשמחזור הציקדות ראשוני, ומחזור הטורף קטן ממנו, אין להם שום מחלק משותף חוץ מ־<span class="num">1</span>, ואז הפגישה הראשונה היא פשוט <b>מכפלה</b>: טורף של <span class="num">4</span> שנים וציקדות של <span class="num">17</span> נפגשים לראשונה אחרי <span class="math">4 × 17 = 68</span> שנה. בזמן הזה הציקדות יצאו <span class="math">68 ÷ 17 = 4</span> פעמים, ורק באחת מהן הטורף היה שם: <span class="math">1 ÷ 4 = 25%</span> מהגיחות.</p>
+    <p>ועם מחזור של <span class="num">12</span>? טורפים עם מחזור של <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span> או <span class="num">6</span> שנים פוגשים אותן ב־<span class="math">100%</span> מהגיחות. וחשוב להודות: אף אחד עוד לא מצא טורף אמיתי שבאמת חוזר במחזור קבוע כזה. ייתכן שהיו כאלה בעבר. בלוח הפגישות: חפשו את מחזור הציקדות שפוגש הכי מעט טורפים.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — לוח הפגישות ===== -->
+  <div class="panel instrument">
+    <h3>לוח הפגישות</h3>
+    <p class="cap">על הלוח <span class="num">100</span> שנה. בשורה העליונה, הטורף. בשורה התחתונה, הציקדות. כשהם יוצאים באותה שנה, יש פגישה, והיא מסומנת בעיגול אדום. נחשו קודם: הטורף מגיע כל <span class="num">4</span> שנים. איזו ציקדה תיפגש איתו <b>הכי מעט</b>?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="mtP0" onclick="mtPredict(0)">כל <span class="num">12</span> שנה</button>
+        <button id="mtP1" onclick="mtPredict(1)">כל <span class="num">16</span> שנה</button>
+        <button id="mtP2" onclick="mtPredict(2)">כל <span class="num">17</span> שנה</button>
+      </div>
+    </div>
+    <canvas role="img" id="mtCv" width="640" height="470" aria-label="ציר של 100 שנה משמאל לימין. בשורה העליונה נקודות אדומות קטנות: השנים שבהן מגיע הטורף. בשורה התחתונה ציקדות: השנים שבהן הן יוצאות. כשטורף וציקדה נמצאים באותה שנה, פס צהוב מחבר ביניהם ועיגול אדום גדול מקיף את הציקדה. למטה כתוב כמה פגישות היו">
+    </canvas>
+    <div class="controls">
+      <label><span>כל כמה שנים יוצאות הציקדות (שמאלה: <span class="num">10</span>, ימינה: <span class="num">18</span>)</span>
+        <input type="range" id="mtC" min="10" max="18" step="1" value="12" oninput="mtDraw(1)" aria-label="מחזור הציקדות" style="direction:ltr">
+      </label>
+      <label><span>כל כמה שנים מגיע הטורף (שמאלה: <span class="num">2</span>, ימינה: <span class="num">8</span>)</span>
+        <input type="range" id="mtQ" min="2" max="8" step="1" value="4" oninput="mtDraw(1)" aria-label="מחזור הטורף" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">פגישה ראשונה: <b id="mtOut">—</b></div>
+      <div class="readout">במאה השנים שעל הלוח, גיחות עם טורף: <b id="mtOut2">—</b></div>
+    </div>
+    <div class="controls">
+      <div class="readout"><span>טורפים (מחזור <span class="math">2–8</span>) שמחכים לה בכל גיחה:</span> <b id="mtOut3">—</b></div>
+    </div>
+    <p class="cap" id="mtMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="mtReveal" hidden><span class="hand">!</span><p>מחזור של <span class="num">12</span> שנה הוא מלכודת: טורפים של <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span> ו־<span class="num">6</span> שנים פוגשים את הציקדות <b>בכל</b> גיחה. גם <span class="num">16</span> מתחלק ב־<span class="num">2</span>, ב־<span class="num">4</span> וב־<span class="num">8</span>. אבל <span class="num">13</span> ו־<span class="num">17</span> ראשוניים: אף טורף עם מחזור קצר לא נוחת עליהם בכל פעם, והפגישות נדירות.</p></div>
+
+  <div class="q qc" id="crackQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>איך סופרים בלי שעון?</h2>
+  <p>נשארה תעלומה: איך ציקדה, בחושך מתחת לאדמה, יודעת שעברו <span class="num">17</span> שנה? בשנת <span class="num">2000</span> בדק את זה חוקר בשם <b>ריצ׳רד קרבן</b> מאוניברסיטת קליפורניה. הוא לקח ציקדות צעירות בנות <span class="num">15</span>, מלהקה של <span class="num">17</span> שנה, והעביר אותן אל השורשים של עצי אפרסק. את העצים הוא גרם <b>לפרוח פעמיים בכל שנה</b>. התוצאה: הציקדות יצאו <b>שנה אחת מוקדם מדי</b>.</p>
+  <p>מה זה אומר? הציקדות לא סופרות ימים, וגם לא מרגישות שנים. הן סופרות את <b>האביבים של העץ</b>. בכל אביב, כשהעץ מתעורר, עובר בשורשים שלו מיץ מזין יותר, והציקדה, שיונקת מהשורש, מרגישה את זה. וכשהספירה מגיעה לסוף, הן מחכות לערב אביבי שבו האדמה, בעומק של כ־<span class="num">20</span> סנטימטר, מתחממת לכ־<span class="num">18</span> מעלות, ואז יוצאות.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>מתחת לאדמה הציקדה הצעירה נקראת <b>נִימְפָה</b>. היא בלי כנפיים, והיא חופרת לאט ליד שורשי העץ ויונקת מהם מיץ. בזמן הזה היא גדלה, ומחליפה את העור שלה כמה פעמים, כמו שמחליפים בגדים כשהם נהיים קטנים.</p>
+    <p>בערב של היציאה, הנימפות חופרות מנהרה קטנה למעלה, יוצאות, ומטפסות על הגזע הקרוב. שם העור שלהן נסדק בגב, ומתוכו יוצאת ציקדה לבנה ורכה עם כנפיים מקומטות. אחרי כמה שעות היא משחירה, ואחרי כמה ימים היא כבר קשה, ויכולה לעוף. על העץ נשאר רק העור הריק, שקוף, בצורה של ציקדה. בכמה שבועות שנשארו להן, הזכרים שרים בקול חזק כדי למשוך נקבות, והנקבות מטילות מאות ביצים בתוך חריצים קטנים בענפים. אחרי כמה שבועות בוקעות מהביצים נימפות קטנטנות, נופלות לאדמה, וחופרות למטה. הספירה מתחילה מחדש.</p>
+    <p>ולמה דווקא מספרים ראשוניים? כאן המדענים <b>עדיין מתווכחים</b>. יש כאלה שחושבים שזה בגלל הטורפים, כמו בלוח הפגישות. ויש כאלה שחושבים שזה כדי שלהקות שונות לא יתערבבו. אף אחד עוד לא הוכיח מי צודק.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>ולמה דווקא ראשוניים? כאן המדענים <b>עדיין מתווכחים</b>, ויש שני הסברים מובילים. <b>הסבר א׳, הטורפים:</b> מחזור ראשוני פוגש מעט טורפים, כמו שראיתם בלוח. בשנת <span class="num">2001</span> בנו שלושה חוקרים מצ׳ילה ומגרמניה, גולס, שולץ ומרקוס, מודל ממוחשב של טורפים וטרף, ובמודל המחזורים של הטרף "התקדמו" מעצמם אל מספרים ראשוניים.</p>
+    <p><b>הסבר ב׳, לא להתערבב:</b> ייתכן שבתקופות הקרח הציקדות היו מעטות, ולהקות עם מחזורים שונים נפגשו והתרבו זו עם זו. לצאצאים של זוג "מעורבב" עלול להיות מחזור אחר, והם יוצאים בשנה הלא נכונה, מעטים ולבד, ונאכלים. להקה של <span class="num">12</span> ולהקה של <span class="num">15</span> היו נפגשות כל <span class="num">60</span> שנה. להקה של <span class="num">13</span> ולהקה של <span class="num">17</span> נפגשות רק פעם ב־<span class="math">13 × 17 = 221</span> שנה. כך הן נשארות "טהורות".</p>
+    <p>ויש רמז מעניין: לפעמים חלק מהציקדות של להקת <span class="num">17</span> יוצאות <span class="num">4</span> שנים מוקדם, אחרי <span class="math">17 − 4 = 13</span> שנה. אולי כך, לפני אלפי שנים, נולדו הלהקות של <span class="num">13</span>. אבל גם זה עוד לא הוכח.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> באביב <span class="num">2024</span> יצאו באותה שנה, וגם באותו אזור במדינת אילינוי, להקה XIII (מחזור של <span class="num">17</span> שנה) ולהקה XIX (מחזור של <span class="num">13</span> שנה). (א) באיזו שנה שתיהן יצאו שוב יחד? (ב) כמה פעמים תצא להקה XIX (של <span class="num">13</span>) מ־<span class="num">2025</span> ועד השנה הזאת, כולל אותה?</p>
+      <div class="controls">
+        <label>(א) השנה <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) כמה פעמים <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> ציפורים חיות ואוכלות בכל שנה, כלומר "המחזור" שלהן הוא שנה אחת. האם המספר הראשוני עוזר לציקדות נגדן? ואם לא, מה כן מגן עליהן מפני הציפורים?</p>
+      <details><summary>רמז</summary><p>כל מספר מתחלק ב־<span class="num">1</span>. ומה ראיתם במשתה של הציפורים?</p></details>
+      <details><summary>התשובה</summary><p>לא. טורף שמגיע כל שנה פוגש את הציקדות בכל גיחה, לא משנה אם המחזור הוא <span class="num">12</span>, <span class="num">13</span> או <span class="num">17</span>, כי כל מספר מתחלק ב־<span class="num">1</span>. נגד ציפורים כאלה מגן הדבר השני שלמדנו: <b>הכמות</b>. כשכולן יוצאות באותו שבוע, הציפורים שבעות מהר ורובן שורדות. ויש עוד יתרון: בשנים שבין היציאות אין לציפורים ציקדות בכלל, ולכן אין להן איך "להתאים" את עצמן ולהתרבות במיוחד לקראת השנה הגדולה. המספר הראשוני עוזר אולי רק נגד טורפים שיש להם מחזור של כמה שנים, ונגד ערבוב בין להקות.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>דף משובץ (או דף רגיל וסרגל), עיפרון ושלושה צבעים. לחלק השני: עוד שני אנשים מהבית, וקצת סבלנות.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — הנפה שלי (<span class="num">10</span> דקות)</h3>
+    <ol>
+      <li>ציירו טבלה של <span class="num">10</span> על <span class="num">10</span>, וכתבו בה את המספרים מ־<span class="num">1</span> עד <span class="num">100</span>, עשרה בכל שורה.</li>
+      <li>בצבע הראשון, סמנו בקו אלכסוני את כל הכפולות של <span class="num">2</span>, חוץ מ־<span class="num">2</span>. שימו לב לצורה: עמודות שלמות!</li>
+      <li>בצבע השני, את הכפולות של <span class="num">3</span>, חוץ מ־<span class="num">3</span>. הן יוצרות קווים אלכסוניים. ובצבע השלישי, את הכפולות של <span class="num">5</span> ושל <span class="num">7</span>.</li>
+      <li>הקיפו את כל מה שנשאר, חוץ מ־<span class="num">1</span>. ספרו: יצא לכם <span class="num">25</span>? מצאו את <span class="num">13</span> ואת <span class="num">17</span>, וציירו לידם ציקדה קטנה.</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — מחיאות הכפיים (<span class="num">10</span> דקות)</summary>
+    <p>אחד סופר לאט בקול: אחת, שתיים, שלוש... עד <span class="num">40</span>. השני הוא "הטורף": מוחא כף בכל מספר שמתחלק ב־<span class="num">4</span>. השלישי הוא "הציקדה": מוחא כף בכל מספר שמתחלק ב־<span class="num">12</span>. כמה פעמים מחאו שניכם יחד? עכשיו נסו שוב, אבל הציקדה מוחאת בכל מספר שמתחלק ב־<span class="num">7</span>. באיזה מספר מחאו שניכם יחד בפעם הראשונה? ומה ההבדל?</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — ציד עורות בקיץ (<span class="num">5</span> דקות)</summary>
+    <p>גם בישראל יש ציקדות. הן לא מחזוריות, אבל גם הנימפות שלהן גדלות מתחת לאדמה. בקיץ, כשתשמעו זמזום חזק וקבוע מתוך עצים, חפשו על הגזעים, נמוך, עורות ריקים ושקופים בצורת חרק. כל עור כזה הוא "בגד" שציקדה השאירה כשיצאה מהאדמה וקיבלה כנפיים. אפשר להסתכל ולצלם, ולא צריך לקחת.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הרעיון הראשון: <b>ביחד שורדים.</b> ציקדה אחת היא ארוחה קלה. אבל כשמיליוני ציקדות יוצאות באותו שבוע, הציפורים שבעות מהר, ורוב הציקדות נשארות בחיים ומטילות ביצים.</p>
+    <p>הרעיון השני: <b>במתמטיקה יש סודות שגם הטבע מכיר.</b> מספרים ראשוניים כמו <span class="num">13</span> ו־<span class="num">17</span> לא מתחלקים בשום מספר קטן, ולכן הם "חומקים" מטורפים שחוזרים כל כמה שנים. ציקדה לא יודעת חשבון, אבל לאורך אלפי שנים, הציקדות שהמחזור שלהן היה ראשוני הן אלה ששרדו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הראשון: <b>הברירה הטבעית "מחשבת".</b> לציקדה אין מוח של מתמטיקאי. אבל אם ציקדות עם מחזור של <span class="num">12</span> נאכלו יותר, ואלה עם מחזור של <span class="num">13</span> שרדו יותר, אחרי אלפי דורות יישארו רק אלה של <span class="num">13</span>. התוצאה נראית כמו פתרון חכם של בעיה בחשבון, בלי שאף אחד פתר אותה.</p>
+    <p>הרעיון השני: <b>מדע הוא גם ויכוח.</b> העובדות ברורות: מחזורים של <span class="num">13</span> ו־<span class="num">17</span>, יציאה ביחד, ספירה של אביבים. אבל הסיבה לראשוניים עוד שנויה במחלוקת. שאלה לחקור: אם המחזור הראשוני כל כך טוב, למה אין ציקדות עם מחזור של <span class="num">11</span> או <span class="num">19</span>?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתרים הראשוניים?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">מתמטיקה · אינטרנט</div><h3>המנעולים של האינטרנט</h3><p>כשאתם קונים משהו ברשת, המידע ננעל במנעול שבנוי ממכפלה של שני מספרים ראשוניים ענקיים. לכפול אותם קל למחשב. אבל לגלות מה היו שני הראשוניים, אם יודעים רק את המכפלה, קשה כל כך שזה ייקח שנים רבות.</p></div>
+    <div class="tile"><div class="dom">הנדסה · מכונות</div><h3>שן שמסתובבת לכולם</h3><p>מהנדסים בוחרים לפעמים מספרי שיניים לשני גלגלי שיניים שאין להם מחלק משותף, כמו <span class="num">13</span> ו־<span class="num">17</span>. כך כל שן פוגשת בתורה כל שן של הגלגל השני, והשחיקה מתחלקת שווה. בדיוק החשבון של הציקדות והטורפים.</p></div>
+    <div class="tile"><div class="dom">היסטוריה · אלכסנדריה</div><h3>הספרן שמדד את העולם</h3><p>ארטוסתנס, ראש הספרייה של אלכסנדריה, לא רק המציא את הנפה. הוא גם חישב את ההיקף של כדור הארץ בעזרת מקל וצל, והשתמש במילה "גאוגרפיה". את הנפה שלו אנחנו מכירים כי סופר יווני אחר, ניקומכוס, תיאר אותה בספר כמה מאות שנים אחריו.</p></div>
+    <div class="tile"><div class="dom">ביולוגיה · ישראל</div><h3>ציקדות מעל הר מירון</h3><p>בקיץ אפשר לשמוע ציקדות גם ביערות בארץ. חוקרי ציפורים שראו להקת בזים חגה מעל היער שבהר מירון שיערו שהם צדים שם ציקדות שעולות מהעצים בבוקר. אבל זו השערה, ועוד לא בדקו אותה עד הסוף.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): הארובות שאף אחד לא מבין</summary>
+    <p>לפעמים, לפני היציאה, הנימפות בונות מעל החור שלהן "ארובה" קטנה מבוץ, גבוהה כמה סנטימטרים, כמו צריח של טירה. בשטחים מסוימים יש מאות כאלה, צמודות זו לזו. למה הן בונות אותן? נחשו, לפני שאתם פותחים.</p>
+    <details><summary>התשובה</summary>
+      <p>האמת: <b>לא יודעים</b>. יש השערות, למשל שזה עוזר כשהאדמה רטובה מדי, אבל אף אחת מהן לא הוכחה. גם אחרי מאות שנים של מחקר, לחרק הזה עדיין יש סודות. אולי אחד מכם יפתור אותם.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את החיים של ציקדה מחזורית, מהביצה ועד הביצים הבאות. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: הלהקה של בנג׳מין בנקר יצאה מהאדמה בפעם האחרונה בשנת <span class="num">2021</span>. היא יוצאת כל <span class="num">17</span> שנה. באיזו שנה היא תצא שוב?</div>
+    <div class="controls"><label>השנה <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: טורף מגיע כל <span class="num">6</span> שנים, וציקדות יוצאות כל <span class="num">13</span> שנה. השנה שניהם כאן. (א) בעוד כמה שנים הם ייפגשו שוב בפעם הבאה? (ב) בתוך השנים עד הפגישה (כולל שנת הפגישה), כמה אחוזים מהגיחות של הציקדות "פוגשות" את הטורף? (את (ב) עגלו לעשירית, ספרה אחת אחרי הנקודה. מותר מחשבון.)</div>
+    <div class="controls"><label>(א) שנים <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) אחוזים <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: טורף מגיע כל <span class="num">3</span> שנים, וציקדות יוצאות כל <span class="num">17</span> שנה. השנה שניהם כאן. בעוד כמה שנים הם ייפגשו שוב בפעם הבאה?</div>
+    <div class="controls"><label>שנים <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה כדאי לציקדות המחזוריות לצאת כולן באותו שבוע, ולמה דווקא כל <span class="num">13</span> או <span class="num">17</span> שנה?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="הציקדות יוצאות כולן ביחד, ולכן..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. במזרח אמריקה יש ציקדות שמחכות מתחת לאדמה <span class="num">13</span> או <span class="num">17</span> שנה בדיוק, ואז יוצאות כולן באותו שבוע, לפעמים מאות על כל מטר רבוע. בשנת <span class="num">2024</span> יצאו יותר מטריליון.<br>
+    2. <span class="num">13</span> ו־<span class="num">17</span> הם מספרים ראשוניים, ולכן טורף שחוזר כל כמה שנים כמעט אף פעם לא "נופל" על שנת היציאה. על הסיבה המדויקת המדענים עוד מתווכחים.<br>
+    3. נער בשם בנג׳מין בנקר ראה אותן בגיל <span class="num">17</span>, בשנת <span class="num">1749</span>, ורשם כל יציאה, עד שגילה את המחזור. והציקדות סופרות את השנים לפי האביבים של העץ שהן יונקות ממנו.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>בנקר: Smithsonian Magazine, "Meet Benjamin Banneker, the Black Scientist Who Documented Brood X Cicadas in the Late 1700s" (<span class="num">2021</span>) — תצפיות ב־<span class="num">1749</span>, <span class="num">1766</span> ו־<span class="num">1783</span>, התחזית הנכונה ל־<span class="num">1800</span>, ניסיון להרוג אותם, שעון העץ, לוחות השנה, המכתב לג׳פרסון (<span class="num">1791</span>); ההיסטוריונים Nkwanta ו־Barber: "אולי מהראשונים". History.com, "Benjamin Banneker cicadas". בנקר נולד ב־<span class="num">9</span> בנובמבר <span class="num">1731</span>, ולכן באביב <span class="num">1749</span> היה בן <span class="num">17</span>. להקה <span class="num">X</span> יצאה ב־<span class="num">2021</span> (<span class="math">1800 + 13 × 17 = 2021</span>).</p>
+    <p>הביולוגיה: Wikipedia, "Periodical cicadas" — <span class="num">7</span> מינים (<span class="num">3</span> של <span class="num">17</span> שנה, <span class="num">4</span> של <span class="num">13</span>), מספור הלהקות של מרלט (<span class="num">1907</span>), <span class="num">15</span> להקות חיות ושתיים נכחדו (XI, XXI), יניקה מעצה (קסילם) של שורשים, <span class="num">5</span> שלבי נימפה, יציאה כשהאדמה בעומק כ־<span class="num">20</span> ס״מ עוברת <span class="math">17.9°C</span>, עד יותר מ־<span class="math">1.5</span> מיליון לאקר (כ־<span class="num">370</span> למ״ר; Lloyd ו־Dybas ספרו <span class="num">311</span> חורים ליארד רבוע), בוגרים חיים <span class="math">4–6</span> שבועות, כ־<span class="num">600</span> ביצים בחריצים בענפים, בקיעה אחרי <span class="math">6–10</span> שבועות, "ארובות" בוץ שתפקידן לא ידוע, מאחרים שיוצאים <span class="num">4</span> שנים מוקדם (<span class="num">17</span>) או מאוחר (<span class="num">13</span>). Smithsonian (<span class="num">2024</span>) — הופעה כפולה של להקות XIII ו־XIX, יותר מטריליון, הפעם הקודמת ב־<span class="num">1803</span>, <span class="math">64°F</span>. השבעת טורפים: Williams, Smith ו־Stephen, Ecology <span class="num">74</span> (<span class="num">1993</span>), ארקנסו — הטריפה בשיא בימים הראשונים ואז יורדת.</p>
+    <p>הספירה: Karban, Black ו־Weinbaum, "How 17-year cicadas keep track of time", Ecology Letters <span class="num">3</span> (<span class="num">2000</span>), <span class="math">253–256</span>; Discover, "Tree-Sucking Clock-Watchers" — נימפות בנות <span class="num">15</span> על עצי אפרסק שפרחו פעמיים בשנה יצאו שנה מוקדם; ההשערה שהן מרגישות שינויים במיץ שבשורשים. הראשוניים: Goles, Schulz ו־Markus, Complexity (<span class="num">2001</span>) — מודל טורף־טרף; Cox ו־Carlton (<span class="num">1988</span>) ו־Yoshimura (<span class="num">1997</span>) — הימנעות מהכלאה בתקופות הקרח; Tanaka ועמיתים (<span class="num">2009</span>). אין הסכמה, ולא ידוע על טורף מחזורי של ממש. ארטוסתנס: MacTutor (St Andrews) — <span class="math">276–194</span> לפנה״ס, הספרן השלישי של אלכסנדריה מכ־<span class="num">240</span> לפנה״ס; Wikipedia, "Sieve of Eratosthenes" — ניקומכוס, "מבוא לאריתמטיקה", המאה השנייה לספירה. ציקדות בהר מירון: ynet, בזי חופים מעל היער, השערה של עמיר בלבן (החברה להגנת הטבע).</p>
+    <p>פישוטים במכוון: "המשתה של הציפורים" הוא מודל צעצוע — <span class="num">17,000</span> ציקדות בחצר, ציפורים שאוכלות לכל היותר <span class="num">1,000</span> בשנה, בלי טורפים אחרים ובלי ציקדות שמתות מסיבות אחרות. "לוח הפגישות" מניח טורף דמיוני שחוזר במחזור קבוע; כאלה לא נמצאו בטבע. הסכום בניחוש הפתיחה: "כמה מאות" (עד כ־<span class="num">370</span> למ״ר במקומות הצפופים, ופחות במקומות אחרים). ההסבר שהציקדות סופרות את האביבים לפי המיץ שבשורשים הוא ההסבר המקובל לניסוי של קרבן, לא מנגנון שהוכח במלואו.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:43, code:'WOW-043', date:'2026-10-24', title:'החרק שמחכה באדמה שבע־עשרה שנה בדיוק', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '16rXqNek15XXoSDXlNeT16fXmdem15Q='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'biology', w:3 }, { id:'math', w:3 }, { id:'history', w:2 } ],
+  hero: { name:'החרק שמחכה באדמה שבע־עשרה שנה בדיוק — המשתה של הציפורים, הנפה של ארטוסתנס, ולוח הפגישות', fact:'ציקדות מחזוריות יוצאות כולן יחד כל 13 או 17 שנה — מספרים ראשוניים, שטורף שחוזר כל כמה שנים כמעט אף פעם לא נופל עליהם.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'estimation',            d:2 },
+    'qc:storyQ':      { skill:'recall',                d:1 },
+    'qc:pressQ':      { skill:'cause-effect',          d:2 },
+    'qc:cornerQ':     { skill:'divisibility',          d:2 },
+    'qc:crackQ':      { skill:'divisibility',          d:3 },
+    'qc:deepQ':       { skill:'experiment-reasoning',  d:3 },
+    'mcq:shared:0':   { skill:'cause-effect',          d:2 },
+    'mcq:shared:1':   { skill:'prime-numbers',         d:2 },
+    'mcq:shared:2':   { skill:'common-multiples',      d:3 },
+    'mcq:younger:0':  { skill:'recall',                d:1 },
+    'mcq:older:0':    { skill:'experiment-reasoning',  d:4 },
+    'order':          { skill:'life-cycle-sequence',   d:2 },
+    'num:younger':    { skill:'addition',              d:1 },
+    'num:older':      { skill:'common-multiples',      d:3 },
+    'num:adv':        { skill:'multiples-and-percent', d:4 },
+    'challenge':      { skill:'lcm-and-counting',      d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); } if(n===2) satDraw(0); if(n===3) svOut.innerHTML='<span class="num">'+svLeft()+'</span>'; if(n===4) mtDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: how many periodical cicadas can come out of one square metre? ----------
+   Four choices: 1, 10, "a few hundred" (stored as 300), 100,000. The right answer: a few hundred (up to ~370 per m² in the densest places). */
+const SCALE_ANS = 300;
+const fmtSigns = n => ({1:'אחת',10:'בערך 10',300:'כמה מאות',100000:'מאה אלף'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> במקומות הצפופים יוצאות <b>כמה מאות</b> ציקדות מכל מטר רבוע, עד כ־<span class="num">370</span>. זה יותר ממיליון וחצי ציקדות בשטח של מגרש כדורגל. ולמה כל כך הרבה, דווקא באותו שבוע? על זה השיעור.';
+const SCALE_FB = {
+  300: SCALE_FB_RIGHT,
+  1: '<span class="pill-bad">הרבה יותר!</span> במקומות הצפופים יוצאות <b>כמה מאות</b> ציקדות מכל מטר רבוע, עד כ־<span class="num">370</span>. זה יותר ממיליון וחצי בשטח של מגרש כדורגל. ולמה כל כך הרבה, דווקא באותו שבוע? על זה השיעור.',
+  10: '<span class="pill-bad">יותר!</span> במקומות הצפופים יוצאות <b>כמה מאות</b> ציקדות מכל מטר רבוע, עד כ־<span class="num">370</span>. זה יותר ממיליון וחצי בשטח של מגרש כדורגל. ולמה כל כך הרבה, דווקא באותו שבוע? על זה השיעור.',
+  100000: '<span class="pill-bad">פחות!</span> מאה אלף לא היו נכנסות במטר אחד אפילו צמודות זו לזו: הן היו נערמות לגובה של חצי מטר. במקומות הצפופים יוצאות <b>כמה מאות</b> מכל מטר רבוע, עד כ־<span class="num">370</span>. וזה כבר יותר ממיליון וחצי בשטח של מגרש כדורגל. ולמה כל כך הרבה, באותו שבוע? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* deterministic pseudo-random (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* a generic play/scrub helper: animates a 0–100 range input over `ms` milliseconds, calling draw(1) each frame */
+function xPlayer(id, rangeId, btnId, ms, draw, onLabel, offLabel){
+  const st={ raf:0 };
+  st.toggle=function(){ if(st.raf){ cancelAnimationFrame(st.raf); st.raf=0; st.btn(false); return; }
+    const r=document.getElementById(rangeId); const top=+(r.max||100); if(+r.value>=top) r.value=0;
+    if(XREDUCED){ r.value=Math.min(top,+r.value+20); draw(1); return; }
+    const t0=performance.now(), start=+r.value; st.btn(true);
+    const step=now=>{ const v=Math.min(top, start+(now-t0)/ms*100); r.value=Math.round(v); draw(1); if(v<top){ st.raf=requestAnimationFrame(step); } else { st.raf=0; st.btn(false); } };
+    st.raf=requestAnimationFrame(step); };
+  st.btn=function(on){ const b=document.getElementById(btnId); b.textContent = on ? onLabel : offLabel; b.classList.toggle('on',on); };
+  return st;
+}
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const WARN = () => isDark() ? '#F6C454' : '#C97A12';
+const EARTH = () => isDark() ? '#5E4E33' : '#B08A55';
+const EARTH2 = () => isDark() ? '#4A3D28' : '#9C7646';
+const CICBODY = () => isDark() ? '#8A7A60' : '#2E2A24';
+const CICEYE = () => '#D33C2E';
+const WING = () => isDark() ? 'rgba(235,240,255,.55)' : 'rgba(255,255,255,.85)';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+const fmtN = n => Math.round(n).toLocaleString('en-US');           // 17,000 (digits and comma; shown inside .num / .math)
+const gcd = (a,b) => b ? gcd(b, a%b) : a;
+const lcm = (a,b) => a/gcd(a,b)*b;
+/* a periodical cicada seen from above, pointing up: two clear wings, a dark body, two red eyes; s = body length in px */
+function xCic(c,x,y,s,ring){ const ink=css('--ink'); c.save(); c.translate(x,y);
+  c.lineWidth=Math.max(1.5,s/16); c.strokeStyle=ink; c.fillStyle=WING();
+  /* wings: two long clear blades spreading from the shoulders past the tail, like a roof */
+  c.beginPath(); c.ellipse(-s*0.30, s*0.18, s*0.17, s*0.56, 0.38, 0, 2*PI); c.fill(); c.stroke();
+  c.beginPath(); c.ellipse( s*0.30, s*0.18, s*0.17, s*0.56, -0.38, 0, 2*PI); c.fill(); c.stroke();
+  c.strokeStyle=WARN(); c.lineWidth=Math.max(1,s/22); c.beginPath(); c.moveTo(-s*0.16,-s*0.2); c.lineTo(-s*0.48,s*0.62); c.moveTo(s*0.16,-s*0.2); c.lineTo(s*0.48,s*0.62); c.stroke();
+  /* body and a wide head with two big red eyes */
+  c.strokeStyle=ink; c.lineWidth=Math.max(1.5,s/16); c.fillStyle=CICBODY();
+  c.beginPath(); c.ellipse(0, s*0.08, s*0.17, s*0.42, 0, 0, 2*PI); c.fill(); c.stroke();
+  c.beginPath(); c.ellipse(0, -s*0.38, s*0.26, s*0.15, 0, 0, 2*PI); c.fill(); c.stroke();
+  c.fillStyle=CICEYE(); c.beginPath(); c.arc(-s*0.25, -s*0.42, s*0.1, 0, 2*PI); c.fill(); c.stroke(); c.beginPath(); c.arc(s*0.25, -s*0.42, s*0.1, 0, 2*PI); c.fill(); c.stroke();
+  c.restore();
+  if(ring){ c.strokeStyle=DANG(); c.lineWidth=5; c.beginPath(); c.arc(x, y+s*0.05, s*0.82, 0, 2*PI); c.stroke(); } }
+/* a small bird in profile (the predator), facing left */
+function xBird(c,x,y,s,col){ c.save(); c.translate(x,y); c.fillStyle=col; c.strokeStyle=css('--ink'); c.lineWidth=2;
+  c.beginPath(); c.ellipse(0,0,s,s*0.62,0,0,2*PI); c.fill(); c.stroke();
+  c.beginPath(); c.arc(-s*0.85,-s*0.45,s*0.45,0,2*PI); c.fill(); c.stroke();
+  c.fillStyle=WARN(); c.beginPath(); c.moveTo(-s*1.25,-s*0.5); c.lineTo(-s*1.75,-s*0.36); c.lineTo(-s*1.25,-s*0.25); c.closePath(); c.fill();
+  c.fillStyle=css('--ink'); c.beginPath(); c.arc(-s*0.95,-s*0.55,s*0.09,0,2*PI); c.fill();
+  c.fillStyle=col; c.beginPath(); c.moveTo(s*0.8,-s*0.1); c.lineTo(s*1.6,-s*0.45); c.lineTo(s*1.5,s*0.25); c.closePath(); c.fill(); c.stroke();
+  c.restore(); }
+
+/* ---------- step 2 (interactive 1): the birds' feast (canvas) ----------
+   A toy model of predator satiation. A yard holds N cicadas (slider 1–20 × 1,700). The birds can eat at most CAP = 1,000 a year.
+   Mode 0: a seventeenth come out every year for 17 years; mode 1: all of them come out in year 17. Survivors per year = max(0, n − CAP).
+   Drawn as 17 year-columns on the ground: red = eaten (up to the dashed "full" line), green = survived. The vertical scale adapts. */
+const satCv=document.getElementById('satCv'), satctx=satCv.getContext('2d');
+const SAT={ opened:0, pred:-1, revealed:0, mode:0, seen:[0,0] };
+const SAT_CAP=1000, SAT_X0=46, SAT_X1=610, SAT_BASE=372, SAT_TOPY=118;
+function satTotal(){ return +satN.value*1700; }
+function satCols(){ const N=satTotal(); return SAT.mode===0 ? Array(17).fill(N/17) : Array(16).fill(0).concat([N]); }
+function satRes(){ const cols=satCols(); let eaten=0, surv=0; cols.forEach(n=>{ const e=Math.min(n,SAT_CAP); eaten+=e; surv+=n-e; }); const N=satTotal(); return { cols, eaten, surv, N, pct: surv/N*100 }; }
+function satPredict(k){ SAT.pred=k; segOn('satP',3,k); WOW.emit('item', { id:'press:predict', kind:'quick', correct:k===1, attempt: wowTry('press:predict') });
+  satMsg.innerHTML='רשמנו את הניחוש. עכשיו הציקדות יוצאות <b>קצת בכל שנה</b>. הסתכלו על הצבעים, ואז לחצו "כולן באותה שנה".'; satDraw(1); }
+function satMode(m){ if(SAT.pred<0){ predictFirst(satMsg,'בחרו'); return; } SAT.mode=m; segOn('satM',2,m); satDraw(1); }
+function satDraw(user){
+  const c=satctx, W=satCv.width, H=satCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && SAT.pred<0 && +satN.value!==10){ satN.value=10; blocked=true; }
+  if(user && !SAT.opened){ SAT.opened=1; WOW.emit('open', { id:'press' }); }
+  const r=satRes(); if(SAT.pred>=0) SAT.seen[SAT.mode]=1;
+  /* sky and ground */
+  c.clearRect(0,0,W,H); const sky=c.createLinearGradient(0,0,0,SAT_BASE); sky.addColorStop(0, isDark()?'#0F1A33':'#CFE6F5'); sky.addColorStop(1, isDark()?'#1D2B4A':'#EEF6FB'); c.fillStyle=sky; c.fillRect(0,0,W,SAT_BASE);
+  c.fillStyle=EARTH(); c.fillRect(0,SAT_BASE,W,H-SAT_BASE); c.fillStyle=EARTH2(); const R=prng(11); for(let i=0;i<40;i++){ c.beginPath(); c.arc(R()*W, SAT_BASE+12+R()*(H-SAT_BASE-20), 2+R()*3, 0, 2*PI); c.fill(); }
+  c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(0,SAT_BASE); c.lineTo(W,SAT_BASE); c.stroke();
+  /* columns */
+  const maxV=Math.max(SAT_CAP*1.7, ...r.cols), hOf=n=>n/maxV*(SAT_BASE-SAT_TOPY), cw=(SAT_X1-SAT_X0)/17, bw=cw*0.72;
+  r.cols.forEach((n,i)=>{ const x=SAT_X0+i*cw+(cw-bw)/2, e=Math.min(n,SAT_CAP), s=n-e;
+    if(n<=0){ c.fillStyle=css('--muted'); c.globalAlpha=.35; c.fillRect(x, SAT_BASE-3, bw, 3); c.globalAlpha=1; return; }
+    c.fillStyle=DANG(); c.fillRect(x, SAT_BASE-hOf(e), bw, hOf(e));
+    if(s>0){ c.fillStyle=GOOD(); c.fillRect(x, SAT_BASE-hOf(n), bw, hOf(s)); }
+    c.strokeStyle=ink; c.lineWidth=2; c.strokeRect(x, SAT_BASE-hOf(n), bw, hOf(n)); });
+  /* the "full" line */
+  const fy=SAT_BASE-hOf(SAT_CAP); c.strokeStyle=ink; c.lineWidth=3; c.setLineDash([8,8]); c.beginPath(); c.moveTo(SAT_X0-10,fy); c.lineTo(SAT_X1+10,fy); c.stroke(); c.setLineDash([]);
+  xBird(c, 70, fy-30, 15, isDark()?'#7FB3DD':'#3A63B8'); xBird(c, 118, fy-24, 12, isDark()?'#C9A4F0':'#6B3FA0');
+  xLabel(c, 'כאן הציפורים כבר שבעות', 370, fy-30, 22, ink, .9);
+  /* year labels */
+  [1,5,9,13,17].forEach(y=>{ xNum(c, String(y), SAT_X0+(y-0.5)*cw, SAT_BASE+26, 22, ink); });
+  xLabel(c, 'שנה', W/2, SAT_BASE+66, 22, ink, .85);
+  /* legend and result */
+  xLabel(c, 'נאכלו', 76, 30, 22, DANG(), .92); xLabel(c, 'שרדו', 200, 30, 22, GOOD(), .92);
+  if(SAT.pred>=0){ xTag(c, 'שרדו', Math.round(r.pct)+'%', W-30, 30, 30, r.pct>50?GOOD():DANG(), 'right', .94); }
+  else xLabel(c, '?', W-60, 30, 30, DANG(), .92);
+  if(SAT.mode===1 && r.N>0){ const x=SAT_X0+16*cw+cw/2; xLabel(c, 'כולן יחד', clamp(x-40, 80, W-80), Math.max(SAT_TOPY-30, SAT_BASE-hOf(r.N)-28), 22, ink, .9); }
+  satOut.innerHTML='<span class="num">'+fmtN(r.N)+'</span>';
+  satOut2.innerHTML = SAT.pred<0 ? '?' : '<span class="num">'+fmtN(r.surv)+'</span> (<span class="math">'+Math.round(r.pct)+'%</span>)';
+  if(SAT.pred>=0 && SAT.seen[0] && SAT.seen[1] && !SAT.revealed){ SAT.revealed=1; satReveal.hidden=false; }
+  if(blocked){ predictFirst(satMsg,'הזיזו'); return; }
+  if(user===1 && SAT.pred>=0){
+    const each=fmtN(r.N/17);
+    if(SAT.mode===0) satMsg.innerHTML = 'קצת בכל שנה: יוצאות כ־<span class="num">'+each+'</span> ציקדות בשנה. '+(r.N/17<=SAT_CAP ? 'הציפורים מסוגלות לאכול עד <span class="num">1,000</span>, ולכן הן אוכלות <b>את כולן</b>, שנה אחרי שנה. אף ציקדה לא שורדת.' : 'הציפורים אוכלות <span class="num">1,000</span> בכל שנה, ורק אלה שמעל הקו שורדות.')+' עכשיו נסו "כולן באותה שנה".';
+    else satMsg.innerHTML = 'כולן באותה שנה: יוצאות <span class="num">'+fmtN(r.N)+'</span> ציקדות באותו שבוע. הציפורים אוכלות <span class="num">1,000</span> ושבעות, וכל השאר שורדות: <span class="math">'+Math.round(r.pct)+'%</span>.'+(SAT.pred===1?' בדיוק כמו שניחשתם!':'')+' הזיזו את המחוון: ככל שיש יותר ציקדות, האחוז ששורד גדל.';
+  }
+}
+
+/* ---------- step 3 (interactive 2): the sieve of Eratosthenes (HTML grid 1–100) ----------
+   1 starts crossed out. Each button p ∈ {2,3,5,7} keeps p (marked as a base prime) and strikes out every multiple 2p, 3p, … ≤ 100,
+   flashing the newly struck ones. After all four, every survivor 2–100 is prime (25 of them); 13 and 17 get a ring. */
+const SV={ opened:0, pred:-1, revealed:0, done:{}, timers:[] };
+const sieveEl=document.getElementById('sieve');
+function svBuild(){ sieveEl.innerHTML=''; for(let n=1;n<=100;n++){ const s=document.createElement('span'); s.textContent=n; s.dataset.n=n; if(n===1) s.classList.add('out'); sieveEl.appendChild(s); } }
+svBuild();
+const svCell = n => sieveEl.children[n-1];
+function svLeft(){ let k=0; for(let n=2;n<=100;n++) if(!svCell(n).classList.contains('out')) k++; return k; }
+function svPredict(k){ SV.pred=k; segOn('svP',3,k); WOW.emit('item', { id:'sheet:predict', kind:'quick', correct:k===1, attempt: wowTry('sheet:predict') });
+  svMsg.innerHTML='רשמנו את הניחוש. עכשיו לחצו "מוחקים כפולות של <span class="num">2</span>", ואחר כך <span class="num">3</span>, <span class="num">5</span> ו־<span class="num">7</span>.'; }
+function svCross(p){
+  if(SV.pred<0){ predictFirst(svMsg,'מחקו'); return; }
+  if(!SV.opened){ SV.opened=1; WOW.emit('open', { id:'sheet' }); }
+  if(SV.done[p]){ svMsg.innerHTML='את הכפולות של <span class="num">'+p+'</span> כבר מחקנו. נסו מספר אחר.'; return; }
+  SV.done[p]=1; document.getElementById('sv'+p).classList.add('on'); svCell(p).classList.add('base');
+  const before=svLeft(); const fresh=[]; for(let m=2*p;m<=100;m+=p){ if(!svCell(m).classList.contains('out')) fresh.push(m); }
+  fresh.forEach((m,i)=>{ const el=svCell(m); const go=()=>{ el.classList.add('hit'); SV.timers.push(setTimeout(()=>{ el.classList.remove('hit'); el.classList.add('out'); }, XREDUCED?0:260)); };
+    if(XREDUCED) { el.classList.add('out'); } else SV.timers.push(setTimeout(go, i*40)); });
+  const left = before - fresh.length;
+  svOut.innerHTML='<span class="num">'+left+'</span>'; svOut2.innerHTML='<span class="num">'+fresh.length+'</span>';
+  const sample = fresh.slice(0,4).join(', ');
+  const all = [2,3,5,7].every(q=>SV.done[q]);
+  svMsg.innerHTML = 'מחקנו את הכפולות של <span class="num">'+p+'</span>'+(fresh.length?': <span class="math">'+sample+(fresh.length>4?', …':'')+'</span>. עוד <span class="num">'+fresh.length+'</span> מספרים נפלו מהנפה.':', אבל כולן כבר היו מחוקות.')+' המספר <span class="num">'+p+'</span> עצמו נשאר: הוא מתחלק רק ב־<span class="num">1</span> ובעצמו.'+(all?'':' המשיכו למספר הבא.');
+  if(all){ SV.timers.push(setTimeout(()=>{ for(let n=2;n<=100;n++){ const el=svCell(n); if(!el.classList.contains('out')){ el.classList.remove('base'); el.classList.add('prime'); } } svCell(13).classList.add('cic'); svCell(17).classList.add('cic');
+      svOut.innerHTML='<span class="num">'+svLeft()+'</span>';
+      svMsg.innerHTML='הנפה גמורה! כל המספרים הירוקים הם <b>ראשוניים</b>: <span class="num">25</span> מתוך <span class="num">100</span>.'+(SV.pred===1?' בדיוק כמו שניחשתם!':'')+' ומצאתם את שני המספרים במסגרת הכתומה? <span class="num">13</span> ו־<span class="num">17</span>, המחזורים של הציקדות.';
+      WOW.emit('item', { id:'sheet:kick', kind:'quick', correct:true, attempt: wowTry('sheet:kick') });
+      if(!SV.revealed){ SV.revealed=1; svReveal.hidden=false; } }, XREDUCED?0:fresh.length*40+320)); }
+}
+function svReset(){ SV.timers.forEach(clearTimeout); SV.timers=[]; SV.done={}; svBuild(); [2,3,5,7].forEach(q=>document.getElementById('sv'+q).classList.remove('on')); svOut.innerHTML='<span class="num">99</span>'; svOut2.innerHTML='—'; if(SV.pred>=0) svMsg.innerHTML='הלוח חזר להתחלה. מחקו שוב, ואפשר גם בסדר אחר: האם התוצאה משתנה?'; }
+
+/* ---------- step 4 (interactive 3): the meeting board (canvas) ----------
+   100 years, left to right (x = 40 + 5.6 px per year). Top lane: the predator, a red dot every Q years. Bottom lane: a cicada every C years.
+   A year that is a multiple of both = a meeting: a yellow band joins the lanes and the cicada gets a red ring. First meeting = lcm(C,Q).
+   Readouts: first meeting, meetings out of emergences in 100 years, and which predator cycles 2–8 divide C (they meet the cicadas every time). */
+const mtCv=document.getElementById('mtCv'), mtctx=mtCv.getContext('2d');
+const MT={ opened:0, pred:-1, revealed:0, seen:{} };
+const MT_X0=40, MT_PX=5.6, MT_PY=120, MT_CY=234, MT_AX=300;
+const mtX = y => MT_X0 + y*MT_PX;
+function mtPredict(k){ MT.pred=k; segOn('mtP',3,k); WOW.emit('item', { id:'fatigue:predict', kind:'quick', correct:k===2, attempt: wowTry('fatigue:predict') });
+  mtMsg.innerHTML='רשמנו את הניחוש. הטורף מגיע כל <span class="num">4</span> שנים. עכשיו הזיזו את מחוון הציקדות: <span class="num">12</span>, <span class="num">16</span> ו־<span class="num">17</span>, וספרו את העיגולים האדומים.'; mtDraw(0); }
+function mtDraw(user){
+  const c=mtctx, W=mtCv.width, H=mtCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && MT.pred<0 && (+mtC.value!==12 || +mtQ.value!==4)){ mtC.value=12; mtQ.value=4; blocked=true; }
+  if(user && !MT.opened){ MT.opened=1; WOW.emit('open', { id:'fatigue' }); }
+  const C=+mtC.value, Q=+mtQ.value, L=lcm(C,Q);
+  const emer=[], meets=[]; for(let y=C;y<=100;y+=C){ emer.push(y); if(y%Q===0) meets.push(y); }
+  if(MT.pred>=0 && user===1) MT.seen[C]=1;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* lanes */
+  c.fillStyle=isDark()?'rgba(242,128,111,.10)':'rgba(200,69,45,.07)'; c.fillRect(20, MT_PY-34, W-40, 68);
+  c.fillStyle=isDark()?'rgba(79,208,143,.10)':'rgba(31,138,91,.08)'; c.fillRect(20, MT_CY-40, W-40, 80);
+  xLabel(c, 'הטורף: כל '+Q+' שנים', W-130, MT_PY-60, 22, DANG(), .9);
+  xLabel(c, 'הציקדות: כל '+C+(C>10?' שנה':' שנים'), W-140, MT_CY-66, 22, GOOD(), .9);
+  /* meeting bands */
+  meets.forEach(y=>{ c.fillStyle=isDark()?'rgba(246,196,84,.45)':'rgba(232,163,61,.55)'; c.fillRect(mtX(y)-8, MT_PY, 16, MT_CY-MT_PY); });
+  /* predator dots */
+  for(let y=Q;y<=100;y+=Q){ c.fillStyle=DANG(); c.strokeStyle=ink; c.lineWidth=1.5; c.beginPath(); c.arc(mtX(y), MT_PY, 6, 0, 2*PI); c.fill(); c.stroke(); }
+  /* cicadas */
+  emer.forEach(y=>xCic(c, mtX(y), MT_CY, 40, meets.includes(y)));
+  /* axis */
+  c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(MT_X0, MT_AX); c.lineTo(mtX(100), MT_AX); c.stroke();
+  for(let y=0;y<=100;y+=10){ c.lineWidth=2; c.beginPath(); c.moveTo(mtX(y), MT_AX); c.lineTo(mtX(y), MT_AX+(y%20?8:14)); c.stroke(); if(y%20===0) xNum(c, String(y), mtX(y), MT_AX+34, 22, ink); }
+  /* the verdict */
+  const vtxt = meets.length===0 ? 'אף פגישה במאה שנה!' : meets.length===emer.length ? 'פגישה בכל גיחה!' : 'פגישות במאה שנה:';
+  if(meets.length===0 || meets.length===emer.length) xLabel(c, vtxt, W/2, H-38, 30, meets.length? DANG():GOOD(), .95);
+  else xTag(c, vtxt, String(meets.length), W/2, H-38, 30, WARN(), 'center', .95);
+  /* readouts */
+  mtOut.innerHTML = L<=100 ? 'בשנה <span class="num">'+L+'</span>' : 'בשנה <span class="num">'+L+'</span> (אחרי הלוח)';
+  mtOut2.innerHTML = '<span class="math">'+meets.length+' / '+emer.length+'</span>';
+  const div=[2,3,4,5,6,7,8].filter(q=>C%q===0); mtOut3.innerHTML = div.length ? '<span class="math">'+div.join(', ')+'</span>' : 'אף אחד!';
+  if(MT.pred>=0 && MT.seen[17] && (MT.seen[12]||MT.seen[16]) && !MT.revealed){ MT.revealed=1; mtReveal.hidden=false; }
+  if(blocked){ predictFirst(mtMsg,'הזיזו'); return; }
+  if(user===1 && MT.pred>=0){
+    const isPrime = [11,13,17].includes(C);
+    const k=meets.length, kTxt = k===0 ? 'אף פגישה' : k===1 ? 'פגישה אחת' : '<span class="num">'+k+'</span> פגישות';
+    mtMsg.innerHTML = 'ציקדות כל <span class="num">'+C+'</span> '+(C>10?'שנה':'שנים')+', טורף כל <span class="num">'+Q+'</span> '+(Q>10?'שנה':'שנים')+': הפגישה הראשונה בשנה <span class="num">'+L+'</span>, ובמאה השנים שעל הלוח '+(k===0 ? 'אין אף פגישה באף אחת מ־<span class="num">'+emer.length+'</span> הגיחות. ' : 'יש '+kTxt+' מתוך <span class="num">'+emer.length+'</span> גיחות. ')
+      + (div.length ? 'המספר <span class="num">'+C+'</span> מתחלק ב־<span class="math">'+div.join(', ')+'</span>, ולכן טורפים עם המחזורים האלה מחכים לציקדות בכל פעם.' : (isPrime ? 'המספר <span class="num">'+C+'</span> ראשוני: אף טורף עם מחזור קצר לא מחכה לו בכל פעם.' : 'אף טורף מ־<span class="num">2</span> עד <span class="num">8</span> לא נופל עליו בכל פעם.'))
+      + (C===17 && Q===4 && MT.pred===2 ? ' בדיוק כמו שניחשתם!' : '');
+  }
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  storyQ:{ q:"מה גילה בנג׳מין בנקר על החרקים שראה בחווה שלו?", opts:["שהם יוצאים מהאדמה כל קיץ","שהם חוזרים בדיוק כל <span class=\"num\">17</span> שנה","שהם אוכלים רק תירס","שהם מגיעים במעוף מאירופה"], a:1, fb:"בנקר ראה אותם ב־<span class=\"num\">1749</span>, ב־<span class=\"num\">1766</span> וב־<span class=\"num\">1783</span>, ושם לב שבין כל פעם לפעם עברו <b>בדיוק <span class=\"num\">17</span> שנים</b>. לכן ב־<span class=\"num\">1800</span> הוא הצליח לחזות שהם יחזרו. הם לא עפים מרחוק: הם יוצאים מהאדמה שמתחת לעצים.", btn:"next1" },
+  pressQ:{ q:"למה טוב לציקדות לצאת כולן באותו שבוע?", opts:["כי ככה הן יכולות להילחם יחד בציפורים","כי הציפורים שבעות מהר, ורוב הציקדות נשארות בחיים","כי רק באותו שבוע יש אוכל על העצים","כי ציקדה לבד לא יודעת לעוף"], a:1, fb:"ציפור יכולה לאכול רק מספר מסוים של ציקדות. כשיוצאות המון באותו שבוע, <b>הציפורים שבעות</b>, וכל השאר שורדות. לזה קוראים השבעת טורפים. ציקדות לא נלחמות בכלל: הן לא עוקצות ולא נושכות." },
+  cornerQ:{ q:"למה <span class=\"num\">12</span> הוא <b>לא</b> מספר ראשוני?", opts:["כי הוא מספר זוגי גדול","כי הוא גדול מ־<span class=\"num\">10</span>","כי אפשר לחלק אותו בשווה גם ל־<span class=\"num\">2</span>, <span class=\"num\">3</span>, <span class=\"num\">4</span> ו־<span class=\"num\">6</span> קבוצות","כי אי אפשר לחלק אותו בכלל"], a:2, fb:"מספר ראשוני מתחלק בשווה <b>רק ב־<span class=\"num\">1</span> ובעצמו</b>. את <span class=\"num\">12</span> אפשר לחלק ל־<span class=\"num\">2</span>, <span class=\"num\">3</span>, <span class=\"num\">4</span> ו־<span class=\"num\">6</span> קבוצות שוות, ולכן הוא לא ראשוני. ו־<span class=\"num\">13</span>, <span class=\"num\">17</span> ואפילו <span class=\"num\">97</span> גדולים מ־<span class=\"num\">10</span>, והם כן ראשוניים. ו־<span class=\"num\">2</span> הוא זוגי, וגם הוא ראשוני." },
+  crackQ:{ q:"למה מחזור של <span class=\"num\">12</span> שנה מסוכן לציקדות?", opts:["כי <span class=\"num\">12</span> שנה זה קצר מדי לגדול","כי בשנה ה־<span class=\"num\">12</span> תמיד קר","כי טורפים עם מחזור של <span class=\"num\">2</span>, <span class=\"num\">3</span>, <span class=\"num\">4</span> או <span class=\"num\">6</span> שנים יפגשו אותן בכל פעם","כי אף טורף לא יפגוש אותן"], a:2, fb:"<span class=\"num\">12</span> מתחלק בהמון מספרים, ולכן טורף שחוזר כל <span class=\"num\">2</span>, <span class=\"num\">3</span>, <span class=\"num\">4</span> או <span class=\"num\">6</span> שנים <b>נוחת בדיוק על כל שנת יציאה</b>. מספר ראשוני כמו <span class=\"num\">13</span> חומק מכולם." },
+  deepQ:{ q:"הציקדות של ריצ׳רד קרבן יצאו שנה מוקדם מדי. מה הוא שינה כדי שזה יקרה?", opts:["הוא חימם את האדמה","הוא גרם לעצי האפרסק שלהן לפרוח פעמיים בשנה","הוא השמיע להן שירים של ציקדות","הוא נתן להן לאכול סוכר"], a:1, fb:"קרבן גרם לעצים <b>לפרוח פעמיים בכל שנה</b>. הציקדות, שיונקות מהשורשים, \"ספרו\" שני אביבים בשנה אחת, וחשבו שעבר יותר זמן. מכאן: הן סופרות את האביבים של העץ, לא ימים." },
+};
+const MCQ = {
+  shared:[
+    { q:"למה מועיל לציקדות המחזוריות לצאת כולן באותו שבוע?", opts:["כי באותו שבוע תמיד יורד גשם","כי ביחד הן מפחידות את הציפורים","כי הטורפים שבעים מהר, ורוב הציקדות שורדות","כי ככה חם להן יותר"], a:2, fb:"כשמיליוני ציקדות יוצאות יחד, <b>הטורפים שבעים</b> אחרי חלק קטן מהן, וכל השאר שורדות ומטילות ביצים. ציקדות לא מפחידות אף אחד, והגשם והחום לא קשורים לזה." },
+    { q:"איזה מהמספרים האלה הוא מספר ראשוני?", opts:["<span class=\"num\">21</span>","<span class=\"num\">19</span>","<span class=\"num\">15</span>","<span class=\"num\">9</span>"], a:1, fb:"<span class=\"num\">19</span> מתחלק בשווה רק ב־<span class=\"num\">1</span> ובעצמו: <b>ראשוני</b>. את האחרים אפשר לחלק: <span class=\"math\">21 = 3 × 7</span>, <span class=\"math\">15 = 3 × 5</span>, <span class=\"math\">9 = 3 × 3</span>." },
+    { q:"טורף מגיע כל <span class=\"num\">5</span> שנים, וציקדות יוצאות כל <span class=\"num\">13</span> שנה. השנה שניהם כאן. בעוד כמה שנים הם ייפגשו שוב בפעם הבאה?", opts:["<span class=\"num\">13</span>","<span class=\"num\">18</span>","<span class=\"num\">130</span>","<span class=\"num\">65</span>"], a:3, fb:"צריך את המספר הראשון שמופיע גם ברשימה של ה־<span class=\"num\">5</span> וגם ברשימה של ה־<span class=\"num\">13</span>. כי <span class=\"num\">13</span> ראשוני, זו פשוט המכפלה: <span class=\"math\">5 × 13 = 65</span>. החיבור <span class=\"math\">5 + 13 = 18</span> לא נותן שנה ששניהם בה. ו־<span class=\"num\">130</span> היא כבר הפגישה השנייה." },
+  ],
+  younger:[
+    { q:"מה אוכלות הציקדות הצעירות כשהן מתחת לאדמה?", opts:["מיץ שהן יונקות משורשי העצים","תולעים קטנות","חול ואבנים","שום דבר, במשך כל השנים"], a:0, fb:"הנימפות חיות ליד <b>שורשי העצים</b>, ויונקות מהם מיץ, שנים רבות. בזכות זה הן גם \"סופרות\" את האביבים של העץ." },
+  ],
+  older:[
+    { q:"מה הראה הניסוי של ריצ׳רד קרבן עם עצי האפרסק?", opts:["שהציקדות סופרות שנים לפי שעון פנימי מדויק, שאי אפשר לבלבל","שהציקדות סופרות את מחזורי העץ: כשהעץ עבר שני אביבים בשנה, הן יצאו שנה מוקדם","שציקדות לא יכולות לחיות על עצי אפרסק","שרק הטמפרטורה של האדמה קובעת באיזו שנה הן יוצאות"], a:1, fb:"העצים פרחו <b>פעמיים בשנה</b>, והציקדות יצאו שנה מוקדם: הן ספרו מחזורים של העץ, לא ימים. שעון פנימי מדויק לא היה מתבלבל, והן חיו על העצים בלי בעיה. הטמפרטורה (כ־<span class=\"math\">18°C</span> באדמה) קובעת רק את <b>הערב</b> המדויק בתוך שנת היציאה, לא את השנה." },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'הנקבה חותכת חריצים קטנים בענף צעיר, ומטילה בהם ביצים.'},
+  {id:'b', t:'אחרי כמה שבועות בוקעות נימפות קטנטנות, ונופלות לאדמה.'},
+  {id:'c', t:'הנימפות חופרות אל שורשי העץ, ויונקות מהם מיץ, שנים רבות.'},
+  {id:'d', t:'בשנה הנכונה, בערב שבו האדמה מתחממת, הן חופרות מנהרה ויוצאות.'},
+  {id:'e', t:'הן מטפסות על עץ, העור נסדק, ויוצאות ציקדות עם כנפיים.'},
+  {id:'f', t:'הזכרים שרים, הנקבות מטילות ביצים, ואחרי כמה שבועות כולם מתים.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> ביצים בענף ← נימפות נופלות לאדמה ← שנים של יניקה מהשורשים ← יציאה בערב חם ← טיפוס והחלפת עור ← שירה, ביצים, וסוף. שימו לב שהכרטיס האחרון מחזיר אותנו לראשון: זה מעגל, והוא נסגר כל <span class="num">13</span> או <span class="num">17</span> שנה.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) הכול מתחיל בביצה, ולביצה צריך ענף, כלומר זה קורה <b>למעלה</b>, על העץ. (2) רק נימפה שגדלה שנים מתחת לאדמה יכולה לצאת ולקבל כנפיים.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const aOk = chalA.value!=='' && Math.abs(a-2245)<0.01, bOk = chalB.value!=='' && Math.abs(b-17)<0.01;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const hintA = (hasA && Math.abs(a-221)<0.01) ? '(א): <span class="num">221</span> זה <b>כמה שנים</b> עוברות עד הפגישה. השאלה היא באיזו שנה: <span class="math">2024 + 221</span>.'
+    : (hasA && Math.abs(a-2054)<0.01) ? '(א): חיברתם את המחזורים, <span class="math">2024 + 13 + 17</span>. אבל בשנת <span class="num">2054</span> אף אחת מהלהקות לא יוצאת. צריך שנה שמתחלקת גם ב־<span class="num">13</span> וגם ב־<span class="num">17</span> שנים אחרי <span class="num">2024</span>.'
+    : (hasA && (Math.abs(a-2041)<0.01 || Math.abs(a-2037)<0.01)) ? '(א): זו רק היציאה הבאה של אחת הלהקות. הן צריכות לצאת <b>יחד</b>: חפשו את הכפולה המשותפת הקטנה ביותר של <span class="num">13</span> ו־<span class="num">17</span>.'
+    : (hasA && Math.abs(a-1803)<0.01) ? '(א): נכון שב־<span class="num">1803</span> הן יצאו יחד, אבל השאלה היא על <b>הפעם הבאה</b>, אחרי <span class="num">2024</span>.'
+    : '(א): רמז — שני המחזורים ראשוניים, ולכן הן נפגשות פעם ב־<span class="math">13 × 17</span> שנים. כמה זה, ואיזו שנה זו אחרי <span class="num">2024</span>?';
+  const hintB = (hasB && Math.abs(b-13)<0.01) ? '(ב): <span class="num">13</span> הוא כמה פעמים תצא להקה XIII, של <span class="num">17</span>. השאלה על להקה XIX, שיוצאת כל <span class="num">13</span> שנה: <span class="math">221 ÷ 13</span>.'
+    : (hasB && Math.abs(b-16)<0.01) ? '(ב): כמעט. לא שכחתם את היציאה של השנה האחרונה עצמה? השאלה אומרת "כולל אותה".'
+    : (hasB && Math.abs(b-18)<0.01) ? '(ב): ספרתם גם את <span class="num">2024</span>. השאלה מתחילה מ־<span class="num">2025</span>.'
+    : '(ב): רמז — בין שתי הפגישות עוברות <span class="num">221</span> שנים, ולהקה XIX יוצאת כל <span class="num">13</span> שנה. כמה פעמים <span class="num">13</span> נכנס ב־<span class="num">221</span>?';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">13 × 17 = 221</span>, כי לשני המספרים הראשוניים אין מחלק משותף, ולכן <span class="math">2024 + 221 = 2245</span>. (ב) <span class="math">221 ÷ 13 = 17</span>: להקה XIX תצא <span class="num">17</span> פעמים, ולהקה XIII, כל <span class="num">17</span> שנה, תצא <span class="math">221 ÷ 17 = 13</span> פעמים. יפה, לא? אף אחד מאיתנו לא יראה את זה, ופעם קודמת זה קרה ב־<span class="math">2024 − 221 = 1803</span>.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">2245</span>.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — <span class="num">17</span> פעמים.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const a=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasR=numAdvR.value!=='', hasA=numAdv.value!=='';
+    const aOk=(hasA && a>=16.5 && a<=17), bOk=(hasR && Math.abs(r-78)<0.01), sc = aOk&&bOk?2:((aOk||bOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintR = (hasR && Math.abs(r-19)<0.01) ? 'ב־(א) חיברתם. בשנה ה־<span class="num">19</span> אף אחד מהם לא כאן. צריך שנה שמתחלקת גם ב־<span class="num">6</span> וגם ב־<span class="num">13</span>.'
+      : (hasR && Math.abs(r-13)<0.01) ? 'ב־(א): בשנה ה־<span class="num">13</span> יוצאות הציקדות, אבל <span class="num">13</span> לא מתחלק ב־<span class="num">6</span>, אז הטורף לא שם.'
+      : (hasR && Math.abs(r-7)<0.01) ? 'ב־(א) חיסרתם. חפשו את המספר הראשון שנמצא בשתי הרשימות: <span class="math">6, 12, 18…</span> ו־<span class="math">13, 26, 39…</span>.'
+      : (hasR && Math.abs(r-156)<0.01) ? 'ב־(א): <span class="num">156</span> היא כבר הפגישה <b>השנייה</b>. מה הפגישה הראשונה?'
+      : 'רמז ל־(א): <span class="num">13</span> ראשוני, ול־<span class="num">6</span> ול־<span class="num">13</span> אין מחלק משותף חוץ מ־<span class="num">1</span>, ולכן הפגישה הראשונה היא המכפלה.';
+    const hintA = (hasA && Math.abs(a-6)<0.01) ? 'ב־(ב) כתבתם כמה גיחות יש עד הפגישה. השאלה היא איזה <b>אחוז</b> מהגיחות פוגש את הטורף: גיחה אחת מתוך כמה?'
+      : (hasA && a>0.16 && a<0.17) ? 'ב־(ב): זה החלק, לא האחוז. כופלים ב־<span class="num">100</span>.'
+      : (hasA && a>7.6 && a<7.8) ? 'ב־(ב) חילקתם ב־<span class="num">13</span>. אבל השאלה היא על הגיחות: בכל <span class="num">78</span> שנה יש <span class="math">78 ÷ 13 = 6</span> גיחות, ובאחת מהן הטורף שם.'
+      : (hasA && a>14.1 && a<14.5) ? 'ב־(ב) ספרתם את הגיחות של מאה שנה, כמו בלוח. השאלה היא רק על השנים <b>עד הפגישה</b>: ב־<span class="num">78</span> שנה יש <span class="math">78 ÷ 13 = 6</span> גיחות.'
+      : (hasA && a>46 && a<46.3) ? 'ב־(ב) הפכתם את היחס. רק <b>גיחה אחת</b> מכל שש פוגשת את הטורף: <span class="math">1 ÷ 6 × 100</span>.'
+      : 'רמז ל־(ב): בין פגישה לפגישה עוברות <span class="num">78</span> שנה. כמה פעמים יוצאות הציקדות בזמן הזה? ובכמה מהפעמים האלה הטורף שם?';
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">6 × 13 = 78</span> שנה, כי אין להם מחלק משותף. (ב) ב־<span class="num">78</span> שנה הציקדות יוצאות <span class="math">78 ÷ 13 = 6</span> פעמים, ורק באחת מהן הטורף כאן: <span class="math">1 ÷ 6 × 100 ≈ 16.7%</span>. ואילו הציקדות היו יוצאות כל <span class="num">12</span> שנה, הטורף של <span class="num">6</span> היה פוגש אותן ב־<span class="math">100%</span> מהגיחות.'
+      : aOk ? '<span class="pill-ok">(ב) נכון — <span class="math">16.7%</span>.</span> '+hintR
+      : bOk ? '<span class="pill-ok">(א) נכון — <span class="num">78</span> שנה.</span> '+hintA
+      : '<span class="pill-bad">עוד לא.</span> '+hintR+(hasA?' '+hintA:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-2038)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">2021 + 17 = 2038</span>. בשנה הזאת '+G('תהיה בערך בן','תהיי בערך בת')+' <span class="num">'+((parseInt(KID().age,10)||9)+12)+'</span>. אולי '+G('תיסע','תיסעי')+' לאמריקה לראות אותן?':(Math.abs(v-2004)<0.01)?'<span class="pill-bad">חיסרתם.</span> <span class="num">2004</span> זו הפעם <b>הקודמת</b> שהן יצאו. השאלה היא על הפעם הבאה, אחרי <span class="num">2021</span>: מחברים.':(Math.abs(v-2034)<0.01)?'<span class="pill-bad">זה המחזור של <span class="num">13</span>.</span> הלהקה של בנקר יוצאת כל <span class="num">17</span> שנה.':(Math.abs(v-2037)<0.01||Math.abs(v-2039)<0.01)?'<span class="pill-bad">כמעט!</span> בדקו שוב את החיבור: <span class="math">2021 + 17</span>.':(v>0 && v<100)?'<span class="pill-bad">זה מספר שנים, לא שנה.</span> השאלה היא באיזו <b>שנה</b>: מוסיפים <span class="num">17</span> ל־<span class="num">2021</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: הן יצאו ב־<span class="num">2021</span>, ועוד <span class="num">17</span> שנה הן יוצאות שוב. כמה זה <span class="math">2021 + 17</span>?'; }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-51)<0.01; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">3 × 17 = 51</span>. ל־<span class="num">3</span> ול־<span class="num">17</span> אין מחלק משותף, ולכן הפגישה הראשונה היא המכפלה. עד אז הציקדות יצאו <span class="math">51 ÷ 17 = 3</span> פעמים, ורק בפעם השלישית הטורף היה שם.':(Math.abs(v-20)<0.01)?'<span class="pill-bad">חיברתם.</span> בשנה ה־<span class="num">20</span> אף אחד מהם לא כאן: <span class="num">20</span> לא מתחלק ב־<span class="num">3</span> ולא ב־<span class="num">17</span>.':(Math.abs(v-17)<0.01)?'<span class="pill-bad">בשנה ה־<span class="num">17</span> הציקדות כאן</span>, אבל <span class="num">17</span> לא מתחלק ב־<span class="num">3</span>, אז הטורף לא. המשיכו ברשימה: <span class="math">17, 34, 51…</span>':(Math.abs(v-34)<0.01)?'<span class="pill-bad">כמעט.</span> <span class="num">34</span> לא מתחלק ב־<span class="num">3</span> (<span class="math">34 ÷ 3</span> לא יוצא שלם). נסו את הגיחה הבאה.':(Math.abs(v-14)<0.01)?'<span class="pill-bad">חיסרתם.</span> חפשו את המספר הראשון שנמצא גם ברשימה <span class="math">3, 6, 9…</span> וגם ברשימה <span class="math">17, 34…</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: כתבו את השנים של הציקדות, <span class="math">17, 34, 51…</span>, ובדקו איזו מהן מתחלקת ב־<span class="num">3</span>.'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שכל הציקדות יוצאות יחד, באותו שבוע, ושיש מהן המון.',
+  'הסברתי שהטורפים (ציפורים ועוד) שבעים מהר, ולכן רוב הציקדות שורדות.',
+  'כתבתי ש־13 ו־17 הם מספרים ראשוניים, שמתחלקים רק ב־1 ובעצמם.',
+  'הסברתי שבגלל זה טורף שחוזר כל כמה שנים כמעט אף פעם לא נופל על שנת היציאה (או: שלהקות שונות כמעט לא נפגשות).',
+  'הוספתי פרט מדויק: בנג׳מין בנקר ב־1749, הנפה של ארטוסתנס, עצי האפרסק של קרבן, או חישוב כמו <span class="math">4 × 17 = 68</span>.',
+];
+const MODEL='הציקדות המחזוריות יוצאות מהאדמה כולן ביחד, באותו שבוע, לפעמים מאות על כל מטר רבוע. ציפורים וטורפים אחרים אוכלים אותן, אבל הם שבעים מהר, ולכן רוב הציקדות שורדות ומטילות ביצים. אילו היו יוצאות קצת בכל שנה, הטורפים היו אוכלים כמעט את כולן. והמספרים 13 ו־17 הם ראשוניים: הם מתחלקים רק ב־1 ובעצמם. לכן טורף שחוזר כל 2, 3, 4 או 6 שנים כמעט אף פעם לא נופל על שנת היציאה שלהן. למשל, טורף של 4 שנים פוגש ציקדות של 17 רק פעם ב־<span class="math">4 × 17 = 68</span> שנה, אבל ציקדות של 12 שנה הוא היה פוגש בכל פעם. יש גם מדענים שחושבים שהמספרים הראשוניים עוזרים ללהקות שונות לא להתערבב, ועל זה עוד מתווכחים.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון (השבעת טורפים — יציאה מסונכרנת של מאות ציקדות למ״ר, הטורפים יכולים לאכול רק כמות מוגבלת ולכן האחוז ששורד גדל עם הכמות, ובין היציאות אין לטורפים ציקדות ולכן אינם יכולים להתרבות לקראתן; והמחזור הראשוני — 13 ו־17 מתחלקים רק ב־1 ובעצמם, ולכן הפגישה הראשונה עם טורף שמחזורו קצר היא הכפולה המשותפת הקטנה ביותר, כלומר המכפלה, למשל 4 × 17 = 68, ורק חלק קטן מהגיחות פוגש אותו, לעומת מחזור של 12 שמחולק ב־2, 3, 4 ו־6 ונפגש בכל גיחה; וכדאי לציין את הסבר ההכלאה או שהנושא שנוי במחלוקת) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "החרק שמחכה באדמה שבע־עשרה שנה בדיוק": ציקדות מחזוריות ומספרים ראשוניים. הרעיונות המרכזיים: (1) בנג׳מין בנקר, נער בן 17 ליד בולטימור, ראה ב־1749 המון "ארבה" (ציקדות) יוצאים מהאדמה, ניסה להרוג אותם ונכשל; רשם שוב ב־1766 וב־1783, הבין שהם חוזרים כל 17 שנה, וחזה נכון את 1800; היום זו להקה X, שיצאה גם ב־2021; (2) 7 מינים של ציקדות מחזוריות במזרח צפון אמריקה, 3 עם מחזור 17 ו־4 עם מחזור 13; הנימפות יונקות מיץ משורשי עצים; יציאה מסונכרנת, עד כ־370 למ״ר; ב־2024 יצאו שתי להקות יחד, יותר מטריליון; (3) השבעת טורפים: הטורפים יכולים לאכול כמות מוגבלת, וכשכולן יוצאות יחד הם שבעים ורובן שורדות; אילו יצאו קצת בכל שנה, היו נאכלות כמעט כולן; (4) מספר ראשוני מתחלק רק ב־1 ובעצמו (13, 17); הנפה של ארטוסתנס, ראש ספריית אלכסנדריה: מוחקים כפולות של 2, 3, 5, 7 — נשארים 25 ראשוניים עד 100; (5) טורף עם מחזור קצר פוגש ציקדות במחזור ראשוני רק בכפולה המשותפת הקטנה ביותר, שהיא המכפלה (4 × 17 = 68), ואילו מחזור של 12 נפגש עם טורפים של 2, 3, 4, 6 בכל גיחה; (6) איך סופרות: ריצ׳רד קרבן (2000) — עצי אפרסק שפרחו פעמיים בשנה, והציקדות יצאו שנה מוקדם: הן סופרות אביבים של העץ; יוצאות בערב כשהאדמה בעומק 20 ס״מ מגיעה לכ־18 מעלות; (7) הסיבה לראשוניים שנויה במחלוקת: טורפים (גולס ועמיתים 2001) או הימנעות מהכלאה בין להקות בתקופות הקרח. חישובי המבחן: צעיר 2021 + 17 = 2038; בוגר 3 × 17 = 51; מתקדם 6 × 13 = 78 שנה, 78 ÷ 13 = 6 גיחות, 1 ÷ 6 × 100 ≈ 16.7%; אתגר 2024 + 13 × 17 = 2245, 221 ÷ 13 = 17.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם שהציקדות יוצאות יחד ולכן הטורפים שבעים ורובן שורדות, וגם ש־13 ו־17 ראשוניים ולכן טורפים עם מחזור קצר (או להקות אחרות) כמעט לא נופלים על אותה שנה; 1 אם יש רק אחד מהשניים או רק חלק. תשובה שאומרת רק "כי 17 הוא ראשוני" בלי להסביר מה זה עושה לטורפים, לא שווה יותר מ־1. תשובה שאומרת שהציקדות נלחמות בציפורים, או שהן "יודעות" חשבון — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', ספרת עד 17 כמו ציקדה!':pct>=60?name+', כבר יצאת מהאדמה!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=300;                                                     // a few hundred per square metre
+  const diff = S.guess ? Math.abs(Math.log10(S.guess/target)) : 9;     // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: כמה מאות ציקדות מכל מטר רבוע, במקומות הצפופים עד כ־<span class="num">370</span>.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>כמה מאות</b> — וקלעת. במקומות הצפופים יוצאות עד כ־<span class="num">370</span> ציקדות מכל מטר רבוע.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. התשובה: כמה מאות ציקדות מכל מטר רבוע, במקומות הצפופים עד כ־<span class="num">370</span>.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה ציקדות יוצאות ממטר רבוע): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: כמה מאות)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "החרק שמחכה באדמה שבע־עשרה שנה בדיוק", מהדורה 43, י״ג בחשוון תשפ״ז (יום שבת, 24 באוקטובר 2026). נושא: ציקדות מחזוריות (Magicicada) ומספרים ראשוניים; ביולוגיה (מחזור חיים, נימפות שיונקות מיץ — קסילם — משורשי עצים, השבעת טורפים, ברירה טבעית, ספירת אביבים), מתמטיקה (מספרים ראשוניים, הנפה של ארטוסתנס, מחלקים, כפולה משותפת קטנה ביותר, אחוזים), היסטוריה (בנג׳מין בנקר 1749–1800, ארטוסתנס וספריית אלכסנדריה, ניקומכוס). העובדות: בנג׳מין בנקר (1731–1806, נולד ב־9 בנובמבר 1731 ליד בולטימור, מרילנד; אביו עבד משוחרר; לימד את עצמו מתמטיקה ואסטרונומיה, בנה שעון מעץ, הוציא לוחות שנה, ובשנת 1791 שלח לתומס ג׳פרסון לוח שנה ומכתב נגד העבדות) ראה באביב 1749, בגיל 17, המוני "ארבה" — ציקדות מחזוריות — ניסה להרוג אותם ונכשל; רשם יציאות ב־1766 וב־1783, הסיק שהם חוזרים כל 17 שנה, וחזה נכון את היציאה של 1800; היסטוריונים (Nkwanta ו־Barber) חושבים שאולי היה מהראשונים לתעד את המחזור, אבל לא בטוח שהראשון; זו להקה X, שיצאה גם ב־2004 וב־2021. 7 מינים: 3 עם מחזור 17 ו־4 עם מחזור 13, רק במזרח צפון אמריקה; מרלט מספר את הלהקות במספרים רומיים ב־1907; כ־15 להקות חיות, 2 נכחדו (XI, XXI). ציקדות לא מחזוריות חיות גם בישראל ושרות בקיץ. מחזור חיים: נקבה חותכת חריצים בענפים צעירים ומטילה כ־600 ביצים; אחרי 6–10 שבועות בוקעות נימפות, נופלות לאדמה, חופרות לשורשים ויונקות מהם, עוברות 5 שלבים; בשנה הנכונה חופרות מנהרה ויוצאות בערב אביבי כשהאדמה בעומק כ־20 ס״מ עוברת כ־18 מעלות (17.9°C, 64°F); מטפסות על עץ, העור נסדק, יוצאת ציקדה בוגרת; בוגרים חיים 4–6 שבועות, הזכרים שרים; לפעמים בונות "ארובות" בוץ שתפקידן לא ידוע; צפיפות עד יותר מ־1.5 מיליון לאקר (כ־370 למ״ר); ב־2024 יצאו יחד להקה XIII (17) ולהקה XIX (13), יותר מטריליון, לראשונה מאז 1803; הן נפגשות כל 221 שנה. השבעת טורפים: ציפורים, סנאים, צבים, דגים וכלבים אוכלים ציקדות; הטורפים יכולים לאכול כמות מוגבלת, ובמחקר בארקנסו (Williams ועמיתים 1993) הטריפה בשיא בימים הראשונים ואז יורדת; יציאה משותפת = רובן שורדות; ציקדה שיוצאת לבד, מוקדם, כמעט תמיד נאכלת; בין היציאות אין לטורפים ציקדות לאכול. איך סופרות: ריצ׳רד קרבן (UC Davis), Ecology Letters 2000 — נימפות בנות 15 מלהקה של 17 הועברו לשורשי עצי אפרסק שפרחו פעמיים בשנה, ויצאו שנה מוקדם: הן סופרות מחזורים של העץ (כנראה לפי שינויים במיץ שבשורשים), לא ימים. מספרים ראשוניים: מתחלקים רק ב־1 ובעצמם; 1 אינו ראשוני; ארטוסתנס מקירנה (276–194 לפנה״ס), ראש ספריית אלכסנדריה מכ־240 לפנה״ס, שגם מדד את היקף כדור הארץ; הנפה תוארה אצל ניקומכוס כמה מאות שנים אחריו; עד 100 מספיק למחוק כפולות של 2, 3, 5, 7 (כי 11 × 11 > 100); יש 25 ראשוניים עד 100; אוקלידס הוכיח שהם אינסופיים. למה ראשוניים — שנוי במחלוקת: (א) טורפים עם מחזור קצר: הפגישה הראשונה היא הכפולה המשותפת הקטנה ביותר; עם מחזור ראשוני ומחזור טורף קטן ממנו זו המכפלה (4 × 17 = 68; רק 1 מכל 4 גיחות = 25%); מחזור 12 נפגש עם טורפים של 2, 3, 4, 6 בכל גיחה; מודל של Goles, Schulz ו־Markus (2001); אבל לא ידוע על טורף מחזורי של ממש; (ב) הימנעות מהכלאה בתקופות הקרח (Cox ו־Carlton 1988, Yoshimura 1997, Tanaka 2009): להקות של 12 ו־15 היו נפגשות כל 60 שנה, של 13 ו־17 רק כל 221; מאחרים: חלק מלהקות 17 יוצאות 4 שנים מוקדם (17 − 4 = 13), ואולי כך נוצרו להקות 13 — לא הוכח. נגד טורפים שבאים כל שנה (ציפורים) הראשוני לא עוזר — רק הכמות. פרק 2, אינטראקטיב "המשתה של הציפורים": חצר עם 17,000 ציקדות (מחוון 1,700–34,000), ציפורים שאוכלות עד 1,000 בשנה; מצב "קצת בכל שנה" (17 עמודות) מול "כולן באותה שנה"; אדום = נאכלו, ירוק = שרדו, קו מקווקו "הציפורים שבעות"; ניחוש — כולן באותה שנה; 17,000 מפוזרות: 0% שורדות; יחד: כ־94%. פרק 3, אינטראקטיב "הנפה של ארטוסתנס": לוח 1–100, כפתורים שמוחקים כפולות של 2, 3, 5, 7; ניחוש — בערך 25 ראשוניים; 13 ו־17 במסגרת כתומה. פרק 4, אינטראקטיב "לוח הפגישות": 100 שנה, מחוון מחזור ציקדות 10–18 ומחזור טורף 2–8, עיגולים אדומים בפגישות; ניחוש — עם טורף של 4, ציקדות של 17 נפגשות הכי מעט (12: בכל גיחה; 16: בכל גיחה; 17: פעם ב־68). ניסויי בית: נפה על דף משובץ בשלושה צבעים; משחק מחיאות כפיים (טורף כל 4, ציקדה כל 12 ואחר כך כל 7); חיפוש עורות ריקים של ציקדות על גזעים בקיץ בישראל. אתגר (בוגר): להקות XIII ו־XIX יצאו יחד ב־2024 — הפעם הבאה 2024 + 13 × 17 = 2245, ולהקה XIX תצא 221 ÷ 13 = 17 פעמים מ־2025 עד 2245; שאלת מחשבה: נגד ציפורים שמחזורן שנה אחת הראשוני לא עוזר (כל מספר מתחלק ב־1), מגינה הכמות. חישובי המבחן: צעיר 2021 + 17 = 2038; בוגר 3 × 17 = 51; מתקדם (א) 6 × 13 = 78 שנה, (ב) 78 ÷ 13 = 6 גיחות, 1 ÷ 6 × 100 ≈ 16.7%. סידור: ביצים בחריץ בענף ← נימפות בוקעות ונופלות ← יניקה מהשורשים שנים ← יציאה בערב חם ← טיפוס והחלפת עור לבוגר מכונף ← שירה, הטלה, מוות. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט (המעבדות הן מודלים צעצועיים; הטורף המחזורי דמיוני) ומה שעדיין שנוי במחלוקת (למה דווקא ראשוניים; האם בנקר היה הראשון), בלי לחשוף תשובות מבחן; אם ילד שואל על שאלה מהמבחן, לרמוז ולכוון, לא לפתור. לא לגעת בציקדות או לאסוף אותן; להסתכל ולצלם.';
+const CHIPS = ['איך ציקדה סופרת עד 17?', 'למה הן יוצאות כולן ביחד?', 'מה זה מספר ראשוני?', 'למה דווקא 13 ו־17?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: השבעת טורפים והחשבון של האחוז ששורד; למה טורפים לא יכולים להתרבות לקראת יציאה שקורית פעם ב־17 שנה; הכפולה המשותפת הקטנה ביותר ולמה היא שווה למכפלה כשאין מחלק משותף; למה מחזור 12 הוא מלכודת; הנפה ולמה מספיק לעצור ב־7 עד 100; שני ההסברים לראשוניים — טורפים מול הימנעות מהכלאה — והמחלוקת; הניסוי של קרבן וספירת האביבים), שאל שאלות המשך שדורשות חשיבה (למשל: למה אין ציקדות עם מחזור 11 או 19? מה קורה לציקדה שיוצאת שנה מוקדם? כל כמה שנים היו נפגשות להקה של 14 ולהקה של 21? למה הראשוני לא עוזר נגד ציפורים שבאות כל שנה?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה הן יוצאות כולן ביחד?</b> כשמיליוני ציקדות יוצאות באותו שבוע, הציפורים אוכלות עד שהן שבעות, ורוב הציקדות נשארות בחיים. אילו היו יוצאות קצת בכל שנה, הציפורים היו אוכלות כמעט את כולן.<br><br><b>למה דווקא 13 ו־17?</b> אלה מספרים ראשוניים: מתחלקים רק ב־1 ובעצמם. לכן טורף שחוזר כל כמה שנים כמעט אף פעם לא נוחת על אותה שנה. אבל המדענים עדיין מתווכחים אם זו כל הסיבה.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
