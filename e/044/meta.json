@@ -1,0 +1,24 @@
+{
+  "n": 44,
+  "code": "WOW-044",
+  "date": "2026-10-25",
+  "language": "he",
+  "title": "הלילה שבו השעה אחת וחצי קרתה פעמיים",
+  "topics": [
+    "מתמטיקה",
+    "אסטרונומיה",
+    "היסטוריה",
+    "טכנולוגיה",
+    "גאוגרפיה",
+    "מדע ישראלי"
+  ],
+  "summary": "The night Israel's clocks went back (25 Oct 2026, 02:00 IDT → 01:00 IST) so 01:00–02:00 happened twice; Peterson twins (Cape Cod, 6 Nov 2016: Samuel 1:39, Ronan 31 min later recorded 1:10); UTC; solar noon = highest sun, shortest shadow — Zikhron Ya'akov today 05:52/11:24/16:57, sun ~45° so a 1 m stick casts ~1 m; Earth turns 15°/h = 4 min per degree; railway time 18 Nov 1883 'day of two noons', 1884 Meridian Conference (26 nations, 22–1–2); Israel's time by 30°E (≈Alexandria), Zikhron ~20 min early; equation of time (+16 min now, −14 in Feb; ellipse + tilt; analemma); China one zone since 1949, Kashgar noon ~14:40; DST history: Franklin satire 1784, Hudson 1895 (insects, 2 h), Willett 1907 (80 min), Germany/Austria-Hungary 30 Apr 1916, Mandate Palestine 1940, Knesset rule 2013; energy savings disputed (~0.3%).",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-10-25T08:09:34.000Z",
+  "password": "השעה הכפולה",
+  "reviewer_verdict": "PASS (2 rounds) — nits left: ~30 min with the test (visible words incl. UI ≈1,570 younger / ≈1,840 older); Arto tip briefly covers the night canvas on phones (template); globe city names are in numbered readouts under the canvas, not on it",
+  "review_url": "https://claude.ai/artifact/MNa13YeN1ryLSXKBdga4YK",
+  "editor_note": null
+}

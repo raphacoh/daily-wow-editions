@@ -1,0 +1,1726 @@
+<title>שורשים וכנפיים #44 · הלילה שבו השעה אחת וחצי קרתה פעמיים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#6B3FA0; --shadow-soft:#ECE1F7;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 44</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="#F6C454" stop-opacity=".55"/>
+        <stop offset="60%" stop-color="#F6C454" stop-opacity=".14"/>
+        <stop offset="100%" stop-color="#F6C454" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- a clock face whose minute hand has just looped back: a curved arrow from 2 back to 1 -->
+    <g opacity=".7">
+      <circle cx="150" cy="150" r="92" fill="#FFFFFF" fill-opacity=".85" stroke="#1B1F33" stroke-width="5"/>
+      <g stroke="#1B1F33" stroke-width="5" stroke-linecap="round">
+        <path d="M150 66 L150 80"/><path d="M234 150 L220 150"/><path d="M150 234 L150 220"/><path d="M66 150 L80 150"/>
+      </g>
+      <path d="M150 150 L184 98" stroke="#1B1F33" stroke-width="7" stroke-linecap="round"/>
+      <path d="M150 150 L150 86" stroke="#1B1F33" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="150" cy="150" r="7" fill="#1B1F33"/>
+      <path d="M214 96 A 80 80 0 0 0 176 74" fill="none" stroke="#6B3FA0" stroke-width="6" stroke-linecap="round"/>
+      <path d="M170 64 L176 74 L165 80" fill="none" stroke="#6B3FA0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g font-family="Secular One, Rubik, Arial" font-size="34" fill="var(--ink)" text-anchor="middle">
+      <text x="54" y="58">1:30</text>
+      <text x="246" y="276">1:30</text>
+    </g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 44</span><span class="tag">יום ראשון, 25 באוקטובר 2026</span><span class="tag">י״ד בחשוון תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>הלילה שבו השעה אחת וחצי קרתה פעמיים</h1>
+  <p class="lede">הלילה, בשתיים בלילה, קרה בכל ישראל משהו מוזר: כל השעונים קפצו אחורה, לאחת. מי שהיה ער ראה את השעה <span class="num">01:30</span> פעמיים, ובין שתי הפעמים עברה שעה שלמה. השמש לא זזה בגלל זה, כדור הארץ לא האט, ואף אחד לא קיבל זמן במתנה. אז מה בעצם זז? השאלה של היום: <b>מי מחליט מה השעה, ואיפה השמש בכל הסיפור הזה?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">סבא הלך לישון הלילה בחצות בדיוק, וקם כשהשעון הראה <span class="num">06:00</span>. <b>כמה שעות</b> הוא ישן באמת?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="5"><b><span class="num">5</span> שעות</b><span>פחות ממה שנראה</span></button>
+      <button type="button" class="scaleopt" data-scale="6"><b><span class="num">6</span> שעות</b><span>כמו בכל לילה</span></button>
+      <button type="button" class="scaleopt" data-scale="7"><b><span class="num">7</span> שעות</b><span>שעה אחת יותר</span></button>
+      <button type="button" class="scaleopt" data-scale="8"><b><span class="num">8</span> שעות</b><span>שעתיים יותר</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE HOUR THAT HAPPENED TWICE (interactive 1: the night clock) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>השעה שקרתה פעמיים</h2>
+  <p>באביב, בלילה שבין <span class="num">26</span> ל־<span class="num">27</span> במרץ, קרה ההפך: בשתיים בלילה השעונים בישראל קפצו קדימה, לשלוש, והשעה שבין שתיים לשלוש <b>פשוט לא הייתה</b>. מאז חיינו לפי <b>שעון קיץ</b>. והלילה החזרנו את השעה: בשתיים בלילה השעונים חזרו לאחת, ל<b>שעון חורף</b>. לכן השעה שבין אחת לשתיים קרתה פעמיים. הטלפונים זזו לבד; את השעון של התנור ושל המכונית צריך לכוון ביד.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הנה סיפור אמיתי. בשנת <span class="num">2016</span>, בבית חולים בקייפ קוד שבאמריקה, נולדו תאומים בדיוק בלילה שבו השעונים חזרו אחורה (באמריקה עושים את זה בתחילת נובמבר). <b>סמואל</b> נולד ראשון, בשעה <span class="num">01:39</span>. אחיו <b>רונן</b> נולד <span class="num">31</span> דקות אחריו. אבל בדיוק בין שתי הלידות, השעון חזר משתיים לאחת.</p>
+    <p>אז מה כתבו בתעודת הלידה של רונן? נסו לחשוב לבד, ואז בדקו במעבדה. רמז: התשובה מצחיקה, ואמא שלהם אמרה שהיא שמחה שככה אף אחד מהם לא מרגיש "שני".</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בשנת <span class="num">2016</span>, בבית החולים של קייפ קוד שבמסצ׳וסטס, נולדו התאומים <b>סמואל ורונן פיטרסון</b> בדיוק בלילה שבו השעונים באמריקה חזרו אחורה. סמואל נולד ב־<span class="num">01:39</span>, ורונן נולד <span class="num">31</span> דקות אחריו. ביניהם השעון חזר משתיים לאחת. נחשו מה כתוב אצל רונן, ובדקו במעבדה.</p>
+    <p>בגלל בלבולים כאלה, מטוסים, לוויינים ומחשבים משתמשים בשעה עולמית אחת שאף פעם לא קופצת, ושמה <b>UTC</b>. בישראל, בקיץ, השעה היא <span class="math">UTC + 3</span>, ובחורף <span class="math">UTC + 2</span>. כך ה־<span class="num">01:30</span> הראשון של הלילה היה <span class="math">22:30 UTC</span>, והשני היה <span class="math">23:30 UTC</span>: שתי שעות שונות לגמרי, שרק נראות אותו דבר על השעון.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — השעון של הלילה ===== -->
+  <div class="panel instrument">
+    <h3>השעון של הלילה</h3>
+    <p class="cap">סמואל נולד ב־<span class="num">01:39</span>, עוד לפני שהשעון חזר. רונן נולד <span class="num">31</span> דקות אחריו. נחשו קודם: <b>איזו שעה</b> כתבו בתעודת הלידה של רונן?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="ntP0" onclick="ntPredict(0)"><span class="num">02:10</span></button>
+        <button id="ntP1" onclick="ntPredict(1)"><span class="num">01:10</span></button>
+        <button id="ntP2" onclick="ntPredict(2)"><span class="num">00:39</span></button>
+      </div>
+    </div>
+    <canvas role="img" id="ntCv" width="640" height="500" aria-label="שעון מחוגים גדול ולידו השעה בספרות. מתחת, שני פסים: בפס העליון השעות שהשעון מראה, ובפס התחתון השעות שעוברות באמת. אחרי שעתיים, הפס העליון חוזר לאחת: השעה שבין אחת לשתיים מופיעה פעמיים, פעם בכתום ופעם בסגול. קו אנכי מסמן את הרגע שבחרתם">
+    </canvas>
+    <div class="controls">
+      <label>כמה זמן עבר מחצות (שמאלה: חצות, ימינה: עוד חמש שעות)
+        <input type="range" id="ntT" min="0" max="300" step="1" value="60" oninput="ntDraw(1)" aria-label="כמה זמן עבר מחצות" style="direction:ltr">
+      </label>
+      <button class="btn small ghost" id="ntTw" onclick="ntTwins()">הראו את התאומים</button>
+    </div>
+    <div class="controls">
+      <div class="readout">השעון מראה: <b id="ntOut">—</b></div>
+      <div class="readout">עבר מחצות באמת: <b id="ntOut2">—</b></div>
+    </div>
+    <p class="cap" id="ntMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="ntReveal" hidden><span class="hand">!</span><p>רונן נולד <span class="num">31</span> דקות אחרי סמואל, אבל בתעודה שלו כתוב <b><span class="num">01:10</span></b>, כלומר <span class="num">29</span> דקות "לפני" אחיו! הזמן עצמו לא קפץ: רק המספרים על השעון חזרו אחורה. השעה היא <b>הסכם</b> בין בני אדם, והלילה שינינו את ההסכם.</p></div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE FIRST CLOCK: A STICK AND A SHADOW (interactive 2) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>השעון הראשון: מקל וצל</h2>
+  <p>לפני שהיו שעונים, ידעו מה השעה לפי השמש. בבוקר היא נמוכה במזרח, והצללים ארוכים. היא מטפסת, והצללים מתקצרים, עד שהיא מגיעה לנקודה <b>הכי גבוהה</b> שלה, מעל הדרום, והצל הוא <b>הקצר ביותר</b> של היום. לרגע הזה קוראים <b>הצהריים של השמש</b>, או "חצות היום": הרגע שחוצה את היום לשניים. אחר כך השמש יורדת למערב, והצללים מתארכים.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>מקל שתקוע באדמה הוא בעצם שעון, בלי סוללה ובלי מחוגים: יש רק צל שזז ומשנה את האורך שלו. ממנו הגיע <b>שעון השמש</b>. במעבדה יש מקל באורך מטר, בחצר בזכרון יעקב, היום. חפשו את הצל הקצר ביותר, ואחר כך החליפו ל"שעון קיץ". מה זז: השמש, הצל, או רק המספרים?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הזמנים של ההלכה, כמו "חצות היום", נקבעים לפי השמש ולא לפי השעון: חצות היום היא האמצע בין הזריחה לשקיעה, ולכן בלוח הזמנים של בית הכנסת היא זזה מיום ליום. ועוד מספר מפתיע: היום, בצהריים של השמש, היא עומדת בזכרון יעקב בגובה של כ־<span class="num">45°</span>, ולכן הצל של מקל באורך מטר יוצא כמעט באורך מטר. ביוני, כשהשמש מטפסת עד כ־<span class="num">81°</span>, אותו צל קצר מ־<span class="num">20</span> סנטימטר. במעבדה: מצאו את הצל הקצר ביותר, ובדקו מה קורה בשעון קיץ.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — המקל והצל ===== -->
+  <div class="panel instrument">
+    <h3>המקל והצל</h3>
+    <p class="cap">מקל באורך מטר עומד בחצר בזכרון יעקב, היום. נחשו קודם: <b>באיזו שעה</b>, לפי השעון של היום, הצל שלו יהיה הכי קצר?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="shP0" onclick="shPredict(0)">בערך <span class="num">11:25</span></button>
+        <button id="shP1" onclick="shPredict(1)"><span class="num">12:00</span> בדיוק</button>
+        <button id="shP2" onclick="shPredict(2)">בערך <span class="num">12:35</span></button>
+      </div>
+    </div>
+    <canvas role="img" id="shCv" width="640" height="530" aria-label="חצר ירוקה במבט מהצד, ובאמצעה מקל. מסתכלים דרומה, אל השמש: היא נמצאת על קשת מקווקוות בשמיים, מהמזרח משמאל אל המערב מימין. הצל של המקל נמתח על הקרקע לצד שמול השמש. למטה, פס חום באורך המקל ופס כהה באורך הצל: ארוך בבוקר ובערב, וקצר כשהשמש הכי גבוהה. למעלה כתוב מה השעון מראה, ומה אורך הצל">
+    </canvas>
+    <div class="controls">
+      <label>הזיזו את השמש לאורך היום (שמאלה: בוקר, ימינה: ערב)
+        <input type="range" id="shT" min="0" max="650" step="1" value="120" oninput="shDraw(1)" aria-label="השעה ביום" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="איזה שעון">
+        <button id="shM0" class="on" onclick="shMode(0)">שעון חורף (מהיום)</button>
+        <button id="shM1" onclick="shMode(1)">שעון קיץ (עד אתמול)</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="readout">השעון מראה: <b id="shOut">—</b></div>
+      <div class="readout">אורך הצל: <b id="shOut2">—</b></div>
+    </div>
+    <p class="cap" id="shMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="shReveal" hidden><span class="hand">!</span><p>היום הצל הכי קצר ב־<b><span class="num">11:24</span></b> בשעון החורף, ולא ב־<span class="num">12:00</span>. זה גם בדיוק האמצע בין הזריחה (<span class="num">05:52</span>) לשקיעה (<span class="num">16:57</span>). ובשעון הקיץ, אותו רגע היה נקרא <span class="num">12:24</span>. השמש והצל לא זזו אף לא בדקה אחת. רק המספר שאנחנו מדביקים לרגע הזה השתנה.</p></div>
+
+  <div class="q qc" id="pressQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · EVERY TOWN AND ITS OWN NOON (interactive 3: the Earth from above) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>לכל עיר יש צהריים משלה</h2>
+  <p>כדור הארץ מסתובב סביב עצמו פעם אחת ביום: <span class="num">360</span> מעלות ב־<span class="num">24</span> שעות. כלומר <span class="math">360 ÷ 24 = 15</span> מעלות בכל שעה, ומעלה אחת בכל <span class="math">60 ÷ 15 = 4</span> דקות. לכן הצהריים של השמש "נוסעים" סביב העולם ממזרח למערב: עיר שנמצאת מזרחה יותר מקבלת אותם קודם. בירושלים השמש מגיעה לנקודה הכי גבוהה שלה כדקה לפני זכרון יעקב, ובתל אביב כדקה אחריה.</p>
+  <p>עד לפני כ־<span class="num">140</span> שנה, כל עיר כיוונה את השעון לפי השמש שלה. ואז הגיעו <b>הרכבות</b>: רכבת עברה בעשרות ערים, ובכל אחת השעה הייתה קצת אחרת. באמריקה היו יותר מ־<span class="num">100</span> "שעות מקומיות". ב־<span class="num">18</span> בנובמבר <span class="num">1883</span> עברו חברות הרכבות לאזורי זמן: כל הערים באזור מראות אותה שעה. ביום ההוא, בהרבה ערים, השעון הראה "שתים־עשרה" פעמיים, פעם לפי השמש ופעם לפי השעה החדשה: "<b>היום של שני הצהריים</b>".</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ב־<span class="num">1884</span> נפגשו נציגים מ־<span class="num">26</span> מדינות והחליטו מאיפה העולם מתחיל לספור: מקו שעובר בעיר <b>גריניץ׳</b>, ליד לונדון. השעה של ישראל נקבעת לפי קו שנמצא <span class="num">30</span> מעלות מזרחה ממנו, ועובר כמעט דרך <b>אלכסנדריה</b>, העיר של ארטו! זכרון יעקב קצת מזרחה מהקו הזה, ולכן אצלנו השמש מגיעה לשיא <b>לפני</b> <span class="num">12:00</span>. במעבדה תסובבו את כדור הארץ בעצמכם.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>ב־<span class="num">1884</span> התכנסו בוושינגטון <span class="num">41</span> נציגים של <span class="num">26</span> מדינות, ובחרו בקו שעובר במצפה הכוכבים של <b>גריניץ׳</b> כ"קו האפס" של העולם: <span class="num">22</span> בעד, נגד אחד (סן דומינגו), וצרפת וברזיל נמנעו.</p>
+    <p>אזור זמן "אידיאלי" רוחבו <span class="num">15</span> מעלות, שעה אחת. השעה של ישראל, <span class="math">UTC + 2</span>, נקבעת לפי הקו <span class="math">2 × 15 = 30°</span> מזרח, שעובר כמעט בדיוק דרך אלכסנדריה. זכרון יעקב נמצאת בקו <span class="num">34.95°</span>, כמעט <span class="num">5</span> מעלות מזרחה, ולכן הצהריים של השמש מגיעים אליה בערך <span class="math">5 × 4 = 20</span> דקות לפני <span class="num">12:00</span>. במעבדה: סובבו את כדור הארץ, והשוו בין "שעון השמש" של כל עיר ל"שעה הרשמית" שלה.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — כדור הארץ מלמעלה ===== -->
+  <div class="panel instrument">
+    <h3>כדור הארץ מלמעלה</h3>
+    <p class="cap">כך נראה כדור הארץ למי שמרחף מעל הקוטב הצפוני. השמש מימין, וחצי כדור אחד מואר. בזכרון יעקב עכשיו בדיוק צהריים לפי השמש. נחשו קודם: מה השעה <b>לפי השמש</b> בלונדון?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="glP0" onclick="glPredict(0)">גם <span class="num">12:00</span></button>
+        <button id="glP1" onclick="glPredict(1)">בערך <span class="num">09:40</span></button>
+        <button id="glP2" onclick="glPredict(2)">בערך <span class="num">14:20</span></button>
+      </div>
+    </div>
+    <canvas role="img" id="glCv" width="640" height="470" aria-label="כדור הארץ במבט מעל הקוטב הצפוני: עיגול גדול, חצי מואר מצד השמש שמימין וחצי חשוך משמאל. ארבע ערים מסומנות בנקודות ממוספרות: 1 לונדון, 2 זכרון יעקב, 3 קשגר, 4 טוקיו; השעות שלהן כתובות מתחת לציור. חץ מסמן את כיוון הסיבוב, וקו צהוב מסמן את המקום שבו עכשיו צהריים">
+    </canvas>
+    <div class="controls">
+      <label>סובבו את כדור הארץ (ימינה: הזמן מתקדם)
+        <input type="range" id="glT" min="0" max="1435" step="5" value="580" oninput="glDraw(1)" aria-label="סיבוב כדור הארץ" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="איזו שעה להראות">
+        <button id="glM0" class="on" onclick="glMode(0)">שעון השמש</button>
+        <button id="glM1" onclick="glMode(1)">השעה הרשמית</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="readout"><span class="cdot c1">1</span>לונדון: <b id="glOut2">—</b></div>
+      <div class="readout"><span class="cdot c2">2</span>זכרון יעקב: <b id="glOut">—</b></div>
+      <div class="readout"><span class="cdot c3">3</span>קשגר: <b id="glOut3">—</b></div>
+      <div class="readout"><span class="cdot c4">4</span>טוקיו: <b id="glOut4">—</b></div>
+    </div>
+    <p class="cap" id="glMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="glReveal" hidden><span class="hand">!</span><p>לונדון נמצאת כ־<span class="num">35</span> מעלות מערבה מזכרון יעקב, ולכן השמש מגיעה אליה <span class="math">35 × 4 = 140</span> דקות אחרינו: כשאצלנו צהריים של השמש, שם רק <span class="num">09:40</span>. השעה הרשמית מעגלת את ההבדל לשעתיים שלמות, כדי שכל המדינה תראה אותה שעה. ובקשגר שבסין? שם השעה הרשמית רחוקה מהשמש כמעט שלוש שעות.</p></div>
+
+  <div class="q qc" id="cornerQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · WHO DECIDED TO MOVE THE CLOCKS? (figure: the timeline) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>מי בכלל המציא להזיז את השעון?</h2>
+  <p>בשנת <span class="num">1895</span>, בניו זילנד, עבד בדואר <b>ג׳ורג׳ ורנון הדסון</b>, שאהב לאסוף חרקים. אחרי העבודה הוא רצה לצאת לאסוף, אבל האור נגמר מהר מדי. אז הוא הציע: בקיץ, נזיז את כל השעונים <b>שעתיים קדימה</b>. ההצעה לא התקבלה.</p>
+  <p>בלונדון, בונה בתים בשם <b>ויליאם וילט</b> רכב על סוס בבוקר קיץ מוקדם, וראה שהשמש כבר זרחה, אבל בכל הבתים התריסים סגורים. בשנת <span class="num">1907</span> הוא כתב חוברת בשם "<b>בזבוז אור היום</b>", והציע להזיז את השעונים באביב <span class="num">80</span> דקות קדימה. הוא ניסה לשכנע את הפרלמנט שנים, ומת ב־<span class="num">1915</span>, שנה לפני שהרעיון התקבל.</p>
+
+  <figure class="calfig" aria-label="ציר זמן עם שש שנים: 1883, הרכבות ואזורי הזמן; 1884, גריניץ׳; 1907, החוברת של וילט; 1916, גרמניה מזיזה ראשונה את השעונים; 1940, שעון קיץ בארץ ישראל; 2013, הכנסת קובעת את הכלל של היום. מעל כל שנה ציור קטן">
+    <svg viewBox="0 0 560 230" role="img" aria-hidden="true" focusable="false">
+      <rect x="8" y="8" width="544" height="214" rx="18" fill="var(--card2)" stroke="var(--line)" stroke-width="2"/>
+      <path d="M36 140 L524 140" stroke="var(--ink)" stroke-width="4"/>
+      <!-- icons: a train, a globe line, a booklet, a clock with +1, a star of David map pin, a gavel-ish check -->
+      <g stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <g transform="translate(60,88)"><rect x="-22" y="-18" width="44" height="28" rx="5" fill="#E8A33D"/><circle cx="-12" cy="14" r="6" fill="var(--card)"/><circle cx="12" cy="14" r="6" fill="var(--card)"/><path d="M-14 -10 L-4 -10 M4 -10 L14 -10"/></g>
+        <g transform="translate(144,88)"><circle r="22" fill="#9CC9EA"/><path d="M0 -22 L0 22"/><path d="M-22 0 L22 0" opacity=".5"/></g>
+        <g transform="translate(228,88)"><rect x="-18" y="-24" width="36" height="46" rx="3" fill="var(--card)"/><path d="M-10 -12 L10 -12 M-10 -2 L10 -2 M-10 8 L6 8"/></g>
+        <g transform="translate(312,88)"><circle r="22" fill="var(--card)"/><path d="M0 0 L0 -14 M0 0 L10 6"/></g>
+        <g transform="translate(396,88)"><path d="M0 24 C -18 2 -18 -8 -18 -8 A 18 18 0 1 1 18 -8 C 18 -8 18 2 0 24 Z" fill="#6B3FA0"/><circle cy="-8" r="6" fill="var(--card)"/></g>
+        <g transform="translate(480,88)"><rect x="-22" y="-20" width="44" height="40" rx="6" fill="#4DA36A"/><path d="M-10 0 L-2 9 L12 -9" stroke="#FFFFFF" stroke-width="4"/></g>
+      </g>
+      <g font-family="Rubik, Arial" font-size="28" fill="var(--ink)" text-anchor="middle" font-weight="700">
+        <circle cx="60" cy="140" r="6" fill="var(--ink)"/><circle cx="144" cy="140" r="6" fill="var(--ink)"/><circle cx="228" cy="140" r="6" fill="var(--ink)"/><circle cx="312" cy="140" r="6" fill="var(--ink)"/><circle cx="396" cy="140" r="6" fill="var(--ink)"/><circle cx="480" cy="140" r="6" fill="var(--ink)"/>
+        <text x="60" y="178">1883</text><text x="144" y="178">1884</text><text x="228" y="178">1907</text><text x="312" y="178">1916</text><text x="396" y="178">1940</text><text x="480" y="178">2013</text>
+      </g>
+    </svg>
+    <figcaption>רכבות ואזורי זמן, גריניץ׳, החוברת של וילט, גרמניה, ארץ ישראל, והחוק של היום. את הסדר המדויק תצטרכו לזכור במבחן.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>מי הזיזו ראשונים את השעונים? <b>גרמניה</b> ואוסטרו־הונגריה, ב־<span class="num">30</span> באפריל <span class="num">1916</span>, באמצע מלחמת העולם הראשונה, כדי לחסוך <b>פחם</b>: אם יש אור בערב, צריך פחות מנורות. אצלנו, בארץ ישראל, השעונים זזו לראשונה ב־<span class="num">1940</span>, בזמן השלטון הבריטי. במשך שנים התווכחו בכנסת מתי לזוז, ומאז <span class="num">2013</span> יש כלל קבוע: שעון הקיץ נגמר ביום ראשון האחרון של אוקטובר. כלומר, הלילה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הראשונות שהזיזו את השעונים היו <b>גרמניה ואוסטרו־הונגריה</b>, ב־<span class="num">30</span> באפריל <span class="num">1916</span>, באמצע מלחמת העולם הראשונה, כדי לחסוך בפחם; בריטניה הצטרפה ב־<span class="num">21</span> במאי. ובנג׳מין פרנקלין? זה מיתוס: ב־<span class="num">1784</span> הוא כתב לעיתון בפריז מכתב <b>בצחוק</b> על השכמה מוקדמת כדי לחסוך בנרות, ולא הציע להזיז שעונים.</p>
+    <p>בארץ ישראל הונהג שעון קיץ ב־<span class="num">1940</span>, במנדט הבריטי. אחר כך היו שנים בלי שעון קיץ, ושנים של ויכוח: מפלגות דתיות רצו קיץ שייגמר לפני יום כיפור, וחילוניות רצו קיץ ארוך. ב־<span class="num">2013</span> קבעה הכנסת את הכלל של היום. והאם זה חוסך חשמל? החוקרים <b>חלוקים</b>: סקירה של <span class="num">44</span> מחקרים מצאה חיסכון זעיר, כ־<span class="math">0.3%</span>.</p>
+  </div>
+
+  <div class="q qc" id="crackQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>השמש לא מדייקת</h2>
+  <p>רגע, נשאר משהו מוזר. ראינו שזכרון יעקב נמצאת כ־<span class="num">5</span> מעלות מזרחית לקו של ישראל, ולכן הצהריים של השמש צריכים להגיע בערך ב־<span class="num">11:40</span>. אבל במעבדה הצל היה הכי קצר ב־<span class="num">11:24</span>. מאיפה עוד <span class="num">16</span> דקות? מסתבר שגם השמש עצמה לא מדייקת: הצהריים שלה "נודדים" במשך השנה. בתחילת נובמבר הם מגיעים עד כ־<span class="num">16</span> דקות מוקדם, ובאמצע פברואר כ־<span class="num">14</span> דקות מאוחר. להפרש הזה קוראים <b>משוואת הזמן</b>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אם מצלמים את השמש מאותו מקום, באותה שעה בשעון, פעם בשבוע במשך שנה, ומחברים את התמונות, השמש מציירת בשמיים צורה של <b>הספרה שמונה</b>, שנקראת <b>אנלמה</b>.</p>
+    <p>למה? כי כדור הארץ גם מקיף את השמש, במסלול שהוא לא עיגול מושלם, וגם עומד קצת עקום, "נוטה" על הצד. שני הדברים האלה מזיזים את הצהריים של השמש קצת קדימה וקצת אחורה. השעון, לעומת זאת, לא נודד: כל שעה בו ארוכה בדיוק כמו כל שעה אחרת. לכן בני אדם בחרו לסמוך על השעון, ולא על השמש.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למשוואת הזמן יש שתי סיבות. <b>הראשונה: המסלול אליפטי.</b> כדור הארץ קרוב לשמש בתחילת ינואר ונע אז מהר יותר במסלול, ולכן הוא צריך להסתובב סביב עצמו קצת יותר כדי "להשלים" את היום. <b>השנייה, והגדולה יותר: הציר נטוי</b> בכ־<span class="num">23.4°</span>, ולכן השמש לא נעה בשמיים בקצב אחיד מזרחה. שתי ההשפעות מתחברות, והצהריים של השמש מקדימים או מאחרים את השעון בעד כ־<span class="num">16</span> דקות. היום, ב־<span class="num">25</span> באוקטובר, ההקדמה היא כ־<span class="num">16</span> דקות, ולכן: <span class="math">12:00 − 20 − 16 = 11:24</span>.</p>
+    <p>ויש מקומות שבהם השמש והשעון רחוקים הרבה יותר. <b>סין</b> רחבה מספיק לחמישה אזורי זמן, אבל מאז <span class="num">1949</span> כל המדינה משתמשת בשעה של בייג׳ינג, לפי הקו <span class="num">120°</span> מזרח. בעיר קשגר, במערב סין, השמש עומדת הכי גבוה רק אחרי <span class="num">14:30</span>.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> העיר קשגר נמצאת בקו אורך <span class="num">76°</span> מזרח. השעה הרשמית שלה היא השעה של בייג׳ינג, שנקבעת לפי הקו <span class="num">120°</span> מזרח. (א) בכמה דקות <b>מאחרים</b> הצהריים של השמש בקשגר אחרי <span class="num">12:00</span>, רק בגלל קו האורך? (ב) היום משוואת הזמן <b>מקדימה</b> את הצהריים ב־<span class="num">16</span> דקות. כמה דקות אחרי <span class="num">12:00</span>, בשעון של סין, עומדת היום השמש הכי גבוה בקשגר?</p>
+      <div class="controls">
+        <label>(א) דקות <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) דקות אחרי <span class="num">12:00</span> <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> היו בישראל שהציעו להישאר בשעון קיץ כל השנה, כדי שיהיה יותר אור בערב. מה היה קורה בבוקר של ינואר? ולמי זה היה מפריע במיוחד?</p>
+      <details><summary>רמז</summary><p>שעון קיץ לא מוסיף אור. הוא רק מזיז שעה של אור מהבוקר אל הערב. בתחילת ינואר, בשעון חורף, השמש זורחת בזכרון יעקב בערך ב־<span class="num">06:43</span>.</p></details>
+      <details><summary>התשובה</summary><p>בשעון קיץ כל השנה, הזריחה בתחילת ינואר הייתה זזה לבערך <span class="num">07:43</span>. ילדים היו יוצאים לבית הספר, ומבוגרים לעבודה, <b>בחושך</b> או בדמדומים. זה הוויכוח האמיתי סביב השעון: כמה אור לתת לבוקר וכמה לערב. אין תשובה "נכונה" במדע, יש החלטה של החברה. ועוד דבר: כמה שלא נזיז את השעון, אורך היום עצמו, מהזריחה ועד השקיעה, לא משתנה אפילו בדקה.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>מקל ישר או עיפרון, גוש פלסטלינה, דף גדול, סרגל, שעון ויום עם שמש. לחלק השני: כל השעונים בבית. <b>חשוב: אף פעם לא מסתכלים ישר אל השמש, גם לא לרגע — מסתכלים רק על הצל.</b></p>
+
+  <div class="panel">
+    <h3>חלק א׳ — הצהריים האמיתיים שלי (<span class="num">25</span> דקות)</h3>
+    <ol>
+      <li>הניחו את הדף בשמש על משטח ישר, ותקעו את המקל זקוף באמצע, בפלסטלינה.</li>
+      <li>מ־<span class="num">11:00</span> עד <span class="num">11:50</span>, כל <span class="num">5</span> דקות, סמנו נקודה בקצה הצל וכתבו לידה את השעה.</li>
+      <li>הנקודה הקרובה ביותר למקל היא <b>הצהריים של השמש</b> אצלכם. בשבועות הקרובים, ברוב הארץ, בערך <span class="math">11:20–11:30</span>. מדדו: האם הצל כמעט באורך המקל?</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — ציד השעונים (<span class="num">10</span> דקות)</summary>
+    <p>מצאו בבית כל דבר שמראה שעה: טלפון, תנור, מיקרוגל, שעון קיר, שעון במכונית. מי זז לבד הלילה, ומי עדיין <b>בדיוק</b> שעה קדימה? כמה צריך לכוון ביד?</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — המחשבון של העיר שלי (<span class="num">5</span> דקות)</summary>
+    <p>בקשו ממבוגר לחפש במפה את קו האורך של העיר שלכם (מספר כמו <span class="num">34.8</span> או <span class="num">35.2</span>). חסרו ממנו <span class="num">30</span>, וכפלו ב־<span class="num">4</span>: זה מספר הדקות שבהן הצהריים של השמש אצלכם מקדימים את <span class="num">12:00</span>, עוד לפני משוואת הזמן. למשל בירושלים: <span class="math">(35.2 − 30) × 4 ≈ 21</span> דקות.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הרעיון הראשון: <b>השמש היא השעון של הטבע.</b> הצל הכי קצר כשהשמש הכי גבוהה, וזה קורה בכל מקום ברגע קצת אחר, כי כדור הארץ מסתובב.</p>
+    <p>הרעיון השני: <b>השעה על השעון היא הסכם של בני אדם.</b> אזורי זמן בגלל הרכבות, שעון קיץ בשביל אור בערב. הלילה חזרנו לשעון חורף, ולכן <span class="num">01:30</span> קרתה פעמיים. השמש בכלל לא שמה לב.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הראשון: <b>הזמן של השמש הוא גאוגרפיה.</b> כל מעלה של קו אורך שווה <span class="num">4</span> דקות, ולכן לכל מקום יש צהריים משלו; וגם השמש "נודדת" במשך השנה, עד כ־<span class="num">16</span> דקות.</p>
+    <p>הרעיון השני: <b>הזמן של השעון הוא פשרה.</b> אזורי זמן, שעון קיץ, שעה אחת לכל סין: כל אחד מוותר על דיוק מול השמש בשביל משהו אחר. שאלה לחקור: אם הייתם קובעים את השעון של ישראל, מה הייתם בוחרים?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הזמן?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">טכנולוגיה · טלפונים</div><h3>מי הזיז לכם את הטלפון?</h3><p>בכל טלפון יש רשימה של כללי השעון של כל מדינה, מאז <span class="num">1970</span>, שמתחזקת קהילה של מתנדבים. כשממשלה משנה את החוק, הרשימה מתעדכנת, וכך הטלפון ידע לבד לחזור הלילה לאחת.</p></div>
+    <div class="tile"><div class="dom">חלל · תחנת החלל</div><h3><span class="num">16</span> זריחות ביום</h3><p>תחנת החלל מקיפה את כדור הארץ בערך כל <span class="num">90</span> דקות, ולכן האסטרונאוטים רואים <span class="num">16</span> זריחות ביום. איזו שעה יש שם? UTC, השעה העולמית שלא קופצת.</p></div>
+    <div class="tile"><div class="dom">היסטוריה · אלכסנדריה</div><h3>הקו שעובר דרך העיר של ארטו</h3><p>הקו <span class="num">30°</span>, שלפיו נקבעת השעה בישראל, עובר כמעט דרך אלכסנדריה. שם, לפני יותר מ־<span class="num">2,200</span> שנה, ארטוסתנס השתמש בצל של הצהריים כדי לחשב את ההיקף של כדור הארץ.</p></div>
+    <div class="tile"><div class="dom">ביולוגיה · הגוף</div><h3>השעון שבתוככם</h3><p>בגוף יש שעון של בערך <span class="num">24</span> שעות, שאור הבוקר מכוון. הוא לא שמע על החוק של הכנסת, ולכן אחרי מעבר שעון יש מי שמרגישים מבולבלים כמה ימים.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): השעה שלא הייתה</summary>
+    <p>בלילה שבין <span class="num">26</span> ל־<span class="num">27</span> במרץ <span class="num">2026</span>, כשהתחיל שעון הקיץ, השעונים בישראל קפצו מ־<span class="num">02:00</span> ישר ל־<span class="num">03:00</span>. נניח שמישהו כיוון שעון מעורר ל־<span class="num">02:30</span> באותו לילה. מה קרה? נחשו לפני שאתם פותחים.</p>
+    <details><summary>התשובה</summary>
+      <p>השעה <span class="num">02:30</span> <b>לא הייתה קיימת</b> באותו לילה בישראל: אחרי <span class="num">01:59</span> הגיעה מיד <span class="num">03:00</span>. הטלפון קופץ לבד, ולכן הוא לא "עובר" ב־<span class="num">02:30</span> בכלל (רוב הטלפונים פשוט מצלצלים מיד כשהם קופצים). ושעון מעורר פשוט, שלא זז לבד? הוא מצלצל ב־<span class="num">02:30</span> שלו, שהיא כבר <span class="num">03:30</span> לפי השעה החדשה. ולכן אף תינוק בישראל לא נולד באותו לילה ב־<span class="num">02:30</span>.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את סיפור השעון, מהמוקדם למאוחר. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: בלילה שבין <span class="num">26</span> ל־<span class="num">27</span> במרץ, כשהתחיל שעון הקיץ, השעונים קפצו בשתיים בלילה ישר לשלוש. דני הלך לישון ב־<span class="num">21:00</span> וקם כשהשעון הראה <span class="num">07:00</span>. כמה שעות הוא ישן באמת?</div>
+    <div class="controls"><label>שעות <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: ירושלים נמצאת בקו אורך <span class="num">35.22°</span> מזרח, והשעה של ישראל (בחורף) נקבעת לפי הקו <span class="num">30°</span>. (א) בכמה דקות מקדים קו האורך את הצהריים של השמש בירושלים לפני <span class="num">12:00</span>? (ב) ב־<span class="num">11</span> בפברואר משוואת הזמן <b>מאחרת</b> את הצהריים ב־<span class="num">14</span> דקות. כמה דקות אחרי <span class="num">11:00</span> עומדת השמש באותו יום הכי גבוה בירושלים? (מותר מחשבון; כתבו עם ספרה אחת אחרי הנקודה.)</div>
+    <div class="controls"><label>(א) דקות <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) דקות אחרי <span class="num">11:00</span> <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: עיר נמצאת בקו אורך <span class="num">35°</span> מזרח, והשעה של ישראל נקבעת לפי הקו <span class="num">30°</span>. בלי משוואת הזמן: כמה דקות לפני <span class="num">12:00</span> עומדת השמש הכי גבוה בעיר הזאת?</div>
+    <div class="controls"><label>דקות <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה הלילה השעה <span class="num">01:30</span> קרתה פעמיים, ולמה בזכרון יעקב השמש לא עומדת הכי גבוה בדיוק ב־<span class="num">12:00</span>?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="בשתיים בלילה השעונים חזרו לאחת, ולכן..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. הלילה, בשתיים, השעונים בישראל חזרו לאחת, ולכן השעה <span class="num">01:30</span> קרתה פעמיים. בשנת <span class="num">2016</span> נולדו באמריקה תאומים בלילה כזה, והצעיר מביניהם רשום כאילו נולד <span class="num">29</span> דקות לפני אחיו.<br>
+    2. היום, בזכרון יעקב, השמש הכי גבוהה והצל הכי קצר ב־<span class="num">11:24</span>, ולא ב־<span class="num">12:00</span>: כי אנחנו מזרחית לקו שלפיו נקבעת השעה בישראל (<span class="num">4</span> דקות לכל מעלה), וכי גם השמש "נודדת" במשך השנה.<br>
+    3. עד <span class="num">1883</span> כל עיר כיוונה את השעון לפי השמש שלה. הרכבות הביאו את אזורי הזמן, ואיש שאהב חרקים, בניו זילנד, היה מהראשונים שהציעו להזיז את השעונים בקיץ.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>מעבר השעון הלילה: timeanddate.com, "Daylight Saving Time Changes 2026 in Israel" — יום ראשון <span class="num">25.10.2026</span>, <span class="num">02:00</span> שעון קיץ ← <span class="num">01:00</span> שעון חורף; תחילת שעון הקיץ ב־<span class="num">27.3.2026</span>. Wikipedia, "Israel Summer Time" — פקודת קביעת הזמן של המנדט (<span class="num">1940</span>), שנים בלי שעון קיץ, חוק קביעת הזמן (<span class="num">1992</span>), הוויכוחים סביב פסח ויום כיפור, תיקון הכנסת מ־<span class="num">8</span> ביולי <span class="num">2013</span> (מיום שישי שלפני יום ראשון האחרון של מרץ ועד יום ראשון האחרון של אוקטובר). התאומים: Boston.com, "Meet the Cape Cod family whose newborn twins got stuck in a daylight saving time paradox" (<span class="num">12.11.2016</span>) — סמואל ב־<span class="num">01:39</span>, רונן <span class="num">31</span> דקות אחריו, רשום <span class="num">01:10</span>, <span class="num">6</span> בנובמבר <span class="num">2016</span>, Cape Cod Hospital.</p>
+    <p>השמש: חישוב לפי נוסחאות NOAA לזכרון יעקב (<span class="math">32.57°N, 34.95°E</span>) ב־<span class="num">25.10.2026</span> — זריחה <span class="num">05:52</span>, צהרי השמש <span class="num">11:24</span>, שקיעה <span class="num">16:57</span> (שעון חורף), גובה השמש בצהריים כ־<span class="num">45°</span>; משוואת הזמן כ־<span class="math">+16.0</span> דקות. The Universal Workshop, "The Equation of Time" — שתי הסיבות (אליפטיות ונטיית הציר, השנייה גדולה יותר), מקסימום כ־<span class="math">+16.5</span> דקות בתחילת נובמבר, מינימום כ־<span class="math">−14.2</span> באמצע פברואר. זריחה בתחילת ינואר כ־<span class="num">06:43</span> (שעון חורף). ירושלים (<span class="num">35.22°E</span>) ב־<span class="num">11.2</span>: משוואת הזמן כ־<span class="math">−14.2</span> דקות, צהרי השמש כ־<span class="num">11:53</span>. קשגר (<span class="num">76°E</span>): timeanddate.com, "China's One Time Zone" — שעה אחת מאז <span class="num">1949</span>, חמישה אזורים בין <span class="num">1912</span> ל־<span class="num">1949</span>, צהרי השמש בקשגר עד <span class="num">15:10</span> בשנה; לפי חישוב NOAA היום כ־<span class="num">14:40</span>.</p>
+    <p>ההיסטוריה: Library of Congress, In Custodia Legis, "Whose Time Is It Anyway?" (<span class="num">2024</span>) — יותר מ־<span class="num">144</span> זמנים מקומיים בצפון אמריקה, כ־<span class="num">80</span> תקני זמן של רכבות, <span class="num">18</span> בנובמבר <span class="num">1883</span>, "היום של שני הצהריים", Standard Time Act (<span class="num">1918</span>). Wikipedia, "International Meridian Conference" — וושינגטון, אוקטובר <span class="num">1884</span>, <span class="num">41</span> נציגים מ־<span class="num">26</span> מדינות, <span class="math">22–1–2</span> (סן דומינגו נגד; צרפת וברזיל נמנעו). Wikipedia, "Daylight saving time" — מכתב הסאטירה של פרנקלין (<span class="num">1784</span>) לא הציע להזיז שעונים; ג׳ורג׳ ורנון הדסון (<span class="num">1895</span>, שעתיים; עבודת משמרות שהשאירה לו זמן לאסוף חרקים); גרמניה ואוסטרו־הונגריה <span class="num">30.4.1916</span>, בריטניה <span class="num">21.5.1916</span>; מטא־אנליזה (<span class="num">2017</span>, <span class="num">44</span> מחקרים) — חיסכון של כ־<span class="math">0.3%</span> בחשמל, והנושא שנוי במחלוקת. Wikipedia, "William Willett" — "The Waste of Daylight" (יולי <span class="num">1907</span>), <span class="num">80</span> דקות בארבעה צעדים של <span class="num">20</span>, מת ב־<span class="num">4.3.1915</span>. IANA, "Time zone and daylight saving time data" — מאגר כללי השעון (tz), תוכן קהילתי עם מתנדבים, מדויק מאז <span class="num">1970</span>, משמש את Android ו־iOS. DLR, "Always on Saturday — everyday life on the ISS" — UTC על התחנה, <span class="num">16</span> זריחות ביום.</p>
+    <p>פישוטים במכוון: "השעון של הלילה" מראה את המעבר של ישראל, והתאומים נולדו באמריקה, שבה המעבר זהה (<span class="num">02:00</span> ← <span class="num">01:00</span>) אבל קורה בנובמבר. "המקל והצל" מחשב את מקום השמש לזכרון יעקב ב־<span class="num">25.10.2026</span>, בלי שבירת אור באופק; מבט הצד מצויר כאילו מסתכלים דרומה, אל השמש. "כדור הארץ מלמעלה" מראה "שעון שמש ממוצע" (<span class="num">4</span> דקות למעלה, בלי משוואת הזמן); השעה הרשמית מוצגת כשעון חורף: לונדון <span class="math">UTC + 0</span>, ישראל <span class="math">UTC + 2</span>, סין <span class="math">UTC + 8</span>, יפן <span class="math">UTC + 9</span>. "יותר מ־<span class="num">100</span> שעות מקומיות" באמריקה מעגל את ה־<span class="num">144</span> של ספריית הקונגרס. השעון הביולוגי מתואר באופן כללי בלבד.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:44, code:'WOW-044', date:'2026-10-25', title:'הלילה שבו השעה אחת וחצי קרתה פעמיים', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15TXnNeV16TXm9eUINeU16LXqdeU'; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'math', w:3 }, { id:'space', w:3 }, { id:'history', w:2 }, { id:'earth', w:1 } ],
+  hero: { name:'הלילה שבו השעה אחת וחצי קרתה פעמיים — השעון של הלילה, המקל והצל, וכדור הארץ מלמעלה', fact:'הלילה השעון חזר משתיים לאחת, ו־01:30 קרתה פעמיים; בזכרון יעקב השמש הכי גבוהה ב־11:24.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'estimation',            d:2 },
+    'qc:storyQ':      { skill:'cause-effect',          d:1 },
+    'qc:pressQ':      { skill:'cause-effect',          d:2 },
+    'qc:cornerQ':     { skill:'earth-rotation',        d:2 },
+    'qc:crackQ':      { skill:'recall',                d:2 },
+    'qc:deepQ':       { skill:'longitude-time',        d:3 },
+    'mcq:shared:0':   { skill:'cause-effect',          d:2 },
+    'mcq:shared:1':   { skill:'earth-rotation',        d:2 },
+    'mcq:shared:2':   { skill:'history-reasoning',     d:2 },
+    'mcq:younger:0':  { skill:'shadow-reasoning',      d:1 },
+    'mcq:older:0':    { skill:'equation-of-time',      d:4 },
+    'order':          { skill:'history-sequence',      d:3 },
+    'num:younger':    { skill:'elapsed-time',          d:2 },
+    'num:older':      { skill:'longitude-time',        d:3 },
+    'num:adv':        { skill:'longitude-and-eot',     d:4 },
+    'challenge':      { skill:'longitude-and-eot',     d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); ntDraw(0); } if(n===2) shDraw(0); if(n===3) glDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: grandpa went to bed at midnight tonight and got up when the clock said 06:00 — how long did he really sleep? ----------
+   Four choices: 5, 6, 7, 8 hours. The right answer: 7 (00:00 → 02:00 summer time = 2 h, then back to 01:00, 01:00 → 06:00 = 5 h). */
+const SCALE_ANS = 7;
+const fmtSigns = n => ({5:'5 שעות',6:'6 שעות',7:'7 שעות',8:'8 שעות'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> מחצות ועד שתיים עברו שעתיים. אז השעון חזר לאחת, ומאחת ועד שש עברו עוד חמש: <span class="math">2 + 5 = 7</span> שעות. סבא ישן שעה יותר ממה שנראה בשעון. זו לא באמת מתנה: את השעה הזאת לקחו מאיתנו באביב, והלילה רק החזירו אותה. איך זה עובד? על זה השיעור.';
+const SCALE_FB = {
+  7: SCALE_FB_RIGHT,
+  5: '<span class="pill-bad">יותר!</span> הלילה לא נעלמה שעה, אלא נוספה. מחצות ועד שתיים עברו שעתיים, אז השעון חזר לאחת, ומאחת ועד שש עברו עוד חמש: <span class="math">2 + 5 = 7</span> שעות. (שעה נעלמת דווקא באביב.) איך זה עובד? על זה השיעור.',
+  6: '<span class="pill-bad">כמעט, אבל לא הלילה.</span> מחצות ועד שתיים עברו שעתיים. אז השעון חזר לאחת, ומאחת ועד שש עברו עוד חמש: <span class="math">2 + 5 = 7</span> שעות. סבא ישן שעה יותר ממה שהשעון "אומר". איך זה עובד? על זה השיעור.',
+  8: '<span class="pill-bad">פחות.</span> השעון חזר אחורה רק פעם אחת: בשתיים בדיוק, לאחת. מחצות ועד שתיים עברו שעתיים, ומאחת ועד שש עוד חמש: <span class="math">2 + 5 = 7</span> שעות. איך זה עובד? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* deterministic pseudo-random (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* a generic play/scrub helper: animates a 0–100 range input over `ms` milliseconds, calling draw(1) each frame */
+function xPlayer(id, rangeId, btnId, ms, draw, onLabel, offLabel){
+  const st={ raf:0 };
+  st.toggle=function(){ if(st.raf){ cancelAnimationFrame(st.raf); st.raf=0; st.btn(false); return; }
+    const r=document.getElementById(rangeId); const top=+(r.max||100); if(+r.value>=top) r.value=0;
+    if(XREDUCED){ r.value=Math.min(top,+r.value+20); draw(1); return; }
+    const t0=performance.now(), start=+r.value; st.btn(true);
+    const step=now=>{ const v=Math.min(top, start+(now-t0)/ms*100); r.value=Math.round(v); draw(1); if(v<top){ st.raf=requestAnimationFrame(step); } else { st.raf=0; st.btn(false); } };
+    st.raf=requestAnimationFrame(step); };
+  st.btn=function(on){ const b=document.getElementById(btnId); b.textContent = on ? onLabel : offLabel; b.classList.toggle('on',on); };
+  return st;
+}
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const WARN = () => isDark() ? '#F6C454' : '#C97A12';
+const ROUND1 = () => isDark() ? '#F6B35A' : '#E08A1E';      // the first 01:00–02:00 (summer time)
+const ROUND2 = () => isDark() ? '#C9A4F0' : '#6B3FA0';      // the second 01:00–02:00 (winter time)
+const SUNC = () => isDark() ? '#F6C454' : '#F2A71B';
+const GRASS = () => isDark() ? '#2F5A3C' : '#8CC48E';
+const GRASS2 = () => isDark() ? '#26492F' : '#6FAF72';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+const pad2 = n => String(n).padStart(2,'0');
+const hDur = m => { const h=Math.floor(m/60), n=m%60, H = h===0 ? '' : h===1 ? 'שעה' : h===2 ? 'שעתיים' : '<span class="num">'+h+'</span> שעות', N = n===0 ? '' : n===1 ? 'דקה' : '<span class="num">'+n+'</span> דקות'; return H && N ? H+' ו־'+N : (H||N||'<span class="num">0</span> דקות'); };
+const hhmm = m => { m=((Math.round(m)%1440)+1440)%1440; return pad2(Math.floor(m/60))+':'+pad2(m%60); };
+function xSun(c,x,y,r){ c.save(); c.strokeStyle=SUNC(); c.lineWidth=Math.max(3,r/7); c.lineCap='round';
+  for(let i=0;i<12;i++){ const a=i*PI/6; c.beginPath(); c.moveTo(x+Math.cos(a)*r*1.3, y+Math.sin(a)*r*1.3); c.lineTo(x+Math.cos(a)*r*1.75, y+Math.sin(a)*r*1.75); c.stroke(); }
+  c.fillStyle=SUNC(); c.strokeStyle=isDark()?'#FBD9A0':'#B9770E'; c.lineWidth=3; c.beginPath(); c.arc(x,y,r,0,2*PI); c.fill(); c.stroke(); c.restore(); }
+
+/* ---------- step 1 (interactive 1): the night clock (canvas) ----------
+   The slider is the REAL time that has passed since midnight, 0–300 minutes. The clock reading is that time until 02:00 summer time
+   (real 120); then the clocks go back one hour: reading = real − 60. So real 60–120 is the first 01:00–02:00 (orange, summer time)
+   and real 120–180 the second one (purple, winter time). Top: an analogue clock and the digital reading; bottom: two strips aligned
+   by real time — what the clock shows, and the hours that really passed. The twins: Samuel at real 99 (01:39), Ronan 31 minutes later,
+   real 130, which the clock calls 01:10. */
+const ntCv=document.getElementById('ntCv'), ntctx=ntCv.getContext('2d');
+const NT={ opened:0, pred:-1, revealed:0, twins:0, crossed:0 };
+const NT_X0=40, NT_X1=600, NT_PX=(600-40)/300;
+const ntX = r => NT_X0 + r*NT_PX;
+const ntRead = r => r<120 ? r : r-60;
+function ntPredict(k){ NT.pred=k; segOn('ntP',3,k); WOW.emit('item', { id:'night:predict', kind:'quick', correct:k===1, attempt: wowTry('night:predict') });
+  ntMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את המחוון ימינה, לאט, וצפו בשעון כשהוא מגיע לשתיים. אחר כך לחצו "הראו את התאומים".'; ntDraw(0); }
+function ntTwins(){ if(NT.pred<0){ predictFirst(ntMsg,'לחצו'); return; } NT.twins=1; document.getElementById('ntTw').classList.add('on'); ntT.value=130; ntDraw(1); }
+function ntDraw(user){
+  const c=ntctx, W=ntCv.width, H=ntCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && NT.pred<0 && +ntT.value!==60){ ntT.value=60; blocked=true; }
+  if(user && !NT.opened){ NT.opened=1; WOW.emit('open', { id:'night' }); }
+  const r=+ntT.value, rd=ntRead(r), round = r<60 ? 0 : r<120 ? 1 : r<180 ? 2 : 3;
+  if(NT.pred>=0 && r>=120) NT.crossed=1;
+  c.clearRect(0,0,W,H); const sky=c.createLinearGradient(0,0,0,H); sky.addColorStop(0, isDark()?'#0B1226':'#1F2A4D'); sky.addColorStop(1, isDark()?'#1A2238':'#3A4A7A'); c.fillStyle=sky; c.fillRect(0,0,W,H);
+  const R0=prng(7); c.fillStyle='rgba(255,255,255,.7)'; for(let i=0;i<40;i++){ c.beginPath(); c.arc(R0()*W, R0()*250, 0.8+R0()*1.6, 0, 2*PI); c.fill(); }
+  /* the analogue clock */
+  const cx=130, cy=125, R=100, rc = round===1 ? ROUND1() : round===2 ? ROUND2() : '#C9CCDA';
+  c.fillStyle='#FFFDF6'; c.strokeStyle=rc; c.lineWidth=12; c.beginPath(); c.arc(cx,cy,R,0,2*PI); c.fill(); c.stroke();
+  c.strokeStyle='#1B1F33'; for(let i=0;i<12;i++){ const a=i*PI/6; c.lineWidth = i%3? 3:6; c.beginPath(); c.moveTo(cx+Math.sin(a)*(R-10), cy-Math.cos(a)*(R-10)); c.lineTo(cx+Math.sin(a)*(R-(i%3?20:28)), cy-Math.cos(a)*(R-(i%3?20:28))); c.stroke(); }
+  c.font='700 '+Math.round(26*Math.min(LS(),1.3))+'px Rubik, Arial'; c.fillStyle='#1B1F33'; c.textAlign='center'; c.textBaseline='middle'; c.direction='ltr';
+  [[12,0],[3,90],[6,180],[9,270]].forEach(([n,d])=>{ const a=d*PI/180; c.fillText(String(n), cx+Math.sin(a)*(R-46), cy-Math.cos(a)*(R-46)); });
+  const hA=((rd/60)%12)/12*2*PI, mA=(rd%60)/60*2*PI;
+  c.lineCap='round'; c.strokeStyle='#1B1F33'; c.lineWidth=9; c.beginPath(); c.moveTo(cx,cy); c.lineTo(cx+Math.sin(hA)*R*0.5, cy-Math.cos(hA)*R*0.5); c.stroke();
+  c.lineWidth=5; c.beginPath(); c.moveTo(cx,cy); c.lineTo(cx+Math.sin(mA)*R*0.78, cy-Math.cos(mA)*R*0.78); c.stroke();
+  c.fillStyle=DANG(); c.beginPath(); c.arc(cx,cy,8,0,2*PI); c.fill(); c.lineCap='butt';
+  /* the digital reading and which round we are in */
+  c.font='700 '+(64*LS())+'px Rubik, Arial'; c.fillStyle= round===1 ? ROUND1() : round===2 ? ROUND2() : '#FFFFFF'; c.direction='ltr'; c.textAlign='center'; c.fillText(hhmm(rd), 448, 82);
+  const tag = round===0 ? 'עוד לפני אחת' : round===1 ? 'שעון קיץ: הפעם הראשונה' : round===2 ? 'שעון חורף: הפעם השנייה!' : 'שעון חורף';
+  xLabel(c, tag, 448, 168, 24, round===1 ? ROUND1() : round===2 ? ROUND2() : ink, .95);
+  /* strip 1: what the clock shows */
+  const s1y=290, s1h=46;
+  const segs=[[0,60,'00:00','#C9CCDA'],[60,120,'01:00',ROUND1()],[120,180,'01:00',ROUND2()],[180,240,'02:00','#C9CCDA'],[240,300,'03:00','#C9CCDA']];
+  segs.forEach(([a,b,t,col])=>{ c.fillStyle=col; c.fillRect(ntX(a)+2, s1y, (b-a)*NT_PX-4, s1h); c.font='700 '+(22*LS())+'px Rubik, Arial'; c.fillStyle='#1B1F33'; c.direction='ltr'; c.textAlign='center'; c.textBaseline='middle'; c.fillText(t, ntX((a+b)/2), s1y+s1h/2); });
+  /* the jump back */
+  c.strokeStyle='#FFFFFF'; c.lineWidth=4; c.beginPath(); c.moveTo(ntX(120), s1y-8); c.lineTo(ntX(120), s1y+s1h+8); c.stroke();
+  xLabel(c, 'מה השעון מראה', 600-100, s1y-40, 22, ink, .9);
+  /* strip 2: the hours that really passed */
+  const s2y=412, s2h=36;
+  c.fillStyle=isDark()?'#2A3158':'#E8E3D3'; c.fillRect(NT_X0, s2y, NT_X1-NT_X0, s2h);
+  for(let h=0;h<=5;h++){ c.strokeStyle=ink; c.lineWidth=2; c.beginPath(); c.moveTo(ntX(h*60), s2y); c.lineTo(ntX(h*60), s2y+s2h); c.stroke(); }
+  for(let h=1;h<=5;h++){ xNum(c, String(h), ntX(h*60-30), s2y+s2h/2, 22, ink); }
+  xLabel(c, 'שעות שעברו באמת', 600-110, s2y-40, 22, ink, .9);
+  /* the twins */
+  if(NT.twins){ [[99,'סמואל',-1],[130,'רונן',1]].forEach(([t,name,side])=>{ const x=ntX(t), ly = side<0 ? s1y-40 : s1y+s1h+36;
+      c.strokeStyle='#FFFFFF'; c.lineWidth=4; c.beginPath(); c.moveTo(x, side<0 ? s1y : s1y+s1h); c.lineTo(x, side<0 ? ly+14 : ly-14); c.stroke();
+      c.fillStyle='#FFFFFF'; c.beginPath(); c.arc(x, side<0 ? s1y : s1y+s1h, 6, 0, 2*PI); c.fill();
+      xTag(c, name, hhmm(ntRead(t)), side<0 ? x : x+14, ly, 22, ink, side<0 ? 'center' : 'right', .95); }); }
+  /* the "now" marker */
+  const mx=ntX(r); c.strokeStyle=DANG(); c.lineWidth=5; c.beginPath(); c.moveTo(mx, s1y-14); c.lineTo(mx, s2y+s2h+8); c.stroke(); c.fillStyle=DANG(); xArrow(c, mx, s1y-2, 0, 12, 16);
+  ntOut.innerHTML='<span class="num">'+hhmm(rd)+'</span>'+(round===1?' (קיץ)':round>=2?' (חורף)':'');
+  ntOut2.innerHTML=hDur(r);
+  if(NT.pred>=0 && NT.twins && NT.crossed && !NT.revealed){ NT.revealed=1; ntReveal.hidden=false; }
+  if(blocked){ predictFirst(ntMsg,'הזיזו'); return; }
+  if(user===1 && NT.pred>=0){
+    if(NT.twins && r===130) ntMsg.innerHTML='סמואל נולד ב־<span class="num">01:39</span>, בשעון קיץ. <span class="num">21</span> דקות אחר כך השעון הגיע לשתיים וחזר לאחת. עוד <span class="num">10</span> דקות, ורונן נולד: השעון הראה <b><span class="num">01:10</span></b>.'+(NT.pred===1?' בדיוק כמו שניחשתם!':'')+' הוא נולד אחרי אחיו, אבל השעה שלו "מוקדמת" יותר.';
+    else if(round===0) ntMsg.innerHTML='עוד לפני אחת: השעון והזמן שעבר באמת מסכימים. המשיכו ימינה.';
+    else if(round===1) ntMsg.innerHTML='שעון קיץ: זו <b>הפעם הראשונה</b> של השעה אחת. המשיכו, ושימו לב מה קורה בשתיים.';
+    else if(round===2) ntMsg.innerHTML='בשתיים השעון קפץ אחורה לאחת! זו <b>הפעם השנייה</b> של אותה שעה. עבר מחצות יותר זמן ממה שהשעון מראה: בדיוק שעה אחת יותר.';
+    else ntMsg.innerHTML='מכאן השעון מתקדם רגיל, אבל תמיד מראה שעה אחת פחות מהזמן שעבר באמת מחצות. עד <span class="num">06:00</span> יעברו <span class="num">7</span> שעות.'+(NT.twins?'':' עכשיו לחצו "הראו את התאומים".');
+  }
+}
+
+/* ---------- step 2 (interactive 2): the stick and the shadow (canvas) ----------
+   The sun's real position over Zikhron Ya'akov (32.57°N, 34.95°E) on 25 Oct 2026: declination −12.2°, equation of time +15.97 min.
+   Slider = 0–650 → winter clock 06:00 + value (1-minute steps). Apparent solar time = clock − 120 + 4 × 34.95 + 15.97; hour angle H = (solar − 720) ÷ 4 degrees.
+   sin(el) = sin φ sin δ + cos φ cos δ cos H; azimuth from north by the usual formula. Side view looking SOUTH, toward the sun: east on the LEFT, the shadow falls toward the viewer.
+   Sun drawn on its arc; a 1 m stick in the middle of a lawn; the shadow on the ground, opposite the sun (north–south foreshortened ×0.8).
+   Bottom: the shadow drawn to scale against the stick (1 m = 90 px). Mode 1 relabels the same moment in summer time (+1 h). */
+const shCv=document.getElementById('shCv'), shctx=shCv.getContext('2d');
+const SH={ opened:0, pred:-1, revealed:0, mode:0, seenNoon:0, seenSummer:0, min:9e9, minAt:0 };
+const SH_LAT=32.57*PI/180, SH_DEC=-12.2*PI/180, SH_OFF=-120+4*34.95+15.97;
+function shSun(clock){ const H=((clock+SH_OFF)-720)/4*PI/180;
+  const sel=Math.sin(SH_LAT)*Math.sin(SH_DEC)+Math.cos(SH_LAT)*Math.cos(SH_DEC)*Math.cos(H), el=Math.asin(sel);
+  let az=Math.acos(clamp((Math.sin(SH_DEC)-sel*Math.sin(SH_LAT))/(Math.cos(el)*Math.cos(SH_LAT)),-1,1)); if(H>0) az=2*PI-az;
+  return { el, az }; }
+const SH_CX=320, SH_GY=318, SH_HZ=246, SH_STICK=84;
+function shSunXY(s){ return { x: SH_CX - 285*Math.cos(s.el)*Math.sin(s.az), y: SH_HZ - 250*Math.sin(Math.max(0,s.el)) }; }
+function shPredict(k){ SH.pred=k; segOn('shP',3,k); WOW.emit('item', { id:'shadow:predict', kind:'quick', correct:k===0, attempt: wowTry('shadow:predict') });
+  shMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את השמש לאורך היום, ומצאו את הצל הקצר ביותר. אחר כך לחצו "שעון קיץ".'; shDraw(0); }
+function shMode(m){ if(SH.pred<0){ predictFirst(shMsg,'בחרו'); return; } SH.mode=m; segOn('shM',2,m); if(m===1) SH.seenSummer=1; shDraw(1); }
+function shDraw(user){
+  const c=shctx, W=shCv.width, H=shCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && SH.pred<0 && +shT.value!==120){ shT.value=120; blocked=true; }
+  if(user && !SH.opened){ SH.opened=1; WOW.emit('open', { id:'shadow' }); }
+  const clock=360+(+shT.value), s=shSun(clock), L = s.el>0.02 ? 1/Math.tan(s.el) : 99, shown = clock + (SH.mode===1?60:0);
+  if(SH.pred>=0 && user===1){ if(L<SH.min){ SH.min=L; SH.minAt=clock; } if(clock>=679 && clock<=689) SH.seenNoon=1; }
+  /* sky */
+  c.clearRect(0,0,W,H); const sky=c.createLinearGradient(0,0,0,SH_HZ); const lo=Math.max(0,Math.sin(s.el));
+  sky.addColorStop(0, isDark()?'#10204A':(lo>0.3?'#7FB8E6':'#F3B98A')); sky.addColorStop(1, isDark()?'#25366B':(lo>0.3?'#D7ECFA':'#FCE3C4')); c.fillStyle=sky; c.fillRect(0,0,W,SH_HZ+4);
+  /* the sun's path for the whole day (dotted) and the sun */
+  c.strokeStyle=isDark()?'rgba(246,196,84,.55)':'rgba(185,119,14,.55)'; c.lineWidth=3; c.setLineDash([3,9]); c.beginPath();
+  for(let t=350;t<=1020;t+=10){ const p=shSunXY(shSun(t)); if(t===350) c.moveTo(p.x,p.y); else c.lineTo(p.x,p.y); } c.stroke(); c.setLineDash([]);
+  /* ground */
+  c.fillStyle=GRASS(); c.fillRect(0,SH_HZ,W,H-SH_HZ); c.fillStyle=GRASS2(); c.beginPath(); c.ellipse(SH_CX, SH_GY+14, 300, 90, 0, 0, 2*PI); c.fill();
+  c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(0,SH_HZ); c.lineTo(W,SH_HZ); c.stroke();
+  xLabel(c, 'מזרח', 52, SH_HZ+30, 22, ink, .85); xLabel(c, 'מערב', W-52, SH_HZ+30, 22, ink, .85);
+  const sp=shSunXY(s); if(s.el>0) xSun(c, sp.x, sp.y, 24);
+  /* the shadow on the ground */
+  if(s.el>0.02){ const k=Math.min(L,4.2)*84, dx=Math.sin(s.az)*k, dy=-Math.cos(s.az)*k*0.8;
+    c.strokeStyle=isDark()?'rgba(0,0,0,.75)':'rgba(30,35,60,.72)'; c.lineWidth=12; c.lineCap='round'; c.beginPath(); c.moveTo(SH_CX, SH_GY); c.lineTo(SH_CX+dx, SH_GY+dy); c.stroke(); c.lineCap='butt';
+    if(L>4.2){ c.fillStyle=isDark()?'rgba(0,0,0,.75)':'rgba(30,35,60,.72)'; xArrow(c, SH_CX+dx*1.08, SH_GY+dy*1.08, dx, dy, 22); } }
+  /* the stick */
+  c.strokeStyle='#7A4A22'; c.lineWidth=9; c.lineCap='round'; c.beginPath(); c.moveTo(SH_CX, SH_GY); c.lineTo(SH_CX, SH_GY-SH_STICK); c.stroke(); c.lineCap='butt';
+  c.fillStyle='#5C3515'; c.beginPath(); c.ellipse(SH_CX, SH_GY, 9, 4, 0, 0, 2*PI); c.fill();
+  /* the clock tag */
+  xTag(c, SH.mode===1?'שעון קיץ':'שעון חורף', hhmm(shown), 22, 34, 30, ink, 'left', .95);
+  /* shadow to scale against the stick */
+  const by1=456, by2=500, U=90, x1=W-110;
+  xLabel(c, 'המקל', W-54, by1, 22, ink, .9); xLabel(c, 'הצל', W-54, by2, 22, ink, .9);
+  c.fillStyle='#7A4A22'; c.fillRect(x1-U, by1-11, U, 22);
+  if(s.el>0.02){ const w=Math.min(L*U, x1-30); c.fillStyle=isDark()?'#0B0F22':'#2B3050'; c.fillRect(x1-w, by2-11, w, 22); if(L*U>x1-30){ c.fillStyle=DANG(); xArrow(c, 24, by2, -1, 0, 18); } }
+  shOut.innerHTML='<span class="num">'+hhmm(shown)+'</span>';
+  shOut2.innerHTML = s.el<=0.02 ? 'אין שמש' : (L>20 ? 'ארוך מאוד' : '<span class="math">'+L.toFixed(2)+'</span> מ׳');
+  if(SH.pred>=0 && SH.seenNoon && SH.seenSummer && !SH.revealed){ SH.revealed=1; shReveal.hidden=false; }
+  if(blocked){ predictFirst(shMsg,'הזיזו'); return; }
+  if(user===1 && SH.pred>=0){
+    const near = clock>=679 && clock<=689;
+    if(SH.mode===1 && near) shMsg.innerHTML='אותו רגע בדיוק, אותה שמש ואותו צל, אבל בשעון קיץ קוראים לו <span class="num">'+hhmm(shown)+'</span>. רק המספר זז.';
+    else if(near) shMsg.innerHTML='הנה! הצל הכי קצר של היום, באורך כמעט מטר, כמו המקל עצמו. השעה: <b><span class="num">'+hhmm(shown)+'</span></b>, ולא <span class="num">12:00</span>.'+(SH.pred===0?' בדיוק כמו שניחשתם!':'')+(SH.seenSummer?'':' עכשיו לחצו "שעון קיץ".');
+    else if(clock<680) shMsg.innerHTML='בוקר: השמש במזרח, והצל נמתח לצד השני, אל המערב. '+(L>2?'הוא ארוך פי <span class="num">'+Math.round(L)+'</span> מהמקל!':'הוא מתקצר.')+' המשיכו ימינה.';
+    else shMsg.innerHTML='אחרי הצהריים: השמש יורדת למערב, והצל מתארך שוב, הפעם לכיוון המזרח.'+(SH.minAt?' הקצר ביותר שמצאתם עד עכשיו היה ב־<span class="num">'+hhmm(SH.minAt+(SH.mode===1?60:0))+'</span>.':'');
+  }
+}
+
+/* ---------- step 3 (interactive 3): the Earth seen from above the North Pole (canvas) ----------
+   Slider = minutes of UTC, 0–1435 (start 580 = 09:40 UTC, when it is mean solar noon in Zikhron Ya'akov). The sun is on the right;
+   the Earth turns counter-clockwise; a city at east longitude λ sits at math angle φ = (UTC/60 − 12) × 15° + λ (0 = facing the sun = noon,
+   −90° = sunrise at the bottom, +90° = sunset at the top). Its mean solar time = UTC + 4λ minutes (no equation of time in this model).
+   Mode 1 shows the official (winter) time: London UTC+0, Israel UTC+2, China UTC+8, Japan UTC+9. The city names and times are in the HTML readouts under the canvas (numbered dots match). */
+const glCv=document.getElementById('glCv'), glctx=glCv.getContext('2d');
+const GL={ opened:0, pred:-1, revealed:0, mode:0, moved:0, seenOff:0 };
+const GL_C=[ {name:'לונדון', lon:0, tz:0, col:()=>isDark()?'#7FB3DD':'#2F6F9F'}, {name:'זכרון יעקב', lon:34.95, tz:2, col:()=>DANG()}, {name:'קשגר', lon:76, tz:8, col:()=>isDark()?'#C9A4F0':'#6B3FA0'}, {name:'טוקיו', lon:139.7, tz:9, col:()=>GOOD()} ];
+const GL_X=290, GL_Y=222, GL_R=168;
+function glTime(ci, utc){ const k=GL_C[ci]; return GL.mode===1 ? utc+k.tz*60 : utc+4*k.lon; }
+function glPredict(k){ GL.pred=k; segOn('glP',3,k); WOW.emit('item', { id:'globe:predict', kind:'quick', correct:k===1, attempt: wowTry('globe:predict') });
+  glMsg.innerHTML='רשמנו את הניחוש. הסתכלו על השעה של לונדון למטה, ואז סובבו את כדור הארץ ובדקו "השעה הרשמית".'; glDraw(0); }
+function glMode(m){ if(GL.pred<0){ predictFirst(glMsg,'בחרו'); return; } GL.mode=m; segOn('glM',2,m); if(m===1) GL.seenOff=1; glDraw(1); }
+function glDraw(user){
+  const c=glctx, W=glCv.width, H=glCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && GL.pred<0 && +glT.value!==580){ glT.value=580; blocked=true; }
+  if(user && !GL.opened){ GL.opened=1; WOW.emit('open', { id:'globe' }); }
+  if(user===1 && GL.pred>=0 && +glT.value!==580) GL.moved=1;
+  const utc=+glT.value;
+  c.clearRect(0,0,W,H); c.fillStyle=isDark()?'#0B1226':'#1A2238'; c.fillRect(0,0,W,H);
+  const R0=prng(3); c.fillStyle='rgba(255,255,255,.6)'; for(let i=0;i<50;i++){ c.beginPath(); c.arc(R0()*W, R0()*H, 0.7+R0()*1.4, 0, 2*PI); c.fill(); }
+  /* sunlight */
+  xSun(c, W-30, GL_Y, 34);
+  c.strokeStyle='rgba(246,196,84,.35)'; c.lineWidth=3; for(let i=-3;i<=3;i++){ c.beginPath(); c.moveTo(W-90, GL_Y+i*42); c.lineTo(GL_X+GL_R+14, GL_Y+i*42); c.stroke(); }
+  /* the Earth: lit right half, dark left half */
+  c.fillStyle=isDark()?'#2C6FA8':'#4FA8E0'; c.beginPath(); c.arc(GL_X,GL_Y,GL_R,0,2*PI); c.fill();
+  c.fillStyle='rgba(8,12,30,.62)'; c.beginPath(); c.arc(GL_X,GL_Y,GL_R,PI/2,3*PI/2); c.closePath(); c.fill();
+  c.strokeStyle='#FFFFFF'; c.lineWidth=3; c.beginPath(); c.arc(GL_X,GL_Y,GL_R,0,2*PI); c.stroke();
+  /* noon line toward the sun, midnight on the far side */
+  c.strokeStyle=SUNC(); c.lineWidth=5; c.setLineDash([10,8]); c.beginPath(); c.moveTo(GL_X,GL_Y); c.lineTo(GL_X+GL_R,GL_Y); c.stroke(); c.setLineDash([]);
+  xLabel(c, 'צהריים', GL_X+GL_R+70, GL_Y-150, 22, ink, .92); xLabel(c, 'חצות', 60, GL_Y-150, 22, ink, .85);
+  c.strokeStyle='rgba(255,255,255,.7)'; c.lineWidth=2; c.setLineDash([4,6]); c.beginPath(); c.moveTo(GL_X+GL_R+70, GL_Y-128); c.lineTo(GL_X+GL_R+6, GL_Y-4); c.moveTo(60, GL_Y-128); c.lineTo(GL_X-GL_R-6, GL_Y-4); c.stroke(); c.setLineDash([]);
+  /* the turning arrow, on the rim */
+  c.strokeStyle='#FFFFFF'; c.lineWidth=4; c.beginPath(); c.arc(GL_X,GL_Y,GL_R+16, 0.58*PI, 0.88*PI); c.stroke();
+  c.fillStyle='#FFFFFF'; { const a=0.56*PI, x=GL_X+Math.cos(a)*(GL_R+16), y=GL_Y+Math.sin(a)*(GL_R+16); xArrow(c, x, y, Math.sin(a), -Math.cos(a), 16); }
+  /* north pole */
+  c.fillStyle='#FFFFFF'; c.beginPath(); c.arc(GL_X,GL_Y,7,0,2*PI); c.fill();
+  /* cities */
+  GL_C.forEach((k,i)=>{ const phi=((utc/60-12)*15+k.lon)*PI/180, rr=GL_R*0.72, x=GL_X+Math.cos(phi)*rr, y=GL_Y-Math.sin(phi)*rr;
+    c.fillStyle=k.col(); c.strokeStyle='#FFFFFF'; c.lineWidth=4; c.beginPath(); c.arc(x,y,15*LS(),0,2*PI); c.fill(); c.stroke();
+    c.font='700 '+Math.round(20*LS())+'px Rubik, Arial'; c.fillStyle='#FFFFFF'; c.textAlign='center'; c.textBaseline='middle'; c.direction='ltr'; c.fillText(String(i+1), x, y+1); });
+  xLabel(c, GL.mode===1 ? 'השעה הרשמית' : 'שעון השמש', 110, H-30, 22, ink, .92);
+  const z=hhmm(glTime(1,utc)), l=hhmm(glTime(0,utc));
+  glOut.innerHTML='<span class="num">'+z+'</span>'; glOut2.innerHTML='<span class="num">'+l+'</span>'; glOut3.innerHTML='<span class="num">'+hhmm(glTime(2,utc))+'</span>'; glOut4.innerHTML='<span class="num">'+hhmm(glTime(3,utc))+'</span>';
+  if(GL.pred>=0 && GL.moved && GL.seenOff && !GL.revealed){ GL.revealed=1; glReveal.hidden=false; }
+  if(blocked){ predictFirst(glMsg,'סובבו'); return; }
+  if(user===1 && GL.pred>=0){
+    if(GL.mode===0) glMsg.innerHTML='שעון השמש: בזכרון יעקב <span class="num">'+z+'</span>, ובלונדון <span class="num">'+l+'</span>. ההפרש תמיד <span class="math">140</span> דקות, כי לונדון <span class="num">35</span> מעלות מערבה, ו־<span class="math">35 × 4 = 140</span>.'+(GL.pred===1?' בדיוק כמו שניחשתם!':'')+(GL.seenOff?'':' עכשיו לחצו "השעה הרשמית".');
+    else { const kz=hhmm(utc+8*60), ks=hhmm(utc+4*76); glMsg.innerHTML='השעה הרשמית: בזכרון יעקב <span class="num">'+z+'</span> ובלונדון <span class="num">'+l+'</span>, הפרש של שעתיים עגולות. ובקשגר? השעון מראה <span class="num">'+kz+'</span>, אבל לפי השמש שם רק <span class="num">'+ks+'</span>: כמעט שלוש שעות "מאחור".'; }
+  }
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  storyQ:{ q:"למה השעה <span class=\"num\">01:30</span> קרתה הלילה פעמיים?", opts:["כי כדור הארץ הסתובב לאט יותר הלילה","כי בשתיים בלילה החזירו את השעונים לאחת, והשעה שבין אחת לשתיים חזרה שוב","כי השמש זרחה פעמיים","כי השעונים של הטלפונים התקלקלו"], a:1, fb:"בשתיים בלילה, בשעון קיץ, כל השעונים <b>חזרו לאחת</b>, לשעון חורף. לכן השעה שבין אחת לשתיים עברה פעמיים. כדור הארץ, השמש והטלפונים לא השתנו: השתנה רק ההסכם על מה כתוב בשעון.", btn:"next1" },
+  pressQ:{ q:"הלילה החזירו את השעונים שעה אחורה. מה קרה לשמש?", opts:["היא זורחת היום שעה מאוחר יותר","שום דבר: היא זורחת ושוקעת כמו קודם, רק המספרים על השעון השתנו","היא נעצרה לשעה אחת","היא זזה צפונה"], a:1, fb:"השמש לא יודעת שיש שעונים. היא זורחת, מגיעה לנקודה הכי גבוהה ושוקעת בדיוק כמו אתמול. רק המספר שאנחנו קוראים לכל רגע השתנה: הזריחה של היום נקראת <span class=\"num\">05:52</span> במקום <span class=\"num\">06:51</span>. כלומר בשעון היא <b>מוקדמת</b> יותר, לא מאוחרת." },
+  cornerQ:{ q:"בעיר שנמצאת <b>מזרחה</b> יותר, הצהריים של השמש מגיעים...", opts:["מוקדם יותר","מאוחר יותר","בדיוק באותו רגע","רק בקיץ"], a:0, fb:"כדור הארץ מסתובב ממערב למזרח, ולכן השמש \"נוסעת\" בשמיים ממזרח למערב. מי שנמצא מזרחה יותר פוגש אותה <b>קודם</b>: <span class=\"num\">4</span> דקות מוקדם יותר לכל מעלה. לכן בירושלים הצהריים מגיעים לפני תל אביב, ובזכרון יעקב לפני <span class=\"num\">12:00</span>." },
+  crackQ:{ q:"למה גרמניה הזיזה את השעונים בשנת <span class=\"num\">1916</span>?", opts:["כדי לחסוך בפחם בזמן מלחמה","כדי שילדים ילכו לישון מוקדם","כי השמש התחילה לזרוח מאוחר","כדי שהרכבות יגיעו בזמן"], a:0, fb:"זה היה באמצע מלחמת העולם הראשונה, והפחם היה יקר וחשוב. אם יש אור בערב, צריך פחות תאורה, וכך <b>חוסכים פחם</b>. את הרכבות סידרו אזורי הזמן, עוד ב־<span class=\"num\">1883</span>." },
+  deepQ:{ q:"היום בזכרון יעקב השמש הכי גבוהה ב־<span class=\"num\">11:24</span>, ולא ב־<span class=\"num\">12:00</span>. מה אחת הסיבות?", opts:["השעונים בזכרון יעקב מקולקלים","זכרון יעקב נמצאת מזרחית לקו שלפיו קובעים את השעה בישראל, ולכן השמש מגיעה אליה מוקדם יותר","השמש זזה מהר יותר בחורף","כי בחורף אין צהריים"], a:1, fb:"השעה בישראל נקבעת לפי הקו <span class=\"num\">30°</span>, שעובר ליד אלכסנדריה. זכרון יעקב <span class=\"num\">5</span> מעלות מזרחה, כלומר כ־<span class=\"math\">5 × 4 = 20</span> דקות מוקדם. ועוד כ־<span class=\"num\">16</span> דקות מגיעות היום ממשוואת הזמן, בגלל המסלול האליפטי והציר הנטוי." },
+};
+const MCQ = {
+  shared:[
+    { q:"הלילה הוחזרו השעונים בישראל משתיים לאחת. מה השתנה באמת?", opts:["כדור הארץ קיבל שעה נוספת של אור","רק המספרים על השעונים; השמש וכדור הארץ המשיכו בדיוק כמו קודם","כדור הארץ הסתובב לאט יותר","השמש זרחה היום שעה מאוחר יותר"], a:1, fb:"השעה על השעון היא <b>הסכם</b> של בני אדם. הלילה שינינו את ההסכם, ולכן הזריחה של היום נקראת <span class=\"num\">05:52</span> במקום <span class=\"num\">06:51</span>: מוקדם יותר בשעון, לא מאוחר. אור לא נוסף, וכדור הארץ לא האט אפילו בשנייה." },
+    { q:"כדור הארץ מסתובב <span class=\"num\">360</span> מעלות ב־<span class=\"num\">24</span> שעות. כמה דקות לוקח לו להסתובב מעלה אחת?", opts:["<span class=\"num\">1</span>","<span class=\"num\">4</span>","<span class=\"num\">15</span>","<span class=\"num\">24</span>"], a:1, fb:"<span class=\"math\">360 ÷ 24 = 15</span> מעלות בכל שעה, ו־<span class=\"math\">60 ÷ 15 = 4</span> דקות לכל מעלה. <span class=\"num\">15</span> הוא מספר המעלות בשעה, לא הדקות למעלה, ו־<span class=\"num\">24</span> הוא מספר השעות ביממה." },
+    { q:"למה הרכבות הביאו את אזורי הזמן?", opts:["כי כל עיר כיוונה את השעון לפי השמש שלה, והשעות בלוחות הזמנים של הרכבות היו מבולבלות","כי הרכבות נסעו מהר יותר מהשמש","כי הנוסעים רצו לישון יותר","כי ברכבות לא היו שעונים"], a:0, fb:"לפני <span class=\"num\">1883</span> לכל עיר היה צהריים משלה, ולכן רכבת שעברה בעשרות ערים פגשה עשרות שעות שונות. אזורי הזמן קבעו ש<b>כל הערים באזור מראות אותה שעה</b>. ברכבות היו שעונים, והבעיה הייתה דווקא שהם לא הסכימו זה עם זה." },
+  ],
+  younger:[
+    { q:"מתי הצל של מקל הוא הכי קצר?", opts:["בבוקר מוקדם","כשהשמש הכי גבוהה בשמיים","בשקיעה","הוא תמיד באותו אורך"], a:1, fb:"כשהשמש נמוכה, בבוקר ובערב, הצל ארוך מאוד. כשהיא <b>הכי גבוהה</b>, בצהריים של השמש, הצל הכי קצר. היום בזכרון יעקב זה קורה ב־<span class=\"num\">11:24</span>." },
+  ],
+  older:[
+    { q:"למה גם בגריניץ׳ עצמה, על קו האפס, ואפילו בחורף, השמש לא עומדת תמיד הכי גבוה ב־<span class=\"num\">12:00</span>?", opts:["כי מסלול כדור הארץ סביב השמש אליפטי והציר שלו נטוי, ולכן הצהריים של השמש נודדים במשך השנה","כי השעונים בלונדון ישנים","כי כדור הארץ מאט קצת בכל שבוע","כי בגריניץ׳ יש שעון קיץ כל השנה"], a:0, fb:"זו <b>משוואת הזמן</b>: בגלל המסלול האליפטי ובעיקר בגלל הציר הנטוי, הצהריים של השמש מקדימים עד כ־<span class=\"num\">16</span> דקות (בתחילת נובמבר) ומאחרים עד כ־<span class=\"num\">14</span> (באמצע פברואר). השעונים בלונדון מדויקים, כדור הארץ לא מאט בקצב כזה, ובחורף אין שם שעון קיץ." },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'כל עיר מכוונת את השעון לפי הצהריים של השמש שלה.'},
+  {id:'b', t:'חברות הרכבות באמריקה עוברות לאזורי זמן: "היום של שני הצהריים".'},
+  {id:'c', t:'נציגים של 26 מדינות בוחרים בגריניץ׳ כקו האפס של העולם.'},
+  {id:'d', t:'ויליאם וילט כותב חוברת ומציע להזיז את השעונים בקיץ.'},
+  {id:'e', t:'גרמניה היא המדינה הראשונה שמזיזה את השעונים, כדי לחסוך פחם.'},
+  {id:'f', t:'הכנסת קובעת: שעון הקיץ נגמר ביום ראשון האחרון של אוקטובר.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> שעון השמש של כל עיר ← הרכבות ואזורי הזמן (<span class="num">1883</span>) ← גריניץ׳ (<span class="num">1884</span>) ← החוברת של וילט (<span class="num">1907</span>) ← גרמניה מזיזה ראשונה (<span class="num">1916</span>) ← החוק של הכנסת (<span class="num">2013</span>). קודם הסכימו <b>איפה</b> הזמן מתחיל, ורק אחר כך התחילו להזיז אותו.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) קודם היה צריך להסכים על אזורי זמן ועל קו אפס, ורק אחר כך היה טעם להזיז את כל השעונים ביחד. (2) הרעיון של וילט הגיע <b>לפני</b> שמדינה כלשהי הזיזה שעונים: הוא מת שנה לפני שזה קרה.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const aOk = chalA.value!=='' && Math.abs(a-176)<0.01, bOk = chalB.value!=='' && Math.abs(b-160)<0.01;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const hintA = (hasA && Math.abs(a-44)<0.01) ? '(א): <span class="num">44</span> זה ההפרש <b>במעלות</b>. כל מעלה שווה <span class="num">4</span> דקות: <span class="math">44 × 4</span>.'
+    : (hasA && (Math.abs(a-304)<0.01 || Math.abs(a-480)<0.01)) ? '(א): חישבתם מגריניץ׳. אבל השעה של סין נקבעת לפי הקו <span class="num">120°</span>, אז משווים את קשגר לקו הזה: <span class="math">120 − 76</span> מעלות.'
+    : (hasA && a>2.8 && a<3) ? '(א): זה נכון בשעות! השאלה מבקשת <b>דקות</b>: כמה דקות יש בזה?'
+    : (hasA && Math.abs(a-11)<0.01) ? '(א): חילקתם ב־<span class="num">4</span>. כל מעלה שווה <span class="num">4</span> דקות, אז <b>כופלים</b>: <span class="math">44 × 4</span>.'
+    : '(א): רמז — כמה מעלות יש בין קשגר (<span class="num">76°</span>) לקו של בייג׳ינג (<span class="num">120°</span>)? וכל מעלה שווה <span class="num">4</span> דקות.';
+  const hintB = (hasB && Math.abs(b-192)<0.01) ? '(ב): הוספתם את <span class="num">16</span> הדקות. אבל משוואת הזמן <b>מקדימה</b> את הצהריים: הם מגיעים מוקדם יותר, אז מחסירים.'
+    : (hasB && Math.abs(b-176)<0.01) ? '(ב): זה בלי משוואת הזמן. היום היא מקדימה את הצהריים ב־<span class="num">16</span> דקות.'
+    : (hasB && b>14.6 && b<14.8) ? '(ב): אתם קרובים, אבל זו השעה. השאלה מבקשת כמה <b>דקות</b> אחרי <span class="num">12:00</span>.'
+    : '(ב): רמז — קו האורך מאחר את הצהריים, ומשוואת הזמן מקדימה אותם היום ב־<span class="num">16</span> דקות.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">120 − 76 = 44</span> מעלות, ו־<span class="math">44 × 4 = 176</span> דקות: כמעט שלוש שעות "מאחור". (ב) <span class="math">176 − 16 = 160</span> דקות, כלומר השמש עומדת הכי גבוה בקשגר בערך ב־<span class="num">14:40</span> בשעון של סין. בבייג׳ינג, באותו יום, זה קורה עוד לפני <span class="num">12:00</span>.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">176</span> דקות.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — <span class="num">160</span> דקות.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const a=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasR=numAdvR.value!=='', hasA=numAdv.value!=='';
+    const aOk=(hasA && a>=52.6 && a<=53.6), bOk=(hasR && r>=20.8 && r<=21), sc = aOk&&bOk?2:((aOk||bOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintR = (hasR && Math.abs(r-20)<0.01) ? 'ב־(א) עיגלתם ל־<span class="num">5</span> מעלות. השתמשו במספר המדויק: <span class="math">35.22 − 30</span>.'
+      : (hasR && Math.abs(r-5.22)<0.01) ? 'ב־(א): <span class="num">5.22</span> זה ההפרש <b>במעלות</b>. כל מעלה שווה <span class="num">4</span> דקות.'
+      : (hasR && Math.abs(r-140.88)<0.05) ? 'ב־(א) חישבתם מגריניץ׳. השעה של ישראל נקבעת לפי הקו <span class="num">30°</span>, אז משווים אליו.'
+      : (hasR && r>1.2 && r<1.4) ? 'ב־(א) חילקתם ב־<span class="num">4</span>. כל מעלה שווה <span class="num">4</span> דקות, אז כופלים.'
+      : (hasR && Math.abs(r-19.8)<0.05) ? 'ב־(א) חישבתם את זכרון יעקב, כמו בשיעור. כאן העיר היא ירושלים, בקו <span class="num">35.22°</span>.'
+      : 'רמז ל־(א): כמה מעלות יש בין <span class="num">35.22°</span> ל־<span class="num">30°</span>? וכל מעלה שווה <span class="num">4</span> דקות.';
+    const hintA = (hasA && a>=24.6 && a<=25.6) ? 'ב־(ב) החסרתם את <span class="num">14</span> הדקות. אבל בפברואר משוואת הזמן <b>מאחרת</b> את הצהריים: הם מגיעים מאוחר יותר, אז מוסיפים.'
+      : (hasA && a>=38.6 && a<=39.6) ? 'ב־(ב) שכחתם את משוואת הזמן: באותו יום היא מאחרת את הצהריים ב־<span class="num">14</span> דקות.'
+      : (hasA && a>=11.5 && a<=12) ? 'ב־(ב) כתבתם את השעה. השאלה מבקשת כמה <b>דקות</b> אחרי <span class="num">11:00</span>.'
+      : (hasA && a>=22.6 && a<=23.6) ? 'ב־(ב) השתמשתם בהקדמה של היום, <span class="num">16</span> דקות. אבל ב־<span class="num">11</span> בפברואר משוואת הזמן <b>מאחרת</b> את הצהריים ב־<span class="num">14</span> דקות: מוסיפים אותן.'
+      : 'רמז ל־(ב): בין <span class="num">11:00</span> ל־<span class="num">12:00</span> יש <span class="num">60</span> דקות. קו האורך מקדים את הצהריים, ומשוואת הזמן באותו יום מאחרת אותם.';
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">(35.22 − 30) × 4 = 5.22 × 4 ≈ 20.9</span> דקות. (ב) <span class="math">60 − 20.9 + 14 ≈ 53.1</span> דקות אחרי <span class="num">11:00</span>, כלומר בערך <span class="num">11:53</span>. בפברואר הצהריים של השמש מגיעים <b>הכי מאוחר</b> בכל השנה, ועדיין, בזכות קו האורך, לפני <span class="num">12:00</span>.'
+      : aOk ? '<span class="pill-ok">(ב) נכון — בערך <span class="num">53.1</span> דקות.</span> '+hintR
+      : bOk ? '<span class="pill-ok">(א) נכון — בערך <span class="num">20.9</span> דקות.</span> '+hintA
+      : '<span class="pill-bad">עוד לא.</span> '+hintR+(hasA?' '+hintA:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-9)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> מ־<span class="num">21:00</span> עד <span class="num">07:00</span> השעון סופר <span class="num">10</span> שעות. אבל באותו לילה שעה אחת נעלמה, מ־<span class="num">02:00</span> ישר ל־<span class="num">03:00</span>: <span class="math">10 − 1 = 9</span>. דני ישן שעה פחות ממה שנראה. (והלילה, בסתיו, קרה ההפך.)':(Math.abs(v-10)<0.01)?'<span class="pill-bad">כמעט!</span> <span class="num">10</span> זה מה שהשעון סופר. אבל באותו לילה, בשתיים, השעון קפץ ישר לשלוש: שעה אחת <b>לא הייתה</b>.':(Math.abs(v-11)<0.01)?'<span class="pill-bad">זה מה שקורה בסתיו.</span> הלילה השעה חזרה, ולכן נוספה שעה. אבל במרץ השעון קפץ <b>קדימה</b>, ושעה נעלמה.':(Math.abs(v-14)<0.01)?'<span class="pill-bad">חיסרתם הפוך.</span> סופרים מ־<span class="num">21:00</span> קדימה: עד חצות <span class="num">3</span> שעות, ומחצות עד <span class="num">07:00</span> עוד <span class="num">7</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: ספרו כמה שעות יש מ־<span class="num">21:00</span> עד <span class="num">07:00</span> בשעון, ואז זכרו ששעה אחת באותו לילה נעלמה.'; }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-20)<0.01; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">35 − 30 = 5</span> מעלות, ו־<span class="math">5 × 4 = 20</span> דקות: הצהריים של השמש שם מגיעים בערך ב־<span class="num">11:40</span>. ועם משוואת הזמן של היום, עוד <span class="num">16</span> דקות מוקדם יותר.':(Math.abs(v-5)<0.01)?'<span class="pill-bad">זה ההפרש במעלות.</span> כל מעלה שווה <span class="num">4</span> דקות: כמה זה <span class="math">5 × 4</span>?':(Math.abs(v-140)<0.01)?'<span class="pill-bad">חישבתם מגריניץ׳.</span> השעה של ישראל נקבעת לפי הקו <span class="num">30°</span>, אז משווים אליו: <span class="math">35 − 30</span>.':(Math.abs(v-1.25)<0.01)?'<span class="pill-bad">חילקתם ב־<span class="num">4</span>.</span> כל מעלה שווה <span class="num">4</span> דקות, אז כופלים.':(Math.abs(v-75)<0.01)?'<span class="pill-bad">כפלתם ב־<span class="num">15</span>.</span> <span class="num">15</span> זה מעלות בשעה. בדקות: כל מעלה <span class="num">4</span> דקות.':'<span class="pill-bad">לא בדיוק.</span> רמז: כמה מעלות יש בין <span class="num">35°</span> ל־<span class="num">30°</span>? וכמה דקות לוקח לכדור הארץ להסתובב מעלה אחת?'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שבשתיים בלילה החזירו את השעונים לאחת (המעבר משעון קיץ לשעון חורף), ולכן השעה שבין אחת לשתיים קרתה פעמיים.',
+  'הסברתי שהשמש וכדור הארץ לא השתנו: רק השעה שבני אדם הסכימו עליה זזה.',
+  'כתבתי שהצהריים של השמש הם הרגע שבו השמש הכי גבוהה והצל הכי קצר, ושהם קורים בכל מקום ברגע קצת אחר.',
+  'הסברתי שהשעה בישראל נקבעת לפי קו אחד (30° מזרח), וזכרון יעקב מזרחית לו, ולכן השמש מגיעה אליה קודם: 4 דקות לכל מעלה.',
+  'הוספתי פרט מדויק: התאומים מ־2016, 15 מעלות בשעה, הרכבות ב־1883, ויליאם וילט, משוואת הזמן, או 11:24.',
+];
+const MODEL='הלילה, בשתיים בלילה, נגמר שעון הקיץ, וכל השעונים בישראל חזרו לאחת. לכן השעה שבין אחת לשתיים עברה פעמיים, ו־01:30 קרתה פעמיים. השמש וכדור הארץ לא השתנו בכלל: רק השעה שבני אדם הסכימו עליה זזה. הצהריים של השמש הם הרגע שבו היא הכי גבוהה והצל הכי קצר. כדור הארץ מסתובב 15 מעלות בשעה, כלומר מעלה בכל 4 דקות, ולכן בכל מקום הצהריים מגיעים ברגע קצת אחר. השעה בישראל נקבעת לפי הקו 30° מזרח, ליד אלכסנדריה, וזכרון יעקב נמצאת כ־5 מעלות מזרחה, ולכן השמש מגיעה אליה כ־<span class="math">5 × 4 = 20</span> דקות לפני 12:00. היום מתווספות עוד כ־16 דקות בגלל משוואת הזמן, ולכן הצל הכי קצר בערך ב־11:24.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון (השעה היא הסכם: שעון קיץ UTC + 3 ושעון חורף UTC + 2, ובשתיים בלילה של שעון קיץ השעון חוזר לאחת של שעון חורף, ולכן כל השעה 01:00–02:00 חוזרת; הצהריים של השמש הם הרגע שבו השמש הכי גבוהה והצל הכי קצר; כדור הארץ מסתובב 360 ÷ 24 = 15 מעלות בשעה, כלומר 4 דקות למעלה; השעה של ישראל נקבעת לפי הקו 30° מזרח, וזכרון יעקב ב־34.95°, ולכן הצהריים מקדימים בכ־(34.95 − 30) × 4 ≈ 20 דקות; ועוד כ־16 דקות היום ממשוואת הזמן — מסלול אליפטי וציר נטוי — ולכן 11:24) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "הלילה שבו השעה אחת וחצי קרתה פעמיים": מעבר משעון קיץ לשעון חורף, הצהריים של השמש ואזורי זמן. הרעיונות המרכזיים: (1) הלילה, 25 באוקטובר 2026, בשתיים בלילה של שעון קיץ, השעונים בישראל חזרו לאחת של שעון חורף; לכן השעה 01:00–02:00 קרתה פעמיים; באביב (בלילה שבין 26 ל־27 במרץ) קרה ההפך: מ־02:00 קפצו ל־03:00 והשעה נעלמה; טלפונים זזים לבד, תנור ומכונית ביד; (2) התאומים סמואל ורונן פיטרסון, קייפ קוד, 6 בנובמבר 2016: סמואל ב־01:39, רונן 31 דקות אחריו אבל רשום 01:10; UTC — שעה עולמית שלא קופצת; ישראל UTC + 3 בקיץ ו־UTC + 2 בחורף; (3) השמש היא השעון הראשון: הצל הכי קצר כשהשמש הכי גבוהה, מעל הדרום — הצהריים של השמש, "חצות היום"; היום בזכרון יעקב: זריחה 05:52, צהריים 11:24, שקיעה 16:57, גובה השמש כ־45° ולכן צל של מקל באורך מטר כמעט מטר; המעבר לשעון חורף לא הזיז את השמש, רק את המספרים; (4) כדור הארץ מסתובב 15 מעלות בשעה, 4 דקות למעלה; עיר מזרחית מקבלת את הצהריים קודם; עד 1883 כל עיר כיוונה לפי השמש שלה; הרכבות: 18 בנובמבר 1883, "היום של שני הצהריים"; 1884 וושינגטון, 26 מדינות, גריניץ׳ קו האפס; (5) השעה של ישראל לפי הקו 30° מזרח (ליד אלכסנדריה); זכרון יעקב ב־34.95°, ולכן כ־20 דקות לפני 12:00; סין: שעה אחת מאז 1949, בקשגר צהרי השמש אחרי 14:30; (6) מי הזיז את השעון: ג׳ורג׳ ורנון הדסון, ניו זילנד 1895, אוהב חרקים, הציע שעתיים; ויליאם וילט, לונדון 1907, "בזבוז אור היום", 80 דקות בארבעה צעדים, מת 1915; גרמניה ואוסטרו־הונגריה 30 באפריל 1916, לחסוך פחם; בריטניה 21 במאי 1916; פרנקלין — מכתב בצחוק ב־1784, מיתוס; ארץ ישראל 1940 במנדט; ויכוחים בכנסת סביב יום כיפור; 2013 — הכלל הקבוע; החיסכון בחשמל שנוי במחלוקת (כ־0.3%); (7) משוואת הזמן: הצהריים של השמש נודדים עד כ־16 דקות מוקדם (תחילת נובמבר) ועד כ־14 מאוחר (פברואר), בגלל מסלול אליפטי וציר נטוי; אנלמה בצורת שמונה. חישובי המבחן: צעיר — במרץ שעה נעלמה: 10 − 1 = 9 שעות שינה; בוגר (35 − 30) × 4 = 20 דקות; מתקדם — ירושלים (35.22°) ב־11 בפברואר, משוואת זמן מאחרת 14 דקות: (35.22 − 30) × 4 ≈ 20.9 דקות ו־60 − 20.9 + 14 ≈ 53.1 דקות אחרי 11:00; אתגר קשגר (120 − 76) × 4 = 176 ו־176 − 16 = 160.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם שהשעונים חזרו משתיים לאחת (ולכן השעה חזרה, בלי שהשמש השתנתה), וגם שהצהריים של השמש תלויים במקום — זכרון יעקב מזרחית לקו שלפיו נקבעת השעה בישראל, ולכן השמש מגיעה לשיא לפני 12:00; 1 אם יש רק אחד מהשניים או רק חלק. תשובה שאומרת שכדור הארץ האט או שהשמש זזה בגלל השעון — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', את הזמן כבר הבנת עד הדקה!':pct>=60?name+', השמש בצד שלך!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=7;                                                       // 7 hours of sleep: 00:00 → 06:00 on the night the clocks went back
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: סבא ישן <b><span class="num">7</span> שעות</b>, כי השעה שבין אחת לשתיים קרתה פעמיים.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b><span class="num">7</span> שעות</b> — וקלעת. מחצות עד שתיים, ואז שוב מאחת עד שש: <span class="math">2 + 5 = 7</span>.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. התשובה: <span class="num">7</span> שעות, כי בשתיים השעון חזר לאחת: <span class="math">2 + 5 = 7</span>.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה שעות סבא ישן באמת): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: 7 שעות)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "הלילה שבו השעה אחת וחצי קרתה פעמיים", מהדורה 44, י״ד בחשוון תשפ״ז (יום ראשון, 25 באוקטובר 2026). נושא: איך קובעים מה השעה — מעבר משעון קיץ לשעון חורף, הצהריים של השמש, קווי אורך ואזורי זמן; מתמטיקה (חשבון זמן, 360 ÷ 24 = 15 מעלות בשעה, 4 דקות למעלה), אסטרונומיה (סיבוב כדור הארץ, גובה השמש, אורך הצל, משוואת הזמן, אנלמה), היסטוריה (רכבות ו־1883, ועידת המרידיאן 1884, הדסון, וילט, 1916, שעון קיץ בארץ ישראל), טכנולוגיה (UTC, טלפונים שזזים לבד, מאגר כללי השעון). העובדות: הלילה, יום ראשון 25.10.2026, בשעה 02:00 של שעון קיץ (UTC + 3) חזרו השעונים בישראל ל־01:00 של שעון חורף (UTC + 2), ולכן השעה 01:00–02:00 קרתה פעמיים (ה־01:30 הראשון = 22:30 UTC, השני = 23:30 UTC); שעון הקיץ התחיל ב־27.3.2026 (בלילה שבין 26 ל־27 במרץ), כשהשעונים קפצו מ־02:00 ל־03:00 והשעה 02:00–03:00 לא הייתה; גם אירופה חזרה לשעון חורף באותו לילה, ובארה״ב המעבר בתחילת נובמבר. התאומים סמואל ורונן פיטרסון, Cape Cod Hospital, מסצ׳וסטס, 6 בנובמבר 2016: סמואל נולד ב־01:39, רונן 31 דקות אחריו, ורשום 01:10 — "נולד" 29 דקות לפני אחיו על הנייר. מקל וצל: השמש הכי גבוהה מעל הדרום והצל הכי קצר — הצהריים של השמש, "חצות היום" (בהלכה: האמצע בין זריחה לשקיעה). בזכרון יעקב (32.57° צפון, 34.95° מזרח) היום: זריחה 05:52, צהרי השמש 11:24, שקיעה 16:57 (שעון חורף; אתמול בשעון קיץ 06:51, 12:24, 17:58); גובה השמש בצהריים כ־45°, ולכן צל של מקל באורך מטר כמעט מטר; ביוני השמש עד כ־81° והצל קצר מ־20 ס״מ. כדור הארץ מסתובב 15 מעלות בשעה, מעלה ב־4 דקות; עיר מזרחית יותר מקבלת את הצהריים קודם (ירושלים כדקה לפני זכרון יעקב, תל אביב כדקה אחריה). עד 1883 כל עיר כיוונה לפי השמש שלה; באמריקה יותר מ־144 זמנים מקומיים וכ־80 תקני זמן של רכבות; 18 בנובמבר 1883 — הרכבות עוברות לאזורי זמן, "היום של שני הצהריים"; Standard Time Act ב־1918. ועידת המרידיאן הבינלאומית, וושינגטון, אוקטובר 1884: 41 נציגים מ־26 מדינות, גריניץ׳ קו האפס, 22 בעד, סן דומינגו נגד, צרפת וברזיל נמנעו. אזור זמן אידיאלי — 15 מעלות; ישראל UTC + 2 לפי הקו 30° מזרח, שעובר כמעט דרך אלכסנדריה; זכרון יעקב כ־5 מעלות מזרחה, ולכן כ־20 דקות לפני 12:00; סין: שעה אחת (UTC + 8, קו 120°) מאז 1949, למרות רוחב של כחמישה אזורים; בקשגר (76° מזרח) צהרי השמש היום כ־14:40. משוואת הזמן: הצהריים של השמש מקדימים עד כ־16.5 דקות (תחילת נובמבר) ומאחרים עד כ־14.2 (אמצע פברואר), בגלל המסלול האליפטי ובעיקר הציר הנטוי (כ־23.4°); היום כ־16 דקות מוקדם, ולכן 12:00 − 20 − 16 = 11:24; תמונות של השמש באותה שעה כל שבוע — אנלמה בצורת שמונה. ההיסטוריה של שעון הקיץ: פרנקלין (1784) — מכתב בצחוק לעיתון בפריז על השכמה מוקדמת וחיסכון בנרות, לא הצעה להזיז שעונים; ג׳ורג׳ ורנון הדסון, פקיד דואר וחובב חרקים בניו זילנד, 1895 — הציע להזיז שעתיים בקיץ; ויליאם וילט, בונה בתים בלונדון, 1907 — רכב בבוקר וראה תריסים סגורים, חוברת "The Waste of Daylight", 80 דקות בארבעה צעדים של 20, מת ב־4 במרץ 1915; גרמניה ואוסטרו־הונגריה — 30 באפריל 1916, במלחמת העולם הראשונה, לחסוך פחם; בריטניה — 21 במאי 1916. בארץ ישראל — 1940 במנדט הבריטי; היו שנים בלי שעון קיץ; ויכוחים בכנסת (מפלגות דתיות רצו סיום לפני יום כיפור); חוק קביעת הזמן 1992; תיקון 2013: מיום שישי שלפני יום ראשון האחרון של מרץ עד יום ראשון האחרון של אוקטובר. חיסכון בחשמל: שנוי במחלוקת, סקירה של 44 מחקרים (2017) — כ־0.3%. טכנולוגיה: מאגר כללי השעון (tz) של IANA, קהילה של מתנדבים, משמש Android ו־iOS; תחנת החלל — UTC, 16 זריחות ביום. שעון ביולוגי של כ־24 שעות שאור הבוקר מכוון. פרק 1, אינטראקטיב "השעון של הלילה": מחוון של זמן אמיתי מחצות (0–5 שעות), שעון מחוגים וספרות, פס "מה השעון מראה" (01:00 בכתום = שעון קיץ, ושוב 01:00 בסגול = שעון חורף) ופס "שעות שעברו באמת"; כפתור "הראו את התאומים"; ניחוש — רונן רשום 01:10. פרק 2, אינטראקטיב "המקל והצל": מקל באורך מטר בזכרון יעקב היום, מחוון שעה 06:00–16:50 בצעדים של דקה, מבט דרומה (מזרח משמאל), השמש על הקשת, הצל בצד השני, פס של אורך הצל מול המקל; מתג שעון חורף/קיץ שמשנה רק את המספר; ניחוש — הקצר ביותר בערך 11:25 (11:24). פרק 3, אינטראקטיב "כדור הארץ מלמעלה": מבט מעל הקוטב הצפוני, השמש מימין, לונדון, זכרון יעקב, קשגר וטוקיו; מתג "שעון השמש" (4 דקות למעלה) מול "השעה הרשמית" (שעון חורף: UTC + 0, + 2, + 8, + 9); ניחוש — כשבזכרון יעקב 12:00 של השמש, בלונדון 09:40. ניסויי בית: מקל, פלסטלינה ודף — סימון קצה הצל כל 5 דקות בין 11:00 ל־11:50 ומציאת הצל הקצר (בערך 11:20–11:30 בשבועות הקרובים); ציד שעונים בבית; המחשבון של העיר שלי: (קו האורך − 30) × 4. אתגר (בוגר): קשגר — (120 − 76) × 4 = 176 דקות, ו־176 − 16 = 160 דקות אחרי 12:00 (כ־14:40); שאלת מחשבה: שעון קיץ כל השנה — זריחה בתחילת ינואר כ־07:43 במקום 06:43, ילדים יוצאים בחושך; שעון לא מוסיף אור, רק מזיז אותו. חישובי המבחן: צעיר — בלילה שבין 26 ל־27 במרץ, 21:00 עד 07:00 בשעון: 10 − 1 = 9 שעות; בוגר — עיר בקו 35°: (35 − 30) × 4 = 20 דקות; מתקדם — ירושלים (35.22°) ב־11 בפברואר, כשמשוואת הזמן מאחרת את הצהריים ב־14 דקות: (35.22 − 30) × 4 ≈ 20.9 דקות, ו־60 − 20.9 + 14 ≈ 53.1 דקות אחרי 11:00 (כ־11:53). סידור: כל עיר לפי השמש ← רכבות ואזורי זמן (1883) ← גריניץ׳ (1884) ← החוברת של וילט (1907) ← גרמניה (1916) ← הכנסת (2013). סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט (המעבדה של כדור הארץ מראה שעון שמש ממוצע, בלי משוואת הזמן; מבט הצד של המקל מצויר כאילו מסתכלים דרומה, אל השמש) ומה ששנוי במחלוקת (כמה חשמל שעון קיץ חוסך, אם כדאי להזיז שעונים בכלל), בלי לחשוף תשובות מבחן; אם ילד שואל על שאלה מהמבחן, לרמוז ולכוון, לא לפתור. לא להסתכל ישר אל השמש, גם לא לרגע — מסתכלים רק על הצל.';
+const CHIPS = ['למה השעה אחת וחצי קרתה פעמיים?', 'מה זה הצהריים של השמש?', 'למה צריך אזורי זמן?', 'מי המציא את שעון הקיץ?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: שעון קיץ UTC + 3 מול שעון חורף UTC + 2 ולמה השעה 01:00–02:00 חוזרת; 360 ÷ 24 = 15 מעלות בשעה ו־4 דקות למעלה; איך מחשבים את הצהריים של השמש מקו האורך (קו האורך − 30) × 4; גובה השמש ואורך הצל (צל = גובה המקל ÷ טנגנס של זווית השמש, ולמה ב־45° הם שווים); משוואת הזמן ושתי הסיבות שלה — מסלול אליפטי וציר נטוי — והאנלמה; למה סין בחרה בשעה אחת ומה המחיר בקשגר; הוויכוח על שעון קיץ ועל החיסכון בחשמל), שאל שאלות המשך שדורשות חשיבה (למשל: מה השעה לפי השמש באילת לעומת זכרון יעקב, ולמה כמעט אותה שעה? למה הצל בצהריים קצר יותר ביוני? מה היה קורה לזריחה בינואר אילו נשארנו בשעון קיץ? באיזו מדינה השעון מאחר את השמש יותר מכל?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה השעה אחת וחצי קרתה פעמיים?</b> בשתיים בלילה נגמר שעון הקיץ, וכל השעונים חזרו לאחת. לכן השעה שבין אחת לשתיים עברה פעמיים. השמש וכדור הארץ לא השתנו: רק ההסכם על השעה.<br><br><b>מה זה הצהריים של השמש?</b> הרגע שבו השמש הכי גבוהה והצל הכי קצר. כדור הארץ מסתובב 4 דקות לכל מעלה, ולכן בכל מקום זה קורה ברגע קצת אחר. היום בזכרון יעקב — בערך ב־11:24.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
