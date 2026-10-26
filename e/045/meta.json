@@ -1,0 +1,23 @@
+{
+  "n": 45,
+  "code": "WOW-045",
+  "date": "2026-10-26",
+  "language": "he",
+  "title": "רגל הצפרדע שהמציאה את הסוללה",
+  "topics": [
+    "פיזיקה",
+    "כימיה",
+    "ביולוגיה",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "Galvani's frog legs (Bologna, 1786: brass hooks on an iron railing; 1791 'animal electricity') vs Volta (two different metals, the frog is a detector); the lemon battery (zinc + copper ≈0.9 V, red LED ≈1.8 V so two lemons in series; zinc is the fuel, hydrogen on the copper; two zinc nails = 0 V); voltage adds in series but current does not; Volta's pile (letter to Banks 20 Mar 1800, 'artificial electric organ' after the torpedo ray; 84 × 0.9 ≈ 75.6 V ≈ a marbled ray's 70–80 V; Napoleon's medal 1801); Galvani's 1797 nerve–muscle contraction without metal and du Bois-Reymond's 1840s measurement — both were right; Eilat electric ray, 'galvanized', lithium batteries, the filling-and-foil battery; maths: series voltage, rounding up, mAh ÷ mA = hours.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-10-26T08:14:25.000Z",
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: the 1797 timeline icon (nerve on muscle) is abstract; gauge panel close to the canvas top on phones; Arto tip briefly covers the garden canvas on phones (template)",
+  "review_url": "https://claude.ai/artifact/2doCj4SwAV7s5soZvqvKTq",
+  "editor_note": null
+}

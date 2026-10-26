@@ -1,0 +1,1738 @@
+<title>שורשים וכנפיים #45 · רגל הצפרדע שהמציאה את הסוללה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#6B3FA0; --shadow-soft:#ECE1F7;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 45</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="#F6C454" stop-opacity=".55"/>
+        <stop offset="60%" stop-color="#F6C454" stop-opacity=".14"/>
+        <stop offset="100%" stop-color="#F6C454" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- Volta's tower: copper, zinc and wet-cloth discs stacked, with a spark jumping between its two ends -->
+    <g opacity=".85">
+      <g stroke="#1B1F33" stroke-width="3">
+        <rect x="96" y="214" width="108" height="14" rx="7" fill="#C8743A"/><rect x="96" y="200" width="108" height="14" rx="7" fill="#AEB8C4"/><rect x="100" y="190" width="100" height="10" rx="5" fill="#F4E7C2"/>
+        <rect x="96" y="176" width="108" height="14" rx="7" fill="#C8743A"/><rect x="96" y="162" width="108" height="14" rx="7" fill="#AEB8C4"/><rect x="100" y="152" width="100" height="10" rx="5" fill="#F4E7C2"/>
+        <rect x="96" y="138" width="108" height="14" rx="7" fill="#C8743A"/><rect x="96" y="124" width="108" height="14" rx="7" fill="#AEB8C4"/><rect x="100" y="114" width="100" height="10" rx="5" fill="#F4E7C2"/>
+        <rect x="96" y="100" width="108" height="14" rx="7" fill="#C8743A"/><rect x="96" y="86" width="108" height="14" rx="7" fill="#AEB8C4"/>
+      </g>
+      <path d="M96 221 C 50 221 46 93 96 93" fill="none" stroke="#1B1F33" stroke-width="4"/>
+      <path d="M60 140 L76 150 L66 156 L84 170" fill="none" stroke="#E8A33D" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 45</span><span class="tag">יום שני, 26 באוקטובר 2026</span><span class="tag">ט״ו בחשוון תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>רגל הצפרדע שהמציאה את הסוללה</h1>
+  <p class="lede">לפני <span class="num">240</span> שנה, בעיר בולוניה שבאיטליה, תלה רופא בשם לואיג׳י גלווני רגלי צפרדע על ווים, ליד מעקה מברזל. פתאום, בלי שאף אחד נגע בהן, הרגליים <b>בעטו</b>. המדען הכי מפורסם באיטליה קרא על זה, בדק בעצמו, והגיע למסקנה אחרת לגמרי. הוויכוח בין שניהם נמשך שנים, ובסופו נולדה ההמצאה שנמצאת היום בכל טלפון, שעון ושלט. השאלה של היום: <b>איפה מסתתר החשמל — בתוך הגוף, או בתוך המתכת?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">תוקעים בכל אחד משני לימונים מסמר ופיסת נחושת, מחברים אותם בשורה, ואת הקצוות מחברים לנורה קטנה. היא נדלקת! <b>מאיפה</b> באה האנרגיה?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>מהמיץ החמוץ</b><span>הוא מלא חשמל</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>מהסוכר</b><span>כמו אוכל לגוף</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>מהמסמר</b><span>המתכת שלו נאכלת לאט</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>מהאוויר</b><span>שנכנס לחורים</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE LEG THAT KICKED BY ITSELF (interactive 1: Galvani's garden) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>הרגל שבעטה לבד</h2>
+  <p>לואיג׳י גלווני היה רופא ומרצה לאנטומיה, תורת מבנה הגוף. הוא חקר איך שרירים זזים, ובשביל זה ערך ניסויים ברגליים של צפרדעים, שהשרירים שלהן גדולים וקל לראות אותם. בשנת <span class="num">1786</span> הוא ראה רגל צפרדע מתכווצת כשנגעו בה בכלי מתכת. אחר כך תלה רגלי צפרדע על <b>ווים מפליז</b> (מתכת צהבהבה, תערובת של נחושת ואבץ), ואת הווים תלה על <b>מעקה מברזל</b> בגינה. בכל פעם שהוו נגע בברזל, הרגל התכווצה ובעטה, כאילו היא חיה.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>גלווני היה בטוח שגילה סוד: שבתוך הגוף של בעלי חיים יש <b>חשמל</b>, ושהמתכת רק "פותחת לו את הדלת". הוא קרא לזה "חשמל של בעלי חיים". במעבדה אתם בגינה שלו: בחרו ממה עשוי הוו וממה עשוי המעקה, ולחצו "געו!". רק קודם נחשו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>גלווני ניסה את זה גם בימים בהירים וגם בסופות ברקים, ותמיד חזר אותו דבר. בשנת <span class="num">1791</span> הוא פרסם ספר: בגוף של בעלי חיים יש "חשמל של בעלי חיים", והמתכת רק מעבירה אותו מהעצב אל השריר. זה נשמע הגיוני: כבר ידעו אז על דגים שנותנים מכות חשמל. אבל בניסוי שלו היו בעצם <b>שתי</b> מתכות שונות. במעבדה תבדקו בעצמכם אם זה משנה.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — הגינה של גלווני ===== -->
+  <div class="panel instrument">
+    <h3>הגינה של גלווני</h3>
+    <p class="cap">נחשו קודם: אם <b>גם הוו וגם המעקה</b> עשויים ברזל, מה תעשה הרגל כשהוו נוגע במעקה?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="fgP0" onclick="fgPredict(0)">תבעט חזק</button>
+        <button id="fgP1" onclick="fgPredict(1)">תזוז קצת</button>
+        <button id="fgP2" onclick="fgPredict(2)">לא תזוז בכלל</button>
+      </div>
+    </div>
+    <canvas role="img" id="fgCv" width="640" height="480" aria-label="גינה ובה מעקה עם מוטות. מהמוט העליון תלוי וו, ועל הוו תלויה רגל של צפרדע, ירוקה וגדולה. הצבע של הוו ושל המעקה מראה ממה הם עשויים: נחושת בכתום, אבץ באפור־כחלחל, ברזל באפור כהה. כשלוחצים געו, הוו נוגע במעקה, ואם המתכות שונות קופץ ניצוץ והרגל בועטת. מד בצד מראה כמה חזק הזרם">
+    </canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ממה עשוי הוו">
+        <span class="small">הוו:</span>
+        <button id="fgH0" class="on" onclick="fgSet('h',0)">נחושת</button>
+        <button id="fgH1" onclick="fgSet('h',1)">אבץ</button>
+        <button id="fgH2" onclick="fgSet('h',2)">ברזל</button>
+      </div>
+      <div class="seg" role="group" aria-label="ממה עשוי המעקה">
+        <span class="small">המעקה:</span>
+        <button id="fgR0" onclick="fgSet('r',0)">נחושת</button>
+        <button id="fgR1" onclick="fgSet('r',1)">אבץ</button>
+        <button id="fgR2" class="on" onclick="fgSet('r',2)">ברזל</button>
+      </div>
+      <button class="btn small" id="fgGo" onclick="fgTouch()">געו!</button>
+    </div>
+    <div class="controls">
+      <div class="readout">הזרם: <b id="fgOut">—</b></div>
+      <div class="readout">ניסיתם: <b id="fgOut2">—</b></div>
+    </div>
+    <p class="cap" id="fgMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="fgReveal" hidden><span class="hand">!</span><p>כשהוו והמעקה עשויים מאותה מתכת, הרגל כמעט לא זזה. כששתי המתכות <b>שונות</b>, היא בועטת, והכי חזק עם נחושת ואבץ. המסקנה הזאת שווה זהב: כדי לקבל חשמל צריך <b>שתי מתכות שונות</b> ומשהו רטוב ביניהן. ומי שהבין את זה ראשון לא היה גלווני.</p></div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE FROG IS ONLY A METER (interactive 2: the lemon battery) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>הצפרדע היא רק מד</h2>
+  <p>בעיר פביה שבצפון איטליה חי <b>אלסנדרו וולטה</b>, פיזיקאי שכבר היה מפורסם בזכות המצאות חשמליות. בהתחלה הוא התלהב מהגילוי של גלווני. אבל אז חזר על הניסויים, ושם לב למה שראיתם עכשיו: הרגל בועטת רק כשיש <b>שתי מתכות שונות</b>. וולטה טען שהחשמל לא בא מהצפרדע בכלל. הוא בא מהמגע בין שתי המתכות, דרך הרטיבות שביניהן, והרגל היא רק <b>מד</b> רגיש מאוד שמגלה אותו. וולטה אפילו ניסה על עצמו: הניח שתי מתכות שונות על הלשון, והרגיש טעם חמוץ ועקצוץ.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אם וולטה צודק, אפשר לייצר חשמל בלי שום צפרדע: רק שתי מתכות שונות ומשהו רטוב ביניהן. משהו רטוב וחמוץ, למשל... <b>לימון</b>. במעבדה תקעו בלימון מסמר מצופה אבץ ופס נחושת, וחברו נורה קטנה. כמה לימונים צריך כדי שהיא תידלק? נחשו קודם.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>את "כמה חזק" החשמל דוחף מודדים ב<b>וולט</b>, יחידה שנקראת היום על שם וולטה. לכל זוג מתכות יש מתח משלו: נחושת ואבץ בלימון נותנים בערך <span class="num">0.9</span> וולט, נחושת וברזל פחות, ושתי מתכות זהות — כמעט אפס. נורת LED אדומה קטנה צריכה בערך <span class="num">1.8</span> וולט כדי להידלק. במעבדה: מצאו כמה לימונים צריך, ובדקו מה קורה כשמחליפים מתכות.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — סוללת לימונים ===== -->
+  <div class="panel instrument">
+    <h3>סוללת לימונים</h3>
+    <p class="cap">בכל לימון תקוע מסמר מצופה אבץ ופס נחושת. מחברים את הנחושת של לימון אחד לאבץ של הבא, ואת הקצוות לנורת LED אדומה. נחשו קודם: <b>כמה לימונים</b> צריך כדי שהנורה תידלק?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="lmP0" onclick="lmPredict(0)">לימון אחד</button>
+        <button id="lmP1" onclick="lmPredict(1)">שני לימונים</button>
+        <button id="lmP2" onclick="lmPredict(2)">עשרה לימונים</button>
+      </div>
+    </div>
+    <canvas role="img" id="lmCv" width="640" height="500" aria-label="שורה של לימונים צהובים גדולים. בכל לימון תקועים מסמר אפור ופס נחושת כתום. חוטים מחברים את הנחושת של כל לימון לאבץ של הלימון הבא, ושני החוטים בקצוות עולים אל נורת LED קטנה למעלה. ליד הנורה כתוב כמה וולט יש, והנורה זוהרת באדום כשיש מספיק. חיצים קטנים על החוט מראים לאן זורמים האלקטרונים">
+    </canvas>
+    <div class="controls">
+      <label>כמה לימונים בשורה
+        <input type="range" id="lmN" min="1" max="5" step="1" value="1" oninput="lmDraw(1)" aria-label="מספר הלימונים" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="אילו מתכות">
+        <button id="lmM0" class="on" onclick="lmMetal(0)">אבץ ונחושת</button>
+        <button id="lmM1" onclick="lmMetal(1)">שני מסמרי אבץ</button>
+        <button id="lmM2" onclick="lmMetal(2)">ברזל ונחושת</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="readout">המתח: <b id="lmOut">—</b></div>
+      <div class="readout">הנורה: <b id="lmOut2">—</b></div>
+    </div>
+    <p class="cap" id="lmMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="lmReveal" hidden><span class="hand">!</span><p>לימון אחד נותן רק כ־<span class="num">0.9</span> וולט, וזה לא מספיק. שני לימונים בשורה מחברים את הדחיפות שלהם: <span class="math">0.9 + 0.9 = 1.8</span> וולט, והנורה נדלקת (בבית לפעמים צריך שלושה). ושני מסמרי אבץ? אפס. בלי שתי מתכות שונות אין סוללה. וולטה צדק: הצפרדע לא הייתה צריכה להיות שם בכלל.</p></div>
+
+  <div class="q qc" id="pressQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · INSIDE THE LEMON + VOLTA'S TOWER (interactive 3) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>מה קורה בתוך הלימון?</h2>
+  <p>כל דבר בעולם בנוי מאטומים קטנטנים, ובכל אטום יש <b>אלקטרונים</b>: חלקיקים זעירים שזרם חשמלי הוא בעצם התנועה שלהם. האבץ "מחזיק" את האלקטרונים שלו חלש. במיץ החמוץ, אטומי אבץ מהמסמר משאירים את האלקטרונים שלהם מאחור ויוצאים לשחות במיץ. האלקטרונים שנשארו רצים בחוט, עוברים דרך הנורה ומגיעים אל הנחושת. שם הם פוגשים חלקיקים מהמיץ החמוץ, ומתהוות בועות קטנטנות של גז מימן. כך נסגר מעגל, והזרם ממשיך כל עוד יש אבץ.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>כלומר, הלימון הוא לא ה"דלק". הדלק הוא <b>המסמר</b>: הוא נאכל לאט לאט, והמיץ רק עוזר ומעביר. עכשיו תורכם להיות וולטה. במקום לימונים, הוא בנה <b>מגדל</b>: דיסקית נחושת, דיסקית אבץ, ופיסת בד ספוגה במי מלח, ושוב, ושוב. כל קומה מוסיפה עוד דחיפה. במעבדה בנו מגדל, ונחשו כמה קומות צריך כדי להגיע לכוח של דג חשמלי.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה דווקא אבץ ונחושת? כי ההבדל ביניהם גדול: האבץ "מוותר" על אלקטרונים בקלות, והנחושת "תופסת" אותם חזק יותר. ככל שההבדל גדול יותר, המתח גבוה יותר. שתי מתכות זהות "מושכות" בדיוק באותו כוח, ולכן המתח ביניהן אפס. בשורה, כל תא מרים את האלקטרונים עוד מדרגה, והמתחים מצטברים: <span class="math">3 × 0.9 = 2.7</span> וולט.</p>
+    <p>אבל יש מספר שני, חשוב לא פחות: ה<b>זרם</b>, כמה אלקטרונים עוברים בכל שנייה. מודדים אותו ב<b>אמפר</b>. לימון נותן זרם זעיר, בערך <b>מיליאמפר</b> אחד (אלפית אמפר) לכל היותר. בשורה המתח מצטבר, אבל הזרם נשאר קטן כמו של לימון אחד. במעבדה: בנו את המגדל של וולטה, ובדקו כמה קומות צריך כדי להגיע למתח של מכה של דג חשמלי.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — המגדל של וולטה ===== -->
+  <div class="panel instrument">
+    <h3>המגדל של וולטה</h3>
+    <p class="cap">כל קומה במגדל נותנת בערך <span class="num">0.9</span> וולט, כמו לימון אחד. דג חשמלי, החשמלן, נותן מכה של כ־<span class="num">70</span> עד <span class="num">80</span> וולט. נחשו קודם: <b>כמה קומות</b> צריך כדי להגיע לבערך <span class="num">75</span> וולט?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="vtP0" onclick="vtPredict(0)">בערך <span class="num">8</span></button>
+        <button id="vtP1" onclick="vtPredict(1)">בערך <span class="num">80</span></button>
+        <button id="vtP2" onclick="vtPredict(2)">בערך <span class="num">800</span></button>
+      </div>
+    </div>
+    <canvas role="img" id="vtCv" width="640" height="520" aria-label="מגדל של דיסקיות: נחושת כתומה, אבץ אפור ובד לבן, שוב ושוב. ליד המגדל כתוב כמה קומות יש בו וכמה וולט הוא נותן. בצד ימין ארבעה דברים בסדר עולה, שנדלקים כשהמגדל חזק מספיק: סוללה קטנה, נורה קטנה, סוללת טלפון, ודג חשמלי">
+    </canvas>
+    <div class="controls">
+      <label>כמה קומות במגדל (שמאלה: מעט, ימינה: הרבה)
+        <input type="range" id="vtN" min="1" max="100" step="1" value="1" oninput="vtDraw(1)" aria-label="מספר הקומות" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">קומות: <b id="vtOut">—</b></div>
+      <div class="readout">המתח: <b id="vtOut2">—</b></div>
+    </div>
+    <p class="cap" id="vtMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="vtReveal" hidden><span class="hand">!</span><p>צריך בערך <span class="num">84</span> קומות: <span class="math">84 × 0.9 = 75.6</span> וולט. זה הרעיון של וולטה: בשנת <span class="num">1800</span> הוא בנה מגדל של עשרות זוגות דיסקיות, והוא נתן זרם חשמלי <b>קבוע</b>, בלי הפסקה, בפעם הראשונה בהיסטוריה. זו הייתה <b>הסוללה הראשונה בעולם</b>. ובצרפתית ובאיטלקית סוללה נקראת עד היום "ערימה": pile ו־pila.</p></div>
+
+  <div class="q qc" id="cornerQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE FISH THAT INSPIRED THE TOWER (figure: the timeline) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>הדג שנתן את הרעיון</h2>
+  <p>מאיפה הגיע לוולטה הרעיון לבנות דווקא מגדל? מ<b>דג</b>. בים התיכון חיים <b>חשמלנים</b>: דגים שטוחים, קרובים של הטריגונים, שנותנים מכות חשמל כדי לשתק דגים קטנים. כבר היוונים והרומאים הכירו אותם. מדען אנגלי תיאר שהאיבר החשמלי של החשמלן בנוי ממאות עמודים דקים של תאים, זה על גבי זה. וולטה קרא את זה, ובנה עמודים של מתכות. לסוללה הראשונה הוא קרא "<b>איבר חשמלי מלאכותי</b>".</p>
+
+  <figure class="calfig" aria-label="ציר זמן עם חמש שנים: 1786, רגל הצפרדע בועטת בגינה של גלווני; 1791, הספר של גלווני על חשמל של בעלי חיים; 1797, רגל זזה בלי שום מתכת; 1800, המגדל של וולטה; 1801, נפוליאון ומדליית הזהב. מעל כל שנה ציור קטן">
+    <svg viewBox="0 0 476 230" role="img" aria-hidden="true" focusable="false">
+      <rect x="8" y="8" width="460" height="214" rx="18" fill="var(--card2)" stroke="var(--line)" stroke-width="2"/>
+      <path d="M36 140 L440 140" stroke="var(--ink)" stroke-width="4"/>
+      <g stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <!-- a frog leg on a hook -->
+        <g transform="translate(60,88)"><path d="M0 -26 L0 -16 M-6 -16 A6 6 0 1 0 6 -16"/><path d="M0 -10 C 12 0 -10 6 4 18 L 16 22" stroke="#4DA36A" stroke-width="7"/></g>
+        <!-- a book -->
+        <g transform="translate(144,88)"><rect x="-20" y="-22" width="40" height="44" rx="4" fill="var(--card)"/><path d="M-10 -10 L10 -10 M-10 0 L10 0 M-10 10 L4 10"/></g>
+        <!-- a nerve touching a muscle: no metal at all -->
+        <g transform="translate(228,88)"><ellipse rx="14" ry="22" fill="#E58C8A"/><path d="M -26 -20 C -12 -16 -18 -4 -6 0" stroke="#E8A33D" stroke-width="4"/></g>
+        <!-- Volta's tower -->
+        <g transform="translate(312,88)"><rect x="-18" y="10" width="36" height="9" rx="4" fill="#C8743A"/><rect x="-18" y="1" width="36" height="9" rx="4" fill="#AEB8C4"/><rect x="-18" y="-8" width="36" height="9" rx="4" fill="#C8743A"/><rect x="-18" y="-17" width="36" height="9" rx="4" fill="#AEB8C4"/><rect x="-18" y="-26" width="36" height="9" rx="4" fill="#C8743A"/></g>
+        <!-- a medal -->
+        <g transform="translate(396,88)"><path d="M-8 -26 L-2 -8 M8 -26 L2 -8" stroke="#2F6F9F" stroke-width="5"/><circle cy="6" r="15" fill="#E2A21F"/></g>
+      </g>
+      <g font-family="Rubik, Arial" font-size="28" fill="var(--ink)" text-anchor="middle" font-weight="700">
+        <circle cx="60" cy="140" r="6" fill="var(--ink)"/><circle cx="144" cy="140" r="6" fill="var(--ink)"/><circle cx="228" cy="140" r="6" fill="var(--ink)"/><circle cx="312" cy="140" r="6" fill="var(--ink)"/><circle cx="396" cy="140" r="6" fill="var(--ink)"/>
+        <text x="60" y="178">1786</text><text x="144" y="178">1791</text><text x="228" y="178">1797</text><text x="312" y="178">1800</text><text x="396" y="178">1801</text>
+      </g>
+    </svg>
+    <figcaption>הרגל בגינה, הספר של גלווני, רגל שזזה בלי מתכת, המגדל של וולטה, והמדליה מנפוליאון. את הסדר תצטרכו לזכור במבחן.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>בשנת <span class="num">1800</span> כתב וולטה מכתב לחברה המלכותית בלונדון, מועדון המדענים החשוב בעולם, ותיאר את המגדל שלו. כל המדענים באירופה מיהרו לבנות מגדלים כאלה. שנה אחר כך הזמין אותו <b>נפוליאון</b>, שליט צרפת, לפריז, וראה את הסוללה בעיניים שלו. הוא נתן לוולטה מדליית זהב.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>וולטה תיאר את המגדל במכתב מ־<span class="num">20</span> במרץ <span class="num">1800</span> לג׳וזף בנקס, נשיא החברה המלכותית בלונדון. תוך שבועות בנו מדענים באנגליה מגדלים משלהם, ובעזרת הזרם הקבוע פירקו מים לשני גזים, מימן וחמצן. שנה אחר כך קיבל וולטה מדליית זהב מנפוליאון בפריז. ואילו גלווני לא זכה לראות את זה: הוא סירב להישבע אמונים לשלטון החדש שהקים נפוליאון בבולוניה, איבד את משרתו, ומת עני בשנת <span class="num">1798</span>.</p>
+  </div>
+
+  <div class="q qc" id="crackQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: BOTH WERE RIGHT (+ challenge) -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>שניהם צדקו</h2>
+  <p>אז גלווני טעה? לא לגמרי. בשנת <span class="num">1797</span> הוא הראה משהו מדהים: כשהעצב של רגל צפרדע נוגע בשריר שלה, הרגל מתכווצת <b>בלי שום מתכת בכלל</b>. כעבור כחמישים שנה, בשנות ה־<span class="num">40</span> של המאה ה־<span class="num">19</span>, מדען גרמני בשם אמיל דיבואה־ריימון בנה מד רגיש מספיק, ו<b>מדד</b> את האות החשמלי שעובר בעצב. היום אנחנו יודעים: כל מחשבה, כל צעד וכל פעימת לב מתחילים באותות חשמליים זעירים. וולטה צדק לגבי המתכות, וגלווני צדק לגבי הגוף.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ברגע זה ממש, כשאתם קוראים, העצבים שלכם שולחים אותות חשמליים: מהעיניים אל המוח, ומהמוח אל האצבעות שלוחצות "המשך". הם חלשים מאוד, אבל מהירים. רופאים יכולים אפילו למדוד את החשמל של הלב, ולראות אותו כקו שעולה ויורד על מסך.</p>
+    <p>ומה עם הסוללות של היום? הן בנויות בדיוק לפי הרעיון של וולטה: שני חומרים שונים, ובאמצע משהו שמעביר ביניהם. בטלפון החומרים אחרים, ובמקום מיץ יש נוזל או ג׳ל מיוחד, אבל הסוד אותו סוד. וכשהסוללה "נגמרת", זה כמו מסמר שנאכל: החומר שנתן את האלקטרונים כבר השתנה. בסוללה של טלפון אפשר להטעין ולהחזיר אותו אחורה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>עכשיו נבין את המספרים של סוללה אמיתית. המתח נקבע לפי <b>החומרים</b>, ולא לפי הגודל: אבץ ונחושת נותנים כ־<span class="num">0.9</span> וולט בלימון קטן וגם בלימון ענק. מה כן קובע הגודל? את הזרם: פס אבץ רחב יותר נוגע ביותר מיץ, ויותר אטומים יכולים לצאת בכל שנייה. כמה חשמל סוללה מחזיקה מודדים ב<b>מיליאמפר־שעה</b>: סוללה של <span class="num">4,000</span> מיליאמפר־שעה יכולה לתת <span class="num">4,000</span> מיליאמפר במשך שעה אחת, או מיליאמפר אחד במשך <span class="num">4,000</span> שעות. בדיוק כמו מיכל מים: אפשר לרוקן אותו בזרם חזק ומהר, או בטפטוף ולאט.</p>
+    <p>סוללה של טלפון מחזיקה בערך <span class="num">4,000</span> מיליאמפר־שעה, ומטעינים אותה במתח של <span class="num">5</span> וולט. האם לימונים יכולים להטעין טלפון? האתגר יגלה.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> כל לימון נותן <span class="num">0.9</span> וולט. (א) כמה לימונים לפחות צריך לחבר בשורה כדי לקבל <b>לפחות</b> <span class="num">5</span> וולט? (ב) נניח שהשורה נותנת זרם של <span class="num">0.5</span> מיליאמפר, ושאין שום הפסדים בדרך. כמה <b>ימים</b> ייקח למלא סוללה של <span class="num">4,000</span> מיליאמפר־שעה? (עגלו למספר שלם.)</p>
+      <div class="controls">
+        <label>(א) לימונים <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) ימים <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> <span data-g="חבר שלך אומר|חברה שלך אומרת">חבר שלך אומר</span>: "אם אקח לימון ענק ומיצי במקום לימון קטן, עם אותו מסמר ואותה נחושת, אקבל הרבה יותר וולט." מה דעתכם? ומה כן היה עוזר לנורה לזרוח חזק יותר?</p>
+      <details><summary>רמז</summary><p>תחשבו מה קובע את המתח: הגודל, או סוג המתכות? ואיפה בדיוק קורה כל הפעולה — בכל הלימון, או רק על פני המתכת?</p></details>
+      <details><summary>התשובה</summary><p>המתח כמעט לא ישתנה: הוא נקבע לפי <b>זוג המתכות</b>, אבץ ונחושת, ולכן יישאר כ־<span class="num">0.9</span> וולט. כל הפעולה קורה על פני המתכת, ולכן לימון ענק עם אותו מסמר קטן כמעט לא יעזור. מה כן עוזר? כדי לקבל <b>יותר וולט</b>, מוסיפים לימונים בשורה. כדי לקבל <b>יותר זרם</b>, משתמשים בפסי מתכת רחבים יותר, או מחברים כמה שורות זו לצד זו. לכן סוללות אמיתיות בנויות מחומרים שנותנים הרבה זרם בנפח קטן.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p><span class="num">3</span> עד <span class="num">4</span> לימונים, אותו מספר של מסמרים מגולוונים (מצופים אבץ, מחנות לחומרי בניין), אותו מספר של חתיכות חוט נחושת עבה בלי בידוד, <span class="num">5</span> חוטים עם תפסני תנין, ונורת LED אדומה קטנה. אם יש בבית מד מתח (מולטימטר), עוד יותר טוב. <b>חשוב: מתנסים רק עם לימונים וסוללות קטנות. לעולם לא נוגעים בשקע של החשמל בקיר. ואת הלימונים לא אוכלים אחר כך.</b></p>
+
+  <div class="panel">
+    <h3>חלק א׳ — סוללת הלימונים שלי (<span class="num">20</span> דקות)</h3>
+    <ol>
+      <li>גלגלו כל לימון על השולחן בלחיצה, כדי שיהיה מיצי. תקעו בו מסמר וחוט נחושת, במרחק של כ־<span class="num">2</span> סנטימטר זה מזה. הם לא נוגעים זה בזה!</li>
+      <li>חברו בחוט את הנחושת של הלימון הראשון אל המסמר של השני, וכך הלאה.</li>
+      <li>את הנחושת החופשית בקצה חברו לרגל <b>הארוכה</b> של הנורה, ואת המסמר החופשי לרגל הקצרה. החשיכו את החדר והסתכלו מקרוב. לא נדלקת? הפכו את הנורה, או הוסיפו לימון.</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — האם הפרי משנה? (<span class="num">10</span> דקות)</summary>
+    <p>עם מד מתח: מדדו לימון אחד, ואחר כך תפוח אדמה, תפוח ותפוז, עם אותו מסמר ואותה נחושת. נחשו לפני כל מדידה. מה גיליתם: הפרי קובע את המתח, או המתכות? ונסו גם שני מסמרים באותו לימון.</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — הבלש של המסמר (<span class="num">5</span> דקות, למחרת)</summary>
+    <p>השאירו לימון אחד מחובר לנורה כל הלילה. בבוקר שלפו את המסמר והסתכלו עליו מקרוב, ליד מסמר חדש. האם הוא נראה אחרת? זה האבץ שנאכל: הדלק של הסוללה שלכם.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הרעיון הראשון: <b>סוללה צריכה שתי מתכות שונות</b> ומשהו רטוב ביניהן. האבץ נותן אלקטרונים, הם רצים בחוט אל הנחושת, ובדרך מדליקים נורה. כמה לימונים בשורה מחברים את הדחיפות שלהם.</p>
+    <p>הרעיון השני: <b>גם בגוף שלנו יש חשמל.</b> העצבים שולחים אותות חשמליים. שני מדענים התווכחו מי צודק, ובסוף התברר ששניהם צדקו. מהוויכוח הזה נולדה הסוללה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הרעיון הראשון: <b>מתח בא מהבדל.</b> שתי מתכות ש"מחזיקות" אלקטרונים בכוח שונה יוצרות מתח, ותאים בשורה מחברים את המתחים. הגודל קובע את הזרם ואת כמות החשמל, לא את המתח.</p>
+    <p>הרעיון השני: <b>ויכוח טוב מקדם מדע.</b> כל אחד מהשניים תכנן ניסויים כדי להוכיח שהשני טועה, ובדרך גילו שניהם דברים חדשים: וולטה את הסוללה, וגלווני את החשמל של העצבים. שאלה לחקור: איזה ויכוח מדעי מתנהל היום, ומה יכול לצמוח ממנו?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר החשמל?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ביולוגיה · הגוף</div><h3>הלב החשמלי</h3><p>לפני כל פעימה, הלב שולח לעצמו אות חשמלי. בבדיקת אק״ג מדביקים על החזה מדבקות, ורואים את האות הזה כקו שקופץ על המסך. הצפרדעים של גלווני היו ההתחלה של כל זה.</p></div>
+    <div class="tile"><div class="dom">טבע · אילת</div><h3>החשמלן שחזר לים</h3><p>חשמלנים חיים גם אצלנו. באילת נמצא פעם חשמלן מנומר פצוע, ובפארק המצפה התת־ימי טיפלו בו עד שהחלים, ואז הצוללנים שחררו אותו בחזרה לים. רואים אותם לפעמים במים רדודים, אז לא נוגעים!</p></div>
+    <div class="tile"><div class="dom">שפה · מילים</div><h3>מסמר על שם גלווני</h3><p>מסמר "מגולוון" הוא מסמר מצופה אבץ, והשם בא מגלווני. ויחידת המתח, וולט, נקראת על שם וולטה. שני היריבים קיבלו מילה, וכל יום מישהו בעולם משתמש בשתיהן.</p></div>
+    <div class="tile"><div class="dom">טכנולוגיה · טלפונים</div><h3>אותו סוד, חומרים אחרים</h3><p>בסוללת הליתיום של הטלפון יש שני צדדים מחומרים שונים, ובאמצע חומר שמעביר ביניהם חלקיקים, בדיוק כמו בלימון. מה שהשתנה מאז <span class="num">1800</span> הם החומרים: היום אפשר גם להטעין.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): הסוללה שבפה</summary>
+    <p>יש אנשים שאם הם נוגסים בטעות בנייר כסף (נייר אלומיניום), הם מרגישים פתאום <b>דקירה חדה</b> בשן. זה קורה רק למי שיש לו סתימה ממתכת. למה? נחשו לפני שאתם פותחים.</p>
+    <details><summary>התשובה</summary>
+      <p>זו סוללה! הסתימה היא מתכת אחת, האלומיניום הוא מתכת שנייה, והרוק הוא ה"מיץ" שביניהן. כשהאלומיניום נוגע בסתימה, נסגר מעגל, וזרם קטן עובר ישר אל העצב של השן, ממש כמו בצפרדע של גלווני. מדען שמדד את זה מצא בערך חצי וולט. אל תנסו את זה בבית: זה כואב, ולא כדאי לנגוס במתכות.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את סיפור הסוללה, מהמוקדם למאוחר. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: כל לימון נותן קצת פחות מוולט אחד, ולכן <span class="num">10</span> לימונים בשורה נותנים בערך <span class="num">9</span> וולט. דנה בנתה שורה ארוכה פי שלושה: <span class="num">30</span> לימונים. כמה וולט בערך היא תקבל?</div>
+    <div class="controls"><label>וולט <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: נורת LED כחולה צריכה לפחות <span class="num">3.2</span> וולט. מדדתם את הלימונים שלכם, וכל אחד נותן <span class="num">0.93</span> וולט. (א) כמה לימונים לפחות צריך לחבר בשורה? (ב) בכמה וולט המתח של השורה הזאת גבוה ממה שהנורה צריכה? (כתבו עם שתי ספרות אחרי הנקודה.)</div>
+    <div class="controls"><label>(א) לימונים <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) וולט עודף <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: נורת LED לבנה צריכה לפחות <span class="num">3</span> וולט, וכל לימון נותן <span class="num">0.9</span> וולט. כמה לימונים לפחות צריך לחבר בשורה כדי שהנורה תידלק?</div>
+    <div class="controls"><label>לימונים <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה רגל הצפרדע של גלווני בעטה כשהוו נגע במעקה, ואיך כמה לימונים יכולים להדליק נורה?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="בגינה של גלווני..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. לפני <span class="num">240</span> שנה, רגל של צפרדע בעטה כשהוו שלה נגע במעקה מברזל. הסיבה: שתי מתכות שונות יצרו זרם חשמלי קטן, והרגל הייתה "המד" שגילה אותו.<br>
+    2. סוללת לימון לא מקבלת את האנרגיה מהלימון, אלא מהמסמר. האבץ שבו נאכל לאט ונותן אלקטרונים, שרצים בחוט אל הנחושת ומדליקים נורה. צריך שני לימונים לפחות.<br>
+    3. וולטה בנה את הסוללה הראשונה בעולם בשנת <span class="num">1800</span>, מגדל של דיסקיות, וקרא לה "איבר חשמלי מלאכותי", כי חיקה דג חשמלי. ומי שהפסיד בוויכוח, גלווני, צדק גם הוא: העצבים שלנו באמת עובדים בחשמל.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>גלווני: Linda Hall Library, "Scientist of the Day — Luigi Galvani" — ניסויים בבולוניה, וו פליז ומעקה ברזל, <i>De viribus electricitatis in motu musculari commentarius</i> (<span class="num">1791</span>, בספר ב־<span class="num">1792</span>). LITFL, "Luigi Galvani" — כתב את התיאור ב־<span class="num">20.9.1786</span>; ווים מפליז על מעקה ברזל, בסופות ובמזג אוויר נאה; <span class="num">1797</span> — סירב להישבע לרפובליקה הציזלפינית, איבד את משרתו, מת עני ב־<span class="num">4.12.1798</span>. Università di Bologna, Scienza Giovane, "Luigi Galvani (continued)" — וולטה: הצפרדע "רק מד", המגע בין שתי מתכות; <span class="num">1794</span> קשת ממתכת אחת; <span class="num">1797</span> מגע בין עצב לשריר בלי מתכת; דיבואה־ריימון (<span class="num">1848</span>) על החשמל של בעלי חיים. The Scientist, "The Body Electric, 1840s" — דיבואה־ריימון מודד את "התנודה השלילית", היום: אות העצב.</p>
+    <p>וולטה והמגדל: ECS Encyclopedia, "Alessandro Volta" — המכתב לג׳וזף בנקס מ־<span class="num">20.3.1800</span>, דיסקיות כסף ואבץ עם בד רטוב, מי מלח עובדים טוב יותר; "איבר חשמלי מלאכותי" בניסיון לחקות את החשמלן; מדליית זהב מנפוליאון שנה אחר כך. IEEE Spectrum, "The Voltaic Pile" — דיסקיות נחושת ואבץ, קרטון או בד ספוג במי מלח. JSTOR Daily, "Electric Fish and the First Battery" — ניקולסון תיאר את האיבר של החשמלן כ"מאות עמודים דקים", וולטה קרא את זה (כ־<span class="num">1797</span>); לפי ההיסטוריון ג׳וליאנו פנקלדי, הדג נתן לוולטה את התובנה. Wikipedia, "Marbled electric ray" — <span class="math">70–80</span> וולט, עד כ־<span class="num">200</span>; יוונים ורומאים הכירו אותו. בחדרי חרדים, "החשמלן המנומר שוחרר לים" — חשמלן פצוע מאילת טופל בפארק המצפה התת־ימי ושוחרר.</p>
+    <p>הלימון: Wikipedia, "Lemon battery" — אבץ ונחושת בלימון כ־<span class="num">0.9</span> וולט; זרם עד כמיליאמפר, תלוי בשטח המתכת; האבץ מתחמצן ונותן אלקטרונים, ועל הנחושת נוצר מימן; "האנרגיה לא באה מהלימון"; צריך לפחות שני תאים לנורת LED. Wikipedia, "Galvanization" — על שם גלווני; ציפוי אבץ. Alaska Science Forum, "Oral Electricity" — סתימה, אלומיניום ורוק הם סוללה, כחצי וולט, הכאב מהעצב של השן.</p>
+    <p>פישוטים במכוון: ב"גינה של גלווני" הוו מנחושת (במקור פליז, תערובת של נחושת ואבץ); חוזק הבעיטה מצויר לפי ההפרש בין "כוחות המשיכה" של המתכות (אבץ–נחושת כ־<span class="num">1.1</span>, ברזל–נחושת כ־<span class="num">0.8</span>, אבץ–ברזל כ־<span class="num">0.3</span>, במונחים יחסיים), ואותה מתכת מוצגת כאפס, אף שגלווני דיווח לפעמים על התכווצות גם עם מתכת אחת. ב"סוללת לימונים" ברזל ונחושת מוצגים כ־<span class="num">0.5</span> וולט לכל לימון (בפועל <span class="math">0.4–0.7</span>, תלוי במסמר), ונורת LED אדומה נדלקת מ־<span class="num">1.7</span> וולט. "המגדל של וולטה" מחשב <span class="math">0.9</span> וולט לקומה, כמו לימון; המגדל המקורי היה מכסף ואבץ או נחושת ואבץ, והמתח לקומה תלוי בחומרים. האתגר מניח זרם קבוע של <span class="num">0.5</span> מיליאמפר וללא הפסדים, כדי להראות את סדר הגודל; ההטענה האמיתית צריכה גם מעגל מתאם. "סוללה של טלפון — כ־<span class="num">4,000</span> מיליאמפר־שעה" הוא ערך נפוץ, לא של דגם מסוים.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:45, code:'WOW-045', date:'2026-10-26', title:'רגל הצפרדע שהמציאה את הסוללה', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '16rXmNei15XXkdeUINei15PXqNek16bXlA=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'physics', w:3 }, { id:'chemistry', w:3 }, { id:'biology', w:2 }, { id:'history', w:2 } ],
+  hero: { name:'רגל הצפרדע שהמציאה את הסוללה — הגינה של גלווני, סוללת לימונים, והמגדל של וולטה', fact:'שתי מתכות שונות ומשהו רטוב ביניהן הן סוללה: לימון נותן כ־0.9 וולט, ושניים בשורה מדליקים נורה.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'energy-source',         d:2 },
+    'qc:storyQ':      { skill:'history-recall',        d:1 },
+    'qc:pressQ':      { skill:'cause-effect',          d:2 },
+    'qc:cornerQ':     { skill:'series-voltage',        d:2 },
+    'qc:crackQ':      { skill:'bio-inspiration',       d:2 },
+    'qc:deepQ':       { skill:'bioelectricity',        d:3 },
+    'mcq:shared:0':   { skill:'cause-effect',          d:2 },
+    'mcq:shared:1':   { skill:'energy-source',         d:2 },
+    'mcq:shared:2':   { skill:'series-voltage',        d:2 },
+    'mcq:younger:0':  { skill:'circuit-basics',        d:1 },
+    'mcq:older:0':    { skill:'voltage-vs-current',    d:4 },
+    'order':          { skill:'history-sequence',      d:3 },
+    'num:younger':    { skill:'proportional-reasoning', d:2 },
+    'num:older':      { skill:'division-round-up',     d:3 },
+    'num:adv':        { skill:'multi-step-voltage',    d:4 },
+    'challenge':      { skill:'rates-and-units',       d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); fgDraw(0); } if(n===2) lmDraw(0); if(n===3) vtDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: a lemon, a nail and a piece of copper light a small bulb — where does the energy come from? ----------
+   Four choices: the sour juice, the sugar, the nail (its metal is slowly eaten), the air. The right answer: 3 — the zinc of the nail. */
+const SCALE_ANS = 3;
+const fmtSigns = n => ({1:'מהמיץ החמוץ',2:'מהסוכר',3:'מהמסמר',4:'מהאוויר'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> האנרגיה באה מה<b>מסמר</b>. הוא מצופה באבץ, ובמיץ החמוץ האבץ נאכל לאט לאט ומשחרר חלקיקים זעירים שזורמים בחוט, עד הנורה. המיץ חשוב, אבל הוא רק הדרך. איך גילו את זה, ומה הקשר לצפרדע? על זה השיעור.';
+const SCALE_FB = {
+  3: SCALE_FB_RIGHT,
+  1: '<span class="pill-bad">המיץ חשוב, אבל הוא לא הדלק.</span> הוא רק הדרך שבה החשמל נסגר למעגל. האנרגיה באה מה<b>מסמר</b>: האבץ שעליו נאכל לאט במיץ החמוץ, ומשחרר חלקיקים זעירים שזורמים בחוט. איך גילו את זה? על זה השיעור.',
+  2: '<span class="pill-bad">לא הסוכר.</span> סוכר הוא אנרגיה לגוף, אבל בסוללה הוא לא משתתף. האנרגיה באה מה<b>מסמר</b>: האבץ שעליו נאכל לאט במיץ החמוץ, ומשחרר חלקיקים זעירים שזורמים בחוט. איך גילו את זה? על זה השיעור.',
+  4: '<span class="pill-bad">לא מהאוויר.</span> אפשר אפילו לעטוף את הלימון, והנורה תמשיך לדלוק. האנרגיה באה מה<b>מסמר</b>: האבץ שעליו נאכל לאט במיץ החמוץ, ומשחרר חלקיקים זעירים שזורמים בחוט. איך גילו את זה? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* deterministic pseudo-random (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* a generic play/scrub helper: animates a 0–100 range input over `ms` milliseconds, calling draw(1) each frame */
+function xPlayer(id, rangeId, btnId, ms, draw, onLabel, offLabel){
+  const st={ raf:0 };
+  st.toggle=function(){ if(st.raf){ cancelAnimationFrame(st.raf); st.raf=0; st.btn(false); return; }
+    const r=document.getElementById(rangeId); const top=+(r.max||100); if(+r.value>=top) r.value=0;
+    if(XREDUCED){ r.value=Math.min(top,+r.value+20); draw(1); return; }
+    const t0=performance.now(), start=+r.value; st.btn(true);
+    const step=now=>{ const v=Math.min(top, start+(now-t0)/ms*100); r.value=Math.round(v); draw(1); if(v<top){ st.raf=requestAnimationFrame(step); } else { st.raf=0; st.btn(false); } };
+    st.raf=requestAnimationFrame(step); };
+  st.btn=function(on){ const b=document.getElementById(btnId); b.textContent = on ? onLabel : offLabel; b.classList.toggle('on',on); };
+  return st;
+}
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const WARN = () => isDark() ? '#F6C454' : '#C97A12';
+const COPPER = () => isDark() ? '#E99A62' : '#C8743A';
+const ZINC = () => isDark() ? '#C3D0DE' : '#8FA2B6';
+const IRON = () => isDark() ? '#9AA2AD' : '#4E545C';
+const LEMON = () => isDark() ? '#E8C53A' : '#F5D23B';
+const LEMON2 = () => isDark() ? '#B8961F' : '#D9AE16';
+const SPARK = () => isDark() ? '#FFE27A' : '#F2A71B';
+const GRASS = () => isDark() ? '#2F5A3C' : '#8CC48E';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+const v1 = x => (Math.round(x*10)/10).toFixed(1);
+function xSpark(c,x,y,r){ c.save(); c.strokeStyle=SPARK(); c.lineWidth=5; c.lineCap='round';
+  for(let i=0;i<8;i++){ const a=i*PI/4+0.3; c.beginPath(); c.moveTo(x+Math.cos(a)*r*0.35, y+Math.sin(a)*r*0.35); c.lineTo(x+Math.cos(a)*r, y+Math.sin(a)*r); c.stroke(); }
+  c.fillStyle='#FFFFFF'; c.beginPath(); c.arc(x,y,r*0.28,0,2*PI); c.fill(); c.restore(); }
+
+/* ---------- step 1 (interactive 1): Galvani's garden (canvas) ----------
+   A frog leg hangs on a hook from the top bar of a railing. The hook and the railing can each be copper, zinc or iron.
+   "Touch" swings the foot onto a railing bar; the circuit hook → leg → bar → top bar closes, and the kick strength follows the
+   difference between the two metals (relative electrode potentials: Cu +0.34, Zn −0.76, Fe −0.44 → Zn–Cu 1.10, Fe–Cu 0.78, Zn–Fe 0.32;
+   the same metal → 0). A gauge shows the current. Simplified on purpose: Galvani's hook was brass (copper + zinc). */
+const fgCv=document.getElementById('fgCv'), fgctx=fgCv.getContext('2d');
+const FG_M=[ {name:'נחושת', E:0.34, col:()=>COPPER()}, {name:'אבץ', E:-0.76, col:()=>ZINC()}, {name:'ברזל', E:-0.44, col:()=>IRON()} ];
+const FG={ opened:0, pred:-1, revealed:0, h:0, r:2, tried:{}, same:0, diffOk:0, raf:0, t:1, last:null };
+const fgV = () => Math.abs(FG_M[FG.h].E - FG_M[FG.r].E);
+const fgWord = v => v>=0.9 ? 'חזק מאוד' : v>=0.6 ? 'בינוני' : v>0.05 ? 'חלש' : 'אין זרם';
+function fgPredict(k){ FG.pred=k; segOn('fgP',3,k); WOW.emit('item', { id:'garden:predict', kind:'quick', correct:k===2, attempt: wowTry('garden:predict') });
+  fgMsg.innerHTML='רשמנו את הניחוש. עכשיו בחרו <b>ברזל</b> גם לוו וגם למעקה, ולחצו "געו!". אחר כך נסו זוגות אחרים.'; fgDraw(0); }
+function fgSet(which,k){ if(FG.pred<0){ predictFirst(fgMsg,'בחרו'); return; } if(FG.raf) return; FG[which]=k; segOn(which==='h'?'fgH':'fgR',3,k); FG.t=1; FG.last=null; fgDraw(1); }
+function fgTouch(){
+  if(FG.pred<0){ predictFirst(fgMsg,'לחצו'); return; }
+  if(FG.raf) return;
+  if(!FG.opened){ FG.opened=1; WOW.emit('open', { id:'garden' }); }
+  const v=fgV(), key=Math.min(FG.h,FG.r)+'-'+Math.max(FG.h,FG.r); FG.tried[key]=1; if(FG.h===FG.r) FG.same=1; if(v>=0.7) FG.diffOk=1; FG.last=v;
+  const done=()=>{ FG.raf=0; FG.t=1; fgDraw(2); };
+  if(XREDUCED){ FG.t=0.45; fgDraw(2); setTimeout(done, 900); return; }
+  const t0=performance.now(); const step=now=>{ FG.t=Math.min(1,(now-t0)/1500); fgDraw(2); if(FG.t<1) FG.raf=requestAnimationFrame(step); else done(); }; FG.raf=requestAnimationFrame(step);
+}
+/* the pose of the leg at animation time t (0…1): sway to the bar, touch, kick (by strength), relax */
+function fgPose(t, v){ const s=v/1.1, aC=0.27;
+  if(t<0.3) return { a: aC*(t/0.3), k:0, touch:false };
+  if(t<0.38) return { a: aC, k:0, touch:true };
+  if(t<0.6){ const u=(t-0.38)/0.22; return { a: aC - (aC+0.45*s)*Math.sin(u*PI/2), k: 1.25*s*Math.sin(u*PI/2), touch: t<0.42 }; }
+  const u=(t-0.6)/0.4; return { a: (-0.45*s)*(1-u), k: 1.25*s*(1-u), touch:false }; }
+function fgDraw(user){
+  const c=fgctx, W=fgCv.width, H=fgCv.height, ink=css('--ink');
+  if(user===1 && !FG.opened){ FG.opened=1; WOW.emit('open', { id:'garden' }); }
+  c.clearRect(0,0,W,H);
+  const sky=c.createLinearGradient(0,0,0,H); sky.addColorStop(0, css('--sky1')); sky.addColorStop(1, css('--sky2')); c.fillStyle=sky; c.fillRect(0,0,W,H);
+  c.fillStyle=GRASS(); c.fillRect(0,440,W,40);
+  const hm=FG_M[FG.h], rm=FG_M[FG.r], v=fgV();
+  /* the railing: a top bar and vertical bars */
+  const TOP=150, BAR=352;
+  c.strokeStyle=rm.col(); c.lineCap='round';
+  c.lineWidth=16; c.beginPath(); c.moveTo(40,TOP); c.lineTo(600,TOP); c.stroke();
+  c.lineWidth=12; [80,150,220,BAR,460,540].forEach(x=>{ c.beginPath(); c.moveTo(x,TOP); c.lineTo(x,440); c.stroke(); });
+  c.strokeStyle=isDark()?'rgba(0,0,0,.35)':'rgba(0,0,0,.25)'; c.lineWidth=2; c.beginPath(); c.moveTo(40,TOP+8); c.lineTo(600,TOP+8); c.stroke();
+  const HX=290, HY=TOP;
+  /* the leg (hip at the hook) */
+  const p = (user===2 && FG.last!==null) ? fgPose(FG.t, FG.last) : { a:0, k:0, touch:false };
+  const hipX=HX, hipY=HY+64, L1=88, L2=92, L3=46;
+  const kx=hipX+Math.sin(p.a)*L1, ky=hipY+Math.cos(p.a)*L1;
+  const a2=p.a-p.k, ax=kx+Math.sin(a2)*L2, ay=ky+Math.cos(a2)*L2;
+  const a3=a2-0.9-p.k*0.3, fx=ax+Math.sin(a3)*L3, fy=ay+Math.cos(a3)*L3;
+  const legC=isDark()?'#6CCB82':'#4DA36A', legD=isDark()?'#3E8A52':'#2F7D4F';
+  c.lineCap='round'; c.lineJoin='round';
+  /* the webbed foot: a wide fan of five long pointed toes with skin between them */
+  const toes=[-0.75,-0.38,0,0.38,0.75].map(d=>[fx+Math.sin(a3+d)*(d===0?56:48), fy+Math.cos(a3+d)*(d===0?56:48)]);
+  c.fillStyle=isDark()?'rgba(108,203,130,.6)':'rgba(77,163,106,.55)'; c.beginPath(); c.moveTo(fx,fy); toes.forEach(([x,y],i)=>{ if(i){ const [px,py]=toes[i-1]; c.quadraticCurveTo((px+x)/2*0.8+fx*0.2, (py+y)/2*0.8+fy*0.2, x, y); } else c.lineTo(x,y); }); c.closePath(); c.fill();
+  c.strokeStyle=legD; c.lineWidth=5; toes.forEach(([x,y])=>{ c.beginPath(); c.moveTo(fx,fy); c.lineTo(x,y); c.stroke(); });
+  c.strokeStyle=legD; c.lineWidth=20; c.beginPath(); c.moveTo(ax,ay); c.lineTo(fx,fy); c.stroke();
+  c.strokeStyle=legC; c.lineWidth=13; c.beginPath(); c.moveTo(ax,ay); c.lineTo(fx,fy); c.stroke();
+  c.strokeStyle=legD; c.lineWidth=36; c.beginPath(); c.moveTo(kx,ky); c.lineTo(ax,ay); c.stroke();
+  c.strokeStyle=legC; c.lineWidth=28; c.beginPath(); c.moveTo(kx,ky); c.lineTo(ax,ay); c.stroke();
+  c.strokeStyle=legD; c.lineWidth=54; c.beginPath(); c.moveTo(hipX,hipY+6); c.lineTo(kx,ky); c.stroke();
+  c.strokeStyle=legC; c.lineWidth=46; c.beginPath(); c.moveTo(hipX,hipY+6); c.lineTo(kx,ky); c.stroke();
+  c.strokeStyle=isDark()?'rgba(255,255,255,.18)':'rgba(255,255,255,.3)'; c.lineWidth=10; c.beginPath(); c.moveTo(hipX-10,hipY+10); c.lineTo(kx-10,ky-6); c.stroke();
+  /* the hook, drawn on top so its metal is easy to see: a thick shank from the bar, curling into the hip */
+  c.strokeStyle=ink; c.lineWidth=18; c.lineCap='round'; c.beginPath(); c.moveTo(HX,HY-6); c.lineTo(HX,HY+46); c.arc(HX+14,HY+46,14,PI,0.1*PI,true); c.stroke();
+  c.strokeStyle=hm.col(); c.lineWidth=12; c.beginPath(); c.moveTo(HX,HY-6); c.lineTo(HX,HY+46); c.arc(HX+14,HY+46,14,PI,0.1*PI,true); c.stroke();
+  xLabel(c, 'רגל של צפרדע', 170, 300, 22, ink, .9);
+  /* the spark where the leg meets the bar */
+  if(p.touch && v>0.05) xSpark(c, BAR-6, ay, 24+20*v);
+  /* the gauge (current) */
+  const gx=120, gy=104, gr=70, show = (user===2 && FG.last!==null);
+  xPlate(c, gx-gr-16, gy-gr-14, 2*gr+32, gr+44, .9);
+  c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.arc(gx,gy,gr,PI,2*PI); c.stroke();
+  for(let i=0;i<=4;i++){ const a=PI+i*PI/4; c.lineWidth=3; c.beginPath(); c.moveTo(gx+Math.cos(a)*(gr-12), gy+Math.sin(a)*(gr-12)); c.lineTo(gx+Math.cos(a)*gr, gy+Math.sin(a)*gr); c.stroke(); }
+  const peak = show ? (FG.t>=0.38 && FG.t<0.7 ? FG.last : (FG.t>=1 ? FG.last : 0)) : 0;
+  const na=PI+PI*Math.min(1, peak/1.1); c.strokeStyle=DANG(); c.lineWidth=5; c.beginPath(); c.moveTo(gx,gy); c.lineTo(gx+Math.cos(na)*(gr-8), gy+Math.sin(na)*(gr-8)); c.stroke();
+  c.fillStyle=ink; c.beginPath(); c.arc(gx,gy,6,0,2*PI); c.fill();
+  xText(c, 'זרם', gx, gy+22, 22, ink);
+  /* labels: what the hook and the railing are made of */
+  xLabel(c, 'הוו: '+hm.name, 470, 40, 24, ink, .92);
+  xLabel(c, 'המעקה: '+rm.name, 470, 92, 24, ink, .92);
+  if(show && FG.t>=1) xLabel(c, fgWord(FG.last), 490, 300, 26, FG.last>0.05 ? GOOD() : DANG(), .95);
+  /* readouts and messages */
+  fgOut.textContent = show ? fgWord(FG.last) : '—';
+  const n=Object.keys(FG.tried).length; fgOut2.innerHTML = n ? '<span class="num">'+n+'</span> '+(n===1?'זוג':'זוגות')+' מתוך <span class="num">6</span>' : '—';
+  if(user===2 && FG.t>=1){
+    const same = FG.h===FG.r;
+    if(same) fgMsg.innerHTML='שתי מתכות <b>זהות</b>: הרגל כמעט לא זזה.'+(FG.pred===2?' בדיוק כמו שניחשתם!':'')+' עכשיו החליפו את אחת המתכות.';
+    else if(FG.last>=0.9) fgMsg.innerHTML='נחושת ואבץ: הבעיטה הכי חזקה! ההבדל בין שתי המתכות האלה הוא הגדול ביותר כאן.';
+    else if(FG.last>=0.6) fgMsg.innerHTML='נחושת וברזל: בעיטה טובה. נסו גם נחושת ואבץ.';
+    else fgMsg.innerHTML='אבץ וברזל: בעיטה חלשה. שתי המתכות האלה דומות יותר זו לזו. איזה זוג ייתן את הבעיטה הכי חזקה?';
+    if(FG.pred>=0 && FG.same && FG.diffOk && !FG.revealed){ FG.revealed=1; fgReveal.hidden=false; }
+  }
+}
+
+/* ---------- step 2 (interactive 2): the lemon battery (canvas) ----------
+   1–5 lemons in series, each with two electrodes. Volts per lemon: zinc + copper 0.9; two zinc nails 0; iron + copper ≈ 0.5.
+   Total = n × per-lemon. A red LED lights from 1.7 V, brighter up to ~3 V. Electron arrows on the two end wires only when the LED
+   conducts (electrons leave the free zinc end, pass the LED and enter the copper at the other end). */
+const lmCv=document.getElementById('lmCv'), lmctx=lmCv.getContext('2d');
+const LM_V=[0.9, 0, 0.5];
+const LM={ opened:0, pred:-1, revealed:0, m:0, seenOn:0, seenZero:0 };
+function lmPredict(k){ LM.pred=k; segOn('lmP',3,k); WOW.emit('item', { id:'lemon:predict', kind:'quick', correct:k===1, attempt: wowTry('lemon:predict') });
+  lmMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את המחוון והוסיפו לימונים, אחד אחד, עד שהנורה נדלקת.'; lmDraw(0); }
+function lmMetal(k){ if(LM.pred<0){ predictFirst(lmMsg,'בחרו'); return; } LM.m=k; segOn('lmM',3,k); lmDraw(1); }
+function lmDraw(user){
+  const c=lmctx, W=lmCv.width, H=lmCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && LM.pred<0 && +lmN.value!==1){ lmN.value=1; blocked=true; }
+  if(user && !LM.opened && !blocked){ LM.opened=1; WOW.emit('open', { id:'lemon' }); }
+  const n=+lmN.value, per=LM_V[LM.m], V=n*per, on = V>=1.7, bright = on ? clamp((V-1.7)/1.3+0.35, 0.35, 1) : 0;
+  if(LM.pred>=0 && LM.m===0 && on) LM.seenOn=1; if(LM.pred>=0 && LM.m===1) LM.seenZero=1;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  c.fillStyle=isDark()?'#3A2F22':'#E3CC9E'; c.fillRect(0,400,W,100);                     /* the table */
+  /* lemons */
+  const sp=Math.min(122, 560/n), x0=W/2-sp*(n-1)/2, rx=Math.min(54, sp*0.44), ry=rx*0.78, ly=360;
+  const nailX = i => x0+i*sp - rx*0.42, cuX = i => x0+i*sp + rx*0.42, topY = ly-ry-34;
+  const nailC = LM.m===2 ? IRON() : ZINC(), cu2 = LM.m===1 ? ZINC() : COPPER();
+  for(let i=0;i<n;i++){ const x=x0+i*sp;
+    c.fillStyle=LEMON2(); c.beginPath(); c.ellipse(x+3, ly+4, rx, ry, 0, 0, 2*PI); c.fill();
+    c.fillStyle=LEMON(); c.beginPath(); c.ellipse(x, ly, rx, ry, 0, 0, 2*PI); c.fill();
+    c.fillStyle=LEMON(); c.beginPath(); c.ellipse(x+rx*0.98, ly, 8, 6, 0, 0, 2*PI); c.fill();
+    c.fillStyle='rgba(255,255,255,.35)'; c.beginPath(); c.ellipse(x-rx*0.35, ly-ry*0.45, rx*0.3, ry*0.18, -0.4, 0, 2*PI); c.fill();
+    c.fillStyle=nailC; c.fillRect(nailX(i)-5, topY, 10, ry+44); c.fillRect(nailX(i)-11, topY-4, 22, 8);
+    c.fillStyle=cu2; c.fillRect(cuX(i)-7, topY, 14, ry+40); }
+  /* wires between lemons: copper of i → zinc of i+1 */
+  c.strokeStyle=ink; c.lineWidth=4; c.lineCap='round';
+  for(let i=0;i<n-1;i++){ const a=cuX(i), b=nailX(i+1), m=(a+b)/2; c.beginPath(); c.moveTo(a, topY); c.quadraticCurveTo(m, topY-46, b, topY-4); c.stroke(); }
+  /* the LED */
+  const LX=W/2, LY=150;
+  const zx=nailX(0), cx2=cuX(n-1);
+  c.beginPath(); c.moveTo(zx, topY-4); c.lineTo(zx, LY+60); c.lineTo(LX-16, LY+60); c.lineTo(LX-16, LY+30); c.stroke();
+  c.beginPath(); c.moveTo(cx2, topY); c.lineTo(cx2, LY+60); c.lineTo(LX+16, LY+60); c.lineTo(LX+16, LY+30); c.stroke();
+  if(on){ const g=c.createRadialGradient(LX,LY,4,LX,LY,90*bright+30); g.addColorStop(0,'rgba(255,90,70,'+(0.85*bright)+')'); g.addColorStop(1,'rgba(255,90,70,0)'); c.fillStyle=g; c.beginPath(); c.arc(LX,LY,90*bright+30,0,2*PI); c.fill(); }
+  c.fillStyle = on ? '#FF4B3A' : (isDark()?'#6B3A3A':'#E8B4AE'); c.strokeStyle=ink; c.lineWidth=3;
+  c.beginPath(); c.moveTo(LX-24, LY+30); c.lineTo(LX-24, LY); c.arc(LX, LY, 24, PI, 2*PI); c.lineTo(LX+24, LY+30); c.closePath(); c.fill(); c.stroke();
+  /* electron arrows on the two end wires */
+  if(on && LM.m!==1){ c.fillStyle=WARN(); const my=(topY+LY+60)/2;
+    xArrow(c, zx, my-12, 0, -1, 20); xArrow(c, cx2, my+12, 0, 1, 20);
+    if(LX-16-zx>60) xArrow(c, (zx+LX-16)/2+10, LY+60, 1, 0, 20); if(cx2-LX-16>60) xArrow(c, (cx2+LX+16)/2+10, LY+60, 1, 0, 20);
+    xLabel(c, 'אלקטרונים', zx-30, LY+18, 22, WARN(), .92); }
+  /* readouts on the picture */
+  xTagN(c, v1(V), 'וולט', 120, 52, 40, on ? GOOD() : ink, 'center');
+  xNum(c, n+' × '+v1(per)+' = '+v1(V), 120, 108, 24, ink);
+  xLabel(c, on ? 'הנורה דולקת!' : (V>0.05 ? 'יש מתח, אבל לא מספיק' : 'אין מתח בכלל'), 470, 48, 24, on ? GOOD() : (V>0.05 ? WARN() : DANG()), .95);
+  xLabel(c, 'לנורה: 1.8 וולט', 470, 470, 22, ink, .9);
+  xLabel(c, LM.m===1 ? 'אבץ ואבץ' : LM.m===2 ? 'ברזל ונחושת' : 'אבץ ונחושת', 130, 470, 22, ink, .9);
+  lmOut.innerHTML='<span class="num">'+v1(V)+'</span> וולט'; lmOut2.textContent = on ? 'דולקת' : 'כבויה';
+  if(LM.pred>=0 && LM.seenOn && LM.seenZero && !LM.revealed){ LM.revealed=1; lmReveal.hidden=false; }
+  if(blocked){ predictFirst(lmMsg,'הזיזו'); return; }
+  if(user===1 && LM.pred>=0){
+    if(LM.m===1) lmMsg.innerHTML='שני מסמרי אבץ: <b>אפס</b> וולט, גם עם חמישה לימונים. לשתי המתכות יש בדיוק אותה "משיכה", ולכן אין שום דחיפה.';
+    else if(LM.m===2) lmMsg.innerHTML='ברזל ונחושת: בערך <span class="num">0.5</span> וולט לכל לימון. ההבדל בין ברזל לנחושת קטן יותר, ולכן צריך יותר לימונים.';
+    else if(!on) lmMsg.innerHTML='לימון אחד נותן <span class="num">0.9</span> וולט. זה מתח אמיתי, אבל הנורה צריכה יותר. הוסיפו לימון.';
+    else if(n===2) lmMsg.innerHTML='שני לימונים: <span class="math">0.9 + 0.9 = 1.8</span> וולט, והנורה נדלקת!'+(LM.pred===1?' בדיוק כמו שניחשתם.':'')+' עכשיו נסו "שני מסמרי אבץ".';
+    else lmMsg.innerHTML='כל לימון מוסיף עוד <span class="num">0.9</span> וולט, והנורה זורחת חזק יותר. נסו גם את "שני מסמרי אבץ".';
+  }
+}
+
+/* ---------- step 3 (interactive 3): Volta's tower (canvas) ----------
+   1–100 storeys of copper / zinc / brine-soaked cloth, 0.9 V each (as one lemon cell). Total = N × 0.9.
+   Right: four things in increasing order that light up when the tower reaches them — an AA cell (1.5 V), a red LED (1.8 V),
+   a phone battery (3.7 V), an electric ray's shock (≈75 V; the marbled electric ray gives about 70–80 V). */
+const vtCv=document.getElementById('vtCv'), vtctx=vtCv.getContext('2d');
+const VT={ opened:0, pred:-1, revealed:0, max:0 };
+const VT_GOALS=[ ['סוללה קטנה',1.5], ['נורה קטנה',1.8], ['סוללת טלפון',3.7], ['דג חשמלי',75] ];
+function vtPredict(k){ VT.pred=k; segOn('vtP',3,k); WOW.emit('item', { id:'tower:predict', kind:'quick', correct:k===1, attempt: wowTry('tower:predict') });
+  vtMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את המחוון ימינה, ובנו את המגדל קומה אחרי קומה.'; vtDraw(0); }
+function vtDraw(user){
+  const c=vtctx, W=vtCv.width, H=vtCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && VT.pred<0 && +vtN.value!==1){ vtN.value=1; blocked=true; }
+  if(user && !VT.opened && !blocked){ VT.opened=1; WOW.emit('open', { id:'tower' }); }
+  const N=+vtN.value, V=N*0.9; if(VT.pred>=0) VT.max=Math.max(VT.max, N);
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  c.fillStyle=isDark()?'#3A2F22':'#E3CC9E'; c.fillRect(0,486,W,34);
+  /* the tower */
+  const TX=150, TW=150, base=484, h=Math.min(34, 300/N);
+  for(let i=0;i<N;i++){ const y=base-(i+1)*h;
+    c.fillStyle=COPPER(); c.fillRect(TX-TW/2, y+h*0.62, TW, h*0.38);
+    c.fillStyle=ZINC(); c.fillRect(TX-TW/2, y+h*0.24, TW, h*0.38);
+    c.fillStyle=isDark()?'#E9E2CF':'#FFFDF6'; c.fillRect(TX-TW/2+6, y, TW-12, h*0.24); }
+  c.strokeStyle=ink; c.lineWidth=3; c.strokeRect(TX-TW/2, base-N*h, TW, N*h);
+  [['נחושת',COPPER()],['אבץ',ZINC()],['בד במי מלח',isDark()?'#E9E2CF':'#FFFDF6']].forEach(([t,col],i)=>{ const y=34+i*40*LS();
+    c.fillStyle=col; c.fillRect(196, y-12, 34, 24); c.strokeStyle=ink; c.lineWidth=2; c.strokeRect(196, y-12, 34, 24); xText(c, t, 186, y, 22, ink, 'right'); });
+  /* the readouts */
+  xTagN(c, String(N), N===1?'קומה':'קומות', 400, 34, 24, ink, 'center');
+  xTagN(c, v1(V), 'וולט', 400, 112, 34, V>=75 ? GOOD() : ink, 'center');
+  xNum(c, N+' × 0.9 = '+v1(V), 400, 184, 24, ink);
+  /* the goals */
+  VT_GOALS.forEach(([name,need],i)=>{ const y=250+i*70, ok=V>=need;
+    c.fillStyle = ok ? GOOD() : (isDark()?'#3A3F66':'#DAD3BF'); c.beginPath(); c.arc(606, y, 20, 0, 2*PI); c.fill();
+    if(ok){ c.strokeStyle='#FFFFFF'; c.lineWidth=5; c.beginPath(); c.moveTo(596,y); c.lineTo(604,y+8); c.lineTo(618,y-9); c.stroke(); }
+    xText(c, name+' · '+need+' וולט', 576, y, 22, ok ? GOOD() : ink, 'right'); });
+  vtOut.innerHTML='<span class="num">'+N+'</span>'; vtOut2.innerHTML='<span class="num">'+v1(V)+'</span> וולט';
+  if(VT.pred>=0 && VT.max>=84 && !VT.revealed){ VT.revealed=1; vtReveal.hidden=false; }
+  if(blocked){ predictFirst(vtMsg,'הזיזו'); return; }
+  if(user===1 && VT.pred>=0){
+    if(V>=75) vtMsg.innerHTML='הגעתם! <span class="math">'+N+' × 0.9 = '+v1(V)+'</span> וולט, בערך כמו מכה של חשמלן.'+(VT.pred===1?' הניחוש שלכם היה מדויק.':'');
+    else if(V>=3.7) vtMsg.innerHTML='כבר יותר מסוללה של טלפון. אבל לדג החשמלי צריך הרבה יותר: המשיכו ימינה.';
+    else if(V>=1.8) vtMsg.innerHTML='מספיק לנורת LED, כמו שני הלימונים. המשיכו לבנות.';
+    else vtMsg.innerHTML='כל קומה מוסיפה <span class="num">0.9</span> וולט. המשיכו לבנות.';
+  }
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  storyQ:{ q:'מה גלווני חשב שגורם לרגל הצפרדע לבעוט?', opts:['חשמל שנמצא בתוך הגוף של בעלי החיים — "חשמל של בעלי חיים"','הרוח שבגינה','ברזל שהתחמם בשמש','מים קרים שטפטפו מהמעקה'], a:0, fb:'גלווני היה בטוח שהחשמל נמצא <b>בתוך הצפרדע</b>, ושהמתכת רק מעבירה אותו מהעצב אל השריר. הוא ראה את זה קורה גם בימים בלי רוח ובלי שמש. אבל המעבדה כבר רמזה: חשוב גם ממה עשויות המתכות.', btn:'next1' },
+  pressQ:{ q:'מה קרה כשתקעתם בכל לימון שני מסמרי אבץ?', opts:['הנורה דלקה חזק מאוד','המתח היה אפס, כי אין שתי מתכות שונות','הלימונים התחממו','הנורה נשרפה'], a:1, fb:'לשתי חתיכות אבץ יש בדיוק אותה "משיכה" לאלקטרונים, ולכן אף אחת לא דוחפת אותם לכיוון השנייה: <b>אפס וולט</b>, גם עם חמישה לימונים. בלי מתח אין זרם, ולכן הנורה לא נשרפה וגם לא נדלקה, והלימונים לא התחממו.' },
+  cornerQ:{ q:'מה קורה למתח של המגדל כשמוסיפים לו עוד קומה אחת?', opts:['הוא גדל בעוד כ־<span class="num">0.9</span> וולט','הוא קטן','הוא נשאר בדיוק אותו דבר','הוא מוכפל פי <span class="num">2</span>'], a:0, fb:'כל קומה מוסיפה עוד "מדרגה" של כ־<span class="num">0.9</span> וולט, ולכן המתחים מצטברים: <span class="math">10 × 0.9 = 9</span> וולט. הכפלה בכל קומה הייתה נותנת מספרים ענקיים מהר מאוד, וזה לא מה שקורה.' },
+  crackQ:{ q:'במה וולטה חיקה את הדג החשמלי, החשמלן?', opts:['בצבע של העור','במבנה: הרבה שכבות דקות, זו על גבי זו','בצורה של הסנפירים','בכך שהשתמש במי ים'], a:1, fb:'האיבר החשמלי של החשמלן בנוי ממאות עמודים דקים של תאים, ווולטה בנה <b>עמוד של שכבות</b>: נחושת, אבץ ובד רטוב, שוב ושוב. לכן הוא קרא לסוללה "איבר חשמלי מלאכותי". הוא השתמש במי מלח, אבל לא מהים, והצבע והסנפירים לא קשורים.' },
+  deepQ:{ q:'גלווני הראה שכשעצב של רגל צפרדע נוגע בשריר שלה, הרגל זזה בלי שום מתכת. מה זה הראה?', opts:['שבגוף באמת יש חשמל: העצבים שולחים אותות חשמליים','שוולטה צדק בכל דבר','שצפרדעים אוכלות מתכת','שאין חשמל בכלל'], a:0, fb:'בלי מתכות, וולטה לא יכול היה להסביר את הבעיטה. זו הייתה הוכחה שבגוף יש חשמל משלו, ואחרי כחמישים שנה גם <b>מדדו</b> אותו בעצבים. כלומר, וולטה צדק לגבי המתכות, וגלווני צדק לגבי הגוף.' },
+};
+const MCQ = {
+  shared:[
+    { q:'בגינה של גלווני, רגל הצפרדע בעטה כשהוו מפליז נגע במעקה מברזל. לפי וולטה, מה גרם לזה?', opts:['ברק שפגע בגינה','שתי מתכות שונות, עם רטיבות ביניהן, יצרו זרם חשמלי קטן, והוא הפעיל את השריר','הרגל עדיין חיה ופחדה','הרוח הזיזה את הוו'], a:1, fb:'וולטה הראה שהבעיטה חזקה רק כשיש <b>שתי מתכות שונות</b>: הן יוצרות זרם קטן, והרגל היא רק "מד" רגיש שמגלה אותו. הרגל לא הייתה חיה, ובגלל זה בדיוק היא הפתיעה כל כך. גלווני גם ראה את זה בימים בלי ברקים ובלי רוח.' },
+    { q:'מאיפה באה האנרגיה בסוללת לימון?', opts:['מהסוכר שבלימון','מהאבץ שעל המסמר, שנאכל לאט ומשחרר אלקטרונים','מהנחושת, שנמסה במיץ','מהאוויר שנכנס ללימון'], a:1, fb:'האבץ הוא ה<b>דלק</b>: אטומי אבץ יוצאים לשחות במיץ ומשאירים אלקטרונים שרצים בחוט. הנחושת לא נמסה: עליה רק מתהוות בועות מימן. הסוכר לא משתתף, והאוויר לא דרוש בכלל.' },
+    { q:'למה מחברים כמה לימונים בשורה, הנחושת של אחד אל האבץ של הבא?', opts:['כדי שהמתחים שלהם יתחברו: <span class="math">0.9 + 0.9 = 1.8</span> וולט','כדי שהלימונים יישארו טריים','כדי שהלימונים לא יתגלגלו','זה לא משנה כלום'], a:0, fb:'בשורה, כל לימון מוסיף עוד <b>דחיפה</b> של כ־<span class="num">0.9</span> וולט, וכך שני לימונים כבר מספיקים לנורת LED אדומה. חיבור כזה לא שומר על הפרי ולא מחזיק אותו במקום, ואם הוא לא היה משנה כלום, לימון אחד היה מספיק.' },
+  ],
+  younger:[
+    { q:'מה צריך כדי שלימון יהיה סוללה?', opts:['שני מסמרים זהים','שתי מתכות שונות, תקועות בלימון','לימון קפוא','חוט אחד בלבד'], a:1, fb:'צריך <b>שתי מתכות שונות</b>, למשל מסמר מצופה אבץ ופיסת נחושת, והמיץ שביניהן. שני מסמרים זהים נותנים אפס, ובחוט אחד אין מעגל. ולימון קפוא? המיץ שבו קשה, והחלקיקים כמעט לא יכולים לזוז בו.' },
+  ],
+  older:[
+    { q:'חנה החליפה את המסמר הדק בלימון בפס אבץ רחב פי ארבעה. הנחושת והלימון נשארו. מה ישתנה?', opts:['המתח יקפוץ לבערך <span class="num">3.6</span> וולט','המתח יישאר כ־<span class="num">0.9</span> וולט, אבל הלימון יוכל לתת יותר זרם','הלימון יפסיק לעבוד','המתח ירד לאפס'], a:1, fb:'המתח נקבע לפי <b>זוג המתכות</b>, ולכן הוא נשאר כ־<span class="num">0.9</span> וולט. פס רחב נוגע ביותר מיץ, ויותר אטומי אבץ יכולים לצאת בכל שנייה: יותר <b>זרם</b>. <span class="num">3.6</span> וולט היה מתקבל מארבעה לימונים בשורה, ואפס רק משתי מתכות זהות.' },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'רגל של צפרדע בועטת בגינה של גלווני, כשהוו נוגע במעקה.'},
+  {id:'b', t:'גלווני מפרסם ספר: בגוף של בעלי חיים יש חשמל.'},
+  {id:'c', t:'וולטה טוען: החשמל בא משתי מתכות שונות, והצפרדע היא רק מד.'},
+  {id:'d', t:'גלווני מזיז רגל של צפרדע בלי שום מתכת: עצב נוגע בשריר.'},
+  {id:'e', t:'וולטה בונה מגדל של דיסקיות וכותב עליו ללונדון: הסוללה הראשונה.'},
+  {id:'f', t:'נפוליאון מעניק לוולטה מדליית זהב בפריז.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  S.orderScore = ok?1:0;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? '<span class="pill-ok">סדר מושלם!</span> הרגל בגינה (<span class="num">1786</span>) ← הספר של גלווני (<span class="num">1791</span>) ← וולטה חולק עליו ← רגל שזזה בלי מתכת (<span class="num">1797</span>) ← המגדל של וולטה (<span class="num">1800</span>) ← המדליה מנפוליאון (<span class="num">1801</span>). כך עובד ויכוח מדעי: תצפית, הסבר, הסבר נגדי, ניסוי שבודק אותו, וההמצאה שצומחת מכל זה.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) כל צעד בוויכוח הוא <b>תשובה</b> לצעד הקודם: אי אפשר לחלוק על ספר לפני שהוא נכתב, והניסוי בלי מתכת היה התשובה של גלווני לוולטה. (2) המדליה הגיעה אחרי ההמצאה, לא לפניה.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const aOk = chalA.value!=='' && Math.abs(a-6)<0.01, bOk = chalB.value!=='' && b>=332.5 && b<=334;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const hintA = (hasA && Math.abs(a-5)<0.01) ? '(א): בדקו: <span class="math">5 × 0.9 = 4.5</span> וולט — עוד חסר קצת עד <span class="num">5</span>.'
+    : (hasA && a>5.4 && a<5.7) ? '(א): החילוק נכון, אבל אי אפשר לחבר חצי לימון. כדי לקבל <b>לפחות</b> <span class="num">5</span> וולט, מעגלים <b>למעלה</b>.'
+    : (hasA && Math.abs(a-4.5)<0.01) ? '(א): <span class="num">4.5</span> זה מספר <b>וולט</b>, לא מספר לימונים.'
+    : (hasA && Math.abs(a-7)<0.01) ? '(א): שבעה יעבדו, אבל השאלה שואלת כמה <b>לפחות</b>. נסו אחד פחות.'
+    : '(א): רמז — כמה פעמים <span class="num">0.9</span> נכנס ב־<span class="num">5</span>? ואז זכרו שלימון שלם או כלום.';
+  const hintB = (hasB && Math.abs(b-8000)<1) ? '(ב): <span class="num">8,000</span> זה מספר <b>שעות</b>. כמה ימים זה? ביום יש <span class="num">24</span> שעות.'
+    : (hasB && (Math.abs(b-2000)<1 || Math.abs(b-83.3)<0.6)) ? '(ב): כפלתם ב־<span class="num">0.5</span>. אבל זרם קטן יותר אומר שזה ייקח <b>יותר</b> זמן: מחלקים ב־<span class="num">0.5</span>, כלומר מכפילים פי <span class="num">2</span>.'
+    : (hasB && Math.abs(b-192000)<10) ? '(ב): כפלתם ב־<span class="num">24</span>. ימים ארוכים משעות, ולכן מספר הימים <b>קטן</b> ממספר השעות: מחלקים.'
+    : (hasB && b>=166 && b<=167) ? '(ב): קרוב! אבל <span class="math">4,000 ÷ 0.5</span> זה <span class="num">8,000</span>, לא <span class="num">4,000</span>.'
+    : '(ב): רמז — כמה <b>שעות</b> לוקח לתת <span class="num">4,000</span> מיליאמפר־שעה בזרם של <span class="num">0.5</span> מיליאמפר? ואחר כך: כמה ימים זה?';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">5 ÷ 0.9 ≈ 5.6</span>, ולכן צריך <span class="num">6</span> לימונים: <span class="math">6 × 0.9 = 5.4</span> וולט. (ב) <span class="math">4,000 ÷ 0.5 = 8,000</span> שעות, ו־<span class="math">8,000 ÷ 24 ≈ 333</span> ימים: כמעט שנה שלמה! מטען רגיל נותן בערך <span class="num">2,000</span> מיליאמפר, ולכן מספיקות לו כשעתיים. המתח של הלימונים מספיק — מה שחסר הוא הזרם.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">6</span> לימונים.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — בערך <span class="num">333</span> ימים.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const a=+numAdv.value, r=+numAdvR.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasR=numAdvR.value!=='', hasA=numAdv.value!=='';
+    const aOk=(hasA && a>=0.50 && a<=0.54), bOk=(hasR && Math.abs(r-4)<0.01), sc = aOk&&bOk?2:((aOk||bOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: aOk&&bOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintR = (hasR && Math.abs(r-3)<0.01) ? 'ב־(א) בדקו: <span class="math">3 × 0.93 = 2.79</span> וולט — פחות מ־<span class="num">3.2</span>.'
+      : (hasR && r>3.3 && r<3.5) ? 'ב־(א) החילוק נכון, אבל אין שלושה לימונים וחצי. כדי לקבל <b>לפחות</b> <span class="num">3.2</span> וולט, מעגלים למעלה.'
+      : (hasR && Math.abs(r-5)<0.01) ? 'ב־(א) חמישה יעבדו, אבל השאלה שואלת כמה <b>לפחות</b>.'
+      : (hasR && Math.abs(r-3.72)<0.01) ? 'ב־(א) <span class="num">3.72</span> זה מתח, לא מספר לימונים.'
+      : 'רמז ל־(א): כמה פעמים <span class="num">0.93</span> נכנס ב־<span class="num">3.2</span>? ולימון שלם או כלום.';
+    const hintA = (hasA && Math.abs(a-0.4)<0.015) ? 'ב־(ב) חישבתם עם <span class="num">0.9</span>. הלימונים שלכם נותנים <span class="num">0.93</span> וולט כל אחד.'
+      : (hasA && Math.abs(a-3.72)<0.015) ? 'ב־(ב) <span class="num">3.72</span> זה כל המתח של השורה. השאלה היא <b>בכמה</b> הוא גבוה מהנדרש: מחסירים את <span class="num">3.2</span>.'
+      : (hasA && Math.abs(Math.abs(a)-0.41)<0.015) ? 'ב־(ב) חישבתם עם שלושה לימונים, ושלושה לא מספיקים: הנורה בכלל לא תידלק.'
+      : (hasA && Math.abs(a-1.45)<0.015) ? 'ב־(ב) חישבתם עם חמישה לימונים. השתמשו במספר הקטן ביותר שמספיק.'
+      : 'רמז ל־(ב): חשבו את המתח של כל השורה (מספר הלימונים כפול <span class="num">0.93</span>), והחסירו ממנו את מה שהנורה צריכה.';
+    fb.innerHTML = (aOk&&bOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">3.2 ÷ 0.93 ≈ 3.44</span>, ולכן <span class="num">4</span> לימונים. (ב) <span class="math">4 × 0.93 = 3.72</span> וולט, ו־<span class="math">3.72 − 3.2 = 0.52</span> וולט עודף. שלושה לימונים היו נותנים רק <span class="math">2.79</span> וולט, והנורה הכחולה הייתה נשארת כבויה.'
+      : aOk ? '<span class="pill-ok">(ב) נכון — <span class="num">0.52</span> וולט.</span> '+hintR
+      : bOk ? '<span class="pill-ok">(א) נכון — <span class="num">4</span> לימונים.</span> '+hintA
+      : '<span class="pill-bad">עוד לא.</span> '+hintR+(hasA?' '+hintA:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-27)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> שורה ארוכה פי שלושה נותנת מתח גדול פי שלושה: <span class="math">9 × 3 = 27</span> וולט. כל לימון מוסיף את הדחיפה שלו, וכולן מתחברות.':(Math.abs(v-30)<0.01)?'<span class="pill-bad">כמעט!</span> אילו כל לימון היה נותן וולט שלם, היו <span class="num">30</span>. אבל כל לימון נותן קצת פחות: <span class="num">10</span> לימונים נותנים רק <span class="num">9</span> וולט.':(Math.abs(v-39)<0.01)?'<span class="pill-bad">חיברתם את המספרים.</span> השורה ארוכה <b>פי שלושה</b>, ולכן גם המתח גדל פי שלושה.':(Math.abs(v-90)<0.01||Math.abs(v-270)<0.01)?'<span class="pill-bad">גדול מדי.</span> כל <span class="num">10</span> לימונים נותנים <span class="num">9</span> וולט. כמה קבוצות של <span class="num">10</span> יש ב־<span class="num">30</span>?':'<span class="pill-bad">לא בדיוק.</span> רמז: כמה קבוצות של <span class="num">10</span> לימונים יש ב־<span class="num">30</span>? וכל קבוצה כזאת נותנת <span class="num">9</span> וולט.'; }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-4)<0.01; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">3 × 0.9 = 2.7</span> וולט — לא מספיק. <span class="math">4 × 0.9 = 3.6</span> וולט — הנורה הלבנה נדלקת. לכן <span class="num">4</span> לימונים.':(Math.abs(v-3)<0.01)?'<span class="pill-bad">כמעט.</span> בדקו: <span class="math">3 × 0.9 = 2.7</span> וולט, פחות מ־<span class="num">3</span>.':(v>3.2&&v<3.4)?'<span class="pill-bad">החילוק נכון,</span> אבל אי אפשר לחבר שליש לימון. כדי לקבל <b>לפחות</b> <span class="num">3</span> וולט, מעגלים למעלה.':(Math.abs(v-2.7)<0.01||Math.abs(v-3.6)<0.01)?'<span class="pill-bad">זה מספר וולט.</span> השאלה שואלת כמה <b>לימונים</b>.':(Math.abs(v-5)<0.01)?'<span class="pill-bad">חמישה יעבדו,</span> אבל השאלה שואלת כמה <b>לפחות</b>.':'<span class="pill-bad">לא בדיוק.</span> רמז: כמה וולט נותנים שלושה לימונים? וארבעה?'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שהוו והמעקה היו עשויים משתי מתכות שונות, ושיחד עם הרטיבות הן יצרו זרם חשמלי קטן.',
+  'הסברתי שהזרם הפעיל את השריר, ולכן הרגל בעטה: הרגל הייתה כמו "מד" שמגלה חשמל.',
+  'כתבתי שבלימון יש שתי מתכות שונות (אבץ ונחושת), והאבץ נותן אלקטרונים שרצים בחוט, דרך הנורה, אל הנחושת.',
+  'הסברתי שלימון אחד נותן רק כ־0.9 וולט, ושכמה לימונים בשורה מחברים את המתחים עד שיש מספיק לנורה.',
+  'הוספתי פרט מדויק: גלווני בבולוניה, וולטה והמגדל ב־1800, החשמלן, כ־1.8 וולט לנורה, או שגם בעצבים יש חשמל.',
+];
+const MODEL='הוו היה עשוי מפליז והמעקה מברזל: שתי מתכות שונות. כשהרגל הרטובה חיברה ביניהן, נוצר זרם חשמלי קטן, והוא הפעיל את השריר, ולכן הרגל בעטה. וולטה הבין שהחשמל בא מהמתכות, והרגל היא רק "מד" שמגלה אותו (וגלווני צדק שגם בגוף עצמו יש חשמל, בעצבים). בלימון זה אותו רעיון: מסמר מצופה אבץ ופיסת נחושת, והמיץ ביניהן. האבץ נאכל לאט ומשחרר אלקטרונים, שרצים בחוט דרך הנורה אל הנחושת. לימון אחד נותן רק כ־0.9 וולט, ונורת LED אדומה צריכה כ־1.8, ולכן מחברים שני לימונים או יותר בשורה, והמתחים מתחברים: <span class="math">0.9 + 0.9 = 1.8</span> וולט.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון (שתי מתכות שונות "מחזיקות" אלקטרונים בכוח שונה, וההבדל הזה הוא המתח; האבץ מתפרק במיץ ומשחרר אלקטרונים שעוברים בחוט, דרך הנורה, אל הנחושת, ועל הנחושת נוצרות בועות מימן מהחומצה; המיץ סוגר את המעגל; בשורה המתחים מצטברים, 2 × 0.9 = 1.8 וולט, אבל הזרם לא גדל; האנרגיה באה מהאבץ ולא מהלימון; ואצל הצפרדע הזרם מגרה את העצב והשריר מתכווץ — הרגל היא מד) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "רגל הצפרדע שהמציאה את הסוללה": גלווני, וולטה והסוללה הראשונה. הרעיונות המרכזיים: (1) לואיג׳י גלווני, רופא ומרצה לאנטומיה בבולוניה, ראה ב־1786 רגל צפרדע מתכווצת במגע עם מתכת; רגליים שנתלו על ווים מפליז על מעקה ברזל בעטו כשהוו נגע בברזל; ב־1791 פרסם: "חשמל של בעלי חיים"; (2) אלסנדרו וולטה מפביה: הבעיטה חזקה רק עם שתי מתכות שונות, החשמל בא מהמגע בין המתכות דרך הרטיבות, והרגל היא רק מד רגיש; הוא הניח שתי מתכות על הלשון והרגיש עקצוץ; (3) סוללת לימון: מסמר מצופה אבץ ופס נחושת, כ־0.9 וולט לכל לימון, זרם עד כמיליאמפר; שני מסמרי אבץ — אפס; ברזל ונחושת — פחות; נורת LED אדומה צריכה כ־1.8 וולט, ולכן שני לימונים בשורה (הנחושת של אחד לאבץ של הבא): 0.9 + 0.9 = 1.8; (4) מה קורה בפנים: אטומי אבץ יוצאים לשחות במיץ ומשאירים אלקטרונים, הם רצים בחוט דרך הנורה אל הנחושת, ושם נוצרות בועות מימן; האנרגיה באה מהאבץ, לא מהלימון; (5) בשורה המתחים מצטברים (קומה = 0.9 וולט, 84 × 0.9 = 75.6 — כמו מכה של חשמלן, 70–80 וולט), אבל הזרם נשאר קטן; המתח נקבע לפי זוג המתכות, הגודל קובע את הזרם; קיבולת במיליאמפר־שעה; (6) המגדל של וולטה: דיסקיות נחושת (או כסף) ואבץ עם בד במי מלח; מכתב לג׳וזף בנקס בלונדון, 20 במרץ 1800; "איבר חשמלי מלאכותי" בהשראת החשמלן, שהאיבר שלו בנוי ממאות עמודים דקים של תאים; מדליית זהב מנפוליאון ב־1801; גלווני מת עני ב־1798; (7) שניהם צדקו: ב־1797 גלווני הזיז רגל בלי שום מתכת, עצב נוגע בשריר; בשנות ה־40 של המאה ה־19 דיבואה־ריימון מדד את האות החשמלי בעצב; העצבים והלב עובדים בחשמל. חישובי המבחן: צעיר — 10 לימונים 9 וולט, 30 לימונים: 9 × 3 = 27 וולט; בוגר — נורה לבנה 3 וולט: 3 × 0.9 = 2.7 לא מספיק, 4 × 0.9 = 3.6, ולכן 4 לימונים; מתקדם — נורה כחולה 3.2 וולט ולימונים של 0.93: 3.2 ÷ 0.93 ≈ 3.44 ולכן 4 לימונים, ו־4 × 0.93 − 3.2 = 0.52 וולט עודף; אתגר — 5 ÷ 0.9 ≈ 5.6 ולכן 6 לימונים, ו־4,000 ÷ 0.5 = 8,000 שעות, 8,000 ÷ 24 ≈ 333 ימים.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם שהרגל בעטה בגלל זרם חשמלי שנוצר משתי מתכות שונות (הוו והמעקה) והפעיל את השריר, וגם שבסוללת לימון שתי מתכות שונות נותנות זרם (האבץ נותן אלקטרונים שעוברים בחוט ובנורה) ושכמה לימונים בשורה מחברים את המתחים עד שיש מספיק לנורה; 1 אם יש רק אחד מהשניים או רק חלק. תשובה שאומרת שהאנרגיה באה מהלימון עצמו, או שהרגל בעטה כי הייתה חיה — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', יש לך מתח של מדען!':pct>=60?name+', הנורה כבר דולקת!':name+', הרעיון הגדול כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=3;                                                       // the nail: the zinc on it is the battery's fuel
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: האנרגיה באה <b>מהמסמר</b> — האבץ שעליו נאכל לאט ונותן אלקטרונים.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>מהמסמר</b> — וקלעת. האבץ שעל המסמר הוא הדלק, והמיץ רק סוגר את המעגל.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. התשובה: מהמסמר. האבץ שעליו הוא הדלק, והמיץ רק סוגר את המעגל.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (מאיפה האנרגיה בסוללת לימון): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: מהמסמר — האבץ)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "רגל הצפרדע שהמציאה את הסוללה", מהדורה 45, ט״ו בחשוון תשפ״ז (יום שני, 26 באוקטובר 2026). נושא: איך ויכוח בין גלווני לוולטה על רגל של צפרדע הוביל לסוללה הראשונה; פיזיקה (מתח בוולט, זרם באמפר ובמיליאמפר, חיבור בטור, קיבולת במיליאמפר־שעה), כימיה (אבץ ונחושת, אלקטרונים, בועות מימן, חומצה), ביולוגיה (עצבים ושרירים, חשמל בגוף, הלב, החשמלן) והיסטוריה (בולוניה ופביה, 1786–1801). העובדות: לואיג׳י גלווני (1737–1798), רופא ומרצה לאנטומיה בבולוניה, חקר איך שרירים זזים בעזרת רגלי צפרדע; ב־1786 (תיאור מ־20 בספטמבר) ראה רגל מתכווצת כשנגעו בה במתכת; רגליים שנתלו על ווים מפליז (נחושת ואבץ) על מעקה ברזל בגינה בעטו כשהוו נגע בברזל, גם בסופות וגם במזג אוויר נאה; ב־1791 פרסם (De viribus electricitatis in motu musculari) — "חשמל של בעלי חיים". אלסנדרו וולטה (1745–1827), פיזיקאי בפביה, כבר מפורסם, חזר על הניסויים: הבעיטה חזקה רק עם שתי מתכות שונות; החשמל בא מהמגע בין המתכות דרך הרטיבות, והרגל רק מד רגיש; ניסה שתי מתכות על הלשון — טעם חמוץ ועקצוץ. ב־1794 גלווני הראה התכווצות גם עם מתכת אחת, וב־1797 בלי שום מתכת — עצב נוגע בשריר. ב־1797 סירב להישבע לרפובליקה הציזלפינית שהקים נפוליאון, איבד את משרתו, ומת עני ב־4 בדצמבר 1798. וולטה: מכתב מ־20 במרץ 1800 לג׳וזף בנקס, נשיא החברה המלכותית בלונדון — מגדל של דיסקיות נחושת (או כסף) ואבץ, עם בד או קרטון ספוג במי מלח ביניהן, זרם קבוע לראשונה; קרא לו "איבר חשמלי מלאכותי" כי ניסה לחקות את החשמלן (ניקולסון תיאר את האיבר שלו כמאות עמודים דקים של תאים; וולטה קרא את זה); תוך שבועות פירקו בעזרתו מים למימן וחמצן בלונדון; 1801 — מדליית זהב מנפוליאון בפריז; יחידת המתח, וולט, על שמו; בצרפתית ובאיטלקית סוללה נקראת "ערימה" (pile, pila). בשנות ה־40 של המאה ה־19 אמיל דיבואה־ריימון מדד את האות החשמלי בעצב (היום: אות העצב). סוללת לימון: מסמר מגולוון (מצופה אבץ) ופס נחושת, כ־0.9 וולט לכל לימון, זרם עד כמיליאמפר אחד (תלוי בשטח המתכת); האבץ מתפרק — אטומי אבץ יוצאים למיץ ומשאירים אלקטרונים שרצים בחוט דרך הנורה אל הנחושת, ושם נוצרות בועות מימן מהחומצה; האנרגיה באה מהאבץ, לא מהלימון; שני מסמרי אבץ — אפס; ברזל ונחושת — כ־0.5 וולט לכל לימון; נורת LED אדומה צריכה כ־1.8 וולט, ולכן לפחות שני לימונים בשורה (הנחושת של אחד לאבץ של הבא); לבנה כ־3, כחולה כ־3.2. בשורה המתחים מצטברים אבל הזרם נשאר כשל לימון אחד; המתח נקבע לפי זוג המתכות, גודל המתכת קובע את הזרם. קיבולת: מיליאמפר־שעה — סוללה של טלפון כ־4,000, טעינה ב־5 וולט. החשמלן המנומר: 70–80 וולט, עד כ־200; חשמלנים חיים גם בים התיכון ובאילת — חשמלן מנומר פצוע מאילת טופל בפארק המצפה התת־ימי ושוחרר לים. מסמר "מגולוון" — על שם גלווני. סוללת ליתיום: שני צדדים מחומרים שונים וחומר מעביר ביניהם, נטענת. בונוס: נגיסה בנייר אלומיניום עם סתימה ממתכת — סוללה בפה (כחצי וולט), כואב. פרק 1, אינטראקטיב "הגינה של גלווני": רגל צפרדע על וו מהמוט העליון של מעקה; בחירת מתכת לוו ולמעקה (נחושת, אבץ, ברזל); "געו!" — הרגל נוגעת במוט, ניצוץ, בעיטה לפי ההפרש (אבץ–נחושת הכי חזק, ברזל–נחושת בינוני, אבץ–ברזל חלש, אותה מתכת — כלום), מד זרם; ניחוש — ברזל וברזל: לא תזוז. פרק 2, אינטראקטיב "סוללת לימונים": 1–5 לימונים בשורה, מתג מתכות (אבץ ונחושת 0.9, שני מסמרי אבץ 0, ברזל ונחושת 0.5), מתח ונורת LED שנדלקת מ־1.7 וולט, חיצי אלקטרונים; ניחוש — שני לימונים. פרק 3, אינטראקטיב "המגדל של וולטה": 1–100 קומות של נחושת, אבץ ובד במי מלח, 0.9 וולט לקומה; סוללה קטנה 1.5, נורת LED 1.8, סוללת טלפון 3.7, דג חשמלי כ־75; ניחוש — כ־80 קומות (84 × 0.9 = 75.6). ניסויי בית: סוללת לימונים עם מסמרים מגולוונים, חוט נחושת, תפסני תנין ונורת LED (הרגל הארוכה לנחושת); האם הפרי משנה (תפוח אדמה, תפוח, תפוז); המסמר שנאכל אחרי לילה. אתגר (בוגר): 5 ÷ 0.9 ≈ 5.6 ולכן 6 לימונים (5.4 וולט); בזרם של 0.5 מיליאמפר: 4,000 ÷ 0.5 = 8,000 שעות, 8,000 ÷ 24 ≈ 333 ימים; שאלת מחשבה: לימון ענק עם אותו מסמר — כמעט אותו מתח; יותר וולט — עוד לימונים בשורה, יותר זרם — מתכות רחבות או שורות זו לצד זו. חישובי המבחן: צעיר — 10 לימונים 9 וולט, 30 לימונים 9 × 3 = 27 וולט; בוגר — נורה לבנה 3 וולט: 4 לימונים (3 × 0.9 = 2.7, 4 × 0.9 = 3.6); מתקדם — נורה כחולה 3.2 וולט, לימונים של 0.93: 4 לימונים, ו־4 × 0.93 − 3.2 = 0.52 וולט עודף. סידור: הרגל בגינה ← הספר של גלווני ← וולטה חולק ← רגל בלי מתכת ← המגדל של וולטה ← המדליה מנפוליאון. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט (במעבדה הוו מנחושת ולא מפליז; חוזק הבעיטה מצויר לפי הפרש יחסי; 0.9 וולט לקומה כמו לימון, אף שהמגדל המקורי היה מחומרים אחרים) ומה ששנוי במחלוקת (מי בדיוק צפה ראשון ברגל הבועטת — יש סיפורים שמייחסים זאת לעוזר או לאשתו של גלווני, לוצ׳יה), בלי לחשוף תשובות מבחן; אם ילד שואל על שאלה מהמבחן, לרמוז ולכוון, לא לפתור. בטיחות: מתנסים רק עם לימונים וסוללות קטנות, לעולם לא עם שקע החשמל; לא אוכלים את הלימונים אחרי הניסוי; לא נוגעים בחשמלן; לא נוגסים במתכות.';
+const CHIPS = ['למה רגל הצפרדע בעטה?', 'איך לימון מדליק נורה?', 'מי צדק — גלווני או וולטה?', 'איך עובדת הסוללה בטלפון?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: למה שתי מתכות שונות יוצרות מתח ושתי מתכות זהות לא — כל מתכת "מחזיקה" אלקטרונים בכוח אחר; מה קורה לאבץ ולנחושת בלימון — האבץ מתפרק ומשחרר אלקטרונים, ועל הנחושת נוצר מימן; למה בשורה המתחים מצטברים (n × 0.9) אבל הזרם לא; ההבדל בין וולט, אמפר ומיליאמפר־שעה, ולמה פס אבץ רחב נותן יותר זרם ולא יותר מתח; איך עצב מעביר אות חשמלי לשריר; מה הקשר בין המגדל של וולטה לאיבר החשמלי של החשמלן), שאל שאלות המשך שדורשות חשיבה (למשל: כמה לימונים צריך ל־9 וולט, ולמה בכל זאת הם לא יפעילו רמקול? מה יקרה אם נחבר שני לימונים זה לצד זה במקום בשורה? למה הסוללה של הטלפון נגמרת, ואיך הטעינה מחזירה אותה? מה גלווני היה צריך כדי להוכיח את הטענה שלו?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה רגל הצפרדע בעטה?</b> הוו היה מפליז והמעקה מברזל: שתי מתכות שונות. כשהן נגעו דרך הרגל הרטובה, נוצר זרם חשמלי קטן, והוא הפעיל את השריר. הרגל הייתה כמו מד שמגלה חשמל.<br><br><b>איך לימון מדליק נורה?</b> האבץ שעל המסמר נאכל לאט ומשחרר אלקטרונים, שרצים בחוט דרך הנורה אל הנחושת. לימון אחד נותן כ־0.9 וולט, ושניים בשורה כבר כ־1.8 — מספיק לנורת LED אדומה.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
