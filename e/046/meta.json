@@ -1,0 +1,24 @@
+{
+  "n": 46,
+  "code": "WOW-046",
+  "date": "2026-10-27",
+  "language": "he",
+  "title": "הקול שהקיף את כדור הארץ שלוש פעמים וחצי",
+  "topics": [
+    "פיזיקה",
+    "גאולוגיה",
+    "גאוגרפיה",
+    "היסטוריה",
+    "מתמטיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "Krakatoa, 27 Aug 1883 (10:02): the loudest sound ever recorded — eardrums burst on the Norham Castle (~64 km), >172 dB at the Batavia gasworks gauge (~160 km), heard as 'heavy guns' by police chief James Wallis on Rodrigues (~4,800 km) nearly 4 hours later; sound as a pressure wave, ~1 km per 3 s (thunder counting: seconds ÷ 3); decibels as ×10 jumps (60 → 110 dB = ×100,000; 172 dB ≈ 160 billion talkers); barographs in 50+ cities recorded the Lamb wave 7 times in 5 days (Glasgow 11, 25, 48, 59, 84, 94, 121 h) — it converged at the antipode near Medellín and came back, ~36 h per circuit = 3.5 circuits; red sunsets worldwide, NY fire engines, NH summer −0.4 °C; Anak Krakatau 1927 / 2018 collapse; Tonga 2022 did the same; Zikhron Ya'akov (founded Dec 1882) was passed unnoticed; maths: speed = distance ÷ time, km/h ↔ m/s (÷3.6), minutes → hours, two-way timing to find speed and distance.",
+  "teaser": null,
+  "max_score": 11,
+  "status": "released",
+  "released_at": "2026-10-27T08:12:02.000Z",
+  "password": "בום סביב העולם",
+  "reviewer_verdict": "PASS (3 rounds) — nits left: runs ~28–34 min (tag now says ~30); globe uses latitude-style rings; the Arto button covers the bottom-left corner of canvases on phones (template)",
+  "review_url": "https://claude.ai/artifact/SahRZnY7hzSvb8TpZCKa4o",
+  "editor_note": null
+}
