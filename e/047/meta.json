@@ -1,0 +1,24 @@
+{
+  "n": 47,
+  "code": "WOW-047",
+  "date": "2026-10-28",
+  "language": "he",
+  "title": "הצבע שהיה יקר מזהב — והחילזון שהסתיר אותו",
+  "topics": [
+    "כימיה",
+    "ביולוגיה",
+    "היסטוריה",
+    "גאוגרפיה",
+    "מתמטיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "Tyrian purple from murex sea snails: the gland secretion is nearly colourless — air (enzyme + oxygen) turns it yellow-green and sunlight does the last step to blue and purple (stops at yellow-green in the dark for most species); Friedländer 1909: 12,000 snails → 1.4 g, enough for one garment's trim (≈8,600 snails per gram); Diocletian's price edict 301 CE: purple silk 150,000 denarii/pound vs gold 72,000, purple wool 50,000, a worker 25/day (6,000 days); emperor-only purple, 'born in the purple'; Tel Shikmona (Haifa, ~30 km from Zikhron Ya'akov): largest known Iron Age purple-dye factory (Gilboa & Shalvi, Univ. of Haifa 2023), Phoenician then Kingdom of Israel; Timna purple wool (2021); 6,6'-dibromoindigo = indigo + 2 Br (262 vs 420), Elsner (Shenkar, 1980s) sunlight debromination → blue/tekhelet; Perkin's mauve 1856; maths: ratios, division, g→mg, fractions.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: the molecule canvas's colour-name plate covers much of the colour swatch; snail icons are stylised spindle shells; the older standard and advanced (א) share the answer 2,880 (each kid sees only one)",
+  "review_url": "https://claude.ai/artifact/4x5XLYq77jRkhAFibHTaws",
+  "editor_note": null
+}

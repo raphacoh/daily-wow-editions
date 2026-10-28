@@ -1,0 +1,1797 @@
+<title>שורשים וכנפיים #47 · הצבע שהיה יקר מזהב — והחילזון שהסתיר אותו</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#6B3FA0; --shadow-soft:#ECE1F7;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 47</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="#9B3C8E" stop-opacity=".45"/>
+        <stop offset="60%" stop-color="#9B3C8E" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="#9B3C8E" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- a spiky sea snail, a sun, and a purple drop -->
+    <g opacity=".9">
+      <circle cx="232" cy="70" r="26" fill="#E8A33D"/>
+      <g stroke="#E8A33D" stroke-width="5" stroke-linecap="round"><path d="M232 30 L232 18"/><path d="M272 70 L284 70"/><path d="M260 42 L268 34"/><path d="M260 98 L268 106"/><path d="M204 42 L196 34"/></g>
+      <path d="M92 214 C 70 180 84 136 128 124 C 170 114 206 140 204 176 C 202 204 178 222 150 224 L 120 252 L 112 226 Z" fill="#E9D9C2" stroke="#1B1F33" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M128 150 C 150 140 176 152 178 172 C 180 190 162 200 146 196 C 134 192 132 178 144 174" fill="none" stroke="#1B1F33" stroke-width="3" stroke-linecap="round"/>
+      <g fill="#E9D9C2" stroke="#1B1F33" stroke-width="3" stroke-linejoin="round"><path d="M104 140 L84 118 L118 128 Z"/><path d="M150 122 L150 92 L166 122 Z"/><path d="M196 146 L222 128 L204 162 Z"/><path d="M86 190 L58 186 L84 170 Z"/></g>
+      <path d="M150 236 C 150 236 132 260 132 272 A 18 18 0 0 0 168 272 C 168 260 150 236 150 236 Z" fill="#6B1F6A" stroke="#1B1F33" stroke-width="3"/>
+    </g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 47</span><span class="tag">יום רביעי, 28 באוקטובר 2026</span><span class="tag">י״ז בחשוון תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>הצבע שהיה יקר מזהב — והחילזון שהסתיר אותו</h1>
+  <p class="lede">לפני כ־<span class="num">1,700</span> שנה, באימפריה הרומית, ליטרה אחת של משי צבוע בסגול עלתה <b>פי שניים מליטרה של זהב</b>. מהיכן הגיע הצבע היקר הזה? לא מפרח ולא מאבן, אלא מ<b>חילזון ים</b> קטן וקוצני, שחי גם בחופים שלנו. ויש בו סוד מוזר: הנוזל שיוצא ממנו בכלל לא סגול. הוא כמעט שקוף. ורק אחרי שהוא פוגש את האוויר ואת השמש, הוא מחליף צבע מול העיניים: צהוב, ירוק, כחול — וסגול. השאלה של היום: <b>איך חילזון "מסתיר" צבע, ולמה הצבע הזה היה שווה הון?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">כדי להכין <b>גרם אחד</b> של צבע סגול טהור — בערך המשקל של אטב משרדי — כמה חלזונות צריך?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>בערך <span class="num">10</span></b><span>חופן אחד מהחוף</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>בערך <span class="num">100</span></b><span>דלי מלא</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>בערך <span class="num">1,000</span></b><span>כמו כל הילדים בבית ספר גדול</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>כמעט <span class="num">10,000</span></b><span>כמו כל התושבים של עיירה</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE CLEAR DROP (interactive 1: sun vs dark) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>הטיפה השקופה שהפכה לסגולה</h2>
+  <p>אגדה יוונית עתיקה מספרת שכלב שטייל על חוף הים נגס בחילזון, והפה שלו נצבע בסגול. זו רק אגדה, אבל יש בה משהו נכון: הצבע באמת מגיע מחילזון ים. קוראים לו בעברית <b>ארגמון</b>. יש לו קונכייה קוצנית, בגודל של אגודל עד כף יד, והוא חי בים התיכון, גם ליד החופים של ישראל. בתוך הגוף שלו יש <b>בלוטה</b> קטנה: פס דק באורך של כ־<span class="num">2</span> סנטימטרים. הצובעים בעת העתיקה שברו את הקונכייה, הוציאו את הבלוטה, וסחטו ממנה כמה טיפות. אבל הטיפות האלה לא היו סגולות בכלל. הן היו <b>כמעט שקופות</b>, קצת צהבהבות. הצבע עוד "הסתתר" בהן.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אז איך יוצא מזה סגול? צריך שני עוזרים: <b>אוויר</b> ו<b>אור שמש</b>. כשהנוזל נוגע באוויר ונחשף לשמש, הוא משתנה לאט מול העיניים: קודם צהוב, אחר כך ירוק, אחר כך כחול, ובסוף סגול עמוק. זה לא קסם. זו <b>כימיה</b>: החומר שבנוזל הופך לחומר אחר, בצבע אחר. במעבדה יש שתי פיסות בד, טבולות באותו נוזל. אחת בשמש, ואחת בקופסה חשוכה. רק קודם נחשו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בבלוטה אין צבע, אלא <b>חומר מוצא</b>: מולקולה חסרת צבע שמחכה. כשהחילזון נפגע, או כשהצובע סוחט אותו, אנזים (חומר שמזרז תגובה) מתחיל לפרק אותה. החלקים מגיבים עם החמצן שבאוויר, והנוזל נעשה צהוב ואחר כך ירקרק. את הצעד האחרון עושה <b>האור</b>: הוא שובר מולקולת ביניים, ומשם נוצר הצבע הסגול. כלומר האור הוא לא רק "מאיר" על הצבע. הוא חלק מהתגובה הכימית שיוצרת אותו. במעבדה: שתי פיסות בד באותו נוזל, אחת בשמש ואחת בחושך. נחשו קודם.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — שמש מול חושך ===== -->
+  <div class="panel instrument">
+    <h3>שמש מול חושך</h3>
+    <p class="cap">נחשו קודם: טבלנו שתי פיסות בד לבנות באותו נוזל שקוף מהחילזון. אחת בשמש, אחת בקופסה חשוכה. מה יקרה אחרי רבע שעה?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="slP0" onclick="slPredict(0)">שתיהן ייצבעו בסגול</button>
+        <button id="slP1" onclick="slPredict(1)">רק זו שבשמש</button>
+        <button id="slP2" onclick="slPredict(2)">שתיהן יישארו שקופות</button>
+      </div>
+    </div>
+    <canvas role="img" id="slCv" width="640" height="540" aria-label="שני חלונות זה לצד זה. בצד ימין שמש צהובה גדולה, ומתחתיה פס בד. בצד שמאל קופסה חשוכה, ובתוכה פס בד. מתחת לכל פס כתוב הצבע שלו. כשמזיזים את מחוון הזמן, הבד שבשמש משתנה מכמעט שקוף לצהוב, לירוק, לכחול ולסגול, והבד שבחושך נעשה צהוב וירקרק ונעצר. בתחתית שרשרת של חמישה צבעים, עם חץ שמראה איפה הבד שבשמש נמצא עכשיו">
+    </canvas>
+    <div class="controls">
+      <label>כמה דקות עברו (ימינה: הרגע, שמאלה: רבע שעה)
+        <input type="range" id="slT" min="0" max="15" step="1" value="0" oninput="slDraw(1)" aria-label="דקות מאז הטבילה" style="direction:rtl">
+      </label>
+      <button class="btn small" id="slPlay" onclick="slToggle()">הפעלה ▶</button>
+    </div>
+    <div class="controls">
+      <div class="readout">הזמן: <b id="slOut">—</b></div>
+      <div class="readout">הבד שבשמש: <b id="slOut2">—</b></div>
+    </div>
+    <p class="cap" id="slMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="slReveal" hidden><span class="hand">!</span><p>רק הבד שבשמש נעשה סגול. אצל רוב סוגי הארגמון, בחושך הנוזל מגיע לצהוב־ירקרק, ו<b>נעצר</b>: חסר לו הצעד האחרון, זה שעושה האור. לכן הצובעים העתיקים עבדו בחוץ, בשמש של הים התיכון. והפלא: צבע שהשמש עצמה יצרה גם לא דהה בשמש. בדים סגולים מהעת העתיקה נעשו לפעמים אפילו <b>בהירים ויפים יותר</b> עם השנים.</p></div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · 10,000 SNAILS PER GRAM (interactive 2: the snail pile) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>עשרת אלפים חלזונות לגרם אחד</h2>
+  <p>בשנת <span class="num">1909</span> רצה כימאי גרמני בשם <b>פאול פרידלנדר</b> לגלות סוף־סוף ממה עשוי הצבע העתיק. הוא ביקש מחוקרי ים שיאספו לו חלזונות ארגמון, וקיבל <span class="num">12,000</span> חלזונות. הוא הוציא מכל אחד את הבלוטה, עבד חודשים, ובסוף נשאר לו... <b><span class="num">1.4</span> גרם</b> של צבע טהור. פחות מהמשקל של שני אטבים. וכמה צבע זה? מספיק בערך כדי לצבוע <b>פס צר בשולי בגד אחד</b>. עכשיו מבינים למה הצבע היה יקר: בכל חילזון יש רק טיפה זעירה.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ובעת העתיקה זו הייתה עבודה קשה ומסריחה. אנשים צללו ודגו אלפי חלזונות, שברו אותם אחד אחד, והשאירו אותם בבורות ובכלים גדולים. הריח של חלזונות מרקיבים היה נורא, וסופר יווני כתב שבעיר צור, שהייתה מלאה בבתי צביעה, ממש לא נעים לגור. במעבדה תאספו חלזונות, ותראו כמה צבע יוצא מהם. רק קודם נחשו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בואו נחשב: אם <span class="num">12,000</span> חלזונות נותנים <span class="num">1.4</span> גרם, אז כדי לקבל גרם אחד צריך כ־<span class="math">12,000 ÷ 1.4 ≈ 8,600</span> חלזונות. בצידון, שבלבנון של היום, נמצאה ערימה ענקית של קונכיות שבורות. ולפי דיווח מאתר אחד בטורקיה, החוקרים ראו שהקונכיות <b>קטנות יותר ויותר</b> ככל שעולים בשכבות: כנראה דגו כל כך הרבה, שהחלזונות לא הספיקו לגדול. במעבדה: אספו חלזונות ובדקו מה הם צובעים. נחשו קודם.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — ערימת החלזונות ===== -->
+  <div class="panel instrument">
+    <h3>ערימת החלזונות</h3>
+    <p class="cap">נחשו קודם: <span class="num">12,000</span> חלזונות נותנים <span class="num">1.4</span> גרם צבע. כמה בגדים אפשר לצבוע בזה?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="snP0" onclick="snPredict(0)">גלימה שלמה</button>
+        <button id="snP1" onclick="snPredict(1)">רק פס בשולי גלימה אחת</button>
+        <button id="snP2" onclick="snPredict(2)">מאה גלימות</button>
+      </div>
+    </div>
+    <canvas role="img" id="snCv" width="640" height="560" aria-label="בצד ימין רשת של עשרים וארבעה ציורי חלזונות, וכל ציור הוא חמש מאות חלזונות; הם נצבעים כשאוספים עוד. בצד שמאל למעלה מבחנה שמתמלאת באבקה סגולה, ולידה כמה גרם יש בה. בצד שמאל למטה גלימה לבנה גדולה, ופס בשולי הגלימה נצבע בסגול לפי כמות הצבע. בסוף, עם כל שנים עשר אלף החלזונות, רק הפס בשוליים צבוע, וכל הגלימה עדיין לבנה">
+    </canvas>
+    <div class="controls">
+      <label>כמה חלזונות אספתם (ימינה: אף אחד, שמאלה: <span class="num">12,000</span>)
+        <input type="range" id="snN" min="0" max="24" step="1" value="0" oninput="snDraw(1)" aria-label="כמה חלזונות, בקבוצות של חמש מאות" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">חלזונות: <b id="snOut">—</b></div>
+      <div class="readout">צבע: <b id="snOut2">—</b></div>
+    </div>
+    <p class="cap" id="snMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="snReveal" hidden><span class="hand">!</span><p><b><span class="num">12,000</span> חלזונות — ורק פס אחד בשולי הגלימה.</b> כדי לצבוע גלימה שלמה בסגול עמוק היו צריכים עשרות אלפי חלזונות, וחוקרים עדיין מתווכחים כמה בדיוק: זה תלוי בסוג החילזון, בבד ובגוון. אבל כולם מסכימים שזה היה <b>המון</b>.</p></div>
+
+  <div class="q qc" id="snailQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · MORE EXPENSIVE THAN GOLD (interactive 3: the emperor's scales) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>יקר יותר מזהב</h2>
+  <p>בשנת <span class="num">301</span> החליט הקיסר הרומי <b>דיוקלטיאנוס</b> לקבוע מחיר מקסימלי לכל דבר באימפריה: לחם, בשר, נעליים, שכר של פועלים. את רשימת המחירים חרטו על לוחות אבן בערים רבות, וחלקים ממנה שרדו עד היום. המחירים כתובים ב<b>דינרים</b>, המטבע של רומא, ולפי <b>ליטרה</b>: המשקל הרומי, כ־<span class="num">330</span> גרם, בערך שליש קילו. והנה מה שכתוב שם: פועל שעובד יום שלם מקבל <span class="num">25</span> דינר (ועוד ארוחות). ליטרה של זהב טהור: <span class="num">72,000</span> דינר. ליטרה של משי צבוע בסגול של חלזונות: <b><span class="num">150,000</span> דינר</b> — המחיר הגבוה ביותר בכל הרשימה.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>מי לבש סגול? רק העשירים והחשובים ביותר. ברומא, לבעלי התפקידים החשובים היה פס סגול על שולי הבגד, וגנרל שניצח במלחמה לבש ביום החגיגה גלימה סגולה כולה. ואחר כך, רק <b>הקיסר</b> הורשה ללבוש סגול אמיתי. במעבדה יש מאזניים: בצד אחד ליטרה של זהב, ובצד השני מה שתבחרו. רק קודם נחשו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>ברומא, לבעלי התפקידים הבכירים היה פס סגול בשולי הטוגה, הגלימה הרומית, וגנרל בתהלוכת ניצחון לבש גלימה סגולה רקומה בזהב. במאה הרביעית רק הקיסר הורשה ללבוש את הסגול האמיתי, ו"ללבוש את הארגמן" פירושו היה "להיות לקיסר". ומאוחר יותר, בביזנטיון, ילד שנולד לקיסר בזמן שמלך נקרא "פורפירוגנטוס": <b>שנולד בארגמן</b>. במעבדה: מאזניים של מחירים. בצד אחד ליטרה של זהב. נחשו קודם.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 3 — המאזניים של הקיסר ===== -->
+  <div class="panel instrument">
+    <h3>המאזניים של הקיסר</h3>
+    <p class="cap">נחשו קודם: מה <b>יקר יותר</b> לפי רשימת המחירים של שנת <span class="num">301</span> — ליטרה של זהב, או ליטרה של משי צבוע בסגול?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="prP0" onclick="prPredict(0)">הזהב יקר יותר</button>
+        <button id="prP1" onclick="prPredict(1)">אותו מחיר</button>
+        <button id="prP2" onclick="prPredict(2)">המשי הסגול יקר יותר</button>
+      </div>
+    </div>
+    <canvas role="img" id="prCv" width="640" height="520" aria-label="מאזני כפות גדולים. על הכף הימנית מטילי זהב, ליטרה אחת, והמחיר שלה. על הכף השמאלית מה שבחרתם: בשר, צמר צבוע בסגול, או משי צבוע בסגול, והמחיר שלו. הכף עם המחיר הגבוה יותר שוקעת למטה. מתחת למאזניים פס של ימי עבודה: כמה ימים פועל צריך לעבוד כדי לקנות את מה שבכף השמאלית">
+    </canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="מה על הכף">
+        <button id="prS0" class="on" onclick="prPick(0)">ליטרה בשר</button>
+        <button id="prS1" onclick="prPick(1)">ליטרה צמר סגול</button>
+        <button id="prS2" onclick="prPick(2)">ליטרה משי סגול</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="readout">המחיר: <b id="prOut">—</b></div>
+      <div class="readout">ימי עבודה: <b id="prOut2">—</b></div>
+    </div>
+    <p class="cap" id="prMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="prReveal" hidden><span class="hand">!</span><p>ליטרה של משי סגול עלתה <span class="math">150,000 ÷ 72,000 ≈ 2</span> — <b>פי שניים מזהב</b>. ופועל היה צריך לעבוד בשבילה <span class="math">150,000 ÷ 25 = 6,000</span> ימים: יותר מ־<span class="num">16</span> שנה, בלי יום חופש אחד. מעניין: הצמר הסגול היה זול יותר מזהב, אבל עדיין עלה כמו <span class="num">2,000</span> ימי עבודה.</p></div>
+
+  <div class="q qc" id="priceQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE FACTORY NEXT DOOR (figure: the Carmel coast map) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>המפעל הסגול ליד הבית</h2>
+  <p>כ־<span class="num">30</span> ק״מ צפונה מזכרון יעקב, על החוף של חיפה, בין הכרמל לים, יש גבעה קטנה: <b>תל שקמונה</b>. בשנות ה־<span class="num">60</span> וה־<span class="num">70</span> חפר שם הארכאולוג יוסף אלגביש, ומצא הרבה שברי כלי חרס. עשרות שנים אחר כך בדקו אותם מחדש שני חוקרים מאוניברסיטת חיפה, פרופ׳ <b>איילת גלבוע</b> וד״ר <b>גולן שלוי</b>, וגילו דבר מפתיע: על הרבה מהם — אגנים גדולים מחרס — נשארו כתמים של <b>צבע סגול</b>. זה היה מפעל של צבע חלזונות, לפני כ־<span class="num">3,000</span> שנה. לפי החוקרים, זה <b>מפעל הארגמן הגדול ביותר</b> שידוע מתקופת הברזל, התקופה של מלכי ישראל, והתוצרת שלו הייתה גדולה פי כמה מכל אתר אחר שנמצא.</p>
+
+  <figure class="calfig" aria-label="מפה של חוף הים מצור בצפון ועד זכרון יעקב בדרום. הים בצד שמאל, היבשה בצד ימין, ורכס הכרמל בירוק. מסומנים: צור, עכו, תל שקמונה בחיפה עם כלי צביעה סגול, ובדרום זכרון יעקב עם בית קטן. חץ אנכי מראה כשלושים קילומטרים בין תל שקמונה לזכרון יעקב">
+    <svg viewBox="0 0 476 400" role="img" aria-hidden="true" focusable="false">
+      <rect x="8" y="8" width="460" height="384" rx="18" fill="var(--card2)" stroke="var(--line)" stroke-width="2"/>
+      <!-- the sea on the left, the coast as a wavy line -->
+      <path d="M8 26 Q8 8 26 8 L196 8 C 190 70 206 120 196 170 C 188 210 214 236 232 262 C 246 290 236 340 244 392 L26 392 Q8 392 8 374 Z" fill="var(--water)" opacity=".55"/>
+      <path d="M196 8 C 190 70 206 120 196 170 C 188 210 214 236 232 262 C 246 290 236 340 244 392" fill="none" stroke="var(--ink)" stroke-width="3"/>
+      <!-- the Carmel ridge -->
+      <path d="M236 252 C 262 264 286 290 304 322" fill="none" stroke="var(--leaf2)" stroke-width="16" stroke-linecap="round" opacity=".75"/>
+      <g font-family="Rubik, Arial" font-size="24" fill="var(--ink)" font-weight="700">
+        <!-- Tyre -->
+        <circle cx="200" cy="44" r="8" fill="var(--ink)"/><text x="216" y="52" text-anchor="end">צור</text>
+        <!-- Akko -->
+        <circle cx="200" cy="150" r="8" fill="var(--ink)"/><text x="216" y="158" text-anchor="end">עכו</text>
+        <!-- Tel Shikmona: a dye vat -->
+        <g transform="translate(222,232)"><path d="M-20 -10 L20 -10 L14 16 L-14 16 Z" fill="var(--card)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/><path d="M-17 -4 L17 -4 L15 4 L-15 4 Z" fill="#6B1F6A"/></g>
+        <text x="250" y="226" text-anchor="end" fill="var(--shadow)">תל שקמונה</text>
+        <text x="250" y="254" text-anchor="end" font-size="22" font-weight="500">(חיפה)</text>
+        <!-- Zikhron Ya'akov: a house -->
+        <g transform="translate(262,350)"><rect x="-12" y="-6" width="24" height="20" fill="var(--card)" stroke="var(--ink)" stroke-width="3"/><path d="M-16 -4 L0 -18 L16 -4" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/></g>
+        <text x="284" y="358" text-anchor="end">זכרון יעקב</text>
+        <text x="100" y="110" text-anchor="middle" fill="#FFFFFF" font-size="26">הים התיכון</text>
+      </g>
+      <!-- the 30 km arrow -->
+      <g stroke="var(--sun-deep)" stroke-width="3" fill="var(--sun-deep)"><path d="M444 240 L444 344"/><path d="M436 252 L444 236 L452 252 Z"/><path d="M436 332 L444 348 L452 332 Z"/></g>
+      <g font-family="Rubik, Arial" font-weight="700" fill="var(--sun-deep)" font-size="22"><text x="392" y="290" text-anchor="middle" direction="ltr">~30</text><text x="392" y="316" text-anchor="middle" direction="rtl">ק״מ</text></g>
+    </svg>
+    <figcaption>מצפון לדרום: צור, עכו, תל שקמונה בחיפה, וזכרון יעקב. הים משמאל, הכרמל בירוק.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>את המפעל הקטן הראשון בשקמונה הקימו <b>הפיניקים</b>, עם של יורדי ים וסוחרים מצור ומצידון, שהיו המומחים הגדולים לצבע הזה. אחר כך המקום עבר לממלכת ישראל, והמפעל גדל מאוד. ובשנת <span class="num">2021</span> התגלה עוד אוצר, הפעם במדבר: בעמק <b>תמנע</b>, ליד אילת, מצאו פיסות קטנות של צמר בן כ־<span class="num">3,000</span> שנה, צבוע בסגול של חלזונות. זה הבד הצבוע בארגמן העתיק ביותר שנמצא בארץ. בתנ״ך קוראים לצבעים האלה <b>ארגמן</b> ו<b>תכלת</b>.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>החוקרים שחזרו את סיפור המקום: במאה ה־<span class="num">11</span> לפני הספירה הקימו בו <b>פיניקים</b> תחנת צביעה קטנה. באמצע המאה ה־<span class="num">9</span> לפני הספירה הוא נעשה אתר מבוצר של <b>ממלכת ישראל</b>, והייצור הגיע לשיא בימי המלך ירבעם השני, במאה ה־<span class="num">8</span> לפני הספירה. מוזר? הגבעה קטנה, אין לידה שדות, והחוף סלעי ולא מתאים לנמל. אבל בשביל צבע מחלזונות היא מושלמת: הים מלא בהם, ממש ליד. החוקרים משערים שמכאן הגיע הצבע המלכותי לממלכה, ואולי גם למקדש בירושלים. וב־<span class="num">2021</span> מצאו בעמק <b>תמנע</b> צמר בן כ־<span class="num">3,000</span> שנה, צבוע בצבע חלזונות אמיתי: ההוכחה הישירה הראשונה לבד כזה מאותה תקופה.</p>
+  </div>
+
+  <div class="q qc" id="siteQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: TWO ATOMS (interactive 4: the molecule) + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>שני אטומים שהופכים כחול לסגול</h2>
+  <p>בשנת <span class="num">1909</span> פרידלנדר גילה סוף־סוף ממה עשוי הצבע, והופתע: זו כמעט אותה מולקולה כמו <b>אינדיגו</b>, הצבע הכחול שצובעים בו ג׳ינס, ושפעם הפיקו אותו מצמחים. ההבדל היחיד: בצבע של החילזון יש עוד <b>שני אטומים של ברום</b>, יסוד שנמצא במי הים, והחילזון אוסף אותו לתוך הגוף שלו. ובשנות ה־<span class="num">80</span> גילה כימאי ישראלי, <b>אוטו אלזנר</b> ממכללת שנקר, דבר מדהים: כשהצבע מומס בכלי הצביעה ונחשף לשמש חזקה, האור יכול לתלוש ממנו את אטומי הברום — והסגול נעשה <b>כחול</b>. כך, מאותו חילזון בדיוק, אפשר לקבל גם ארגמן וגם תכלת.</p>
+
+  <!-- ===== INTERACTIVE 4 — המולקולה ===== -->
+  <div class="panel instrument">
+    <h3>בונים מולקולה</h3>
+    <p class="cap">נחשו קודם: מה ההבדל בין הכחול של הג׳ינס לבין הסגול של החילזון?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="moP0" onclick="moPredict(0)">שני חומרים שונים לגמרי</button>
+        <button id="moP1" onclick="moPredict(1)">אותה מולקולה ועוד שני אטומים</button>
+        <button id="moP2" onclick="moPredict(2)">אין הבדל, רק האור</button>
+      </div>
+    </div>
+    <canvas role="img" id="moCv" width="640" height="590" aria-label="למעלה פס בד גדול בצבע של המולקולה, ושם הצבע. באמצע ציור פשוט של מולקולה: שתי טבעות משושות בצדדים, ושתי טבעות מחומשות באמצע שמחוברות בקו כפול. בקצה כל צד יש מקום לאטום ברום, עיגול חום גדול שכתוב עליו Br. כשאין ברום הבד כחול כמו ג׳ינס, עם ברום אחד הוא כחול־סגול, ועם שניים הוא סגול עמוק. כשלוחצים על השמש, קרן אור מגיעה ותולשת אטום ברום">
+    </canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="אטומי ברום">
+        <button id="moB0" onclick="moToggle(0)">ברום בצד ימין</button>
+        <button id="moB1" onclick="moToggle(1)">ברום בצד שמאל</button>
+      </div>
+      <button class="btn small" id="moSun" onclick="moSunHit()">שמש על כלי הצביעה ☀</button>
+    </div>
+    <div class="controls">
+      <div class="readout">אטומי ברום: <b id="moOut">—</b></div>
+      <div class="readout">הצבע: <b id="moOut2">—</b></div>
+    </div>
+    <p class="cap" id="moMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="moReveal" hidden><span class="hand">!</span><p>הכחול של הג׳ינס והסגול של הקיסרים הם <b>כמעט תאומים</b>: אותו שלד של אטומים, ורק שני אטומי ברום בקצוות. השינוי הקטן הזה משנה את הצבע. וזה גם הסוד של התכלת: שמש חזקה תולשת את הברום, והסגול מכחיל.</p></div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>למה שני אטומים קטנים משנים צבע? אור השמש הוא בעצם ערבוב של כל הצבעים. כשהאור פוגע בבד, המולקולות של הצבע <b>"אוכלות"</b> חלק מהצבעים, ואת השאר הבד מחזיר לעיניים שלנו. אינדיגו "אוכל" בעיקר את הכתום, ולכן הוא נראה לנו כחול. אטומי הברום משנים קצת את הצורה של המולקולה, ואז היא "אוכלת" צבעים אחרים, וחוזר אלינו סגול. מולקולה היא כמו מפתח: שינוי קטן בשן אחת — ודלת אחרת נפתחת.</p>
+    <p>ולמה החילזון בכלל מייצר את החומר הזה? לא בשביל לצבוע לנו בגדים. חוקרים מצאו שהוא משתמש בו כדי <b>להרדים</b> את החיות הקטנות שהוא טורף, וכשכבת הגנה מחיידקים על הביצים שלו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה שני אטומים משנים צבע? אור לבן הוא ערבוב של כל הצבעים. מולקולת צבע <b>בולעת</b> צבעים מסוימים, ואנחנו רואים את מה שנשאר. אינדיגו בולע בעיקר כתום־צהוב, ולכן נראה כחול. אטום ברום כבד מאוד: אטום פחמן שוקל <span class="num">12</span> יחידות, ואטום ברום כמעט <span class="num">80</span>. כשהוא נקשר לקצה המולקולה, הוא משנה את האופן שבו האלקטרונים בה "מתנדנדים", והבליעה זזה לצבעים אחרים: בעיקר ירוק, ולכן חוזר אלינו סגול אדמדם.</p>
+    <p>ולמה החילזון מייצר אותו? חוקרים מצאו שהוא משתמש בחומרים האלה כדי להרדים טרף, וכציפוי נגד חיידקים על הביצים. הצבע הסגול הוא "תופעת לוואי" של ההגנה הכימית שלו.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> פרידלנדר קיבל <span class="num">1.4</span> גרם צבע מ־<span class="num">12,000</span> חלזונות. (א) כמה <b>מיליגרם</b> צבע יש בחילזון אחד? (בגרם יש <span class="num">1,000</span> מיליגרם. עגלו לשתי ספרות אחרי הנקודה.) (ב) מולקולת הצבע שוקלת <span class="num">420</span> יחידות, ומתוכן <span class="num">160</span> הן שני אטומי הברום. כמה <b>גרם</b> מתוך <span class="num">1.4</span> הגרם של פרידלנדר הם ברום שהחלזונות אספו מהים? (עגלו לשתי ספרות אחרי הנקודה.)</p>
+      <div class="controls">
+        <label>(א) מיליגרם לחילזון <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) גרם ברום <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> צובע רוצה בדיוק סגול של קיסרים, אבל הוא משאיר את כלי הצביעה, עם הצבע המומס, פתוח באמצע היום בשמש חזקה. מה יקרה לצבע של הבד? ומה כדאי לו לעשות?</p>
+      <details><summary>רמז</summary><p>בדקו במעבדה "בונים מולקולה": מה עושה השמש לאטומי הברום, ואיזה צבע מקבלים בלי ברום?</p></details>
+      <details><summary>התשובה</summary><p>השמש תתלוש חלק מאטומי הברום מהמולקולות שבכלי. מולקולה בלי ברום היא אינדיגו, כחולה, ולכן הבד ייצא <b>כחלחל יותר</b>, ולא הסגול האדמדם שרצה. כדי לשמור על הסגול, עדיף לעבוד עם הכלי מכוסה או בצל, ולהוציא את הבד לאוויר ולשמש רק בסוף. ומי שרוצה דווקא תכלת — עושה בדיוק את ההפך.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>חלזונות ארגמון לא צריך לשבור: יש צבע שמחליף צבעים גם במטבח. בכרוב האדום יש חומר צבע שמשנה את הצורה שלו כשהוא פוגש חומצה או בסיס — ואיתה את הצבע. <b>חשוב: את המים החמים והסכין מפעיל רק מבוגר. ולובשים בגד ישן — מי כרוב מכתימים.</b></p>
+
+  <div class="panel">
+    <h3>חלק א׳ — הבד שמחליף צבע (<span class="num">15</span> דקות)</h3>
+    <ol>
+      <li>מבוגר חותך רבע כרוב אדום לרצועות, שם בקערה ושופך עליהן מים חמים. מחכים <span class="num">10</span> דקות, ומסננים: מקבלים מים בצבע סגול.</li>
+      <li>טובלים במים פס של בד לבן (או מגבת נייר), ומניחים אותו על צלחת.</li>
+      <li>על חצי אחד מטפטפים מיץ לימון. על החצי השני מטפטפים מים עם כפית סודה לשתייה. מה קורה? (רמז: ורוד־אדום בצד אחד, כחול־ירקרק בצד השני.) הצבע השתנה כי המולקולה השתנתה — בדיוק כמו בחילזון.</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — השמש כצובעת (שבוע, <span class="num">2</span> דקות ביום)</summary>
+    <p>שימו דף נייר צבעוני כהה על אדן חלון שמש, ועליו עלה או מטבע. אחרי שבוע הרימו אותם: מתחת יש צללית בצבע המקורי, וסביבה הנייר דהה. האור שבר את מולקולות הצבע של הנייר. ואילו הצבע של החילזון דווקא <b>נוצר</b> בעזרת האור — ולכן כמעט לא דהה.</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — ציד קונכיות במצלמה (בפעם הבאה בים, עם מבוגר)</summary>
+    <p>בחופים של הכרמל אפשר לפעמים למצוא על החול קונכיות של ארגמון: קונכייה מסולסלת עם קוצים או בליטות. <b>מצלמים אותן ומשאירים במקום</b> — בשמורות טבע אסור לקחת קונכיות, ולפעמים גר בהן סרטן נזיר. חלזונות חיים משאירים בים.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>צבע הוא כימיה</b>: הנוזל של החילזון שקוף, ורק האוויר והשמש הופכים אותו לסגול. ו<b>מה שנדיר הוא יקר</b>: בכל חילזון יש טיפה זעירה, וצריך כמעט <span class="num">10,000</span> חלזונות לגרם אחד, ולכן משי סגול עלה יותר מזהב. ומפעל ענק לצבע הזה עבד לפני <span class="num">3,000</span> שנה ממש ליד הבית, בחיפה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>שינוי קטן במולקולה הוא שינוי גדול בצבע</b>: שני אטומי ברום הופכים כחול לסגול, והאור יכול גם ליצור צבע וגם להוריד ממנו אטומים. ו<b>מחיר הוא מתמטיקה של נדירות</b>: <span class="math">12,000</span> חלזונות לפס אחד. ב־<span class="num">1856</span> סטודנט בן <span class="num">18</span>, ויליאם פרקין, ניסה להכין תרופה למלריה, ובמקרה קיבל צבע סגול מעטרן פחם. תוך כמה שנים סגול נעשה צבע שכל אחד יכול לקנות. שאלה לחקור: אילו עוד דברים יקרים היום יהיו זולים, ברגע שמישהו יגלה איך לייצר אותם בדרך אחרת?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הסיפור?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">כימיה · <span class="num">1856</span></div><h3>הסטודנט שהפך את הסגול לזול</h3><p>ויליאם פרקין, בן <span class="num">18</span>, ניסה בחופשת האביב להכין כינין, תרופה למלריה. במקום תרופה קיבל חומר סגול, וקרא לו "מוב". שנה אחר כך פתח מפעל ליד לונדון: אחד הצבעים המלאכותיים הראשונים בעולם.</p></div>
+    <div class="tile"><div class="dom">ישראל · עמק תמנע</div><h3>הצמר הסגול מהמדבר</h3><p>ב־<span class="num">2021</span> פרסמו חוקרים מרשות העתיקות ומאוניברסיטת תל אביב שלוש פיסות צמר מתמנע, בנות כ־<span class="num">3,000</span> שנה, צבועות בצבע חלזונות אמיתי. היובש של המדבר שמר עליהן.</p></div>
+    <div class="tile"><div class="dom">ביולוגיה · ים</div><h3>למה לחילזון יש צבע?</h3><p>הארגמון הוא טורף. החומר שבבלוטה עוזר לו להרדים טרף, ומגן על הביצים שלו מחיידקים. לבני האדם זה צבע, ולחילזון — ארגז כלים כימי.</p></div>
+    <div class="tile"><div class="dom">היסטוריה · ביזנטיון</div><h3>"נולד בארגמן"</h3><p>לפי המסורת, בארמון בקונסטנטינופול היה חדר מיוחד, מצופה אבן סגולה, שבו נולדו ילדי הקיסר. ילד כזה נקרא "פורפירוגנטוס" — שנולד בארגמן. עד היום, "סגול מלכותי" הוא ביטוי בהרבה שפות.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): הסגול שאין בקשת</summary>
+    <p>בקשת יש אדום, כתום, צהוב, ירוק, כחול וסגלגל. אבל הסגול האדמדם של הקיסרים — אין לו מקום משלו בקשת. איך העין רואה צבע שאין בקשת? נחשו לפני שאתם פותחים.</p>
+    <details><summary>התשובה</summary>
+      <p>בעין יש שלושה סוגים של תאי צבע: לאדום, לירוק ולכחול. כשמגיע אליה אור שיש בו גם אדום וגם כחול, אבל מעט ירוק, המוח "ממציא" צבע חדש: סגול אדמדם. צבע כזה לא יכול לבוא מקרן אור אחת, אלא רק מערבוב. וזה בדיוק מה שהצבע של החילזון עושה: הוא בולע בעיקר את הירוק שבאמצע, ומחזיר אדום וכחול.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את סיפור הסגול, מהמוקדם למאוחר. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: צובע אסף <span class="num">6</span> סלים של חלזונות, ובכל סל <span class="num">500</span> חלזונות. כמה חלזונות אסף בסך הכול?</div>
+    <div class="controls"><label>חלזונות <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: לפי רשימת המחירים של שנת <span class="num">301</span>, ליטרה של זהב טהור עלתה <span class="num">72,000</span> דינר, ופועל הרוויח <span class="num">25</span> דינר ליום. (א) כמה ימי עבודה צריך כדי לקנות ליטרה אחת של זהב? (ב) אם הפועל עובד <span class="num">6</span> ימים בשבוע, כל <span class="num">52</span> השבועות בשנה, כמה שנים זה? (עגלו לספרה אחת אחרי הנקודה.)</div>
+    <div class="controls"><label>(א) ימים <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) שנים <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: לפי רשימת המחירים של שנת <span class="num">301</span>, ליטרה של זהב טהור עלתה <span class="num">72,000</span> דינר, ופועל הרוויח <span class="num">25</span> דינר ליום. כמה ימי עבודה צריך כדי לקנות ליטרה אחת של זהב?</div>
+    <div class="controls"><label>ימים <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>איך מנוזל כמעט שקוף של חילזון יוצא צבע סגול, ולמה הצבע הזה היה יקר יותר מזהב?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="בחילזון יש..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. הצבע הסגול של הקיסרים הגיע מחילזון ים, הארגמון. הנוזל שיוצא ממנו כמעט שקוף, ורק האוויר ו<b>אור השמש</b> הופכים אותו לצהוב, לירוק, לכחול — ובסוף לסגול.<br>
+    2. מ־<span class="num">12,000</span> חלזונות יצאו רק <span class="num">1.4</span> גרם צבע, מספיק לפס אחד בשולי בגד. לכן בשנת <span class="num">301</span> ליטרה של משי סגול עלתה פי שניים מזהב: כמו <span class="num">6,000</span> ימי עבודה של פועל.<br>
+    3. מפעל הצבע הסגול הגדול ביותר מתקופת מלכי ישראל נמצא בתל שקמונה, בחיפה, כ־<span class="num">30</span> ק״מ מזכרון יעקב. והסגול של החילזון הוא כמעט אותה מולקולה כמו הכחול של הג׳ינס — רק עם שני אטומי ברום. והטריק לבית: מי כרוב אדום, לימון וסודה לשתייה, ובד אחד שמחליף צבע.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>החילזון והצבע: Wikipedia, "Tyrian purple" — המינים Bolinus brandaris, Hexaplex trunculus, Stramonita haemastoma; הציטוט של David Jacoby: "<span class="num">12,000</span> חלזונות Murex brandaris נותנים לא יותר מ־<span class="num">1.4</span> גרם צבע טהור", מספיק לשולי בגד אחד; הצבע נעשה בהיר יותר עם הזמן והשמש; הריח של בתי הצביעה בצור; מגיסטרטים בטוגה עם שוליים סגולים, הטוגה של התהלוכה; במאה ה־<span class="num">4</span> רק הקיסר; "פורפירוגנטוס" מהמאה ה־<span class="num">9</span>; החילזון משתמש בחומר כדי להרדים טרף וכציפוי נגד חיידקים על הביצים; צמר צבוע מתמנע, כ־<span class="num">1000</span> לפנה״ס, פורסם ב־<span class="num">2021</span>. Wikipedia, "Paul Friedländer (chemist)" — <span class="num">12,000</span> חלזונות, <span class="num">1.4</span> גרם, הצבע הוא אינדיגו עם ברום (פרסום <span class="num">1909</span>). nunc.ch, "Ten thousand snails for a purple toga" — ההפרשה הטרייה חסרת צבע, ובעזרת אוויר, אור ואנזים עוברת דרך צהוב וירוק עד כחול וסגול; בלוטה של כ־<span class="num">2</span> ס״מ; ערמת קונכיות גדולה בצידון; סטרבון על צור; לפי הדיווח, קונכיות קטנות יותר בשכבות העליונות באנדריאקה (טורקיה), כנראה דיג־יתר (לא מצאנו לזה מקור ראשוני); האגדה על הכלב. Cooksey, Molecules <span class="num">6</span> (<span class="num">2001</span>) "Tyrian Purple: 6,6'-Dibromoindigo and Related Compounds" — חומרי המוצא (טירינדוקסיל סולפט), אנזים סולפטאז, חמצון באוויר, ופירוק באור של תוצרי ביניים כצעד האחרון.</p>
+    <p>מחירים: Wikipedia, "Edict on Maximum Prices" — דיוקלטיאנוס, <span class="num">301</span>; משי צבוע ארגמן <span class="num">150,000</span> דינר לליטרה, המחיר הגבוה ברשימה. IMPERIUM ROMANUM, "Roman goods prices" (לפי הצו) — צמר צבוע ארגמן <span class="num">50,000</span>, זהב טהור <span class="num">72,000</span>, פועל עם כלכלה <span class="num">25</span> דינר ליום, בשר חזיר <span class="num">12</span>. ליטרה רומית כ־<span class="math">327–329</span> גרם.</p>
+    <p>ישראל: University of Haifa, <span class="math">20.6.2023</span>, "Tel Shiqmona is the largest known factory producing purple dye in the Iron Age" — גלבוע ושלוי; חפירות אלגביש בשנות ה־<span class="num">60</span>–<span class="num">70</span>; אגני חרס רבים מוכתמים בארגמן; אתר פיניקי קטן במאה ה־<span class="num">11</span> לפנה״ס, ממלכת ישראל מאמצע המאה ה־<span class="num">9</span>, שיא בימי ירבעם השני, חורבן כ־<span class="num">740</span> לפנה״ס; התוצרת "גדולה פי כמה" מכל אתר ידוע; החוקרים משערים שהספיק צבע לירושלים. sci.news, <span class="math">29.1.2021</span> — שלוש פיסות צמר צבועות ארגמן אמיתי מתמנע, נעמה סוקניק (רשות העתיקות) וארז בן־יוסף (אוניברסיטת תל אביב), PLoS ONE. Wikipedia, "Tekhelet" — אוטו אלזנר, מכללת שנקר, שנות ה־<span class="num">80</span>: חשיפה של תמיסת הצבע לאור אולטרה־סגול נותנת כחול (אינדיגו ו־<span class="num">6</span>־ברומואינדיגו) במקום סגול.</p>
+    <p>פרקין: Science History Institute, "William Henry Perkin" — בן <span class="num">18</span>, <span class="num">1856</span>, בחופשת הפסחא מהקולג׳ המלכותי לכימיה בלונדון, ניסה לייצר כינין וקיבל "מוב"; מפעל בגרינפורד ב־<span class="num">1857</span>.</p>
+    <p>פישוטים במכוון: ההפרשה "כמעט שקופה" — לפי המין היא חסרת צבע עד צהבהבה. במעבדה "שמש מול חושך" הזמנים מקורבים, והבד שבחושך נעצר בירקרק: כך אצל רוב המינים; אצל Hexaplex trunculus חלק מהצבע נוצר גם בחושך, אבל המסלול העיקרי צריך אור לצעד האחרון. "כמעט <span class="num">10,000</span> חלזונות לגרם" מבוסס על <span class="math">12,000 ÷ 1.4 ≈ 8,600</span>; הערכות אחרות לבגד שלם נעות בין אלפים לעשרות אלפים, תלוי במין ובגוון. "יקר מזהב" נכון למשי צבוע (<span class="num">150,000</span> מול <span class="num">72,000</span>); צמר צבוע היה זול מזהב. "בולע ירוק" הוא פישוט: על הבד הצבע בולע בעיקר סביב <span class="num">520</span> ננומטר. משקלי המולקולות מעוגלים (<span class="num">262</span>, <span class="num">420</span>). המולקולה במעבדה "בונים מולקולה" היא ציור סכמטי, לא נוסחת מבנה מלאה. במבחן המתקדם, "<span class="num">6</span> ימים בשבוע כל <span class="num">52</span> השבועות" הוא הנחה לתרגיל, ו"ליטרה של זהב" לפי מחיר הצו (<span class="num">72,000</span>).</p>
+  </details>
+</section>
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:47, code:'WOW-047', date:'2026-10-28', title:'הצבע שהיה יקר מזהב — והחילזון שהסתיר אותו', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '16nXntep15Eg15/XldeW15zXmdeX'; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'chemistry', w:3 }, { id:'history', w:3 }, { id:'biology', w:2 }, { id:'math', w:2 } ],
+  hero: { name:'הצבע שהיה יקר מזהב — שמש מול חושך, ערימת החלזונות, המאזניים של הקיסר והמולקולה', fact:'מ־12,000 חלזונות ארגמון יצאו רק 1.4 גרם צבע, ובשנת 301 ליטרה של משי סגול עלתה פי שניים מליטרה של זהב.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'quantity-sense',        d:2 },
+    'qc:storyQ':      { skill:'photochemistry',        d:2 },
+    'qc:snailQ':      { skill:'scarcity',              d:1 },
+    'qc:priceQ':      { skill:'ratio',                 d:2 },
+    'qc:siteQ':       { skill:'archaeology',           d:1 },
+    'qc:deepQ':       { skill:'molecular-change',      d:3 },
+    'mcq:shared:0':   { skill:'color-sequence',        d:2 },
+    'mcq:shared:1':   { skill:'quantity-sense',        d:2 },
+    'mcq:shared:2':   { skill:'molecular-structure',   d:3 },
+    'mcq:younger:0':  { skill:'history-society',       d:1 },
+    'mcq:older:0':    { skill:'molecular-mass',        d:4 },
+    'order':          { skill:'chronology',            d:3 },
+    'num:younger':    { skill:'multiplication',        d:2 },
+    'num:older':      { skill:'division',              d:3 },
+    'num:adv':        { skill:'multi-step-rates',      d:4 },
+    'challenge':      { skill:'unit-conversion-ratio', d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); slDraw(0); } if(n===2) snDraw(0); if(n===3) prDraw(0); if(n===5) moDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: how many snails for one gram of pure dye? ----------
+   Four choices: ~10, ~100, ~1,000, almost 10,000. The right answer: 4 — Friedländer 1909: 12,000 snails → 1.4 g, i.e. ≈ 8,600 per gram. */
+const SCALE_ANS = 4;
+const fmtSigns = n => ({1:'בערך 10',2:'בערך 100',3:'בערך 1,000',4:'כמעט 10,000'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> כימאי שבדק את זה בשנת <span class="num">1909</span> קיבל מ־<span class="num">12,000</span> חלזונות רק <span class="num">1.4</span> גרם צבע. כלומר, כ־<span class="num">8,600</span> חלזונות לגרם אחד. ועוד לא סיפרנו לכם את הסוד: כשהנוזל יוצא מהחילזון, הוא בכלל לא סגול. על זה השיעור.';
+const SCALE_FB = {
+  4: SCALE_FB_RIGHT,
+  1: '<span class="pill-bad">הרבה הרבה יותר!</span> כימאי שבדק את זה בשנת <span class="num">1909</span> קיבל מ־<span class="num">12,000</span> חלזונות רק <span class="num">1.4</span> גרם צבע: כ־<span class="num">8,600</span> חלזונות לגרם, פי כמעט אלף ממה שניחשתם. ולמה כל כך הרבה? על זה השיעור.',
+  2: '<span class="pill-bad">הרבה יותר!</span> כימאי שבדק את זה בשנת <span class="num">1909</span> קיבל מ־<span class="num">12,000</span> חלזונות רק <span class="num">1.4</span> גרם צבע: כ־<span class="num">8,600</span> חלזונות לגרם, פי כמעט מאה ממה שניחשתם. ולמה כל כך הרבה? על זה השיעור.',
+  3: '<span class="pill-bad">עוד יותר!</span> כימאי שבדק את זה בשנת <span class="num">1909</span> קיבל מ־<span class="num">12,000</span> חלזונות רק <span class="num">1.4</span> גרם צבע: כ־<span class="num">8,600</span> חלזונות לגרם, פי כמעט עשרה ממה שניחשתם. ולמה כל כך הרבה? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw, x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* deterministic pseudo-random (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* a generic play/scrub helper: animates a 0–100 range input over `ms` milliseconds, calling draw(1) each frame */
+function xPlayer(id, rangeId, btnId, ms, draw, onLabel, offLabel){
+  const st={ raf:0 };
+  st.toggle=function(){ if(st.raf){ cancelAnimationFrame(st.raf); st.raf=0; st.btn(false); return; }
+    const r=document.getElementById(rangeId); const top=+(r.max||100); if(+r.value>=top) r.value=0;
+    if(XREDUCED){ r.value=Math.min(top,+r.value+20); draw(1); return; }
+    const t0=performance.now(), start=+r.value; st.btn(true);
+    const step=now=>{ const v=Math.min(top, start+(now-t0)/ms*100); r.value=Math.round(v); draw(1); if(v<top){ st.raf=requestAnimationFrame(step); } else { st.raf=0; st.btn(false); } };
+    st.raf=requestAnimationFrame(step); };
+  st.btn=function(on){ const b=document.getElementById(btnId); b.textContent = on ? onLabel : offLabel; b.classList.toggle('on',on); };
+  return st;
+}
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const PURP = () => isDark() ? '#B04BA6' : '#6B1F6A';
+const SHELL = () => isDark() ? '#D9C6A8' : '#E9D9C2';
+const BROM = () => isDark() ? '#C27A4A' : '#9A4E22';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+const hex2rgb = h => [1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+function mixHex(a,b,t){ const A=hex2rgb(a), B=hex2rgb(b); return 'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(',')+')'; }
+function ramp(stops, x){ if(x<=stops[0][0]) return stops[0][1]; for(let i=1;i<stops.length;i++){ if(x<=stops[i][0]){ const [x0,c0]=stops[i-1], [x1,c1]=stops[i]; return mixHex(c0,c1,(x-x0)/(x1-x0)); } } return stops[stops.length-1][1]; }
+/* a strip of cloth with a gently wavy bottom edge */
+function xCloth(c,x,y,w,h,fill){ const ink=css('--ink'); c.fillStyle=fill; c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(x,y); c.lineTo(x+w,y); c.lineTo(x+w,y+h);
+  for(let i=1;i<=6;i++){ const xx=x+w-w*i/6; c.quadraticCurveTo(xx+w/12, y+h+(i%2?10:-6), xx, y+h); } c.closePath(); c.fill(); c.stroke();
+  c.strokeStyle='rgba(0,0,0,.12)'; c.lineWidth=2; for(let k=1;k<4;k++){ c.beginPath(); c.moveTo(x+w*k/4, y+6); c.lineTo(x+w*k/4, y+h-4); c.stroke(); } }
+function xSun(c,x,y,r){ c.fillStyle=GOLD(); c.strokeStyle=GOLD(); c.lineWidth=6; c.lineCap='round';
+  for(let k=0;k<12;k++){ const a=k*PI/6; c.beginPath(); c.moveTo(x+Math.cos(a)*(r+8), y+Math.sin(a)*(r+8)); c.lineTo(x+Math.cos(a)*(r+22), y+Math.sin(a)*(r+22)); c.stroke(); }
+  c.beginPath(); c.arc(x,y,r,0,2*PI); c.fill(); }
+
+/* ---------- step 1 (interactive 1): sun vs dark (canvas) ----------
+   Two strips dipped in the same colourless secretion. In the sun: colourless → yellow → green → blue → purple over ~12 "minutes" (air + an enzyme do
+   the first steps, light does the last). In a dark box the colour reaches yellow-green and stops. The chain at the bottom marks the sun strip's stage. */
+const slCv=document.getElementById('slCv'), slctx=slCv.getContext('2d');
+const SL_SUN=[ [0,'#F4F0DE'], [2,'#E8D24E'], [5,'#86B347'], [8,'#3D6CB4'], [12,'#6B1F6A'], [15,'#5C1760'] ];
+const SL_DARK=[ [0,'#F4F0DE'], [2,'#E8D24E'], [5,'#B4C34C'], [15,'#B4C34C'] ];
+const SL_CHAIN=[ ['שקוף','#F4F0DE'], ['צהוב','#E8D24E'], ['ירוק','#86B347'], ['כחול','#3D6CB4'], ['סגול','#6B1F6A'] ];
+const SL={ opened:0, pred:-1, revealed:0, end:0 };   /* canvas 640 × 540 */
+function slStage(t){ return t<1?0 : t<3.5?1 : t<6.5?2 : t<10?3 : 4; }
+function slName(t){ return ['כמעט שקוף','צהוב','ירוק','כחול','סגול'][slStage(t)]; }
+function slDarkName(t){ return t<1?'כמעט שקוף' : t<3.5?'צהוב' : 'צהוב־ירקרק'; }
+const slPlayer = xPlayer('sl','slT','slPlay', 33000, u=>slDraw(u), 'עצירה ❚❚', 'הפעלה ▶');
+function slPredict(k){ SL.pred=k; segOn('slP',3,k); WOW.emit('item', { id:'sun:predict', kind:'quick', correct:k===1, attempt: wowTry('sun:predict') });
+  slMsg.innerHTML='רשמנו את הניחוש. עכשיו לחצו "הפעלה", או הזיזו את המחוון שמאלה, וצפו בשני הבדים.'; slDraw(0); }
+function slToggle(){ if(SL.pred<0){ predictFirst(slMsg,'הפעילו'); return; } slPlayer.toggle(); }
+function slDraw(user){
+  const c=slctx, W=slCv.width, H=slCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && SL.pred<0 && +slT.value!==0){ slT.value=0; blocked=true; }
+  if(user && !SL.opened && !blocked && SL.pred>=0){ SL.opened=1; WOW.emit('open', { id:'sun' }); }
+  const t=+slT.value;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* right: in the sun */
+  const sky=c.createLinearGradient(0,16,0,330); sky.addColorStop(0, isDark()?'#2B4C7E':'#BFE0F6'); sky.addColorStop(1, isDark()?'#1F3558':'#EAF5FC');
+  c.fillStyle=sky; c.beginPath(); c.roundRect(334,16,290,320,16); c.fill();
+  xSun(c, 572, 74, 34);
+  xLabel(c, 'בשמש', 430, 52, 26, ink, .92);
+  xCloth(c, 400, 116, 160, 112, ramp(SL_SUN, t));
+  xLabel(c, slName(t), 480, 306, 26, ink, .95);
+  /* left: in a dark box */
+  c.fillStyle=isDark()?'#0E0C1C':'#2E2A40'; c.beginPath(); c.roundRect(16,16,290,320,16); c.fill();
+  c.strokeStyle=isDark()?'#8C6A4A':'#A57A52'; c.lineWidth=8; c.strokeRect(40,112,242,150);                      /* the open side of the box */
+  c.fillStyle=isDark()?'#8C6A4A':'#A57A52'; c.beginPath(); c.moveTo(36,108); c.lineTo(286,108); c.lineTo(250,84); c.lineTo(72,84); c.closePath(); c.fill(); /* the lid */
+  xLabel(c, 'בקופסה חשוכה', 161, 52, 26, ink, .92);
+  xCloth(c, 81, 132, 160, 100, ramp(SL_DARK, t));
+  xLabel(c, slDarkName(t), 161, 306, 26, ink, .95);
+  /* the colour chain (read right → left): the sun strip's stage gets a gold ring, the dark strip's a dashed one */
+  const xs=[566,456,346,236,126], cy=444, st=slStage(t), dst = t<1?0 : t<3.5?1 : 2;
+  for(let i=0;i<4;i++){ c.strokeStyle=ink; c.fillStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(xs[i]-34,cy); c.lineTo(xs[i+1]+40,cy); c.stroke(); xArrow(c, xs[i+1]+36, cy, -1, 0, 12); }
+  xLabel(c, '+ אוויר', (xs[0]+xs[1])/2, cy-56, 22, ink, .9);
+  xLabel(c, '+ אור', (xs[2]+xs[3])/2, cy-56, 22, isDark()?GOLD():'#9A5B00', .95);
+  SL_CHAIN.forEach(([n,col],i)=>{ c.fillStyle=col; c.strokeStyle=ink; c.lineWidth=2; c.beginPath(); c.arc(xs[i],cy,24,0,2*PI); c.fill(); c.stroke();
+    if(i===dst && t>0){ c.setLineDash([6,5]); c.strokeStyle=isDark()?'#B0B4CC':'#585C72'; c.lineWidth=3; c.beginPath(); c.arc(xs[i],cy,36,0,2*PI); c.stroke(); c.setLineDash([]); }
+    if(i===st){ c.strokeStyle=GOLD(); c.lineWidth=6; c.beginPath(); c.arc(xs[i],cy,31,0,2*PI); c.stroke(); }
+    xText(c, n, xs[i], cy+60, 22, ink); });
+  slOut.innerHTML='<span class="num">'+t+'</span> דקות'; slOut2.textContent=slName(t);
+  if(t>=12 && SL.pred>=0) SL.end=1;
+  if(SL.end && !SL.revealed){ SL.revealed=1; slReveal.hidden=false; }
+  if(blocked){ predictFirst(slMsg,'הזיזו'); return; }
+  if(user===1 && SL.pred>=0){
+    if(t===0) slMsg.innerHTML='הרגע אחרי הטבילה: שני הבדים כמעט שקופים. הצבע עוד מסתתר.';
+    else if(t<4) slMsg.innerHTML='האוויר עושה את הצעד הראשון: שני הבדים מצהיבים. עד כאן הם עדיין דומים.';
+    else if(t<7) slMsg.innerHTML='שניהם מוריקים. אבל עכשיו צריך אור כדי להמשיך — מי ממשיך?';
+    else if(t<12) slMsg.innerHTML='רק הבד שבשמש ממשיך: הוא כבר כחול. הבד שבחושך תקוע בירקרק.';
+    else slMsg.innerHTML='רבע שעה: הבד שבשמש <b>סגול</b>, והבד שבחושך נשאר צהוב־ירקרק. '+(SL.pred===1?'בדיוק כמו שניחשתם!':'האור הוא חלק מהכימיה.');
+  }
+}
+
+/* ---------- step 2 (interactive 2): the snail pile (canvas) ----------
+   0–24 steps of 500 snails (0–12,000). Friedländer: 12,000 snails → 1.4 g. Right: 24 snail icons (each = 500). Left: a test tube filling with
+   purple powder (with a 1 g mark) and a white robe whose trim (hem + cuffs) is coloured in proportion — at 1.4 g only the trim is done. */
+const snCv=document.getElementById('snCv'), snctx=snCv.getContext('2d');
+const SN={ opened:0, pred:-1, revealed:0 };
+function snPredict(k){ SN.pred=k; segOn('snP',3,k); WOW.emit('item', { id:'pile:predict', kind:'quick', correct:k===1, attempt: wowTry('pile:predict') });
+  snMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את המחוון שמאלה ואספו חלזונות, עד <span class="num">12,000</span>.'; snDraw(0); }
+function snSnail(c,x,y,s,on){ const ink=css('--ink');
+  c.save(); c.translate(x,y); c.scale(s,s); c.globalAlpha = on?1:.25;
+  c.fillStyle = on?SHELL():'transparent'; c.strokeStyle=ink; c.lineWidth=2.4/s; c.lineJoin='round';
+  /* spikes first (behind the body) */
+  c.beginPath(); [[-1,-10],[1,-10],[-1,4],[1,4]].forEach(([sx,yy])=>{ c.moveTo(sx*13,yy-5); c.lineTo(sx*25,yy-2); c.lineTo(sx*13,yy+4); }); c.fill(); c.stroke();
+  /* a spindle shell: pointed spire on top, long canal below */
+  c.beginPath(); c.moveTo(0,-30); c.quadraticCurveTo(10,-22,15,-10); c.quadraticCurveTo(19,6,9,16); c.lineTo(3,32); c.lineTo(-3,32); c.lineTo(-9,16); c.quadraticCurveTo(-19,6,-15,-10); c.quadraticCurveTo(-10,-22,0,-30); c.closePath(); c.fill(); c.stroke();
+  c.beginPath(); c.moveTo(-9,-18); c.quadraticCurveTo(0,-13,9,-18); c.moveTo(-15,-6); c.quadraticCurveTo(0,1,15,-6); c.stroke();
+  c.beginPath(); c.arc(0,-21,5,0.2*PI,1.9*PI); c.stroke(); c.beginPath(); c.arc(0,-21,2,0,2*PI); c.stroke();
+  if(on){ c.fillStyle=PURP(); c.beginPath(); c.ellipse(3,8,4,7,0,0,2*PI); c.fill(); }
+  c.restore(); }
+function snDraw(user){
+  const c=snctx, W=snCv.width, H=snCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && SN.pred<0 && +snN.value!==0){ snN.value=0; blocked=true; }
+  if(user && !SN.opened && !blocked && SN.pred>=0){ SN.opened=1; WOW.emit('open', { id:'pile' }); }
+  const k=+snN.value, n=k*500, g=n*1.4/12000, f=g/1.4;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* right: the pile, 4 × 6 */
+  xTagN(c, '500', 'חלזונות בכל ציור', 474, 34, 22, ink, 'center');
+  for(let i=0;i<24;i++){ const col=i%4, row=Math.floor(i/4); snSnail(c, 590-col*72, 104+row*72, 1.0, i<k); }
+  /* left top: the test tube */
+  const TX=60, TW=56, TY=96, TH=330, full=0.86;                 /* 1.4 g fills 86 % of the tube */
+  c.fillStyle=isDark()?'#2A2E50':'#FFFFFF'; c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.roundRect(TX,TY,TW,TH,[4,4,26,26]); c.fill();
+  const lvl=TH*full*f; if(lvl>0){ c.save(); c.beginPath(); c.roundRect(TX,TY,TW,TH,[4,4,26,26]); c.clip(); c.fillStyle=PURP(); c.fillRect(TX, TY+TH-lvl, TW, lvl); c.restore(); }
+  c.beginPath(); c.roundRect(TX,TY,TW,TH,[4,4,26,26]); c.stroke();
+  const y1=TY+TH-TH*full/1.4; c.strokeStyle=DANG(); c.lineWidth=3; c.setLineDash([7,5]); c.beginPath(); c.moveTo(TX-8,y1); c.lineTo(TX+TW+14,y1); c.stroke(); c.setLineDash([]);
+  xTagN(c, '1', 'גרם', TX+TW/2, y1-22*LS()-8, 22, DANG(), 'center');
+  xTagN(c, g.toFixed(2), 'גרם', 100, 50, 26, k?PURP():ink, 'center');
+  /* left: the robe */
+  const R={ cx:228, top:110, sh:158, hem:478 };
+  c.fillStyle=isDark()?'#E9E2CF':'#FFFFFF'; c.strokeStyle=ink; c.lineWidth=3;
+  const robe=()=>{ c.beginPath(); c.moveTo(R.cx-22,R.top); c.lineTo(R.cx+22,R.top); c.lineTo(R.cx+80,R.sh); c.lineTo(R.cx+112,R.sh+150); c.lineTo(R.cx+84,R.sh+162); c.lineTo(R.cx+64,R.sh+80);
+    c.lineTo(R.cx+76,R.hem); c.lineTo(R.cx-76,R.hem); c.lineTo(R.cx-64,R.sh+80); c.lineTo(R.cx-84,R.sh+162); c.lineTo(R.cx-112,R.sh+150); c.lineTo(R.cx-80,R.sh); c.closePath(); };
+  robe(); c.fill(); c.stroke();
+  /* the trim: the hem band first (right → left), then the two cuffs */
+  const band=18, hemL=152, cuffL=2*34, tot=hemL+cuffL, done=f*tot;
+  c.save(); robe(); c.clip(); c.fillStyle=PURP();
+  const hd=Math.min(done,hemL); if(hd>0) c.fillRect(R.cx+76-hd, R.hem-band, hd, band);
+  const cd=Math.max(0,done-hemL);
+  if(cd>0){ c.save(); c.translate(R.cx+98,R.sh+156); c.rotate(-0.43); c.fillRect(-17,-band/2-2, Math.min(34,cd), band); c.restore(); }
+  if(cd>34){ c.save(); c.translate(R.cx-98,R.sh+156); c.rotate(0.43); c.fillRect(17-Math.min(34,cd-34),-band/2-2, Math.min(34,cd-34), band); c.restore(); }
+  c.restore(); robe(); c.stroke();
+  xLabel(c, f>=1 ? 'רק הפס בשוליים!' : 'גלימה', R.cx, R.hem+50, 22, f>=1?PURP():ink, .92);
+  snOut.innerHTML='<span class="num">'+n.toLocaleString('en-US')+'</span>'; snOut2.innerHTML='<span class="num">'+g.toFixed(2)+'</span> גרם';
+  if(SN.pred>=0 && k===24 && !SN.revealed){ SN.revealed=1; snReveal.hidden=false; }
+  if(blocked){ predictFirst(snMsg,'הזיזו'); return; }
+  if(user===1 && SN.pred>=0){
+    if(k===0) snMsg.textContent='עוד אין חלזונות, ואין צבע.';
+    else if(k<12) snMsg.innerHTML='<span class="num">'+n.toLocaleString('en-US')+'</span> חלזונות — והמבחנה בקושי התחילה להתמלא. הפס בשולי הגלימה רק מתחיל.';
+    else if(k<24) snMsg.innerHTML='כבר יותר מ־<span class="num">6,000</span> חלזונות, וגרם אחד עוד לא הגיע. המשיכו!';
+    else snMsg.innerHTML='<span class="num">12,000</span> חלזונות: <span class="num">1.4</span> גרם — והגלימה עצמה עדיין לבנה. '+(SN.pred===1?'בדיוק כמו שניחשתם!':'רק הפס בשוליים נצבע.');
+  }
+}
+
+/* ---------- step 3 (interactive 3): the emperor's scales (canvas) ----------
+   Diocletian's price edict (301 CE), denarii per Roman pound: gold 72,000 (right pan, fixed); left pan: pork 12, purple wool 50,000, purple silk 150,000.
+   The beam tilts by the price ratio (log scale, clamped); below, a bar of a worker's days (25 denarii a day). */
+const prCv=document.getElementById('prCv'), prctx=prCv.getContext('2d');
+const PR_I=[ ['ליטרה בשר',12], ['ליטרה צמר סגול',50000], ['ליטרה משי סגול',150000] ], PR_GOLD=72000, PR_WAGE=25;
+const PR={ opened:0, pred:-1, revealed:0, pick:0, seen:{} };
+function prPredict(k){ PR.pred=k; segOn('prP',3,k); WOW.emit('item', { id:'scales:predict', kind:'quick', correct:k===2, attempt: wowTry('scales:predict') });
+  prMsg.innerHTML='רשמנו את הניחוש. עכשיו שימו על הכף כל אחד מהשלושה, וראו לאן המאזניים נוטים.'; prDraw(0); }
+function prPick(k){ if(PR.pred<0){ predictFirst(prMsg,'בחרו'); return; } PR.pick=k; segOn('prS',3,k); prDraw(1); }
+function prItem(c,k,x,y){ const ink=css('--ink'); c.strokeStyle=ink; c.lineWidth=3;
+  if(k===0){ c.fillStyle=isDark()?'#E07A7A':'#C9504F'; c.beginPath(); c.ellipse(x,y-20,40,22,0,0,2*PI); c.fill(); c.stroke(); c.fillStyle='#F4E3D3'; c.beginPath(); c.ellipse(x+14,y-24,10,7,0,0,2*PI); c.fill(); }
+  else if(k===1){ c.fillStyle=PURP(); c.beginPath(); c.arc(x,y-30,30,0,2*PI); c.fill(); c.stroke(); c.strokeStyle='rgba(255,255,255,.45)'; c.lineWidth=3; for(let i=-2;i<=2;i++){ c.beginPath(); c.arc(x+i*4,y-30,24-Math.abs(i)*4,0.2*PI,0.9*PI); c.stroke(); } }
+  else { c.fillStyle=PURP(); [0,1,2].forEach(i=>{ c.beginPath(); c.roundRect(x-46+i*4,y-16-i*16,92-i*8,16,4); c.fill(); c.stroke(); }); c.strokeStyle='rgba(255,255,255,.55)'; c.lineWidth=3; c.beginPath(); c.moveTo(x-30,y-44); c.lineTo(x+20,y-44); c.stroke(); } }
+function prGold(c,x,y){ const ink=css('--ink'); c.fillStyle=GOLD(); c.strokeStyle=ink; c.lineWidth=3;
+  [[-30,0],[30,0],[0,-24]].forEach(([dx,dy])=>{ c.beginPath(); c.moveTo(x+dx-26,y+dy); c.lineTo(x+dx+26,y+dy); c.lineTo(x+dx+18,y+dy-22); c.lineTo(x+dx-18,y+dy-22); c.closePath(); c.fill(); c.stroke(); }); }
+function prDraw(user){
+  const c=prctx, W=prCv.width, H=prCv.height, ink=css('--ink');
+  if(user && !PR.opened && PR.pred>=0){ PR.opened=1; WOW.emit('open', { id:'scales' }); }
+  const [name,price]=PR_I[PR.pick]; if(PR.pred>=0) PR.seen[PR.pick]=1;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* the stand */
+  const PX0=320, PY=120, L=210;
+  c.fillStyle=isDark()?'#8C6A4A':'#7A5A44'; c.fillRect(PX0-8,PY,16,250); c.beginPath(); c.roundRect(PX0-80,PY+250,160,22,8); c.fill();
+  /* the beam: positive angle = the left (item) end goes down */
+  const lr=Math.log10(price/PR_GOLD), ang = Math.sign(lr)*Math.min(0.3, 0.1+Math.abs(lr)*0.08);
+  const lx=PX0-L*Math.cos(ang), ly=PY+L*Math.sin(ang), rx=PX0+L*Math.cos(ang), ry=PY-L*Math.sin(ang);
+  c.strokeStyle=ink; c.lineWidth=9; c.lineCap='round'; c.beginPath(); c.moveTo(lx,ly); c.lineTo(rx,ry); c.stroke();
+  c.fillStyle=GOLD(); c.beginPath(); c.arc(PX0,PY,12,0,2*PI); c.fill(); c.stroke();
+  const pan=(x,y)=>{ c.strokeStyle=ink; c.lineWidth=2.5; c.beginPath(); c.moveTo(x,y); c.lineTo(x-56,y+110); c.moveTo(x,y); c.lineTo(x+56,y+110); c.stroke();
+    c.fillStyle=isDark()?'#5E6290':'#B9BCCB'; c.beginPath(); c.moveTo(x-70,y+110); c.lineTo(x+70,y+110); c.quadraticCurveTo(x,y+150,x-70,y+110); c.fill(); c.lineWidth=3; c.stroke(); };
+  pan(lx,ly); pan(rx,ry);
+  prItem(c, PR.pick, lx, ly+112); prGold(c, rx, ry+110);
+  /* price tags above each end */
+  xTagN(c, price.toLocaleString('en-US'), 'דינר', clamp(lx,145,260), Math.max(ly-42, 26*LS()+8), 26, PR.pick===2?PURP():ink, 'center');
+  xTagN(c, PR_GOLD.toLocaleString('en-US'), 'דינר', clamp(rx,380,490), Math.max(ry-42, 26*LS()+8), 26, GOLD(), 'center');
+  xLabel(c, name, clamp(lx,120,250), ly+180, 22, ink, .92); xLabel(c, 'ליטרה זהב', clamp(rx,390,520), ry+180, 22, ink, .92);
+  /* the days-of-work bar (max 6,000 days = the full width) */
+  const days=price/PR_WAGE, BX0=600, BW=560, by=404, bw=Math.max(4, BW*Math.min(1,days/6000));
+  c.fillStyle=css('--line'); c.beginPath(); c.roundRect(BX0-BW,by,BW,26,8); c.fill();
+  c.fillStyle=PR.pick===0?GOOD():PURP(); c.beginPath(); c.roundRect(BX0-bw,by,bw,26,8); c.fill();
+  const dTxt = days<1 ? 'חצי יום עבודה' : days.toLocaleString('en-US')+' ימי עבודה';
+  if(days<1) xLabel(c, dTxt, 470, by+66, 24, ink, .95); else xTagN(c, days.toLocaleString('en-US'), 'ימי עבודה', 470, by+66, 24, ink, 'center');
+  xLabel(c, 'פועל: 25 דינר ליום', 160, by+66, 22, ink, .85);
+  prOut.innerHTML='<span class="num">'+price.toLocaleString('en-US')+'</span> דינר'; prOut2.innerHTML = days<1 ? 'חצי יום' : '<span class="num">'+days.toLocaleString('en-US')+'</span>';
+  if(PR.pred>=0 && PR.seen[2] && !PR.revealed){ PR.revealed=1; prReveal.hidden=false; }
+  if(user===1 && PR.pred>=0){
+    if(PR.pick===0) prMsg.innerHTML='ליטרה בשר: <span class="num">12</span> דינר, פחות מחצי יום עבודה. הזהב מכריע את המאזניים בקלות.';
+    else if(PR.pick===1) prMsg.innerHTML='צמר סגול: <span class="num">50,000</span> דינר. זה עדיין קצת פחות מזהב, אבל כמו <span class="num">2,000</span> ימי עבודה!';
+    else prMsg.innerHTML='משי סגול: <span class="num">150,000</span> דינר — <b>יותר מפי שניים</b> מהזהב, והכף שלו שוקעת. '+(PR.pred===2?'בדיוק כמו שניחשתם!':'הצבע היה יקר מזהב.');
+  }
+}
+
+/* ---------- step 5 (interactive 4): build the molecule (canvas) ----------
+   A schematic (trans) indigo: two benzene rings outside, two five-rings in the middle joined by C=C, a C=O and an NH on each half (point-symmetric).
+   Each outer ring has a site (position 6): H or Br. 0 Br = indigo (blue), 1 = 6-bromoindigo (blue-violet), 2 = 6,6'-dibromoindigo (Tyrian purple).
+   "Sun on the dye pot" knocks one Br off (photo-debromination of the dissolved dye, Elsner 1980s). */
+const moCv=document.getElementById('moCv'), moctx=moCv.getContext('2d');
+const MO_COL=[ ['#26387E','אינדיגו — כחול של ג׳ינס'], ['#4A3290','כחול־סגול'], ['#6B1F6A','ארגמן — סגול של קיסרים'] ];
+const MO={ opened:0, pred:-1, revealed:0, br:[1,1], seen:{}, raf:0, ray:null };
+function moN(){ return MO.br[0]+MO.br[1]; }
+function moPredict(k){ MO.pred=k; segOn('moP',3,k); WOW.emit('item', { id:'molecule:predict', kind:'quick', correct:k===1, attempt: wowTry('molecule:predict') });
+  moMsg.innerHTML='רשמנו את הניחוש. עכשיו הורידו והוסיפו אטומי ברום בכפתורים, או "שמש על כלי הצביעה", וצפו בבד שלמעלה.'; moDraw(0); }
+function moSyncBtns(){ [0,1].forEach(i=>document.getElementById('moB'+i).classList.toggle('on', !!MO.br[i])); }
+function moToggle(i){ if(MO.pred<0){ predictFirst(moMsg,'לחצו'); return; } if(MO.raf) return; MO.br[i]=MO.br[i]?0:1; moSyncBtns(); moDraw(1); }
+function moSunHit(){
+  if(MO.pred<0){ predictFirst(moMsg,'לחצו'); return; } if(MO.raf) return;
+  const i = MO.br[0] ? 0 : (MO.br[1] ? 1 : -1);
+  if(i<0){ moMsg.innerHTML='אין יותר ברום להוריד: זה כבר אינדיגו כחול. אפשר להחזיר ברום בכפתורים.'; return; }
+  if(XREDUCED){ MO.br[i]=0; moSyncBtns(); moDraw(1); return; }
+  const t0=performance.now();
+  const step=now=>{ const u=Math.min(1,(now-t0)/900); MO.ray={ i, u }; moDraw(2); if(u<1) MO.raf=requestAnimationFrame(step); else { MO.raf=0; MO.ray=null; MO.br[i]=0; moSyncBtns(); moDraw(1); } };
+  MO.raf=requestAnimationFrame(step);
+}
+/* right-half atom positions; the left half is the point reflection through (320, 300) */
+const MO_P={ c2:[352,300], c3:[384,252], c3a:[436,268], c7a:[436,332], n1:[384,348], c4:[484,240], c5:[532,268], c6:[532,332], c7:[484,360], o:[372,198], br:[580,360] };
+const moR = p => [640-p[0], 600-p[1]];
+function moDraw(user){
+  const c=moctx, W=moCv.width, H=moCv.height, ink=css('--ink');
+  if(user && !MO.opened && MO.pred>=0){ MO.opened=1; WOW.emit('open', { id:'molecule' }); }
+  const n=moN(); if(MO.pred>=0) MO.seen[n]=1;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* the cloth swatch on top */
+  xCloth(c, 50, 26, 540, 96, MO_COL[n][0]);
+  xLabel(c, MO_COL[n][1], 320, 74, 26, ink, .92);
+  /* the bonds */
+  const line=(a,b,w)=>{ c.beginPath(); c.moveTo(a[0],a[1]); c.lineTo(b[0],b[1]); c.lineWidth=w||5; c.stroke(); };
+  const dbl=(a,b,off)=>{ const dx=b[0]-a[0], dy=b[1]-a[1], L=Math.hypot(dx,dy), nx=-dy/L*off, ny=dx/L*off; line([a[0]+nx,a[1]+ny],[b[0]+nx,b[1]+ny],4); line([a[0]-nx,a[1]-ny],[b[0]-nx,b[1]-ny],4); };
+  c.strokeStyle=ink; c.lineCap='round';
+  dbl(MO_P.c2, moR(MO_P.c2), 6);                                            /* the central C=C */
+  [MO_P, null].forEach((_,h)=>{ const P = k => h ? moR(MO_P[k]) : MO_P[k];
+    ['c2-c3','c3-c3a','c3a-c7a','c7a-n1','n1-c2','c3a-c4','c4-c5','c5-c6','c6-c7','c7-c7a'].forEach(e=>{ const [a,b]=e.split('-'); line(P(a),P(b)); });
+    dbl(P('c3'), P('o'), 5);
+    /* the benzene ring's inner circle */
+    const cx=(P('c3a')[0]+P('c5')[0]+P('c7')[0])/3, cy=(P('c4')[1]+P('c7')[1])/2; c.lineWidth=3; c.beginPath(); c.arc(cx,cy,24,0,2*PI); c.stroke();
+  });
+  /* atoms: O, NH, and the two Br/H sites */
+  const atom=(p,txt,fill,r,tc)=>{ c.fillStyle=fill; c.beginPath(); c.arc(p[0],p[1],r,0,2*PI); c.fill(); c.strokeStyle=ink; c.lineWidth=2.5; c.stroke(); xNum(c, txt, p[0], p[1]+1, 22, tc||'#FFFFFF'); };
+  [0,1].forEach(h=>{ const P = k => h ? moR(MO_P[k]) : MO_P[k];
+    atom(P('o'), 'O', isDark()?'#E0605A':'#C8452D', 22);
+    atom(P('n1'), 'NH', isDark()?'#5C8FD8':'#2F6F9F', 26);
+    const site=P('c6'), b=P('br');
+    let bx=b[0], by=b[1], alpha=1;
+    if(MO.ray && MO.ray.i===h && MO.ray.u>0.55){ const v=(MO.ray.u-0.55)/0.45; bx += (h?-1:1)*v*90; by += (h?-1:1)*v*40; alpha=1-v; }
+    const hp=[(site[0]+b[0])/2,(site[1]+b[1])/2];
+    c.strokeStyle=ink;
+    if(MO.br[h]){ if(alpha===1) line(site, b, 5); else line(site, hp, 5); c.globalAlpha=alpha; atom([bx,by], 'Br', BROM(), 30); c.globalAlpha=1; }
+    else { line(site, hp, 5); atom(hp, 'H', isDark()?'#3A3F66':'#E5DFCF', 15, ink); }
+  });
+  /* the sun and its ray */
+  xSun(c, 600, 196, 18);
+  if(MO.ray){ const tg = MO.ray.i ? moR(MO_P.br) : MO_P.br, u=Math.min(1,MO.ray.u/0.55); c.strokeStyle=GOLD(); c.lineWidth=7; c.setLineDash([14,8]); c.beginPath(); c.moveTo(600,196); c.lineTo(600+(tg[0]-600)*u, 196+(tg[1]-196)*u); c.stroke(); c.setLineDash([]); }
+  /* legend + molecular weight */
+  xTag(c, 'ברום', 'Br', 520, 476, 22, BROM(), 'center', .92); xTag(c, 'חמצן', 'O', 340, 476, 22, ink, 'center', .92); xTag(c, 'חנקן', 'N', 160, 476, 22, ink, 'center', .92);
+  xTag(c, 'משקל המולקולה:', n===1?'?':String([262,341,420][n]), 320, 542, 22, n===2?PURP():ink, 'center', .92);
+  moOut.innerHTML='<span class="num">'+n+'</span>'; moOut2.textContent=MO_COL[n][1].split(' — ')[0];
+  if(MO.pred>=0 && MO.seen[0] && MO.seen[2] && !MO.revealed){ MO.revealed=1; moReveal.hidden=false; }
+  if(user===1 && MO.pred>=0){
+    if(n===2) moMsg.innerHTML='שני אטומי ברום: <b>ארגמן</b>, הסגול של החילזון.'+(MO.seen[0]?'':' עכשיו נסו להוריד את שניהם.');
+    else if(n===1) moMsg.innerHTML='ברום אחד: הצבע כבר כחול־סגול. זה חלק מהתכלת שמקבלים מחילזון בשמש.';
+    else moMsg.innerHTML='בלי ברום: <b>אינדיגו</b>, הכחול של הג׳ינס. '+(MO.pred===1?'אותה מולקולה — בדיוק כמו שניחשתם!':'אותו שלד בדיוק, רק בלי שני האטומים.');
+  }
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  storyQ:{ q:'למה הבד שבשמש נעשה סגול, והבד שבקופסה החשוכה לא?', opts:['כי השמש מייבשת את הבד','כי בקופסה לא היה אוויר בכלל','כי האור עושה את הצעד האחרון בתגובה הכימית שיוצרת את הצבע','כי בשמש הבד מתלכלך'], a:2, fb:'האוויר עושה את הצעדים הראשונים, ולכן גם הבד שבחושך הצהיב והוריק. אבל את הצעד האחרון, שבו נוצר הסגול, עושה <b>האור</b>. בקופסה היה אוויר (הבד שם הצהיב), ייבוש לא יוצר צבע, ולכלוך בטח לא נותן סגול של קיסרים.', btn:'next1' },
+  snailQ:{ q:'למה הצבע של החילזון היה נדיר כל כך?', opts:['כי החלזונות חיו רק בארץ אחת רחוקה','כי בכל חילזון יש רק טיפה זעירה, וצריך כמעט <span class="num">10,000</span> חלזונות לגרם אחד','כי ערבבו את הצבע עם זהב','כי רק אדם אחד בעולם ידע איך מכינים אותו'], a:1, fb:'פרידלנדר קיבל מ־<span class="num">12,000</span> חלזונות רק <span class="num">1.4</span> גרם. החלזונות חיו לאורך כל הים התיכון, לא היה בצבע זהב, ובתי צביעה היו בהרבה ערים. הבעיה הייתה הכמות: טיפה זעירה בכל חילזון.' },
+  priceQ:{ q:'ליטרה של משי סגול עלתה <span class="num">150,000</span> דינר, וליטרה של זהב <span class="num">72,000</span>. פי כמה בערך המשי הסגול יקר יותר?', opts:['פי <span class="num">78</span>','פי <span class="num">10</span>','הוא זול יותר — חצי מחיר','פי <span class="num">2</span> בערך'], a:3, fb:'<span class="math">150,000 ÷ 72,000 ≈ 2</span>: כמעט פי שניים בדיוק. "פי <span class="num">78</span>" יוצא אם מחסירים ומבלבלים אלפים (<span class="math">150 − 72 = 78</span>), אבל "פי כמה" שואל על <b>חילוק</b>. ופי <span class="num">10</span> זה הרבה יותר מדי.' },
+  siteQ:{ q:'מה גילו החוקרים בתל שקמונה שבחיפה?', opts:['אגני חרס עם כתמים של צבע סגול: מפעל לצבע חלזונות מלפני כ־<span class="num">3,000</span> שנה','ספינה טבועה מלאה זהב','ערימה של חלזונות חיים','את הגלימה של קיסר רומי'], a:0, fb:'על שברי כלי החרס שנחפרו שם בשנות ה־<span class="num">60</span> וה־<span class="num">70</span> נשארו כתמים סגולים. זה מפעל הארגמן הגדול ביותר שידוע מתקופת הברזל. בגדים כמעט לא שורדים באדמה לחה — לכן הצמר הסגול נמצא דווקא במדבר, בתמנע.' },
+  deepQ:{ q:'צבע החילזון מומס בכלי צביעה פתוח, בשמש חזקה. מה קורה לו?', opts:['הוא נעשה אדום בוהק','הוא נעלם, והמים נעשים שקופים','האור תולש ממנו אטומי ברום, והסגול נעשה כחול יותר','שום דבר — שמש לא משנה צבעים'], a:2, fb:'זה הגילוי של אוטו אלזנר: השמש תולשת את אטומי הברום, ומה שנשאר הוא אינדיגו כחול. כך מקבלים תכלת מאותו חילזון. הצבע לא נעלם ולא מאדים, והשמש דווקא משנה מאוד את הצבע הזה — כמו שראיתם בפרק <span class="num">1</span>.' },
+};
+const MCQ = {
+  shared:[
+    { q:'סחטו מהחילזון נוזל כמעט שקוף ושמו אותו בשמש. באיזה סדר הוא מחליף צבעים?', opts:['קודם סגול, ואז הוא דוהה לשקוף','קודם צהוב, אחר כך ירוק, אחר כך כחול, ובסוף סגול','קודם אדום, אחר כך כתום, ובסוף צהוב','הוא נשאר שקוף, ורק הבד נצבע'], a:1, fb:'הנוזל עובר שרשרת של שינויים כימיים: האוויר מצהיב ומוריק אותו, והאור משלים: כחול ובסוף סגול. הוא לא מתחיל סגול, לא הולך לכיוון האדום־צהוב, והצבע הוא בנוזל עצמו — הבד רק סופג אותו.' },
+    { q:'פרידלנדר הוציא <span class="num">1.4</span> גרם צבע מ־<span class="num">12,000</span> חלזונות. מה אפשר לצבוע בכמות כזאת?', opts:['גלימה שלמה','עשר גלימות','את כל הקירות של ארמון','רק פס צר בשולי בגד אחד'], a:3, fb:'<span class="num">1.4</span> גרם הם פחות מהמשקל של שני אטבים, ומספיקים רק לשוליים של בגד אחד. לגלימה שלמה בסגול עמוק היו צריכים עשרות אלפי חלזונות — ולכן רק העשירים ביותר יכלו.' },
+    { q:'מה ההבדל בין אינדיגו, הכחול של הג׳ינס, לבין הסגול של החילזון?', opts:['זו כמעט אותה מולקולה, ובסגול יש עוד שני אטומי ברום','אין שום קשר ביניהם','הסגול הוא אינדיגו שעורבב עם צבע אדום','אין הבדל — זה אותו חומר בדיוק'], a:0, fb:'שתי המולקולות בנויות מאותו שלד, ובסגול יש בקצוות שני אטומי <b>ברום</b>, שהחילזון אוסף ממי הים. כשהשמש תולשת אותם, הסגול נעשה כחול. לא עירבבו צבע אדום, והחומרים לא זהים: שני אטומים עושים את כל ההבדל.' },
+  ],
+  younger:[
+    { q:'מי לבש בגדים בצבע סגול של חלזונות ברומא?', opts:['כל הילדים בבית הספר','רק הדייגים שאספו את החלזונות','רק העשירים והחשובים, ובסוף רק הקיסר','החיילים, כדי שיראו אותם מרחוק'], a:2, fb:'הצבע היה יקר כל כך, שרק אנשים חשובים מאוד לבשו אותו, ובסוף רק <b>הקיסר</b> הורשה. לילדים ולדייגים לא היה כסף לזה, ולחיילים היו בגדים פשוטים.' },
+  ],
+  older:[
+    { q:'אינדיגו שוקל <span class="num">262</span> יחידות. כל אטום ברום (<span class="num">80</span>) נכנס במקום אטום מימן (<span class="num">1</span>). כמה שוקלת מולקולה עם ברום <b>אחד</b>?', opts:['<span class="num">342</span>','<span class="num">341</span>','<span class="num">420</span>','<span class="num">262</span>'], a:1, fb:'<span class="math">262 − 1 + 80 = 341</span>. מי שקיבל <span class="num">342</span> שכח להוריד את המימן, ו־<span class="num">420</span> היא המולקולה עם <b>שני</b> אטומי ברום, הסגול המלא. <span class="num">262</span> זה אינדיגו בלי ברום בכלל.' },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'פיניקים מקימים תחנת צביעה קטנה על גבעה בחוף של חיפה, בתל שקמונה.'},
+  {id:'b', t:'הקיסר הרומי דיוקלטיאנוס חורט על אבן: משי סגול עולה <span class="num">150,000</span> דינר.'},
+  {id:'c', t:'סטודנט בן <span class="num">18</span> בלונדון מקבל במקרה צבע סגול מלאכותי, "מוב".'},
+  {id:'d', t:'כימאי גרמני מוציא <span class="num">1.4</span> גרם צבע מ־<span class="num">12,000</span> חלזונות, ומגלה שזה אינדיגו עם ברום.'},
+  {id:'e', t:'כימאי ממכללת שנקר מגלה שהשמש הופכת את צבע החילזון לכחול.'},
+  {id:'f', t:'חוקרים מפרסמים פיסות צמר סגול בנות <span class="num">3,000</span> שנה מעמק תמנע.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלך: ' : '<span class="pill-ok">סדר מושלם!</span>')+' תל שקמונה (לפני כ־<span class="num">3,000</span> שנה) ← דיוקלטיאנוס (<span class="num">301</span>) ← פרקין (<span class="num">1856</span>) ← פרידלנדר (<span class="num">1909</span>) ← אלזנר (שנות ה־<span class="num">80</span>) ← תמנע (<span class="num">2021</span>). שימו לב: הצמר מתמנע עתיק מאוד, אבל את הגילוי פרסמו רק לאחרונה.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) הפיניקים בשקמונה חיו לפני הרומאים, והרומאים הרבה לפני כל הכימאים. (2) קודם המציאו סגול מלאכותי, ורק אחר כך גילו ממה עשוי הסגול של החילזון. והכרטיס האחרון הוא גילוי שפורסם ממש לא מזמן.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && a>=0.11 && a<=0.12, bOk = hasB && b>=0.52 && b<=0.54;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && a>110 && a<120) ? '(א): קיבלתם פי <span class="num">1,000</span> יותר מדי. בדקו: <span class="num">1.4</span> גרם הם <span class="num">1,400</span> מיליגרם, ומחלקים ב־<span class="num">12,000</span>, לא ב־<span class="num">12</span>.'
+    : (hasA && a>0 && a<0.001) ? '(א): זה בגרם. השאלה ב<b>מיליגרם</b>: הכפילו ב־<span class="num">1,000</span>.'
+    : (hasA && a>8000 && a<9000) ? '(א): הפכתם את החילוק: זה מספר החלזונות לגרם. השאלה היא כמה צבע יש בחילזון <b>אחד</b>.'
+    : (hasA && a>0.12 && a<0.13) ? '(א): קרוב מאוד. בדקו את העיגול: <span class="math">1,400 ÷ 12,000</span>.'
+    : '(א): רמז — קודם הפכו את <span class="num">1.4</span> גרם למיליגרם, ואז חלקו במספר החלזונות.';
+  const hintB = (hasB && b>0.55 && b<0.57) ? '(ב): עיגלתם ל־<span class="num">40%</span>. השתמשו במספרים המדויקים: <span class="math">160 ÷ 420</span>.'
+    : (hasB && b>0.37 && b<0.39) ? '(ב): זה <b>החלק</b> של הברום, <span class="math">160 ÷ 420</span>. עכשיו קחו את החלק הזה מתוך <span class="num">1.4</span> גרם.'
+    : (hasB && b>3.6 && b<3.8) ? '(ב): הפכתם את השבר: הברום הוא <b>חלק קטן</b> מהמולקולה, ולכן התשובה קטנה מ־<span class="num">1.4</span>.'
+    : (hasB && b>0.26 && b<0.28) ? '(ב): חישבתם אטום ברום אחד. במולקולה יש <b>שניים</b>: <span class="num">160</span> יחידות.'
+    : '(ב): רמז — איזה חלק מהמולקולה הוא ברום? <span class="math">160 ÷ 420</span>. ואז: החלק הזה כפול <span class="num">1.4</span> גרם.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="num">1.4</span> גרם הם <span class="num">1,400</span> מיליגרם, ו־<span class="math">1,400 ÷ 12,000 ≈ 0.12</span> מיליגרם לחילזון: בערך המשקל של שני גרגרי מלח. (ב) <span class="math">160 ÷ 420 ≈ 0.38</span>, ולכן <span class="math">1.4 × 0.38 ≈ 0.53</span> גרם ברום. יותר משליש מהצבע של פרידלנדר הגיע ממי הים, דרך הגוף של החלזונות.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : aOk ? '<span class="pill-ok">(א) נכון — כ־<span class="num">0.12</span> מיליגרם.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">0.53</span> גרם.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const dy=+numAdvR.value, yr=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && Math.abs(dy-2880)<0.5), yOk=(hasY && yr>=9.1 && yr<=9.3), sc = dOk&&yOk?2:((dOk||yOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && Math.abs(dy-1800000)<1) ? 'ב־(א): הכפלתם. כמה פעמים <span class="num">25</span> נכנס ב־<span class="num">72,000</span>? מחלקים.'
+      : (hasD && (Math.abs(dy-288)<1 || Math.abs(dy-28800)<1)) ? 'ב־(א): בדקו את האפסים: <span class="math">72,000 ÷ 25</span>.'
+      : (hasD && (Math.abs(dy-6000)<1 || Math.abs(dy-2000)<1)) ? 'ב־(א): זה מספר הימים של משי או צמר. כאן השאלה על <b>זהב</b>: <span class="num">72,000</span> דינר.'
+      : 'רמז ל־(א): כמה פעמים נכנס השכר של יום אחד במחיר? מחלקים את המחיר בשכר היומי.';
+    const hintY = (hasY && yr>7.8 && yr<8.0) ? 'ב־(ב): חילקתם ב־<span class="num">365</span>. אבל הפועל עובד רק <span class="num">6</span> ימים בשבוע: כמה ימי עבודה יש לו בשנה?'
+      : (hasY && yr>55 && yr<56) ? 'ב־(ב): זה מספר ה<b>שבועות</b> (<span class="math">2,880 ÷ 52</span>). צריך לחלק בימי העבודה של שנה שלמה.'
+      : (hasY && Math.abs(yr-480)<1) ? 'ב־(ב): זה מספר השבועות של <span class="num">6</span> ימים. עכשיו עברו לשנים: בשנה יש <span class="num">52</span> שבועות.'
+      : (hasY && yr>=9.0 && yr<9.1) ? 'ב־(ב): כמעט! בדקו את העיגול: <span class="math">2,880 ÷ 312</span>.'
+      : 'רמז ל־(ב): קודם חשבו כמה ימי עבודה יש בשנה (<span class="num">6</span> ימים כפול <span class="num">52</span> שבועות), ואז חלקו.';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">72,000 ÷ 25 = 2,880</span> ימי עבודה. (ב) <span class="math">6 × 52 = 312</span> ימי עבודה בשנה, ו־<span class="math">2,880 ÷ 312 ≈ 9.2</span> שנים. יותר מתשע שנות עבודה בשביל ליטרה של זהב — ומשי סגול היה יקר פי שניים.'
+      : dOk ? '<span class="pill-ok">(א) נכון — <span class="num">2,880</span> ימים.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">9.2</span> שנים.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-3000)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">6 × 500 = 3,000</span> חלזונות. ומה יוצא מהם? רק רבע מהצבע של פרידלנדר: בערך שליש גרם.':(Math.abs(v-506)<0.01)?'<span class="pill-bad">חיברתם.</span> יש <span class="num">6</span> סלים, ובכל אחד <span class="num">500</span>: צריך <span class="num">500</span>, שש פעמים.':(Math.abs(v-300)<0.01||Math.abs(v-30000)<0.01)?'<span class="pill-bad">כמעט — ספרו את האפסים.</span> <span class="math">6 × 5 = 30</span>, ועכשיו מוסיפים את שני האפסים של <span class="num">500</span>.':(Math.abs(v-500)<0.01)?'<span class="pill-bad">זה סל אחד.</span> הצובע אסף <span class="num">6</span> סלים.':'<span class="pill-bad">לא בדיוק.</span> רמז: <span class="num">500</span>, ועוד <span class="num">500</span>, ועוד... שש פעמים. או: <span class="math">6 × 5</span> מאות.'; }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-2880)<0.5; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">72,000 ÷ 25 = 2,880</span> ימי עבודה: כמעט שמונה שנים, בלי יום חופש אחד. ומשי סגול היה יקר פי שניים.':(Math.abs(v-1800000)<1)?'<span class="pill-bad">הכפלתם.</span> השאלה היא כמה פעמים השכר של יום <b>נכנס</b> במחיר: מחלקים.':(Math.abs(v-288)<1||Math.abs(v-28800)<1)?'<span class="pill-bad">בדקו את האפסים.</span> <span class="math">72,000 ÷ 25</span>: כמה פעמים <span class="num">25</span> נכנס ב־<span class="num">100</span>? ואז ב־<span class="num">72,000</span>?':(Math.abs(v-6000)<1||Math.abs(v-2000)<1)?'<span class="pill-bad">זה מספר הימים של משי או של צמר.</span> כאן השאלה על <b>זהב</b>, <span class="num">72,000</span> דינר.':(v>0 && v<1)?'<span class="pill-bad">הפכתם את החילוק.</span> מחלקים את המחיר בשכר, לא את השכר במחיר.':'<span class="pill-bad">לא בדיוק.</span> רמז: מחלקים את המחיר בשכר של יום אחד.'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שבבלוטה של חילזון הים יש נוזל כמעט שקוף, והצבע עוד "מסתתר" בו.',
+  'הסברתי שהאוויר והשמש משנים את הנוזל בתגובה כימית — צהוב, ירוק, כחול, ובסוף סגול — ושבלי אור הוא לא נעשה סגול.',
+  'הסברתי שבכל חילזון יש רק טיפה זעירה, וצריך אלפי חלזונות (<span class="num">12,000</span> חלזונות ל־<span class="num">1.4</span> גרם), ולכן הצבע היה נדיר.',
+  'כתבתי שבגלל זה הצבע היה יקר מאוד: משי סגול עלה פי שניים מזהב, ורק הקיסר הורשה ללבוש אותו.',
+  'הוספתי פרט מדויק: תל שקמונה בחיפה, שני אטומי הברום (כמעט אינדיגו), <span class="num">6,000</span> ימי עבודה, או התכלת שנוצרת בשמש חזקה.',
+];
+const MODEL='בגוף של חילזון הים, הארגמון, יש בלוטה קטנה, ובה נוזל כמעט שקוף. הצבע עוד לא שם: יש רק חומר שמחכה. כשהנוזל נוגע באוויר הוא מצהיב ומוריק, ואז אור השמש עושה את הצעד האחרון בתגובה הכימית, והוא נעשה כחול ובסוף סגול. בחושך הוא נתקע בירקרק. הצבע עצמו הוא כמעט אינדיגו, הכחול של הג׳ינס, עם עוד שני אטומי ברום מהים. הוא היה יקר, כי בכל חילזון יש רק טיפה זעירה: מ־12,000 חלזונות יצאו רק 1.4 גרם, מספיק לפס בשולי בגד אחד. לכן בשנת 301 ליטרה של משי סגול עלתה 150,000 דינר, פי שניים מזהב, כמו <span class="math">150,000 ÷ 25 = 6,000</span> ימי עבודה של פועל, ורק הקיסר לבש אותו.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון (בבלוטה יש חומר מוצא חסר צבע; אנזים וחמצן מהאוויר הופכים אותו לתוצרי ביניים צהובים־ירקרקים, והאור שובר אותם ויוצר את הצבע — בלי אור אין סגול; הצבע הוא אינדיגו עם שני אטומי ברום מהים, שמשנים את הצבעים שהמולקולה בולעת, ושמש חזקה על הצבע המומס תולשת אותם ונותנת כחול; הנדירות היא כמות: 12,000 חלזונות ל־1.4 גרם, כ־8,600 לגרם, ולכן המחיר: 150,000 דינר לליטרת משי מול 72,000 לזהב) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "הצבע שהיה יקר מזהב — והחילזון שהסתיר אותו": צבע הארגמן מחלזונות ים. הרעיונות המרכזיים: (1) הצבע מגיע מחילזון ים קוצני, הארגמון, שחי בים התיכון וגם בחופי ישראל; בבלוטה באורך כ־2 ס״מ יש נוזל כמעט שקוף; (2) אוויר (חמצן ואנזים) הופך אותו לצהוב וירקרק, ואור השמש עושה את הצעד האחרון: כחול ואז סגול; בחושך הוא נעצר בירקרק; הצבע לא דוהה בשמש, ואפילו נעשה בהיר יותר עם השנים; (3) פאול פרידלנדר, 1909: מ־12,000 חלזונות 1.4 גרם צבע טהור, מספיק לפס בשולי בגד אחד; כ־8,600 חלזונות לגרם; ריח של חלזונות מרקיבים בבתי הצביעה בצור; ערימת קונכיות גדולה בצידון; (4) צו המחירים של דיוקלטיאנוס, 301: פועל 25 דינר ליום, ליטרה זהב 72,000, ליטרה צמר סגול 50,000, ליטרה משי סגול 150,000 — פי 2 מזהב, 6,000 ימי עבודה; ליטרה רומית כ־330 גרם; פס סגול לבעלי תפקידים, גלימה סגולה לגנרל מנצח, במאה הרביעית רק הקיסר; "נולד בארגמן" בביזנטיון; (5) תל שקמונה בחיפה, כ־30 ק״מ מזכרון יעקב: חוקרי אוניברסיטת חיפה (איילת גלבוע וגולן שלוי) מצאו אגני חרס מוכתמים בסגול — מפעל הארגמן הגדול ביותר הידוע מתקופת הברזל, לפני כ־3,000 שנה; פיניקים במאה ה־11 לפנה״ס, אחר כך ממלכת ישראל, שיא בימי ירבעם השני; תמנע 2021: צמר צבוע ארגמן בן 3,000 שנה; (6) הצבע הוא אינדיגו (הכחול של הג׳ינס) עם שני אטומי ברום מהים; 262 יחידות מול 420; שמש חזקה על הצבע המומס תולשת את הברום ונותנת כחול — תכלת (אוטו אלזנר, שנקר, שנות ה־80); החילזון משתמש בחומר להרדמת טרף ולהגנה על הביצים; (7) פרקין, 1856, בן 18: צבע סגול מלאכותי, "מוב". חישובי המבחן: צעיר — 6 × 500 = 3,000 חלזונות; בוגר — ליטרה זהב: 72,000 ÷ 25 = 2,880 ימי עבודה; מתקדם — 72,000 ÷ 25 = 2,880 ימים, 6 × 52 = 312 ימי עבודה בשנה, 2,880 ÷ 312 ≈ 9.2 שנים; אתגר — 1,400 ÷ 12,000 ≈ 0.12 מיליגרם לחילזון, 1.4 × 160 ÷ 420 ≈ 0.53 גרם ברום.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם שהנוזל של החילזון כמעט שקוף ונעשה סגול רק בעזרת אוויר ואור שמש (תגובה כימית), וגם שהצבע היה יקר כי בכל חילזון יש טיפה זעירה וצריך אלפי חלזונות; 1 אם יש רק אחד מהשניים או רק חלק. תשובה שאומרת שהצבע נעשה מזהב, או שהחילזון סגול מבפנים — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', מגיע לך ארגמן של קיסרים!':pct>=60?name+', הבד שלך כבר מכחיל ומסגיל!':name+', הטיפה הראשונה כבר אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=4;                                                       // almost 10,000 snails per gram (≈ 8,600)
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: לגרם אחד של צבע צריך <b>כמעט <span class="num">10,000</span> חלזונות</b> — כ־<span class="num">8,600</span>.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>כמעט <span class="num">10,000</span> חלזונות</b> — וקלעת. ומ־<span class="num">12,000</span> חלזונות יוצא רק פס אחד בשולי בגד.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. התשובה: כמעט <span class="num">10,000</span> חלזונות לגרם, כ־<span class="num">8,600</span>. ומ־<span class="num">12,000</span> חלזונות יוצא רק פס אחד בשולי בגד.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה חלזונות לגרם צבע): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: כמעט 10,000 — כ־8,600)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "הצבע שהיה יקר מזהב — והחילזון שהסתיר אותו", מהדורה 47, י״ז בחשוון תשפ״ז (יום רביעי, 28 באוקטובר 2026). נושא: צבע הארגמן מחלזונות ים — כימיה (חומר מוצא חסר צבע, אנזים, חמצון באוויר, תגובה שצריכה אור, אינדיגו וברום, למה מולקולות צבועות), ביולוגיה (חילזון הארגמון, הבלוטה, למה הוא מייצר את החומר), היסטוריה (פיניקים, ממלכת ישראל, רומא, ביזנטיון, פרידלנדר, פרקין), גאוגרפיה (חופי הים התיכון, צור וצידון, תל שקמונה בחיפה, עמק תמנע) ומתמטיקה (יחסים ופי כמה, חילוק, המרת גרם למיליגרם, שברים ואחוזים). העובדות: חלזונות הארגמון (בעברית "ארגמון"; Bolinus brandaris, Hexaplex trunculus ו־Stramonita haemastoma) הם חלזונות ים טורפים עם קונכייה קוצנית, החיים בים התיכון ובחופי ישראל. בבלוטה (בלוטת ההפרשה, פס של כ־2 ס״מ על 4 מ״מ) יש חומר מוצא חסר צבע (בעיקר טירינדוקסיל סולפט); כשהחילזון נפגע או נסחט, אנזים (סולפטאז) מפרק אותו, החלקים מגיבים עם חמצן מהאוויר ויוצרים תוצרי ביניים צהובים־ירקרקים, ואור השמש שובר אותם ויוצר את הצבע: 6,6׳־דיברומואינדיגו, הארגמן. הנוזל עובר מצהוב לירוק, לכחול ולסגול. אצל חלק מהמינים חלק מהצבע נוצר גם בחושך, אבל המסלול העיקרי צריך אור. הצבע לא דוהה בשמש, ובדים עתיקים אפילו נעשו בהירים יותר עם השנים. החילזון משתמש בחומרים האלה כדי להרדים טרף וכציפוי נגד חיידקים על הביצים. אגדה יוונית: כלב נגס בחילזון והפה שלו נצבע. פאול פרידלנדר, כימאי גרמני, 1909: קיבל מחוקרי ים כ־12,000 חלזונות Bolinus brandaris והוציא 1.4 גרם צבע טהור — מספיק לשולי בגד אחד; גילה שזה אינדיגו עם ברום. 1,400 מיליגרם ÷ 12,000 ≈ 0.12 מיליגרם לחילזון; 12,000 ÷ 1.4 ≈ 8,600 חלזונות לגרם. הערכות לבגד שלם משתנות (אלפים עד עשרות אלפים). בתי הצביעה הסריחו מחלזונות מרקיבים; סטרבון כתב שבצור לא נעים לגור בגללם; בצידון ערמת קונכיות גדולה; לפי דיווח מאנדריאקה שבטורקיה, הקונכיות קטנות יותר בשכבות העליונות — כנראה דיג־יתר. צו המחירים של הקיסר דיוקלטיאנוס, 301 לספירה, חרוט על אבן: פועל עם כלכלה 25 דינר ליום; בשר חזיר 12 דינר לליטרה; ליטרה זהב טהור 72,000; ליטרה צמר צבוע ארגמן 50,000; ליטרה משי צבוע ארגמן 150,000 — המחיר הגבוה ברשימה, פי 2 מזהב, 6,000 ימי עבודה. ליטרה רומית כ־330 גרם, בערך שליש קילו. ברומא: מגיסטרטים עם פס סגול בשולי הטוגה, גנרל בתהלוכת ניצחון בגלימה סגולה רקומה בזהב; במאה הרביעית רק הקיסר; "ללבוש את הארגמן" = להיות קיסר; בביזנטיון מהמאה ה־9 ילד שנולד לקיסר מולך נקרא "פורפירוגנטוס" — שנולד בארגמן (לפי המסורת בחדר מצופה אבן פורפיר). תל שקמונה: גבעה קטנה בחוף המערבי של חיפה, בין הכרמל לים, כ־30 ק״מ צפונית לזכרון יעקב; יוסף אלגביש חפר בשנות ה־60–70; פרופ׳ איילת גלבוע וד״ר גולן שלוי מאוניברסיטת חיפה מצאו אגני חרס רבים מוכתמים בארגמן; לפי פרסום האוניברסיטה מ־2023 זה מפעל הארגמן הגדול ביותר הידוע מתקופת הברזל, והתוצרת גדולה פי כמה מכל אתר אחר; פיניקים הקימו אתר קטן במאה ה־11 לפנה״ס; מאמצע המאה ה־9 אתר מבוצר של ממלכת ישראל; שיא בימי ירבעם השני (המאה ה־8), חורבן כ־740 לפנה״ס; ייצור שוב תחת אשור; סוף בכיבוש הבבלי כ־600 לפנה״ס; אין שם שדות ולא נמל טוב — המקום התאים לייצור צבע; החוקרים משערים שהספיק ארגמן לממלכה ואולי לירושלים. עמק תמנע: ב־2021 פורסמו שלוש פיסות צמר צבוע בארגמן אמיתי, כ־1000 לפנה״ס (נעמה סוקניק מרשות העתיקות וארז בן־יוסף מאוניברסיטת תל אביב, PLoS ONE) — ההוכחה הישירה הראשונה לבד כזה מאותה תקופה. בתנ״ך: ארגמן ותכלת. כימיה: אינדיגו (C16H10N2O2) שוקל כ־262 יחידות; בארגמן שני אטומי ברום (כ־80 כל אחד) במקום שני אטומי מימן: 262 − 2 + 160 = 420; ברום אחד: 341 (6־ברומואינדיגו, כחול־סגול). צבע = האור שהמולקולה לא בולעת: אינדיגו בולע בעיקר כתום ונראה כחול; הארגמן על בד בולע בעיקר ירוק (כ־520 ננומטר) ונראה סגול אדמדם; הסגול האדמדם אינו צבע של הקשת אלא ערבוב של אדום וכחול. אוטו אלזנר, מכללת שנקר, שנות ה־80: תמיסת הצבע שנחשפת לאור אולטרה־סגול (שמש) מאבדת ברום ונותנת כחול — כך מקבלים תכלת מ־Hexaplex trunculus; הרב הרצוג הציע את החילזון הזה ב־1913. ויליאם פרקין, בן 18, בחופשת הפסחא 1856, ניסה להכין כינין וקיבל צבע סגול מלאכותי, "מוב"; מפעל ליד לונדון ב־1857. פרק 1, אינטראקטיב "שמש מול חושך": שתי פיסות בד בנוזל, אחת בשמש ואחת בקופסה חשוכה, מחוון 0–15 דקות (זמנים מקורבים); בשמש: שקוף, צהוב, ירוק, כחול, סגול; בחושך נעצר בצהוב־ירקרק; ניחוש: רק זו שבשמש. פרק 2, "ערימת החלזונות": מחוון 0–12,000 חלזונות (כל ציור 500), מבחנה שמתמלאת (1.4 גרם בסוף) וגלימה שרק הפס בשוליה נצבע; ניחוש: רק פס בשולי גלימה אחת. פרק 3, "המאזניים של הקיסר": ליטרה זהב (72,000) מול בשר (12), צמר סגול (50,000) או משי סגול (150,000), ופס ימי עבודה; ניחוש: המשי יקר יותר. פרק 5, "בונים מולקולה": שלד של אינדיגו עם שני מקומות לברום; 0 ברום כחול, 1 כחול־סגול, 2 סגול; כפתור "שמש על כלי הצביעה" תולש ברום; ניחוש: אותה מולקולה ועוד שני אטומים. ניסויי בית: מי כרוב אדום (מבוגר מטפל במים החמים ובסכין), פס בד, לימון (ורוד־אדום) וסודה לשתייה (כחול־ירקרק); נייר צבעוני בחלון שמש לשבוע — דוהה מסביב לעלה; צילום קונכיות בחופי הכרמל ומשאירים אותן במקום (בשמורות אסור לקחת). אתגר (בוגר): 1.4 גרם = 1,400 מיליגרם, 1,400 ÷ 12,000 ≈ 0.12 מיליגרם לחילזון; 160 ÷ 420 ≈ 0.38, 1.4 × 0.38 ≈ 0.53 גרם ברום; שאלת מחשבה: כלי צביעה פתוח בשמש חזקה — הברום נתלש והבד יוצא כחלחל; כדי לשמור על הסגול עובדים מכוסה או בצל. חישובי המבחן: צעיר — 6 × 500 = 3,000 חלזונות; בוגר — ליטרה זהב: 72,000 ÷ 25 = 2,880 ימי עבודה; מתקדם — 72,000 ÷ 25 = 2,880 ימים, 6 × 52 = 312, 2,880 ÷ 312 ≈ 9.2 שנים. סידור: פיניקים בשקמונה ← צו דיוקלטיאנוס ← פרקין ← פרידלנדר ← אלזנר ← פרסום הצמר מתמנע. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט (הזמנים במעבדה מקורבים; "בולע ירוק" הוא פישוט; ההערכות לבגד שלם משתנות; ציור המולקולה סכמטי) ומה ששנוי במחלוקת (כמה חלזונות לבגד; אם הצבע משקמונה הגיע לירושלים; זיהוי התכלת), בכבוד לכל המסורות; בלי לחשוף תשובות מבחן; אם ילד שואל על שאלה מהמבחן, לרמוז ולכוון, לא לפתור. בטיחות: מים חמים וסכין רק עם מבוגר; לא שוברים ולא לוקחים חלזונות חיים מהים; לא טועמים חומרים בניסויים.';
+const CHIPS = ['למה הנוזל של החילזון שקוף?', 'למה הסגול היה יקר מזהב?', 'מה זה ברום?', 'איך מקבלים תכלת מאותו חילזון?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: חומר מוצא חסר צבע, אנזים שמפרק אותו, חמצון באוויר לתוצרי ביניים צהובים־ירקרקים, ואור ששובר אותם ויוצר את הצבע; למה מולקולה נראית צבעונית — היא בולעת חלק מהאור, ואנחנו רואים את השאר; איך שני אטומי ברום משנים את הבליעה, ואיך אור חזק על הצבע המומס תולש אותם ונותן כחול; משקל מולקולה: 262 מול 420; יחסים ופי כמה: 150,000 ÷ 72,000, 12,000 ÷ 1.4, המרת גרם למיליגרם; למה נדירות יוצרת מחיר, ולמה הצבע המלאכותי של פרקין שינה את זה), שאל שאלות המשך שדורשות חשיבה (למשל: אם חילזון גדול נותן פי שניים צבע, כמה חלזונות צריך לגרם? למה בגדים סגולים עתיקים נשמרו דווקא במדבר? מה היה קורה למחיר אם היו מגלים חילזון שנותן פי עשרה צבע? למה סגול אדמדם אינו בקשת?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה הנוזל של החילזון שקוף?</b> כי בבלוטה עוד אין צבע, אלא חומר שמחכה. כשהוא נוגע באוויר הוא מצהיב ומוריק, ואור השמש עושה את הצעד האחרון: כחול, ובסוף סגול. בחושך הוא נתקע בירקרק.<br><br><b>למה הסגול היה יקר מזהב?</b> כי בכל חילזון יש רק טיפה זעירה: מ־12,000 חלזונות יצאו רק 1.4 גרם צבע. לכן בשנת 301 ליטרה של משי סגול עלתה 150,000 דינר — פי שניים מליטרה של זהב.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
