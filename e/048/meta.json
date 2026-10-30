@@ -1,0 +1,24 @@
+{
+  "n": 48,
+  "code": "WOW-048",
+  "date": "2026-10-30",
+  "language": "he",
+  "title": "הירח שנופל על מאדים — והחללית שיצאה לתפוס ממנו חופן",
+  "topics": [
+    "חלל",
+    "פיזיקה",
+    "הנדסה",
+    "היסטוריה",
+    "מתמטיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "Phobos, Mars's falling moon: discovered Aug 1877 by Asaph Hall, urged on by his wife Angeline Stickney (Stickney crater, ~9 km); 26×23×18 km, ~6,000 km up, orbits in 7h39m vs Mars's 24.6 h spin → rises in the west, sets in the east ~twice a day; JAXA's MMX launched 19/20 Oct 2026 (H3, Tanegashima) to land, take ≥10 g and return it to Australia in 2031; gravity ~1/1,700 of Earth's, escape speed ~41 km/h (a 10 km/h jump → ~700 m, >15 min aloft); tidal bulge lags behind the fast moon and drags it down ~1.8 m/century (our Moon: opposite, +3.8 cm/yr); breakup into a ring at ~2.1 Mars radii in 30–50 Myr; Kepler: closer = faster, synchronous line ~20,400 km (Deimos outside, receding); Phobos ≈ Zikhron Ya'akov–Haifa; maths: speed = distance ÷ time, km/h → km/s, m/century → cm/yr, constant-rate estimate vs reality.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-10-30T08:11:59.000Z",
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — nits left: on phones the fixed 'פובוס: 7.7 שעות' plate can cover Phobos at the bottom of its orbit in the sky canvas; the Earth-side height tag can touch the kid on very strong jumps; the Arto button covers canvas corners on phones (template)",
+  "review_url": "https://claude.ai/artifact/Hh3MpUqJADGQrio5r9k2Pp",
+  "editor_note": null
+}

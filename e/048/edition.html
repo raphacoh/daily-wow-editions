@@ -1,0 +1,1871 @@
+<title>שורשים וכנפיים #48 · הירח שנופל על מאדים — והחללית שיצאה לתפוס ממנו חופן</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#6B3FA0; --shadow-soft:#ECE1F7;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 48</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="#C8452D" stop-opacity=".40"/>
+        <stop offset="60%" stop-color="#C8452D" stop-opacity=".10"/>
+        <stop offset="100%" stop-color="#C8452D" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- Mars, the little moon on a spiral path, and a tiny spacecraft -->
+    <g opacity=".95">
+      <circle cx="132" cy="168" r="70" fill="#C8572F" stroke="#1B1F33" stroke-width="3"/>
+      <path d="M86 140 C 104 132 120 150 140 142 C 156 136 168 146 186 140" fill="none" stroke="#8E3A1E" stroke-width="7" stroke-linecap="round" opacity=".7"/>
+      <path d="M92 190 C 112 182 132 198 160 188" fill="none" stroke="#8E3A1E" stroke-width="6" stroke-linecap="round" opacity=".6"/>
+      <path d="M232 168 A 100 100 0 0 1 132 268 A 88 88 0 0 1 48 176 A 76 76 0 0 1 128 96" fill="none" stroke="#1B1F33" stroke-width="2.5" stroke-dasharray="6 6" opacity=".7"/>
+      <path d="M222 140 C 232 128 252 130 256 144 C 260 158 246 168 232 164 C 220 160 216 150 222 140 Z" fill="#A99B8A" stroke="#1B1F33" stroke-width="3"/>
+      <circle cx="244" cy="146" r="5" fill="none" stroke="#1B1F33" stroke-width="2"/>
+      <g transform="translate(236,64) rotate(-20)"><rect x="-8" y="-8" width="16" height="16" fill="#E8A33D" stroke="#1B1F33" stroke-width="2.5"/><rect x="-30" y="-4" width="20" height="8" fill="#2F6F9F" stroke="#1B1F33" stroke-width="2"/><rect x="10" y="-4" width="20" height="8" fill="#2F6F9F" stroke="#1B1F33" stroke-width="2"/></g>
+    </g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 48</span><span class="tag">יום שישי, 30 באוקטובר 2026</span><span class="tag">י״ט בחשוון תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>הירח שנופל על מאדים — והחללית שיצאה לתפוס ממנו חופן</h1>
+  <p class="lede">ב־<span class="num">19</span> באוקטובר, לפני אחד־עשר יום, בעשר וארבעים בלילה לפי השעון שלנו, המריאה מיפן רקטה עם חללית בשם <b>MMX</b>. היא בדרך לירח קטן של מאדים, <b>פובוס</b>: היא אמורה לנחות עליו, לאסוף חופן מהאדמה שלו, ולהביא אותו לכדור הארץ. ולפובוס יש סוד מוזר: הוא <b>נופל</b>. לאט־לאט, כל שנה, הוא מתקרב עוד קצת למאדים. השאלה של היום: <b>למה ירח נופל — ומה יקרה לו בסוף?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">פובוס מתקרב למאדים. בכמה הוא מתקרב <b>בכל שנה</b>?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>בערך <span class="num">2</span> ס״מ</b><span>כמו רוחב של אצבע</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>בערך <span class="num">2</span> מטר</b><span>כמו גובה של דלת</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>בערך <span class="num">2</span> ק״מ</b><span>כמו הליכה של חצי שעה</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>בערך <span class="num">200</span> ק״מ</b><span>כמו נסיעה של שעתיים בכביש</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE MOON THAT RISES IN THE WEST (interactive 1: the sky of Mars) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>הירח המהיר של מאדים</h2>
+  <p>בקיץ של שנת <span class="num">1877</span>, בוושינגטון, ישב אסטרונום בשם <b>אסף הול</b> ליד הטלסקופ הגדול ביותר מסוגו בעולם, וחיפש ירחים סביב מאדים. לילה אחרי לילה הוא לא מצא כלום, והעננים הסתירו את השמיים. הוא כמעט ויתר. אבל אשתו, <b>אנג׳לין סטיקני</b>, מתמטיקאית שהייתה פעם המורה שלו, אמרה לו להמשיך. הול כתב אחר כך שבלי העידוד שלה, אולי היה מפסיק לחפש. ובאמצע אוגוסט, בהפרש של שישה לילות, הוא מצא <b>שני</b> ירחים קטנטנים: <b>דימוס</b> ו<b>פובוס</b>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>פובוס הוא לא ירח עגול ויפה כמו שלנו. הוא נראה כמו <b>תפוח אדמה</b> אפור ומחורר, באורך של כ־<span class="num">26</span> ק״מ בלבד. והוא קרוב מאוד למאדים: רק כ־<span class="num">6,000</span> ק״מ מעל האדמה. והוא גם ממהר מאוד: הוא מקיף את מאדים <b>שלוש פעמים ביום</b>! ומה רואה מי שעומד על מאדים ומסתכל למעלה? משהו מוזר מאוד. במעבדה יש מאדים מלמעלה, ולמטה השמיים שרואה ילד שעומד עליו. רק קודם נחשו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>פובוס הוא גוש סלע לא עגול, בגודל של כ־<span class="math">26 × 23 × 18</span> ק״מ, והוא חג רק כ־<span class="num">6,000</span> ק״מ מעל פני מאדים: אף ירח אחר במערכת השמש לא קרוב כל כך לכוכב הלכת שלו. הקפה אחת לוקחת לו <span class="num">7</span> שעות ו־<span class="num">39</span> דקות, ואילו מאדים מסתובב סביב עצמו פעם ב־<span class="num">24</span> שעות ו־<span class="num">37</span> דקות. כלומר פובוס <b>מהיר יותר מהסיבוב של מאדים</b>, בערך פי <span class="math">24.6 ÷ 7.65 ≈ 3.2</span>. ומה זה עושה לשמיים של מי שעומד על מאדים? במעבדה: למעלה מבט מעל הקוטב, ולמטה השמיים. נחשו קודם.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — השמיים של מאדים ===== -->
+  <div class="panel instrument">
+    <h3>השמיים של מאדים</h3>
+    <p class="cap">נחשו קודם: ילד עומד על מאדים ומחכה שפובוס יופיע בשמיים. מאיזה צד הוא יזרח?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="slP0" onclick="slPredict(0)">במזרח, כמו השמש</button>
+        <button id="slP1" onclick="slPredict(1)">במערב, הפוך מהשמש</button>
+        <button id="slP2" onclick="slPredict(2)">הוא תמיד באותו מקום</button>
+      </div>
+    </div>
+    <canvas role="img" id="slCv" width="640" height="600" aria-label="למעלה: מאדים האדום מלמעלה, ועליו ילד קטן שמסתובב יחד עם מאדים. סביב מאדים מסלול, ועליו פובוס, אבן אפורה שמקיפה מהר יותר. השמש מאירה מצד ימין. למטה: השמיים שהילד רואה, עם אופק, מזרח בצד שמאל ומערב בצד ימין. השמש זזה לאט ממזרח למערב, ופובוס זז מהר בכיוון ההפוך, ממערב למזרח">
+    </canvas>
+    <div class="controls">
+      <label>כמה שעות עברו (ימינה: עכשיו, שמאלה: יומיים על מאדים)
+        <input type="range" id="slT" min="0" max="100" step="1" value="0" oninput="slDraw(1)" aria-label="שעות" style="direction:rtl">
+      </label>
+      <button class="btn small" id="slPlay" onclick="slToggle()">הפעלה ▶</button>
+    </div>
+    <div class="controls">
+      <div class="readout">הזמן: <b id="slOut">—</b></div>
+      <div class="readout">פובוס זרח: <b id="slOut2">—</b></div>
+    </div>
+    <p class="cap" id="slMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="slReveal" hidden><span class="hand">!</span><p>פובוס <b>זורח במערב ושוקע במזרח</b>, הפוך מהשמש, ועושה את זה פעמיים ביום. למה? כי הוא מקיף מהר יותר ממה שמאדים מסתובב. הילד על מאדים מסתובב יחד עם הכוכב, אבל פובוס "עוקף" אותו מאחור, ולכן נראה לו שהוא מגיע מהמערב. הירח שלנו עושה את ההפך: הוא מקיף לאט, כדור הארץ "עוקף" אותו, ולכן הוא זורח במזרח.</p></div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · A FIFTEEN-MINUTE JUMP (interactive 2: jumping on Phobos) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>קפיצה על פובוס</h2>
+  <p>החללית <b>MMX</b> (בעברית: "חקר ירחי מאדים") שייכת לסוכנות החלל של יפן, ועובדים איתה גם מדענים מארצות הברית, מצרפת, מגרמניה ומאירופה. היא המריאה מאי קטן בדרום יפן, ותגיע למאדים בקיץ הבא. שם היא תקיף את פובוס, ואז תעשה משהו שאף חללית לא עשתה: <b>תנחת עליו</b>, תאסוף לפחות <span class="num">10</span> גרם מהאדמה שלו, ותביא אותם לכדור הארץ. הקפסולה עם האדמה אמורה לנחות במדבר באוסטרליה בשנת <span class="num">2031</span>. ויש איתה גם רכב קטן עם גלגלים, שייסע על פובוס.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אבל לנחות על פובוס זה מסובך. למה? כי הוא קטן, ולכן כוח המשיכה שלו חלש מאוד. כוח המשיכה הוא הכוח שמושך אתכם למטה, אל האדמה. על פובוס הוא חלש פי כ־<span class="num">1,700</span> מאשר אצלנו. ילד שמשקלו <span class="num">30</span> קילו ירגיש שם קל כמו כמה מטבעות! צריך להיזהר שהחללית לא "תקפוץ" חזרה לחלל. במעבדה תקפצו על פובוס. רק קודם נחשו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הקושי: כוח המשיכה על פני פובוס הוא רק כ־<span class="math">0.0057</span> מטר לשנייה בריבוע, לעומת <span class="math">9.8</span> אצלנו: חלש פי <span class="math">9.8 ÷ 0.0057 ≈ 1,700</span>. לכן גם <b>מהירות הבריחה</b> שלו, המהירות שבה גוף עוזב אותו לתמיד, היא רק כ־<span class="num">41</span> קמ״ש: פחות מזריקה טובה של כדור. כדי לאסוף אדמה, MMX תשתמש בשתי שיטות: מקדח שנכנס לעומק של יותר מ־<span class="num">2</span> ס״מ, ו"אקדח אוויר" שמעיף אבק לתוך כלי איסוף. במעבדה: קופצים על פובוס. נחשו קודם.</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 2 — קופצים על פובוס ===== -->
+  <div class="panel instrument">
+    <h3>קופצים על פובוס</h3>
+    <p class="cap">נחשו קודם: אתם קופצים על פובוס קפיצה רגילה, כמו בחצר. מה יקרה?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="snP0" onclick="snPredict(0)">ננחת מיד, כמו בבית</button>
+        <button id="snP1" onclick="snPredict(1)">נעלה גבוה מאוד, ונחזור רק אחרי בערך רבע שעה</button>
+        <button id="snP2" onclick="snPredict(2)">נעוף לחלל ולא נחזור</button>
+      </div>
+    </div>
+    <canvas role="img" id="snCv" width="640" height="600" aria-label="שני חלונות. בצד ימין כדור הארץ: ילד קופץ, ומעליו סרגל קטן של מטר. בצד שמאל פובוס, סלע אפור ומחורר: אותו ילד קופץ באותה מהירות, ומעליו סרגל ענק, מעשרה מטרים ועד מאה קילומטרים ויותר, שבו כל קו גבוה פי עשרה מהקו שמתחתיו. כשהמהירות גדולה מספיק, הילד בצד של פובוס עף לחלל ולא חוזר">
+    </canvas>
+    <div class="controls">
+      <label>כמה חזק קופצים (ימינה: לאט, שמאלה: מהר)
+        <input type="range" id="snN" min="2" max="50" step="1" value="10" oninput="snDraw(1)" aria-label="מהירות הקפיצה בקמ״ש" style="direction:rtl">
+      </label>
+      <button class="btn small" id="snGo" onclick="snJump()">קפיצה! ⇡</button>
+    </div>
+    <div class="controls">
+      <div class="readout">מהירות: <b id="snOut">—</b></div>
+      <div class="readout">על פובוס: <b id="snOut2">—</b></div>
+    </div>
+    <p class="cap" id="snMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="snReveal" hidden><span class="hand">!</span><p>קפיצה בחצר מרימה אתכם כ־<span class="num">40</span> ס״מ, על פובוס תרים אתכם <b>כ־<span class="num">700</span> מטר</b>, כמעט כמו הבניין הגבוה בעולם, ותנחתו רק אחרי <b>יותר מרבע שעה</b>. ומי שזז מהר מ־<span class="num">41</span> קמ״ש לא חוזר לעולם. בגלל זה החללית צריכה לנחות לאט ובעדינות, כמעט כמו נוצה. (זה חישוב מפושט: פובוס לא עגול, והוא גם מסתובב, ולכן בכל מקום עליו התוצאה קצת אחרת.)</p></div>
+
+  <div class="q qc" id="snailQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE BRAKE (interactive 3: the tidal bulge) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>הבלם שמפיל את פובוס</h2>
+  <p>פובוס מתקרב למאדים בכ־<span class="num">2</span> מטרים בכל מאה שנה. זה מעט מאוד, כ־<span class="num">2</span> ס״מ בשנה, רוחב של אצבע. אבל זה לא נעצר. ומי מושך אותו למטה? דווקא <b>מאדים עצמו</b>, בעזרת דבר שנקרא <b>גאות</b>. אתם מכירים גאות מהים: פעמיים ביום המים עולים קצת על החוף. את זה עושה כוח המשיכה של הירח שלנו. הוא מושך את כדור הארץ, והמים, ואפילו הסלעים, נמתחים קצת לכיוונו. גם פובוס מושך את מאדים, ומרים עליו "גבנונים" קטנים של סלע. והגבנון הזה מושך גם את פובוס. אבל לאיזה כיוון? במעבדה שני כוכבים, כל אחד עם הירח שלו. רק קודם נחשו.</p>
+
+  <!-- ===== INTERACTIVE 3 — הגבנון שמושך אחורה ===== -->
+  <div class="panel instrument">
+    <h3>הגבנון שמושך</h3>
+    <p class="cap">נחשו קודם: פובוס מקיף מהר יותר ממה שמאדים מסתובב. איפה יהיה הגבנון שהוא מרים על מאדים?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="prP0" onclick="prPredict(0)">לפני פובוס</button>
+        <button id="prP1" onclick="prPredict(1)">מאחורי פובוס</button>
+        <button id="prP2" onclick="prPredict(2)">בדיוק מתחת לפובוס</button>
+      </div>
+    </div>
+    <canvas role="img" id="prCv" width="640" height="600" aria-label="מבט מלמעלה על כוכב לכת עם גבנון: הכוכב נמתח קצת לצורה של ביצה. הירח מקיף אותו. חץ על הירח מראה לאן הגבנון מושך אותו: אצל מאדים ופובוס החץ אדום ומושך אחורה, והמסלול של פובוס הופך לספירלה שנכנסת פנימה, עד קו מקווקו שבו פובוס מתפרק לטבעת. אצל כדור הארץ והירח החץ ירוק ודוחף קדימה, והירח מתרחק לאט">
+    </canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="איזה כוכב">
+        <button id="prS0" class="on" onclick="prPick(0)">מאדים ופובוס</button>
+        <button id="prS1" onclick="prPick(1)">כדור הארץ והירח</button>
+      </div>
+    </div>
+    <div class="controls">
+      <label>הזמן מהיום (ימינה: היום, שמאלה: עוד עשרות מיליוני שנים)
+        <input type="range" id="prT" min="0" max="100" step="1" value="0" oninput="prDraw(1)" aria-label="זמן" style="direction:rtl">
+      </label>
+      <button class="btn small" id="prPlay" onclick="prToggle()">הפעלה ▶</button>
+    </div>
+    <div class="controls">
+      <div class="readout">הגבנון: <b id="prOut">—</b></div>
+      <div class="readout">המסלול: <b id="prOut2">—</b></div>
+    </div>
+    <p class="cap" id="prMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>מה ראיתם? כאן הטריק. פובוס רץ מהר, ומאדים מסתובב לאט. לכן הגבנון לא מספיק לרוץ איתו, ונשאר קצת <b>מאחוריו</b>. ומשהו שמושך אתכם מאחור — מאט אתכם, כמו חבר שתופס לכם את החולצה בזמן ריצה. פובוס שמואט לא מצליח להחזיק את הגובה, ויורד לאט־לאט.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הגבנון נוצר בכיוון של פובוס, אבל הסלע "מגיב" באיחור, ובינתיים כל אחד זז: מאדים מסתובב, ופובוס מקיף מהר יותר. לכן הגבנון נשאר <b>מאחורי</b> פובוס, ומושך אותו מעט אחורה. המשיכה הזאת גונבת ממנו קצת אנרגיה של תנועה, והוא יורד למסלול נמוך יותר. ובירח שלנו קורה ההפך: הוא מקיף לאט, פעם בחודש, וכדור הארץ מסתובב מהר, פעם ביום, ולכן הגבנון "נסחב" לפני הירח ומושך אותו <b>קדימה</b>: הירח מתרחק מאיתנו בכ־<span class="num">3.8</span> ס״מ בשנה.</p>
+  </div>
+
+  <div class="note" id="prReveal" hidden><span class="hand">!</span><p>ירח <b>מהיר</b> מהסיבוב של הכוכב שלו נשאר עם הגבנון מאחוריו, ונופל פנימה. ירח <b>איטי</b> מקבל דחיפה קדימה, ומתרחק. פובוס ייפול, והירח שלנו בורח. אותו כוח בדיוק, ושתי תוצאות הפוכות.</p></div>
+
+  <div class="q qc" id="priceQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · PHOBOS ON OUR MAP — AND THE RING (figure) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>פובוס על המפה שלנו — והטבעת שתבוא</h2>
+  <p>כמה גדול פובוס? אם נניח אותו על המפה שלנו, הוא יכסה את כל החוף <b>מזכרון יעקב ועד חיפה</b>, ועוד קצת. ובצד אחד שלו יש מכתש ענק, ברוחב של כ־<span class="num">9</span> ק״מ: יותר משליש מכל הירח. אסף הול קרא לו <b>סטיקני</b>, על שם אשתו, שלא נתנה לו לוותר. (את המכתש ראו לראשונה רק בשנת <span class="num">1971</span>, כשהחללית האמריקנית <b>מרינר <span class="num">9</span></b> צילמה את פובוס מקרוב.) ועוד דבר נחמד: חמש שנים אחרי שהול מצא את פובוס, בשנת <span class="num">1882</span>, נוסדה זכרון יעקב.</p>
+
+  <figure class="calfig" aria-label="מפה של חוף הכרמל: הים בצד שמאל, היבשה בצד ימין והכרמל בירוק. למעלה חיפה, למטה זכרון יעקב. מעל המפה מצויר פובוס בצבע אפור, בצורת תפוח אדמה, ומכסה את כל החוף מזכרון יעקב עד חיפה. עליו מכתש עגול גדול, סטיקני. חץ ארוך מראה כעשרים ושישה קילומטרים">
+    <svg viewBox="0 0 476 420" role="img" aria-hidden="true" focusable="false">
+      <rect x="8" y="8" width="460" height="404" rx="18" fill="var(--card2)" stroke="var(--line)" stroke-width="2"/>
+      <path d="M8 26 Q8 8 26 8 L168 8 C 176 50 150 70 160 110 C 172 160 182 230 186 290 C 190 340 196 380 200 412 L26 412 Q8 412 8 394 Z" fill="var(--water)" opacity=".55"/>
+      <path d="M168 8 C 176 50 150 70 160 110 C 172 160 182 230 186 290 C 190 340 196 380 200 412" fill="none" stroke="var(--ink)" stroke-width="3"/>
+      <path d="M176 70 C 214 110 236 200 248 300 C 252 340 256 372 258 400" fill="none" stroke="var(--leaf2)" stroke-width="18" stroke-linecap="round" opacity=".55"/>
+      <!-- Phobos, drawn to scale over the coast (about 26 km long) -->
+      <path d="M196 58 C 246 46 290 74 298 128 C 308 190 298 258 278 312 C 262 350 224 360 198 342 C 168 318 160 262 158 196 C 156 130 160 68 196 58 Z" fill="#8E8579" fill-opacity=".72" stroke="var(--ink)" stroke-width="3"/>
+      <circle cx="232" cy="118" r="44" fill="#6F665C" fill-opacity=".85" stroke="var(--ink)" stroke-width="2.5"/>
+      <circle cx="268" cy="240" r="12" fill="none" stroke="var(--ink)" stroke-width="2" opacity=".7"/>
+      <circle cx="210" cy="300" r="9" fill="none" stroke="var(--ink)" stroke-width="2" opacity=".7"/>
+      <path d="M176 190 C 210 180 250 186 296 176 M178 222 C 214 214 254 220 298 208" fill="none" stroke="var(--ink)" stroke-width="2" opacity=".45"/>
+      <g font-family="Rubik, Arial" font-size="28" fill="var(--ink)" font-weight="700">
+        <circle cx="158" cy="64" r="8" fill="var(--ink)"/><text x="142" y="72" text-anchor="start">חיפה</text>
+        <g transform="translate(192,346)"><rect x="-12" y="-6" width="24" height="20" fill="var(--card)" stroke="var(--ink)" stroke-width="3"/><path d="M-16 -4 L0 -18 L16 -4" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/></g>
+        <text x="172" y="388" text-anchor="start">זכרון יעקב</text>
+        <text x="232" y="126" text-anchor="middle" fill="#FFFFFF" font-size="26">סטיקני</text>
+        <text x="236" y="270" text-anchor="middle" font-size="30" fill="#FFFFFF">פובוס</text>
+        <text x="84" y="220" text-anchor="middle" fill="#FFFFFF" font-size="30">הים</text>
+      </g>
+      <g stroke="var(--sun-deep)" stroke-width="3" fill="var(--sun-deep)"><path d="M420 58 L420 344"/><path d="M412 70 L420 54 L428 70 Z"/><path d="M412 332 L420 348 L428 332 Z"/></g>
+      <g font-family="Rubik, Arial" font-weight="700" fill="var(--sun-deep)" font-size="28"><text x="372" y="196" text-anchor="middle">כ־26</text><text x="372" y="228" text-anchor="middle">ק״מ</text></g>
+    </svg>
+    <figcaption>פובוס בקנה מידה, על חוף הכרמל: מחיפה (למעלה) ועד זכרון יעקב (למטה). העיגול הכהה הוא המכתש סטיקני.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ומה יקרה לפובוס בסוף? הוא לא ייפול על מאדים בשלמותו. כשהוא יתקרב מספיק, המשיכה של מאדים תהיה חזקה יותר בצד הקרוב שלו מאשר בצד הרחוק. היא <b>תמתח</b> אותו, כמו בצק שמושכים משני צדדים, עד שהוא יתפרק לאבנים ולאבק. האבנים ימשיכו להקיף את מאדים, ויהיו <b>טבעת</b>, כמו של שבתאי! זה יקרה בעוד עשרות מיליוני שנים. ועל פובוס כבר רואים היום פסים ארוכים. חלק מהמדענים חושבים שאלה "סימני מתיחה" ראשונים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הסוף: המשיכה של מאדים חזקה יותר על הצד הקרוב של פובוס מאשר על הצד הרחוק, וההפרש הזה <b>מותח</b> אותו. כל עוד פובוס רחוק, הכוח שמחזיק אותו ביחד מנצח. אבל כשהוא יגיע למרחק של כ־<span class="num">2.1</span> רדיוסים של מאדים מהמרכז (בערך <span class="num">3,700</span> ק״מ מעל פני השטח), המתיחה תנצח, והוא יתפרק לטבעת. מתי? הערכות שונות נותנות בין <span class="num">30</span> ל־<span class="num">50</span> מיליון שנה. מדענים בנאס״א מציעים שהחריצים הארוכים על פובוס הם סדקים שנוצרים מהמתיחה כבר היום, אבל זו עדיין השערה. אולי MMX תעזור לבדוק אותה.</p>
+  </div>
+
+  <div class="q qc" id="siteQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: THE LAW OF ORBITS (interactive 4) + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>החוק של המסלולים</h2>
+  <p>למה פובוס מהיר כל כך, ודימוס, הירח השני, איטי? יש חוק פשוט לכל דבר שמקיף משהו. נסו לגלות אותו בעצמכם במעבדה.</p>
+
+  <!-- ===== INTERACTIVE 4 — חוק המסלולים ===== -->
+  <div class="panel instrument">
+    <h3>חוק המסלולים</h3>
+    <p class="cap">נחשו קודם: אם נזיז ירח רחוק יותר ממאדים, ההקפה שלו תהיה מהירה יותר או איטית יותר?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="moP0" onclick="moPredict(0)">מהירה יותר</button>
+        <button id="moP1" onclick="moPredict(1)">איטית יותר</button>
+        <button id="moP2" onclick="moPredict(2)">אותו זמן בדיוק</button>
+      </div>
+    </div>
+    <canvas role="img" id="moCv" width="640" height="600" aria-label="מאדים בצד ימין, וקו ישר שיוצא ממנו שמאלה, כמו סרגל. על הסרגל מסומנים פובוס, קו מקווקו של יום מאדים אחד, ודימוס. ירח צהוב זז על הסרגל לפי המחוון. למטה שני פסים: כמה זמן לוקחת הקפה אחת של הירח, ומה אורך יום אחד על מאדים. אם הפס של הירח קצר יותר, כתוב שהוא נופל פנימה; אם ארוך יותר, כתוב שהוא מתרחק">
+    </canvas>
+    <div class="controls">
+      <label>המרחק של הירח ממרכז מאדים (ימינה: קרוב, שמאלה: רחוק)
+        <input type="range" id="moR" min="40" max="300" step="1" value="94" oninput="moDraw(1)" aria-label="מרחק במאות קילומטרים" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">מרחק: <b id="moOut">—</b></div>
+      <div class="readout">הקפה אחת: <b id="moOut2">—</b></div>
+    </div>
+    <p class="cap" id="moMsg" style="margin-top:12px"></p>
+  </div>
+
+  <p>החוק: <b>ככל שהמסלול קרוב יותר, ההקפה מהירה יותר</b>. מי שקרוב חייב לרוץ מהר, אחרת המשיכה החזקה תפיל אותו. ויש סביב מאדים מרחק אחד מיוחד, כ־<span class="num">20,400</span> ק״מ מהמרכז: שם הקפה אחת לוקחת <b>בדיוק יום אחד של מאדים</b>. ירח שנמצא פנימה מהקו הזה, כמו פובוס, מהיר מהסיבוב של מאדים, ונופל. ירח שנמצא בחוץ, כמו דימוס, איטי ממנו, ולכן מתרחק, לאט מאוד.</p>
+
+  <div class="note" id="moReveal" hidden><span class="hand">!</span><p>רחוק יותר = <b>איטי יותר</b>. פובוס, ב־<span class="num">9,400</span> ק״מ, מקיף ב־<span class="num">7.7</span> שעות. דימוס, ב־<span class="num">23,500</span> ק״מ, צריך כ־<span class="num">30</span> שעות. וקו היום של מאדים, ב־<span class="num">20,400</span> ק״מ, הוא "קו הגבול": פנימה ממנו ירחים נופלים, החוצה ממנו הם מתרחקים.</p></div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ויש פה משהו מצחיק: ככל שפובוס יורד נמוך יותר, הוא נעשה <b>מהיר</b> יותר. הבלם של הגבנון מאט אותו, הוא יורד, ובמסלול הנמוך הוא חייב לרוץ מהר יותר. ואז הוא עוד יותר מהיר מהסיבוב של מאדים, והגבנון מושך אותו עוד יותר. ככה הנפילה הולכת ונעשית מהירה.</p>
+    <p>כמה מהר פובוס טס? מסלול אחד שלו סביב מאדים ארוך כ־<span class="num">59,000</span> ק״מ, כמו להקיף את כדור הארץ פעם וחצי! והוא עושה את זה בפחות משמונה שעות. מטוס נוסעים היה צריך בשביל זה כמעט שלושה ימים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>החוק המדויק התגלה לפני <span class="num">400</span> שנה, על ידי יוהנס קפלר: אם מכפילים את המרחק פי <span class="num">4</span>, זמן ההקפה גדל פי <span class="num">8</span>. ויש בו פרדוקס יפה: הבלם של הגבנון גונב מפובוס אנרגיה, אבל פובוס דווקא <b>מאיץ</b>, כי הוא יורד למסלול נמוך, ושם המהירות גבוהה יותר. ואז הפער בינו לבין הסיבוב של מאדים גדל, והגבנון מושך חזק יותר. לכן הנפילה הולכת ומתגברת, ולא קבועה.</p>
+    <p>ואיך מחשבים מהירות של ירח? מחלקים את אורך המסלול בזמן ההקפה. דוגמה עם דימוס: המסלול שלו, מעגל ברדיוס של כ־<span class="num">23,500</span> ק״מ, ארוך כ־<span class="num">147,000</span> ק״מ, והקפה לוקחת כ־<span class="num">30</span> שעות. כלומר <span class="math">147,000 ÷ 30 = 4,900</span> קמ״ש. ובשנייה? בשעה יש <span class="math">60 × 60 = 3,600</span> שניות: <span class="math">4,900 ÷ 3,600 ≈ 1.4</span> ק״מ בכל שנייה.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> לפי נאס״א, פובוס מתקרב למאדים בכ־<span class="num">1.8</span> מטר בכל מאה שנה. (א) כמה <b>סנטימטרים בשנה</b> זה? (במטר יש <span class="num">100</span> ס״מ.) (ב) היום פובוס בגובה של כ־<span class="num">6,000</span> ק״מ, והוא יתפרק לטבעת בגובה של כ־<span class="num">3,700</span> ק״מ. אילו הוא היה יורד <b>בקצב קבוע</b>, בכמה <b>מיליוני שנים</b> הוא היה מגיע לשם? (עגלו למספר שלם.)</p>
+      <div class="controls">
+        <label>(א) ס״מ בשנה <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) מיליוני שנים <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> החישוב שלכם נותן מספר גדול מאוד, אבל המדענים מעריכים שפובוס יתפרק כבר בעוד <span class="num">30</span> עד <span class="num">50</span> מיליון שנה. למה התשובה האמיתית קצרה כל כך?</p>
+      <details><summary>רמז</summary><p>חזרו לפרק <span class="num">5</span>: מה קורה למהירות של פובוס כשהוא יורד, ומה זה עושה לגבנון?</p></details>
+      <details><summary>התשובה</summary><p>הקצב לא קבוע. ככל שפובוס יורד, הגבנון שהוא מרים על מאדים גדל (הוא קרוב יותר, והמשיכה שלו על מאדים חזקה יותר), וגם פובוס עצמו נעשה מהיר יותר, והפער בינו לבין הסיבוב של מאדים גדל. לכן הבלם חזק יותר והנפילה מהירה יותר. היום הוא יורד <span class="num">2</span> ס״מ בשנה, ובעתיד הרבה יותר. חישוב "בקצב קבוע" הוא הערכה טובה ראשונה, אבל המציאות מאיצה.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>אי אפשר לטוס לפובוס, אבל אפשר לבנות "מסלול נופל" על השולחן. <b>חשוב: מספריים ונייר דבק עם מבוגר, וגולות ומטבעות רק על השולחן, לא ליד הפה.</b></p>
+
+  <div class="panel">
+    <h3>חלק א׳ — הגולה שנופלת בספירלה (<span class="num">10</span> דקות)</h3>
+    <ol>
+      <li>גוזרים עיגול גדול מדף בריסטול או מקרטון דק, חותכים פס צר עד המרכז, וסוגרים אותו לצורה של משפך רחב עם נייר דבק. משאירים חור קטן למטה, ומניחים את המשפך על כוס.</li>
+      <li>מגלגלים גולה קטנה (או מטבע, על הצד) לאורך השפה של המשפך, בתנופה.</li>
+      <li>מסתכלים: הגולה מקיפה, יורדת בספירלה, ו<b>נעשית מהירה יותר</b> ככל שהיא מתקרבת לחור. החיכוך גונב ממנה אנרגיה, כמו הגבנון מפובוס, אבל במסלול הנמוך היא רצה מהר יותר. בדיוק הפרדוקס של פובוס.</li>
+    </ol>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — מאיפה הירח שלנו זורח? (שלושה ערבים, <span class="num">2</span> דקות בכל ערב)</summary>
+    <p>בשבוע הקרוב, צאו עם מבוגר לחלון או למרפסת, ובדקו באיזו שעה ובאיזה צד הירח זורח. הוא יזרח במזרח, כמו השמש, וכל ערב בערך <span class="num">50</span> דקות מאוחר יותר. למה? כי הירח מקיף אותנו לאט, פעם בחודש, וכדור הארץ מסתובב מהר, פעם ביום. אצל פובוס זה הפוך — ולכן הוא זורח במערב.</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — בצק של גאות (<span class="num">5</span> דקות)</summary>
+    <p>מגלגלים כדור מפלסטלינה רכה או מבצק, ומושכים אותו עדין משני הצדדים בבת אחת. הוא נמתח לצורה של ביצה: זה הגבנון. אם ממשיכים למשוך — הוא נקרע לשניים. כך יתפרק פובוס כשהוא יתקרב מדי: המשיכה בצד הקרוב חזקה מהמשיכה בצד הרחוק.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>קרוב יותר = מהיר יותר</b>: פובוס קרוב מאוד למאדים, ולכן הוא מקיף אותו שלוש פעמים ביום, וזורח דווקא במערב. <b>גאות היא כוח של משיכה</b>: פובוס מרים על מאדים גבנון, והגבנון נשאר מאחוריו ומאט אותו, ולכן פובוס יורד בכ־<span class="num">2</span> ס״מ בשנה, ובסוף יהיה טבעת. ועכשיו, בפעם הראשונה, חללית בדרך להביא ממנו חופן אדמה. שאלה לחקור: אם הייתם על פובוס, איך הייתם הולכים בלי לעוף?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>הכול תלוי בקו אחד</b>: ירח שמקיף מהר מהסיבוב של הכוכב שלו נופל, וירח שמקיף לאט מתרחק. פובוס בפנים, דימוס בחוץ, והירח שלנו רחוק מאוד בחוץ. <b>ובלם יכול להאיץ</b>: מי שמאבד אנרגיה במסלול יורד ומאיץ. ולמה זה חשוב ל־MMX? מאיפה בא פובוס, זו שאלה פתוחה: אולי הוא אסטרואיד שמאדים "תפס", ואולי שברים ממאדים עצמו, שהועפו בהתנגשות ענקית. החופן שיגיע ב־<span class="num">2031</span> אמור לעזור להכריע. שאלה לחקור: איך הרכב של האדמה יכול לספר מאיפה היא באה?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הסיפור?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ספרות · <span class="num">1726</span></div><h3>הניחוש של גוליבר</h3><p>בספר "מסעי גוליבר", שיצא <span class="num">151</span> שנה לפני התגלית, כתב ג׳ונתן סוויפט שלמאדים יש שני ירחים קטנים וקרובים. הוא לא ידע שום דבר. זה היה ניחוש מוצלח במיוחד.</p></div>
+    <div class="tile"><div class="dom">חלל · הירח שלנו</div><h3>הירח שבורח</h3><p>הירח שלנו מתרחק מאיתנו בכ־<span class="num">3.8</span> ס״מ בשנה, באותו מנגנון של גאות, רק הפוך. והגאות גם מאטה את הסיבוב של כדור הארץ, ולכן היום שלנו מתארך, לאט מאוד.</p></div>
+    <div class="tile"><div class="dom">הנדסה · יפן</div><h3>הפעם הקודמת</h3><p>ב־<span class="num">2020</span> החללית היפנית "הַיָּבוּסָה <span class="num">2</span>" הביאה לכדור הארץ כ־<span class="num">5.4</span> גרם מאסטרואיד בשם ריוגו. הצוות של MMX למד ממנה איך אוספים אבק ממקום שכמעט אין בו משיכה.</p></div>
+    <div class="tile"><div class="dom">שפה · מיתולוגיה</div><h3>פחד ואימה</h3><p>ביוונית, "פובוס" פירושו פחד, ו"דימוס" אימה: כך נקראו בני אל המלחמה היווני, שהרומאים קראו לו מארס. את השמות הציע מורה בבית ספר באנגליה, מתוך שיר יווני עתיק.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): למה הירח שלנו לא נופל עלינו?</summary>
+    <p>אם כוח המשיכה מושך את הירח אלינו כל הזמן, למה הוא לא נופל? נחשו לפני שאתם פותחים.</p>
+    <details><summary>התשובה</summary>
+      <p>הוא <b>כן</b> נופל, כל הזמן! אבל הוא גם טס הצידה מהר מאוד, כ־<span class="num">1</span> ק״מ בכל שנייה. בזמן שהוא נופל קצת לכיווננו, הוא גם זז הצידה, וכדור הארץ העגול "מתעקל" מתחתיו. כך הוא נופל ומחטיא, נופל ומחטיא, בלי סוף. זה מה שנקרא מסלול. אייזק ניוטון הסביר את זה בעזרת תותח דמיוני על הר גבוה: אם יורים מהר מספיק, הכדור נופל סביב כדור הארץ ולא עליו.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את סיפור פובוס, מהמוקדם למאוחר. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: פובוס מקיף את מאדים בערך <span class="num">3</span> פעמים בכל יום. כמה פעמים הוא יקיף את מאדים בשבוע אחד, <span class="num">7</span> ימים?</div>
+    <div class="controls"><label>הקפות <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: מסלול אחד של פובוס סביב מאדים ארוך כ־<span class="num">58,900</span> ק״מ, והקפה אחת לוקחת <span class="num">7.65</span> שעות. (א) מה המהירות של פובוס, ב<b>קמ״ש</b>? (עגלו למספר שלם.) (ב) וכמה <b>ק״מ בשנייה</b> זה? (עגלו לשתי ספרות אחרי הנקודה.)</div>
+    <div class="controls"><label>(א) קמ״ש <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) ק״מ בשנייה <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: מסלול אחד של פובוס סביב מאדים ארוך בערך <span class="num">60,000</span> ק״מ, והקפה אחת לוקחת בערך <span class="num">7.5</span> שעות. מה המהירות של פובוס, ב<b>קמ״ש</b>?</div>
+    <div class="controls"><label>קמ״ש <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה פובוס זורח במערב, ולמה הוא נופל לאט על מאדים?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="פובוס קרוב מאוד למאדים, ולכן..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. למאדים יש ירח קטן בשם פובוס, באורך של כ־<span class="num">26</span> ק״מ, כמו מזכרון יעקב לחיפה. הוא מקיף את מאדים שלוש פעמים ביום, ולכן מי שעומד על מאדים רואה אותו <b>זורח במערב</b> ושוקע במזרח.<br>
+    2. פובוס <b>נופל</b>: הוא מתקרב למאדים בכ־<span class="num">2</span> ס״מ בשנה, כי הגבנון של הגאות שהוא מרים על מאדים נשאר מאחוריו ומאט אותו. בעוד עשרות מיליוני שנים הוא יתפרק ויהיה טבעת. הירח שלנו עושה את ההפך ובורח.<br>
+    3. ב־<span class="num">19</span> באוקטובר <span class="num">2026</span> המריאה מיפן החללית MMX: היא תנחת על פובוס ותביא לנו חופן מהאדמה שלו ב־<span class="num">2031</span>. ועל פובוס, קפיצה רגילה מהחצר הייתה מרימה אתכם כ־<span class="num">700</span> מטר, ליותר מרבע שעה באוויר.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>פובוס: Wikipedia, "Phobos (moon)" — מידות <span class="math">25.9 × 22.6 × 18.3</span> ק״מ; רדיוס ממוצע <span class="num">11.08</span> ק״מ; מסה <span class="math">1.06 × 10¹⁶</span> ק״ג; מרחק ממרכז מאדים <span class="num">9,376</span> ק״מ, <span class="num">5,989</span> ק״מ מעל פני השטח; הקפה <span class="num">7</span> שעות ו־<span class="num">39</span> דקות; זורח במערב ושוקע במזרח, פעמיים ביום מאדים; מתקרב כ־<span class="num">2</span> מטר למאה שנה בגלל האטה גאותית; התפרקות בעוד כ־<span class="math">30–50</span> מיליון שנה (מחקר אחד: כ־<span class="num">43</span>), ליד <span class="num">2.1</span> רדיוסי מאדים, לטבעת; המכתש סטיקני, כ־<span class="num">9</span> ק״מ, על שם אנג׳לין סטיקני; כבידה על פני השטח כ־<span class="num">0.0057</span> מ׳/ש²; מהירות בריחה <span class="num">11.39</span> מ׳/ש (<span class="num">41</span> קמ״ש); השערות מוצא: אסטרואיד שנלכד או חומר שהועף ממאדים בהתנגשות. NASA Science, "Mars Moons" — מתקרב כ־<span class="num">1.8</span> מטר (<span class="num">6</span> רגל) למאה שנה; יתרסק בעוד כ־<span class="num">50</span> מיליון שנה או יתפרק לטבעת; התגלה באוגוסט <span class="num">1877</span>. NASA Goddard, <span class="num">2015</span>, "Phobos is falling apart" (Terry Hurford) — החריצים כ"סימני מתיחה" גאותיים: השערה.</p>
+    <p>התגלית: Linda Hall Library, "Asaph Hall" — הטלסקופ: עדשה של <span class="num">26</span> אינץ׳ (קלארק), הגדול מסוגו בעולם במצפה הצי האמריקני בוושינגטון; אנג׳לין סטיקני הייתה המורה שלו לגאומטריה וגרמנית, אסטרונומית, ועודדה אותו; ירח ראשון ב־<span class="num">11</span> באוגוסט, ושוב ב־<span class="num">17</span>, עם השני. Astronomy.com, "Aug. 17, 1877: Asaph Hall discovers Phobos" — הול ייחס את ההתמדה לעידוד של אשתו. Wikipedia, "Deimos (moon)" — מרחק <span class="num">23,458</span> ק״מ, הקפה <span class="num">30.3</span> שעות, מתרחק לאט; את השם הציע הנרי מיידן. (התאריכים משתנים ביום אחד לפי שיטת הספירה: <span class="num">11</span>/<span class="num">12</span> ו־<span class="num">17</span>/<span class="num">18</span> באוגוסט.)</p>
+    <p>MMX: ESA, "MMX lifts off to Mars's moon Phobos" — שיגור ב־<span class="math">20.10.2026</span> בשעה <span class="num">04:41</span> שעון יפן (<span class="num">22:41</span> שעון ישראל ב־<span class="num">19</span> באוקטובר), טיל H3, מרכז החלל טנגשימה; הגעה למאדים "בקיץ הבא"; JAXA עם NASA, CNES, DLR ו־ESA. Wikipedia, "Martian Moons eXploration" — לפחות <span class="num">10</span> גרם; דוגם מקדח (יותר מ־<span class="num">2</span> ס״מ עומק) ודוגם פנאומטי; רכב IDEFIX של CNES ו־DLR; הגעה למאדים ב־<span class="num">2027</span> ונחיתה על פובוס לפי הדיווחים ב־<span class="math">2028–2029</span> (AP); חזרה מתוכננת ב־<span class="num">2031</span> לאוסטרליה. הַיָּבוּסָה <span class="num">2</span>: כ־<span class="num">5.4</span> גרם מריוגו, דצמבר <span class="num">2020</span>.</p>
+    <p>פישוטים במכוון: "שלוש פעמים ביום" הוא עיגול של <span class="math">24.6 ÷ 7.65 ≈ 3.2</span>. במעבדה "השמיים של מאדים" הציור לא בקנה מידה, והצופה עומד על קו המשווה. ב"קופצים על פובוס" החישוב מניח פובוס עגול, בלי סיבוב ובלי המשיכה של מאדים; בפועל הכבידה משתנה מאוד ממקום למקום על פובוס, ובחלקים ממנו היא חלשה עוד יותר. "<span class="num">700</span> מטר ורבע שעה" הם לקפיצה של כ־<span class="num">10</span> קמ״ש. ב"הגבנון שמושך" הגבנון והזווית מוגזמים מאוד, והציר של הזמן אינו ליניארי. קו היום של מאדים (מסלול סינכרוני) כ־<span class="num">20,400</span> ק״מ, מחושב מחוק קפלר השלישי. "<span class="num">3,700</span> ק״מ" = <span class="math">2.1 × 3,390 − 3,390 ≈ 3,730</span>. האתגר מניח קצב קבוע של <span class="num">1.8</span> מטר למאה כתרגיל; הקצב האמיתי מאיץ. המספרים במבחן (<span class="num">60,000</span>, <span class="num">7.5</span>) מעוגלים; היקף המסלול <span class="math">2 × 3.14 × 9,376 ≈ 58,900</span> ק״מ.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:48, code:'WOW-048', date:'2026-10-30', title:'הירח שנופל על מאדים — והחללית שיצאה לתפוס ממנו חופן', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '16HXldeR15XXpNeeINef16TXldeX'; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'space', w:3 }, { id:'physics', w:3 }, { id:'engineering', w:2 }, { id:'math', w:2 } ],
+  hero: { name:'הירח שנופל על מאדים — השמיים של מאדים, קופצים על פובוס, הגבנון שמושך וחוק המסלולים', fact:'פובוס מקיף את מאדים שלוש פעמים ביום, זורח במערב, ומתקרב למאדים בכ־2 ס״מ בשנה — עד שיתפרק לטבעת.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'quantity-sense',        d:2 },
+    'qc:storyQ':      { skill:'relative-motion',       d:2 },
+    'qc:snailQ':      { skill:'gravity',               d:1 },
+    'qc:priceQ':      { skill:'tides',                 d:3 },
+    'qc:siteQ':       { skill:'tidal-breakup',         d:2 },
+    'qc:deepQ':       { skill:'orbital-period',        d:2 },
+    'mcq:shared:0':   { skill:'relative-motion',       d:2 },
+    'mcq:shared:1':   { skill:'tides',                 d:3 },
+    'mcq:shared:2':   { skill:'space-missions',        d:1 },
+    'mcq:younger:0':  { skill:'escape-velocity',       d:2 },
+    'mcq:older:0':    { skill:'synchronous-orbit',     d:4 },
+    'order':          { skill:'chronology',            d:3 },
+    'num:younger':    { skill:'multiplication',        d:1 },
+    'num:older':      { skill:'speed-distance-time',   d:3 },
+    'num:adv':        { skill:'unit-conversion-rates', d:4 },
+    'challenge':      { skill:'rates-estimation',      d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); slDraw(0); } if(n===2) snDraw(0); if(n===3) prDraw(0); if(n===5) moDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: how much closer does Phobos get each year? ----------
+   Four choices: ~2 cm, ~2 m, ~2 km, ~200 km. The right answer: 1 — NASA: about 1.8 m per century, i.e. under 2 cm a year. */
+const SCALE_ANS = 1;
+const fmtSigns = n => ({1:'בערך 2 ס״מ',2:'בערך 2 מטר',3:'בערך 2 ק״מ',4:'בערך 200 ק״מ'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> לפי נאס״א, פובוס מתקרב למאדים בכ־<span class="num">1.8</span> מטר בכל מאה שנה: פחות מ־<span class="num">2</span> ס״מ בשנה, רוחב של אצבע. זה נשמע מעט, אבל זה לא נעצר לרגע. ומי מושך אותו למטה? על זה השיעור.';
+const SCALE_FB = {
+  1: SCALE_FB_RIGHT,
+  2: '<span class="pill-bad">הרבה פחות!</span> פובוס מתקרב רק כ־<span class="num">2</span> ס״מ בשנה, רוחב של אצבע: פי <span class="num">100</span> פחות ממה שניחשתם. אבל זה לא נעצר לרגע, ובסוף זה ייגמר רע לפובוס. על זה השיעור.',
+  3: '<span class="pill-bad">הרבה הרבה פחות!</span> פובוס מתקרב רק כ־<span class="num">2</span> ס״מ בשנה, רוחב של אצבע: פי <span class="num">100,000</span> פחות ממה שניחשתם. אבל זה לא נעצר לרגע. על זה השיעור.',
+  4: '<span class="pill-bad">אילו זה היה נכון, הוא כבר היה נופל!</span> פובוס מתקרב רק כ־<span class="num">2</span> ס״מ בשנה, רוחב של אצבע. אבל זה לא נעצר לרגע, ובסוף זה ייגמר רע לפובוס. על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+/* Hebrew label with an optional LTR value beside it; each part is drawn in its own direction so RTL never mangles the digits */
+function xTag(c,name,val,x,y,size,col,align,alpha){
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = val ? c.measureText(val).width : 0;
+  c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap = val ? 7 : 0, w = vw+gap+nw;
+  const x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;      // x0 = left edge of the whole tag
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha);
+  c.fillStyle=col;
+  if(val){ c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0, y); }
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0+vw+gap, y);
+  c.direction='ltr';
+  return w;
+}
+function xTagN(c,val,name,x,y,size,col,align,alpha){          // Hebrew "value noun" ("100 אמות"): the value must be on the right of the noun
+  size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.textBaseline='middle';
+  c.direction='ltr'; const vw = c.measureText(val).width; c.direction='rtl'; const nw = c.measureText(name).width;
+  const gap=7, w=vw+gap+nw; let x0 = align==='center' ? x-w/2 : align==='right' ? x-w : x;
+  x0 = clamp(x0, 24, c.canvas.width-w-24);
+  xPlate(c, x0-10, y-size*0.9, w+20, size*1.8, alpha); c.fillStyle=col;
+  c.direction='rtl'; c.textAlign='left'; c.fillText(name, x0, y);
+  c.direction='ltr'; c.textAlign='left'; c.fillText(val, x0+nw+gap, y);
+  return w;
+}
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+function xNum(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* deterministic pseudo-random (so the picture does not flicker between redraws) */
+function prng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+/* a generic play/scrub helper: animates a 0–100 range input over `ms` milliseconds, calling draw(1) each frame */
+function xPlayer(id, rangeId, btnId, ms, draw, onLabel, offLabel){
+  const st={ raf:0 };
+  st.toggle=function(){ if(st.raf){ cancelAnimationFrame(st.raf); st.raf=0; st.btn(false); return; }
+    const r=document.getElementById(rangeId); const top=+(r.max||100); if(+r.value>=top) r.value=0;
+    if(XREDUCED){ r.value=Math.min(top,+r.value+20); draw(1); return; }
+    const t0=performance.now(), start=+r.value; st.btn(true);
+    const step=now=>{ const v=Math.min(top, start+(now-t0)/ms*100); r.value=Math.round(v); draw(1); if(v<top){ st.raf=requestAnimationFrame(step); } else { st.raf=0; st.btn(false); } };
+    st.raf=requestAnimationFrame(step); };
+  st.btn=function(on){ const b=document.getElementById(btnId); b.textContent = on ? onLabel : offLabel; b.classList.toggle('on',on); };
+  return st;
+}
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI, DEG = PI/180;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const MARS = () => isDark() ? '#D9663C' : '#C8572F';
+const MARS2 = () => isDark() ? '#A8462A' : '#8E3A1E';
+const ROCK = () => isDark() ? '#A69C90' : '#8E8579';
+const EARTH = () => isDark() ? '#4F9BD6' : '#2F7DBF';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+function xSun(c,x,y,r){ c.fillStyle=GOLD(); c.strokeStyle=GOLD(); c.lineWidth=6; c.lineCap='round';
+  for(let k=0;k<12;k++){ const a=k*PI/6; c.beginPath(); c.moveTo(x+Math.cos(a)*(r+8), y+Math.sin(a)*(r+8)); c.lineTo(x+Math.cos(a)*(r+20), y+Math.sin(a)*(r+20)); c.stroke(); }
+  c.beginPath(); c.arc(x,y,r,0,2*PI); c.fill(); }
+/* Phobos: a lumpy grey potato with a big crater (Stickney) — s = half-length in px */
+function xPotato(c,x,y,s,rot){ const ink=css('--ink'); c.save(); c.translate(x,y); c.rotate(rot||0);
+  c.fillStyle=ROCK(); c.strokeStyle=ink; c.lineWidth=Math.max(2,s/9);
+  c.beginPath(); c.moveTo(-s,0); c.bezierCurveTo(-s,-s*0.78,-s*0.2,-s*0.92,s*0.35,-s*0.72); c.bezierCurveTo(s*0.95,-s*0.5,s*1.02,s*0.3,s*0.62,s*0.62);
+  c.bezierCurveTo(s*0.25,s*0.92,-s*0.55,s*0.85,-s*0.85,s*0.45); c.bezierCurveTo(-s*1.02,s*0.25,-s,s*0.1,-s,0); c.closePath(); c.fill(); c.stroke();
+  c.fillStyle='rgba(0,0,0,.22)'; c.beginPath(); c.arc(-s*0.42,-s*0.12,s*0.34,0,2*PI); c.fill();
+  c.lineWidth=Math.max(1.5,s/14); c.beginPath(); c.arc(s*0.38,s*0.18,s*0.13,0,2*PI); c.stroke(); c.beginPath(); c.arc(s*0.05,s*0.5,s*0.09,0,2*PI); c.stroke();
+  c.restore(); }
+/* a kid: round head, body, arms up when jumping */
+function xKid(c,x,y,s,col,up){ c.save(); c.translate(x,y); c.strokeStyle=col; c.fillStyle=col; c.lineWidth=Math.max(3,s*0.16); c.lineCap='round';
+  c.beginPath(); c.arc(0,-s*1.55,s*0.32,0,2*PI); c.fill();
+  c.beginPath(); c.moveTo(0,-s*1.2); c.lineTo(0,-s*0.45); c.moveTo(0,-s*0.45); c.lineTo(-s*0.35,0); c.moveTo(0,-s*0.45); c.lineTo(s*0.35,0);
+  if(up){ c.moveTo(0,-s*1.05); c.lineTo(-s*0.45,-s*1.6); c.moveTo(0,-s*1.05); c.lineTo(s*0.45,-s*1.6); } else { c.moveTo(0,-s*1.05); c.lineTo(-s*0.45,-s*0.7); c.moveTo(0,-s*1.05); c.lineTo(s*0.45,-s*0.7); }
+  c.stroke(); c.restore(); }
+const fmt1 = v => (Math.round(v*10)/10).toLocaleString('en-US');
+
+/* ---------- step 1 (interactive 1): the sky of Mars (canvas 640 × 600) ----------
+   Top: a view from above the north pole. Mars spins once in 24.62 h (counter-clockwise), Phobos circles it once in 7.65 h, the Sun is far to the right.
+   A kid stands on the equator. Bottom: the kid's sky (facing the equator, east on the left, west on the right).
+   Angles: d = (object's angle) − (kid's angle); d > 0 is the east side. The Sun is up while |d| < 90°; Phobos, because it is so close, only while |d| < 68.8°
+   (cos⁻¹(1/2.76)). Phobos gains 32.5° an hour on the kid, so it appears in the WEST and sets in the EAST, about every 11.1 h. The slider spans two Mars days. */
+const slCv=document.getElementById('slCv'), slctx=slCv.getContext('2d');
+const SL={ opened:0, pred:-1, revealed:0, maxT:0 };
+const SL_SOL=24.623, SL_PH=7.654, SL_LIM=68.8, SL_D0=-80, SL_SPAN=2*24.623;
+const slRel = 360/SL_PH - 360/SL_SOL;                       // ≈ 32.5° per hour
+const slRise0 = (-SL_LIM - SL_D0)/slRel, slEvery = 360/slRel; // first rise ≈ 0.35 h, then every ≈ 11.1 h
+const slPlayer = xPlayer('sl','slT','slPlay', 26000, u=>slDraw(u), 'עצירה ❚❚', 'הפעלה ▶');
+function slPredict(k){ SL.pred=k; segOn('slP',3,k); WOW.emit('item', { id:'sky:predict', kind:'quick', correct:k===1, attempt: wowTry('sky:predict') });
+  slMsg.innerHTML='רשמנו את הניחוש. עכשיו לחצו "הפעלה", או הזיזו את המחוון שמאלה, וצפו בשמיים שלמטה.'; slDraw(0); }
+function slToggle(){ if(SL.pred<0){ predictFirst(slMsg,'הפעילו'); return; } slPlayer.toggle(); }
+const wrap180 = a => { a=((a+180)%360+360)%360-180; return a; };
+function slRises(t){ return t<slRise0 ? 0 : Math.floor((t-slRise0)/slEvery)+1; }
+function slDraw(user){
+  const c=slctx, W=slCv.width, H=slCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && SL.pred<0 && +slT.value!==0){ slT.value=0; blocked=true; }
+  if(user && !SL.opened && !blocked && SL.pred>=0){ SL.opened=1; WOW.emit('open', { id:'sky' }); }
+  const t=+slT.value/100*SL_SPAN;
+  const ko = 360*t/SL_SOL, kp = SL_D0 + 360*t/SL_PH;                   // kid's angle, Phobos' angle (deg, counter-clockwise, 0 = towards the Sun)
+  const dS = wrap180(0-ko), dP = wrap180(kp-ko);
+  const sunUp = Math.abs(dS)<90, phUp = Math.abs(dP)<SL_LIM;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* ===== top: the view from above ===== */
+  const CX=290, CY=178, MR=58, OR=126;
+  c.fillStyle=isDark()?'#0E1226':'#1E2340'; c.beginPath(); c.roundRect(16,16,W-32,318,16); c.fill();
+  /* the Sun, far to the right, and its light */
+  xSun(c, 586, 70, 22);
+  c.strokeStyle=GOLD(); c.fillStyle=GOLD(); c.lineWidth=3; c.globalAlpha=.75;
+  [128,178,228].forEach(y=>{ c.beginPath(); c.moveTo(600,y); c.lineTo(470,y); c.stroke(); xArrow(c,466,y,-1,0,11); }); c.globalAlpha=1;
+  /* the orbit */
+  c.strokeStyle='rgba(255,255,255,.45)'; c.lineWidth=2; c.setLineDash([6,6]); c.beginPath(); c.arc(CX,CY,OR,0,2*PI); c.stroke(); c.setLineDash([]);
+  /* Mars, its night side away from the Sun */
+  c.fillStyle=MARS(); c.beginPath(); c.arc(CX,CY,MR,0,2*PI); c.fill();
+  c.fillStyle='rgba(0,0,0,.45)'; c.beginPath(); c.arc(CX,CY,MR,PI/2,3*PI/2); c.fill();
+  c.strokeStyle='#FFFFFF'; c.lineWidth=2; c.beginPath(); c.arc(CX,CY,MR,0,2*PI); c.stroke();
+  /* the kid on the equator: a pin standing on the surface */
+  const ka=ko*DEG, kx=CX+Math.cos(ka)*MR, ky=CY-Math.sin(ka)*MR;
+  c.save(); c.translate(kx,ky); c.rotate(-ka+PI/2); xKid(c,0,0,13,'#FFFFFF',false); c.restore();
+  c.fillStyle='#FFFFFF'; c.beginPath(); c.arc(kx,ky,4,0,2*PI); c.fill();
+  /* Phobos on its orbit */
+  const pa=kp*DEG, px=CX+Math.cos(pa)*OR, py=CY-Math.sin(pa)*OR;
+  xPotato(c,px,py,17,-pa);
+  /* spin arrows: Mars turns slowly, Phobos runs fast (both counter-clockwise) */
+  c.strokeStyle='rgba(255,255,255,.85)'; c.fillStyle='rgba(255,255,255,.85)'; c.lineWidth=3;
+  c.beginPath(); c.arc(CX,CY,MR+14,0.08*PI,0.38*PI); c.stroke(); { const a=0.38*PI; xArrow(c, CX+Math.cos(a)*(MR+14), CY+Math.sin(a)*(MR+14), -Math.sin(a), Math.cos(a), 11); }
+  c.strokeStyle=GOLD(); c.fillStyle=GOLD(); c.lineWidth=4;
+  c.beginPath(); c.arc(CX,CY,OR+16,0.62*PI,0.95*PI); c.stroke(); { const a=0.62*PI; xArrow(c, CX+Math.cos(a)*(OR+16), CY+Math.sin(a)*(OR+16), Math.sin(a), -Math.cos(a), 13); }
+  xLabel(c, 'מבט מלמעלה', 140, 44, 22, ink, .9);
+  xLabel(c, 'מאדים: 24.6 שעות', 470, 306, 22, isDark()?'#F2B08F':MARS2(), .92);
+  xLabel(c, 'פובוס: 7.7 שעות', 150, 306, 22, isDark()?GOLD():'#8A5410', .92);
+  xLabel(c, 'פובוס', clamp(px,70,570), clamp(py>CY ? py-(20+22*LS()) : py+(20+22*LS()), 40, 260), 22, ink, .9);
+  /* ===== bottom: the kid's sky ===== */
+  const SX0=16, SY0=346, SW=W-32, SH=238, HZ=SY0+SH-46;
+  const sunAlt = Math.cos(dS*DEG);                                    // > 0 day, < 0 night
+  const day = clamp(sunAlt*3+0.2, 0, 1);
+  const top = isDark()? ['#141030','#7A5638'] : ['#1B1636','#E2B07E'], bot = isDark()? ['#231A3A','#A87A52'] : ['#2E2350','#F0CFA6'];
+  const mix=(a,b,u)=>{ const A=[1,3,5].map(i=>parseInt(a.slice(i,i+2),16)), B=[1,3,5].map(i=>parseInt(b.slice(i,i+2),16)); return 'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*u)).join(',')+')'; };
+  const g=c.createLinearGradient(0,SY0,0,HZ); g.addColorStop(0,mix(top[0],top[1],day)); g.addColorStop(1,mix(bot[0],bot[1],day));
+  c.save(); c.beginPath(); c.roundRect(SX0,SY0,SW,SH,16); c.clip();
+  c.fillStyle=g; c.fillRect(SX0,SY0,SW,SH);
+  if(day<0.6){ const r=prng(7); c.fillStyle='rgba(255,255,255,'+(0.8-day)+')'; for(let i=0;i<40;i++){ c.beginPath(); c.arc(SX0+r()*SW, SY0+r()*(HZ-SY0-20), 1.6, 0, 2*PI); c.fill(); } }
+  /* the path Phobos follows across the sky */
+  const skyX = (d,L) => 320 - (d/L)*262, skyY = (d,L) => HZ - 168*Math.cos((d/L)*PI/2);
+  c.strokeStyle='rgba(255,255,255,.4)'; c.lineWidth=2; c.setLineDash([5,7]); c.beginPath(); for(let d=-SL_LIM; d<=SL_LIM; d+=2){ const X=skyX(d,SL_LIM), Y=skyY(d,SL_LIM); d===-SL_LIM?c.moveTo(X,Y):c.lineTo(X,Y); } c.stroke(); c.setLineDash([]);
+  if(sunUp){ const X=skyX(dS,90), Y=skyY(dS,90); xSun(c,X,Y,18); }
+  if(phUp){ const X=skyX(dP,SL_LIM), Y=skyY(dP,SL_LIM); xPotato(c,X,Y,20,0.4);
+    c.fillStyle='#FFFFFF'; c.strokeStyle='#FFFFFF'; c.lineWidth=4; c.beginPath(); c.moveTo(X+12,Y+34); c.lineTo(X-30,Y+34); c.stroke(); xArrow(c,X-34,Y+34,-1,0,12); }
+  /* the ground */
+  c.fillStyle=MARS2(); c.beginPath(); c.moveTo(SX0,HZ); for(let x=SX0;x<=SX0+SW;x+=20){ c.lineTo(x, HZ-4+Math.sin(x*0.07)*4); } c.lineTo(SX0+SW,SY0+SH); c.lineTo(SX0,SY0+SH); c.closePath(); c.fill();
+  c.restore();
+  xKid(c, 320, HZ+30, 15, '#FFFFFF', false);
+  xLabel(c, 'מזרח', 70, HZ+24, 24, ink, .92); xLabel(c, 'מערב', 570, HZ+24, 24, ink, .92);
+  xLabel(c, sunUp ? 'יום' : 'לילה', 60, SY0+30, 22, ink, .9);
+  /* readouts */
+  const n=slRises(t);
+  slOut.innerHTML='<span class="num">'+fmt1(t)+'</span> שעות'; slOut2.innerHTML='<span class="num">'+n+'</span> '+(n===1?'פעם':'פעמים');
+  if(SL.pred>=0) SL.maxT=Math.max(SL.maxT,t);
+  if(SL.pred>=0 && SL.maxT>=2.5 && !SL.revealed){ SL.revealed=1; slReveal.hidden=false; }
+  if(blocked){ predictFirst(slMsg,'הזיזו'); return; }
+  if(user===1 && SL.pred>=0){
+    if(t<slRise0) slMsg.innerHTML='צהריים על מאדים. השמש למעלה, ופובוס עוד מתחת לאופק. מאיזה צד הוא יופיע?';
+    else if(phUp && dP<0) slMsg.innerHTML='פובוס <b>זרח במערב</b> (צד ימין) וזז מזרחה, הפוך מהשמש! '+(SL.pred===1?'בדיוק כמו שניחשתם.':'מסתכלים למעלה: הוא עוקף את הילד.');
+    else if(phUp) slMsg.innerHTML='פובוס חוצה את השמיים לכיוון מזרח. כל המעבר לוקח רק כארבע שעות.';
+    else slMsg.innerHTML='פובוס שקע במזרח. עוד כ־<span class="num">11</span> שעות הוא יזרח שוב — במערב.';
+  }
+}
+
+/* ---------- step 2 (interactive 2): jumping on Phobos (canvas 640 × 600) ----------
+   Launch speed v (2–50 km/h) straight up. Earth: h = v²/2g (g = 9.81). Phobos: a point mass GM = 7.1·10⁵ m³/s², radius 11.08 km (g ≈ 0.0058).
+   Max height from energy: r_max = GM / (GM/R − v²/2); escape when v ≥ √(2GM/R) ≈ 11.3 m/s ≈ 41 km/h. Time aloft: radial Kepler fall from r_max,
+   t = √(r_max³/2GM)·(√(x(1−x)) + acos √x), x = R/r_max, twice. Left: Phobos with a logarithmic height ruler (1 m … 1,000 km); right: Earth, 0–1 m. */
+const snCv=document.getElementById('snCv'), snctx=snCv.getContext('2d');
+const SN={ opened:0, pred:-1, revealed:0, raf:0, u:-1, jumped:0 };
+const PH_GM=7.099e5, PH_R=11080, EARTH_G=9.81;
+function snPhys(kmh){ const v=kmh/3.6, hE=v*v/(2*EARTH_G), tE=2*v/EARTH_G, E=v*v/2-PH_GM/PH_R;
+  if(E>=0) return { v, hE, tE, esc:true };
+  const rmax=PH_GM/(-E), x=PH_R/rmax, half=Math.sqrt(rmax*rmax*rmax/(2*PH_GM))*(Math.sqrt(x*(1-x))+Math.acos(Math.sqrt(x)));
+  return { v, hE, tE, esc:false, h:rmax-PH_R, t:2*half }; }
+function snHtxt(h){ return h<1000 ? Math.round(h).toLocaleString('en-US')+' מטר' : fmt1(h/1000)+' ק״מ'; }
+function snTtxt(s){ return s<90 ? Math.round(s)+' שניות' : s<5400 ? Math.round(s/60)+' דקות' : s<172800 ? fmt1(s/3600)+' שעות' : Math.round(s/86400)+' ימים'; }
+function snPredict(k){ SN.pred=k; segOn('snP',3,k); WOW.emit('item', { id:'jump:predict', kind:'quick', correct:k===1, attempt: wowTry('jump:predict') });
+  snMsg.innerHTML='רשמנו את הניחוש. המחוון עומד על קפיצה רגילה, <span class="num">10</span> קמ״ש. לחצו "קפיצה!", ואחר כך נסו גם קפיצות חזקות יותר.'; snDraw(0); }
+function snJump(){ if(SN.pred<0){ predictFirst(snMsg,'קפצו'); return; } if(SN.raf) return; SN.jumped=1;
+  if(XREDUCED){ SN.u=-1; snDraw(1); return; }
+  const t0=performance.now(), p=snPhys(+snN.value), dur=p.esc?2600:3400;
+  const step=now=>{ const u=Math.min(1,(now-t0)/dur); SN.u=u; snDraw(2); if(u<1) SN.raf=requestAnimationFrame(step); else { SN.raf=0; SN.u=-1; snDraw(1); } };
+  SN.raf=requestAnimationFrame(step); }
+function snDraw(user){
+  const c=snctx, W=snCv.width, H=snCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && SN.pred<0 && +snN.value!==10){ snN.value=10; blocked=true; }
+  if(user && !SN.opened && !blocked && SN.pred>=0){ SN.opened=1; WOW.emit('open', { id:'jump' }); }
+  const kmh=+snN.value, p=snPhys(kmh);
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* ===== left: Phobos ===== */
+  const LX0=16, LW=356, BASE=520, TOPY=86;
+  c.fillStyle=isDark()?'#0E1226':'#1E2340'; c.beginPath(); c.roundRect(LX0,16,LW,H-32,16); c.fill();
+  const r=prng(3); c.fillStyle='rgba(255,255,255,.55)'; for(let i=0;i<34;i++){ c.beginPath(); c.arc(LX0+r()*LW, 20+r()*(BASE-60), 1.5, 0, 2*PI); c.fill(); }
+  const ly = h => BASE - (Math.log10(Math.max(1,h)))/6*(BASE-TOPY);           // 1 m … 1,000 km
+  /* the ruler */
+  [[1,'מטר','1'],[10,'מטר','10'],[100,'מטר','100'],[1000,'ק״מ','1'],[10000,'ק״מ','10'],[100000,'ק״מ','100']].forEach(([h,u,v],i)=>{ if(i===0) return; const y=ly(h);
+    c.strokeStyle='rgba(255,255,255,.35)'; c.lineWidth=1.5; c.beginPath(); c.moveTo(LX0+130,y); c.lineTo(LX0+LW-14,y); c.stroke();
+    xTagN(c, v, u, LX0+20, y, 22, ink, 'left', .8); });
+  /* Phobos' surface: a big grey curve with craters */
+  c.fillStyle=ROCK(); c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(LX0,BASE+8); c.quadraticCurveTo(LX0+LW/2,BASE-26,LX0+LW,BASE+8); c.lineTo(LX0+LW,H-16); c.lineTo(LX0,H-16); c.closePath(); c.fill(); c.stroke();
+  c.fillStyle='rgba(0,0,0,.2)'; [[90,548,16],[290,552,12],[200,566,9]].forEach(([x,y,rr])=>{ c.beginPath(); c.ellipse(x,y,rr*1.6,rr*0.6,0,0,2*PI); c.fill(); });
+  xLabel(c, 'פובוס', LX0+LW/2, 568, 26, ink, .92);
+  if(!(SN.jumped && p.esc)) xLabel(c, 'כל קו: גבוה פי 10', LX0+LW/2, 44, 22, ink, .9);
+  /* where the kid is: at the top of the jump (or animated) */
+  const KX=LX0+300, ground=BASE-6;
+  let kidY=ground, up=false;
+  const peakY = p.esc ? 30 : Math.min(ground, ly(p.h));
+  if(SN.u>=0){ up=true; if(p.esc){ kidY = ground - (ground+60)*Math.pow(SN.u,1.4); } else { const s=Math.sin(SN.u*PI); kidY = ground-(ground-peakY)*s; } }
+  else if(SN.jumped && !p.esc){ kidY = peakY; up=true; }
+  /* the peak line */
+  if(SN.jumped && !p.esc){ c.strokeStyle=GOLD(); c.lineWidth=3; c.setLineDash([8,6]); c.beginPath(); c.moveTo(LX0+120,peakY); c.lineTo(LX0+LW-14,peakY); c.stroke(); c.setLineDash([]); }
+  if(kidY>-40 && !(SN.jumped && p.esc && SN.u<0)) xKid(c, KX, kidY, 18, '#FFFFFF', up);
+  if(SN.jumped && p.esc){ xLabel(c, 'בורח לחלל!', LX0+LW/2, 44, 26, DANG(), .95); }
+  else if(SN.jumped){ const t=snHtxt(p.h).split(' '); xTagN(c, t[0], t[1], LX0+LW-12, clamp(peakY+40, 100, 480), 24, isDark()?GOLD():'#8A5410', 'right', .95); }
+  /* ===== right: Earth ===== */
+  const RX0=388, RW=236, EB=520, MTOP=200;               // 1 metre = 320 px
+  c.fillStyle=isDark()?'#1D3266':'#C9E1F2'; c.beginPath(); c.roundRect(RX0,16,RW,H-32,16); c.fill();
+  xLabel(c, 'כדור הארץ', RX0+RW/2, 44, 26, ink, .92);
+  c.fillStyle=isDark()?'#3E9A62':'#4DA36A'; c.beginPath(); c.roundRect(RX0,EB,RW,H-16-EB,[0,0,16,16]); c.fill();
+  const ey = h => EB - 6 - h*320;
+  c.strokeStyle=ink; c.lineWidth=2; c.beginPath(); c.moveTo(RX0+40,ey(0)); c.lineTo(RX0+40,ey(1)); c.stroke();
+  [[1,'1']].forEach(([h,v])=>{ const y=ey(h); c.beginPath(); c.moveTo(RX0+32,y); c.lineTo(RX0+48,y); c.stroke(); xTagN(c, v, 'מטר', RX0+100, y, 22, ink, 'center', .85); });
+  let eY = EB-6; const eH=Math.min(1.08,p.hE);
+  if(SN.u>=0){ const ue=(SN.u*6)%1; eY = ey(eH*Math.sin(ue*PI)); }
+  else if(SN.jumped){ eY = ey(eH); }
+  xKid(c, RX0+160, eY, 18, ink, SN.u>=0||SN.jumped);
+  if(SN.jumped && SN.u<0 && p.hE>1.05){ c.fillStyle=ink; c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.moveTo(RX0+200,eY-10); c.lineTo(RX0+200,eY-60); c.stroke(); xArrow(c,RX0+200,eY-66,0,-1,12); }
+  if(SN.jumped && SN.u<0){ c.strokeStyle=GOLD(); c.lineWidth=3; c.setLineDash([8,6]); c.beginPath(); c.moveTo(RX0+60,ey(eH)); c.lineTo(RX0+RW-14,ey(eH)); c.stroke(); c.setLineDash([]); }
+  if(SN.jumped){ xTagN(c, String(Math.round(p.hE*100)), 'ס״מ', RX0+RW/2, 104, 24, isDark()?GOLD():'#8A5410', 'center', .95); xLabel(c, 'באוויר: '+fmt1(p.tE)+' שניות', RX0+RW/2, 572, 22, ink, .92); }
+  /* readouts and messages */
+  snOut.innerHTML='<span class="num">'+kmh+'</span> קמ״ש';
+  snOut2.innerHTML = p.esc ? '<b>לא חוזרים לעולם</b>' : 'גובה <span class="num">'+snHtxt(p.h).split(' ')[0]+'</span> '+snHtxt(p.h).split(' ')[1]+', באוויר <span class="num">'+snTtxt(p.t).split(' ')[0]+'</span> '+snTtxt(p.t).split(' ')[1];
+  if(SN.pred>=0 && SN.jumped && !SN.revealed){ SN.revealed=1; snReveal.hidden=false; }
+  if(blocked){ predictFirst(snMsg,'הזיזו'); return; }
+  if(user===1 && SN.pred>=0 && SN.jumped){
+    if(p.esc) snMsg.innerHTML='<span class="num">'+kmh+'</span> קמ״ש: יותר ממהירות הבריחה של פובוס, כ־<span class="num">41</span> קמ״ש. הקופץ עף לחלל ולא חוזר!';
+    else if(kmh>=30) snMsg.innerHTML='קפיצה חזקה מאוד: גובה של '+snHtxt(p.h)+', ו־'+snTtxt(p.t)+' באוויר. עוד קצת — ואתם בורחים.';
+    else snMsg.innerHTML='על כדור הארץ: <span class="num">'+Math.round(p.hE*100)+'</span> ס״מ. על פובוס, אותה קפיצה: '+snHtxt(p.h)+', ו־'+snTtxt(p.t)+' באוויר. '+(SN.pred===1&&kmh===10?'בדיוק כמו שניחשתם!':'');
+  }
+}
+
+/* ---------- step 3 (interactive 3): the tidal bulge (canvas 640 × 600) ----------
+   Top view. The moon raises a bulge on its planet (drawn hugely exaggerated). Phobos orbits faster than Mars spins → the bulge lags BEHIND it and
+   pulls it back → it spirals in (faster and faster) until the break-up line (2.1 Mars radii; the orbit now is 2.76) → a ring.
+   Our Moon orbits slower than Earth spins → the bulge is dragged AHEAD and pulls it forward → it spirals out (3.8 cm a year). Slider = time (not to scale). */
+const prCv=document.getElementById('prCv'), prctx=prCv.getContext('2d');
+const PR={ opened:0, pred:-1, revealed:0, pick:0, seen:{} };   /* predict: where is the bulge? 0 ahead, 1 behind (right), 2 straight below */
+const prPlayer = xPlayer('pr','prT','prPlay', 14000, u=>prDraw(u), 'עצירה ❚❚', 'הפעלה ▶');
+function prPredict(k){ PR.pred=k; segOn('prP',3,k); WOW.emit('item', { id:'tide:predict', kind:'quick', correct:k===1, attempt: wowTry('tide:predict') });
+  prMsg.innerHTML=(k===1?'<b>נכון!</b> הגבנון נשאר <b>מאחורי</b> פובוס: הוא נסחב עם הסיבוב האיטי של מאדים, ופובוס רץ לפניו.':'<b>לא בדיוק.</b> ראו בציור: הגבנון נשאר <b>מאחורי</b> פובוס, כי הוא נסחב עם הסיבוב האיטי של מאדים, ופובוס רץ מהר יותר ממנו.')+' החץ האדום מראה לאן הגבנון מושך. עכשיו לחצו "הפעלה", או הזיזו את מחוון הזמן, ואחר כך נסו גם את כדור הארץ והירח.'; prDraw(0); }
+function prPick(k){ if(PR.pred<0){ predictFirst(prMsg,'בחרו'); return; } if(prPlayer.raf){ prPlayer.toggle(); } PR.pick=k; segOn('prS',2,k); prT.value=0; prDraw(1); }
+function prToggle(){ if(PR.pred<0){ predictFirst(prMsg,'הפעילו'); return; } prPlayer.toggle(); }
+function prR(k,s){ const f=Math.pow(s/100,1.6); return k===0 ? 206-50*f : 168+40*f; }
+function prDraw(user){
+  const c=prctx, W=prCv.width, H=prCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && PR.pred<0 && +prT.value!==0){ prT.value=0; blocked=true; }
+  if(user && !PR.opened && !blocked && PR.pred>=0){ PR.opened=1; WOW.emit('open', { id:'tide' }); }
+  const k=PR.pick, s=+prT.value, CX=320, CY=318, PRAD=78;
+  const turns = k===0 ? 5 : 3, ang = q => 0.25*PI + q/100*turns*2*PI;   /* counter-clockwise on screen */
+  const ring = (k===0 && s>=100);
+  if(PR.pred>=0){ PR.seen[k]=Math.max(PR.seen[k]||0, s); }
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  c.fillStyle=isDark()?'#0E1226':'#1E2340'; c.beginPath(); c.roundRect(16,16,W-32,H-32,16); c.fill();
+  const P = (r,a) => [CX+Math.cos(a)*r, CY-Math.sin(a)*r];
+  /* the break-up line (Mars only) */
+  if(k===0 && PR.pred>=0){ c.strokeStyle=DANG(); c.lineWidth=2.5; c.setLineDash([8,7]); c.beginPath(); c.arc(CX,CY,156,0,2*PI); c.stroke(); c.setLineDash([]); }
+  /* the path so far */
+  c.strokeStyle='rgba(255,255,255,.55)'; c.lineWidth=2.5; c.beginPath();
+  if(!(k===0 && s>=100)){ for(let q=0;q<=s;q+=0.5){ const [x,y]=P(prR(k,q),ang(q)); q===0?c.moveTo(x,y):c.lineTo(x,y); } c.stroke(); }
+  /* the planet with its bulge (exaggerated), pointing behind (Phobos) or ahead of (the Moon) the moon */
+  const a=ang(s), bulge = a + (k===0 ? -24 : 24)*DEG;
+  const pre = PR.pred<0;
+  if(!ring && !pre){ c.save(); c.translate(CX,CY); c.rotate(-bulge);
+  c.fillStyle = k===0 ? 'rgba(232,140,96,.55)' : 'rgba(120,190,240,.55)'; c.beginPath(); c.ellipse(0,0,PRAD+30,PRAD+2,0,0,2*PI); c.fill();
+  c.restore(); }
+  c.fillStyle = k===0 ? MARS() : EARTH(); c.beginPath(); c.arc(CX,CY,PRAD,0,2*PI); c.fill();
+  if(k===1){ c.fillStyle=isDark()?'#5FBF7F':'#4DA36A'; c.beginPath(); c.ellipse(CX-20,CY-14,26,18,0.4,0,2*PI); c.fill(); c.beginPath(); c.ellipse(CX+26,CY+22,18,12,-0.3,0,2*PI); c.fill(); }
+  c.strokeStyle='#FFFFFF'; c.lineWidth=2; c.beginPath(); c.arc(CX,CY,PRAD,0,2*PI); c.stroke();
+  /* the planet's spin arrow */
+  c.strokeStyle='#FFFFFF'; c.fillStyle='#FFFFFF'; c.lineWidth=3; c.beginPath(); c.arc(CX,CY,PRAD-16,-0.2*PI,0.25*PI); c.stroke(); { const e=-0.2*PI; xArrow(c, CX+Math.cos(e)*(PRAD-16), CY+Math.sin(e)*(PRAD-16), Math.sin(e), -Math.cos(e), 10); }
+  /* the bulge's pull on the moon, and the moon */
+  if(ring){
+    const rr=prng(11); for(let i=0;i<220;i++){ const t=rr()*2*PI, d=150+rr()*14; c.fillStyle=rr()<0.5?ROCK():'#D8D0C4'; c.beginPath(); c.arc(CX+Math.cos(t)*d, CY-Math.sin(t)*d, 1.5+rr()*2.4, 0, 2*PI); c.fill(); }
+  } else {
+    const r=prR(k,s), [mx,my]=P(r,a), [bx,by]=P(PRAD+30,bulge);
+    if(!pre){ c.strokeStyle='rgba(255,255,255,.6)'; c.lineWidth=2; c.setLineDash([4,6]); c.beginPath(); c.moveTo(bx,by); c.lineTo(mx,my); c.stroke(); c.setLineDash([]); }
+    if(k===0) xPotato(c,mx,my,20,-a); else { c.fillStyle='#E8E4DA'; c.strokeStyle=ink; c.lineWidth=2.5; c.beginPath(); c.arc(mx,my,19,0,2*PI); c.fill(); c.stroke(); c.fillStyle='rgba(0,0,0,.15)'; c.beginPath(); c.arc(mx-6,my-4,5,0,2*PI); c.fill(); }
+    /* forward = the direction of motion (counter-clockwise): (−sin a, −cos a) on screen */
+    const fx=-Math.sin(a), fy=-Math.cos(a), dir = k===0 ? -1 : 1, col = k===0 ? DANG() : GOOD();
+    const x1=mx+fx*dir*26, y1=my+fy*dir*26, x2=mx+fx*dir*74, y2=my+fy*dir*74;
+    if(!pre){ c.strokeStyle=col; c.fillStyle=col; c.lineWidth=7; c.lineCap='round'; c.beginPath(); c.moveTo(x1,y1); c.lineTo(x2,y2); c.stroke(); xArrow(c,x2+fx*dir*8,y2+fy*dir*8,fx*dir,fy*dir,18); }
+    /* the direction of motion: a thin white arrow just outside the orbit */
+    const ox=Math.cos(a), oy=-Math.sin(a), sx=mx+ox*34-fx*14, sy=my+oy*34-fy*14;
+    c.strokeStyle='#FFFFFF'; c.fillStyle='#FFFFFF'; c.lineWidth=3; c.beginPath(); c.moveTo(sx,sy); c.lineTo(sx+fx*40,sy+fy*40); c.stroke(); xArrow(c,sx+fx*46,sy+fy*46,fx,fy,11);
+  }
+  /* labels */
+  const PH = k===0;
+  xLabel(c, PH ? 'מאדים ופובוס' : 'כדור הארץ והירח', 320, 46, 26, ink, .92);
+  if(!ring){ xLabel(c, PH?'פובוס: 7.7 שעות':'הירח: 27 ימים', 150, 96, 22, isDark()?GOLD():'#8A5410', .92);
+  xLabel(c, PH?'מאדים: 24.6 שעות':'כדור הארץ: 24 שעות', 494, 96, 22, ink, .92);
+  xLabel(c, 'חץ לבן = כיוון התנועה', 150, 150, 20, ink, .85); }
+  if(ring) xLabel(c, 'טבעת!', 320, 560, 28, DANG(), .95);
+  else if(pre) xLabel(c, 'איפה יהיה הגבנון? נחשו למעלה', 320, 560, 24, ink, .95);
+  else xLabel(c, PH ? 'הגבנון מאחור: מושך אחורה' : 'הגבנון מלפנים: מושך קדימה', 320, 560, 24, PH?DANG():GOOD(), .95);
+  if(PH && !pre) xLabel(c, 'כאן הוא נקרע', 140, CY+44, 20, DANG(), .9);
+  prOut.textContent = pre ? '—' : PH ? 'מאחורי הירח' : 'לפני הירח';
+  prOut2.textContent = pre ? '—' : ring ? 'נקרע לטבעת' : PH ? 'מתקרב — ומאיץ' : 'מתרחק לאט';
+  if(PR.pred>=0 && (PR.seen[0]||0)>=60 && PR.seen[1]!==undefined && !PR.revealed){ PR.revealed=1; prReveal.hidden=false; }
+  if(blocked){ predictFirst(prMsg,'הזיזו'); return; }
+  if(user===1 && PR.pred>=0){
+    if(PH && s===0) prMsg.innerHTML='היום: פובוס רץ מהר יותר ממה שמאדים מסתובב, והגבנון נשאר <b>מאחוריו</b>. החץ האדום מראה לאן הוא מושך. הזיזו את הזמן.';
+    else if(PH && !ring) prMsg.innerHTML='כל הקפה, הגבנון מושך את פובוס קצת אחורה, והוא יורד. שימו לב: ככל שהוא יורד, הספירלה מתהדקת מהר יותר.';
+    else if(ring) prMsg.innerHTML='פובוס הגיע לקו המקווקו, והמשיכה של מאדים קרעה אותו. עכשיו יש למאדים <b>טבעת</b>. '+'הגבנון שמאחור הפיל אותו, עד הסוף.';
+    else prMsg.innerHTML='אצלנו הפוך: הירח איטי, כדור הארץ מסתובב מהר וסוחב את הגבנון <b>לפני</b> הירח. הגבנון מושך קדימה, והירח מתרחק. (מוגזם מאוד: באמת זה כ־<span class="num">3.8</span> ס״מ בשנה.)';
+  }
+}
+
+/* ---------- step 5 (interactive 4): the law of orbits (canvas 640 × 600) ----------
+   A ruler leaving Mars (centre at x = 570, 0.0178 px per km). Slider: 4,000–30,000 km from the centre of Mars. Period by Kepler's third law,
+   scaled from Phobos: T = 7.654 h · (r / 9,376)^1.5. The synchronous line (T = one Mars day, 24.62 h) is at ≈ 20,400 km; Deimos at 23,458 km (30.3 h).
+   Below: the moon's period bar vs the Mars-day bar; inside the line → it falls, outside → it drifts away. */
+const moCv=document.getElementById('moCv'), moctx=moCv.getContext('2d');
+const MO={ opened:0, pred:-1, revealed:0, seenIn:0, seenOut:0 };
+const MO_SYNC=20428, MO_SOL=24.623;
+const moT = r => 7.654*Math.pow(r/9376,1.5);
+function moPredict(k){ MO.pred=k; segOn('moP',3,k); WOW.emit('item', { id:'orbits:predict', kind:'quick', correct:k===1, attempt: wowTry('orbits:predict') });
+  moMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את המחוון שמאלה: הירח יתרחק ממאדים. צפו בפס של ההקפה.'; moDraw(0); }
+function moDraw(user){
+  const c=moctx, W=moCv.width, H=moCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && MO.pred<0 && +moR.value!==94){ moR.value=94; blocked=true; }
+  if(user && !MO.opened && !blocked && MO.pred>=0){ MO.opened=1; WOW.emit('open', { id:'orbits' }); }
+  const rk=+moR.value*100, T=moT(rk);
+  if(MO.pred>=0){ if(rk<MO_SYNC-300) MO.seenIn=1; if(rk>MO_SYNC+300) MO.seenOut=1; }
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  const MX=570, AY=196, SC=0.0178, X = r => MX - r*SC;
+  c.fillStyle=isDark()?'#0E1226':'#1E2340'; c.beginPath(); c.roundRect(16,16,W-32,318,16); c.fill();
+  /* orbit arc of the moving moon */
+  c.strokeStyle='rgba(255,255,255,.35)'; c.lineWidth=2; c.setLineDash([5,7]); c.beginPath(); c.arc(MX,AY,rk*SC,PI*0.82,PI*1.18); c.stroke(); c.setLineDash([]);
+  /* Mars */
+  c.fillStyle=MARS(); c.beginPath(); c.arc(MX,AY,3390*SC,0,2*PI); c.fill(); c.strokeStyle='#FFFFFF'; c.lineWidth=2; c.stroke();
+  xLabel(c, 'מאדים', MX, AY+92, 22, ink, .9);
+  /* the ruler */
+  c.strokeStyle='rgba(255,255,255,.75)'; c.lineWidth=3; c.beginPath(); c.moveTo(X(3390),AY); c.lineTo(X(30500),AY); c.stroke();
+  /* the synchronous line */
+  const xs=X(MO_SYNC); c.strokeStyle=GOLD(); c.lineWidth=3; c.setLineDash([9,7]); c.beginPath(); c.moveTo(xs,40); c.lineTo(xs,320); c.stroke(); c.setLineDash([]);
+  xLabel(c, 'קו יום אחד', xs, 52, 22, isDark()?GOLD():'#8A5410', .95);
+  xLabel(c, 'נופלים', xs+68, 300, 22, DANG(), .92); xLabel(c, 'מתרחקים', xs-80, 300, 22, GOOD(), .92);
+  /* Phobos and Deimos, where they really are */
+  xPotato(c, X(9376), AY, 11, 0.3); xLabel(c, 'פובוס', X(9376), AY-46, 22, ink, .9);
+  xPotato(c, X(23458), AY, 8, -0.4); xLabel(c, 'דימוס', X(23458), AY+50, 22, ink, .9);
+  /* the moving moon */
+  const mx=X(rk); c.fillStyle=GOLD(); c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.arc(mx,AY-2,15,0,2*PI); c.fill(); c.stroke();
+  c.fillStyle=GOLD(); xArrow(c, mx, AY-24, 0, 1, 12);
+  xTagN(c, Math.round(rk).toLocaleString('en-US'), 'ק״מ', clamp(mx,90,540), AY-80, 22, isDark()?GOLD():'#8A5410', 'center', .95);
+  /* the two bars: one orbit vs one Mars day (48 h = 520 px) */
+  const BX=600, BW=520, b1=466, b2=566, len = h => Math.min(BW, h/48*BW);
+  c.fillStyle=css('--line'); c.beginPath(); c.roundRect(BX-BW,b1,BW,30,8); c.fill(); c.beginPath(); c.roundRect(BX-BW,b2,BW,30,8); c.fill();
+  const inside = T < MO_SOL-0.25, outside = T > MO_SOL+0.25;
+  c.fillStyle = inside ? DANG() : outside ? GOOD() : GOLD(); c.beginPath(); c.roundRect(BX-len(T),b1,len(T),30,8); c.fill();
+  c.fillStyle = MARS(); c.beginPath(); c.roundRect(BX-len(MO_SOL),b2,len(MO_SOL),30,8); c.fill();
+  xTagN(c, fmt1(T), 'שעות להקפה אחת', 210, b1-34, 22, ink, 'center', .92);
+  xTagN(c, '24.6', 'שעות ליום של מאדים', 210, b2-34, 22, ink, 'center', .92);
+  c.strokeStyle=ink; c.lineWidth=2; c.setLineDash([4,4]); c.beginPath(); c.moveTo(BX-len(MO_SOL),b1-8); c.lineTo(BX-len(MO_SOL),b2+38); c.stroke(); c.setLineDash([]);
+  xLabel(c, inside ? 'מהיר מהסיבוב: נופל פנימה' : outside ? 'איטי מהסיבוב: מתרחק' : 'בדיוק יום אחד: נשאר מעל אותו מקום', 380, 368, 22, inside?DANG():outside?GOOD():ink, .95);
+  moOut.innerHTML='<span class="num">'+Math.round(rk).toLocaleString('en-US')+'</span> ק״מ'; moOut2.innerHTML='<span class="num">'+fmt1(T)+'</span> שעות';
+  if(MO.pred>=0 && MO.seenIn && MO.seenOut && !MO.revealed){ MO.revealed=1; moReveal.hidden=false; }
+  if(blocked){ predictFirst(moMsg,'הזיזו'); return; }
+  if(user===1 && MO.pred>=0){
+    if(Math.abs(rk-9400)<=200) moMsg.innerHTML='כאן גר פובוס: הקפה ב־<span class="num">7.7</span> שעות, הרבה פחות מיום של מאדים. לכן הוא נופל.';
+    else if(inside) moMsg.innerHTML='עדיין בתוך הקו: ההקפה קצרה מיום של מאדים. ירח כאן היה נופל, כמו פובוס.';
+    else if(!outside) moMsg.innerHTML='בדיוק על הקו: הירח מקיף בדיוק באותו זמן שמאדים מסתובב, ונראה כאילו הוא תלוי מעל אותו מקום.';
+    else moMsg.innerHTML='מחוץ לקו: ההקפה ארוכה מיום של מאדים, והירח מתרחק לאט, כמו דימוס. '+(MO.pred===1?'וכמו שניחשתם: רחוק יותר — איטי יותר.':'רחוק יותר — איטי יותר.');
+  }
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  storyQ:{ q:'למה פובוס זורח במערב, הפוך מהשמש?', opts:['כי מאדים מסתובב הפוך מכדור הארץ','כי פובוס מקיף את מאדים מהר יותר ממה שמאדים מסתובב, ו"עוקף" את מי שעומד עליו','כי השמש דוחפת אותו מערבה','כי הוא בכלל לא זורח: זה רק נדמה'], a:1, fb:'מי שעומד על מאדים מסתובב איתו, פעם ב־<span class="num">24.6</span> שעות. פובוס רץ סביב פי שלושה מהר יותר, ולכן הוא "עוקף" את הצופה ומגיע אליו מהמערב. מאדים מסתובב לאותו כיוון כמו כדור הארץ (לכן השמש שם זורחת במזרח), השמש לא דוחפת ירחים, ופובוס באמת עולה ויורד בשמיים.', btn:'next1' },
+  snailQ:{ q:'למה קפיצה רגילה על פובוס מרימה אתכם מאות מטרים?', opts:['כי על פובוס אין אוויר','כי פובוס קטן, וכוח המשיכה שלו חלש פי כ־<span class="num">1,700</span> מאצלנו','כי פובוס מסתובב מהר מאוד','כי שם הרגליים נעשות חזקות יותר'], a:1, fb:'הכול בגלל המשיכה החלשה של ירח קטן: היא כמעט לא עוצרת אתכם בדרך למעלה. גם על הירח שלנו אין אוויר, ושם קופצים רק קצת יותר גבוה מאצלנו. הסיבוב של פובוס סביב עצמו (פעם בהקפה, ולכן הוא תמיד מראה למאדים את אותו צד) הוא לא מה שמעיף אתכם, והרגליים, כמובן, נשארות אותן רגליים.' },
+  priceQ:{ q:'למה הגבנון שעל מאדים מושך את פובוס <b>אחורה</b>, ולא קדימה?', opts:['כי פובוס מקיף מהר יותר ממה שמאדים מסתובב, והגבנון לא מספיק לרוץ איתו ונשאר מאחוריו','כי מאדים קטן מכדור הארץ','כי על מאדים אין ים','כי השמש מושכת את הגבנון אליה'], a:0, fb:'הגבנון "נסחב" עם הסיבוב של מאדים, ופובוס רץ מהר יותר ממנו, ולכן הגבנון תמיד קצת מאחור. גאות יש גם בסלע, לא רק בים, והגודל של מאדים או השמש לא קובע את הכיוון. אצל הירח שלנו הוא איטי, והגבנון יוצא מלפניו.' },
+  siteQ:{ q:'מה יקרה לפובוס כשהוא יתקרב מאוד למאדים?', opts:['הוא יקפוץ חזרה החוצה, כמו כדור','המשיכה של מאדים תמתח אותו עד שהוא ייקרע, והאבנים שלו יהיו טבעת','הוא יתחמם ויהפוך לכוכב','הוא ייעצר ויישאר תלוי באוויר'], a:1, fb:'מאדים מושך חזק יותר את הצד הקרוב של פובוס מאשר את הצד הרחוק, וכך מותח אותו. בגובה של כ־<span class="num">3,700</span> ק״מ המתיחה תנצח, ופובוס יתפרק לטבעת. ירח לא קופץ החוצה מעצמו, לא נדלק כמו כוכב, ולא יכול לעמוד במקום.' },
+  deepQ:{ q:'איזה ירח מקיף את מאדים מהר יותר: ירח קרוב, או ירח רחוק?', opts:['הרחוק, כי יש לו יותר מקום לרוץ','הקרוב: ככל שהמסלול קרוב יותר, ההקפה מהירה יותר','שניהם באותו זמן בדיוק','זה תלוי רק בגודל של הירח'], a:1, fb:'זה החוק של המסלולים: פובוס הקרוב מקיף ב־<span class="num">7.7</span> שעות, ודימוס הרחוק בכ־<span class="num">30</span> שעות. לרחוק יש גם דרך ארוכה יותר וגם משיכה חלשה, ולכן הוא איטי. והגודל של הירח עצמו כמעט לא משנה את זמן ההקפה.' },
+};
+const MCQ = {
+  shared:[
+    { q:'מי שעומד על מאדים ומסתכל על פובוס, מה הוא רואה?', opts:['פובוס זורח במזרח ושוקע במערב, פעם אחת ביום','פובוס זורח במערב ושוקע במזרח, בערך פעמיים ביום','פובוס תמיד תלוי באותו מקום בשמיים','פובוס נראה רק פעם בחודש'], a:1, fb:'פובוס מקיף מהר יותר ממה שמאדים מסתובב, ולכן הוא זורח <b>במערב</b>, חוצה את השמיים בכארבע שעות, ושוקע במזרח. אחרי כ־<span class="num">11</span> שעות — שוב. זורח במזרח פעם ביום זה הירח שלנו בערך; ירח "תלוי במקום" צריך להקיף בדיוק ביום מאדים; ופעם בחודש זה ירח מלא אצלנו.' },
+    { q:'למה פובוס מתקרב למאדים?', opts:['כי הוא נעשה כבד יותר כל שנה מאבק שנופל עליו','כי השמש דוחפת אותו פנימה','כי הגבנון של הגאות שהוא מרים על מאדים נשאר מאחוריו ומאט אותו','כי מאדים גדל'], a:2, fb:'זה הבלם של הגאות: פובוס מושך את מאדים ומרים עליו גבנון, הגבנון נשאר מאחור ומושך את פובוס אחורה, ופובוס יורד בכ־<span class="num">2</span> ס״מ בשנה. אבק לא משנה את המסלול, השמש לא דוחפת אותו, ומאדים לא גדל.' },
+    { q:'מה החללית MMX אמורה לעשות?', opts:['לצלם את פובוס מרחוק ולחזור','לנחות על פובוס, לאסוף לפחות <span class="num">10</span> גרם מהאדמה שלו ולהביא אותם לכדור הארץ','לדחוף את פובוס חזרה למקומו','להביא אסטרונאוטים למאדים'], a:1, fb:'MMX של יפן תנחת על פובוס, תאסוף לפחות <span class="num">10</span> גרם במקדח ובאקדח אוויר, והקפסולה אמורה לנחות באוסטרליה ב־<span class="num">2031</span>. היא גם תצלם, אבל לא רק; אף חללית לא יכולה לדחוף ירח; ואין בה אנשים.' },
+  ],
+  younger:[
+    { q:'על פובוס כוח המשיכה חלש מאוד. מה יקרה לכדור שזורקים שם למעלה, מהר יותר מ־<span class="num">41</span> קמ״ש?', opts:['הוא ייפול מיד','הוא יעוף לחלל ולא יחזור לעולם','הוא יתפוצץ באוויר','הוא יחזור אחרי שנייה אחת'], a:1, fb:'<span class="num">41</span> קמ״ש היא <b>מהירות הבריחה</b> של פובוס: מי שזז מהר יותר, המשיכה החלשה כבר לא מצליחה להחזיר אותו. על כדור הארץ הכדור היה נופל מיד, אבל לא על פובוס. כדורים לא מתפוצצים מזריקה.' },
+  ],
+  older:[
+    { q:'דימוס רחוק ממאדים יותר מ"קו היום", המרחק שבו הקפה לוקחת בדיוק יום מאדים אחד. מה קורה לו?', opts:['הוא נופל עוד יותר מהר מפובוס','הוא מתרחק לאט: הוא מקיף לאט מהסיבוב של מאדים, והגבנון שלו יוצא מלפניו ומושך קדימה','הוא תלוי כל הזמן מעל אותו מקום','הוא עומד להתנגש בפובוס'], a:1, fb:'מחוץ לקו, ההקפה ארוכה מהיום (דימוס: כ־<span class="num">30</span> שעות מול <span class="num">24.6</span>), ולכן מאדים "סוחב" את הגבנון לפני הירח, והירח מתרחק, בדיוק כמו הירח שלנו. ליפול הוא היה צריך להיות בפנים; כדי להיות תלוי במקום, בדיוק על הקו; ושני הירחים במסלולים רחוקים זה מזה.' },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'אסף הול מגלה את שני הירחים של מאדים, בעידוד של אשתו אנג׳לין.'},
+  {id:'b', t:'נוסדת המושבה זכרון יעקב.'},
+  {id:'c', t:'החללית האמריקנית "מרינר <span class="num">9</span>" מצלמת את פובוס מקרוב, בפעם הראשונה.'},
+  {id:'d', t:'החללית MMX ממריאה מיפן לכיוון פובוס.'},
+  {id:'e', t:'קפסולה עם אדמה מפובוס אמורה לנחות במדבר באוסטרליה.'},
+  {id:'f', t:'פובוס מתפרק, ולמאדים יש טבעת.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלך: ' : '<span class="pill-ok">סדר מושלם!</span>')+' הול (<span class="num">1877</span>) ← זכרון יעקב (<span class="num">1882</span>) ← מרינר <span class="num">9</span> (<span class="num">1971</span>) ← MMX ממריאה (<span class="num">2026</span>) ← האדמה מגיעה (<span class="num">2031</span>, לפי התוכנית) ← טבעת (בעוד כ־<span class="math">30–50</span> מיליון שנה).' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) זכרון יעקב נוסדה חמש שנים אחרי התגלית. (2) צילום מקרוב היה רק בעידן החלליות, הרבה לפני MMX — והטבעת היא הכי רחוקה בעתיד, הרבה אחרי כולם.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && a>=1.75 && a<=1.85, bOk = hasB && b>=126 && b<=130;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && a>=179 && a<=181) ? '(א): זה בסנטימטרים, אבל <b>למאה שנה</b>. כמה זה בשנה אחת?'
+    : (hasA && a>0.017 && a<0.019) ? '(א): זה במטרים לשנה. השאלה ב<b>סנטימטרים</b>: במטר יש <span class="num">100</span> ס״מ.'
+    : (hasA && a>=17.9 && a<=18.1) ? '(א): ספרו את האפסים: <span class="math">1.8 × 100 = 180</span> ס״מ, ואז מחלקים ב־<span class="num">100</span> שנה.'
+    : '(א): רמז — קודם הפכו <span class="num">1.8</span> מטר לסנטימטרים, ואז חלקו במספר השנים שבמאה.';
+  const hintB = (hasB && b>=125e6) ? '(ב): קיבלתם את התשובה בשנים. השאלה ב<b>מיליוני</b> שנים: חלקו במיליון.'
+    : (hasB && b>1270 && b<1290) ? '(ב): בדקו את היחידות: <span class="num">2,300</span> ק״מ צריך להפוך לסנטימטרים לפני שמחלקים ב־<span class="num">1.8</span> ס״מ לשנה.'
+    : (hasB && b>=113 && b<=117) ? '(ב): השתמשתם ב־<span class="num">2</span> ס״מ לשנה. השאלה נותנת <span class="num">1.8</span>.'
+    : (hasB && b>=330 && b<=336) ? '(ב): חילקתם את כל <span class="num">6,000</span> הק״מ. אבל הוא צריך לרדת רק עד <span class="num">3,700</span>: כמה ק״מ זה?'
+    : (hasB && b>=203 && b<=208) ? '(ב): זה הזמן ל־<span class="num">3,700</span> ק״מ. השאלה היא על <b>ההפרש</b>, מ־<span class="num">6,000</span> עד <span class="num">3,700</span>.'
+    : '(ב): רמז — קודם חשבו כמה ק״מ הוא צריך לרדת, הפכו לסנטימטרים (<span class="math">1 ק״מ = 100,000</span> ס״מ), וחלקו בקצב לשנה.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">1.8 × 100 = 180</span> ס״מ למאה שנה, ו־<span class="math">180 ÷ 100 = 1.8</span> ס״מ בשנה. (ב) <span class="math">6,000 − 3,700 = 2,300</span> ק״מ, שהם <span class="math">2,300 × 100,000 = 230,000,000</span> ס״מ, ו־<span class="math">230,000,000 ÷ 1.8 ≈ 128,000,000</span> שנה: כ־<span class="num">128</span> מיליון שנה. עכשיו לשאלה למחשבה: למה המדענים אומרים רק <span class="math">30–50</span>?'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">1.8</span> ס״מ בשנה.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">128</span> מיליון שנה.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const sp=+numAdvR.value, ks=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && sp>=7650 && sp<=7750), yOk=(hasY && ks>=2.10 && ks<=2.18), sc = dOk&&yOk?2:((dOk||yOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && sp>400000) ? 'ב־(א): הכפלתם. מהירות = הדרך <b>חלקי</b> הזמן.'
+      : (hasD && sp>0 && sp<1) ? 'ב־(א): הפכתם את החילוק: מחלקים את הדרך בזמן, לא את הזמן בדרך.'
+      : (hasD && sp>=7950 && sp<=8050) ? 'ב־(א): זו התשובה עם המספרים המעוגלים. כאן יש מספרים מדויקים: <span class="math">58,900 ÷ 7.65</span>.'
+      : (hasD && (Math.abs(sp-770)<10 || Math.abs(sp-77000)<1000)) ? 'ב־(א): בדקו את האפסים: <span class="math">58,900 ÷ 7.65</span>.'
+      : 'רמז ל־(א): מהירות בקמ״ש = כמה ק״מ חלקי כמה שעות.';
+    const hintY = (hasY && ks>=125 && ks<=135) ? 'ב־(ב): חילקתם ב־<span class="num">60</span>: זה ק״מ לדקה. בשעה יש <span class="math">60 × 60 = 3,600</span> שניות.'
+      : (hasY && ks>=2.19 && ks<=2.25) ? 'ב־(ב): השתמשתם במהירות המעוגלת. חלקו את התשובה המדויקת שלכם מ־(א).'
+      : (hasY && ks>1000) ? 'ב־(ב): הכפלתם. בשנייה עוברים <b>פחות</b> מבשעה: מחלקים.'
+      : 'רמז ל־(ב): בשעה יש <span class="num">3,600</span> שניות. כמה ק״מ עוברים בשנייה אחת?';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">58,900 ÷ 7.65 ≈ 7,700</span> קמ״ש. (ב) <span class="math">7,700 ÷ 3,600 ≈ 2.14</span> ק״מ בכל שנייה. מהר פי שלושה ממטוס קרב — וזה ירח שלם.'
+      : dOk ? '<span class="pill-ok">(א) נכון — כ־<span class="num">7,700</span> קמ״ש.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">2.14</span> ק״מ בשנייה.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-21)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">3 × 7 = 21</span> הקפות בשבוע. ובאותו שבוע הירח שלנו עושה רק רבע הקפה סביבנו.':(Math.abs(v-10)<0.01)?'<span class="pill-bad">חיברתם.</span> בכל יום <span class="num">3</span> הקפות, וזה קורה <span class="num">7</span> ימים: <span class="num">3</span>, שבע פעמים.':(Math.abs(v-3)<0.01)?'<span class="pill-bad">זה יום אחד.</span> בשבוע יש <span class="num">7</span> ימים.':(Math.abs(v-7)<0.01)?'<span class="pill-bad">זה מספר הימים.</span> בכל אחד מהם פובוס מקיף <span class="num">3</span> פעמים.':'<span class="pill-bad">לא בדיוק.</span> רמז: <span class="num">3</span>, ועוד <span class="num">3</span>, ועוד... שבע פעמים. או: <span class="math">3 × 7</span>.'; }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-8000)<1; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">60,000 ÷ 7.5 = 8,000</span> קמ״ש: פי עשרה ממטוס נוסעים. עם המספרים המדויקים יוצא קצת פחות, כ־<span class="num">7,700</span>.':(Math.abs(v-450000)<1)?'<span class="pill-bad">הכפלתם.</span> מהירות היא הדרך <b>חלקי</b> הזמן.':(v>0 && v<1)?'<span class="pill-bad">הפכתם את החילוק.</span> מחלקים את הדרך בזמן.':(Math.abs(v-800)<1||Math.abs(v-80000)<1)?'<span class="pill-bad">בדקו את האפסים.</span> <span class="math">60,000 ÷ 7.5</span>: כמה פעמים <span class="num">7.5</span> נכנס ב־<span class="num">60</span>? ואז מוסיפים אפסים.':'<span class="pill-bad">לא בדיוק.</span> רמז: מהירות = הדרך חלקי הזמן. <span class="math">60,000 ÷ 7.5</span>.'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שפובוס קרוב מאוד למאדים ומקיף אותו מהר: כ־<span class="num">3</span> פעמים ביום, מהר יותר ממה שמאדים מסתובב.',
+  'הסברתי שבגלל זה פובוס "עוקף" את מי שעומד על מאדים, ולכן זורח במערב ושוקע במזרח.',
+  'הסברתי שפובוס מרים על מאדים גבנון של גאות, והגבנון נשאר <b>מאחוריו</b>, כי פובוס מהיר יותר.',
+  'כתבתי שהגבנון מושך את פובוס אחורה ומאט אותו, ולכן הוא יורד, כ־<span class="num">2</span> ס״מ בשנה, ובסוף יתפרק לטבעת.',
+  'הוספתי פרט מדויק: הירח שלנו עושה את ההפך ומתרחק, החללית MMX, קו היום של מאדים, או קפיצה של מאות מטרים על פובוס.',
+];
+const MODEL='פובוס קרוב מאוד למאדים, רק כ־6,000 ק״מ מעל פני השטח, ולכן הוא מקיף אותו מהר: הקפה ב־7 שעות ו־39 דקות, בזמן שמאדים מסתובב סביב עצמו פעם ב־24.6 שעות. מי שעומד על מאדים מסתובב לאט, ופובוס "עוקף" אותו, ולכן הוא זורח במערב ושוקע במזרח, פעמיים ביום. כוח המשיכה של פובוס מרים על מאדים גבנון קטן של גאות. מאדים מסתובב לאט מפובוס, ולכן הגבנון לא מספיק לרוץ איתו ונשאר מאחוריו. הגבנון מושך את פובוס אחורה, מאט אותו, והוא יורד, כ־2 ס״מ בשנה. בעוד 30 עד 50 מיליון שנה המשיכה של מאדים תקרע אותו לטבעת. הירח שלנו איטי מהסיבוב של כדור הארץ, ולכן אצלו הגבנון מלפנים, והוא מתרחק.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון (פובוס במסלול נמוך מקיף ב־7.65 שעות, מהר מהסיבוב של מאדים ב־24.6 שעות — כלומר בתוך המסלול הסינכרוני, כ־20,400 ק״מ; לכן הצופה על מאדים רואה אותו זורח במערב; המשיכה של פובוס מרימה גבנון גאות על מאדים, והגבנון מפגר מאחורי פובוס ומושך אותו אחורה, גונב ממנו אנרגיה, ופובוס יורד למסלול נמוך ומהיר יותר — והתהליך מאיץ; ירח מחוץ לקו, כמו דימוס או הירח שלנו, מקבל משיכה קדימה ומתרחק; ליד 2.1 רדיוסי מאדים כוחות הגאות יקרעו את פובוס לטבעת) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "הירח שנופל על מאדים — והחללית שיצאה לתפוס ממנו חופן": פובוס, הירח הקרוב של מאדים. הרעיונות המרכזיים: (1) אסף הול גילה ב־1877 את פובוס ודימוס, בעידוד אשתו אנג׳לין סטיקני; המכתש סטיקני (כ־9 ק״מ) על שמה; (2) פובוס כ־26 × 23 × 18 ק״מ, רק כ־6,000 ק״מ מעל פני מאדים, מקיף ב־7 שעות ו־39 דקות, בעוד מאדים מסתובב ב־24.6 שעות — לכן הוא זורח במערב ושוקע במזרח, בערך פעמיים ביום; (3) MMX של יפן המריאה ב־19 באוקטובר 2026, תגיע למאדים ב־2027, תנחת על פובוס, תאסוף לפחות 10 גרם ותחזיר אותם לאוסטרליה ב־2031; הכבידה על פובוס חלשה פי כ־1,700, מהירות הבריחה כ־41 קמ״ש, קפיצה של 10 קמ״ש מגיעה לכ־700 מטר ויותר מרבע שעה באוויר; (4) פובוס מרים גבנון גאות על מאדים; כי הוא מהיר מהסיבוב של מאדים, הגבנון נשאר מאחוריו ומושך אחורה — פובוס יורד כ־1.8 מטר למאה שנה (כ־2 ס״מ בשנה); הירח שלנו איטי, הגבנון לפניו, והוא מתרחק 3.8 ס״מ בשנה; (5) בעוד כ־30–50 מיליון שנה, ליד 2.1 רדיוסי מאדים (כ־3,700 ק״מ מעל פני השטח), הגאות תקרע אותו לטבעת; החריצים עליו אולי סימני מתיחה (השערה); (6) קרוב יותר = מהיר יותר; קו היום של מאדים כ־20,400 ק״מ מהמרכז; פנימה נופלים, החוצה (דימוס, 23,500 ק״מ, 30 שעות) מתרחקים. חישובי המבחן: צעיר — 3 × 7 = 21 הקפות; בוגר — 60,000 ÷ 7.5 = 8,000 קמ״ש; מתקדם — 58,900 ÷ 7.65 ≈ 7,700 קמ״ש, 7,700 ÷ 3,600 ≈ 2.14 ק״מ בשנייה; אתגר — 180 ÷ 100 = 1.8 ס״מ בשנה, 230,000,000 ÷ 1.8 ≈ 128 מיליון שנה.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם שפובוס מקיף מהר יותר ממה שמאדים מסתובב (ולכן זורח במערב), וגם שהגבנון של הגאות נשאר מאחוריו ומאט אותו (ולכן הוא יורד); 1 אם יש רק אחד מהשניים או רק חלק. תשובה שאומרת שהשמש מושכת אותו פנימה, או שמאדים מסתובב הפוך — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', מגיע לך מקום על MMX!':pct>=60?name+', כבר במסלול יציב!':name+', ההקפה הראשונה כבר מאחוריך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=1;                                                       // about 2 cm a year (1.8 m per century)
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: פובוס מתקרב למאדים <b>בכ־<span class="num">2</span> ס״מ בשנה</b> — כ־<span class="num">1.8</span> מטר למאה שנה.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>בערך <span class="num">2</span> ס״מ בשנה</b> — וקלעת. מעט מאוד, אבל זה לא נעצר, ובסוף פובוס יהיה טבעת.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b> בשנה. התשובה: רק כ־<span class="num">2</span> ס״מ בשנה, רוחב של אצבע. מעט מאוד, אבל זה לא נעצר.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (בכמה פובוס מתקרב למאדים בשנה): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: כ־2 ס״מ)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "הירח שנופל על מאדים — והחללית שיצאה לתפוס ממנו חופן", מהדורה 48, י״ט בחשוון תשפ״ז (יום שישי, 30 באוקטובר 2026). נושא: פובוס, הירח הקרוב של מאדים — חלל (מאדים, פובוס ודימוס, החללית MMX), פיזיקה (תנועה יחסית, כוח משיכה ומהירות בריחה, גאות וגבנון גאות, מסלולים, כוחות גאות שקורעים ירח), הנדסה (איך נוחתים ואוספים אדמה בכבידה חלשה), היסטוריה (אסף הול ואנג׳לין סטיקני, 1877; זכרון יעקב נוסדה ב־1882; מרינר 9 ב־1971) ומתמטיקה (מהירות = דרך ÷ זמן, המרת קמ״ש לק״מ בשנייה, המרת מטרים לסנטימטרים, קצב והערכה). העובדות: אסף הול, אסטרונום במצפה הצי האמריקני בוושינגטון, חיפש ירחים למאדים באוגוסט 1877 בטלסקופ העדשה של 26 אינץ׳ (הגדול מסוגו בעולם אז); כמעט ויתר בגלל עננים, ואשתו אנג׳לין סטיקני — מתמטיקאית, שהייתה המורה שלו לגאומטריה — עודדה אותו להמשיך; הוא כתב שבלי העידוד שלה אולי היה מפסיק. דימוס נמצא ב־11/12 באוגוסט ופובוס ב־17/18 באוגוסט (תלוי בשיטת הספירה). השמות ביוונית: פובוס = פחד, דימוס = אימה, בני אל המלחמה (מארס אצל הרומאים); את השמות הציע הנרי מיידן, מורה למדעים באנגליה. ג׳ונתן סוויפט כתב ב"מסעי גוליבר" (1726) על שני ירחים קטנים למאדים — ניחוש מוצלח. פובוס: כ־25.9 × 22.6 × 18.3 ק״מ (רדיוס ממוצע 11 ק״מ), צורה של תפוח אדמה, מחורר; המכתש סטיקני כ־9 ק״מ; מרחק ממרכז מאדים 9,376 ק״מ, כ־6,000 ק״מ (5,989) מעל פני השטח — הירח הקרוב ביותר לכוכב הלכת שלו במערכת השמש; הקפה ב־7 שעות ו־39 דקות (7.65 שעות); מאדים מסתובב ב־24 שעות ו־37 דקות (24.6); לכן פובוס מקיף כ־3 פעמים ביום מאדים, ומי שעומד על מאדים רואה אותו זורח במערב ושוקע במזרח, בערך כל 11 שעות, והמעבר בשמיים לוקח כ־4 שעות. אורכו של פובוס דומה למרחק מזכרון יעקב לחיפה (כ־25 ק״מ). כבידה על פני השטח כ־0.0057 מ׳/ש² (חלשה פי כ־1,700 מכדור הארץ; משתנה מאוד ממקום למקום); מהירות בריחה כ־11.4 מ׳/ש, כ־41 קמ״ש; ילד של 30 ק״ג ירגיש קל כמו פחות מ־20 גרם; קפיצה של 10 קמ״ש: על כדור הארץ כ־40 ס״מ, על פובוס כ־700 מטר ויותר מרבע שעה באוויר (חישוב מפושט). MMX (Martian Moons eXploration) של סוכנות החלל היפנית JAXA, עם NASA, CNES, DLR ו־ESA: המריאה ב־20 באוקטובר 2026 ב־04:41 שעון יפן (19 באוקטובר, 22:41 שעון ישראל) על טיל H3 ממרכז החלל טנגשימה; תגיע למאדים בקיץ 2027; תנחת על פובוס פעם או פעמיים (לפי הדיווחים, כנראה ב־2028–2029); תאסוף לפחות 10 גרם בשתי שיטות — מקדח לעומק של יותר מ־2 ס״מ, ודוגם פנאומטי ("אקדח אוויר"); הרכב IDEFIX (פחות מ־30 ק״ג) של צרפת וגרמניה ייסע עליו; תעבור ליד דימוס; הקפסולה אמורה לנחות באוסטרליה ב־2031. לפני כן הביאה היאבוסה 2 כ־5.4 גרם מהאסטרואיד ריוגו (2020). מוצא פובוס עדיין שנוי במחלוקת: אסטרואיד שנלכד, או חומר שהועף ממאדים בהתנגשות והתגבש מחדש — הדגימה אמורה לעזור להכריע. גאות: משיכה של ירח מותחת את הכוכב שלו (מים וגם סלע) לצורת ביצה — גבנון. פובוס מהיר מהסיבוב של מאדים, ולכן הגבנון מפגר מאחוריו ומושך אותו אחורה; פובוס מאבד אנרגיה, יורד למסלול נמוך יותר — ושם דווקא מהיר יותר (פרדוקס), והפער גדל והתהליך מאיץ. קצב היום: כ־1.8 מטר למאה שנה לפי נאס״א (כ־2 מטר לפי מקורות אחרים) — פחות מ־2 ס״מ בשנה. הירח שלנו מקיף לאט (27 ימים) מהסיבוב של כדור הארץ (יום), הגבנון לפניו ומושך קדימה, והוא מתרחק בכ־3.8 ס״מ בשנה; היום שלנו מתארך מעט. סוף פובוס: ליד 2.1 רדיוסי מאדים מהמרכז (כ־3,700 ק״מ מעל פני השטח) כוחות הגאות (המשיכה חזקה יותר בצד הקרוב מבצד הרחוק) יקרעו אותו לטבעת, בעוד כ־30–50 מיליון שנה (מחקר אחד: כ־43); טבעת כזאת יכולה להחזיק מיליון עד מאה מיליון שנה. ב־2015 הציעו מדעני נאס״א (טרי הרפורד) שהחריצים הארוכים על פובוס הם סימני מתיחה גאותיים — השערה. חוק המסלולים (קפלר השלישי): קרוב יותר = מהיר יותר; פי 4 מרחק → פי 8 זמן הקפה. קו היום של מאדים (מסלול סינכרוני) כ־20,400 ק״מ מהמרכז; פנימה — ירחים נופלים, החוצה — מתרחקים. דימוס: 23,458 ק״מ, 30.3 שעות, 16 × 12 × 10 ק״מ, מתרחק לאט. מהירות פובוס: היקף המסלול כ־58,900 ק״מ, כ־7,700 קמ״ש, כ־2.1 ק״מ בשנייה. מהירות דימוס (הדוגמה בשיעור): 147,000 ÷ 30 = 4,900 קמ״ש, 4,900 ÷ 3,600 ≈ 1.4 ק״מ בשנייה. פרק 1, אינטראקטיב "השמיים של מאדים": למעלה מבט מעל הקוטב (מאדים, ילד על קו המשווה, פובוס במסלול, השמש מימין), למטה השמיים של הילד (מזרח משמאל, מערב מימין, שמיים בצבע חמאה ביום); מחוון של יומיים על מאדים; ניחוש: במערב. פרק 2, "קופצים על פובוס": מחוון מהירות קפיצה 2–50 קמ״ש; פובוס עם סרגל לוגריתמי (מטר עד 1,000 ק״מ) מול כדור הארץ; מעל 41 קמ״ש בורחים; ניחוש: נעלה גבוה ונחזור אחרי רבע שעה. פרק 3, "הגבנון שמושך": מבט מלמעלה עם גבנון מוגזם; מאדים ופובוס — הגבנון מאחור, חץ אדום אחורה, ספירלה פנימה עד קו הקריעה וטבעת; כדור הארץ והירח — הגבנון מלפנים, חץ ירוק קדימה, מתרחק; חץ לבן מראה את כיוון התנועה; ניחוש: איפה הגבנון — מאחורי פובוס. פרק 4: מפה של פובוס בקנה מידה על חוף הכרמל, מחיפה עד זכרון יעקב, עם המכתש סטיקני. פרק 5, "חוק המסלולים": סרגל ממאדים, מחוון 4,000–30,000 ק״מ, זמן הקפה מול יום של מאדים, קו יום אחד, פובוס ודימוס; ניחוש: רחוק יותר — איטי יותר. ניסויי בית: משפך מבריסטול על כוס ומטבע שמתגלגל בספירלה ומאיץ (מספריים עם מבוגר); לבדוק שלושה ערבים מאיפה ומתי הירח שלנו זורח (מזרח, כ־50 דקות מאוחר יותר כל ערב); כדור פלסטלינה שנמתח משני הצדדים ונקרע. אתגר (בוגר): 1.8 מטר = 180 ס״מ ל־100 שנה = 1.8 ס״מ בשנה; 6,000 − 3,700 = 2,300 ק״מ = 230,000,000 ס״מ; 230,000,000 ÷ 1.8 ≈ 128 מיליון שנה בקצב קבוע; שאלת מחשבה: למה האמת 30–50 מיליון — כי הקצב מאיץ (הגבנון גדל כשהירח קרוב יותר, והפער במהירות גדל). חישובי המבחן: צעיר — 3 × 7 = 21 הקפות בשבוע; בוגר — 60,000 ÷ 7.5 = 8,000 קמ״ש; מתקדם — 58,900 ÷ 7.65 ≈ 7,700 קמ״ש, 7,700 ÷ 3,600 ≈ 2.14 ק״מ בשנייה. סידור: הול 1877 ← זכרון יעקב 1882 ← מרינר 9 מצלמת את פובוס 1971 ← MMX ממריאה 2026 ← הקפסולה באוסטרליה 2031 (מתוכנן) ← טבעת בעוד 30–50 מיליון שנה. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט (הציורים לא בקנה מידה; הגבנון מוגזם; חישוב הקפיצה מניח פובוס עגול) ומה שלא ידוע (מאיפה בא פובוס; מתי בדיוק יתפרק; אם החריצים הם סימני מתיחה; התאריכים של MMX הם תוכנית); בלי לחשוף תשובות מבחן; אם ילד שואל על שאלה מהמבחן, לרמוז ולכוון, לא לפתור. בטיחות: מספריים עם מבוגר; לא מסתכלים לשמש; מטבעות וגולות לא ליד הפה של אחים קטנים.';
+const CHIPS = ['למה פובוס זורח במערב?', 'מה זה גבנון של גאות?', 'איך MMX תאסוף אדמה?', 'למה הירח שלנו לא נופל?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: תנועה יחסית — 7.65 שעות מול 24.6, ולמה זה הופך את כיוון הזריחה; כבידה ומהירות בריחה — 0.0057 מ׳/ש², כ־41 קמ״ש; גבנון גאות שמפגר מאחורי ירח מהיר ומושך אותו אחורה, ואיבוד אנרגיה שמוריד אותו למסלול מהיר יותר; חוק קפלר השלישי — פי 4 מרחק, פי 8 זמן; המסלול הסינכרוני של מאדים כ־20,400 ק״מ; כוחות גאות שקורעים ירח ליד 2.1 רדיוסי מאדים; מהירות = דרך ÷ זמן, המרת קמ״ש לק״מ בשנייה), שאל שאלות המשך שדורשות חשיבה (למשל: איפה צריך להציב לוויין כדי שייראה תלוי מעל אותו מקום על מאדים? למה הקפיצה על פובוס לא שווה בכל מקום עליו? אם פובוס היה במרחק כפול, כמה זמן הייתה לוקחת הקפה? למה הנפילה מאיצה? איך האדמה של פובוס יכולה לגלות אם הוא אסטרואיד שנתפס?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה פובוס זורח במערב?</b> כי הוא מקיף את מאדים מהר מאוד, ב־7.7 שעות, בזמן שמאדים מסתובב לאט, ב־24.6 שעות. מי שעומד על מאדים מסתובב איתו, ופובוס "עוקף" אותו מאחור, ולכן נראה לו שהוא מגיע מהמערב.<br><br><b>מה זה גבנון של גאות?</b> פובוס מושך את מאדים, והסלע של מאדים נמתח קצת לכיוונו, כמו ביצה. כי פובוס מהיר, הגבנון נשאר מאחוריו ומושך אותו אחורה, ולכן פובוס יורד לאט, כ־2 ס״מ בשנה.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
