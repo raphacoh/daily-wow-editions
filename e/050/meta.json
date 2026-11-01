@@ -16,7 +16,7 @@
   "teaser": null,
   "max_score": null,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-11-01T08:09:24.665Z",
   "password": null,
   "reviewer_verdict": "PASS (3 rounds) — nits left: the figure's 'רוחב התמונה' label sits ~5 px from the phone edge; the 'עובי הפתית' plate touches the 'עיפרון' plate by a few canvas px on phones; the floating Arto button can cover left-edge canvas labels on phones (template); the review copy doesn't declare the sample capability, so Arto falls back there (template)",
   "review_url": "https://claude.ai/artifact/UzpVxpWpTdrihpY67AcRsA",
