@@ -1,0 +1,24 @@
+{
+  "n": 50,
+  "code": "WOW-050",
+  "date": "2026-11-01",
+  "language": "he",
+  "title": "פרס נובל שנולד מנייר דבק ועיפרון",
+  "topics": [
+    "פיזיקה",
+    "כימיה",
+    "הנדסה",
+    "היסטוריה",
+    "מתמטיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "Graphene: Geim & Novoselov's 'Friday night experiments' at Manchester — tape retrieved from the bin (Shklyarevskii's idea) peeled graphite down to one carbon layer (Science, Oct 2004; Nobel 2010; Geim's 2000 Ig Nobel frog); 1 mm graphite ≈ 3 million layers of 0.335 nm, each peel halves → 22 peels (2^22); honeycomb: strong in-plane bonds vs weak interlayer grip (why pencils write, why tape works); ~100× steel at equal thickness, 2.3% light absorption, 0.76 mg/m² (a cat-holding hammock ≈ a whisker; a football pitch ≈ one sheet of paper); Bistritzer (Israeli) & MacDonald's 2011 magic angle ~1.1°, MIT 2018 superconductivity, Wolf Prize 2020, Ilani/Weizmann; maths: repeated halving & powers of 2, mm→nm, area × mass-per-area, moiré period.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — nits left: the figure's 'רוחב התמונה' label sits ~5 px from the phone edge; the 'עובי הפתית' plate touches the 'עיפרון' plate by a few canvas px on phones; the floating Arto button can cover left-edge canvas labels on phones (template); the review copy doesn't declare the sample capability, so Arto falls back there (template)",
+  "review_url": "https://claude.ai/artifact/UzpVxpWpTdrihpY67AcRsA",
+  "editor_note": null
+}

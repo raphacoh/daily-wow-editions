@@ -1,0 +1,1797 @@
+<title>שורשים וכנפיים #50 · פרס נובל שנולד מנייר דבק ועיפרון</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#6B3FA0; --shadow-soft:#ECE1F7;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 50</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="#4A5468" stop-opacity=".38"/>
+        <stop offset="60%" stop-color="#4A5468" stop-opacity=".10"/>
+        <stop offset="100%" stop-color="#4A5468" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <!-- a honeycomb sheet of carbon, a pencil and a strip of sticky tape -->
+    <g opacity=".95">
+      <path d="M139.9 80.0 L158.9 91.0 L158.9 113.0 L139.9 124.0 L120.8 113.0 L120.8 91.0 Z M178.0 80.0 L197.1 91.0 L197.1 113.0 L178.0 124.0 L158.9 113.0 L158.9 91.0 Z M216.1 80.0 L235.2 91.0 L235.2 113.0 L216.1 124.0 L197.1 113.0 L197.1 91.0 Z M120.8 113.0 L139.9 124.0 L139.9 146.0 L120.8 157.0 L101.8 146.0 L101.8 124.0 Z M158.9 113.0 L178.0 124.0 L178.0 146.0 L158.9 157.0 L139.9 146.0 L139.9 124.0 Z M197.1 113.0 L216.1 124.0 L216.1 146.0 L197.1 157.0 L178.0 146.0 L178.0 124.0 Z M235.2 113.0 L254.2 124.0 L254.2 146.0 L235.2 157.0 L216.1 146.0 L216.1 124.0 Z M101.8 146.0 L120.8 157.0 L120.8 179.0 L101.8 190.0 L82.7 179.0 L82.7 157.0 Z M139.9 146.0 L158.9 157.0 L158.9 179.0 L139.9 190.0 L120.8 179.0 L120.8 157.0 Z M178.0 146.0 L197.1 157.0 L197.1 179.0 L178.0 190.0 L158.9 179.0 L158.9 157.0 Z M216.1 146.0 L235.2 157.0 L235.2 179.0 L216.1 190.0 L197.1 179.0 L197.1 157.0 Z M254.2 146.0 L273.3 157.0 L273.3 179.0 L254.2 190.0 L235.2 179.0 L235.2 157.0 Z M120.8 179.0 L139.9 190.0 L139.9 212.0 L120.8 223.0 L101.8 212.0 L101.8 190.0 Z M158.9 179.0 L178.0 190.0 L178.0 212.0 L158.9 223.0 L139.9 212.0 L139.9 190.0 Z M197.1 179.0 L216.1 190.0 L216.1 212.0 L197.1 223.0 L178.0 212.0 L178.0 190.0 Z M235.2 179.0 L254.2 190.0 L254.2 212.0 L235.2 223.0 L216.1 212.0 L216.1 190.0 Z M139.9 212.0 L158.9 223.0 L158.9 245.0 L139.9 256.0 L120.8 245.0 L120.8 223.0 Z M178.0 212.0 L197.1 223.0 L197.1 245.0 L178.0 256.0 L158.9 245.0 L158.9 223.0 Z M216.1 212.0 L235.2 223.0 L235.2 245.0 L216.1 256.0 L197.1 245.0 L197.1 223.0 Z" fill="none" stroke="#1B1F33" stroke-width="2.6" stroke-linejoin="round"/>
+      <g fill="#1B1F33"><circle cx="82.7" cy="157.0" r="4.2"/><circle cx="82.7" cy="179.0" r="4.2"/><circle cx="101.8" cy="124.0" r="4.2"/><circle cx="101.8" cy="146.0" r="4.2"/><circle cx="101.8" cy="190.0" r="4.2"/><circle cx="101.8" cy="212.0" r="4.2"/><circle cx="120.8" cy="91.0" r="4.2"/><circle cx="120.8" cy="113.0" r="4.2"/><circle cx="120.8" cy="157.0" r="4.2"/><circle cx="120.8" cy="179.0" r="4.2"/><circle cx="120.8" cy="223.0" r="4.2"/><circle cx="120.8" cy="245.0" r="4.2"/><circle cx="139.9" cy="80.0" r="4.2"/><circle cx="139.9" cy="124.0" r="4.2"/><circle cx="139.9" cy="146.0" r="4.2"/><circle cx="139.9" cy="190.0" r="4.2"/><circle cx="139.9" cy="212.0" r="4.2"/><circle cx="139.9" cy="256.0" r="4.2"/><circle cx="158.9" cy="91.0" r="4.2"/><circle cx="158.9" cy="113.0" r="4.2"/><circle cx="158.9" cy="157.0" r="4.2"/><circle cx="158.9" cy="179.0" r="4.2"/><circle cx="158.9" cy="223.0" r="4.2"/><circle cx="158.9" cy="245.0" r="4.2"/><circle cx="178.0" cy="80.0" r="4.2"/><circle cx="178.0" cy="124.0" r="4.2"/><circle cx="178.0" cy="146.0" r="4.2"/><circle cx="178.0" cy="190.0" r="4.2"/><circle cx="178.0" cy="212.0" r="4.2"/><circle cx="178.0" cy="256.0" r="4.2"/><circle cx="197.1" cy="91.0" r="4.2"/><circle cx="197.1" cy="113.0" r="4.2"/><circle cx="197.1" cy="157.0" r="4.2"/><circle cx="197.1" cy="179.0" r="4.2"/><circle cx="197.1" cy="223.0" r="4.2"/><circle cx="197.1" cy="245.0" r="4.2"/><circle cx="216.1" cy="80.0" r="4.2"/><circle cx="216.1" cy="124.0" r="4.2"/><circle cx="216.1" cy="146.0" r="4.2"/><circle cx="216.1" cy="190.0" r="4.2"/><circle cx="216.1" cy="212.0" r="4.2"/><circle cx="216.1" cy="256.0" r="4.2"/><circle cx="235.2" cy="91.0" r="4.2"/><circle cx="235.2" cy="113.0" r="4.2"/><circle cx="235.2" cy="157.0" r="4.2"/><circle cx="235.2" cy="179.0" r="4.2"/><circle cx="235.2" cy="223.0" r="4.2"/><circle cx="235.2" cy="245.0" r="4.2"/><circle cx="254.2" cy="124.0" r="4.2"/><circle cx="254.2" cy="146.0" r="4.2"/><circle cx="254.2" cy="190.0" r="4.2"/><circle cx="254.2" cy="212.0" r="4.2"/><circle cx="273.3" cy="157.0" r="4.2"/><circle cx="273.3" cy="179.0" r="4.2"/></g>
+      <g transform="translate(206,214) rotate(-38)"><rect x="-70" y="-11" width="120" height="22" rx="3" fill="#E8A33D" stroke="#1B1F33" stroke-width="3"/><path d="M50 -11 L78 0 L50 11 Z" fill="#F3D9B0" stroke="#1B1F33" stroke-width="3" stroke-linejoin="round"/><path d="M68 -4 L78 0 L68 4 Z" fill="#1B1F33"/><rect x="-82" y="-11" width="14" height="22" rx="3" fill="#C8452D" stroke="#1B1F33" stroke-width="3"/></g>
+      <g transform="translate(92,70) rotate(14)"><rect x="-62" y="-17" width="124" height="34" rx="3" fill="#F6E7A8" fill-opacity=".85" stroke="#1B1F33" stroke-width="3"/><rect x="-30" y="-9" width="44" height="18" rx="5" fill="#4A5468" opacity=".6"/></g>
+    </g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 50</span><span class="tag">יום ראשון, 1 בנובמבר 2026</span><span class="tag">כ״א בחשוון תשפ״ז</span><span class="tag">כ־30 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>פרס נובל שנולד מנייר דבק ועיפרון</h1>
+  <p class="lede">באוניברסיטה של מנצ׳סטר שבאנגליה היה לפיזיקאי <b>אנדרה גיים</b> מנהג מוזר: "ניסויים של יום שישי בערב". ניסויים משוגעים, שכמעט אין להם סיכוי להצליח, סתם בשביל הסקרנות. באחד מהם השתתפו גוש של <b>גרפיט</b>, החומר השחור שבתוך העיפרון, ו<b>נייר דבק</b> רגיל, כמו זה שבקלמר. בשנת <span class="num">2010</span>, בזכות הניסוי הזה, קיבלו גיים וחברו <b>פרס נובל</b>. מה הם מצאו? את החומר הדק ביותר בעולם: שכבה שהעובי שלה הוא <b>אטום אחד</b>, והיא חזקה יותר מפלדה. השאלה של היום: <b>איך מוציאים עם נייר דבק משהו דק כל כך — ולמה הוא חזק כל כך?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">הגרפיט שבעיפרון בנוי משכבות דקות־דקות, אחת על השנייה, כמו דפים בספר. כמה שכבות יש בעובי של <b>מילימטר אחד</b>?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>בערך <span class="num">300</span></b><span>כמו הדפים בספר עבה</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>בערך <span class="num">30,000</span></b><span>כמו הדפים במדף שלם של ספרים</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>בערך <span class="num">3</span> מיליון</b><span>מספר שקשה לדמיין</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>בערך <span class="num">3</span> מיליארד</b><span>יותר משליש מכל האנשים בעולם</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · FRIDAY-NIGHT EXPERIMENTS (interactive 1: the peeling machine) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>נייר הדבק שבפח</h2>
+  <p>לפני מנצ׳סטר, כשעבד בהולנד, אנדרה גיים כבר עשה ניסוי של יום שישי שהצחיק את כל העולם: הוא גרם ל<b>צפרדע חיה לרחף באוויר</b>, בתוך מגנט חזק מאוד. על זה הוא קיבל בשנת <span class="num">2000</span> את פרס "איג נובל", פרס לניסויים שקודם מצחיקים ואחר כך גורמים לחשוב. במנצ׳סטר הוא רצה לבדוק משהו אחר: אפשר להכין מגרפיט שכבה דקה מאוד? חוקר במעבדה שלו, <b>אולג שקליארבסקי</b>, סיפר לו שבמעבדה מנקים גושי גרפיט עם נייר דבק: מדביקים, מקלפים, וזורקים את הנייר לפח. גיים הוציא נייר דבק כזה מהפח, והסתכל עליו במיקרוסקופ. על הדבק נשארו פתיתים של גרפיט, דקים הרבה יותר ממה שכל מכונה יכלה להכין. "מי שזרקו את נייר הדבק לפח, זרקו איתו את פרס הנובל", אמר גיים אחר כך בחיוך.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>גיים ו<b>קוסטיה נובוסלוב</b>, חוקר צעיר מהצוות שלו, המשיכו את הרעיון. הם הדביקו נייר דבק על הפתיתים, קילפו, ושוב, ושוב. גרפיט הוא כמו ערימה של דפים: בכל קילוף, הערימה נקרעת לשתי ערימות קטנות יותר. וכך, קילוף אחרי קילוף, הם הגיעו לשכבה אחת בודדת. לשכבה הזאת קוראים <b>גרפן</b>. במעבדה שלמטה מחכה לכם מכונת קילוף, אבל קודם — נחשו!</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>גיים ו<b>קוסטיה נובוסלוב</b>, חוקר צעיר מהצוות, הפכו את התעלול לשיטה: מדביקים נייר דבק על פתית, מקלפים, מדביקים עליו נייר דבק חדש, ומקלפים שוב. כל קילוף מפצל את ערימת השכבות לשניים, בערך. לקח להם כשנה להגיע לשכבה בודדת, ובאוקטובר <span class="num">2004</span> הם פרסמו את המאמר על <b>גרפן</b>: שכבה אחת של אטומי פחמן. אם במילימטר של גרפיט יש כ־<span class="num">3</span> מיליון שכבות, כמה קילופים צריך? במעבדה שלמטה מחכה מכונת קילוף, אבל קודם — נחשו!</p>
+  </div>
+
+  <!-- ===== INTERACTIVE 1 — מכונת הקילוף ===== -->
+  <div class="panel instrument">
+    <h3>מכונת הקילוף</h3>
+    <p class="cap">נחשו קודם: מתחילים מפתית בעובי מילימטר, כ־<span class="num">3</span> מיליון שכבות. כל קילוף חוצה את הערימה לשניים. כמה קילופים צריך כדי להגיע לשכבה <b>אחת</b>?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="peP0" onclick="pePredict(0)">בערך <span class="num">20</span></button>
+        <button id="peP1" onclick="pePredict(1)">בערך <span class="num">1,000</span></button>
+        <button id="peP2" onclick="pePredict(2)">בערך מיליון</button>
+      </div>
+    </div>
+    <canvas role="img" id="peCv" width="640" height="600" aria-label="בצד ימין סולם של עוביים, מלמעלה למטה: עיפרון, דף נייר, חיידק, נגיף ואטום. חץ צהוב מראה כמה עבה הפתית עכשיו, והוא יורד בכל קילוף. בצד שמאל רצועת נייר דבק עם כתם אפור של גרפיט: בכל קילוף הכתם נעשה בהיר יותר, ובסוף הוא כמעט שקוף. כשנשארות מעט שכבות, רואים אותן מצוירות כקווים. למטה מספרים גדולים: כמה קילופים עשינו וכמה שכבות נשארו">
+    </canvas>
+    <div class="controls">
+      <button class="btn small" id="pePeel" onclick="pePeel()">קילוף! ⇡</button>
+      <button class="btn small ghost" onclick="peReset()">מהתחלה</button>
+    </div>
+    <div class="controls">
+      <div class="readout">קילופים: <b id="peOut">—</b></div>
+      <div class="readout">שכבות: <b id="peOut2">—</b></div>
+    </div>
+    <p class="cap" id="peMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="peReveal" hidden><span class="hand">!</span><p>רק <b><span class="num">22</span> קילופים</b>! חצי, ועוד חצי, ועוד חצי... זה מקטין מהר מאוד: <span class="num">22</span> פעמים חצי מקטין פי יותר מארבעה מיליון. (במציאות כל קילוף לא חוצה בדיוק לשניים: נייר הדבק קורע חתיכות בגדלים שונים, ובסוף מחפשים במיקרוסקופ את הפתית הדק ביותר.)</p></div>
+
+  <div class="q qc" id="storyQ"></div>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE CARBON HONEYCOMB (interactive 2: pull, stretch or slide) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>חלת דבש מפחמן</h2>
+  <p>גרפיט בנוי רק מאטומים של <b>פחמן</b>. בתוך כל שכבה, האטומים מסודרים במשושים, כמו <b>חלת דבש</b> של דבורים: כל אטום מחזיק ביד חזקה מאוד שלושה שכנים. אבל השכבות עצמן כמעט לא מחזיקות זו בזו: הן רק מונחות אחת על השנייה, ונדבקות קצת. אז איפה הכי קל לפרק את הגרפיט? במעבדה שלמטה מחכה לכם ערימה של שכבות: אפשר למשוך את השכבה העליונה למעלה, כמו נייר דבק, לדחוף אותה הצידה, או למתוח אותה. אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 2 — מושכים, דוחפים, מותחים ===== -->
+  <div class="panel instrument">
+    <h3>מושכים, דוחפים, מותחים</h3>
+    <p class="cap">נחשו קודם: איפה הכי קל לפרק את הגרפיט?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="boP0" onclick="boPredict(0)">בין השכבות</button>
+        <button id="boP1" onclick="boPredict(1)">בתוך שכבה</button>
+        <button id="boP2" onclick="boPredict(2)">קשה באותה מידה</button>
+      </div>
+    </div>
+    <canvas role="img" id="boCv" width="640" height="600" aria-label="למעלה: מבט מהצד על חמש שכבות של אטומי פחמן, כמו שורות של כדורים. בתוך כל שורה הכדורים מחוברים במקלות עבים: קשרים חזקים. בין השורות יש רק קווים דקים ומקווקווים: אחיזה חלשה. יד אדומה מושכת את השכבה העליונה, וחץ מראה כמה חזק. כשמושכים למעלה או דוחפים הצידה, השכבה העליונה נפרדת בקלות. כשמותחים לצדדים, המקלות העבים רק נמתחים קצת, והשכבה לא נקרעת. למטה: מבט מלמעלה על שכבה אחת, חלת דבש של משושים, ואטום אחד מודגש עם שלושת השכנים שלו">
+    </canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="מה עושים">
+        <button id="boM0" class="on" onclick="boMode(0)">מושכים למעלה</button>
+        <button id="boM1" onclick="boMode(1)">דוחפים הצידה</button>
+        <button id="boM2" onclick="boMode(2)">מותחים לצדדים</button>
+      </div>
+    </div>
+    <div class="controls">
+      <label>כמה חזק (ימינה: חלש, שמאלה: חזק מאוד)
+        <input type="range" id="boF" min="0" max="100" step="1" value="0" oninput="boDraw(1)" aria-label="כוח" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">הכוח: <b id="boOut">—</b></div>
+      <div class="readout">מה קרה: <b id="boOut2">—</b></div>
+    </div>
+    <p class="cap" id="boMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>מה ראיתם? השכבות נפרדות כמעט בלי כוח, אבל שכבה אחת לא נקרעת גם כשמושכים חזק מאוד. זה כמו ערימה של רשתות: קל להרים את הרשת העליונה מהערימה, אבל קשה מאוד לקרוע רשת. ובגלל זה <b>עיפרון כותב</b>: כשמעבירים אותו על הנייר, שכבות מחליקות ממנו ונשארות על הדף. הקו האפור שלכם הוא אלפי שכבות של פחמן!</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בתוך שכבה, כל שני אטומים <b>חולקים אלקטרונים</b>: זה קשר חזק מאוד, והמרחק בין האטומים רק <span class="num">0.142</span> ננומטר. ננומטר הוא מיליונית של מילימטר. בין השכבות אין קשר כזה, רק משיכה חלשה, והן רחוקות זו מזו יותר מפי שניים: <span class="num">0.335</span> ננומטר. לכן גרפיט הוא "חזק בשני כיוונים וחלש בשלישי": קשה מאוד לקרוע שכבה, אבל קל להפריד שכבות. זו הסיבה שהעיפרון כותב, שגרפיט משמש כחומר סיכה, ושנייר דבק מצליח לקלף אותו.</p>
+  </div>
+
+  <div class="note" id="boReveal" hidden><span class="hand">!</span><p><b>בין השכבות</b> הכי קל: הן נפרדות במשיכה חלשה, ומחליקות בדחיפה קטנה. <b>בתוך שכבה</b> כל אטום מחזיק שלושה שכנים בקשרים חזקים, והרשת כולה עובדת יחד. לכן גרפיט רך ומתפורר, אבל שכבה אחת שלו, גרפן, חזקה בטירוף.</p></div>
+
+  <div class="q qc" id="snailQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · A HAMMOCK FOR A CAT (interactive 3) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>ערסל לחתול</h2>
+  <p>כשהודיעו על פרס הנובל, ועדת הפרס תיארה את הגרפן בעזרת חתול. דמיינו <b>ערסל</b> של גרפן, מטר על מטר, שכבה אחת בלבד. הוא היה מחזיק חתול שלם בלי להיקרע, הוא היה כמעט שקוף, כי שכבה של גרפן בולעת רק כ־<span class="num">2.3</span>% מהאור, וגם שוקל כמעט כלום. לפי ועדת הנובל, גרפן חזק בערך <b>פי <span class="num">100</span></b> מפלדה באותו עובי. אז כמה שוקל הערסל? במעבדה שלמטה מחכים הערסל וגם יריעות גרפן ענקיות, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 3 — הערסל של החתול ===== -->
+  <div class="panel instrument">
+    <h3>הערסל של החתול</h3>
+    <p class="cap">נחשו קודם: כמה שוקל ערסל של גרפן, מטר על מטר?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="haP0" onclick="haPredict(0)">כמו ספר</button>
+        <button id="haP1" onclick="haPredict(1)">כמו מטבע</button>
+        <button id="haP2" onclick="haPredict(2)">כמו שפם אחד של חתול</button>
+      </div>
+    </div>
+    <canvas role="img" id="haCv" width="640" height="600" aria-label="למעלה: ציור של יריעת גרפן, כמעט שקופה, בגודל שבוחרים במחוון: ערסל של מטר על מטר עם חתול שיושב בתוכו, כיתה, מגרש כדורסל או מגרש כדורגל. למטה: מאזניים. בצד אחד היריעה, ובצד השני משהו מוכר שעליו שוקל אותו דבר: שפם של חתול, גרגר אורז, או דף נייר. כתוב כמה מיליגרם היא שוקלת">
+    </canvas>
+    <div class="controls">
+      <label>כמה גדולה היריעה (ימינה: ערסל, שמאלה: מגרש כדורגל)
+        <input type="range" id="haA" min="0" max="3" step="1" value="0" oninput="haDraw(1)" aria-label="גודל היריעה" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">השטח: <b id="haOut">—</b></div>
+      <div class="readout">המשקל: <b id="haOut2">—</b></div>
+    </div>
+    <p class="cap" id="haMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="haReveal" hidden><span class="hand">!</span><p>הערסל שוקל <b>פחות ממיליגרם</b>, כמו שפם אחד של חתול. ויריעה שמכסה מגרש כדורגל שלם שוקלת בערך כמו <b>דף נייר אחד</b>. (אף אחד עוד לא הכין ערסל מושלם של מטר על מטר: יריעות גדולות של גרפן תמיד יוצאות עם פגמים קטנים. זה חישוב של מה שגרפן מושלם יכול לעשות.)</p></div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>איך דבר כל כך דק יכול להחזיק חתול? בגלל חלת הדבש. כל אטום מחזיק שלושה שכנים, וכל שכן מחזיק עוד שלושה. כשהחתול לוחץ על הערסל, הכוח מתחלק בין מיליוני ידיים קטנות, וכל יד צריכה להחזיק רק קצת. ואין בשכבה "נקודה חלשה", כי כל המשושים בדיוק אותו דבר.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>החישוב: במטר מרובע של גרפן יש כ־<span class="math">3.8 × 10¹⁹</span> אטומים של פחמן, ויחד הם שוקלים כ־<span class="num">0.76</span> מיליגרם. החוזק בא מהמבנה: הקשרים במישור הם מהחזקים בטבע, והרשת המשושה מחלקת את המתיחה בין כל הקשרים. בפלדה, לעומת זאת, יש גבולות בין גבישים קטנים, ושם היא נשברת. אבל זהירות עם הכותרות: "פי <span class="num">100</span> מפלדה" נכון לשכבה מושלמת, באותו עובי. יש מקורות שכותבים "פי <span class="num">200</span>", תלוי איך משווים. וגרפן אמיתי, עם פגמים, חלש יותר.</p>
+  </div>
+
+  <div class="q qc" id="priceQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE MAGIC ANGLE (interactive 4: twisting two sheets) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>הזווית הקסומה</h2>
+  <p>מה קורה אם מניחים שכבה של גרפן על שכבה אחרת, ו<b>מסובבים</b> אותה טיפ־טיפה? בשנת <span class="num">2011</span> חישבו פיזיקאי ישראלי, <b>רפי ביסטריצר</b>, והשותף האמריקני שלו, <b>אלן מקדונלד</b>, שבזווית מיוחדת אחת, כ־<span class="num">1.1</span> מעלות, החשמל אמור להתנהג בצורה מוזרה מאוד. ב־<span class="num">2018</span> בדקו את זה במכון MIT בארצות הברית, וגילו שבזווית הזאת, בקור עז, הגרפן נעשה <b>מוליך־על</b>: חשמל זורם בו בלי שום התנגדות. על הגילוי קיבלו ביסטריצר, מקדונלד ו<b>פבלו חרייו־הררו</b> מ־MIT את <b>פרס וולף</b>, פרס ישראלי, בשנת <span class="num">2020</span>. במעבדה שלמטה מחכות לכם שתי שכבות שאפשר לסובב, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 4 — שתי שכבות מסתובבות ===== -->
+  <div class="panel instrument">
+    <h3>שתי שכבות מסתובבות</h3>
+    <p class="cap">נחשו קודם: מסובבים שכבה אחת מעל השנייה. כשהזווית <b>קטנה</b> מאוד, מופיעים כתמים. הם יהיו גדולים או קטנים?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="moP0" onclick="moPredict(0)">כתמים קטנטנים</button>
+        <button id="moP1" onclick="moPredict(1)">כתמים ענקיים</button>
+        <button id="moP2" onclick="moPredict(2)">לא יהיו כתמים</button>
+      </div>
+    </div>
+    <canvas role="img" id="moCv" width="640" height="600" aria-label="שתי רשתות של משושים, אחת כחולה ואחת כתומה, מונחות זו על זו. כשמסובבים את העליונה, מופיעה דוגמה גדולה של כתמים כהים ובהירים: במקומות שבהם האטומים של שתי השכבות עומדים זה על זה, ובמקומות שבהם הם מוזזים. ככל שהזווית קטנה יותר, הכתמים גדולים יותר. עיגול צהוב מסמן כתם אחד וכתוב כמה הוא גדול">
+    </canvas>
+    <div class="controls">
+      <label>זווית הסיבוב (ימינה: קטנה, שמאלה: גדולה)
+        <input type="range" id="moA" min="5" max="150" step="1" value="60" oninput="moDraw(1)" aria-label="זווית בעשיריות מעלה" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">הזווית: <b id="moOut">—</b></div>
+      <div class="readout">גודל כתם: <b id="moOut2">—</b></div>
+    </div>
+    <p class="cap" id="moMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="moReveal" hidden><span class="hand">!</span><p>ככל שהזווית <b>קטנה</b> יותר, הכתמים <b>גדולים</b> יותר. בזווית הקסומה, כ־<span class="num">1.1</span> מעלות, כל כתם רחב כ־<span class="num">50</span> משושים. הדוגמה הענקית הזאת משנה את הדרך שבה האלקטרונים נעים, ובקור עז היא הופכת את שתי השכבות למוליך־על. איך בדיוק זה קורה? המדענים עדיין חוקרים.</p></div>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>את הכתמים האלה, שנקראים <b>מוארה</b>, אפשר לראות גם בבית: שימו שתי רשתות של וילון או של מסננת אחת על השנייה, וסובבו קצת. פתאום מופיעים פסים גדולים שלא היו באף אחת מהרשתות. מדענים בכל העולם, וגם בישראל, מנסים עכשיו להבין את הקסם של הזווית הזאת.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>גם בישראל חוקרים את זה: ב־<span class="num">2020</span> גילה הצוות של פרופ׳ <b>שחל אילני</b> ממכון ויצמן התנהגויות מפתיעות של האלקטרונים בזווית הקסומה. ולמרחק שבו הדוגמה חוזרת יש נוסחה: <span class="math">L = a ÷ (2 × sin(θ ÷ 2))</span>, כש־<span class="math">a = 0.246</span> ננומטר הוא רוחב משושה אחד ו־<span class="math">θ</span> הזווית. בזווית קטנה, <span class="math">sin(θ ÷ 2)</span> קטן מאוד, ולכן <span class="math">L</span> גדול. בזווית הקסומה: <span class="math">0.246 ÷ (2 × sin 0.55°) ≈ 12.8</span> ננומטר, יותר מפי <span class="num">50</span> מהמשושה. אין צורך לזכור את הנוסחה: מה שחשוב הוא שסיבוב קטן יוצר דוגמה ענקית. מוליכי־על עובדים רק בקור עז, והחלום הוא למצוא כאלה שעובדים בטמפרטורת החדר. הגרפן המסובב הוא מעבדה חדשה לחקור איך זה קורה.</p>
+  </div>
+
+  <div class="q qc" id="siteQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: HOW THIN IS THIN (figure) + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>כמה דק זה דק?</h2>
+  <p>בואו נצלול מהעיפרון אל האטום. מילימטר אחד הוא העובי של עופרת דקה. דף נייר עבה פי עשרה פחות. חיידק קטן מדף פי מאה. ושכבה של גרפן? דקה משערה <b>מאות אלפי פעמים</b>. כדי לדבר על דברים קטנים כל כך, מדענים משתמשים ב<b>ננומטר</b>: מיליונית של מילימטר.</p>
+
+  <figure class="calfig" aria-label="ארבעה עיגולי זום, כל אחד מגדיל חלק מהקודם. למעלה מימין עיפרון שכותב קו על דף. למעלה משמאל הקו מקרוב: פתיתים אפורים על הנייר. למטה מימין פתית מהצד: ערימה של שכבות. למטה משמאל שכבה אחת מלמעלה: חלת דבש של משושים, ובכל פינה אטום של פחמן. מתחת לכל עיגול כתוב עובי או רוחב">
+    <svg viewBox="0 0 640 600" role="img" aria-hidden="true" focusable="false">
+      <rect x="4" y="4" width="632" height="592" rx="18" fill="var(--card2)" stroke="var(--line)" stroke-width="2"/>
+      <!-- 1 (top right): a pencil writing -->
+      <circle cx="476" cy="124" r="96" fill="var(--card)" stroke="var(--ink)" stroke-width="3"/>
+      <path d="M410 170 C 440 156 466 178 494 160 C 514 148 530 158 548 152" fill="none" stroke="#4A5468" stroke-width="9" stroke-linecap="round"/>
+      <g transform="translate(492,96) rotate(-50)"><rect x="-66" y="-12" width="104" height="24" rx="3" fill="#E8A33D" stroke="var(--ink)" stroke-width="3"/><path d="M38 -12 L66 0 L38 12 Z" fill="#F3D9B0" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/><path d="M57 -4 L66 0 L57 4 Z" fill="var(--ink)"/></g>
+      <!-- 2 (top left): flakes on paper -->
+      <circle cx="164" cy="124" r="96" fill="var(--card)" stroke="var(--ink)" stroke-width="3"/>
+      <g fill="#4A5468" stroke="var(--ink)" stroke-width="2"><path d="M104 112 L140 98 L156 120 L120 134 Z"/><path d="M152 144 L192 130 L206 154 L168 168 Z"/><path d="M176 86 L210 78 L220 96 L186 104 Z"/><path d="M112 152 L136 146 L142 162 L118 168 Z"/></g>
+      <!-- 3 (bottom right): a flake from the side: a stack of layers -->
+      <circle cx="476" cy="408" r="96" fill="var(--card)" stroke="var(--ink)" stroke-width="3"/>
+      <g stroke="#4A5468" stroke-width="7" stroke-linecap="round"><path d="M410 362 L542 362"/><path d="M406 385 L546 385"/><path d="M404 408 L548 408"/><path d="M406 431 L546 431"/><path d="M410 454 L542 454"/></g>
+      <path d="M398 350 L554 350 L554 374 L398 374 Z" fill="none" stroke="var(--sun-deep)" stroke-width="3" stroke-dasharray="6 4"/>
+      <!-- 4 (bottom left): one layer from above: the honeycomb -->
+      <circle cx="164" cy="408" r="96" fill="var(--card)" stroke="var(--ink)" stroke-width="3"/>
+      <clipPath id="figClip"><circle cx="164" cy="408" r="92"/></clipPath>
+      <path clip-path="url(#figClip)" d="M122.4 312.0 L143.2 324.0 L143.2 348.0 L122.4 360.0 L101.6 348.0 L101.6 324.0 Z M164.0 312.0 L184.8 324.0 L184.8 348.0 L164.0 360.0 L143.2 348.0 L143.2 324.0 Z M205.6 312.0 L226.4 324.0 L226.4 348.0 L205.6 360.0 L184.8 348.0 L184.8 324.0 Z M101.6 348.0 L122.4 360.0 L122.4 384.0 L101.6 396.0 L80.9 384.0 L80.9 360.0 Z M143.2 348.0 L164.0 360.0 L164.0 384.0 L143.2 396.0 L122.4 384.0 L122.4 360.0 Z M184.8 348.0 L205.6 360.0 L205.6 384.0 L184.8 396.0 L164.0 384.0 L164.0 360.0 Z M226.4 348.0 L247.1 360.0 L247.1 384.0 L226.4 396.0 L205.6 384.0 L205.6 360.0 Z M80.9 384.0 L101.6 396.0 L101.6 420.0 L80.9 432.0 L60.1 420.0 L60.1 396.0 Z M122.4 384.0 L143.2 396.0 L143.2 420.0 L122.4 432.0 L101.6 420.0 L101.6 396.0 Z M164.0 384.0 L184.8 396.0 L184.8 420.0 L164.0 432.0 L143.2 420.0 L143.2 396.0 Z M205.6 384.0 L226.4 396.0 L226.4 420.0 L205.6 432.0 L184.8 420.0 L184.8 396.0 Z M247.1 384.0 L267.9 396.0 L267.9 420.0 L247.1 432.0 L226.4 420.0 L226.4 396.0 Z M101.6 420.0 L122.4 432.0 L122.4 456.0 L101.6 468.0 L80.9 456.0 L80.9 432.0 Z M143.2 420.0 L164.0 432.0 L164.0 456.0 L143.2 468.0 L122.4 456.0 L122.4 432.0 Z M184.8 420.0 L205.6 432.0 L205.6 456.0 L184.8 468.0 L164.0 456.0 L164.0 432.0 Z M226.4 420.0 L247.1 432.0 L247.1 456.0 L226.4 468.0 L205.6 456.0 L205.6 432.0 Z M122.4 456.0 L143.2 468.0 L143.2 492.0 L122.4 504.0 L101.6 492.0 L101.6 468.0 Z M164.0 456.0 L184.8 468.0 L184.8 492.0 L164.0 504.0 L143.2 492.0 L143.2 468.0 Z M205.6 456.0 L226.4 468.0 L226.4 492.0 L205.6 504.0 L184.8 492.0 L184.8 468.0 Z" fill="none" stroke="var(--ink)" stroke-width="3.5" stroke-linejoin="round"/>
+      <g fill="var(--muted)"><circle cx="80.9" cy="384.0" r="5"/><circle cx="80.9" cy="432.0" r="5"/><circle cx="101.6" cy="348.0" r="5"/><circle cx="101.6" cy="396.0" r="5"/><circle cx="101.6" cy="420.0" r="5"/><circle cx="101.6" cy="468.0" r="5"/><circle cx="122.4" cy="360.0" r="5"/><circle cx="122.4" cy="384.0" r="5"/><circle cx="122.4" cy="432.0" r="5"/><circle cx="122.4" cy="456.0" r="5"/><circle cx="143.2" cy="324.0" r="5"/><circle cx="143.2" cy="348.0" r="5"/><circle cx="143.2" cy="396.0" r="5"/><circle cx="143.2" cy="420.0" r="5"/><circle cx="143.2" cy="468.0" r="5"/><circle cx="143.2" cy="492.0" r="5"/><circle cx="164.0" cy="360.0" r="5"/><circle cx="164.0" cy="384.0" r="5"/><circle cx="164.0" cy="432.0" r="5"/><circle cx="164.0" cy="456.0" r="5"/><circle cx="184.8" cy="324.0" r="5"/><circle cx="184.8" cy="348.0" r="5"/><circle cx="184.8" cy="396.0" r="5"/><circle cx="184.8" cy="420.0" r="5"/><circle cx="184.8" cy="468.0" r="5"/><circle cx="184.8" cy="492.0" r="5"/><circle cx="205.6" cy="360.0" r="5"/><circle cx="205.6" cy="384.0" r="5"/><circle cx="205.6" cy="432.0" r="5"/><circle cx="205.6" cy="456.0" r="5"/><circle cx="226.4" cy="348.0" r="5"/><circle cx="226.4" cy="396.0" r="5"/><circle cx="226.4" cy="420.0" r="5"/><circle cx="226.4" cy="468.0" r="5"/><circle cx="247.1" cy="384.0" r="5"/><circle cx="247.1" cy="432.0" r="5"/></g>
+      <!-- the zoom arrows: 1 → 2 → 3 → 4 -->
+      <g fill="var(--sun-deep)" stroke="var(--sun-deep)" stroke-width="4"><path d="M372 124 L276 124"/><path d="M270 124 L282 116 L282 132 Z"/><path d="M262 196 L380 322"/><path d="M390 333 L371 324 L383 313 Z"/><path d="M372 408 L276 408"/><path d="M270 408 L282 400 L282 416 Z"/></g>
+      <g font-family="Rubik, Arial" font-weight="700" fill="var(--ink)" font-size="30" text-anchor="middle" direction="rtl">
+        <text x="476" y="256">עיפרון</text><text x="164" y="256">הקו מקרוב</text><text x="476" y="540">פתית מהצד</text><text x="164" y="540">שכבה אחת</text>
+      </g>
+      <g font-family="Rubik, Arial" font-weight="700" fill="var(--sun-deep)" font-size="30" text-anchor="middle" direction="rtl">
+        <text x="476" y="290">עובי: 1 מ״מ</text><text x="164" y="290">רוחב התמונה: 0.01 מ״מ</text><text x="476" y="574">5 שכבות: 2 ננומטר</text><text x="164" y="574">עובי: 0.335 ננומטר</text>
+      </g>
+    </svg>
+    <figcaption>זום מהעיפרון אל האטום, לפי החצים. המספרים מעוגלים. ננומטר הוא מיליונית של מילימטר.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ומה הקשר לקילופים? ניסוי קטן בראש: קחו דף ו<b>קפלו</b> אותו לשניים. עכשיו יש <span class="num">2</span> שכבות. עוד קיפול: <span class="num">4</span>. עוד אחד: <span class="num">8</span>, ואז <span class="num">16</span>, <span class="num">32</span>, <span class="num">64</span>. בכל קיפול המספר <b>מכפיל את עצמו</b>. הקילוף עושה בדיוק את ההפך: בכל פעם המספר נעשה חצי. ולכן גם מספר ענק כמו <span class="num">3</span> מיליון נגמר אחרי קילופים מעטים כל כך. והחלק הכי קשה למדענים לא היה הקילוף, אלא <b>למצוא</b> את השכבה האחת בין אלפי פתיתים עבים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>החשבון של מכונת הקילוף: במילימטר יש מיליון ננומטר, ושכבה עבה <span class="num">0.335</span> ננומטר. כלומר <span class="math">1,000,000 ÷ 0.335 ≈ 2,985,000</span> שכבות: כ־<span class="num">3</span> מיליון. כל קילוף מחלק בשניים, כלומר אחרי n קילופים נשאר חלק אחד מתוך <span class="math">2ⁿ</span>. ו־<span class="math">2²¹ = 2,097,152</span>, קצת פחות מ־<span class="num">3</span> מיליון, ואילו <span class="math">2²² = 4,194,304</span> כבר יותר. לכן צריך <span class="num">22</span> קילופים. כך עובדת "גדילה מעריכית" לשני הכיוונים: הכפלה מגיעה למספרים ענקיים מהר, וחצייה מורידה אותם מהר.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> במעבדה יש פתית גרפיט בעובי <span class="num">0.1</span> מילימטר. כל שכבה עבה <span class="num">0.335</span> ננומטר, ובמילימטר יש <span class="num">1,000,000</span> ננומטר. (א) בערך כמה <b>שכבות</b> יש בפתית? (עגלו לאלפים.) (ב) אם כל קילוף חוצה את מספר השכבות בדיוק לשניים, מה המספר הקטן ביותר של <b>קילופים</b> שאחריו נשארת שכבה אחת או פחות?</p>
+      <div class="controls">
+        <label>(א) שכבות <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) קילופים <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> גרפן חזק פי <span class="num">100</span> מפלדה. אבל עופרת של עיפרון, שבנויה מגרפיט, כלומר מערימה של שכבות גרפן, נשברת בקלות ונמרחת על הנייר. איך זה ייתכן?</p>
+      <details><summary>רמז</summary><p>חזרו למעבדה של פרק <span class="num">2</span>: באיזה כיוון הקשרים חזקים, ובאיזה כיוון הם חלשים?</p></details>
+      <details><summary>התשובה</summary><p>החוזק של גרפן הוא רק <b>בתוך השכבה</b>, לאורכה ולרוחבה. בין השכבות יש רק משיכה חלשה, ולכן ערימה של שכבות נשברת ומחליקה בדיוק שם. זה כמו חוברת: קשה מאוד לקרוע דף לאורכו, אבל קל מאוד להפריד בין הדפים. ועוד דבר: בעיפרון יש גם חימר, והשכבות שם הן פתיתים קטנים ומבולגנים, לא יריעה אחת מושלמת. כל גבול בין פתיתים הוא נקודה חלשה.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>אתם לא צריכים מעבדה כדי לעשות את הניסוי של פרס הנובל. צריך עיפרון רך (<span class="num">2B</span> או יותר, אם יש), דף לבן ונייר דבק שקוף. <b>חשוב: מחדדים עיפרון רק עם מחדד, ואם צריך מספריים — רק עם מבוגר.</b></p>
+
+  <div class="panel">
+    <h3>חלק א׳ — מכונת קילוף אמיתית (<span class="num">10</span> דקות)</h3>
+    <ol>
+      <li>מקשקשים חזק על הדף ריבוע קטן ושחור מאוד, בגודל של בול.</li>
+      <li>מדביקים עליו פיסת נייר דבק, לוחצים טוב עם האצבע, ומקלפים. על הדבק נשאר כתם אפור: אלפי שכבות של גרפיט.</li>
+      <li>מדביקים על הכתם פיסת נייר דבק <b>חדשה</b>, לוחצים ומקלפים. עכשיו יש שני כתמים, כל אחד בהיר יותר. ממשיכים עם הפיסה החדשה, וסופרים: אחרי כמה קילופים הכתם כמעט נעלם? מדביקים את כל הפיסות על דף לבן, לפי הסדר, ורואים את האפור הולך ונעלם.</li>
+    </ol>
+    <p class="small" style="margin:0">לא תגיעו לשכבה אחת, אבל אולי תגיעו לכמה עשרות שכבות. את הבודדת המדענים מצאו רק במיקרוסקופ.</p>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — חפיסת קלפים (<span class="num">2</span> דקות)</summary>
+    <p>מניחים חפיסת קלפים על השולחן ודוחפים את הקלף העליון הצידה: הוא מחליק בקלות. עכשיו מנסים לקרוע קלף אחד לאורכו: הרבה יותר קשה. ככה בדיוק גרפיט: השכבות מחליקות, אבל כל שכבה חזקה.</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — עיפרון רך מול עיפרון קשה (<span class="num">3</span> דקות)</summary>
+    <p>אם יש בבית עיפרון <span class="num">2B</span> ועיפרון <span class="num">H</span>, כתבו עם כל אחד קו. בעופרת יש גרפיט מעורבב בחימר. ב־<span class="num">2B</span> יש יותר גרפיט, ולכן הוא משאיר יותר שכבות על הדף, והקו כהה ורך. שפשפו את הקו באצבע: מרגישים שהוא חלקלק? אלה שכבות שמחליקות זו על זו.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>התמונה הגדולה</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>גרפיט הוא ערימה של שכבות</b>, ולכן נייר דבק יכול לקלף אותו, שכבה אחרי שכבה, עד שנשארת אחת: גרפן. <b>שכבה אחת היא חלת דבש של פחמן</b>: כל אטום מחזיק שלושה שכנים, ולכן היא חזקה מאוד, שקופה כמעט לגמרי וקלה כמו שפם של חתול. והכול התחיל בניסוי של יום שישי, ובנייר דבק שמישהו זרק לפח. שאלה לחקור: מה עוד זורקים לפח שאולי שווה לבדוק במיקרוסקופ?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>אותם אטומים, סידור אחר, חומר אחר</b>: פחמן הוא גם הגרפיט הרך, גם היהלום הקשה, וגם הגרפן החזק מפלדה. מה שקובע הוא איך האטומים מחוברים. <b>וחצייה חוזרת היא כלי חזק</b>: <span class="num">22</span> קילופים מספיקים כדי לרדת ממיליון ננומטר לננומטר אחד. ומה הלאה? גרפן מוליך חשמל וחום מצוין, ושתי שכבות מסובבות בזווית קסומה נעשות מוליך־על. אבל עדיין קשה לייצר יריעות גדולות ומושלמות, ולכן הרבה מההבטחות של גרפן עוד מחכות. שאלה לחקור: מה עוד אפשר לבנות משכבה אחת של אטומים?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הסיפור?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">היסטוריה · אנגליה <span class="num">1564</span></div><h3>ההר של העפרונות</h3><p>בעמק בורודייל שבצפון אנגליה נמצא, לפי האנציקלופדיה בריטניקה בשנת <span class="num">1564</span>, מרבץ של גרפיט נקי במיוחד. חתכו ממנו מקלות לכתיבה, וכך נולד העיפרון. המכרה היה כל כך יקר שהציבו בו שומרים.</p></div>
+    <div class="tile"><div class="dom">כימיה · פחמן</div><h3>אח של היהלום</h3><p>יהלום וגרפיט בנויים מאותם אטומים בדיוק: פחמן. ביהלום כל אטום מחובר לארבעה שכנים בכל הכיוונים, ולכן הוא קשה מאוד. בגרפיט, לשלושה שכנים בשכבה שטוחה, ולכן הוא מתקלף.</p></div>
+    <div class="tile"><div class="dom">ביולוגיה · הנדסה</div><h3>נייר הדבק של השממית</h3><p>עוד ניסוי של גיים: נייר דבק שמחקה את הכפות של השממית, שנדבקות לקיר בעזרת מיליוני שערות זעירות. גם כאן, כמו בין שכבות הגרפיט, הכוח הוא משיכה חלשה, אבל מהמון נקודות יחד.</p></div>
+    <div class="tile"><div class="dom">פרסים · צחוק</div><h3>הצפרדע והנובל</h3><p>אנדרה גיים הוא האדם היחיד שזכה גם בפרס "איג נובל" על הצפרדע המרחפת, וגם בפרס נובל אמיתי. ונובוסלוב היה רק בן <span class="num">36</span> כשזכה.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): איך רואים שכבה שקופה?</summary>
+    <p>שכבה של גרפן בולעת רק כ־<span class="num">2.3</span>% מהאור. איך המדענים מצאו אותה במיקרוסקופ? נחשו לפני שאתם פותחים.</p>
+    <details><summary>התשובה</summary>
+      <p>הם הניחו את הפתיתים על פרוסת סיליקון מצופה בשכבה דקה של זכוכית, בעובי של <span class="num">300</span> ננומטר בדיוק. האור שחוזר מהזכוכית ומהסיליקון "מתערבב", כמו הצבעים בבועת סבון, וגם שכבה אחת של גרפן משנה קצת את הצבע. המדענים היו בני מזל: אילו הזכוכית הייתה עבה או דקה רק בכמה אחוזים, הגרפן היה בלתי נראה, והם סיפרו שזה חסך להם חודשים של חיפושים.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את סיפור הגרפן, מהמוקדם למאוחר. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: יש לכם פתית עם <span class="num">64</span> שכבות. כל קילוף חוצה אותו לשניים. אחרי כמה קילופים תישאר שכבה <b>אחת</b>?</div>
+    <div class="controls"><label>קילופים <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: מטר מרובע של גרפן שוקל <span class="num">0.76</span> מיליגרם. רוצים לכסות בגרפן חצר של בית ספר, באורך <span class="num">32</span> מטר וברוחב <span class="num">20</span> מטר. (א) כמה <b>מיליגרם</b> תשקול היריעה? (ב) כמה פעמים נכנס המשקל של היריעה ב<b>גרם</b> אחד, כלומר ב־<span class="num">1,000</span> מיליגרם? (עגלו לעשיריות.)</div>
+    <div class="controls"><label>(א) מיליגרם <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) פעמים <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: מטר מרובע של גרפן שוקל בערך <span class="num">0.8</span> מיליגרם. כמה <b>מיליגרם</b> תשקול יריעת גרפן בשטח של <span class="num">200</span> מטר מרובע, בערך כמו הרצפה של ארבע כיתות?</div>
+    <div class="controls"><label>מיליגרם <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>איך אפשר לקלף שכבה אחת של פחמן עם נייר דבק, ולמה השכבה הזאת חזקה כל כך?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="גרפיט בנוי משכבות, ולכן..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. גרפיט, החומר שבעיפרון, הוא ערימה של שכבות פחמן: במילימטר אחד יש כ־<span class="num">3</span> מיליון שכבות. ב־<span class="num">2004</span> קילפו אנדרה גיים וקוסטיה נובוסלוב שכבה <b>אחת</b> עם נייר דבק רגיל, והרעיון התחיל מנייר דבק שמישהו זרק לפח. ב־<span class="num">2010</span> הם קיבלו על זה פרס נובל.<br>
+    2. השכבה הזאת, גרפן, היא חלת דבש של אטומי פחמן. היא חזקה בערך פי <span class="num">100</span> מפלדה באותו עובי: ערסל של מטר על מטר יחזיק חתול, ישקול פחות ממיליגרם, כמו שפם אחד, וכמעט לא יראו אותו.<br>
+    3. ישראלי בשם רפי ביסטריצר חישב שאם מסובבים שכבה של גרפן מעל שכבה אחרת בזווית "קסומה" של כ־<span class="num">1.1</span> מעלות, קורה משהו מוזר. ב־<span class="num">2018</span> גילו שבזווית הזאת, בקור עז, החשמל זורם בלי שום התנגדות.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>הגילוי: The Nobel Prize in Physics <span class="num">2010</span>, Award ceremony speech (nobelprize.org) — Geim ו־Novoselov, אוניברסיטת מנצ׳סטר; גרפן = שכבה אחת של הפחמן שבגרפיט; מאמר ראשון באוקטובר <span class="num">2004</span>; נייר דבק רגיל; "חזק בערך פי <span class="num">100</span> מפלדה"; ערסל של מטר מרובע ישקול כמיליגרם אחד, כמו שפם של חתול, ויחזיק תינוק או חתול; מוליך חום פי <span class="num">10</span> מכסף; Wallace חישב את האלקטרונים בגרפן ב־<span class="num">1947</span>. University of Manchester, "Manchester celebrates 20 years since graphene breakthrough" (22.10.2024) — "Friday night experiments"; המאמר ב־Science. Science Museum blog, "Secret of scientific creativity revealed by Andre Geim" — הרעיון של נייר הדבק מ־Oleg Shklyarevskii; נייר הדבק הוצא מהפח (על מי שזרקו אותו: "throwing away the Nobel Prize as well"); הצפרדע המרחפת (הצעה של Irina Grigorieva); שנה עד שנה וחצי עד שכבה בודדת. Physics Today, "Nobel physics prize honors achievements in graphene" (<span class="num">2010</span>) — ניסויי "hit and run", "gecko tape", זכוכית של <span class="num">300</span> ננומטר על סיליקון ("saved us months"). OxSci, "A Levitating Frog and Scotch Tape" — Ig Nobel <span class="num">2000</span>; היחיד עם נובל ואיג נובל. NPR, 5.10.2010 — Novoselov בן <span class="num">36</span>, Geim בן <span class="num">51</span>.</p>
+    <p>מספרים: Wikipedia, "Graphene" — קשר C–C של <span class="num">0.142</span> ננומטר; מרווח בין שכבות בגרפיט <span class="num">0.335</span> ננומטר; בליעה של כ־<span class="num">2.3</span>% מהאור; צפיפות שטחית <span class="num">0.762</span> מ״ג למ״ר (חישוב עצמאי: <span class="math">2 × 12 u ÷ 0.0524 nm² ≈ 0.76</span> מ״ג למ״ר); חוזק מתיחה של <span class="num">130</span> GPa ליריעה מושלמת, כ־<span class="math">50–60</span> GPa ליריעות גדולות. ההשוואה לפלדה תלויה באופן ההשוואה: ועדת הנובל ואוניברסיטת מנצ׳סטר כותבות "פי <span class="num">100</span>", מקורות אחרים "פי <span class="num">200</span>". Wikipedia, "Borrowdale graphite" — עדות לכרייה מ־<span class="num">1540</span>; בריטניקה מתארכת את גילוי המרבץ הנקי ל־<span class="num">1564</span>; שמירה הדוקה על המכרה.</p>
+    <p>הזווית הקסומה: Wolf Fund, "Rafi Bistritzer" — פרס וולף בפיזיקה <span class="num">2020</span> עם Allan MacDonald ו־Pablo Jarillo-Herrero; החישוב משנת <span class="num">2011</span> לזווית של כ־<span class="num">1.1</span> מעלות; יליד ישראל, <span class="num">1974</span>. הידען, 30.6.2020 — צוות פרופ׳ שחל אילני, מכון ויצמן, Nature: "מעברים" חדשים של אלקטרונים בזווית הקסומה. Science News, "Give double-layer graphene a twist and it superconducts" (<span class="num">2018</span>) — Cao, Jarillo-Herrero ואחרים, Nature: מוליכות־על מתחת ל־<span class="num">1.7</span> קלווין, בזווית של כ־<span class="num">1.1</span> מעלות. גודל הכתם: <span class="math">0.246 ÷ (2 × sin 0.55°) ≈ 12.8</span> ננומטר.</p>
+    <p>פישוטים במכוון: ב"מכונת הקילוף" כל קילוף חוצה בדיוק לשניים, ומתחילים מ־<span class="num">3</span> מיליון שכבות (<span class="math">1,000,000 ÷ 0.335 ≈ 2,985,000</span>); במציאות הקילוף לא אחיד, והשכבה הבודדת נמצאה בחיפוש במיקרוסקופ. ב"מושכים, דוחפים, מותחים" הכוחות סכמטיים, ואין סולם מספרי. ב"הערסל" ההשוואות מעוגלות (גרגר אורז כ־<span class="math">20–30</span> מ״ג; דף A4 של <span class="num">80</span> גרם למ״ר שוקל כ־<span class="num">5</span> גרם, ופיסה של שש־עשרה ממנו כ־<span class="num">0.3</span> גרם; כיתה <span class="num">50</span> מ״ר; מגרש כדורגל <span class="math">105 × 68</span> מטר; מגרש כדורסל <span class="math">28 × 15</span> מטר), וערסל מושלם של מטר מרובע עוד לא נבנה. ב"שתי שכבות מסתובבות" רשת האטומים מוגדלת מאוד; הטבעת הצהובה מסמנת כתם בהיר אחד, ברוחב כחצי מהמרחק שבו הדוגמה חוזרת. האתגר: <span class="math">100,000 ÷ 0.335 ≈ 298,507</span> שכבות, ו־<span class="math">2¹⁸ = 262,144 &lt; 298,507 ≤ 2¹⁹ = 524,288</span>, כלומר <span class="num">19</span> קילופים.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:50, code:'WOW-050', date:'2026-11-01', title:'פרס נובל שנולד מנייר דבק ועיפרון', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15zXldeq15fXnCDXnNeh16jXog=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'physics', w:3 }, { id:'chemistry', w:3 }, { id:'engineering', w:2 }, { id:'math', w:2 } ],
+  hero: { name:'פרס נובל שנולד מנייר דבק ועיפרון — מכונת הקילוף, מושכים דוחפים מותחים, הערסל של החתול והזווית הקסומה', fact:'בעזרת נייר דבק קילפו ב־2004 שכבה אחת של פחמן מגרפיט: גרפן, חלת דבש בעובי אטום אחד, חזקה בערך פי 100 מפלדה.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'quantity-sense',        d:2 },
+    'qc:storyQ':      { skill:'layered-structure',     d:1 },
+    'qc:snailQ':      { skill:'interlayer-forces',     d:2 },
+    'qc:priceQ':      { skill:'mass-per-area',         d:2 },
+    'qc:siteQ':       { skill:'moire-patterns',        d:3 },
+    'qc:deepQ':       { skill:'repeated-halving',      d:2 },
+    'mcq:shared:0':   { skill:'materials-structure',   d:1 },
+    'mcq:shared:1':   { skill:'chemical-bonds',        d:3 },
+    'mcq:shared:2':   { skill:'history-of-science',    d:1 },
+    'mcq:younger:0':  { skill:'atomic-scale',          d:1 },
+    'mcq:older:0':    { skill:'moire-geometry',        d:4 },
+    'order':          { skill:'chronology',            d:2 },
+    'num:younger':    { skill:'halving',               d:1 },
+    'num:older':      { skill:'multiplication-decimals', d:2 },
+    'num:adv':        { skill:'area-mass-ratio',       d:4 },
+    'challenge':      { skill:'powers-of-two-units',   d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); peDraw(0); } if(n===2) boDraw(0); if(n===3) haDraw(0); if(n===4) moDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: how many layers in 1 mm of graphite? ----------
+   Four choices: ~300, ~30,000, ~3 million, ~3 billion. The right answer: 3 — 1,000,000 nm ÷ 0.335 nm ≈ 3 million layers. */
+const SCALE_ANS = 3;
+const fmtSigns = n => ({1:'בערך 300',2:'בערך 30,000',3:'בערך 3 מיליון',4:'בערך 3 מיליארד'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> שכבה של גרפיט עבה רק <span class="num">0.335</span> ננומטר, וננומטר הוא מיליונית של מילימטר. לכן במילימטר אחד יש כ־<span class="num">3</span> מיליון שכבות. איך מוציאים מתוכן שכבה אחת? על זה השיעור.';
+const SCALE_FB = {
+  1: '<span class="pill-bad">הרבה יותר!</span> במילימטר של גרפיט יש כ־<span class="num">3</span> מיליון שכבות: פי <span class="num">10,000</span> ממה שניחשתם. כל שכבה דקה כמו אטום אחד. איך מוציאים מתוכן שכבה אחת? על זה השיעור.',
+  2: '<span class="pill-bad">עוד הרבה יותר!</span> במילימטר של גרפיט יש כ־<span class="num">3</span> מיליון שכבות: פי <span class="num">100</span> ממה שניחשתם. כל שכבה דקה כמו אטום אחד. איך מוציאים מתוכן שכבה אחת? על זה השיעור.',
+  3: SCALE_FB_RIGHT,
+  4: '<span class="pill-bad">פחות!</span> במילימטר של גרפיט יש כ־<span class="num">3</span> מיליון שכבות: פי <span class="num">1,000</span> פחות ממה שניחשתם. אבל הכיוון נכון: השכבות דקות מאוד, כמו אטום אחד. איך מוציאים מתוכן שכבה אחת? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI, DEG = PI/180;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const GOLDT = () => isDark() ? '#F6C454' : '#8A5410';     // gold for text
+const GRAPH = () => isDark() ? '#B7BFD2' : '#3E4452';     // graphite grey
+const BLUE = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+const ORNG = () => isDark() ? '#F2A066' : '#C8601F';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+const fmt1 = v => (Math.round(v*10)/10).toLocaleString('en-US');
+const fmtI = v => Math.round(v).toLocaleString('en-US');
+/* a honeycomb (pointy-top hexagons, bond length b) added to the current path, covering the box x0..x1 × y0..y1;
+   (ox,oy) = the lattice origin (a hexagon centre), rot = rotation, sx = stretch along x before rotating */
+function xHoneycomb(c, x0,y0,x1,y1, b, ox,oy, rot, sx){
+  const s3=Math.sqrt(3), R=Math.hypot(Math.max(Math.abs(x0-ox),Math.abs(x1-ox)), Math.max(Math.abs(y0-oy),Math.abs(y1-oy)))+3*b;
+  const cr=Math.cos(rot||0), sr=Math.sin(rot||0), k=sx||1;
+  const T=(x,y)=>{ x*=k; return [ox+x*cr-y*sr, oy+x*sr+y*cr]; };
+  const jn=Math.ceil(R/(1.5*b))+1, inn=Math.ceil(R/(s3*b/k))+jn;
+  for(let j=-jn;j<=jn;j++) for(let i=-inn;i<=inn;i++){
+    const hx=i*s3*b + j*s3/2*b, hy=j*1.5*b; if(Math.abs(hx*k)>R+2*b || Math.abs(hy)>R+2*b) continue;
+    const [cx,cy]=T(hx,hy); if(cx<x0-2*b||cx>x1+2*b||cy<y0-2*b||cy>y1+2*b) continue;
+    for(let v=0; v<=6; v++){ const a=(-90+60*v)*DEG; const [px,py]=T(hx+b*Math.cos(a), hy+b*Math.sin(a)); v===0?c.moveTo(px,py):c.lineTo(px,py); }
+  }
+}
+
+/* ---------- step 1 (interactive 1): the peeling machine (canvas 640 × 600) ----------
+   Start: a flake 1 mm thick = 1,000,000 nm ÷ 0.335 nm ≈ 3,000,000 layers. Every peel halves it: layers = ceil(3,000,000 ÷ 2ⁿ).
+   2²¹ = 2,097,152 < 3,000,000 ≤ 2²² = 4,194,304 → one layer after 22 peels. Right: a log ruler of thickness (1 mm … one atom),
+   the grey bar is the flake's thickness now. Left: the tape — its grey patch fades with every peel (one layer absorbs ~2.3% of the light). */
+const peCv=document.getElementById('peCv'), pectx=peCv.getContext('2d');
+const PE={ opened:0, pred:-1, revealed:0, n:0, anim:0, raf:0 };
+const PE_L0=3000000, PE_D=0.335;
+const peLayers = n => Math.max(1, Math.ceil(PE_L0/Math.pow(2,n)));
+function pePredict(k){ PE.pred=k; segOn('peP',3,k); WOW.emit('item', { id:'peel:predict', kind:'quick', correct:k===0, attempt: wowTry('peel:predict') });
+  peMsg.innerHTML='רשמנו את הניחוש. עכשיו לחצו "קילוף!" שוב ושוב, וספרו כמה פעמים.'; peDraw(0); }
+function pePeel(){
+  if(PE.pred<0){ predictFirst(peMsg,'קלפו'); return; }
+  if(peLayers(PE.n)<=1){ peMsg.innerHTML='נשארה שכבה אחת, ואותה אי אפשר לחצות: זה כבר אטום אחד בעובי. לחצו "מהתחלה" כדי לנסות שוב.'; return; }
+  PE.n++; if(!PE.opened){ PE.opened=1; WOW.emit('open', { id:'peel' }); }
+  if(XREDUCED){ PE.anim=0; peDraw(1); return; }
+  cancelAnimationFrame(PE.raf); const t0=performance.now();
+  const st=now=>{ PE.anim=Math.min(1,(now-t0)/420); peDraw(1); if(PE.anim<1){ PE.raf=requestAnimationFrame(st); } else { PE.anim=0; peDraw(1); } };
+  PE.raf=requestAnimationFrame(st);
+}
+function peReset(){ cancelAnimationFrame(PE.raf); PE.anim=0; PE.n=0; peDraw(PE.pred>=0?1:0); }
+function peDraw(user){
+  const c=pectx, W=peCv.width, H=peCv.height, ink=css('--ink'), L=peLayers(PE.n), nm=L*PE_D;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* ===== right: the ruler of thickness (log scale) ===== */
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(328,16,296,436,16); c.fill(); c.strokeStyle=css('--line'); c.lineWidth=2; c.stroke();
+  const AX=598, YT=100, YB=420, lg=v=>Math.log10(v), Y = v => YT + (lg(1e6)-lg(v))/(lg(1e6)-lg(PE_D))*(YB-YT);
+  /* the flake now: a grey bar from the bottom (one atom) up to its thickness */
+  c.fillStyle=GRAPH(); c.beginPath(); c.roundRect(AX-16, Y(nm), 32, Math.max(6, YB-Y(nm)+6), 6); c.fill();
+  c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(AX,YT-10); c.lineTo(AX,YB+10); c.stroke();
+  [[1e6,'עיפרון'],[1e5,'דף נייר'],[1e3,'חיידק'],[1e2,'נגיף'],[PE_D,'אטום']].filter(([v])=>LS()===1 || v!==1e5 && v!==1e2).forEach(([v,t])=>{ const y=Y(v);
+    c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(AX-24,y); c.lineTo(AX+16,y); c.stroke();
+    xLabel(c, t, 448, y, 22, ink, .9); });
+  /* the arrow: the flake is this thick now */
+  const yn=Y(nm); c.fillStyle=GOLD(); c.strokeStyle=GOLD(); c.lineWidth=5;
+  c.beginPath(); c.moveTo(AX-80,yn); c.lineTo(AX-34,yn); c.stroke(); xArrow(c, AX-26, yn, 1, 0, 14);
+  xLabel(c, 'עובי הפתית', 470, 48, 22, GOLDT(), .95);
+  /* ===== left: the tape ===== */
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(16,16,300,436,16); c.fill(); c.strokeStyle=css('--line'); c.lineWidth=2; c.stroke();
+  const darkness = 0.023 + 0.9*Math.log10(L)/Math.log10(PE_L0);          // one layer ≈ 2.3% of the light, 3 million ≈ black
+  const lift = PE.anim>0 ? Math.sin(PE.anim*PI)*46 : 0;
+  /* what stays behind on the old tape during a peel */
+  if(PE.anim>0){ c.fillStyle='rgba(246,231,168,.55)'; c.fillRect(44,110,248,96); c.fillStyle=GRAPH(); c.globalAlpha=darkness; c.beginPath(); c.roundRect(104,128,128,60,10); c.fill(); c.globalAlpha=1; }
+  c.save(); c.translate(0,-lift); c.translate(168,158); c.rotate(PE.anim>0 ? -Math.sin(PE.anim*PI)*0.12 : 0); c.translate(-168,-158);
+  c.fillStyle=isDark()?'rgba(246,231,168,.78)':'rgba(246,231,168,.95)'; c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.roundRect(44,110,248,96,6); c.fill(); c.stroke();
+  c.fillStyle=GRAPH(); c.globalAlpha=darkness; c.beginPath(); c.roundRect(104,128,128,60,10); c.fill(); c.globalAlpha=1;
+  c.restore();
+  xLabel(c, 'נייר הדבק', 168, 50, 22, ink, .9);
+  xLabel(c, L===1 ? 'כמעט שקוף!' : L<=64 ? 'אפור בהיר' : 'אפור כהה', 168, 238, 22, L===1?GOOD():ink, .9);
+  /* the magnifier: the layers up close */
+  c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.arc(168,352,78,0,2*PI); c.stroke();
+  c.save(); c.beginPath(); c.arc(168,352,76,0,2*PI); c.clip(); c.fillStyle=css('--card2'); c.fillRect(80,270,180,170);
+  if(L<=16){ const gap=Math.min(16, 120/Math.max(1,L)), y0=352+(L-1)*gap/2;
+    for(let i=0;i<L;i++){ const y=y0-i*gap; c.strokeStyle=GRAPH(); c.lineWidth=4; c.beginPath(); c.moveTo(100,y); c.lineTo(236,y); c.stroke();
+      c.fillStyle=GRAPH(); for(let x=104;x<=232;x+=16){ c.beginPath(); c.arc(x,y,3.6,0,2*PI); c.fill(); } } }
+  else { c.strokeStyle=GRAPH(); c.lineWidth=2; for(let y=278;y<=430;y+=4){ c.beginPath(); c.moveTo(88,y); c.lineTo(248,y); c.stroke(); } }
+  c.restore();
+  xLabel(c, L<=16 ? 'השכבות מקרוב' : (LS()>1 ? 'המון שכבות' : 'יותר מדי שכבות לצייר'), 168, 418, 22, ink, .92);
+  /* ===== bottom: the big counters ===== */
+  const Ls = L>=1e6 ? fmt1(L/1e6)+' מיליון' : fmtI(L);
+  if(LS()===1){ xLabel(c, 'קילופים: '+PE.n, 470, 512, 34, ink, .95); xLabel(c, 'שכבות: '+Ls, 168, 512, 34, L===1?GOOD():ink, .95); xLabel(c, 'כל קילוף: חצי', 320, 568, 22, GOLDT(), .9); }
+  else { xLabel(c, 'קילופים: '+PE.n, 320, 496, 24, ink, .95); xLabel(c, 'שכבות: '+Ls, 320, 560, 24, L===1?GOOD():ink, .95); }
+  peOut.innerHTML='<span class="num">'+PE.n+'</span>'; peOut2.innerHTML='<span class="num">'+fmtI(L)+'</span>';
+  if(PE.pred>=0 && L===1 && !PE.revealed){ PE.revealed=1; peReveal.hidden=false; }
+  if(user===1 && PE.pred>=0 && PE.anim===0){
+    if(PE.n===0) peMsg.innerHTML='מתחילים מחדש: פתית בעובי מילימטר, כ־<span class="num">3</span> מיליון שכבות.';
+    else if(L===1) peMsg.innerHTML='שכבה אחת: זה <b>גרפן</b>! היו צריכים רק <span class="num">'+PE.n+'</span> קילופים. '+(PE.pred===0?'בדיוק כמו שניחשתם.':'הרבה פחות ממה שניחשתם.');
+    else if(nm<100) peMsg.innerHTML='עכשיו הפתית דק יותר מנגיף! נשארו רק <span class="num">'+fmtI(L)+'</span> שכבות. עוד קצת.';
+    else if(nm<1000) peMsg.innerHTML='הפתית כבר דק יותר מחיידק. ממשיכים לקלף.';
+    else if(PE.n<=3) peMsg.innerHTML='כל קילוף חוצה את הערימה לשניים. נשארו <span class="num">'+fmtI(L)+'</span> שכבות.';
+    else peMsg.innerHTML='שימו לב לחץ הצהוב: בכל קילוף הוא יורד באותו מרחק בסרגל, כי בכל פעם המספר נעשה חצי.';
+  }
+}
+
+/* ---------- step 2 (interactive 2): pull, slide or stretch (canvas 640 × 600) ----------
+   Top: a side view of five layers (atoms in rows; thick sticks = strong in-plane bonds, dashed = weak grip between layers).
+   Mode 0 pulls the top layer up (tape): it lets go at a small force (10 of 100). Mode 1 pushes it sideways: it slides at 6 of 100.
+   Mode 2 stretches it along its plane: the sticks only stretch (≤ 10%, exaggerated) and it never tears on this scale.
+   Bottom: one layer from above (honeycomb), one atom and its three neighbours highlighted; it stretches in mode 2. Forces are schematic. */
+const boCv=document.getElementById('boCv'), boctx=boCv.getContext('2d');
+const BO={ opened:0, pred:-1, revealed:0, mode:0, sep:0, slide:0, stretch:0 };
+function boPredict(k){ BO.pred=k; segOn('boP',3,k); WOW.emit('item', { id:'bonds:predict', kind:'quick', correct:k===0, attempt: wowTry('bonds:predict') });
+  boMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את המחוון שמאלה, ונסו את שלוש הפעולות.'; boDraw(0); }
+function boMode(k){ BO.mode=k; segOn('boM',3,k); boF.value=0; boDraw(BO.pred>=0?1:0); }
+function boDraw(user){
+  const c=boctx, W=boCv.width, H=boCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && BO.pred<0 && +boF.value!==0){ boF.value=0; blocked=true; }
+  if(user && !BO.opened && !blocked && BO.pred>=0){ BO.opened=1; WOW.emit('open', { id:'bonds' }); }
+  const F=+boF.value, m=BO.mode;
+  const sep = m===0 && F>=10, slid = m===1 && F>=6, e = m===2 ? F/100*0.10 : 0;
+  if(BO.pred>=0){ if(sep) BO.sep=1; if(slid) BO.slide=1; if(m===2 && F>=90) BO.stretch=1; }
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* ===== top: the stack from the side ===== */
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(16,16,W-32,330,16); c.fill(); c.strokeStyle=css('--line'); c.lineWidth=2; c.stroke();
+  const rows=[270,232,194,156], top=110, xs=[]; for(let x=84;x<=556;x+=43) xs.push(x);
+  const dy = m===0 ? (sep ? 42 : F*0.5) : 0, dx = m===1 ? (slid ? 26+(F-6)*1.1 : F*0.9) : 0;
+  const tx = x => m===2 ? 320+(x-320)*(1+e) : x+dx, ty = top-dy;
+  /* weak grip between the layers (dashed) */
+  c.strokeStyle=css('--muted'); c.lineWidth=2; c.setLineDash([5,5]);
+  for(let r=0;r<rows.length-1;r++) xs.forEach(x=>{ c.beginPath(); c.moveTo(x,rows[r]); c.lineTo(x,rows[r+1]); c.stroke(); });
+  if(!(sep||slid)) xs.forEach(x=>{ c.beginPath(); c.moveTo(x,rows[3]); c.lineTo(tx(x),ty); c.stroke(); });
+  c.setLineDash([]);
+  /* the layers: strong sticks + atoms */
+  const layer=(y, X, col, w)=>{ c.strokeStyle=col; c.lineWidth=w; c.lineCap='round'; c.beginPath(); c.moveTo(X(xs[0]),y); c.lineTo(X(xs[xs.length-1]),y); c.stroke();
+    c.fillStyle=col; xs.forEach(x=>{ c.beginPath(); c.arc(X(x),y,9,0,2*PI); c.fill(); }); };
+  rows.forEach(y=>layer(y, x=>x, GRAPH(), 7));
+  const strain = m===2 ? clamp(F/100,0,1) : 0;
+  layer(ty, tx, strain>0.5 ? GOLD() : GRAPH(), 7);
+  /* the tape on top (mode 0) */
+  if(m===0){ c.fillStyle=isDark()?'rgba(246,231,168,.7)':'rgba(246,231,168,.95)'; c.strokeStyle=ink; c.lineWidth=2.5; c.beginPath(); c.roundRect(64,ty-40,512,24,5); c.fill(); c.stroke(); }
+  /* the force arrows */
+  const len = 18+F*0.9; c.fillStyle=DANG(); c.strokeStyle=DANG(); c.lineWidth=7; c.lineCap='round';
+  if(m===0){ c.beginPath(); c.moveTo(320,ty-44); c.lineTo(320,ty-44-len*0.5); c.stroke(); xArrow(c,320,ty-52-len*0.5,0,-1,18); }
+  if(m===1){ const x1=tx(xs[xs.length-1])+16; c.beginPath(); c.moveTo(x1,ty); c.lineTo(Math.min(W-30,x1+len*0.5),ty); c.stroke(); xArrow(c,Math.min(W-22,x1+8+len*0.5),ty,1,0,18); }
+  if(m===2){ const xl=tx(xs[0])-16, xr=tx(xs[xs.length-1])+16, l2=Math.min(46,len*0.4);
+    c.beginPath(); c.moveTo(xr,ty); c.lineTo(xr+l2,ty); c.stroke(); xArrow(c,xr+l2+8,ty,1,0,18);
+    c.beginPath(); c.moveTo(xl,ty); c.lineTo(xl-l2,ty); c.stroke(); xArrow(c,xl-l2-8,ty,-1,0,18); }
+  xLabel(c, 'קו עבה: קשר חזק', 478, 316, 22, ink, .92);
+  xLabel(c, 'מקווקו: אחיזה חלשה', 164, 316, 22, css('--muted'), .92);
+  if(sep) xLabel(c, 'השכבה נפרדה!', 320, 112, 24, GOOD(), .95);
+  if(slid) xLabel(c, 'השכבה מחליקה!', 320, 70, 24, GOOD(), .95);
+  if(m===2 && F>=60) xLabel(c, 'עדיין מחזיקה!', 320, 60, 24, GOLDT(), .95);
+  /* ===== bottom: one layer from above ===== */
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(16,360,W-32,224,16); c.fill(); c.strokeStyle=css('--line'); c.lineWidth=2; c.stroke();
+  const b=30, ox=320, oy=474;
+  c.save(); c.beginPath(); c.roundRect(18,362,W-36,220,15); c.clip();
+  c.strokeStyle=GRAPH(); c.lineWidth=4; c.lineJoin='round'; c.beginPath(); xHoneycomb(c, 18,362,W-18,582, b, ox,oy, 0, 1+e); c.stroke();
+  /* the highlighted atom: the lower-right... pick the bottom vertex of the centre hexagon; its 3 neighbours */
+  const k=1+e, A=[ox, oy+b], N=[[ox, oy], [ox-Math.sqrt(3)/2*b*k, oy+1.5*b], [ox+Math.sqrt(3)/2*b*k, oy+1.5*b]];
+  N.forEach(([x,y])=>{ c.strokeStyle=GOLD(); c.lineWidth=9; c.beginPath(); c.moveTo(A[0],A[1]); c.lineTo(x,y); c.stroke(); });
+  c.fillStyle=GOLD(); c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.arc(A[0],A[1],13,0,2*PI); c.fill(); c.stroke();
+  N.forEach(([x,y])=>{ c.fillStyle=GRAPH(); c.beginPath(); c.arc(x,y,9,0,2*PI); c.fill(); });
+  c.restore();
+  xLabel(c, 'שכבה אחת מלמעלה', 124, 392, 22, ink, .92);
+  xLabel(c, 'כל אטום: 3 שכנים', 516, 392, 22, GOLDT(), .95);
+  /* readouts */
+  boOut.textContent = F===0 ? 'בלי כוח' : F<15 ? 'חלש' : F<50 ? 'בינוני' : F<85 ? 'חזק' : 'חזק מאוד';
+  boOut2.textContent = sep ? 'השכבה נפרדה' : slid ? 'השכבה מחליקה' : m===2 && F>0 ? 'נמתחת, לא נקרעת' : 'הכול מחובר';
+  if(BO.pred>=0 && (BO.sep||BO.slide) && BO.stretch && !BO.revealed){ BO.revealed=1; boReveal.hidden=false; }
+  if(blocked){ predictFirst(boMsg,'הזיזו'); return; }
+  if(user===1 && BO.pred>=0){
+    if(m===0) boMsg.innerHTML = sep ? 'במשיכה חלשה השכבה העליונה כבר <b>נפרדה</b>, ונשארה על נייר הדבק. האחיזה בין השכבות חלשה. '+(BO.stretch?'':'עכשיו נסו "מותחים לצדדים".') : 'מושכים למעלה... הקווים המקווקווים נמתחים. עוד קצת.';
+    else if(m===1) boMsg.innerHTML = slid ? 'דחיפה קטנה, והשכבה <b>מחליקה</b> הצידה. ככה בדיוק העיפרון משאיר שכבות על הנייר.' : 'דוחפים הצידה...';
+    else boMsg.innerHTML = F>=90 ? 'הכי חזק שיש במחוון, והשכבה רק <b>נמתחה</b> קצת. כל אטום מחזיק שלושה שכנים, וכל הרשת עובדת יחד. '+(BO.pred===0?'כמו שניחשתם: הכי קל בין השכבות.':'אז הכי קל לפרק דווקא <b>בין</b> השכבות.') : 'מותחים... הקשרים החזקים נמתחים מעט (בציור זה מוגזם), אבל לא נשברים. נסו עוד יותר חזק.';
+  }
+}
+
+/* ---------- step 3 (interactive 3): a hammock for a cat (canvas 640 × 600) ----------
+   One layer of graphene weighs 0.76 mg per m² (2 carbon atoms per 0.0524 nm²). Sheets: a 1 m² hammock (0.76 mg — "about a cat's whisker", Nobel committee),
+   a classroom floor 50 m² (38 mg ≈ a grain or two of rice), a basketball court 28 × 15 = 420 m² (319 mg ≈ a sixteenth of an A4 page),
+   a football pitch 105 × 68 = 7,140 m² (5.4 g ≈ one A4 page of 80 g/m², ≈ 5 g). Bottom: a balance, sheet vs the familiar object. */
+const haCv=document.getElementById('haCv'), hactx=haCv.getContext('2d');
+const HA={ opened:0, pred:-1, revealed:0, seen:0 };
+const HA_D=0.76;
+const HA_S=[ { a:1, name:'ערסל, מטר על מטר', eq:'שפם אחד של חתול' }, { a:50, name:'רצפה של כיתה', eq:'גרגר אורז או שניים' }, { a:420, name:'מגרש כדורסל', eq:'פיסת נייר קטנה' }, { a:7140, name:'מגרש כדורגל', eq:'דף נייר אחד!' } ];
+function haPredict(k){ HA.pred=k; segOn('haP',3,k); WOW.emit('item', { id:'hammock:predict', kind:'quick', correct:k===2, attempt: wowTry('hammock:predict') });
+  haMsg.innerHTML='רשמנו את הניחוש. המאזניים למטה מראים כמה שוקל הערסל. אחר כך הזיזו את המחוון שמאלה, ליריעות ענקיות.'; haDraw(1); }
+function xCat(c,x,y,s){ const ink=css('--ink'); c.save(); c.translate(x,y); c.fillStyle=isDark()?'#F2A54A':'#E2A21F'; c.strokeStyle=ink; c.lineWidth=3;
+  c.beginPath(); c.ellipse(0,0,s*1.1,s*0.62,0,0,2*PI); c.fill(); c.stroke();
+  c.beginPath(); c.moveTo(s*0.95,-s*0.1); c.quadraticCurveTo(s*1.7,-s*0.2,s*1.5,-s*0.95); c.lineWidth=s*0.22; c.strokeStyle=c.fillStyle; c.lineCap='round'; c.stroke();
+  c.lineWidth=3; c.strokeStyle=ink;
+  c.beginPath(); c.arc(-s*0.85,-s*0.62,s*0.5,0,2*PI); c.fill(); c.stroke();
+  c.beginPath(); c.moveTo(-s*1.25,-s*0.85); c.lineTo(-s*1.2,-s*1.32); c.lineTo(-s*0.92,-s*1.08); c.closePath(); c.fill(); c.stroke();
+  c.beginPath(); c.moveTo(-s*0.75,-s*1.08); c.lineTo(-s*0.5,-s*1.32); c.lineTo(-s*0.45,-s*0.85); c.closePath(); c.fill(); c.stroke();
+  c.fillStyle=ink; c.beginPath(); c.arc(-s*1.02,-s*0.66,s*0.07,0,2*PI); c.arc(-s*0.7,-s*0.66,s*0.07,0,2*PI); c.fill();
+  c.lineWidth=1.6; c.beginPath(); [[-1,-0.5],[-1,-0.42],[1,-0.5],[1,-0.42]].forEach(([d,yy])=>{ c.moveTo(-s*0.86+d*s*0.12,-s*0.5); c.lineTo(-s*0.86+d*s*0.62,-s*0.5+(yy+0.46)*s*0.6); }); c.stroke();
+  c.restore(); }
+function haDraw(user){
+  const c=hactx, W=haCv.width, H=haCv.height, ink=css('--ink'), i=+haA.value, S=HA_S[i], mg=S.a*HA_D;
+  let blocked=false; if(user===1 && HA.pred<0 && i!==0){ haA.value=0; blocked=true; }
+  const k = blocked ? 0 : i, SS=HA_S[k], M=SS.a*HA_D;
+  if(user && !HA.opened && !blocked && HA.pred>=0){ HA.opened=1; WOW.emit('open', { id:'hammock' }); }
+  if(HA.pred>=0 && k===3) HA.seen=1;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  /* ===== top: the sheet ===== */
+  c.fillStyle=isDark()?'#1D3326':'#DDEFD9'; c.beginPath(); c.roundRect(16,16,W-32,354,16); c.fill();
+  if(k===0){
+    /* two posts and a hammock that is almost invisible (one layer absorbs ~2.3% of light) */
+    c.fillStyle=isDark()?'#A87A52':'#8C5A3C'; c.fillRect(96,90,18,260); c.fillRect(526,90,18,260);
+    c.fillStyle=isDark()?'#2B4A35':'#BFDDB8'; c.fillRect(16,330,W-32,40);
+    c.strokeStyle=ink; c.lineWidth=2; c.setLineDash([6,6]); c.beginPath(); c.moveTo(114,120); c.quadraticCurveTo(320,330,526,120); c.stroke(); c.setLineDash([]);
+    c.fillStyle='rgba(120,130,150,.10)'; c.beginPath(); c.moveTo(114,120); c.quadraticCurveTo(320,330,526,120); c.quadraticCurveTo(320,300,114,120); c.fill();
+    xCat(c, 320, 196, 46);
+    xLabel(c, 'כמעט שקוף', 320, 300, 22, ink, .9);
+  } else {
+    /* a top view of the area, with the sheet over it */
+    const dims = k===1 ? [10,5] : k===2 ? [28,15] : [105,68], sc=Math.min(560/dims[0], 290/dims[1]), w=dims[0]*sc, h=dims[1]*sc, x0=320-w/2, y0=196-h/2;
+    c.fillStyle = k===1 ? (isDark()?'#5E4E33':'#E3CC9E') : k===2 ? (isDark()?'#7A5638':'#D9A066') : (isDark()?'#2F7D4F':'#4DA36A');
+    c.fillRect(x0,y0,w,h); c.strokeStyle='#FFFFFF'; c.lineWidth=3; c.strokeRect(x0,y0,w,h);
+    if(k>=2){ c.beginPath(); c.moveTo(320,y0); c.lineTo(320,y0+h); c.stroke(); c.beginPath(); c.arc(320,196,h*(k===2?0.12:0.13),0,2*PI); c.stroke(); }
+    if(k===1){ c.fillStyle=isDark()?'#8A7047':'#B08A55'; for(let r=0;r<3;r++) for(let q=0;q<4;q++) c.fillRect(x0+w*(0.12+q*0.21), y0+h*(0.18+r*0.27), w*0.12, h*0.12); }
+    c.fillStyle='rgba(120,130,150,.18)'; c.fillRect(x0-6,y0-6,w+12,h+12); c.strokeStyle=ink; c.lineWidth=2; c.setLineDash([6,6]); c.strokeRect(x0-6,y0-6,w+12,h+12); c.setLineDash([]);
+    xLabel(c, k===1 ? '50 מטר מרובע' : k===2 ? '28 מטר על 15 מטר' : '105 מטר על 68 מטר', 320, y0+h+30>356 ? y0+h-24 : y0+h+30, 22, ink, .92);
+  }
+  xLabel(c, SS.name, 320, 46, 24, ink, .92);
+  /* ===== bottom: the balance ===== */
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(16,384,W-32,200,16); c.fill(); c.strokeStyle=css('--line'); c.lineWidth=2; c.stroke();
+  c.strokeStyle=ink; c.fillStyle=ink; c.lineWidth=5; c.lineCap='round';
+  c.beginPath(); c.moveTo(320,556); c.lineTo(320,452); c.stroke(); c.beginPath(); c.moveTo(270,560); c.lineTo(370,560); c.stroke();
+  c.beginPath(); c.moveTo(150,446); c.lineTo(490,446); c.stroke(); c.beginPath(); c.arc(320,446,8,0,2*PI); c.fill();
+  [150,490].forEach(x=>{ c.lineWidth=2.5; c.beginPath(); c.moveTo(x,446); c.lineTo(x-56,512); c.moveTo(x,446); c.lineTo(x+56,512); c.stroke();
+    c.lineWidth=5; c.beginPath(); c.moveTo(x-66,514); c.lineTo(x+66,514); c.stroke(); });
+  /* right pan: the sheet (folded, grey square); left pan: the familiar object */
+  c.fillStyle='rgba(120,130,150,.35)'; c.strokeStyle=ink; c.lineWidth=2; c.beginPath(); c.roundRect(462,484,56,26,4); c.fill(); c.stroke();
+  if(k===0){ c.strokeStyle=ink; c.lineWidth=2; c.beginPath(); c.moveTo(104,508); c.quadraticCurveTo(150,486,196,500); c.stroke(); }
+  else if(k===1){ c.fillStyle='#FFFFFF'; c.strokeStyle=ink; c.lineWidth=2; [[138,504],[164,506]].forEach(([x,y])=>{ c.beginPath(); c.ellipse(x,y,10,5,0.2,0,2*PI); c.fill(); c.stroke(); }); }
+  else { const w = k===2 ? 22 : 64, h = k===2 ? 16 : 44; c.fillStyle='#FFFFFF'; c.strokeStyle=ink; c.lineWidth=2; c.beginPath(); c.rect(150-w/2,512-h,w,h); c.fill(); c.stroke(); }
+  xLabel(c, SS.eq, 150, 548, 22, ink, .92);
+  xLabel(c, 'היריעה', 490, 548, 22, ink, .92);
+  xLabel(c, (M<10 ? M.toFixed(2) : fmtI(M))+' מיליגרם', 320, 412, 24, GOLDT(), .95);
+  haOut.innerHTML = '<span class="num">'+fmtI(SS.a)+'</span> מ״ר'; haOut2.innerHTML = M<1000 ? '<span class="num">'+(M<10?M.toFixed(2):fmtI(M))+'</span> מ״ג' : '<span class="num">'+fmt1(M/1000)+'</span> גרם';
+  if(HA.pred>=0 && HA.seen && !HA.revealed){ HA.revealed=1; haReveal.hidden=false; }
+  if(blocked){ predictFirst(haMsg,'הזיזו'); return; }
+  if(user===1 && HA.pred>=0){
+    if(k===0) haMsg.innerHTML='הערסל עם החתול שוקל פחות ממיליגרם אחד: <b>כמו שפם אחד של חתול</b>. '+(HA.pred===2?'בדיוק כמו שניחשתם!':'הרבה פחות ממה שניחשתם!');
+    else if(k===1) haMsg.innerHTML='יריעה שמכסה את כל רצפת הכיתה שוקלת רק כ־<span class="num">38</span> מיליגרם, כמו גרגר אורז או שניים.';
+    else if(k===2) haMsg.innerHTML='מגרש כדורסל שלם: כשליש גרם. פיסת נייר קטנה שוקלת בערך אותו דבר.';
+    else haMsg.innerHTML='מגרש כדורגל שלם, מכוסה בגרפן, שוקל כ־<span class="num">5</span> גרם: <b>בערך כמו דף נייר אחד</b>.';
+  }
+}
+
+/* ---------- step 4 (interactive 4): twisting two sheets — moiré (canvas 640 × 600) ----------
+   Two honeycombs (bond 7 px → hexagon width a = 12.1 px) share a centre; the top one is rotated by θ (0.5°–15°).
+   The moiré period is L = a ÷ (2·sin(θ/2)); at the magic angle 1.1° that is ≈ 52 hexagons, 0.246 nm × 52 ≈ 12.8 nm.
+   The yellow ring marks one moiré cell around the shared centre. Bottom: one hexagon vs one moiré spot, "×N". */
+const moCv=document.getElementById('moCv'), moctx=moCv.getContext('2d');
+const MO={ opened:0, pred:-1, revealed:0, small:0, big:0 };
+const MO_B=7, MO_A=0.246;
+const moRatio = th => 1/(2*Math.sin(th*DEG/2));
+/* the atoms of one honeycomb layer as dots (two atoms per cell), rotated by rot about (ox,oy) */
+function moAtoms(c, x0,y0,x1,y1, ox,oy, rot, col){
+  const b=MO_B, s3=Math.sqrt(3), cr=Math.cos(rot), sr=Math.sin(rot), R=Math.hypot(x1-x0,y1-y0)/2+2*b;
+  c.fillStyle=col; c.beginPath();
+  const jn=Math.ceil(R/(1.5*b))+1, inn=Math.ceil(R/(s3*b))+jn;
+  for(let j=-jn;j<=jn;j++) for(let i=-inn;i<=inn;i++){ const hx=i*s3*b + j*s3/2*b, hy=j*1.5*b; if(Math.abs(hx)>R||Math.abs(hy)>R) continue;
+    for(const [ax,ay] of [[0,-b],[s3/2*b,-b/2]]){ const x=hx+ax, y=hy+ay, X=ox+x*cr-y*sr, Y=oy+x*sr+y*cr; if(X<x0-4||X>x1+4||Y<y0-4||Y>y1+4) continue; c.moveTo(X+2.9,Y); c.arc(X,Y,2.9,0,2*PI); } }
+  c.fill(); }
+function moPredict(k){ MO.pred=k; segOn('moP',3,k); WOW.emit('item', { id:'twist:predict', kind:'quick', correct:k===1, attempt: wowTry('twist:predict') });
+  moMsg.innerHTML='רשמנו את הניחוש. רואים את הכתמים הבהירים? עכשיו הזיזו את המחוון ימינה, לאט: הזווית תקטן. צפו בכתמים.'; moDraw(0); }
+function moDraw(user){
+  const c=moctx, W=moCv.width, H=moCv.height, ink=css('--ink');
+  let blocked=false; if(user===1 && MO.pred<0 && +moA.value!==60){ moA.value=60; blocked=true; }
+  if(user && !MO.opened && !blocked && MO.pred>=0){ MO.opened=1; WOW.emit('open', { id:'twist' }); }
+  const th=+moA.value/10, R=moRatio(th), Lnm=MO_A*R, Lpx=Math.sqrt(3)*MO_B*R;
+  if(MO.pred>=0){ if(th<=2) MO.small=1; if(th>=8) MO.big=1; }
+  c.clearRect(0,0,W,H); c.fillStyle=css('--card2'); c.fillRect(0,0,W,H);
+  const X0=16, Y0=16, X1=W-16, Y1=470, cx=320, cy=243;
+  c.save(); c.beginPath(); c.roundRect(X0,Y0,X1-X0,Y1-Y0,16); c.clip();
+  c.fillStyle=css('--card'); c.fillRect(X0,Y0,X1-X0,Y1-Y0);
+  c.lineJoin='round';
+  moAtoms(c, X0,Y0,X1,Y1, cx,cy, 0, BLUE());
+  moAtoms(c, X0,Y0,X1,Y1, cx,cy, th*DEG, ORNG());
+  /* one moiré cell around the shared centre */
+  c.strokeStyle=GOLD(); c.lineWidth=6; c.setLineDash([12,8]); c.beginPath(); c.arc(cx,cy,Lpx/4,0,2*PI); c.stroke(); c.setLineDash([]);
+  c.restore();
+  c.strokeStyle=css('--line'); c.lineWidth=2; c.beginPath(); c.roundRect(X0,Y0,X1-X0,Y1-Y0,16); c.stroke();
+  xLabel(c, 'שכבה כחולה', 110, 44, 22, BLUE(), .92); xLabel(c, 'שכבה כתומה מסובבת', 500, 44, 22, ORNG(), .92);
+  xLabel(c, 'הזווית: '+fmt1(th)+' מעלות', 320, 444, 24, ink, .95);
+  /* bottom: one hexagon vs one spot */
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(16,486,W-32,98,16); c.fill(); c.strokeStyle=css('--line'); c.lineWidth=2; c.stroke();
+  c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); for(let v=0;v<=6;v++){ const a=(-90+60*v)*DEG, x=596+12*Math.cos(a), y=535+12*Math.sin(a); v?c.lineTo(x,y):c.moveTo(x,y); } c.stroke();
+  xLabel(c, 'משושה אחד', 470, 535, 22, ink, .9);
+  xLabel(c, 'כתם: פי '+fmtI(R)+' ממשושה', 196, 535, 22, GOLDT(), .95);
+  moOut.innerHTML='<span class="num">'+fmt1(th)+'°</span>'; moOut2.innerHTML='<span class="num">'+fmt1(Lnm)+'</span> ננומטר';
+  const magic = th>=1.0 && th<=1.2;
+  if(magic) xLabel(c, 'הזווית הקסומה!', 320, 126, 26, GOLDT(), .96);
+  if(MO.pred>=0 && MO.small && !MO.revealed){ MO.revealed=1; moReveal.hidden=false; }
+  if(blocked){ predictFirst(moMsg,'הזיזו'); return; }
+  if(user===1 && MO.pred>=0){
+    if(magic) moMsg.innerHTML='זו <b>הזווית הקסומה</b>, כ־<span class="num">1.1</span> מעלות. כל כתם רחב כ־<span class="num">'+fmtI(R)+'</span> משושים, כמעט כל המסך! בזווית הזאת שתי שכבות של גרפן נעשות מוליך־על בקור עז.';
+    else if(th<1) moMsg.innerHTML='הזווית קטנה עוד יותר, והכתם כבר גדול מהמסך. '+(MO.pred===1?'כמו שניחשתם: זווית קטנה, כתם ענק.':'זווית קטנה — כתם ענק.');
+    else if(th<=4) moMsg.innerHTML='הזווית קטנה, והכתמים גדלים מאוד. עכשיו כל כתם רחב כ־<span class="num">'+fmtI(R)+'</span> משושים. נסו להגיע ל־<span class="num">1.1</span> מעלות.';
+    else moMsg.innerHTML='בזווית גדולה הכתמים קטנים וצפופים. הזיזו ימינה, לזווית קטנה יותר.';
+  }
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  storyQ:{ q:'למה כל קילוף בנייר דבק נותן פתית דק יותר?', opts:['כי נייר הדבק ממיס את הגרפיט','כי הקילוף קורע את ערימת השכבות לשתי ערימות, וכל אחת דקה יותר','כי הדבק הופך את הפחמן לחומר אחר','כי בכל קילוף נוספות שכבות חדשות'], a:1, fb:'גרפיט הוא ערימה של שכבות. נייר הדבק נאחז בשכבות העליונות, ובקילוף הערימה נקרעת לשתיים: חלק נשאר למטה וחלק עולה עם הדבק. הדבק לא ממיס את הפחמן ולא משנה אותו, ושכבות לא נוספות מעצמן: הן רק מתחלקות.', btn:'next1' },
+  snailQ:{ q:'למה עיפרון משאיר קו על הנייר?', opts:['כי יש בתוכו דיו','כי שכבות הגרפיט מחליקות זו מזו בקלות, ונשארות על הדף','כי הנייר שורף את העופרת','כי העופרת של העיפרון עשויה מהמתכת עופרת'], a:1, fb:'בין השכבות יש רק אחיזה חלשה, ולכן כשמעבירים את העיפרון על הנייר, שכבות מחליקות ממנו ונשארות על הדף. אין בעיפרון דיו, הנייר לא שורף כלום, ובעופרת של עיפרון אין בכלל את המתכת עופרת: יש בה גרפיט וחימר. (פעם חשבו שגרפיט הוא סוג של עופרת, ומשם השם.)' },
+  priceQ:{ q:'כמה בערך שוקל ערסל של גרפן, מטר על מטר, שיכול להחזיק חתול?', opts:['כמו חתול','כמו ספר עבה','פחות ממיליגרם, כמו שפם אחד של חתול','בערך קילו'], a:2, fb:'שכבה אחת של גרפן דקה כל כך, שמטר מרובע ממנה שוקל כ־<span class="num">0.76</span> מיליגרם, כמו שפם אחד. והיא חזקה, כי כל אטום מחזיק שלושה שכנים בקשרים חזקים, וכל הרשת עובדת יחד. ערסל כבד כמו ספר או כמו חתול היה עבה מאוד, ולא היה שקוף.' },
+  siteQ:{ q:'מסובבים שכבה של גרפן מעל שכבה אחרת, בזווית קטנה מאוד. מה רואים?', opts:['שום דבר: השכבות נראות כמו שכבה אחת','דוגמה של כתמים ענקיים, גדולים בהרבה ממשושה אחד','כתמים קטנטנים, קטנים ממשושה אחד','השכבות נקרעות'], a:1, fb:'ככל שהזווית קטנה יותר, הכתמים, שנקראים מוארה, גדולים יותר: בזווית של <span class="num">1.1</span> מעלות כל כתם רחב כ־<span class="num">50</span> משושים. רק בזווית אפס בדיוק היינו רואים שכבה אחת, וכל סיבוב קטן כבר יוצר דוגמה. וסיבוב לא קורע את השכבות.' },
+  deepQ:{ q:'למה מספיקים בערך <span class="num">22</span> קילופים כדי לרדת מ־<span class="num">3</span> מיליון שכבות לשכבה אחת?', opts:['כי כל קילוף מוריד בדיוק <span class="num">1,000</span> שכבות','כי כל קילוף חוצה לשניים, וחצי של חצי נעשה קטן מהר מאוד','כי נייר הדבק לוקח בכל פעם שכבה אחת','סתם מזל'], a:1, fb:'בכל קילוף המספר נעשה חצי: <span class="math">3,000,000 → 1,500,000 → 750,000</span>... אחרי <span class="num">10</span> קילופים כבר נשארות פחות מ־<span class="num">3,000</span> שכבות, ואחרי <span class="num">22</span> שכבה אחת. אילו כל קילוף היה מוריד <span class="num">1,000</span> שכבות, היו צריכים <span class="num">3,000</span> קילופים, ואילו שכבה אחת בכל פעם — <span class="num">3</span> מיליון.' },
+};
+const MCQ = {
+  shared:[
+    { q:'מה זה גרפן?', opts:['סוג חדש של פלסטיק','שכבה אחת של אטומי פחמן, מסודרים כמו חלת דבש','מתכת שמוציאים מהעופרת של העיפרון','דבק חזק במיוחד'], a:1, fb:'גרפן הוא שכבה בודדת מתוך הגרפיט: אטומי פחמן במשושים, בעובי של אטום אחד. הוא לא פלסטיק ולא דבק, ובעיפרון אין מתכת בכלל: יש בו גרפיט וחימר.' },
+    { q:'למה נייר דבק מצליח לקלף שכבות מגרפיט?', opts:['כי השכבות מחוברות זו לזו רק באחיזה חלשה, ואילו בתוך כל שכבה הקשרים חזקים','כי הדבק חזק יותר מפלדה','כי הגרפיט נמס כשנוגעים בו','כי בין השכבות יש אוויר שדוחף אותן החוצה'], a:0, fb:'זה כל הסוד: בתוך שכבה כל אטום מחזיק שלושה שכנים בחוזקה, ובין השכבות יש רק משיכה חלשה. לכן דבק רגיל, שבכלל לא חזק במיוחד, מספיק כדי להפריד שכבות, אבל לא כדי לקרוע שכבה. גרפיט לא נמס בטמפרטורת החדר, ואין אוויר שדוחף.' },
+    { q:'איך התחיל הרעיון לקלף גרפיט עם נייר דבק?', opts:['ממכונה יקרה שהמדענים בנו','מנייר דבק שניקו בו גרפיט במעבדה, ושנזרק לפח','מספר מדע בדיוני','מילד שכתב בעיפרון על חלון'], a:1, fb:'חוקר במעבדה, אולג שקליארבסקי, סיפר שמנקים גרפיט עם נייר דבק. גיים הוציא נייר כזה מהפח, ומצא עליו פתיתים דקים מאוד. המכונות של אז לא הצליחו להכין שכבות דקות כל כך, ושאר התשובות לא קרו.' },
+  ],
+  younger:[
+    { q:'מה העובי של שכבה אחת של גרפן?', opts:['אטום אחד','עשרה אטומים','אלף אטומים','מיליון אטומים'], a:0, fb:'גרפן הוא השכבה הדקה ביותר שאפשר: עובי של אטום אחד. עשר שכבות או אלף שכבות הן כבר גרפיט דק, ומיליון שכבות כאלה הן בערך שליש מילימטר.' },
+  ],
+  older:[
+    { q:'למה כשהזווית בין שתי שכבות הגרפן קטנה יותר, הכתמים של המוארה גדולים יותר?', opts:['כי השכבות מתרחקות זו מזו','כי בזווית קטנה המשושים של שתי השכבות "יוצאים מהקצב" לאט, ולכן עוברים מרחק גדול עד שהם חוזרים לעמוד זה על זה','כי האטומים גדלים כשמסובבים אותם','כי האור נשבר אחרת בזווית קטנה'], a:1, fb:'ליד המרכז המשושים כמעט עומדים זה על זה, וכל משושה זז רק טיפה ביחס לשכן שלו. רק אחרי הרבה משושים ההזזה מצטברת למשושה שלם, והדוגמה חוזרת: <span class="math">L = a ÷ (2 × sin(θ ÷ 2))</span>. המרחק בין השכבות והגודל של האטומים לא משתנים, והאור לא קשור.' },
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'בצפון אנגליה נמצא מרבץ של גרפיט נקי, ומכינים ממנו את העפרונות הראשונים.'},
+  {id:'b', t:'אנדרה גיים מקבל פרס "איג נובל" על הצפרדע המרחפת.'},
+  {id:'c', t:'גיים ונובוסלוב מפרסמים את המאמר על הגרפן שקילפו עם נייר דבק.'},
+  {id:'d', t:'גיים ונובוסלוב מקבלים את פרס הנובל בפיזיקה.'},
+  {id:'e', t:'רפי ביסטריצר ואלן מקדונלד מחשבים את "הזווית הקסומה".'},
+  {id:'f', t:'במכון MIT מגלים ששתי שכבות גרפן בזווית הקסומה הן מוליך־על.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלך: ' : '<span class="pill-ok">סדר מושלם!</span>')+' העפרונות (<span class="num">1564</span>) ← הצפרדע (<span class="num">2000</span>) ← המאמר (<span class="num">2004</span>) ← פרס הנובל (<span class="num">2010</span>) ← החישוב של הזווית הקסומה (<span class="num">2011</span>) ← מוליך־העל (<span class="num">2018</span>).' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) הצפרדע ריחפה עוד לפני שגיים התחיל לקלף גרפיט במנצ׳סטר, והנובל בא כמה שנים אחרי המאמר. (2) קודם חישבו את הזווית הקסומה על הנייר, ורק אחר כך בדקו אותה בניסוי.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && a>=298000 && a<=300000, bOk = hasB && Math.abs(b-19)<0.01;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && ((a>=297 && a<=300) || (a>=29.7 && a<=30))) ? '(א): בדקו את היחידות: <span class="math">0.1 × 1,000,000 = 100,000</span> ננומטר, ורק אז מחלקים בעובי של שכבה.'
+    : (hasA && a>=2980000 && a<=3000000) ? '(א): זה המספר למילימטר שלם. הפתית עבה רק <span class="num">0.1</span> מילימטר.'
+    : (hasA && a>=33000 && a<=34000) ? '(א): הכפלתם. מספר השכבות = העובי של הפתית <b>חלקי</b> העובי של שכבה אחת.'
+    : '(א): רמז — קודם הפכו <span class="num">0.1</span> מילימטר לננומטרים, ואז חלקו ב־<span class="num">0.335</span>.';
+  const hintB = (hasB && Math.abs(b-18)<0.01) ? '(ב): כמעט! אחרי <span class="num">18</span> קילופים: <span class="math">298,507 ÷ 262,144 ≈ 1.14</span>, עדיין יותר משכבה אחת.'
+    : (hasB && Math.abs(b-22)<0.01) ? '(ב): <span class="num">22</span> זה למילימטר שלם. כאן יש פי עשרה פחות שכבות.'
+    : (hasB && Math.abs(b-20)<0.01) ? '(ב): קרוב! בדקו: <span class="math">2¹⁹ = 524,288</span> כבר יותר מ־<span class="num">298,507</span>.'
+    : (hasB && b>1000) ? '(ב): זה מספר של שכבות. השאלה היא כמה <b>קילופים</b>.'
+    : '(ב): רמז — חצו שוב ושוב וספרו, או חפשו את החזקה הקטנה ביותר של <span class="num">2</span> שגדולה ממספר השכבות.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">0.1 × 1,000,000 = 100,000</span> ננומטר, ו־<span class="math">100,000 ÷ 0.335 ≈ 298,500</span>: כ־<span class="num">299,000</span> שכבות. (ב) <span class="math">2¹⁸ = 262,144</span> עוד קטן מ־<span class="num">298,507</span>, אבל <span class="math">2¹⁹ = 524,288</span> כבר גדול ממנו: <span class="num">19</span> קילופים. ושימו לב: פתית דק פי <span class="num">10</span> חוסך רק <span class="num">3</span> קילופים, כי <span class="math">2³ = 8</span>, בערך <span class="num">10</span>. עכשיו לשאלה למחשבה.'+(S.result?' (לחצו שוב על "סיימתי" כדי לעדכן את התוצאה.)':'')
+    : aOk ? '<span class="pill-ok">(א) נכון — כ־<span class="num">299,000</span> שכבות.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — <span class="num">19</span> קילופים.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const sp=+numAdvR.value, ks=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && sp>=486 && sp<=487), yOk=(hasY && ks>=2.0 && ks<=2.15), sc = dOk&&yOk?2:((dOk||yOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && sp>=39 && sp<=40) ? 'ב־(א): חיברתם את האורך והרוחב. שטח של מלבן = אורך <b>כפול</b> רוחב.'
+      : (hasD && Math.abs(sp-640)<0.5) ? 'ב־(א): <span class="num">640</span> מטר מרובע זה השטח. עכשיו כפלו במשקל של מטר מרובע אחד.'
+      : (hasD && Math.abs(sp-512)<0.5) ? 'ב־(א): השתמשתם ב־<span class="num">0.8</span>. כאן המשקל המדויק: <span class="num">0.76</span>.'
+      : (hasD && sp>=841 && sp<=843) ? 'ב־(א): חילקתם. כל מטר מרובע שוקל <span class="num">0.76</span>, ויש <span class="num">640</span> כאלה: מכפילים.'
+      : 'רמז ל־(א): קודם השטח, <span class="math">32 × 20</span>, ואז כפול המשקל של מטר מרובע.';
+    const hintY = (hasY && ks>=480 && ks<=520) ? 'ב־(ב): זה המשקל של היריעה. השאלה: כמה פעמים הוא נכנס ב־<span class="num">1,000</span>?'
+      : (hasY && ks>0.45 && ks<0.52) ? 'ב־(ב): הפכתם את החילוק: <span class="math">1,000 ÷ 486.4</span>.'
+      : (hasY && ks>=1.9 && ks<2.0) ? 'ב־(ב): השתמשתם במשקל מעוגל. חלקו את <span class="num">1,000</span> בתשובה המדויקת שלכם מ־(א).'
+      : 'רמז ל־(ב): כמה פעמים נכנסים <span class="num">486.4</span> מיליגרם ב־<span class="num">1,000</span> מיליגרם?';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">32 × 20 = 640</span> מטר מרובע, ו־<span class="math">640 × 0.76 = 486.4</span> מיליגרם. (ב) <span class="math">1,000 ÷ 486.4 ≈ 2.1</span>. כלומר חצר שלמה של בית ספר, מכוסה בגרפן, שוקלת פחות מחצי גרם.'
+      : dOk ? '<span class="pill-ok">(א) נכון — <span class="num">486.4</span> מיליגרם.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">2.1</span>.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-6)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">64 → 32 → 16 → 8 → 4 → 2 → 1</span>: שישה קילופים. ובכיוון ההפוך: <span class="math">2 × 2 × 2 × 2 × 2 × 2 = 64</span>.':(Math.abs(v-32)<0.01)?'<span class="pill-bad">זה מה שנשאר אחרי קילוף אחד.</span> ממשיכים לחצות: <span class="num">32</span>, ואז <span class="num">16</span>... ספרו את הקילופים.':(Math.abs(v-63)<0.01)?'<span class="pill-bad">כל קילוף לא מוריד שכבה אחת:</span> הוא <b>חוצה</b> את הערימה לשניים.':(Math.abs(v-5)<0.01||Math.abs(v-7)<0.01)?'<span class="pill-bad">כמעט!</span> ספרו שוב את החצים: <span class="math">64 → 32 → 16 → 8 → 4 → 2 → 1</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: חצי של <span class="num">64</span> הוא <span class="num">32</span>. ממשיכים לחצות עד <span class="num">1</span>, וסופרים כמה פעמים חצינו.'; }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-160)<0.01; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">200 × 0.8 = 160</span> מיליגרם: רצפה של ארבע כיתות, ושוקלת פחות מחמישית גרם. עם המספר המדויק, <span class="num">0.76</span>, יוצא <span class="num">152</span>.':(Math.abs(v-250)<0.01)?'<span class="pill-bad">חילקתם.</span> כל מטר מרובע שוקל <span class="num">0.8</span>, ויש <span class="num">200</span> כאלה: מכפילים.':(Math.abs(v-200.8)<0.01)?'<span class="pill-bad">חיברתם.</span> יש <span class="num">200</span> מטרים מרובעים, וכל אחד שוקל <span class="num">0.8</span>: <span class="math">200 × 0.8</span>.':(Math.abs(v-1600)<0.01||Math.abs(v-16)<0.01)?'<span class="pill-bad">בדקו את הנקודה העשרונית.</span> <span class="math">200 × 0.8 = 2 × 80</span>.':(Math.abs(v-152)<0.01)?'<span class="pill-bad">כמעט!</span> השתמשתם ב־<span class="num">0.76</span>. השאלה נותנת <span class="num">0.8</span>.':'<span class="pill-bad">לא בדיוק.</span> רמז: המשקל של מטר אחד, כפול מספר המטרים: <span class="math">200 × 0.8</span>.'; }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שגרפיט, החומר שבעיפרון, בנוי מהרבה שכבות דקות של פחמן, אחת על השנייה.',
+  'הסברתי שבין השכבות האחיזה חלשה, ולכן נייר הדבק מקלף אותן, ושבכל קילוף הערימה נחצית, עד שנשארת שכבה אחת: גרפן.',
+  'כתבתי שבתוך שכבה האטומים מסודרים כמו חלת דבש, וכל אטום מחזיק שלושה שכנים בקשרים חזקים.',
+  'הסברתי שבגלל זה גרפן חזק מאוד, בערך פי <span class="num">100</span> מפלדה באותו עובי, למרות שהוא דק כמו אטום אחד.',
+  'הוספתי פרט מדויק: נייר הדבק מהפח, פרס הנובל ב־<span class="num">2010</span>, הערסל של החתול, <span class="num">22</span> קילופים, או הזווית הקסומה.',
+];
+const MODEL='גרפיט, החומר שבעיפרון, הוא ערימה של מיליוני שכבות דקות של אטומי פחמן. בתוך כל שכבה האטומים מסודרים במשושים, כמו חלת דבש, וכל אטום מחזיק שלושה שכנים בקשרים חזקים מאוד. אבל בין השכבות יש רק אחיזה חלשה. לכן נייר דבק יכול לקלף שכבות: בכל קילוף הערימה נחצית לשתיים, ואחרי כ־22 קילופים, משלושה מיליון שכבות, נשארת שכבה אחת — גרפן. השכבה הזאת חזקה מאוד, בערך פי 100 מפלדה באותו עובי, כי כל האטומים קשורים ברשת אחת, והכוח מתחלק בין כל הקשרים. ערסל של מטר מרובע ממנה היה מחזיק חתול ושוקל פחות ממיליגרם. את זה גילו אנדרה גיים וקוסטיה נובוסלוב במנצ׳סטר ב־2004, ובזכות זה קיבלו פרס נובל ב־2010.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון (גרפיט = ערימה של שכבות פחמן, 0.335 ננומטר כל אחת, כ־3 מיליון במילימטר; בתוך שכבה כל אטום קשור לשלושה שכנים בקשרים חזקים — חולקים אלקטרונים — במשושים, 0.142 ננומטר; בין השכבות רק משיכה חלשה; לכן נייר דבק מפריד שכבות ולא קורע שכבה, וכל קילוף חוצה את הערימה בערך לשניים — 2²² ≈ 4 מיליון, כלומר כ־22 קילופים; החוזק של גרפן בא מהרשת המשושה הרציפה שמחלקת את העומס בין כל הקשרים, ולכן הוא חזק כפי 100 מפלדה באותו עובי, ואילו גרפיט חלש כי הוא נשבר בין השכבות; ואפשר גם: מטר מרובע שוקל 0.76 מ״ג, או זווית קטנה בין שתי שכבות יוצרת מוארה גדולה) ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "פרס נובל שנולד מנייר דבק ועיפרון": גרפן. הרעיונות המרכזיים: (1) במנצ׳סטר, ב"ניסויי יום שישי בערב", אנדרה גיים וקוסטיה נובוסלוב קילפו מגרפיט שכבה אחת של פחמן עם נייר דבק; הרעיון בא מנייר דבק שבו ניקו גרפיט ונזרק לפח (אולג שקליארבסקי); מאמר באוקטובר 2004, פרס נובל בפיזיקה 2010; לפני כן גיים ריחף צפרדע במגנט (איג נובל 2000); (2) גרפיט הוא ערימה של שכבות, 0.335 ננומטר כל אחת, כ־3 מיליון במילימטר; כל קילוף חוצה בערך לשניים, ולכן כ־22 קילופים מספיקים; (3) בתוך שכבה, חלת דבש של משושים, כל אטום קשור לשלושה שכנים בקשרים חזקים; בין השכבות רק אחיזה חלשה — לכן עיפרון כותב ונייר דבק מקלף; (4) גרפן חזק בערך פי 100 מפלדה באותו עובי, בולע רק כ־2.3% מהאור; ערסל של מטר מרובע יחזיק חתול וישקול 0.76 מ״ג, כמו שפם; מגרש כדורגל של גרפן שוקל כמו דף נייר; (5) רפי ביסטריצר (ישראלי) ואלן מקדונלד חישבו ב־2011 את הזווית הקסומה, כ־1.1 מעלות, בין שתי שכבות; ב־2018 במכון MIT מצאו שבזווית הזאת, בקור עז, הן מוליך־על; פרס וולף 2020; שחל אילני ממכון ויצמן; זווית קטנה יוצרת כתמי מוארה גדולים, כ־50 משושים. חישובי המבחן: צעיר — 64 → 1 בשישה קילופים; בוגר — 200 × 0.8 = 160 מ״ג; מתקדם — 32 × 20 = 640 מ״ר, 640 × 0.76 = 486.4 מ״ג, 1,000 ÷ 486.4 ≈ 2.1; אתגר — 100,000 ÷ 0.335 ≈ 299,000 שכבות, 19 קילופים.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם שגרפיט בנוי משכבות שנאחזות זו בזו רק חלש (ולכן נייר הדבק מקלף אותן עד שכבה אחת), וגם שבתוך השכבה האטומים קשורים חזק ברשת של משושים (ולכן גרפן חזק); 1 אם יש רק אחד מהשניים או רק חלק. תשובה שאומרת שהדבק ממיס את הגרפיט, או שגרפן חזק כי הוא עבה — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', מגיע לך פרס נובל של יום שישי!':pct>=60?name+', כבר קילפת את רוב השכבות!':name+', הקילוף הראשון כבר מאחוריך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=3;                                                       // about 3 million layers in 1 mm of graphite
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: במילימטר של גרפיט יש <b>כ־<span class="num">3</span> מיליון שכבות</b>.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>בערך <span class="num">3</span> מיליון שכבות</b> — וקלעת. ובכל זאת, <span class="num">22</span> קילופים מספיקים כדי להגיע לשכבה אחת.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b> שכבות. התשובה: כ־<span class="num">3</span> מיליון. ובכל זאת, <span class="num">22</span> קילופים מספיקים כדי להגיע לשכבה אחת.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה שכבות במילימטר של גרפיט): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: כ־3 מיליון)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "פרס נובל שנולד מנייר דבק ועיפרון", מהדורה 50, כ״א בחשוון תשפ״ז (יום ראשון, 1 בנובמבר 2026). נושא: גרפן — שכבה אחת של אטומי פחמן — פיזיקה (חוזק, קשרים, מוליכות, מוארה ומוליכות־על), כימיה (פחמן, גרפיט מול יהלום, קשרים חזקים במישור ומשיכה חלשה בין שכבות), הנדסה (חומרים דקים וחזקים, איך מוצאים שכבה שקופה), היסטוריה (העפרונות מבורודייל, 1564; ניסויי יום שישי של אנדרה גיים; נובל 2010) ומתמטיקה (חצייה חוזרת וחזקות של 2, המרת מילימטרים לננומטרים, שטח ומסה). העובדות: אנדרה גיים, פיזיקאי באוניברסיטת מנצ׳סטר באנגליה, נהג לעשות "ניסויי יום שישי בערב" — ניסויים משוגעים שלא קשורים לעבודה הרגילה וכמעט לא מצליחים. לפני כן, בהולנד (ניימכן), הוא ריחף צפרדע חיה בתוך מגנט חזק (הרעיון לצפרדע: אשתו, הפיזיקאית אירינה גריגורייבה), וקיבל על זה ב־2000 את פרס "איג נובל" יחד עם מייקל ברי; הוא האדם היחיד שזכה גם באיג נובל וגם בנובל. במנצ׳סטר רצה להכין שכבה דקה מאוד של גרפיט. החוקר אולג שקליארבסקי סיפר שבמעבדה מנקים גושי גרפיט בנייר דבק וזורקים אותו לפח; גיים הוציא נייר כזה מהפח ומצא עליו פתיתים דקים מאוד (גיים אמר בחיוך שמי שזרקו את נייר הדבק, זרקו איתו את פרס הנובל). עם קוסטיה נובוסלוב, חוקר צעיר בצוות, קילפו שוב ושוב — נייר דבק על נייר דבק — ותוך כשנה עד שנה וחצי הגיעו לשכבה בודדת. את הפתיתים הניחו על פרוסת סיליקון עם שכבת זכוכית של 300 ננומטר, שבזכותה רואים במיקרוסקופ אפילו שכבה אחת (בעובי אחר בכמה אחוזים היא הייתה בלתי נראית; המדענים סיפרו שזה חסך להם חודשים). המאמר בכתב העת Science פורסם באוקטובר 2004 ("Electric Field Effect in Atomically Thin Carbon Films"). פרס נובל בפיזיקה 2010 לגיים (אז בן 51) ולנובוסלוב (אז בן 36). עוד ניסוי של גיים: נייר דבק בהשראת כפות השממית. גרפיט: רק אטומי פחמן, בשכבות; מרווח בין שכבות 0.335 ננומטר (ננומטר = מיליונית של מילימטר), כלומר כ־3 מיליון שכבות במילימטר (1,000,000 ÷ 0.335 ≈ 2,985,000). בתוך שכבה האטומים במשושים, כמו חלת דבש, כל אטום קשור לשלושה שכנים בקשרים חזקים (חולקים אלקטרונים), במרחק 0.142 ננומטר; רוחב משושה 0.246 ננומטר. בין השכבות רק משיכה חלשה — לכן העיפרון כותב (שכבות מחליקות ונשארות על הדף), גרפיט משמש חומר סיכה, ונייר דבק מקלף אותו. בעופרת של עיפרון יש גרפיט וחימר, בלי המתכת עופרת (פעם חשבו שגרפיט הוא עופרת); בעיפרון רך (B) יש יותר גרפיט. יהלום — אותו פחמן, אבל כל אטום קשור לארבעה שכנים בכל הכיוונים, ולכן קשה מאוד. גרפן: בעובי אטום אחד; לפי ועדת הנובל חזק בערך פי 100 מפלדה באותו עובי (יש מקורות שכותבים פי 200; תלוי איך משווים; חוזק מתיחה של כ־130 GPa ליריעה מושלמת, פחות ליריעות גדולות עם פגמים); בולע רק כ־2.3% מהאור, כמעט שקוף; מוליך חום פי 10 מכסף ומוליך חשמל מצוין; ערסל של מטר מרובע יחזיק חתול וישקול כמיליגרם — 0.76 מ״ג — כמו שפם אחד של חתול (ערסל כזה, מושלם, עוד לא נבנה; זה חישוב); רצפה של כיתה, 50 מ״ר: כ־38 מ״ג; מגרש כדורסל, 28 × 15 = 420 מ״ר: כ־319 מ״ג; מגרש כדורגל, 105 × 68 = 7,140 מ״ר: כ־5.4 גרם, בערך כמו דף נייר A4. העפרונות: בעמק בורודייל שבצפון אנגליה נמצא מרבץ של גרפיט נקי במיוחד (לפי בריטניקה ב־1564; כרייה כבר מ־1540), ומקלות ממנו היו העפרונות הראשונים; המכרה נשמר בקפידה. הזווית הקסומה: ב־2011 חישבו רפי ביסטריצר, פיזיקאי יליד ישראל (1974), ואלן מקדונלד, שאם מסובבים שכבת גרפן מעל שכבה אחרת בזווית של כ־1.1 מעלות, האלקטרונים כמעט נעצרים ומתנהגים בדרך מוזרה; ב־2018 פבלו חרייו־הררו במכון MIT גילה שבזווית הזאת, בקור עז (פחות מ־1.7 מעלות מעל האפס המוחלט), הגרפן הכפול הוא מוליך־על (חשמל זורם בלי התנגדות); איך בדיוק זה קורה — עדיין נחקר; שלושתם קיבלו את פרס וולף בפיזיקה 2020; ב־2020 צוות של פרופ׳ שחל אילני ממכון ויצמן גילה מעברים מפתיעים של האלקטרונים בזווית הקסומה (Nature). מוארה: זווית קטנה יוצרת כתמים גדולים; גודל הכתם L = a ÷ (2 × sin(θ ÷ 2)), בזווית 1.1 מעלות כ־12.8 ננומטר, כ־52 משושים. פרק 1, אינטראקטיב "מכונת הקילוף": כפתור קילוף; כל קילוף חוצה את מספר השכבות (מתחילים מ־3 מיליון, מילימטר אחד); סרגל לוגריתמי של עוביים — עופרת, דף נייר, חיידק, נגיף, אטום; נייר דבק שהכתם האפור עליו מתבהר; זכוכית מגדלת שמראה את השכבות כשנשארות 16 או פחות; אחרי 22 קילופים נשארת שכבה אחת; ניחוש: בערך 20 קילופים. פרק 2, "מושכים, דוחפים, מותחים": מבט מהצד על חמש שכבות (קו עבה = קשר חזק, מקווקו = אחיזה חלשה); מושכים למעלה עם נייר דבק — נפרדת בכוח קטן; דוחפים הצידה — מחליקה; מותחים לצדדים — רק נמתחת, לא נקרעת (מוגזם); למטה חלת דבש מלמעלה עם אטום אחד ושלושת שכניו; ניחוש: הכי קל בין השכבות. פרק 3, "הערסל של החתול": ערסל של מטר מרובע עם חתול, כמעט שקוף; מחוון לכיתה, מגרש כדורסל ומגרש כדורגל; מאזניים מול שפם, גרגרי אורז, פיסת נייר ודף נייר; ניחוש: כמו שפם של חתול. פרק 4, "שתי שכבות מסתובבות": שתי רשתות משושים, כחולה וכתומה; מחוון זווית 0.5–15 מעלות (מתחיל ב־6); כתמי מוארה שגדלים כשהזווית קטנה; טבעת צהובה סביב כתם אחד; ליד 1.1 מעלות "הזווית הקסומה"; ניחוש: כתמים ענקיים. פרק 5: זום מעיפרון לאטום (עיפרון, הקו מקרוב, פתית מהצד, שכבה אחת); החשבון: 2²¹ = 2,097,152 קטן מ־3 מיליון, 2²² = 4,194,304 גדול — 22 קילופים. ניסויי בית: לקשקש ריבוע בעיפרון רך, להדביק נייר דבק ולקלף, ואז נייר דבק חדש על הקודם, ולסדר את הפיסות ולראות את האפור נעלם (לא מגיעים לשכבה אחת); חפיסת קלפים שמחליקה מול קלף שקשה לקרוע; עיפרון 2B מול H. אתגר (בוגר): 0.1 מ״מ = 100,000 ננומטר; 100,000 ÷ 0.335 ≈ 298,500, כ־299,000 שכבות; 2¹⁸ = 262,144 קטן מזה ו־2¹⁹ = 524,288 גדול — 19 קילופים; שאלת מחשבה: למה עופרת של עיפרון נשברת אם גרפן חזק — כי החוזק רק בתוך השכבה, ובין השכבות האחיזה חלשה (ויש גם חימר ופתיתים קטנים). חישובי המבחן: צעיר — 64 → 32 → 16 → 8 → 4 → 2 → 1, שישה קילופים; בוגר — 200 × 0.8 = 160 מ״ג; מתקדם — חצר של 32 × 20 = 640 מ״ר, 640 × 0.76 = 486.4 מ״ג, ו־1,000 ÷ 486.4 ≈ 2.1. סידור: מרבץ הגרפיט והעפרונות 1564 ← איג נובל על הצפרדע 2000 ← המאמר על הגרפן 2004 ← פרס הנובל 2010 ← החישוב של הזווית הקסומה 2011 ← מוליך־העל ב־MIT 2018. סגנון תשובה: חם, קצר, כנה לגבי מה שמפושט (בקילוף אמיתי לא חוצים בדיוק לשניים; הכוחות במעבדה סכמטיים; ערסל מושלם של מטר עוד לא נבנה; "פי 100 מפלדה" תלוי בדרך ההשוואה) ומה שלא ידוע (למה בדיוק הזווית הקסומה יוצרת מוליכות־על — עדיין נחקר; אילו שימושים בגרפן יצליחו); בלי לחשוף תשובות מבחן; אם ילד שואל על שאלה מהמבחן, לרמוז ולכוון, לא לפתור. בטיחות: מחדדים עם מחדד, מספריים עם מבוגר, לא מכניסים לפה עופרת של עיפרון, ולא מתקרבים למגנטים חזקים או לחשמל מהקיר.';
+const CHIPS = ['מה זה גרפן?', 'למה נייר דבק מקלף שכבות?', 'איך משהו דק כל כך חזק כל כך?', 'מה זו הזווית הקסומה?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: גרפיט כערימת שכבות של 0.335 ננומטר — כ־3 מיליון במילימטר; קשרים קוולנטיים חזקים במישור, כל אטום לשלושה שכנים במרחק 0.142 ננומטר, מול משיכה חלשה בין השכבות; למה זה הופך את הגרפיט לרך ואת הגרפן לחזק; חצייה חוזרת וחזקות של 2 — 2²² ≈ 4 מיליון; מסה לשטח — 0.76 מ״ג למ״ר; מוארה — L = a ÷ (2 × sin(θ ÷ 2)), a = 0.246 ננומטר, וכ־12.8 ננומטר בזווית של 1.1 מעלות; יהלום מול גרפיט — ארבעה שכנים מול שלושה), שאל שאלות המשך שדורשות חשיבה (למשל: כמה קילופים צריך לפתית בעובי של שערה? למה עיפרון רך כותב כהה יותר? למה יריעה גדולה של גרפן חלשה יותר מפתית קטן ומושלם? כמה שוקלת יריעה שמכסה את כל ישראל? למה בזווית אפס אין מוארה?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>מה זה גרפן?</b> שכבה אחת של אטומי פחמן, בעובי של אטום אחד, מסודרים במשושים כמו חלת דבש. גרפיט, החומר שבעיפרון, הוא מיליוני שכבות כאלה אחת על השנייה.<br><br><b>למה נייר דבק מקלף שכבות?</b> כי בתוך שכבה כל אטום מחזיק שלושה שכנים בחוזקה, אבל בין השכבות יש רק אחיזה חלשה. הדבק מפריד את השכבות, ובכל קילוף הערימה נחצית לשתיים, עד שנשארת שכבה אחת.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
