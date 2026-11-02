@@ -1,0 +1,24 @@
+{
+  "n": 51,
+  "code": "WOW-051",
+  "date": "2026-11-02",
+  "language": "he",
+  "title": "החורים שנפערים בלילה על שפת ים המלח",
+  "topics": [
+    "גאולוגיה",
+    "כימיה",
+    "גאוגרפיה",
+    "היסטוריה",
+    "מתמטיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "Dead Sea sinkholes: 6,000+ holes since the early 1980s (estimates vary) in a ~60 km strip; a ~10,000-year-old buried salt layer 20–70 m deep stayed safe because Dead Sea brine is saturated; as the sea falls >1 m/yr the fresh/saline groundwater boundary follows it, fresh groundwater reaches the salt edge, dissolves cavities, and the sand-and-mud roof collapses; Eli Raz (Ein Gedi geologist) fell into one, ~14 h, rescued by the team he founded; Mineral Beach; Nof & Baer 2013 InSAR mm-scale precursors; Jordan ~1,250 million m³/yr then <100 now, National Water Carrier 1964; maths: 600 km² × 1.1 m = 660 million m³/yr missing, shoreline retreat vs level drop.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": "בולען של מלח",
+  "reviewer_verdict": "PASS (2 rounds) — nits left: time ~30–33 min, slightly over the 20–30 target (tag says כ־30 דקות); correct MCQ option is often the longest; Raz's 'documenting' wording leans on the Fox quote more than NBC; the review copy doesn't declare the sample capability, so Arto falls back there (template)",
+  "review_url": "https://claude.ai/artifact/SKQm42TzSnTMUsCbm3RN22",
+  "editor_note": null
+}
