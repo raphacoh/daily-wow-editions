@@ -1,0 +1,24 @@
+{
+  "n": 52,
+  "code": "WOW-052",
+  "date": "2026-11-03",
+  "language": "he",
+  "title": "החסילון שמרתיח את הים באגרוף אחד",
+  "topics": [
+    "ביולוגיה",
+    "פיזיקה",
+    "הנדסה",
+    "היסטוריה",
+    "מתמטיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "Pistol shrimp: WWII navies traced an underwater crackle that disturbed listening to shrimp beds; Versluis, Schmitz, von der Heydt & Lohse (Science 2000, 40,500 fps + hydrophone) showed the bang comes ~0.7 ms after the claw closes, from a collapsing cavitation bubble, not the claw; jet ~25 m/s; Bernoulli Δp = ½ρv² ≈ 3.1 atm (water tears near 14 m/s in the simple model); energy stored slowly behind a latch, released at once; Lohse 2001 faint flash, inferred >5,000 K ≈ 4,700 °C (near, not above, the Sun's surface); goby–Alpheus partnership in the Red Sea (Karplus 1974), Steinitz; maths: m/s → km/h ×3.6, distance = speed × time, ms to s, squares.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — nits left: time ~30 min, older + challenge up to ~35; canvas aria-labels state the answers; ch. 2–4 quick checks can be skipped; the review copy doesn't declare the sample capability, so Arto falls back there (template)",
+  "review_url": "https://claude.ai/artifact/G8YG1AM5xpvSw3vR586yWF",
+  "editor_note": null
+}
