@@ -1,0 +1,1710 @@
+<title>שורשים וכנפיים #54 · האות שחזר כל 1.3 שניות — והסטודנטית שלא ויתרה על לכלוך קטן</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#6B3FA0; --shadow-soft:#ECE1F7;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#C9A4F0; --shadow-soft:#3A2552;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .tick{animation:tick 1.3373s ease-out infinite}}
+@keyframes tick{0%{opacity:.95}30%{opacity:.75}100%{opacity:.08}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 54</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs><radialGradient id="glow" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#6B3FA0" stop-opacity=".32"/><stop offset="60%" stop-color="#6B3FA0" stop-opacity=".09"/><stop offset="100%" stop-color="#6B3FA0" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <path class="tick" d="M150 150 L52 22 L104 8 Z" fill="#F6C454" opacity=".75"/>
+    <path class="tick" d="M150 150 L248 278 L196 292 Z" fill="#F6C454" opacity=".75"/>
+    <circle cx="150" cy="150" r="66" fill="none" stroke="#6B3FA0" stroke-width="2.5" stroke-dasharray="6 9"/>
+    <circle cx="150" cy="150" r="100" fill="none" stroke="#6B3FA0" stroke-width="2.5" stroke-dasharray="6 12"/>
+    <circle cx="150" cy="150" r="26" fill="#E8A33D" stroke="#1B1F33" stroke-width="3"/>
+    <path d="M136 134 C146 142 156 158 164 166" fill="none" stroke="#1B1F33" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 54</span><span class="tag">יום חמישי, 5 בנובמבר 2026</span><span class="tag">כ״ה בחשוון תשפ״ז</span><span class="tag">כ־30 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>האות שחזר כל 1.3 שניות — והסטודנטית שלא ויתרה על לכלוך קטן</h1>
+  <p class="lede">שנת <span class="num">1967</span>, שדה ליד קיימברידג׳ שבאנגליה. סטודנטית בת <span class="num">24</span> בשם <b>ג׳וסלין בל</b> קוראת בעיניים קילומטרים של נייר, ועליו קו רועד שכתב טלסקופ רדיו. יום אחד היא מוצאת סימן קטן ומוזר. כשמסתכלים עליו מקרוב, הוא מתקתק: פעימה, ועוד פעימה, ועוד אחת, כל <span class="num">1.3</span> שניות, מדויק כמו שעון. המנחה שלה בטוח שזה מכשיר של בני אדם. בצוות צוחקים: אולי "אנשים ירוקים קטנים" מאותתים לנו? השאלה של היום: <b>מי ביקום מתקתק ככה — ואיך מגלים דבר כזה מקו על נייר?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">מה הגודל של הדבר ששלח את התקתוק?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>כמו עיר</b><span>קוטר של כ־<span class="num">20</span> ק״מ</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>כמו הירח</b><span>קוטר של כ־<span class="num">3,500</span> ק״מ</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>כמו כדור הארץ</b><span>קוטר של כ־<span class="num">12,700</span> ק״מ</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>כמו השמש</b><span>קוטר של כ־<span class="num">1,400,000</span> ק״מ</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE SCRUFF (interactive 1: the signal keeps star time) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>הסימן הקטן על הנייר</h2>
+  <p>ג׳וסלין בל גדלה בצפון אירלנד והגיעה לקיימברידג׳ ללמוד לדוקטורט. קודם כול היא בנתה טלסקופ, ביחד עם הצוות: לא צלחת גדולה, אלא שדה של יותר מ־<span class="num">1,000</span> עמודים וכ־<span class="num">190</span> קילומטרים של חוטים וכבלים, על שטח של כ־<span class="num">18</span> דונם. הבנייה נמשכה כשנתיים.</p>
+  <p>הטלסקופ קלט גלי רדיו מהחלל, ועט כתב אותם כקו רועד על גליל נייר, כ־<span class="num">30</span> מטרים בכל יום. ג׳וסלין קראה את הקו בעיניים, בסך הכול יותר מ־<span class="num">5</span> קילומטרים של נייר. אחרי כמה שבועות היא ראתה סימן קטן שלא דמה לשום דבר. היא קראה לו <b>scruff</b>, בערך "לכלוך". הוא חזר שוב ושוב. האם הוא בא מהחלל, או ממכשיר של בני אדם? במעבדה נעקוב אחריו יום אחרי יום, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 1 — יומן הסימן ===== -->
+  <div class="panel instrument">
+    <h3>יומן הסימן</h3>
+    <p class="cap">נחשו קודם: אם הסימן בא מהחלל, מתי יופיע מחר?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="stP0" onclick="stPredict(0)">בדיוק באותה שעה</button>
+        <button id="stP1" onclick="stPredict(1)">קצת מוקדם יותר</button>
+        <button id="stP2" onclick="stPredict(2)">בשעה אקראית</button>
+      </div>
+    </div>
+    <canvas role="img" id="stCv" width="640" height="600" aria-label="דף של יומן: כל שורה היא יום אחד, ולמעלה סרגל של שעות. נקודה כחולה, של מכשיר של בני אדם, מופיעה בכל יום באותה שעה, ונוצר טור ישר. נקודה כתומה, הסימן, מופיעה בכל יום קצת יותר מוקדם, ונוצר קו אלכסוני"></canvas>
+    <div class="controls">
+      <label>עוברים יום אחרי יום (ימינה: יום <span class="num">1</span>, שמאלה: יום <span class="num">30</span>)
+        <input type="range" id="stD" min="1" max="30" step="1" value="1" oninput="stDraw(1)" aria-label="יום" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">היום: <b id="stOut">—</b></div>
+      <div class="readout">הסימן הגיע: <b id="stOut2">—</b></div>
+    </div>
+    <p class="cap" id="stMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="stReveal" hidden><span class="hand">!</span><p>המכשיר נשאר בטור ישר, והסימן גולש הצידה: כל יום הוא מקדים בערך <span class="num">4</span> דקות. בדיוק כך מתנהגים הכוכבים. כדור הארץ מקיף את השמש, ולכן כל כוכב מגיע למקומו בשמיים כ־<span class="num">4</span> דקות מוקדם יותר בכל לילה. שום מכשיר על כדור הארץ לא עושה את זה. כשבדקו את הרישומים, הסימן שמר על "שעון הכוכבים". הוא בא <b>מעבר לכדור הארץ</b>. (השעות במעבדה הן דוגמה.)</p></div>
+
+  <div id="stAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ג׳וסלין גילתה משהו גדול בעזרת עיפרון, נייר וסבלנות. היא לא התעלמה מסימן קטן, אף שאפשר היה לזרוק אותו ולהגיד "לכלוך". זה הטריק של מדענים טובים: הם שמים לב למה שלא מסתדר.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>מאיפה מגיעות <span class="num">4</span> הדקות? ביממה יש <span class="math">24 × 60 = 1,440</span> דקות. בשנה כדור הארץ משלים הקפה אחת סביב השמש, וכך כל כוכב "מרוויח" יום שלם בשנה. כמה זה ליום? <span class="math">1,440 ÷ 365 ≈ 3.9</span> דקות. לכן יום לפי הכוכבים קצר מיום לפי השמש: בערך <span class="num">23</span> שעות ו־<span class="num">56</span> דקות.</p>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  </div>
+  <p class="small" id="hint1" style="text-align:center">כדי להמשיך, סיימו את המעבדה וענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE TICKS (interactive 2: the comb ruler) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>הפעימות</h2>
+  <p>הסימן היה קטן מדי כדי לראות מה יש בתוכו. אז ג׳וסלין הפעילה נייר מהיר במיוחד. במשך שבועות לא קרה כלום. ואז, בסוף נובמבר <span class="num">1967</span>, הוא חזר, והקו הראה משהו שאיש לא ציפה לו: <b>פעימות</b>. היא התקשרה למנחה שלה, <b>אנתוני היואיש</b>. התשובה הראשונה שלו: זה בטח מכשיר של בני אדם. למחרת הוא בא, עמד ליד הטלסקופ, וראה את הפעימות מגיעות. עכשיו תורכם למדוד אותן.</p>
+
+  <!-- ===== INTERACTIVE 2 — סרגל הפעימות ===== -->
+  <div class="panel instrument">
+    <h3>סרגל הפעימות</h3>
+    <p class="cap">נחשו קודם: מי שלח את הפעימות?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="coP0" onclick="coPredict(0)">חייזרים</button>
+        <button id="coP1" onclick="coPredict(1)">מכשיר על כדור הארץ</button>
+        <button id="coP2" onclick="coPredict(2)">משהו טבעי בחלל</button>
+      </div>
+    </div>
+    <canvas role="img" id="coCv" width="640" height="600" aria-label="פס נייר ועליו קו רועד עם פעימות גבוהות, אחת אחרי השנייה. מתחתיו מסרק של משולשים זהובים. כשמשנים את המרווח בין השיניים, הן נעות. כשהמרווח נכון, כל שן עומדת בדיוק מתחת לפעימה ונצבעת בירוק. למטה עיגול שמהבהב בקצב האמיתי"></canvas>
+    <div class="controls">
+      <label>המרווח בין השיניים (ימינה: צפוף, שמאלה: רחב)
+        <input type="range" id="coS" min="50" max="250" step="1" value="80" oninput="coDraw(1)" aria-label="המרווח בין השיניים" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <button class="btn small ghost" onclick="coNudge(-1)" aria-label="קצת יותר צפוף">צפוף יותר</button>
+      <button class="btn small ghost" onclick="coNudge(1)" aria-label="קצת יותר רחב">רחב יותר</button>
+      <button class="btn small" id="coBeat" onclick="coBeat()">הקשיבו לקצב ▶</button>
+    </div>
+    <div class="controls">
+      <div class="readout">מרווח: <b id="coOut">—</b></div>
+      <div class="readout">פעימות שנתפסו: <b id="coOut2">—</b></div>
+    </div>
+    <p class="cap" id="coMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="coReveal" hidden><span class="hand">!</span><p>בדיוק <span class="num">1.3373</span> שניות בין פעימה לפעימה! בצוות צחקו וקראו לאות <span class="num">LGM-1</span>, ראשי התיבות של Little Green Men, "אנשים ירוקים קטנים". אבל אם מכשיר יושב על כוכב לכת, הקצב אמור להשתנות קצת כשהכוכב נע במסלולו. מדדו שבועות, ולא מצאו את זה. ולפני חג המולד ג׳וסלין מצאה <b>סימן שני</b>, במקום אחר בשמיים, כל <span class="num">1.2</span> שניות בערך. שתי קבוצות של חייזרים, שמשדרות אלינו באותו זמן? זה לא נראה הגיוני. התשובה הנכונה: <b>משהו טבעי בחלל</b>.</p></div>
+
+  <div id="coAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ג׳וסלין כתבה אחר כך שהיא כעסה קצת: היא רצתה לסיים את הדוקטורט, והנה "כמה אנשים ירוקים טיפשים" בחרו דווקא בטלסקופ שלה! זה היה בצחוק, כמובן. אבל שימו לב מה עשו החוקרים: הרעיון הכי מרגש היה חייזרים, ובכל זאת הם בדקו אותו ופסלו אותו. במדע לא בוחרים את התשובה שהכי כיף לשמוע.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>כמה פעימות יש בשעה? בשעה יש <span class="num">3,600</span> שניות, אז <span class="math">3,600 ÷ 1.3373 ≈ 2,692</span> פעימות. ולמה הסרגל עובד? כל טעות קטנה במרווח מצטברת: אחרי <span class="num">10</span> שיניים היא גדולה פי <span class="num">10</span>. כך משיגים דיוק: מודדים הרבה פעימות ברצף, ולא רק אחת. לזמן בין פעימה לפעימה קוראים <b>מחזור</b>.</p>
+  </div>
+
+  <div class="q qc" id="snailQ"></div>
+  </div>
+  <p class="small" id="hint2" style="text-align:center">כדי להמשיך, סיימו את המעבדה.</p>
+  <div class="next"><button class="btn" id="next2" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE LIGHTHOUSE (interactive 3) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>מגדלור בחלל</h2>
+  <p>בתחילת <span class="num">1968</span> פרסם הצוות את התגלית, ובעיתונים קראו לדבר הזה <b>פולסר</b>, מהמילה "פעימה" באנגלית. עכשיו כולם רצו להבין מה זה. שום כוכב רגיל לא יכול להבהב כל כך מהר. ואז הציע האסטרונום <b>תומס גולד</b> רעיון פשוט: הכוכב לא מהבהב בכלל. הוא <b>מסתובב</b> ושולח קרן, כמו האור של מגדלור. היום יודעים שכוכב כזה הוא מגנט ענק, והקרניים קשורות לשני הקטבים שלו, אחת מכל צד. במעבדה שלמטה מחכה לכם מגדלור כזה, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 3 — המגדלור ===== -->
+  <div class="panel instrument">
+    <h3>המגדלור</h3>
+    <p class="cap">נחשו קודם: מה נקלוט אם כדור הארץ נמצא מחוץ לדרך של הקרן?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="liP0" onclick="liPredict(0)">פעימות חזקות יותר</button>
+        <button id="liP1" onclick="liPredict(1)">שום דבר</button>
+        <button id="liP2" onclick="liPredict(2)">אור קבוע, בלי הפסקה</button>
+      </div>
+    </div>
+    <canvas role="img" id="liCv" width="640" height="600" aria-label="כוכב קטן מסתובב במרכז, ומשני צדדיו שתי קרניים זהובות שנעות במעגל. מימין כדור הארץ. כשקרן עוברת על כדור הארץ הוא נדלק, ובפס שלמטה מופיעה פעימה. כשמזיזים את כדור הארץ אל מחוץ לדרך של הקרן, הפס נשאר שקט, אף שהכוכב ממשיך להסתובב"></canvas>
+    <div class="controls">
+      <label>איפה כדור הארץ (ימינה: למטה, שמאלה: למעלה)
+        <input type="range" id="liE" min="0" max="100" step="1" value="86" oninput="liDraw(1)" aria-label="מיקום כדור הארץ" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <label>מהירות הסיבוב (ימינה: לאט, שמאלה: מהר)
+        <input type="range" id="liS" min="0" max="100" step="1" value="35" oninput="liDraw(1)" aria-label="מהירות הסיבוב" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">סיבוב אחד: <b id="liOut">—</b></div>
+      <div class="readout">הקרן: <b id="liOut2">—</b></div>
+    </div>
+    <p class="cap" id="liMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="liReveal" hidden><span class="hand">!</span><p>שום דבר! הכוכב ממשיך להסתובב ולשלוח קרניים, ואנחנו לא יודעים עליו כלום. הקרן פשוט לא עוברת עלינו. כך זה גם במציאות: אנחנו קולטים רק את הפולסרים שהקרן שלהם חוצה את כדור הארץ.</p></div>
+
+  <div id="liAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על מגדלור ליד הים. הפנס שלו דולק כל הזמן, אבל מי שעומד על הספינה רואה הבהוב: אור, חושך, אור, חושך. הפנס לא נכבה. הוא רק מסתובב. ואם עומדים מאחורי גבעה, לא רואים אותו בכלל, אף שהוא עובד. בדיוק כך הפולסר: הוא לא "מדבר" אלינו. אנחנו פשוט נמצאים בדרך של הקרן.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>המודל מסביר למה הקצב כה קבוע: כוכב שלם מסתובב, וגוף כה כבד לא משנה מהירות בקלות. והוא גם הציע מבחן. אם הכוכב מאבד אנרגיה עם הקרניים, הסיבוב צריך להאט, מעט מאוד. וזה בדיוק מה שנמדד, בפולסר שבערפילית הסרטן, ענן שנשאר מפיצוץ של כוכב: הוא מסתובב כ־<span class="num">30</span> פעמים בשנייה, ומאט לאט. מודל טוב לא רק מסביר. הוא מנבא משהו שאפשר לבדוק.</p>
+  </div>
+
+  <div class="q qc" id="priceQ"></div>
+  </div>
+  <p class="small" id="hint3" style="text-align:center">כדי להמשיך, סיימו את המעבדה.</p>
+  <div class="next"><button class="btn" id="next3" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE SPIN-UP (interactive 4) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>למה הוא מסתובב כל כך מהר?</h2>
+  <p>השמש שלנו משלימה סיבוב בערך בחודש. אז איך כוכב מסתובב אפילו <span class="num">30</span> פעמים בשנייה? הסוד נמצא ברגע שכוכב ענק מת: החלק הפנימי שלו, הגרעין, שכבר מסתובב לאט, קורס לתוך עצמו ומצטמק. מה קורה למשהו מסתובב כשהוא מצטמק? במעבדה שלמטה נכווץ גרעין של כוכב, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 4 — מכווצים כוכב ===== -->
+  <div class="panel instrument">
+    <h3>מכווצים כוכב</h3>
+    <p class="cap">נחשו קודם: מה יקרה לסיבוב כשהגרעין יתכווץ?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="spP0" onclick="spPredict(0)">יאט</button>
+        <button id="spP1" onclick="spPredict(1)">יישאר אותו דבר</button>
+        <button id="spP2" onclick="spPredict(2)">יאיץ מאוד</button>
+      </div>
+    </div>
+    <canvas role="img" id="spCv" width="640" height="600" aria-label="כדור גדול מסתובב, ולידו דמות של מחליק על קרח עם ידיים פרושות. כשמכווצים את הכדור הוא קטן ומסתובב מהר יותר ויותר, והמחליק מקרב את הידיים לגוף. למטה מד של סיבובים בשנייה שמתמלא"></canvas>
+    <div class="controls">
+      <label>כמה הכוכב מתכווץ (ימינה: ענק, שמאלה: קטנטן)
+        <input type="range" id="spR" min="0" max="100" step="1" value="0" oninput="spDraw(1)" aria-label="כמה הכוכב מתכווץ" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">רדיוס: <b id="spOut">—</b></div>
+      <div class="readout">סיבוב אחד כל: <b id="spOut2">—</b></div>
+    </div>
+    <p class="cap" id="spMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="spReveal" hidden><span class="hand">!</span><p>מסיבוב אחד כל <span class="num">5</span> דקות לעשרות סיבובים בשנייה, בלי שמישהו דחף אותו! מחליקה על הקרח עושה אותו דבר: היא מתחילה להסתובב בידיים פרושות, מקרבת אותן לגוף, ומסתחררת. ככל שהחומר קרוב יותר למרכז, הסיבוב מהיר יותר. (זה מודל פשוט, עם מספרים לדוגמה. בכוכב אמיתי חלק מהסיבוב אובד בפיצוץ.)</p></div>
+
+  <div id="spAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אתם יכולים להרגיש את זה בעצמכם. שבו על כיסא מסתובב, פרשו ידיים, ובקשו ממבוגר לסובב אתכם בעדינות. עכשיו קרבו את הידיים לחזה: הכיסא מאיץ, ואף אחד לא דחף! פרשו שוב, והוא מאט. כוכב עושה אותו דבר, רק שהוא "מקרב את הידיים" מאות קילומטרים אל המרכז, ולא חוזר.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>יש כאן כלל יפה, <b>שימור התנע הזוויתי</b>. כשהרדיוס קטן פי <span class="math">k</span>, קורים שני דברים: הדרך סביב הכוכב קצרה פי <span class="math">k</span>, והחומר נע מהר פי <span class="math">k</span>. שניהם ביחד: הסיבוב מהיר פי <span class="math">k × k</span>. במעבדה הרדיוס ירד מ־<span class="num">1,000</span> ל־<span class="num">10</span> קילומטרים, כלומר פי <span class="num">100</span>. אז הסיבוב מהיר פי <span class="math">100 × 100 = 10,000</span>, וזמן הסיבוב: <span class="math">300 ÷ 10,000 = 0.03</span> שניות. אלה <span class="math">1 ÷ 0.03 ≈ 33</span> סיבובים בשנייה, קרוב מאוד לפולסר של ערפילית הסרטן.</p>
+  </div>
+
+  <div class="q qc" id="siteQ"></div>
+  </div>
+  <p class="small" id="hint4" style="text-align:center">כדי להמשיך, סיימו את המעבדה.</p>
+  <div class="next"><button class="btn" id="next4" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: A DEAD STAR (figure) + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>כוכב מת בגודל של עיר</h2>
+  <p>עכשיו אפשר להרכיב את כל הסיפור. כוכב ענק שורף דלק מיליוני שנים. החום שבתוכו דוחף החוצה, והכובד מושך פנימה. כשהדלק נגמר, החום כבר לא מחזיק. הגרעין קורס, והחלקים החיצוניים מתפוצצים בפיצוץ אדיר שנקרא <b>סופרנובה</b>. מה שנשאר הוא <b>כוכב נויטרונים</b>.</p>
+
+  <figure class="calfig" aria-label="ארבע תמונות של מות כוכב. בתמונה 1 כוכב ענק אדום. בתמונה 2 הדלק נגמר והגרעין קורס פנימה. בתמונה 3 פיצוץ גדול של סופרנובה. בתמונה 4 נשאר כוכב קטנטן שמסתובב, עם שתי קרניים">
+    <svg viewBox="0 0 640 600" role="img" aria-hidden="true" focusable="false">
+      <defs><clipPath id="fp0"><rect x="0" y="0" width="300" height="286" rx="14"/></clipPath></defs>
+      <g transform="translate(330,10)"><g clip-path="url(#fp0)"><rect width="300" height="286" fill="#1A2238"/><circle cx="150" cy="118" r="92" fill="#E8734A" stroke="#F6C454" stroke-width="3"/><circle cx="150" cy="118" r="26" fill="#F6C454"/><rect x="40" y="226" width="220" height="44" rx="10" fill="#FFFFFF"/><text x="150" y="257" text-anchor="middle" font-family="Rubik,Arial" font-size="26" font-weight="700" fill="#1B1F33">כוכב ענק</text></g><circle cx="274" cy="26" r="20" fill="#F6C454" stroke="#1B1F33" stroke-width="2"/><text x="274" y="35" text-anchor="middle" font-family="Rubik,Arial" font-size="24" font-weight="800" fill="#1B1F33">1</text></g>
+      <g transform="translate(10,10)"><g clip-path="url(#fp0)"><rect width="300" height="286" fill="#1A2238"/><circle cx="150" cy="118" r="92" fill="#E8734A" fill-opacity=".5" stroke="#F6C454" stroke-width="3" stroke-dasharray="8 8"/><circle cx="150" cy="118" r="20" fill="#F6C454"/><g stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"><path d="M150 44 L150 86M150 192 L150 150M76 118 L118 118M224 118 L182 118"/></g><g fill="#FFFFFF"><path d="M150 96 l-11 -14 h22z"/><path d="M150 140 l-11 14 h22z"/><path d="M128 118 l-14 -11 v22z"/><path d="M172 118 l14 -11 v22z"/></g><rect x="30" y="226" width="240" height="44" rx="10" fill="#FFFFFF"/><text x="150" y="257" text-anchor="middle" font-family="Rubik,Arial" font-size="26" font-weight="700" fill="#1B1F33">הגרעין קורס</text></g><circle cx="274" cy="26" r="20" fill="#F6C454" stroke="#1B1F33" stroke-width="2"/><text x="274" y="35" text-anchor="middle" font-family="Rubik,Arial" font-size="24" font-weight="800" fill="#1B1F33">2</text></g>
+      <g transform="translate(330,304)"><g clip-path="url(#fp0)"><rect width="300" height="286" fill="#1A2238"/><path d="M150 8 L172 74 L236 34 L204 98 L280 108 L208 138 L256 200 L186 170 L176 214 L150 176 L118 216 L114 170 L42 198 L92 138 L20 112 L96 96 L62 32 L128 74 Z" fill="#F39A6B" stroke="#F6C454" stroke-width="3"/><circle cx="150" cy="118" r="34" fill="#FFFFFF"/><rect x="50" y="226" width="200" height="44" rx="10" fill="#FFFFFF"/><text x="150" y="257" text-anchor="middle" font-family="Rubik,Arial" font-size="26" font-weight="700" fill="#1B1F33">סופרנובה</text></g><circle cx="274" cy="26" r="20" fill="#F6C454" stroke="#1B1F33" stroke-width="2"/><text x="274" y="35" text-anchor="middle" font-family="Rubik,Arial" font-size="24" font-weight="800" fill="#1B1F33">3</text></g>
+      <g transform="translate(10,304)"><g clip-path="url(#fp0)"><rect width="300" height="286" fill="#1A2238"/><path d="M150 118 L60 -4 L108 -8 Z" fill="#F6C454" fill-opacity=".85"/><path d="M150 118 L240 240 L192 244 Z" fill="#F6C454" fill-opacity=".85"/><circle cx="150" cy="118" r="52" fill="none" stroke="#7FB3DD" stroke-width="3" stroke-dasharray="6 8"/><circle cx="150" cy="118" r="14" fill="#FFFFFF" stroke="#F6C454" stroke-width="3"/><rect x="14" y="226" width="272" height="44" rx="10" fill="#FFFFFF"/><text x="150" y="257" text-anchor="middle" font-family="Rubik,Arial" font-size="26" font-weight="700" fill="#1B1F33">כוכב נויטרונים</text></g><circle cx="274" cy="26" r="20" fill="#F6C454" stroke="#1B1F33" stroke-width="2"/><text x="274" y="35" text-anchor="middle" font-family="Rubik,Arial" font-size="24" font-weight="800" fill="#1B1F33">4</text></g>
+    </svg>
+    <figcaption>קוראים מימין לשמאל, לפי המספרים. הציור סכמטי, לא בקנה מידה: במציאות הכוכב שנשאר בתמונה 4 קטן הרבה יותר.</figcaption>
+  </figure>
+
+  <p>כמה הוא קטן? הקוטר שלו כ־<span class="num">20</span> קילומטרים, בערך הדרך בקו ישר מזכרון יעקב לטירת כרמל. ובתוך הכדור הקטן הזה דחוס חומר רב יותר מאשר בשמש כולה, פי <span class="num">1.4</span>. כל דבר בעולם בנוי מחלקיקים קטנטנים שנקראים אטומים, ורוב האטום הוא חלל ריק. הכובד מועך את החומר עד שהחלל הזה כמעט נעלם, ונשארים בעיקר <b>נויטרונים</b>, גרגירים קטנטנים שצמודים זה לזה. לכן <b>כפית אחת מכוכב כזה הייתה שוקלת כמיליארד טונות</b>, לפי נאס״א.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>דמיינו שלוקחים את כל השמש, ואפילו יותר, ומועכים אותה לכדור שאפשר לעבור ברכב בפחות מחצי שעה. כך הוא נראה! וכבר ראו אנשים רגע כזה: ב־<span class="num">1054</span> אסטרונומים בסין תיעדו כוכב חדש שהופיע בשמיים. היום יש באותו מקום ענן גדול, ערפילית הסרטן, ובמרכזו פולסר.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>כמה מהר נע קו המשווה של כוכב כזה? היקף של עיגול הוא <span class="math">2 × π × r</span>, ונשתמש ב־<span class="math">π ≈ 3.14</span>. אם הרדיוס <span class="num">10</span> קילומטרים, ההיקף <span class="math">2 × 3.14 × 10 = 62.8</span> קילומטרים. בפולסר של ערפילית הסרטן, שמסתובב <span class="num">30</span> פעמים בשנייה: <span class="math">62.8 × 30 = 1,884</span> קילומטרים בשנייה. ורק הכובד העצום מחזיק את הכוכב שלא יתפרק.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> הפולסר המהיר ביותר הידוע, <span class="math">PSR J1748−2446ad</span>, מסתובב <span class="num">716</span> פעמים בשנייה. הרדיוס שלו לא ידוע בדיוק, ונניח שהוא <span class="num">16</span> קילומטרים, הגבול העליון המשוער. (א) כמה קילומטרים בשנייה עובר קו המשווה שלו? (<span class="math">π ≈ 3.14</span>) (ב) כמה אחוזים זה ממהירות האור, <span class="math">300,000</span> קילומטרים בשנייה? (עגלו למספר שלם.)</p>
+      <div class="controls">
+        <label>(א) ק״מ בשנייה <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) אחוזים <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> פולסר מאבד אנרגיה עם הקרניים, ולכן מאט מעט מאוד. על מכסה התקליט של החללית וויאג׳ר שרטטו ב־<span class="num">1977</span> מפה של <span class="num">14</span> פולסרים, עם המחזור של כל אחד. מי שימצא את התקליט בעוד מיליון שנה וימדוד את הפולסרים, יגלה משהו שלא כתוב במפה במפורש. מה?</p>
+      <details><summary>רמז</summary><p>השוו בין שני מספרים: המחזור שרשום על המכסה, והמחזור שמודדים ביום המציאה. מה ההפרש הזה מספר לכם?</p></details>
+      <details><summary>התשובה</summary><p><b>כמה זמן עבר מאז השיגור.</b> כל פולסר מאט בקצב ידוע, ולכן ההפרש בין המחזור שנכתב לבין המחזור שנמדד הוא מעין שעון עצר. <span class="num">14</span> שעונים כאלה נותנים גם בדיקה: כולם צריכים להסכים על אותו זמן. הקוראים של התקליט יידעו גם "מאיפה" וגם "מתי".</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>ניסוי אחד, ועוד שניים למי שרוצה. צריך כיסא מסתובב, שעון עצר בטלפון ופנס.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — הכוכב שמקרב ידיים (<span class="num">5</span> דקות)</h3>
+    <ol>
+      <li>שבו על כיסא מסתובב, עם ידיים פרושות לצדדים. בקשו ממבוגר לסובב אתכם בעדינות ולשמור עליכם.</li>
+      <li>קרבו את הידיים אל החזה. מה קרה למהירות?</li>
+      <li>פרשו שוב. נסו גם עם שני בקבוקי מים קטנים בידיים. ההבדל גדול יותר?</li>
+    </ol>
+    <p class="small" style="margin:0">מרגישים סחרחורת? עוצרים. סיבוב אחד או שניים מספיקים.</p>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — להיות פולסר (<span class="num">5</span> דקות)</summary>
+    <ol>
+      <li>הפעילו שעון עצר, ונסו למחוא כף כל <span class="num">1.34</span> שניות, <span class="num">10</span> פעמים. כמה זמן צריך לקחת?</li>
+      <li>בדקו בשעון: <span class="math">10 × 1.34 = 13.4</span> שניות. כמה רחוק הייתם?</li>
+      <li>נסו שוב עם עיניים עצומות. קשה? הפולסר עושה את זה כל הזמן.</li>
+    </ol>
+    <p class="small" style="margin:0">אפשר להתחרות במשפחה: מי הכי קרוב ל־<span class="math">13.4</span>?</p>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — מגדלור בחדר חשוך (<span class="num">3</span> דקות)</summary>
+    <p>בחדר חשוך, אחד מחזיק פנס דולק מול הבטן ומסתובב לאט במקום. האחרים עומדים באותו גובה ומספרים הבהובים. עכשיו מכוונים את הפנס קצת למעלה, אל התקרה: מי שעומד רואה את האור מטייל על התקרה, אבל הפנס כבר לא מהבהב בעיניים שלו. זה בדיוק פולסר שהקרן שלו לא עוברת עלינו.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>מי קיבל את הפרס?</h2>
+  <p>ב־<span class="num">1974</span> קיבלו אנתוני היואיש ומרטין רייל את פרס נובל לפיזיקה: היואיש על התגלית הזאת, ורייל על מחקר רדיו אחר. ג׳וסלין בל לא קיבלה אותו. האסטרונום פרד הויל מחה בפומבי, ועד היום יש ויכוח. היואיש תכנן את הטלסקופ והוביל את הפרויקט. בל בנתה חלק ממנו, ומצאה את הסימן. היא עצמה אמרה ב־<span class="num">1977</span> שזה לא מפריע לה, ושהמנחה נושא גם באחריות כשהכול נכשל. שנים אחר כך היא גם אמרה שהעובדה שהייתה סטודנטית ואישה פגעה בסיכוי שלה. ב־<span class="num">2018</span> היא קיבלה פרס אחר, <span class="num">3</span> מיליון דולר, ותרמה את כולם למלגות לנשים, למיעוטים ולפליטים שרוצים לחקור פיזיקה.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>התקתוק היה סיבוב של כוכב מת</b>, והקרן שלו עוברת עלינו כמו אור של מגדלור. כל זה התגלה כי סטודנטית לא התעלמה מלכלוך קטן על נייר. שאלה לחקור: האם שמתם פעם לב למשהו קטן שכולם אמרו עליו "זה כלום"?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>מדידה סבלנית מנצחת</b>: קילומטרים של נייר, סימן אחד קטן. <b>השערה מרגשת צריך לבדוק</b>: חייזרים נפסלו, כי לא נמצאה תנועה של כוכב לכת, ונמצא סימן שני. <b>שימור עובד בכל קנה מידה</b>: אותו כלל מסובב כיסא ופולסר. ועדיין לא הכול ברור: למשל, איך בדיוק נוצרות הקרניים. שאלה לחקור: כשצוות מגלה משהו, איך הייתם מחלקים את הקרדיט?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הסיפור?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">כימיה · מדע ישראלי</div><h3>הזהב בטבעת</h3><p>ב־<span class="num">1989</span> ניבאו צבי פירן מהאוניברסיטה העברית, דוד אייכלר מבן־גוריון ועמיתיהם שהתנגשות של כוכבי נויטרונים יוצרת יסודות כמו זהב. ב־<span class="num">2017</span> ראו התנגשות כזאת. כנראה לפחות חלק מהזהב בטבעת נולד כך.</p></div>
+    <div class="tile"><div class="dom">חלל · ניווט</div><h3>מפה למי שימצא אותנו</h3><p>על וויאג׳ר, שיצאה לדרך ב־<span class="num">1977</span>, יש מפה של <span class="num">14</span> פולסרים. אפשר לזהות כל פולסר לפי הקצב שלו, ומכך למצוא את השמש שלנו.</p></div>
+    <div class="tile"><div class="dom">אסטרונומיה · כוכבי לכת</div><h3>העולמות הראשונים</h3><p>כוכבי הלכת הראשונים שאושרו מחוץ למערכת השמש התגלו ב־<span class="num">1992</span>, דווקא סביב פולסר. שינויים קטנטנים בקצב הפעימות הסגירו אותם: אותה בדיקה שנעשתה אצל ג׳וסלין.</p></div>
+    <div class="tile"><div class="dom">פיזיקה · גלי כבידה</div><h3>שעונים בגודל גלקסיה</h3><p>יש פולסרים מדויקים כמעט כמו שעון אטומי. ב־<span class="num">2023</span> דיווחו צוותים שעקבו אחריהם על עדויות ל"זמזום" של גלי כבידה.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): מה עושים אם זה באמת חייזרים?</summary>
+    <p>בדצמבר <span class="num">1967</span> עוד לא ידעו מה זה. לפי הזיכרון של היואיש, הוא ומרטין רייל דנו: אם זה באמת סימן מתרבות אחרת, למי מודיעים? נחשו מה הציע רייל, לפני שאתם פותחים.</p>
+    <details><summary>התשובה</summary>
+      <p>לפי היואיש, רייל הציע בחצי צחוק <b>לשרוף את הניירות ולשכוח מזה</b>, מחשש שמישהו ינסה לענות לחייזרים. ג׳וסלין בל זוכרת את זה אחרת: לדבריה הדיון היה רק על הדרך לפרסם את התגלית. ומה אתם הייתם עושים?</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את הסיפור של הפולסר, מההתחלה עד הסוף. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: הפולסר של ערפילית הסרטן מסתובב <span class="num">30</span> פעמים בשנייה. כמה סיבובים הוא משלים בדקה אחת?</div>
+    <div class="controls"><label>סיבובים <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: גרעין של כוכב, ברדיוס של <span class="num">1,500</span> קילומטרים, מסתובב פעם ב־<span class="num">625</span> שניות. הוא מצטמק לרדיוס של <span class="num">12</span> קילומטרים. לפי הכלל שלמדנו: (א) כמה <b>שניות</b> יימשך סיבוב אחד? (ב) כמה סיבובים הוא ישלים <b>בשנייה</b>?</div>
+    <div class="controls"><label>(א) שניות <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) סיבובים בשנייה <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: גרעין של כוכב מסתובב פעם ב־<span class="num">500</span> שניות. הרדיוס שלו קטן פי <span class="num">100</span>, ולכן הסיבוב מהיר פי <span class="num">10,000</span>. כמה <b>שניות</b> יימשך עכשיו סיבוב אחד?</div>
+    <div class="controls"><label>שניות <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>מה היה התקתוק שג׳וסלין בל מצאה, ולמה הוא מתקתק כל כך מהר ובקצב קבוע?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="כוכב ענק מת, ו..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. ב־<span class="num">1967</span> סטודנטית בת <span class="num">24</span> מצאה על נייר סימן קטן שמתקתק כל <span class="num">1.3</span> שניות, ולרגע חשבו שאלה "אנשים ירוקים קטנים".<br>
+    2. התקתוק הוא כוכב מת בגודל של עיר, שמסתובב כמו מגדלור. כל פעימה היא סיבוב שהקרן שלו עברה עלינו.<br>
+    3. כפית מכוכב כזה הייתה שוקלת כמיליארד טונות, והוא מסתובב מהר מאותה סיבה שכיסא מסתובב מאיץ כשמקרבים את הידיים.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>התגלית: Hewish, Bell, Pilkington, Scott, Collins, "Observation of a Rapidly Pulsating Radio Source", Nature <span class="num">217</span> (<span class="num">1968</span>). S. Jocelyn Bell Burnell, "Little Green Men, White Dwarfs or Pulsars?" (נאום, <span class="num">1977</span>): שטח של <span class="math">4½</span> אקרים (כ־<span class="num">18</span> דונם), יותר מ־<span class="num">1,000</span> עמודים, <span class="num">120</span> מייל של חוטים וכבלים, <span class="num">96</span> רגל של נייר ביום, <span class="math">3½</span> מייל של רישומים, התגובה הראשונה של היואיש ("man-made"), המשפט על האנשים הירוקים, הסימן השני של <span class="num">1.2</span> שניות. Penny, "The SETI Episode in the 1967 Discovery of Pulsars" (arXiv:1302.0641): התאריכים, שעון הכוכבים, הכינוי LGM, החיפוש אחר תנועה של כוכב לכת, הדיון של היואיש ורייל (ההצעה לשרוף באה מזיכרונו של היואיש; בל זוכרת דיון על פרסום בלבד). הגיל: בל נולדה ב־<span class="num">15</span> ביולי <span class="num">1943</span>. המחזור <span class="num">1.3373</span> שניות של <span class="math">PSR B1919+21</span> הוא הערך המקובל. היואיש אמר בתחילה "מעשה ידי אדם", ובא למחרת לבדוק; לכן הכותרת מדברת על ההתמדה של בל, ולא על ביטול.</p>
+    <p>המודל: Gold, "Rotating Neutron Stars as the Origin of the Pulsating Radio Sources", Nature <span class="num">218</span> (<span class="num">1968</span>); הקשר לקטבים המגנטיים הוא ההבנה של היום, לא של גולד. גודל, מסה וכפית: NASA Imagine the Universe, "Neutron Stars and Pulsars" — קוטר כ־<span class="num">20</span> ק״מ, <span class="num">1.4</span> מסות שמש, כמיליארד טונות לכפית. ערפילית הסרטן: Chandra X-ray Observatory; כ־<span class="num">30</span> סיבובים בשנייה; סופרנובה של <span class="num">1054</span>. <span class="math">PSR J1748−2446ad</span>: Wikipedia, על סמך Hessels et al., Science (<span class="num">2007</span>): <span class="num">716</span> סיבובים בשנייה, רדיוס מתחת ל־<span class="num">16</span> ק״מ, כ־<span class="num">24%</span> ממהירות האור בקו המשווה. <span class="num">16</span> ק״מ הוא גבול עליון; ברדיוס של <span class="num">10</span> ק״מ התוצאה היא כ־<span class="num">15%</span>. המרחק מזכרון יעקב לטירת כרמל, כ־<span class="num">21</span> ק״מ בקו ישר, חושב מקואורדינטות.</p>
+    <p>הפרס: Space.com (<span class="num">2018</span>), Wikipedia, "Jocelyn Bell Burnell": נובל <span class="num">1974</span> להיואיש ורייל, הביקורת של הויל, עמדתה של בל, Breakthrough Prize של <span class="num">3</span> מיליון דולר, והקרן דרך Institute of Physics. ישראל: Eichler, Livio, Piran, Schramm, Nature <span class="num">340</span> (<span class="num">1989</span>); Times of Israel (<span class="num">2017</span>) על GW170817. כמה מהזהב נוצר כך עדיין נחקר, ולכן כתבנו "כנראה לפחות חלק". חיבורים: PBS, "The Farthest" ו־NASA על מפת הפולסרים; Wolszczan &amp; Frail, Nature (<span class="num">1992</span>); NANOGrav, ApJL (<span class="num">2023</span>): עדות, לא גילוי סופי.</p>
+    <p>פישוטים במכוון: ב"יומן הסימן" השעות הן דוגמה, והמכשיר הכחול הוא דמיוני; ההקדמה של <span class="num">3.9</span> דקות ביום אמיתית. ב"סרגל הפעימות" הקו מצויר, והמחזור אמיתי. ב"מגדלור" הזוויות לדוגמה, והקרן היא מודל: איך בדיוק נוצרות הקרניים עדיין נחקר. ב"מכווצים כוכב" ההתחלה (<span class="num">1,000</span> ק״מ, <span class="num">300</span> שניות) היא דוגמה, והכלל מניח שלא אובד תנע זוויתי ושהכוכב מתכווץ באופן אחיד. גרעין של כוכב לא בדיוק כזה, ובמציאות חלק מהתנע אובד. "מדויק": פולסרים רגילים מאטים מעט ולפעמים "קופצים" בקצב, והמילה בשיעור מתייחסת לקנה המידה של ימים ושבועות.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:54, code:'WOW-054', date:'2026-11-05', title:'האות שחזר כל 1.3 שניות — והסטודנטית שלא ויתרה על לכלוך קטן', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '153Xmdeg15jXpyDXndeZ16fXldeo15kg153Xmdep16DXkA=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'space', w:3 }, { id:'physics', w:3 }, { id:'history', w:2 }, { id:'math', w:2 } ],
+  hero: { name:'האות שחזר כל 1.3 שניות — והסטודנטית שלא ויתרה על לכלוך קטן — יומן הסימן, סרגל הפעימות, המגדלור ומכווצים כוכב', fact:'התקתוק שג׳וסלין בל מצאה ב־1967 הוא כוכב נויטרונים: כוכב מת בגודל של עיר, שקרן ממנו חולפת עלינו בכל סיבוב.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'quantity-sense',        d:1 },
+    'qc:storyQ':      { skill:'evidence-from-data',    d:2 },
+    'qc:snailQ':      { skill:'testing-hypotheses',    d:3 },
+    'qc:priceQ':      { skill:'models',                d:2 },
+    'qc:siteQ':       { skill:'rotation',              d:2 },
+    'qc:deepQ':       { skill:'density',               d:3 },
+    'mcq:shared:0':   { skill:'evidence-from-data',    d:2 },
+    'mcq:shared:1':   { skill:'models',                d:2 },
+    'mcq:shared:2':   { skill:'rotation',              d:2 },
+    'mcq:younger:0':  { skill:'scale-of-the-universe', d:1 },
+    'mcq:older:0':    { skill:'proportional-reasoning', d:4 },
+    'order':          { skill:'mechanism-sequence',    d:2 },
+    'num:younger':    { skill:'multiplication',        d:2 },
+    'num:older':      { skill:'decimals-and-division', d:2 },
+    'num:adv':        { skill:'square-scaling',        d:4 },
+    'challenge':      { skill:'circumference-percent', d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); stDraw(0); } if(n===2) coDraw(0); if(n===3) liDraw(0); if(n===4) spDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: how big is the thing that sent the ticks? ----------
+   Four choices, smallest first. The right answer: 1 — a neutron star, about 20 km across (NASA). */
+const SCALE_ANS = 1;
+const fmtSigns = n => ({1:'כמו עיר',2:'כמו הירח',3:'כמו כדור הארץ',4:'כמו השמש'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> קוטר של כ־<span class="num">20</span> קילומטרים בלבד. אבל יש בו יותר חומר מאשר בשמש כולה. איך זה ייתכן? על זה השיעור.';
+const SCALE_FB = {
+  1: SCALE_FB_RIGHT,
+  2: '<span class="pill-bad">הרבה יותר קטן!</span> הקוטר שלו כ־<span class="num">20</span> קילומטרים, כמו עיר. ובכל זאת יש בו יותר חומר מאשר בשמש כולה. על זה השיעור.',
+  3: '<span class="pill-bad">עוד הרבה יותר קטן!</span> הקוטר שלו כ־<span class="num">20</span> קילומטרים, כמו עיר. ובכל זאת יש בו יותר חומר מאשר בשמש כולה. על זה השיעור.',
+  4: '<span class="pill-bad">קטן בהרבה מזה!</span> הקוטר שלו כ־<span class="num">20</span> קילומטרים, כמו עיר. אבל קרוב בדבר אחד: יש בו יותר חומר מאשר בשמש כולה. על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI, DEG = PI/180;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const GOLDT = () => isDark() ? '#F6C454' : '#8A5410';     // gold for text
+const GRAPH = () => isDark() ? '#B7BFD2' : '#3E4452';     // graphite grey
+const BLUE = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+const ORNG = () => isDark() ? '#F2A066' : '#C8601F';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+const fmt1 = v => (Math.round(v*10)/10).toLocaleString('en-US');
+const fmtI = v => Math.round(v).toLocaleString('en-US');
+/* ---------- this edition's picture colours ---------- */
+const INK = () => css('--ink');
+const PAPER = () => css('--calpage');
+const NIGHT = () => isDark() ? '#0B1226' : '#1A2238';
+const SIG = () => isDark() ? '#F2A066' : '#C8601F';     // the signal
+const MACH = () => isDark() ? '#6FB2E8' : '#2F6F9F';    // the human machine
+function xRand(s){ let x=Math.sin(s*12.9898)*43758.5453; return x-Math.floor(x); }
+function xMath(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+
+/* ---------- step 1 (interactive 1): the day book (canvas 640 × 600) ----------
+   One row per day. A human machine keeps the clock (21:30 every day: a straight column). The scruff keeps star time: 3.93 minutes earlier each day (a slant). Clock times are illustrative; the drift is real. Time flows right to left, as in Hebrew. */
+const stCv=document.getElementById('stCv'), stctx=stCv.getContext('2d');
+const ST={ opened:0, pred:-1, revealed:0 };
+const stX = min => 600-(min-1080)*(560/240);        // minutes after midnight → x; 18:00 at the right, 22:00 at the left
+const stY = d => 124+(d-1)*15.4;
+const hhmm = m => { const h=Math.floor(m/60), mm=Math.round(m-h*60); return String(h).padStart(2,'0')+':'+String(mm).padStart(2,'0'); };
+const stMin = d => 1260-(d-1)*3.93;                 // the scruff on day d
+function stPredict(k){ ST.pred=k; segOn('stP',3,k); WOW.emit('item', { id:'star:predict', kind:'quick', correct:k===1, attempt: wowTry('star:predict') });
+  stMsg.innerHTML='רשמנו את הניחוש. עכשיו גררו את המחוון, יום אחרי יום, והסתכלו על הנקודות הכתומות.'; stDraw(0); }
+function stDraw(user){
+  const c=stctx, W=stCv.width, H=stCv.height, ink=INK();
+  if(user===1 && ST.pred<0){ stD.value=1; predictFirst(stMsg,'הזיזו'); }
+  const d=+stD.value;
+  if(user && !ST.opened && ST.pred>=0 && d>1){ ST.opened=1; WOW.emit('open', { id:'star' }); }
+  c.clearRect(0,0,W,H);
+  c.fillStyle=PAPER(); c.fillRect(0,0,W,H);
+  /* the hour ruler */
+  for(let m=1080;m<=1320;m+=60){ const x=stX(m); c.strokeStyle=css('--line'); c.lineWidth=2; c.beginPath(); c.moveTo(x,70); c.lineTo(x,H-10); c.stroke(); if((m-1080)%120===0) xMath(c,hhmm(m),clamp(x,72,568),30,24,ink); }
+  /* faint row lines */
+  c.strokeStyle=css('--line'); c.lineWidth=1; for(let i=1;i<=30;i++){ c.globalAlpha=.5; c.beginPath(); c.moveTo(20,stY(i)); c.lineTo(620,stY(i)); c.stroke(); } c.globalAlpha=1;
+  /* the machine, the scruff */
+  for(let i=1;i<=d;i++){ c.fillStyle=MACH(); c.beginPath(); c.arc(stX(1290),stY(i),6.5,0,2*PI); c.fill(); c.fillStyle=SIG(); c.beginPath(); c.arc(stX(stMin(i)),stY(i),6.5,0,2*PI); c.fill(); }
+  c.fillStyle=SIG(); c.strokeStyle=ink; c.lineWidth=2.5; c.beginPath(); c.arc(stX(stMin(d)),stY(d),11,0,2*PI); c.fill(); c.stroke();
+  /* labels */
+  xLabel(c,'מכשיר',stX(1290)+6,86,22,MACH(),.95);
+  xLabel(c,'הסימן',stX(stMin(d))+70*LS(),stY(d),24,SIG(),.97);
+  stOut.innerHTML='יום <span class="num">'+d+'</span>';
+  stOut2.innerHTML='<span class="num">'+hhmm(stMin(d))+'</span>'+(d>1?' (הקדים ב־<span class="num">'+Math.round(1260-stMin(d))+'</span> דקות)':'');
+  if(ST.pred>=0 && d>=15 && !ST.revealed){ ST.revealed=1; stReveal.hidden=false; stAfter.hidden=false; hint1.textContent='ענו על השאלה כדי להמשיך.'; }
+  if(user===1 && ST.pred>=0){
+    if(d===1) stMsg.innerHTML='יום ראשון: שתי נקודות. גררו הלאה.';
+    else if(d<8) stMsg.innerHTML='הנקודה הכחולה נשארת במקום. והכתומה?';
+    else if(d<15) stMsg.innerHTML='הכתומה זזה לכיוון שעה מוקדמת יותר. המשיכו.';
+    else stMsg.innerHTML='טור ישר מול קו אלכסוני: המכשיר שומר על השעון, והסימן שומר על הכוכבים.';
+  }
+}
+
+/* ---------- step 2 (interactive 2): the comb ruler (canvas 640 × 600) ----------
+   The real period, 1.3373 s, on a drawn trace; the pulse heights vary, as they really do. A tooth "catches" a pulse. Spacing 1.32–1.35 catches all ten with no empty tooth; tolerance 0.16 s, teeth up to 13.2 s. */
+const coCv=document.getElementById('coCv'), coctx=coCv.getContext('2d');
+const CO={ opened:0, pred:-1, revealed:0, on:0, beat:0, beats:0, timer:0, ac:null };
+const CO_P=1.3373, CO_T0=0.3, CO_SPAN=13.6, CO_END=13.2, CO_TOL=0.16, CO_AMP=[.9,.55,1,.7,.35,.85,.6,1,.45,.8];
+const coX = t => 616-t/CO_SPAN*592;
+function coPredict(k){ CO.pred=k; segOn('coP',3,k); WOW.emit('item', { id:'tick:predict', kind:'quick', correct:k===2, attempt: wowTry('tick:predict') });
+  coMsg.innerHTML='רשמנו את הניחוש. עכשיו גררו את המחוון, עד שכל שן עומדת מתחת לפעימה.'; coDraw(0); }
+function coHits(s){ let hits=0, teeth=0; for(let k=0;;k++){ const t=CO_T0+k*s; if(t>CO_END) break; teeth++; for(let i=0;i<10;i++){ if(Math.abs(CO_T0+i*CO_P-t)<CO_TOL){ hits++; break; } } } return {hits,teeth}; }
+function coNudge(d){ if(CO.pred<0){ predictFirst(coMsg,'כווננו'); return; } coS.value=+coS.value+d; coDraw(1); }
+function coBeatFlash(){ CO.on=1; coDraw(0); setTimeout(()=>{ CO.on=0; coDraw(0); },180);
+  try{ if(CO.ac){ const o=CO.ac.createOscillator(), g=CO.ac.createGain(); o.frequency.value=880; g.gain.setValueAtTime(.18,CO.ac.currentTime); g.gain.exponentialRampToValueAtTime(.001,CO.ac.currentTime+.12); o.connect(g); g.connect(CO.ac.destination); o.start(); o.stop(CO.ac.currentTime+.13); } }catch(e){} }
+function coStopBeat(){ clearInterval(CO.timer); CO.timer=0; CO.beat=0; coBeatBtnText(); }
+function coBeatBtnText(){ document.getElementById('coBeat').textContent = CO.beat ? 'עצרו ■' : 'הקשיבו לקצב ▶'; }
+function coBeat(){ if(CO.pred<0){ predictFirst(coMsg,'הקשיבו'); return; }
+  if(CO.beat){ coStopBeat(); return; }
+  try{ const AC=window.AudioContext||window.webkitAudioContext; if(AC && !CO.ac) CO.ac=new AC(); if(CO.ac && CO.ac.state==='suspended') CO.ac.resume(); }catch(e){}
+  CO.beat=1; CO.beats=0; coBeatBtnText(); coBeatFlash();
+  CO.timer=setInterval(()=>{ CO.beats++; if(CO.beats>=9){ coStopBeat(); return; } coBeatFlash(); }, CO_P*1000); }
+function coDraw(user){
+  const c=coctx, W=coCv.width, H=coCv.height, ink=INK();
+  if(user===1 && CO.pred<0){ coS.value=80; predictFirst(coMsg,'הזיזו'); }
+  const s=(+coS.value)/100, r=coHits(s), won=r.hits===10 && r.teeth===10;
+  if(user && !CO.opened && CO.pred>=0){ CO.opened=1; WOW.emit('open', { id:'tick' }); }
+  c.clearRect(0,0,W,H);
+  /* the paper */
+  c.fillStyle=PAPER(); c.strokeStyle=css('--line'); c.lineWidth=2; c.beginPath(); c.roundRect(12,24,616,238,12); c.fill(); c.stroke();
+  const base=232;
+  c.strokeStyle=ink; c.lineWidth=2.5; c.beginPath();
+  for(let x=616;x>=24;x-=2){ const t=(616-x)/592*CO_SPAN; let y=(xRand(x*.37)-.5)*16;
+    for(let i=0;i<10;i++){ const d=(t-(CO_T0+i*CO_P))/0.055; y+=CO_AMP[i]*170*Math.exp(-d*d); }
+    const yy=base-y; if(x===616) c.moveTo(x,yy); else c.lineTo(x,yy); } c.stroke();
+  /* the comb */
+  c.fillStyle=GRAPH(); c.fillRect(24,312,592,12);
+  for(let k=0;;k++){ const t=CO_T0+k*s; if(t>CO_END) break; const x=coX(t); let ok=false; for(let i=0;i<10;i++) if(Math.abs(CO_T0+i*CO_P-t)<CO_TOL) ok=true;
+    c.fillStyle= ok ? GOOD() : GOLD(); c.strokeStyle=ink; c.lineWidth=2; c.beginPath(); c.moveTo(x,268); c.lineTo(x-11,312); c.lineTo(x+11,312); c.closePath(); c.fill(); c.stroke(); }
+  /* the seconds scale */
+  for(let t=0;t<=8;t+=4){ xMath(c,String(t),coX(t),352,22,css('--muted')); }
+  xText(c,'שניות',coX(12),352,22,css('--muted'),'center');
+  /* the real beat */
+  const lit=CO.on; c.fillStyle= NIGHT(); c.beginPath(); c.roundRect(12,386,616,202,14); c.fill();
+  if(lit){ c.fillStyle=GOLD(); c.globalAlpha=.3; c.beginPath(); c.arc(320,487,92,0,2*PI); c.fill(); c.globalAlpha=1; }
+  c.fillStyle= lit ? '#FFE27A' : '#39406A'; c.strokeStyle='#FFFFFF'; c.lineWidth=3; c.beginPath(); c.arc(320,487,58,0,2*PI); c.fill(); c.stroke();
+  xText(c,'הקצב האמיתי',320,412,22,'#FFFFFF','center');
+  coOut.innerHTML='<span class="num">'+s.toFixed(2)+'</span> שניות';
+  coOut2.innerHTML='<span class="num">'+r.hits+'</span> מתוך <span class="num">10</span>'+(r.teeth>10?' (יותר מדי שיניים)':'');
+  if(CO.pred>=0 && won && !CO.revealed){ CO.revealed=1; coReveal.hidden=false; coAfter.hidden=false; hint2.textContent='ענו על השאלה כדי להמשיך.'; WOW.emit('item', { id:'tick:measure', kind:'quick', correct:true, attempt:1 }); }
+  if(user===1 && CO.pred>=0){
+    if(won) coMsg.innerHTML='כל השיניים ירוקות! תפסתם את כל הפעימות, עם מרווח של כ־<span class="num">'+s.toFixed(2)+'</span> שניות. נסו את כפתור הקצב.';
+    else if(s<1.32) coMsg.innerHTML='המרווח צפוף מדי: השיניים מקדימות את הפעימות. הרחיבו אותו. שן ירוקה היא פעימה שנתפסה.';
+    else coMsg.innerHTML='המרווח רחב מדי: חלק מהפעימות נשארות בלי שן. צמצמו אותו.';
+  }
+}
+
+/* ---------- step 3 (interactive 3): the lighthouse (canvas 640 × 600) ----------
+   A star spins about the upright axis; two opposite beams leave the magnetic poles, 40° off the axis, so they sweep a cone. Earth sits in the picture plane at elevation e. A pulse = a beam within ~9–13° of Earth. Animated while on screen. Scale and angles are a picture; the speed slider is real seconds. */
+const liCv=document.getElementById('liCv'), lictx=liCv.getContext('2d');
+const LI={ opened:0, pred:-1, revealed:0, th:0, last:0, trace:[], outTurns:0, inTurns:0, wasIn:0 };
+const LI_A=40*DEG, LI_CX=300, LI_CY=232, LI_R=204;
+function liPredict(k){ LI.pred=k; segOn('liP',3,k); WOW.emit('item', { id:'beam:predict', kind:'quick', correct:k===1, attempt: wowTry('beam:predict') });
+  liMsg.innerHTML='רשמנו את הניחוש. קודם הסתכלו על הפעימות בפס למטה. עכשיו הזיזו את כדור הארץ אל האמצע, וחכו סיבוב שלם.'; }
+const liT = () => 3*Math.pow(10,-(+liS.value)/100);
+const liE_ = () => (-70+1.4*(+liE.value))*DEG;
+function liInBeam(e){ const a=Math.abs(e)/DEG; return a>=36 && a<=64; }
+function liStrength(th,e){ const bx=Math.sin(LI_A)*Math.cos(th), by=Math.cos(LI_A), bz=Math.sin(LI_A)*Math.sin(th), ex=Math.cos(e), ey=Math.sin(e);
+  const dot=bx*ex+by*ey, ang=Math.acos(clamp(Math.abs(dot),-1,1))/DEG; return Math.exp(-(ang*ang)/(11*11)); }
+function liBeam(c,th,sgn){ const bx=Math.sin(LI_A)*Math.cos(th)*sgn, by=Math.cos(LI_A)*sgn, bz=Math.sin(LI_A)*Math.sin(th)*sgn;
+  const x=LI_CX+LI_R*bx, y=LI_CY-LI_R*by, nx=-(y-LI_CY)/LI_R, ny=(x-LI_CX)/LI_R, w=30*(.75+.25*(bz+1)/2);
+  c.fillStyle=GOLD(); c.globalAlpha= bz<0 ? .4 : .85; c.beginPath(); c.moveTo(LI_CX,LI_CY); c.lineTo(x+nx*w,y+ny*w); c.lineTo(x-nx*w,y-ny*w); c.closePath(); c.fill(); c.globalAlpha=1; return bz; }
+function liStep(now){ if(!LI.last) LI.last=now; const dt=Math.min(.1,(now-LI.last)/1000); LI.last=now; if(!dt) return; const T=liT(), dth=2*PI*dt/T; LI.th=(LI.th+dth)%(2*PI);
+  const e=liE_(), st=liStrength(LI.th,e); LI.trace.push([now,st]); while(LI.trace.length && now-LI.trace[0][0]>6000) LI.trace.shift();
+  if(LI.pred>=0){ const inb=liInBeam(e); if(inb){ LI.inTurns+=dt/T; LI.outTurns=0; } else LI.outTurns+=dt/T;
+    if(!inb && LI.outTurns>=1 && !LI.revealed){ LI.revealed=1; liReveal.hidden=false; liAfter.hidden=false; hint3.textContent='ענו על השאלה כדי להמשיך.'; liMsg.innerHTML='סיבוב שלם, והפס נשאר שקט. הכוכב עדיין שם. החזירו את כדור הארץ למעלה או למטה, ותראו את הפעימות חוזרות.'; } }
+  liDraw(0); }
+function liDraw(user){
+  const c=lictx, W=liCv.width, H=liCv.height, ink='#FFFFFF';
+  if(user===1 && LI.pred<0){ liE.value=86; liS.value=35; predictFirst(liMsg,'הזיזו'); }
+  if(user && !LI.opened && LI.pred>=0){ LI.opened=1; WOW.emit('open', { id:'beam' }); }
+  const e=liE_(), st=liStrength(LI.th,e), inb=liInBeam(e), T=liT();
+  c.clearRect(0,0,W,H); c.fillStyle=NIGHT(); c.fillRect(0,0,W,H);
+  for(let i=0;i<46;i++){ c.fillStyle='#FFFFFF'; c.globalAlpha=.25+.6*xRand(i+3); c.beginPath(); c.arc(xRand(i*1.7)*W,xRand(i*2.9)*440,1+xRand(i)*1.6,0,2*PI); c.fill(); } c.globalAlpha=1;
+  /* the sweep rings */
+  c.strokeStyle='#F6C454'; c.lineWidth=2.5; c.setLineDash([7,8]); c.globalAlpha=.6; const ry=LI_R*Math.cos(LI_A), rx=LI_R*Math.sin(LI_A); [-1,1].forEach(s=>{ c.beginPath(); c.ellipse(LI_CX,LI_CY-s*ry,rx,rx*.28,0,0,2*PI); c.stroke(); }); c.setLineDash([]); c.globalAlpha=1;
+  /* the spin axis */
+  c.strokeStyle='#B7BFD2'; c.lineWidth=2; c.setLineDash([5,7]); c.beginPath(); c.moveTo(LI_CX,16); c.lineTo(LI_CX,448); c.stroke(); c.setLineDash([]);
+  /* far beam, star, near beam */
+  const far = Math.sin(LI.th)>0 ? -1 : 1; liBeam(c,LI.th,far);
+  c.fillStyle='#FFFFFF'; c.strokeStyle='#F6C454'; c.lineWidth=4; c.beginPath(); c.arc(LI_CX,LI_CY,24,0,2*PI); c.fill(); c.stroke();
+  liBeam(c,LI.th,-far);
+  /* Earth */
+  const ex=LI_CX+LI_R*Math.cos(e), ey=LI_CY-LI_R*Math.sin(e);
+  if(st>.35){ c.fillStyle='#FFE27A'; c.globalAlpha=.45*st; c.beginPath(); c.arc(ex,ey,50,0,2*PI); c.fill(); c.globalAlpha=1; }
+  c.fillStyle= isDark()?'#3E9BD6':'#3E9BD6'; c.strokeStyle='#FFFFFF'; c.lineWidth=3; c.beginPath(); c.arc(ex,ey,27,0,2*PI); c.fill(); c.stroke();
+  c.fillStyle='#4DA36A'; c.beginPath(); c.ellipse(ex-5,ey-6,10,7,.4,0,2*PI); c.fill(); c.beginPath(); c.ellipse(ex+9,ey+9,7,5,-.3,0,2*PI); c.fill();
+  xLabel(c,'כדור הארץ',clamp(ex-6,120,540), ey-48*LS()<36 ? ey+50*LS() : ey-48*LS(),20,css('--ink'),.95);
+  /* the trace: what the telescope records (newest at the right) */
+  const y0=574, x0=620, w=600; c.fillStyle=PAPER(); c.beginPath(); c.roundRect(10,462,620,128,10); c.fill();
+  xText(c,'מה שהטלסקופ קולט',320,486,20,INK(),'center');
+  c.strokeStyle=SIG(); c.lineWidth=3.5; c.beginPath(); const now=LI.last; let first=true;
+  for(const p of LI.trace){ const x=x0-(now-p[0])/6000*w, y=y0-p[1]*66; if(first){ c.moveTo(x,y); first=false; } else c.lineTo(x,y); } c.stroke();
+  liOut.innerHTML='כל <span class="num">'+T.toFixed(2)+'</span> שניות';
+  liOut2.innerHTML= inb ? 'עוברת על כדור הארץ' : 'לא מגיעה אלינו';
+  if(user===1 && LI.pred>=0 && !LI.revealed){ liMsg.innerHTML = inb ? 'הקרן פוגעת: בכל פעם שהיא חולפת, בפס מופיעה פעימה.' : 'עכשיו כדור הארץ מחוץ לדרך של הקרניים. חכו סיבוב שלם, והסתכלו על הפס.'; }
+}
+
+/* ---------- step 4 (interactive 4): shrink a star (canvas 640 × 600) ----------
+   Model: T = 300 × (r/1000)² seconds, r from 1,000 km down to 10 km: 300 s → 0.03 s. No angular momentum is lost. The disc size is on a log scale, a picture only. Above ~4 turns per second the disc is drawn as a blur. */
+const spCv=document.getElementById('spCv'), spctx=spCv.getContext('2d');
+const SP={ opened:0, pred:-1, revealed:0, th:0, last:0 };
+const spRad = () => 1000*Math.pow(10,-2*(+spR.value)/100);
+const spPer = r => 300*(r/1000)*(r/1000);
+function spPredict(k){ SP.pred=k; segOn('spP',3,k); WOW.emit('item', { id:'spin:predict', kind:'quick', correct:k===2, attempt: wowTry('spin:predict') });
+  spMsg.innerHTML='רשמנו את הניחוש. עכשיו גררו את המחוון שמאלה, לאט, עד הסוף.'; }
+function spStep(now){ if(!SP.last) SP.last=now; const dt=Math.min(.1,(now-SP.last)/1000); SP.last=now; const r=spRad(), T=spPer(r);
+  const shown = T<0.25 ? 4 : T>6 ? 1/(6+(T-6)/10) : 1/T;   /* slow starts are sped up a little so the turn can be seen */
+  SP.th=(SP.th+2*PI*shown*dt)%(2*PI); spDraw(0); }
+function spSkater(c,x,y,k){ const col=INK(); c.strokeStyle=col; c.lineWidth=7; c.lineCap='round'; const a=14+52*k;
+  c.beginPath(); c.moveTo(x,y-34); c.lineTo(x,y+36); c.stroke(); c.beginPath(); c.moveTo(x,y+36); c.lineTo(x-16,y+76); c.moveTo(x,y+36); c.lineTo(x+18,y+70); c.stroke();
+  c.beginPath(); c.moveTo(x-a,y-14-10*k); c.lineTo(x,y-20); c.lineTo(x+a,y-14-10*k); c.stroke();
+  c.fillStyle=col; c.beginPath(); c.arc(x,y-54,16,0,2*PI); c.fill(); c.lineCap='butt'; }
+function spDraw(user){
+  const c=spctx, W=spCv.width, H=spCv.height;
+  if(user===1 && SP.pred<0){ spR.value=0; predictFirst(spMsg,'הזיזו'); }
+  const v=+spR.value, r=spRad(), T=spPer(r), rps=1/T, k=1-v/100;
+  if(user && !SP.opened && SP.pred>=0 && v>0){ SP.opened=1; WOW.emit('open', { id:'spin' }); }
+  c.clearRect(0,0,W,H); c.fillStyle=NIGHT(); c.fillRect(0,0,W,H);
+  const cx=372, cy=224, R=24+166*k;
+  /* the star */
+  c.fillStyle='#E8734A'; c.beginPath(); c.arc(cx,cy,R,0,2*PI); c.fill();
+  if(T<0.25){ c.strokeStyle='#FFFFFF'; c.lineWidth=2; for(let i=0;i<3;i++){ c.globalAlpha=.4; c.beginPath(); c.arc(cx,cy,R*(.45+.2*i),0,2*PI); c.stroke(); } c.globalAlpha=1; }
+  else { c.save(); c.translate(cx,cy); c.rotate(SP.th); c.fillStyle='#F6C454'; for(let i=0;i<2;i++){ c.rotate(PI); c.beginPath(); c.moveTo(0,0); c.arc(0,0,R,-.42,.42); c.closePath(); c.fill(); } c.restore(); c.fillStyle='#FFFFFF'; c.beginPath(); c.arc(cx+R*.72*Math.cos(SP.th),cy+R*.72*Math.sin(SP.th),Math.max(4,R*.09),0,2*PI); c.fill(); }
+  c.strokeStyle='#FFFFFF'; c.lineWidth=3; c.beginPath(); c.arc(cx,cy,R,0,2*PI); c.stroke();
+  /* the skater does the same */
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(14,20,160,200,14); c.fill();
+  c.fillStyle=css('--nile-soft'); c.beginPath(); c.ellipse(94,194,70,14,0,0,2*PI); c.fill();
+  spSkater(c,94,100,k);
+  c.strokeStyle=SIG(); c.fillStyle=SIG(); c.lineWidth=4; c.beginPath(); c.ellipse(94,120,44,10,0,.2,PI*.85); c.stroke(); xArrow(c,94-44*Math.cos(.47),120+10*Math.sin(.47),-1,-.5,12);
+  /* the gauge: turns per second on a log scale */
+  const gx=24, gy=474, gw=592, gh=38, f=clamp((Math.log10(rps)+2.6)/(2.6+1.6),0,1);
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(10,430,620,158,12); c.fill();
+  xText(c,'כמה סיבובים בשנייה',320,452,22,INK(),'center');
+  c.fillStyle=css('--line'); c.beginPath(); c.roundRect(gx,gy,gw,gh,8); c.fill();
+  c.fillStyle=GOLD(); const fw=Math.max(10,gw*f); c.beginPath(); c.roundRect(gx+gw-fw,gy,fw,gh,8); c.fill();
+  const big = rps>=1 ? Math.round(rps) : rps>=.1 ? (Math.round(rps*10)/10) : null;
+  if(big!==null) xMath(c, String(big), 320, 552, 34, INK()); else xText(c,'פחות מסיבוב אחד',320,552,26,INK(),'center');
+  spOut.innerHTML='<span class="num">'+fmtI(r)+'</span> ק״מ';
+  spOut2.innerHTML= T>=10 ? '<span class="num">'+fmtI(T)+'</span> שניות' : T>=1 ? '<span class="num">'+T.toFixed(1)+'</span> שניות' : '<span class="num">'+T.toFixed(2)+'</span> שניות';
+  if(SP.pred>=0 && r<=12 && !SP.revealed){ SP.revealed=1; spReveal.hidden=false; spAfter.hidden=false; hint4.textContent='ענו על השאלה כדי להמשיך.'; }
+  if(user===1 && SP.pred>=0){
+    if(v===0) spMsg.innerHTML='גרעין גדול, סיבוב אחד ב־<span class="num">5</span> דקות. גררו שמאלה.';
+    else if(r>100) spMsg.innerHTML='הגרעין מתכווץ, והמד זז. שימו לב גם למחליק.';
+    else if(T>=0.25) spMsg.innerHTML='ממשיכים לכווץ!';
+    else if(r>12) spMsg.innerHTML='עוד קצת! עכשיו הוא כבר מסתובב כמה פעמים בשנייה.';
+    else spMsg.innerHTML='עשרות סיבובים בשנייה. כמעט פולסר.';
+  }
+}
+
+/* one animation loop, only while a moving canvas is on screen */
+const LABVIS={ li:false, sp:false }; let labRaf=0;
+function labLoop(now){ labRaf=0; if(LABVIS.li) liStep(now); if(LABVIS.sp) spStep(now); if(LABVIS.li||LABVIS.sp) labRaf=requestAnimationFrame(labLoop); }
+function labKick(){ if(!labRaf && (LABVIS.li||LABVIS.sp)){ LI.last=0; SP.last=0; labRaf=requestAnimationFrame(labLoop); } }
+if('IntersectionObserver' in window){ const io=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.target===liCv) LABVIS.li=e.isIntersecting; if(e.target===spCv) LABVIS.sp=e.isIntersecting; }); labKick(); }, {threshold:.05}); io.observe(liCv); io.observe(spCv); }
+else { LABVIS.li=LABVIS.sp=true; labKick(); }
+
+[['storyQ','next1','hint1'],['snailQ','next2','hint2'],['priceQ','next3','hint3'],['siteQ','next4','hint4']].forEach(([q,n,h])=>document.getElementById(q).addEventListener('click',()=>setTimeout(()=>{ if(!document.getElementById(n).disabled) document.getElementById(h).hidden=true; },0)));
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  storyQ:{ q:'איך הראו שהסימן לא בא ממכשיר על כדור הארץ?', opts:['הוא הקדים כל יום בכ־<span class="num">4</span> דקות, כמו הכוכבים','הוא הגיע בכל יום בדיוק באותה שעה','הוא נשמע רק בחורף','הוא היה חזק יותר בקיץ'], a:0, fb:'מכשירים עובדים לפי השעון שלנו. הסימן שמר על שעון הכוכבים, ולכן הוא בא מעבר לכדור הארץ.', btn:'next1' },
+  snailQ:{ q:'מה גרם לחוקרים לפסול את רעיון החייזרים?', opts:['חייזרים לא יכולים לשדר ברדיו','הטלסקופ התקלקל','סימן שני נמצא במקום אחר, והקצב לא הראה תנועה של כוכב לכת','ג׳וסלין לא הסכימה לבדוק'], a:2, fb:'אם המשדר יושב על כוכב לכת, הקצב אמור להשתנות כשהכוכב מקיף את השמש שלו. זה לא נמצא. וסימן שני באותו זמן, במקום אחר, כבר לא נראה כמו שידור.', btn:'next2' },
+  priceQ:{ q:'למה אנחנו קולטים פעימות, ולא אור קבוע?', opts:['כי הכוכב נדלק ונכבה','כי ענן מסתיר אותו','כי הקרן מסתובבת וחולפת עלינו פעם בסיבוב','כי הטלסקופ נדלק ונכבה'], a:2, fb:'כמו מגדלור: הפנס דולק כל הזמן, אבל הקרן עוברת עלינו רק לרגע בכל סיבוב.', btn:'next3' },
+  siteQ:{ q:'מה קורה לגוף מסתובב כשהוא מצטמק?', opts:['הוא מאט','הוא מפסיק להסתובב','הוא מתחיל להסתובב לצד השני','הוא מסתובב מהר יותר'], a:3, fb:'כמו מחליקה שמקרבת את הידיים: החומר קרוב יותר למרכז, והסיבוב מאיץ, בלי שמישהו דחף.', btn:'next4' },
+  deepQ:{ q:'למה כפית מכוכב נויטרונים שוקלת כל כך הרבה?', opts:['כי היא עשויה מזהב','כי הכובד מעך את החומר, ובין הנויטרונים כמעט לא נשאר חלל ריק','כי היא חמה מאוד','כי בחלל הכול כבד יותר'], a:1, fb:'רוב האטום הוא חלל ריק. בכוכב נויטרונים הכובד מועך את החלל הזה, ולכן כמות אדירה של חומר נדחסת לכפית.' }
+};
+const MCQ = {
+  shared:[
+    { q:'מה היה הרמז הראשון לכך שהסימן בא מהחלל?', opts:['הוא הופיע רק כשירד גשם','הוא נשמע ברדיו של המכונית','כל יום הוא הגיע כ־<span class="num">4</span> דקות מוקדם יותר','הוא הגיע רק בבוקר'], a:2, fb:'זה הקצב של הכוכבים, ולא של השעון שלנו. מכשיר של בני אדם היה מגיע באותה שעה.' },
+    { q:'מה הסיבה לכך שפולסר נראה לנו כמו שעון מתקתק?', opts:['הוא מסתובב, וקרן ממנו חולפת עלינו בכל סיבוב','הוא מתפוצץ שוב ושוב','חייזרים מכוונים אותו','הוא מתכווץ ומתרחב כמו לב'], a:0, fb:'כל פעימה היא סיבוב אחד. לכן הקצב קבוע כל כך: כוכב שלם מסתובב, והוא לא משנה מהירות בקלות.' },
+    { q:'למה כוכב נויטרונים מסתובב מהר כל כך?', opts:['כי הרוח בחלל דוחפת אותו','כי יש לו מנוע של גז','כי כוכבים קטנים תמיד מהירים','כי הגרעין הצטמק, והסיבוב שהיה לו האיץ'], a:3, fb:'הגרעין הסתובב גם לפני כן, לאט. כשהוא קרס, הסיבוב האיץ מאוד, כמו מחליקה שמקרבת את הידיים.' }
+  ],
+  younger:[
+    { q:'מה הגודל של כוכב נויטרונים?', opts:['בערך כמו עיר','בערך כמו הירח','בערך כמו כדור הארץ','בערך כמו השמש'], a:0, fb:'הקוטר שלו כ־<span class="num">20</span> קילומטרים. ובכל זאת יש בו יותר חומר מאשר בשמש כולה.' }
+  ],
+  older:[
+    { q:'הרדיוס של גוף מסתובב קטן פי <span class="num">10</span>. פי כמה מהיר הסיבוב, לפי הכלל שלמדנו?', opts:['פי <span class="num">10</span>','פי <span class="num">20</span>','פי <span class="num">100</span>','פי <span class="num">1,000</span>'], a:2, fb:'הדרך קצרה פי <span class="num">10</span>, והמהירות גדולה פי <span class="num">10</span>: <span class="math">10 × 10 = 100</span>.' }
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'כוכב ענק שורף דלק מיליוני שנים.'},
+  {id:'b', t:'הדלק נגמר, והגרעין קורס פנימה.'},
+  {id:'c', t:'החלקים החיצוניים מתפוצצים בסופרנובה.'},
+  {id:'d', t:'נשאר כוכב נויטרונים בגודל של עיר, שמסתובב מהר.'},
+  {id:'e', t:'קרניים יוצאות מהכוכב, ומסתובבות איתו.'},
+  {id:'f', t:'קרן חולפת על כדור הארץ, וטלסקופ קולט פעימה.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלך: ' : '<span class="pill-ok">סדר מושלם!</span>')+' דלק נגמר ← קריסה ← סופרנובה ← כוכב נויטרונים ← קרניים ← פעימה. כל פעימה על הנייר היא הסוף של הסיפור הארוך הזה.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) הכוכב צריך קודם למות, ורק אז נשאר כוכב נויטרונים. (2) הטלסקופ הוא הסוף של הסיפור, לא ההתחלה.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && a>=71500 && a<=72100, bOk = hasB && b>=23.5 && b<=24.5;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && Math.abs(a-11456)<60) ? '(א): השתמשתם ברדיוס. בכל סיבוב עוברים את כל ההיקף: <span class="math">2 × 3.14 × 16</span>.'
+    : (hasA && Math.abs(a-35972)<200) ? '(א): שכחתם את ה־<span class="num">2</span> בנוסחת ההיקף.'
+    : (hasA && Math.abs(a-100.48)<1) ? '(א): זה ההיקף. עכשיו כפלו ב־<span class="num">716</span> סיבובים בשנייה.'
+    : '(א): רמז — קודם ההיקף, <span class="math">2 × 3.14 × 16</span>, ואז כפול <span class="num">716</span>.';
+  const hintB = (hasB && b>0 && b<1) ? '(ב): זה חלק מהשלם. כדי לקבל אחוזים, כפלו ב־<span class="num">100</span>.'
+    : '(ב): רמז — חלקו את התוצאה של (א) ב־<span class="num">300,000</span>, וכפלו ב־<span class="num">100</span>.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">2 × 3.14 × 16 = 100.48</span> קילומטרים בסיבוב, ו־<span class="math">100.48 × 716 ≈ 71,944</span> קילומטרים בשנייה. (ב) <span class="math">71,944 ÷ 300,000 × 100 ≈ 24</span> אחוזים ממהירות האור. כמעט רבע ממהירות האור, על פני כוכב. עכשיו פתחו את השאלה למחשבה שלמטה.'
+    : aOk ? '<span class="pill-ok">(א) נכון — כ־<span class="math">71,944</span> קילומטרים בשנייה.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="math">24%</span>.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const sp=+numAdvR.value, ks=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && Math.abs(sp-0.04)<0.0006), yOk=(hasY && ks>=24.5 && ks<=25.5), sc = dOk&&yOk?2:((dOk||yOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && Math.abs(sp-5)<0.05) ? 'ב־(א): חילקתם ב־<span class="num">125</span> פעם אחת. הכלל הוא <span class="math">k × k</span>, ולא <span class="math">k</span>.'
+      : (hasD && Math.abs(sp-25)<0.1) ? 'ב־(א): זה מספר הסיבובים. כאן השאלה היא כמה שניות לסיבוב.'
+      : 'רמז ל־(א): פי כמה קטן הרדיוס? <span class="math">1,500 ÷ 12 = 125</span>. אחר כך <span class="math">125 × 125</span>, וחלקו את <span class="num">625</span> בתוצאה.';
+    const hintY = (hasY && Math.abs(ks-0.04)<0.001) ? 'ב־(ב): זה זמן הסיבוב. כמה סיבובים כאלה נכנסים בשנייה?'
+      : 'רמז ל־(ב): סיבובים בשנייה הם <span class="math">1 ÷ הזמן</span>.';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">1,500 ÷ 12 = 125</span>, ו־<span class="math">125 × 125 = 15,625</span>, אז <span class="math">625 ÷ 15,625 = 0.04</span> שניות. (ב) <span class="math">1 ÷ 0.04 = 25</span> סיבובים בשנייה. קרוב לפולסר של ערפילית הסרטן.'
+      : dOk ? '<span class="pill-ok">(א) נכון — <span class="math">0.04</span> שניות.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — <span class="math">25</span> סיבובים בשנייה.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-1800)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">30 × 60 = 1,800</span>. כוכב שלם, <span class="num">1,800</span> סיבובים בדקה אחת.':(Math.abs(v-90)<0.01?'<span class="pill-bad">כמעט.</span> חיברתם. בכל אחת מ־<span class="num">60</span> השניות יש <span class="num">30</span> סיבובים, אז צריך לכפול.':'<span class="pill-bad">עוד לא.</span> רמז: בדקה יש <span class="num">60</span> שניות, ובכל שנייה <span class="num">30</span> סיבובים. אפשר לחשב <span class="math">3 × 6</span> ולהוסיף שני אפסים.'); }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-0.05)<0.0006; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">500 ÷ 10,000 = 0.05</span> שניות. אלה <span class="num">20</span> סיבובים בשנייה.':(Math.abs(v-5)<0.05?'<span class="pill-bad">עוד לא.</span> חילקתם ב־<span class="num">100</span>. הסיבוב מהיר פי <span class="num">10,000</span>.':(Math.abs(v-5000000)<1?'<span class="pill-bad">עוד לא.</span> כפלתם. סיבוב מהיר יותר לוקח פחות זמן, אז צריך לחלק.':'<span class="pill-bad">עוד לא.</span> רמז: <span class="math">500 ÷ 10,000</span>. אפשר למחוק שני אפסים: <span class="math">5 ÷ 100</span>.')); }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שהתקתוק בא מכוכב נויטרונים, מה שנשאר מכוכב ענק שמת.',
+  'הסברתי שהכוכב מסתובב מהר כי הגרעין הצטמק (כמו מחליקה שמקרבת ידיים).',
+  'הסברתי שיוצאת ממנו קרן שמסתובבת איתו, כמו אור של מגדלור.',
+  'כתבתי שכל פעימה היא רגע שבו הקרן עוברת על כדור הארץ, ולכן הקצב קבוע.',
+  'הוספתי פרט מדויק: <span class="num">1.3373</span> שניות, גודל של כ־<span class="num">20</span> קילומטרים, הכפית של מיליארד טונות, או ההקדמה של <span class="num">4</span> דקות ביום.',
+];
+const MODEL='התקתוק הוא כוכב נויטרונים: מה שנשאר אחרי שכוכב ענק נגמר לו הדלק, והגרעין שלו קרס לכדור בגודל של עיר. כשהגרעין הצטמק, הסיבוב שלו האיץ מאוד, כמו מחליקה שמקרבת את הידיים. ממנו יוצאות קרניים שמסתובבות איתו, כמו אור של מגדלור. בכל פעם שקרן חולפת על כדור הארץ, הטלסקופ קולט פעימה אחת. הקצב קבוע, כי כוכב כבד כל כך לא משנה מהירות בקלות.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון: כוכב ענק מסיים את הדלק והגרעין קורס לכוכב נויטרונים בקוטר של כ־20 קילומטרים; הסיבוב מאיץ לפי הכלל רדיוס קטן פי k וסיבוב מהיר פי k × k (שימור תנע זוויתי); קרניים מהקטבים המגנטיים נעות עם הסיבוב, כמו מגדלור; כל פעימה היא סיבוב שבו קרן חולפת על כדור הארץ, ולכן הקצב קבוע, ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "האות שחזר כל 1.3 שניות — והסטודנטית שלא ויתרה על לכלוך קטן": גילוי הפולסרים. הרעיונות המרכזיים: (1) ג׳וסלין בל מצאה ב־1967 סימן קטן על נייר, שהקדים כל יום בכ־4 דקות כמו הכוכבים, ולכן בא מהחלל; (2) הסימן התגלה כפעימות כל 1.3373 שניות, והרעיון של חייזרים נפסל: לא נמצאה תנועה של כוכב לכת ונמצא סימן שני; (3) זהו כוכב נויטרונים, שריד של כוכב ענק שקרס, בקוטר של כ־20 קילומטרים, שהסתובב מהר כי הגרעין הצטמק, כמו מחליקה שמקרבת ידיים; (4) קרניים מהקטבים המגנטיים מסתובבות איתו כמו מגדלור, וכל פעימה היא קרן שחלפה על כדור הארץ. חישובי המבחן: צעיר — 30 × 60 = 1,800; בוגר — 500 ÷ 10,000 = 0.05 שניות; מתקדם — 1,500 ÷ 12 = 125, 125 × 125 = 15,625, 625 ÷ 15,625 = 0.04 שניות, 1 ÷ 0.04 = 25 סיבובים בשנייה; אתגר — 2 × 3.14 × 16 × 716 ≈ 71,944 קילומטרים בשנייה, כ־24% ממהירות האור.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם שהתקתוק בא מכוכב נויטרונים מסתובב (שריד של כוכב שמת), וגם שהפעימה נוצרת כשקרן שלו חולפת עלינו בכל סיבוב; 1 אם יש רק אחד מהשניים או רק חלק. תשובה שאומרת שאלה חייזרים, או שהכוכב נדלק ונכבה — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', גם ג׳וסלין בל הייתה מתרשמת!':pct>=60?name+', האות שלך נקלט בבירור!':name+', הפעימה הבאה כבר בדרך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=1;                                                       // like a city
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: הכוכב גדול <b>כמו עיר</b>, כ־<span class="num">20</span> קילומטרים.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>כמו עיר</b> — וקלעת. עכשיו גם יודעים למה: הכובד מעך כוכב שלם.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. התשובה: כמו עיר, כ־<span class="num">20</span> קילומטרים. ועכשיו גם יודעים למה: הכובד מעך כוכב שלם.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (מה גודל הכוכב): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: כמו עיר)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "האות שחזר כל 1.3 שניות — והסטודנטית שלא ויתרה על לכלוך קטן", מהדורה 54, כ״ה בחשוון תשפ״ז (יום חמישי, 5 בנובמבר 2026). נושא: גילוי הפולסרים — חלל ופיזיקה (כוכבי נויטרונים, סופרנובה, גלי רדיו, סיבוב, שימור תנע זוויתי), היסטוריה של המדע (ג׳וסלין בל, קיימברידג׳ 1967) ומתמטיקה (מחזור, יחסים, ריבוע, היקף, אחוזים). העובדות: ג׳וסלין בל (נולדה ב־15 ביולי 1943 בצפון אירלנד) הייתה בת 24, דוקטורנטית בקיימברידג׳ אצל אנתוני היואיש. הצוות בנה טלסקופ רדיו של כ־4.5 אקרים (כ־18 דונם), יותר מ־1,000 עמודים, כ־190 ק״מ חוטים וכבלים. הפלט: כ־30 מטר נייר ביום, בסך הכול יותר מ־5 ק״מ, שבל קראה בעיניים. באוגוסט 1967 ראתה סימן קטן, scruff. הוא הקדים כל יום בכ־4 דקות, כמו הכוכבים (1,440 ÷ 365 ≈ 3.9 דקות; יום כוכבי של 23 שעות ו־56 דקות), ולכן בא מעבר לכדור הארץ. בסוף נובמבר 1967 (בערך ב־28) הנייר המהיר הראה פעימות כל 1.3373 שניות (PSR B1919+21). היואיש אמר קודם שזה מעשה ידי אדם, ולמחרת בא וראה בעצמו. בצוות כינו את האות LGM-1, Little Green Men, בחצי צחוק. הם חיפשו שינוי בקצב שיראה תנועה של כוכב לכת, ולא מצאו. לפני חג המולד בל מצאה סימן שני, כל 1.2 שניות בערך, במקום אחר בשמיים. המאמר יצא ב־Nature בפברואר 1968. לפי זיכרונו של היואיש, הוא ומרטין רייל דנו מה לעשות אם אלה חייזרים, ורייל הציע בחצי צחוק לשרוף את הרישומים; בל זוכרת שהדיון היה רק על הדרך לפרסם. תומס גולד הציע ב־1968 את מודל המגדלור: כוכב נויטרונים מסתובב ושולח קרן שחולפת עלינו. היום יודעים שהקרניים קשורות לקטבים המגנטיים שלו. המודל ניבא האטה, וזה נמדד בפולסר של ערפילית הסרטן (כ־30 סיבובים בשנייה, שריד הסופרנובה של 1054). אנחנו קולטים רק פולסרים שהקרן שלהם חוצה את כדור הארץ. איך בדיוק נוצרות הקרניים עדיין נחקר. כוכב נויטרונים: קוטר כ־20 ק״מ (בערך מזכרון יעקב לטירת כרמל), מסה של כ־1.4 שמשות, כפית שוקלת כמיליארד טונות (נאס״א). הוא נוצר כשכוכב ענק מסיים את הדלק, הגרעין קורס, והחוץ מתפוצץ בסופרנובה. הסיבוב: כשהרדיוס קטן פי k, הסיבוב מהיר פי k × k (הדרך קצרה פי k, והמהירות גדולה פי k). במעבדה, מודל: 1,000 ק״מ ו־300 שניות לסיבוב, עד 10 ק״מ ו־0.03 שניות, כ־33 סיבובים בשנייה. במציאות חלק מהתנע אובד. הפולסר המהיר ביותר הידוע, PSR J1748−2446ad, מסתובב 716 פעמים בשנייה; ברדיוס של 16 ק״מ (גבול עליון) קו המשווה נע בכ־72,000 ק״מ בשנייה, כ־24% ממהירות האור. הפרס: נובל 1974 להיואיש ולרייל, בלי בל; פרד הויל מחה; בל אמרה ב־1977 שזה לא מפריע לה, ושנים אחר כך גם שהיותה סטודנטית ואישה פגעה בסיכוי שלה; ב־2018 קיבלה Breakthrough Prize של 3 מיליון דולר ותרמה אותם לקרן למלגות לנשים, למיעוטים ולפליטים בפיזיקה. חיבורים: ב־1989 אייכלר, ליביו, פירן ושרם (ישראל וארה״ב) ניבאו שהתנגשות כוכבי נויטרונים יוצרת יסודות כבדים כמו זהב; ב־2017 נצפתה התנגשות כזאת; כמה מהזהב נוצר כך עדיין נחקר. על וויאג׳ר (1977) יש מפה של 14 פולסרים של פרנק דרייק. ב־1992 התגלו סביב פולסר כוכבי הלכת הראשונים שאושרו מחוץ למערכת השמש. ב־2023 דיווחו צוותי תזמון פולסרים על עדויות לזמזום של גלי כבידה.';
+const CHIPS = ['למה אלה לא היו חייזרים?', 'איך כוכב יכול להיות כבד כל כך?', 'למה הוא מסתובב מהר?', 'למה ג׳וסלין לא קיבלה נובל?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: שעון הכוכבים ו־1,440 ÷ 365 ≈ 3.9 דקות; הכלל: רדיוס קטן פי k, סיבוב מהיר פי k × k, ולמה (דרך קצרה פי k ומהירות גדולה פי k); היקף 2 × π × r ומהירות קו המשווה; מודל המגדלור והניבוי של האטה; ההבדל בין מודל למדידה), שאל שאלות המשך שדורשות חשיבה (למשל: מה היה קורה לקצב אם המשדר היה על כוכב לכת? למה רוב הפולסרים לא נראים לנו? למה הכוכב לא מתפרק? איך ההאטה מאפשרת למדוד זמן?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה אלה לא היו חייזרים?</b> לא נמצא שינוי בקצב שיראה כוכב לכת שנע, ונמצא סימן שני במקום אחר בשמיים. זה מתאים לתופעה טבעית.<br><br><b>למה הוא מסתובב מהר?</b> כשהגרעין של הכוכב הצטמק, הסיבוב שלו האיץ, כמו מחליקה שמקרבת את הידיים לגוף.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; no free-running animation loop */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>

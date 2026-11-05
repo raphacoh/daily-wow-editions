@@ -1,0 +1,23 @@
+{
+  "n": 54,
+  "code": "WOW-054",
+  "date": "2026-11-05",
+  "language": "he",
+  "title": "האות שחזר כל 1.3 שניות — והסטודנטית שלא ויתרה על לכלוך קטן",
+  "topics": [
+    "חלל",
+    "פיזיקה",
+    "היסטוריה",
+    "מתמטיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "Jocelyn Bell's 1967 discovery of pulsars: a speck on a paper chart that kept star time, ticked every 1.3373 s, and turned out to be a spinning neutron star the size of a city.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — nits left: runs ~32–35 min for younger readers, older ~30 (~36 with the challenge), tag says כ־30 דקות; kit lint/check were missing so local stand-ins were used; Arto and the AI grader not exercised on file://; the review copy doesn't declare the sample capability, so Arto falls back there (template)",
+  "review_url": "https://claude.ai/artifact/CLJuUcvMkPv4nTw4BdU28Q",
+  "editor_note": null
+}
