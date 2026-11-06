@@ -1,0 +1,1683 @@
+<title>שורשים וכנפיים #55 · הבננה שאין לה הורים — וכולן בעצם אותו צמח</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#2F7D4F; --shadow-soft:#DDF0E0;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .tick{animation:tick 1.3373s ease-out infinite}}
+@keyframes tick{0%{opacity:.95}30%{opacity:.75}100%{opacity:.08}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 55</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs><radialGradient id="glow" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#E8A33D" stop-opacity=".30"/><stop offset="60%" stop-color="#E8A33D" stop-opacity=".09"/><stop offset="100%" stop-color="#E8A33D" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <circle cx="150" cy="150" r="104" fill="#F6C454" stroke="#1B1F33" stroke-width="3"/>
+    <circle cx="150" cy="150" r="92" fill="#FFF6D6"/>
+    <g stroke="#E2C77E" stroke-width="3" fill="none"><path d="M150 150 L150 58"/><path d="M150 150 L230 196"/><path d="M150 150 L70 196"/></g>
+    <g fill="#3A2A12"><circle cx="150" cy="118" r="5"/><circle cx="178" cy="166" r="5"/><circle cx="122" cy="166" r="5"/><circle cx="133" cy="128" r="4"/><circle cx="167" cy="128" r="4"/><circle cx="150" cy="178" r="4"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 55</span><span class="tag">יום שישי, 6 בנובמבר 2026</span><span class="tag">כ״ו בחשוון תשפ״ז</span><span class="tag">כ־30 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>הבננה שאין לה הורים — וכולן בעצם אותו צמח</h1>
+  <p class="lede">הציצו בקערת הפירות. הבננה שאצלכם, הבננה בסופר בפריז והבננה בכריך של ילדה בקנדה הן כמעט בוודאות אותו צמח. לא אחיות ולא בנות דודות, אלא <b>עותקים</b>. הן לא נולדו מזרע, אין להן אבא ואימא, וגם לא יהיו להן ילדים. השאלה של היום: <b>איך צמח כזה כבש את העולם — ולמה פטרייה קטנה באדמה מפחידה עכשיו את כל מי שאוכל בננות?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">במרכז של פרוסת בננה יש נקודות שחורות קטנטנות. אם נטמון באדמה <span class="num">100</span> נקודות כאלה, כמה שתילים יצמחו?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>אף אחד</b><span><span class="num">0</span> שתילים</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>מעט</b><span>כ־<span class="num">10</span> שתילים</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>חצי</b><span>כ־<span class="num">50</span> שתילים</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>כמעט כולם</b><span>כ־<span class="num">100</span> שתילים</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE SLICE (interactive 1: from wild to supermarket) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>מה יש בתוך פרוסה?</h2>
+  <p>חתכו בננה לרוחב, ותראו במרכז שורה של נקודות שחורות קטנטנות. אלה זרעים שמעולם לא גדלו, קצת כמו ביצה שאין בה אפרוח. בננה שגדלה לבד ביער נראית אחרת לגמרי.</p>
+  <p>הסיפור מתחיל לפני יותר מ־<span class="num">7,000</span> שנה בגינאה החדשה, אי ענק מצפון לאוסטרליה. שם נמצאו העדויות הקדומות ביותר לגידול בננות. במעבדה נחזור בזמן לשם, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 1 — הפרוסה ===== -->
+  <div class="panel instrument">
+    <h3>חזרה בזמן</h3>
+    <p class="cap">נחשו קודם: איך נראתה בננה לפני שחקלאים התחילו לבחור?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="stP0" onclick="stPredict(0)">בדיוק כמו היום</button>
+        <button id="stP1" onclick="stPredict(1)">עוד יותר בשר</button>
+        <button id="stP2" onclick="stPredict(2)">מלאה גרעינים קשים</button>
+      </div>
+    </div>
+    <canvas role="img" id="stCv" width="640" height="600" aria-label="פרוסת בננה גדולה, עם קליפה צהובה ובשר בהיר. כשחוזרים בזמן, הנקודות השחורות במרכז גדלות והופכות לגרעינים גדולים וקשים שתופסים כמעט את כל הפרוסה, ולמטה מד של בשר שאפשר לאכול מתרוקן"></canvas>
+    <div class="controls">
+      <label>נוסעים בזמן (שמאלה: היום, ימינה: לפני <span class="num">7,000</span> שנה)
+        <input type="range" id="stD" min="0" max="100" step="1" value="100" oninput="stDraw(1)" aria-label="נסיעה בזמן" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">מתי: <b id="stOut">—</b></div>
+      <div class="readout">גרעינים: <b id="stOut2">—</b></div>
+    </div>
+    <p class="cap" id="stMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="stReveal" hidden><span class="hand">!</span><p>בננת בר מלאה בגרעינים קשים, ויש בה מעט מאוד מה לאכול. אבל מדי פעם נולד צמח עם פחות גרעינים ויותר בשר, ואותו שתלו שוב. דור אחרי דור הגרעינים הלכו והתכווצו, עד שנשארו נקודות. הבננה שלכם היא תוצאה של אלפי שנים של בחירה. (הציור סכמטי: בננות בר שונות זו מזו.)</p></div>
+
+  <div id="stAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>דמיינו שאתם חקלאים בגינה קדומה. בננה אחת מלאה אבנים קטנות, וכשנוגסים בה השיניים כואבות. השנייה רכה ונעימה. איזו תשתלו שוב? בדיוק את זו. בלי מעבדה ובלי מדע, רק בעזרת השיניים, אנשים שינו צמח שלם.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בדרך כלל פרי גדל רק אחרי האבקה: גרגר אבקה מגיע, נוצר זרע, והזרע "מורה" לפרי לגדול. בבננה קרה שינוי בתורשה: הפרי גדל גם בלי שום הפריה. לזה קוראים <b>פרתנוקרפיה</b>. החקלאים לא הכירו את המילה, אבל ראו את התוצאה, ובחרו בה. ככל שבחרו בצמחים עם פחות גרעינים, כך הצמחים התקשו יותר להתרבות לבד, והיו תלויים יותר בבני אדם.</p>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  </div>
+  <p class="small" id="hint1" style="text-align:center">כדי להמשיך, סיימו את המעבדה וענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · ONE MOTHER, NO FATHER (interactive 2: shoots vs seeds) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>צמח בלי אבא ואימא</h2>
+  <p>אם אין זרעים, איך נולד צמח בננה חדש? ליד הבסיס שלו צומח מהאדמה נבט קטן שנקרא <b>נצר</b>. חותכים אותו, שותלים אותו במקום אחר, והוא גדל לצמח שלם. הוא לא הילד של הצמח. הוא הצמח עצמו, פשוט במקום אחר!</p>
+  <p>ועוד הפתעה: צמח הבננה הוא בכלל לא עץ. מה שנראה כמו גזע הוא עלים ענקיים שעטופים זה סביב זה. הבננה היא מעין עשב ענק. כל "גזע" נותן אשכול אחד ומת, והנצר ממשיך במקומו. במעבדה נשווה בין שתי דרכים להוליד צמח, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 2 — שושלת ההוראות ===== -->
+  <div class="panel instrument">
+    <h3>שושלת ההוראות</h3>
+    <p class="cap">נחשו קודם: אחרי <span class="num">5</span> דורות של נצרים, כמה מההוראות של הצמח הראשון נשארות?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="coP0" onclick="coPredict(0)">כמעט כלום</button>
+        <button id="coP1" onclick="coPredict(1)">בערך חצי</button>
+        <button id="coP2" onclick="coPredict(2)">כולן</button>
+      </div>
+    </div>
+    <canvas role="img" id="coCv" width="640" height="600" aria-label="שישה כרטיסים של דורות, מדור 0 עד דור 5, בכל אחד צמח ולוח של 32 משבצות. משבצות צהובות הן הוראות של הצמח הראשון. בנצרים כל המשבצות נשארות צהובות. בזרעים מספר המשבצות הצהובות נחצה בכל דור"></canvas>
+    <p class="cap" style="margin:8px 0 0"><span style="color:#E2A21F;font-weight:800">■</span> הוראות של הצמח הראשון &nbsp; <span style="color:#4A8FC4;font-weight:800">■</span> הוראות מהורים אחרים</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="דרך הריבוי">
+        <button id="coM0" class="on" onclick="coMode(0)">שתילת נצרים</button>
+        <button id="coM1" onclick="coMode(1)">זרעים</button>
+      </div>
+    </div>
+    <div class="controls">
+      <label>כמה דורות (ימינה: מעט, שמאלה: הרבה)
+        <input type="range" id="coS" min="0" max="5" step="1" value="0" oninput="coDraw(1)" aria-label="כמה דורות" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">דור: <b id="coOut">—</b></div>
+      <div class="readout">נשאר מהצמח הראשון: <b id="coOut2">—</b></div>
+    </div>
+    <p class="cap" id="coMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="coReveal" hidden><span class="hand">!</span><p>בנצרים נשארות כמעט <b>כל</b> ההוראות, גם אחרי אלף דורות: רק טעויות העתקה קטנטנות משנות אותן. בזרעים כל הורה נותן רק חצי, אז בכל דור החלק של הצמח הראשון נחצה: <span class="math">100% → 50% → 25%</span> וכן הלאה. לכן משפחה של זרעים מלאה בשונים, ומשפחה של נצרים היא אותו צמח שוב ושוב. לצמח כזה קוראים <b>שיבוט</b>. (המחצית היא ממוצע: בפועל כל צאצא שונה מעט.)</p></div>
+
+  <div id="coAfter" hidden>
+  <p>בשנות ה־<span class="num">1830</span> קיבל גנן צעיר בשם <b>ג׳וזף פקסטון</b>, בן של חקלאים, צמח בננה קטן שהגיע מהאי מאוריציוס. הוא עבד בצ׳אטסוורת׳, האחוזה של הדוכס של דבונשייר באנגליה הקרה. הוא גידל את הצמח בחממה חמה, קרא לו <b>קוונדיש</b> על שם משפחת הדוכס, וזכה במדליה. אחר כך נשלחו ארגזי שתילים עם מיסיונר לאיי האוקיינוס השקט, וארגז אחד הגיע חי. כך מספרים באחוזה, וגם אם לא כל בננה באה משם, השם נשאר: כמעט כל בננה שנמכרת בסופרים בעולם היא קוונדיש.</p>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על מכונת צילום. שמים ציור, ומקבלים עותק. מצלמים את העותק, ועוד עותק, ואלף עותקים. כולם אותו ציור. כך נראית משפחת הקוונדיש: בלי ערבוב, בלי הפתעות. הבננות טעימות בדיוק אותו דבר, ונראות בדיוק אותו דבר בכל מדינה. זה נוח מאוד למי שמוכר אותן.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>החישוב: בכל דור כופלים ב־<span class="math">½</span>. הסימן <span class="math">^</span> אומר "בחזקת": כמה פעמים כופלים. למשל <span class="math">2^3 = 2 × 2 × 2 = 8</span>. אחרי <span class="math">k</span> דורות נשאר <span class="math">(½)^k</span>, ואחרי <span class="num">5</span> דורות זה <span class="math">1 ÷ 32 ≈ 3%</span>. בנצרים אין ערבוב, ולכן הדרך היחידה להשתנות היא <b>מוטציה</b>: טעות קטנה בהעתקה. כך נוצרו זנים קרובים של קוונדיש, ובהם "גרנד ניין" שגדל בישראל. הם שונים קצת בגובה ובטעם, אבל מבחינה תורשתית הם כמעט זהים.</p>
+  </div>
+
+  <div class="q qc" id="snailQ"></div>
+  </div>
+  <p class="small" id="hint2" style="text-align:center">כדי להמשיך, סיימו את המעבדה.</p>
+  <div class="next"><button class="btn" id="next2" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · WHY NO SEEDS (interactive 3: the deal) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>למה אין זרעים?</h2>
+  <p>בכל תא של צמח יש ספר הוראות. הכרכים של הספר נקראים <b>כרומוזומים</b>, ובבננה יש <span class="num">11</span> כרכים שונים. בננת בר מחזיקה שני עותקים של כל כרך. כשהיא מכינה זרע, התא מתחלק לשניים, וכל חלק מקבל עותק אחד שלם. פשוט וצודק.</p>
+  <p>אבל בננה מהסופר מחזיקה <b>שלושה</b> עותקים של כל כרך, בסך הכול <span class="math">3 × 11 = 33</span>. איך מחלקים שלושה עותקים לשני צדדים? צד אחד מקבל שניים, והשני אחד, והמקרה קובע מי. כדי שתא יעבוד, צריך שכל הכרכים יהיו אצלו באותה כמות: או עותק אחד מכל כרך, או שניים מכל כרך. נראה כמה קל להצליח, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 3 — חלוקת הכרכים ===== -->
+  <div class="panel instrument">
+    <h3>חלוקת הכרכים</h3>
+    <p class="cap">נחשו קודם: מתוך <span class="num">1,000</span> חלוקות של <span class="num">11</span> כרכים, כמה יצאו שלמות?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="liP0" onclick="liPredict(0)">כ־<span class="num">500</span></button>
+        <button id="liP1" onclick="liPredict(1)">כ־<span class="num">100</span></button>
+        <button id="liP2" onclick="liPredict(2)">כ־<span class="num">1</span></button>
+      </div>
+    </div>
+    <canvas role="img" id="liCv" width="640" height="600" aria-label="שני מדפים, תא א למעלה ותא ב למטה. בכל טור כרך אחר, עם מספר, ובסך הכול שלושה עותקים ממנו. בכל חלוקה טור אחד שולח שניים למעלה ואחד למטה, או להפך. אם כל הטורים זהים החלוקה שלמה ונצבעת בירוק, ואם לא היא לא שלמה ונצבעת באדום"></canvas>
+    <p class="cap" style="margin:8px 0 0"><span style="color:#E8734A;font-weight:800">■</span> בתא הזה: שני עותקים &nbsp; <span style="color:#5FA8DC;font-weight:800">■</span> בתא הזה: עותק אחד</p>
+    <div class="controls">
+      <label>כמה כרכים בספר (ימינה: מעט, שמאלה: הרבה)
+        <input type="range" id="liE" min="1" max="11" step="1" value="2" oninput="liDraw(1)" aria-label="כמה כרכים" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <button class="btn small" onclick="liDeal(1)">חלקו פעם אחת</button>
+      <button class="btn small ghost" onclick="liDeal(1000)">חלקו <span class="num">1,000</span> פעמים</button>
+    </div>
+    <div class="controls">
+      <div class="readout">חלוקות: <b id="liOut">—</b></div>
+      <div class="readout">יצאו שלמות: <b id="liOut2">—</b></div>
+    </div>
+    <p class="cap" id="liMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="liReveal" hidden><span class="hand">!</span><p>חלוקה שלמה אחת מתוך בערך <span class="num">1,024</span>! כל כרך נוסף חוצה את הסיכוי. לכן כמעט כל התאים שאמורים להפוך לזרע או לאבקה יוצאים פגומים, והנקודות השחורות נשארות נקודות. זו הסיבה המרכזית שאין לה ילדים. (זה מודל פשוט. בטבע לפעמים נוצר בכל זאת זרע נדיר, ומגדלים מחפשים אותו שנים.)</p></div>
+
+  <div id="liAfter" hidden>
+  <p>ומאיפה הגיעה בננה עם שלושה עותקים? אחרי שחקלאים כבר גידלו בננות זמן רב, הורה נתן פעם בטעות שני עותקים במקום אחד. נולד צמח כמעט בלי זרעים, וחקלאים המשיכו לשתול אותו.</p>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>דמיינו שאתם צריכים לחלק ספרים לשתי כיתות, ובכל כיתה חייבת להיות אותה כמות מכל ספר. יש לכם שלושה עותקים מכל ספר, ומטבע מחליט לאן הולכים שניים. ספר אחד? תמיד יוצא בסדר. <span class="num">11</span> ספרים? כמעט תמיד יוצא בלגן. ככה בננה נשארת בלי ילדים, ובכל זאת ממשיכה לחיות: בעזרת הנצרים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה <span class="num">1,024</span>? הכרך הראשון נופל לאיזה צד שהוא, וזה קובע את הכלל: למשל "למעלה שניים". כל אחד מ־<span class="num">10</span> הכרכים האחרים צריך ליפול כמוהו, וזה סיכוי של <span class="math">½</span> בכל פעם. לכן עם <span class="math">n</span> כרכים הסיכוי הוא <span class="math">1 ÷ 2^(n−1)</span>, ועם <span class="num">11</span> כרכים <span class="math">1 ÷ 2^10 = 1 ÷ 1,024</span>. (כי <span class="math">2^10</span> הוא <span class="num">10</span> פעמים כפול <span class="num">2</span>.)</p>
+  </div>
+
+  <div class="q qc" id="priceQ"></div>
+  </div>
+  <p class="small" id="hint3" style="text-align:center">כדי להמשיך, סיימו את המעבדה.</p>
+  <div class="next"><button class="btn" id="next3" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE FUNGUS (interactive 4: the field) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>הפטרייה שלא עוזבת</h2>
+  <p>עד שנות ה־<span class="num">1950</span>, הבננה של הסופרים לא הייתה קוונדיש. היא הייתה <b>גרוס מישל</b>, "מיכאל הגדול", גם היא עותקים של צמח אחד. ואז התפשטה פטרייה שחיה באדמה. היא נכנסת דרך השורשים וחוסמת את הצינורות שמובילים מים בצמח, והוא מצהיב ונובל. קראו לזה <b>מחלת פנמה</b>. אין חומר שעוצר אותה, והיא נשארת באדמה עשרות שנים. מטע אחרי מטע נהרס, עד שהתעשייה עברה לקוונדיש, שהפטרייה ההיא לא פוגעת בו.</p>
+  <p>למה דווקא עותקים נפגעים כל כך? במעבדה נשחרר פטרייה במטע, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 4 — המטע ===== -->
+  <div class="panel instrument">
+    <h3>המטע</h3>
+    <p class="cap">נחשו קודם: במטע של <span class="num">144</span> צמחים זהים, פטרייה מגיעה לצמח אחד. כמה יידבקו בסוף?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="spP0" onclick="spPredict(0)">כ־<span class="num">10</span></button>
+        <button id="spP1" onclick="spPredict(1)">כ־<span class="num">70</span></button>
+        <button id="spP2" onclick="spPredict(2)">כולם</button>
+      </div>
+    </div>
+    <canvas role="img" id="spCv" width="640" height="600" aria-label="מטע של 144 משבצות. משבצות ירוקות הן צמחי קוונדיש, ומעוינים סגולים הם צמחים מזן עמיד. הפטרייה מתחילה במרכז ועוברת משבצת לשכנה, והצמחים שנדבקו הופכים לחומים עם איקס. הצמחים הסגולים לא נדבקים, ואם יש הרבה מהם הם עוצרים את הפטרייה"></canvas>
+    <p class="cap" style="margin:8px 0 0"><span style="color:var(--leaf2);font-weight:800">■</span> קוונדיש &nbsp; <span style="color:#7E52B8;font-weight:800">◆</span> זן עמיד &nbsp; <span style="color:var(--iron);font-weight:800">✕</span> נדבק</p>
+    <div class="controls">
+      <label>כמה צמחים עמידים במטע (ימינה: אין, שמאלה: הרבה)
+        <input type="range" id="spR" min="0" max="60" step="10" value="0" oninput="spDraw(1)" aria-label="כמה צמחים עמידים" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <button class="btn small" id="spGo" onclick="spRun()">שחררו פטרייה</button>
+    </div>
+    <div class="controls">
+      <div class="readout">עמידים: <b id="spOut">—</b></div>
+      <div class="readout">נדבקו: <b id="spOut2">—</b></div>
+    </div>
+    <p class="cap" id="spMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="spReveal" hidden><span class="hand">!</span><p>במטע של עותקים כולם נדבקים: מה שמזיק לצמח אחד מזיק לכולם. אבל כשמערבבים מספיק צמחים עמידים, הפטרייה נתקעת. לזה קוראים <b>גיוון</b>. (זה מודל: במטע אמיתי הפטרייה עוברת גם עם בוץ על נעליים, כלים ומי גשם, ולכן גם גיוון לא עוצר אותה לגמרי.)</p></div>
+
+  <div id="spAfter" hidden>
+  <p>והנה החדשות הרעות. בשנות ה־<span class="num">1990</span> התגלתה באסיה גרסה חדשה של הפטרייה, <b>TR4</b>, והיא הורגת גם קוונדיש. היא עברה מארץ לארץ, והגיעה לירדן. בקיץ <span class="num">2016</span> חקלאים ב<b>שפיה</b>, ממש ליד זיכרון יעקב, ראו צמחים מצהיבים, ואחר כך גם בעין גב שעל הכנרת. גידרו את השטח, השמידו את הצמחים והפסיקו להשקות. ב־<span class="num">2018</span> הודיעו שהמחלה חוסלה, ובאותה שנה נמצאו מוקדים חדשים בעמק הירדן. ב־<span class="num">2019</span> היא הגיעה לקולומביה, ובסוף <span class="num">2025</span> אושרה גם באקוודור, יצואנית הבננות הגדולה בעולם.</p>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>דמיינו כיתה שבה כל הלוקרים נפתחים באותו מפתח. גנב שמצא את המפתח פותח את כולם. אם לכל לוקר מנעול אחר, הגנב נתקע אחרי לוקר אחד. הפטרייה היא הגנב, ומטע קוונדיש הוא כיתה עם מפתח אחד.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>יש כאן רעיון ממתמטיקה שנקרא <b>חלחול</b>. בסימולציה הפטרייה עוברת רק לארבעה שכנים. כל עוד יש דרך רציפה של צמחים רגישים, היא חוצה את המטע. כשכמות העמידים עוברת סף, קצת יותר מ־<span class="num">40%</span>, הדרכים נחתכות, והפטרייה נתקעת בכיס קטן. שימו לב שזה לא משתנה לאט: ליד הסף שינוי קטן הופך "כמעט כולם" ל"מעט מאוד". אותה מתמטיקה מופיעה גם בשריפות יער ובחיסונים.</p>
+  </div>
+
+  <div class="q qc" id="siteQ"></div>
+  </div>
+  <p class="small" id="hint4" style="text-align:center">כדי להמשיך, סיימו את המעבדה.</p>
+  <div class="next"><button class="btn" id="next4" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: SAVING THE BANANA (figure) + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>איך מצילים בננה?</h2>
+  <p>עכשיו אפשר להרכיב את הסיפור כולו, בארבע תמונות.</p>
+
+  <figure class="calfig" aria-label="ארבע תמונות. בתמונה 1 צמח בננה בגינה בגינאה החדשה. בתמונה 2 צמח בננה בחממה באנגליה. בתמונה 3 מטע של צמחים נובלים. בתמונה 4 גדר סביב צמח חולה בשפיה">
+    <svg viewBox="0 0 640 600" role="img" aria-hidden="true" focusable="false">
+      <defs><clipPath id="fp0"><rect x="0" y="0" width="300" height="286" rx="14"/></clipPath>
+        <g id="bplant"><rect x="-7" y="-10" width="14" height="96" rx="6" fill="#7FA650"/><path d="M0 -6 C-30 -44 -66 -44 -86 -18 C-56 -24 -28 -16 0 -2Z" fill="#3E9A62"/><path d="M0 -6 C30 -44 66 -44 86 -18 C56 -24 28 -16 0 -2Z" fill="#2F7D4F"/><path d="M0 -6 C-10 -46 -6 -74 12 -92 C20 -60 16 -30 0 -2Z" fill="#4DA36A"/><path d="M-4 22 q-14 12 -10 30 M0 24 q-4 14 2 30 M4 22 q14 12 10 30" stroke="#E2B93B" stroke-width="7" fill="none" stroke-linecap="round"/></g>
+      </defs>
+      <g transform="translate(330,10)"><g clip-path="url(#fp0)"><rect width="300" height="286" fill="#CFE8C8"/><rect y="190" width="300" height="96" fill="#B08A55"/><use href="#bplant" transform="translate(150,110)"/><rect x="40" y="226" width="220" height="44" rx="10" fill="#FFFFFF"/><text x="150" y="257" text-anchor="middle" font-family="Rubik,Arial" font-size="26" font-weight="700" fill="#1B1F33">גינאה החדשה</text></g><circle cx="274" cy="26" r="20" fill="#F6C454" stroke="#1B1F33" stroke-width="2"/><text x="274" y="35" text-anchor="middle" font-family="Rubik,Arial" font-size="24" font-weight="800" fill="#1B1F33">1</text></g>
+      <g transform="translate(10,10)"><g clip-path="url(#fp0)"><rect width="300" height="286" fill="#DCEAF5"/><path d="M36 214 V96 C36 30 264 30 264 96 V214Z" fill="#FFFFFF" fill-opacity=".65" stroke="#2F6F9F" stroke-width="5"/><path d="M110 44 V214 M190 44 V214 M36 110 H264" stroke="#2F6F9F" stroke-width="3"/><use href="#bplant" transform="translate(150,124) scale(.8)"/><rect x="50" y="226" width="200" height="44" rx="10" fill="#FFFFFF"/><text x="150" y="257" text-anchor="middle" font-family="Rubik,Arial" font-size="26" font-weight="700" fill="#1B1F33">חממה באנגליה</text></g><circle cx="274" cy="26" r="20" fill="#F6C454" stroke="#1B1F33" stroke-width="2"/><text x="274" y="35" text-anchor="middle" font-family="Rubik,Arial" font-size="24" font-weight="800" fill="#1B1F33">2</text></g>
+      <g transform="translate(330,304)"><g clip-path="url(#fp0)"><rect width="300" height="286" fill="#F3E2B8"/><rect y="176" width="300" height="110" fill="#8C5A3C"/><g fill="none" stroke="#8A7A2E" stroke-width="9" stroke-linecap="round"><path d="M70 196 V116 C50 106 36 124 28 150"/><path d="M70 116 C92 104 106 124 112 148"/><path d="M150 196 V96 C128 86 114 106 106 136"/><path d="M150 96 C172 84 186 106 194 134"/><path d="M230 196 V116 C210 106 196 124 188 150"/><path d="M230 116 C252 104 266 124 272 148"/></g><rect x="30" y="226" width="240" height="44" rx="10" fill="#FFFFFF"/><text x="150" y="257" text-anchor="middle" font-family="Rubik,Arial" font-size="26" font-weight="700" fill="#1B1F33">מחלת פנמה</text></g><circle cx="274" cy="26" r="20" fill="#F6C454" stroke="#1B1F33" stroke-width="2"/><text x="274" y="35" text-anchor="middle" font-family="Rubik,Arial" font-size="24" font-weight="800" fill="#1B1F33">3</text></g>
+      <g transform="translate(10,304)"><g clip-path="url(#fp0)"><rect width="300" height="286" fill="#D6E6EF"/><rect y="176" width="300" height="110" fill="#B08A55"/><use href="#bplant" transform="translate(150,94) scale(.8)"/><g stroke="#3E4452" stroke-width="6"><path d="M30 120 V206 M90 120 V206 M150 120 V206 M210 120 V206 M270 120 V206"/><path d="M20 136 H280 M20 166 H280 M20 196 H280" stroke-width="3"/></g><rect x="50" y="226" width="200" height="44" rx="10" fill="#FFFFFF"/><text x="150" y="257" text-anchor="middle" font-family="Rubik,Arial" font-size="26" font-weight="700" fill="#1B1F33">גדר בשפיה</text></g><circle cx="274" cy="26" r="20" fill="#F6C454" stroke="#1B1F33" stroke-width="2"/><text x="274" y="35" text-anchor="middle" font-family="Rubik,Arial" font-size="24" font-weight="800" fill="#1B1F33">4</text></g>
+    </svg>
+    <figcaption>קוראים מימין לשמאל, לפי המספרים: לפני יותר מ־<span class="num">7,000</span> שנה, שנות ה־<span class="num">1830</span>, שנות ה־<span class="num">1950</span>, <span class="num">2016</span>.</figcaption>
+  </figure>
+
+  <p>החדשות הטובות: בעולם יש יותר מ־<span class="num">1,000</span> זנים של בננות, וקוונדיש הוא רק אחד מהם. רוב הבננות בעולם נאכלות במקום שבו גדלו, בהודו, בסין ובאפריקה, ורבות מהן בכלל לא קוונדיש. וגם בננות הבר המעצבנות, אלה עם הגרעינים, שומרות בתוכן פתרונות. בעיר לוון בבלגיה, רחוק מכל מטע, שומרים אוסף ענק של זני בננה, כמו ספרייה.</p>
+  <p>ב־<span class="num">2024</span> אישרו באוסטרליה בננה שפיתח הצוות של <b>ג׳יימס דייל</b>: קוונדיש שהוסיפו לו גן מבננת בר עמידה. בטייוואן מצאו שתילים שעמידים חלקית. אבל אף אחד מאלה לא נראה כמו הפתרון הסופי. הפתרון כנראה לא יהיה בננה מושלמת אחת, אלא <b>הרבה בננות שונות</b>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>יש בננות אדומות, בננות קטנות כמו אצבע, ובננות שמבשלים כמו תפוח אדמה. אולי כשתהיו גדולים, בסופר יהיו חמישה סוגים של בננות, כמו שיש היום הרבה סוגים של תפוחים. לא נורא, נכון?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>כמה קוונדיש יש בעולם? ארגון המזון של האו״ם מעריך כ־<span class="num">50</span> מיליון טונות בשנה, "קצת פחות מחצי". כל הבננות יחד הן כ־<span class="num">120</span> מיליון טונות (נתון של <span class="num">2020</span> מדוח אחר): <span class="math">50 ÷ 120 ≈ 42%</span>. לכן "כל הבננות בעולם הן אותו צמח" אינו מדויק. מדויק יותר: כמעט כל בננה שעוברת בין מדינות היא קוונדיש. המחיר של הנוחות הזאת הוא סיכון: כל הסחר העולמי בבננות נשען על צמח אחד.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> נניח שבעולם גדלים <span class="num">50</span> מיליון טונות קוונדיש בשנה, ושבננה אחת שוקלת <span class="num">150</span> גרם, עם הקליפה. טון אחד הוא <span class="math">1,000,000</span> גרם. (א) כמה <b>מיליארדי</b> בננות זה בשנה? (ב) אם מחלקים אותן שווה בשווה בין <span class="num">8</span> מיליארד בני אדם, כמה בננות מקבל כל אחד בשנה? (עגלו למספר שלם.)</p>
+      <div class="controls">
+        <label>(א) מיליארדי בננות <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) בננות לאדם <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> בשנות ה־<span class="num">1950</span> החליפו זן אחד בזן אחר, וזה עבד עשרות שנים. נניח שמחר נמצא זן חדש שעמיד ל־TR4, ומחליפים בו את כל המטעים. למה הבעיה עלולה לחזור? מה הייתם עושים אחרת?</p>
+      <details><summary>רמז</summary><p>גם הפטרייה משתנה. כמה שינויים צריכה פטרייה כדי לתקוף את כל המטעים, אם כולם שוב אותו צמח?</p></details>
+      <details><summary>התשובה</summary><p><b>כי החלפנו שיבוט בשיבוט.</b> הפטרייה ממשיכה להשתנות, וגרסה חדשה שתוקפת את העותק תתקוף את כולם בבת אחת. במקום זן אחד כדאי לגדל כמה זנים, ולהחליף ביניהם בין מטע למטע, כך שאף פטרייה לא תמצא דרך רציפה. זה עולה יותר ופחות נוח למשלוח, ולכן זו גם שאלה של כסף, לא רק של מדע.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>ניסוי אחד, ועוד שניים למי שרוצה. צריך בננה, פרוסת אבטיח או עגבנייה, סכין עם מבוגר לידכם, ולמי שרוצה גם צמר גפן, קיסם, עדשים, חפיסת קלפים ומטבע.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — מחפשים את הזרעים (<span class="num">5</span> דקות)</h3>
+    <ol>
+      <li>חתכו פרוסה רוחבית של בננה, בעזרת מבוגר. כמה נקודות שחורות אתם סופרים?</li>
+      <li>השוו לזרעים של אבטיח או של עגבנייה. מה ההבדל בגודל ובקושי?</li>
+      <li>קלפו בננה, ודחפו בעדינות אצבע לתוך הקצה. היא נחצית לאורך לשלושה חלקים!</li>
+    </ol>
+    <p class="small" style="margin:0">ואחרי הניסוי — לאכול!</p>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — הניסוי של הנקודות (<span class="num">2</span> דקות היום, שבועיים של סבלנות)</summary>
+    <ol>
+      <li>הוציאו בעזרת קיסם כמה נקודות שחורות מבננה, והניחו אותן על צמר גפן רטוב.</li>
+      <li>לידן הניחו כמה עדשים או שעועית. שמרו על צמר הגפן לח.</li>
+      <li>מי נובט בתוך שבועיים? ומי לא נובט לעולם?</li>
+    </ol>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — חלוקת הכרכים בקלפים (<span class="num">10</span> דקות)</summary>
+    <p>קחו מחפיסה קלפים של <span class="num">4</span> מספרים, <span class="num">3</span> עותקים מכל מספר. לכל מספר הטילו מטבע: עץ — שניים ליד ימין ואחד ליד שמאל, פלי — להפך. אם בכל המספרים היד הימנית קיבלה אותה כמות, החלוקה שלמה. חזרו <span class="num">16</span> פעמים. המתמטיקה מנבאת בערך <span class="num">2</span> חלוקות שלמות: <span class="math">16 ÷ 8 = 2</span>. כמה יצא לכם?</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>האם הבננה תיעלם?</h2>
+  <p>בעיתונים מופיעות לפעמים כותרות כמו "הבננות נכחדות". זה מוגזם. בננות לא ייעלמו מהעולם: יש יותר מאלף זנים, והן גדלות בכ־<span class="num">150</span> מדינות. מה שבסכנה הוא הקוונדיש, ובמיוחד מטעים ענקיים של אותו זן. גם כאן המומחים לא מסכימים: יש מי שחושב שהמחלה תעלה מאוד את מחיר הבננה, ויש מי שחושב שמגדלים ילמדו לחיות איתה, כמו שקרה בחלק מהמטעים באסיה. אף אחד לא יודע בוודאות.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>כמעט כל בננה בסופר היא עותק של אותו צמח</b>, כי לבננה יש שלושה עותקים של כל כרך, ולכן אין לה זרעים. בלי זרעים אין ערבוב, ובלי ערבוב מה שמזיק לאחת מזיק לכולן. שאלה לחקור: מה עוד בסופר מגיע בסוג אחד בלבד?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>בחירה משנה מינים</b>: אלפי שנים של נגיסות הפכו פרי מלא אבנים לפרי הכי נוח בעולם. <b>הסתברות מסבירה ביולוגיה</b>: <span class="math">1 ÷ 1,024</span> מסביר למה כמעט אין זרעים. <b>יעילות היא גם סיכון</b>: זן אחד הוא נוח, זול וזהה, ודווקא לכן שביר. שאלה לחקור: איפה עוד אנחנו בוחרים "הכי יעיל" במחיר של "הכי שביר"?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הסיפור?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ביולוגיה · חקלאות</div><h3>אבטיח בלי גרעינים</h3><p>גם הוא משתמש באותו טריק: שלושה עותקים של כל כרומוזום. לכן הזרעים נשארים לבנים ורכים. אבל בניגוד לבננה, צריך לגדל אותו מחדש בכל שנה, בעזרת הצלבה מיוחדת.</p></div>
+    <div class="tile"><div class="dom">היסטוריה · גאוגרפיה</div><h3>תפוח האדמה של אירלנד</h3><p>באירלנד של שנות ה־<span class="num">1840</span> רבים גידלו זן יחיד של תפוחי אדמה, ושתלו אותו מחתיכות, כמו בננה. כשמחלה הגיעה, היבול נהרס שנים ברצף, והארץ ידעה רעב נורא.</p></div>
+    <div class="tile"><div class="dom">הנדסה · כימיה</div><h3>הספינה הירוקה</h3><p>בננות נקטפות ירוקות ונוסעות בספינות קרות, שבהן הן "ישנות". בנמל מכניסים אותן לחדרים עם גז בשם אתילן, הגז שפירות מייצרים לבד, והן מבשילות כמעט לפי פקודה.</p></div>
+    <div class="tile"><div class="dom">גאוגרפיה · מספרים</div><h3>מי אוכל את הבננות?</h3><p>הודו, סין ואינדונזיה הן המגדלות הגדולות, אבל רוב היבול שלהן נשאר בבית. רק כחמישית מהבננות בעולם מיוצאות, בעיקר מאקוודור, מהפיליפינים ומקוסטה ריקה.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): הבננה הרדיואקטיבית</summary>
+    <p>בבננה יש אשלגן, ומעט קטנטן ממנו רדיואקטיבי באופן טבעי. פיזיקאים אפילו המציאו בצחוק יחידה: "מנת בננה". האם צריך לדאוג? נחשו לפני שאתם פותחים.</p>
+    <details><summary>התשובה</summary>
+      <p><b>לא.</b> מנת הקרינה מבננה היא קטנטנה, בערך אחוז אחד ממה שגוף מקבל ביום אחד מהסביבה. הגוף שומר על כמות קבועה של אשלגן, ומוציא את העודף תוך זמן קצר. לכן אפשר ליהנות מהבננה, ולשמור את היחידה לבדיחות בשיעור פיזיקה.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את הסיפור של הבננה, מההתחלה עד הסוף. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: בספר ההוראות של בננה יש <span class="num">11</span> כרכים, ובבננה מהסופר יש <span class="num">3</span> עותקים של כל כרך. כמה כרכים יש בסך הכול בתא אחד?</div>
+    <div class="controls"><label>כרכים <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: לצמח דמיוני יש <span class="num">13</span> כרכים שונים, <span class="num">3</span> עותקים מכל כרך. לפי הכלל <span class="math">2^(n−1)</span>: (א) הסיכוי לחלוקה שלמה הוא <span class="num">1</span> מתוך כמה? (ב) חוקרת בודקת <span class="num">30,000</span> תאים. כמה חלוקות שלמות היא צריכה לצפות למצוא? (ספרה אחת אחרי הנקודה.)</div>
+    <div class="controls"><label>(א) <span class="num">1</span> מתוך <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) חלוקות שלמות <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: עם <span class="num">3</span> כרכים הסיכוי לחלוקה שלמה הוא <span class="num">1</span> מתוך <span class="num">4</span>. עם <span class="num">4</span> כרכים הוא <span class="num">1</span> מתוך <span class="num">8</span>. כל כרך נוסף חוצה את הסיכוי. עם <span class="num">9</span> כרכים, הסיכוי הוא <span class="num">1</span> מתוך כמה?</div>
+    <div class="controls"><label><span class="num">1</span> מתוך <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה כמעט כל הבננות בסופר הן אותו צמח, ולמה זה מסוכן?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="הבננות בסופר הן..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. כמעט כל בננה בסופר היא עותק של אותו צמח. אין לה אבא ואימא: שותלים נבט שצומח לצידה, והוא היא.<br>
+    2. הנקודות השחורות בפרוסה הן זרעים שלא גדלו, כי לבננה יש שלושה עותקים של כל כרומוזום, ושלושה לא מתחלקים שווה: הסיכוי לחלוקה שלמה הוא בערך <span class="math">1 ÷ 1,024</span>.<br>
+    3. מפני שהן עותקים, פטרייה אחת מאיימת על כולן. כבר קרה לבננה הקודמת, גרוס מישל, והפטרייה החדשה הגיעה ב־<span class="num">2016</span> גם לשפיה, ליד זיכרון יעקב.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>מוצא וביות: ProMusa, "Domestication of the banana": גינאה החדשה, לפחות <span class="num">7,000</span> שנה לפני היום; פרתנוקרפיה; חוסר פוריות; היווצרות טריפלואידים. כרומוזומים: Heslop-Harrison &amp; Schwarzacher, "Domestication, Genomics and the Future for Banana", ו־"Banana Molecular Cytogenetics" (University of Leicester): <span class="math">x = 11</span>, <span class="math">2n = 33</span> בטריפלואידים, וזרעים נדירים אחרי הצלבות רבות. הסיכוי <span class="math">1 ÷ 2^(n−1)</span> הוא חישוב קלאסי של גמטה מאוזנת בטריפלואיד (חלוקה <span class="math">2:1</span> אקראית לכל כרומוזום), והוא מודל: לא כל הכרומוזומים מתנהגים כך, והוא אינו הסבר שלם לפוריות הירודה.</p>
+    <p>קוונדיש: Chatsworth House, "The Chatsworth Banana" (צמח ממאוריציוס ב־<span class="num">1830</span>, פריחה ב־<span class="num">1835</span>, מדליה, שני ארגזים למיסיונר, ואחד הגיע לסמואה); Wikipedia, "Cavendish banana" נותנת כ־<span class="num">1834</span>, ולכן כתבנו "שנות ה־<span class="num">1830</span>". הטענה ש"כמעט כל בננה" באה מצ׳אטסוורת׳ היא של האחוזה, והיסטוריונים מציינים ייבואים אחרים, ולכן נכתב "כך מספרים באחוזה". Wikipedia, "Joseph Paxton": בן של חקלאים. שיעור בשוק: IISD, 2023 Global Market Report: Banana (<span class="num">120</span> מיליון טונות, <span class="num">150</span> מדינות, כחמישית מיוצאת; הודו, סין ואינדונזיה מגדלות; אקוודור, הפיליפינים וקוסטה ריקה מייצאות). FAO, "Bananas": קוונדיש כ־<span class="num">50</span> מיליון טונות, "מעט פחות מחצי"; TR4 ב־<span class="num">21</span> מדינות. האחוז <span class="num">42</span> בשיעור מחושב משני המקורות, משנים לא זהות. הכותרת "כולן אותו צמח" נכונה לבננות הסופר, ולא לכל הבננות בעולם; השיעור אומר זאת במפורש. קוונדיש הוא קבוצת זנים קרובים (כגון Grand Naine), שנבדלים במוטציות, ולא עותק מושלם.</p>
+    <p>המחלה: Scientific American, "Banana-Threatening Fungus" (גרוס מישל, TR4, קושי לנקות קרקע); FAO. ישראל: Maymon et al., Scientific Reports <span class="num">10</span> (<span class="num">2020</span>); ProMusa, "NPPO declares TR4 eradicated from Israel" ו־"Update on TR4 in Israel"; EPPO Global Database (סטטוס "Transient", מידע מ־<span class="num">2020</span>; לא מצאנו עדכון חדש יותר, ולכן לא כתבנו מה המצב היום). אקוודור: EastFruit (ינואר <span class="num">2026</span>). פתרונות: Fresh Fruit Portal (פברואר <span class="num">2024</span>), QCAV-4; לוון: FreshPlaza, Gulf Times (כ־<span class="num">1,500</span> זנים). בננה רדיואקטיבית: Wikipedia, "Banana equivalent dose". אבטיח: Wikipedia, "Seedless fruit". אירלנד: הרעב הגדול וזן Lumper הם ידע היסטורי מקובל, ולא נבדק במקור ראשוני היום; ספינות ואתילן: ידע טכנולוגי מקובל.</p>
+    <p>פישוטים במכוון: "חזרה בזמן" סכמטי, ומספר הגרעינים וגודלם לדוגמה. "שושלת ההוראות" מראה ממוצע מדויק של <span class="math">½</span> בכל דור; בפועל יש שונות. "חלוקת הכרכים" משתמשת במטבע אמיתי, ולכן התוצאה משתנה מריצה לריצה. "המטע" הוא מודל חלחול, עם ארבעה שכנים ופיזור קבוע של העמידים; הסף התיאורטי של חלחול אתרים בסריג ריבועי הוא כ־<span class="num">0.59</span> רגישים, כלומר כ־<span class="num">41%</span> עמידים. פטרייה אמיתית עוברת גם בקרקע, במים ובכלים. במספרי האתגר המשקל של <span class="num">150</span> גרם הוא הנחה, וחלק מהיבול הוא גבעולים ולא פרי.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:55, code:'WOW-055', date:'2026-11-06', title:'הבננה שאין לה הורים — וכולן בעצם אותו צמח', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '153Xmdeo15XXlCDXmdec15Eg15TXoNeg15E='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'biology', w:3 }, { id:'math', w:2 }, { id:'history', w:2 }, { id:'earth', w:1 } ],
+  hero: { name:'הבננה שאין לה הורים — וכולן בעצם אותו צמח — חזרה בזמן, שושלת ההוראות, חלוקת הכרכים והמטע', fact:'כמעט כל בננה בסופר היא עותק של אותו צמח: עם שלושה עותקים של כל כרומוזום, כמעט אין לה זרעים.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'prior-knowledge',       d:1 },
+    'qc:storyQ':      { skill:'observation',           d:1 },
+    'qc:snailQ':      { skill:'heredity',              d:2 },
+    'qc:priceQ':      { skill:'probability',           d:3 },
+    'qc:siteQ':       { skill:'diversity',             d:2 },
+    'qc:deepQ':       { skill:'genetic-resources',     d:3 },
+    'mcq:shared:0':   { skill:'heredity',              d:2 },
+    'mcq:shared:1':   { skill:'chromosomes',           d:3 },
+    'mcq:shared:2':   { skill:'diversity',             d:2 },
+    'mcq:younger:0':  { skill:'history-of-science',    d:1 },
+    'mcq:older:0':    { skill:'powers-of-two',         d:4 },
+    'order':          { skill:'mechanism-sequence',    d:2 },
+    'num:younger':    { skill:'multiplication',        d:1 },
+    'num:older':      { skill:'powers-of-two',         d:2 },
+    'num:adv':        { skill:'probability-expected-value', d:4 },
+    'challenge':      { skill:'unit-conversion-estimate', d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); stDraw(0); } if(n===2) coDraw(0); if(n===3) liDraw(0); if(n===4) spDraw(0); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: how many plants grow from 100 specks? ----------
+   Four choices. The right answer: 1 — none. The specks are undeveloped seeds of a sterile triploid. */
+const SCALE_ANS = 1;
+const fmtSigns = n => ({1:'אף שתיל',2:'כ־10 שתילים',3:'כ־50 שתילים',4:'כמעט כולם'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> אף שתיל. הנקודות נראות כמו זרעים, אבל הן זרעים שמעולם לא גדלו. אז איך נולדות בננות חדשות? על זה השיעור.';
+const SCALE_FB = {
+  1: SCALE_FB_RIGHT,
+  2: '<span class="pill-bad">גם זה הרבה מדי!</span> לא יצמח אף שתיל. הנקודות הן זרעים שמעולם לא גדלו. אז איך נולדות בננות חדשות? על זה השיעור.',
+  3: '<span class="pill-bad">הרבה פחות!</span> לא יצמח אף שתיל. הנקודות הן זרעים שמעולם לא גדלו. אז איך נולדות בננות חדשות? על זה השיעור.',
+  4: '<span class="pill-bad">הפתעה!</span> לא יצמח אף שתיל. הנקודות נראות כמו זרעים, אבל הן זרעים שמעולם לא גדלו. אז איך נולדות בננות חדשות? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI, DEG = PI/180;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const GOLDT = () => isDark() ? '#F6C454' : '#8A5410';     // gold for text
+const GRAPH = () => isDark() ? '#B7BFD2' : '#3E4452';     // graphite grey
+const BLUE = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+const ORNG = () => isDark() ? '#F2A066' : '#C8601F';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+const fmt1 = v => (Math.round(v*10)/10).toLocaleString('en-US');
+const fmtI = v => Math.round(v).toLocaleString('en-US');
+/* ---------- this edition's picture colours ---------- */
+const INK = () => css('--ink');
+const PAPER = () => css('--calpage');
+const NIGHT = () => isDark() ? '#0B1226' : '#1A2238';
+const SIG = () => isDark() ? '#F2A066' : '#C8601F';     // the signal
+const MACH = () => isDark() ? '#6FB2E8' : '#2F6F9F';    // the human machine
+function xRand(s){ let x=Math.sin(s*12.9898)*43758.5453; return x-Math.floor(x); }
+function xMath(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+
+/* ---------- step 1 (interactive 1): back in time, the slice (canvas 640 × 600) ----------
+   t=100: today's slice, tiny dark specks. t=0: wild fruit, the seeds fill the slice. Schematic: wild bananas vary. */
+const stCv=document.getElementById('stCv'), stctx=stCv.getContext('2d');
+const ST={ opened:0, pred:-1, revealed:0 };
+function stPredict(k){ ST.pred=k; segOn('stP',3,k); WOW.emit('item', { id:'star:predict', kind:'quick', correct:k===2, attempt: wowTry('star:predict') });
+  stMsg.innerHTML='רשמנו את הניחוש. עכשיו גררו את המחוון ימינה, אחורה בזמן, והסתכלו על הנקודות.'; stDraw(0); }
+const ST_SEEDS=(()=>{ const a=[]; [[0,0]].forEach(p=>a.push(p)); for(let k=0;k<3;k++){ const th=-PI/2+k*2*PI/3; a.push([.26*Math.cos(th),.26*Math.sin(th)]); for(const d of [-.34,.34]) a.push([.56*Math.cos(th+d),.56*Math.sin(th+d)]); const th2=th+PI/3; a.push([.42*Math.cos(th2),.42*Math.sin(th2)]); } return a; })();
+function stDraw(user){
+  const c=stctx, W=stCv.width, H=stCv.height, ink=INK();
+  if(user===1 && ST.pred<0){ stD.value=100; predictFirst(stMsg,'הזיזו'); }
+  const v=+stD.value, t=v/100, wild=1-t;
+  if(user && !ST.opened && ST.pred>=0 && v<95){ ST.opened=1; WOW.emit('open', { id:'star' }); }
+  c.clearRect(0,0,W,H);
+  c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  const cx=320, cy=240, R=214;
+  /* the peel, the flesh, the three lobes */
+  c.fillStyle=isDark()?'#E0B23A':'#F2C744'; c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.arc(cx,cy,R,0,2*PI); c.fill(); c.stroke();
+  c.fillStyle='#FFF4CF'; c.beginPath(); c.arc(cx,cy,R-20,0,2*PI); c.fill();
+  c.strokeStyle='#E6CF8E'; c.lineWidth=4; for(let k=0;k<3;k++){ const th=-PI/2+k*2*PI/3+PI/3; c.beginPath(); c.moveTo(cx,cy); c.lineTo(cx+(R-22)*Math.cos(th),cy+(R-22)*Math.sin(th)); c.stroke(); }
+  /* the seeds: from specks to hard stones */
+  const r=5+wild*33, spread=(R-20)*(.34+.72*wild);
+  ST_SEEDS.forEach(([sx,sy])=>{ const x=cx+sx*spread*1.05, y=cy+sy*spread*1.05; c.fillStyle='#2A1C10'; c.beginPath(); c.ellipse(x,y,r,r*.82,Math.atan2(sy||.1,sx||.1),0,2*PI); c.fill(); if(r>18){ c.fillStyle='#6A4A2C'; c.beginPath(); c.ellipse(x-r*.3,y-r*.28,r*.26,r*.16,.6,0,2*PI); c.fill(); } });
+  /* the "edible" meter */
+  const edible=clamp(.14+.82*t,0,1), mx=70, my=470, mw=500, mh=34;
+  c.fillStyle=css('--card'); c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.roundRect(mx,my,mw,mh,12); c.fill(); c.stroke();
+  c.fillStyle=GOLD(); c.beginPath(); c.roundRect(mx+mw-mw*edible,my,mw*edible,mh,12); c.fill();
+  xLabel(c,'כמה יש לאכול',320,546,24,ink,.95);
+  const years = Math.round((1-t)*7000/100)*100;
+  stOut.innerHTML = years<100 ? 'היום' : 'לפני כ־<span class="num">'+fmtI(years)+'</span> שנה';
+  stOut2.textContent = wild<.2 ? 'נקודות קטנטנות' : wild<.6 ? 'בינוניים' : 'גדולים וקשים';
+  if(ST.pred>=0 && v<=8 && !ST.revealed){ ST.revealed=1; stReveal.hidden=false; stAfter.hidden=false; hint1.textContent='ענו על השאלה כדי להמשיך.'; }
+  if(user===1 && ST.pred>=0){
+    if(v>70) stMsg.innerHTML='המשיכו אחורה בזמן. מה קורה לנקודות?';
+    else if(v>25) stMsg.innerHTML='הן גדלות! ומה קורה לחלק שאפשר לאכול?';
+    else if(v>8) stMsg.innerHTML='כמעט הגעתם לבננה הקדומה. עוד קצת.';
+    else stMsg.innerHTML='זו בננת בר: הרבה גרעינים, מעט מאוד אוכל.';
+  }
+}
+
+/* ---------- step 2 (interactive 2): shoots vs seeds (canvas 640 × 600) ----------
+   Six generation cards, 32 cells each. Gold = instructions of the first plant. Shoots: all stay gold. Seeds: exactly half of the remaining gold cells stay in each generation (the average). */
+const coCv=document.getElementById('coCv'), coctx=coCv.getContext('2d');
+const CO={ opened:0, pred:-1, revealed:0, mode:0, seen:[0,0] };
+const CO_ORDER=[...Array(32).keys()].sort((a,b)=>xRand(a+3)-xRand(b+3));
+function coPredict(k){ CO.pred=k; segOn('coP',3,k); WOW.emit('item', { id:'tick:predict', kind:'quick', correct:k===2, attempt: wowTry('tick:predict') });
+  coMsg.innerHTML='רשמנו את הניחוש. גררו את המחוון עד דור <span class="num">5</span>, ואז נסו את אותו דבר עם זרעים.'; coDraw(0); }
+function coMode(m){ if(CO.pred<0){ predictFirst(coMsg,'החליפו דרך'); return; } CO.mode=m; segOn('coM',2,m); coDraw(1); }
+function coPlant(c,x,y,col){ c.strokeStyle=col; c.lineWidth=9; c.lineCap='round'; c.beginPath(); c.moveTo(x,y+36); c.lineTo(x,y-12); c.stroke(); c.lineWidth=7; c.beginPath(); c.moveTo(x,y-12); c.quadraticCurveTo(x-26,y-34,x-44,y-8); c.moveTo(x,y-12); c.quadraticCurveTo(x+26,y-34,x+44,y-8); c.moveTo(x,y-12); c.quadraticCurveTo(x-6,y-34,x+10,y-44); c.stroke(); c.lineCap='butt'; }
+function coDraw(user){
+  const c=coctx, W=coCv.width, H=coCv.height, ink=INK();
+  if(user===1 && CO.pred<0){ coS.value=0; predictFirst(coMsg,'הזיזו'); }
+  const g=+coS.value, m=CO.mode;
+  if(user && !CO.opened && CO.pred>=0 && g>0){ CO.opened=1; WOW.emit('open', { id:'tick' }); }
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  const cw=200, ch=286, gx=10, gy=10;
+  for(let k=0;k<6;k++){
+    const col=k%3, row=Math.floor(k/3), x=W-gx-(col+1)*cw-col*gx, y=gy+row*(ch+gy), on=k<=g;
+    c.globalAlpha=on?1:.38; c.fillStyle=css('--card'); c.strokeStyle=k===g?GOLD():css('--line'); c.lineWidth=k===g?5:2; c.beginPath(); c.roundRect(x,y,cw,ch,14); c.fill(); c.stroke();
+    xText(c,'דור '+k,x+cw/2,y+30,22,ink,'center');
+    if(on){
+      coPlant(c,x+cw/2,y+98,isDark()?'#5FBF7F':'#2F7D4F');
+      const keep = m===0 ? 32 : Math.round(32/Math.pow(2,k)), cs=22, ox=x+(cw-8*cs)/2, oy=y+148;
+      const goldSet=new Set(CO_ORDER.slice(0,keep));
+      for(let i=0;i<32;i++){ const cx=ox+(i%8)*cs, cy=oy+Math.floor(i/8)*cs; c.fillStyle=goldSet.has(i)?GOLD():BLUE(); c.strokeStyle=css('--card'); c.lineWidth=2; c.fillRect(cx,cy,cs,cs); c.strokeRect(cx,cy,cs,cs); }
+      const pct = m===0 ? 100 : 100/Math.pow(2,k);
+      xMath(c,(pct%1?pct.toFixed(pct<10?2:1):pct)+'%',x+cw/2,y+262,22,ink);
+    }
+    c.globalAlpha=1;
+  }
+  const pct = m===0 ? 100 : 100/Math.pow(2,g);
+  coOut.innerHTML='<span class="num">'+g+'</span>';
+  coOut2.innerHTML='<span class="num">'+(pct%1?pct.toFixed(pct<10?2:1):pct)+'%</span>';
+  if(CO.pred>=0 && g===5) CO.seen[m]=1;
+  if(CO.pred>=0 && CO.seen[0] && CO.seen[1] && !CO.revealed){ CO.revealed=1; coReveal.hidden=false; coAfter.hidden=false; hint2.textContent='ענו על השאלה כדי להמשיך.'; }
+  if(user && CO.pred>=0){
+    if(m===0 && g<5) coMsg.innerHTML='נצר של נצר: הכול נשאר צהוב? המשיכו עד דור <span class="num">5</span>.';
+    else if(m===0) coMsg.innerHTML= CO.seen[1] ? 'הכול צהוב, בכל הדורות: אותו צמח שוב ושוב.' : 'הכול צהוב. עכשיו לחצו על "זרעים", והשוו.';
+    else if(g<5) coMsg.innerHTML='בזרעים כל דור מקבל חצי מכל הורה. הכחול בא מההורים החדשים. המשיכו עד דור <span class="num">5</span>.';
+    else coMsg.innerHTML= CO.seen[0] ? 'כמעט לא נשאר צהוב: נשארה משבצת אחת מתוך <span class="num">32</span>.' : 'נשארה משבצת אחת. עכשיו נסו את "שתילת נצרים".';
+  }
+}
+
+/* ---------- step 3 (interactive 3): dealing the volumes (canvas 640 × 600) ----------
+   n volumes, 3 copies each. Each volume sends 2 up and 1 down, or the reverse, by a coin. A deal is whole when all columns agree: chance 1 in 2^(n−1). */
+const liCv=document.getElementById('liCv'), lictx=liCv.getContext('2d');
+const LI={ opened:0, pred:-1, revealed:0, n:2, tries:0, hits:0, last:[], big:0 };
+function liPredict(k){ LI.pred=k; segOn('liP',3,k); WOW.emit('item', { id:'beam:predict', kind:'quick', correct:k===2, attempt: wowTry('beam:predict') });
+  liMsg.innerHTML='רשמנו את הניחוש. התחילו ב־<span class="num">2</span> כרכים ולחצו "חלקו" כמה פעמים. אחר כך הוסיפו כרכים עד <span class="num">11</span>.'; liDraw(0); }
+function liDealOne(n){ const a=[]; for(let i=0;i<n;i++) a.push(Math.random()<.5?1:2); return a; }
+function liWhole(a){ return a.every(v=>v===a[0]); }
+function liDeal(k){ if(LI.pred<0){ predictFirst(liMsg,'חלקו'); return; } const n=+liE.value; let a=[]; for(let i=0;i<k;i++){ a=liDealOne(n); LI.tries++; if(liWhole(a)) LI.hits++; } LI.last=a; if(k>=1000 && n===11) LI.big=1; liDraw(2); }
+function liDraw(user){
+  const c=lictx, W=liCv.width, H=liCv.height, ink=INK();
+  if(user===1 && LI.pred<0){ liE.value=2; predictFirst(liMsg,'שנו'); }
+  const n=+liE.value;
+  if(n!==LI.n){ LI.n=n; LI.tries=0; LI.hits=0; LI.last=[]; }
+  if(user===2 && !LI.opened){ LI.opened=1; WOW.emit('open', { id:'beam' }); }
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  const a=LI.last.length===n?LI.last:null, whole=a?liWhole(a):false;
+  /* two shelves */
+  const sx=20, sw=600, top=[52,282], sh=180;
+  [0,1].forEach(s=>{ c.fillStyle=css('--card'); c.strokeStyle=css('--line'); c.lineWidth=3; c.beginPath(); c.roundRect(sx,top[s],sw,sh,14); c.fill(); c.stroke(); xText(c,s?'תא ב׳':'תא א׳',320,top[s]-24,22,ink,'center'); });
+  const bw=Math.min(84,(sw-24)/n-6), step=(sw-24)/n, x0=sx+sw-12-step/2, bh=72;
+  const fs=Math.round(clamp(bw*.5,20,34));
+  function book(x,y,col,num){ c.fillStyle=col; c.strokeStyle=ink; c.lineWidth=2.5; c.beginPath(); c.roundRect(x-bw/2,y,bw,bh,7); c.fill(); c.stroke(); c.font='800 '+fs+'px Rubik, Arial'; c.direction='ltr'; c.textAlign='center'; c.textBaseline='middle'; c.fillStyle='#1B1F33'; c.fillText(num,x,y+bh/2); }
+  for(let i=0;i<n;i++){ const x=x0-i*step, up=a?a[i]:0;
+    if(!a){ for(let k=0;k<3;k++){ c.globalAlpha=.9; book(x,top[0]+14+k*16,'#F6C454',String(i+1)); } c.globalAlpha=1; continue; }
+    const colUp=up===2?'#F39A6B':'#8FC6EC', colDn=up===2?'#8FC6EC':'#F39A6B';
+    for(let k=0;k<up;k++) book(x,top[0]+top0(up,k),colUp,String(i+1));
+    for(let k=0;k<3-up;k++) book(x,top[1]+top0(3-up,k),colDn,String(i+1));
+  }
+  function top0(cnt,k){ return cnt===1 ? 54 : 8+k*84; }
+  /* the verdict */
+  if(a){ const ok=whole; c.fillStyle=ok?GOOD():DANG(); c.beginPath(); c.roundRect(120,486,400,76,16); c.fill(); xText(c,ok?'חלוקה שלמה!':'לא שלמה',320,524,30,'#FFFFFF','center'); }
+  else xText(c,'שלושה עותקים מכל כרך. לחצו "חלקו"',320,524,22,ink,'center');
+  liOut.innerHTML='<span class="num">'+fmtI(LI.tries)+'</span>';
+  liOut2.innerHTML='<span class="num">'+fmtI(LI.hits)+'</span>';
+  if(LI.pred>=0 && LI.big && !LI.revealed){ LI.revealed=1; liReveal.hidden=false; liAfter.hidden=false; hint3.textContent='ענו על השאלה כדי להמשיך.'; }
+  if(user && LI.pred>=0){
+    if(user===2 && n<11) liMsg.innerHTML= whole ? 'שלמה! עכשיו הוסיפו כרך במחוון. מה קורה לסיכוי?' : 'כחול וכתום מעורבבים: בתא אין כמות שווה מכל כרך. נסו שוב, או הוסיפו כרכים.';
+    else if(n<11) liMsg.innerHTML='עכשיו <span class="num">'+n+'</span> כרכים. המשיכו עד <span class="num">11</span>.';
+    else if(!LI.big) liMsg.innerHTML='<span class="num">11</span> כרכים, כמו בננה. לחצו "חלקו <span class="num">1,000</span> פעמים".';
+    else liMsg.innerHTML='מתוך <span class="num">'+fmtI(LI.tries)+'</span> חלוקות יצאו <span class="num">'+fmtI(LI.hits)+'</span> שלמות. לחצו שוב וראו איך זה משתנה.';
+  }
+}
+
+/* ---------- step 4 (interactive 4): the field (canvas 640 × 600) ----------
+   12 × 12 plants, a fungus starts next to the centre and moves to the 4 neighbours. Resistant plants are chosen by a fixed random order, so more resistant = a superset. A toy of the mechanism, not of the real spread. */
+const spCv=document.getElementById('spCv'), spctx=spCv.getContext('2d');
+const SP={ opened:0, pred:-1, revealed:0, sick:null, wave:[], timer:0, ran0:0, ran40:0, mix:0 };
+const SP_N=12, SP_C=SP_N*6+6;           // the start cell
+const SP_ORDER=[...Array(SP_N*SP_N).keys()].filter(i=>i!==SP_C).sort((a,b)=>xRand(a*1.7+.11)-xRand(b*1.7+.11));
+function spPredict(k){ SP.pred=k; segOn('spP',3,k); WOW.emit('item', { id:'spin:predict', kind:'quick', correct:k===2, attempt: wowTry('spin:predict') });
+  spMsg.innerHTML='רשמנו את הניחוש. לחצו "שחררו פטרייה", בלי צמחים עמידים.'; spDraw(0); }
+function spRes(){ return new Set(SP_ORDER.slice(0,Math.round(+spR.value/100*SP_N*SP_N))); }
+function spStop(){ clearInterval(SP.timer); SP.timer=0; }
+function spRun(){ if(SP.pred<0){ predictFirst(spMsg,'שחררו'); return; }
+  spStop(); const res=spRes(); SP.sick=new Set([SP_C]); SP.wave=[SP_C];
+  if(!SP.opened){ SP.opened=1; WOW.emit('open', { id:'spin' }); }
+  const tick=()=>{ const nx=[]; SP.wave.forEach(i=>{ const r=Math.floor(i/SP_N), q=i%SP_N; [[r-1,q],[r+1,q],[r,q-1],[r,q+1]].forEach(([a,b])=>{ if(a<0||b<0||a>=SP_N||b>=SP_N) return; const j=a*SP_N+b; if(!res.has(j)&&!SP.sick.has(j)){ SP.sick.add(j); nx.push(j); } }); }); SP.wave=nx; spDraw(0); if(!nx.length){ spStop(); spDone(res); } };
+  spDraw(0); if(XREDUCED){ while(SP.wave.length){ const w=SP.wave.length; tick(); if(!w) break; } } else SP.timer=setInterval(tick,170);
+}
+function spDone(res){ const m=+spR.value, s=SP.sick.size, tot=SP_N*SP_N-res.size; if(m===0) SP.ran0=1; if(m>=50) SP.ran40=1;
+  if(SP.ran0 && SP.ran40 && !SP.revealed){ SP.revealed=1; spReveal.hidden=false; spAfter.hidden=false; hint4.textContent='ענו על השאלה כדי להמשיך.'; }
+  spMsg.innerHTML = m===0 ? 'כל <span class="num">144</span> הצמחים נדבקו. עכשיו הוסיפו צמחים עמידים במחוון, ושחררו שוב.' : m<50 ? 'נדבקו <span class="num">'+s+'</span> מתוך <span class="num">'+tot+'</span> הצמחים הרגישים. נסו עוד צמחים עמידים.' : 'רק <span class="num">'+s+'</span> צמחים נדבקו. הצמחים העמידים חסמו את הדרך.'+(SP.ran0?'':' עכשיו החזירו ל־<span class="num">0%</span> והשוו.'); }
+function spDraw(user){
+  const c=spctx, W=spCv.width, H=spCv.height, ink=INK();
+  if(user===1 && SP.pred<0){ spR.value=0; predictFirst(spMsg,'הזיזו'); }
+  const res=spRes(), m=+spR.value;
+  if(m!==SP.mix || user===1){ if(m!==SP.mix){ spStop(); SP.sick=null; SP.wave=[]; } SP.mix=m; }
+  c.clearRect(0,0,W,H); c.fillStyle=isDark()?'#3A2E1E':'#D9C6A0'; c.fillRect(0,0,W,H);
+  const cs=47, ox=(W-cs*SP_N)/2, oy=(H-cs*SP_N)/2;
+  for(let i=0;i<SP_N*SP_N;i++){ const r=Math.floor(i/SP_N), q=i%SP_N, x=ox+q*cs+cs/2, y=oy+r*cs+cs/2, sick=SP.sick&&SP.sick.has(i);
+    if(res.has(i)){ c.fillStyle=isDark()?'#C9A4F0':'#6B3FA0'; c.beginPath(); c.moveTo(x,y-20); c.lineTo(x+20,y); c.lineTo(x,y+20); c.lineTo(x-20,y); c.closePath(); c.fill(); continue; }
+    c.fillStyle=sick?(isDark()?'#8C5A3C':'#7A4A2C'):(isDark()?'#3E9A62':'#3F9A62'); c.beginPath(); c.roundRect(x-19,y-19,38,38,9); c.fill();
+    if(sick){ c.strokeStyle='#FFFFFF'; c.lineWidth=4; c.lineCap='round'; c.beginPath(); c.moveTo(x-9,y-9); c.lineTo(x+9,y+9); c.moveTo(x+9,y-9); c.lineTo(x-9,y+9); c.stroke(); c.lineCap='butt'; }
+    else { c.strokeStyle='#CDEBD6'; c.lineWidth=3; c.beginPath(); c.moveTo(x,y+11); c.lineTo(x,y-5); c.moveTo(x,y-1); c.lineTo(x-9,y-9); c.moveTo(x,y-1); c.lineTo(x+9,y-9); c.stroke(); }
+  }
+  if(!SP.sick){ const q=SP_C%SP_N, r=Math.floor(SP_C/SP_N), x=ox+q*cs+cs/2, y=oy+r*cs+cs/2; c.strokeStyle=DANG(); c.lineWidth=6; c.beginPath(); c.arc(x,y,27,0,2*PI); c.stroke(); }
+  spOut.innerHTML='<span class="num">'+res.size+'</span> ('+'<span class="num">'+m+'%</span>)';
+  spOut2.innerHTML='<span class="num">'+(SP.sick?SP.sick.size:0)+'</span>';
+  if(user===1 && SP.pred>=0 && !SP.timer) spMsg.innerHTML= m===0 ? 'בלי צמחים עמידים. לחצו "שחררו פטרייה".' : 'עכשיו <span class="num">'+m+'%</span> עמידים. לחצו "שחררו פטרייה".';
+}
+
+[['storyQ','next1','hint1'],['snailQ','next2','hint2'],['priceQ','next3','hint3'],['siteQ','next4','hint4']].forEach(([q,n,h])=>document.getElementById(q).addEventListener('click',()=>setTimeout(()=>{ if(!document.getElementById(n).disabled) document.getElementById(h).hidden=true; },0)));
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  storyQ:{ q:'מה הן הנקודות השחורות בפרוסת בננה?', opts:['זרעים שמעולם לא גדלו','חרקים קטנטנים','לכלוך מהאדמה','סוכר שהתקשה'], a:0, fb:'אלה זרעים שנשארו קטנים. בבננת בר הם גדולים וקשים, ובבננה מהסופר הם רק נקודות.', btn:'next1' },
+  snailQ:{ q:'איך צומח צמח בננה חדש במטע?', opts:['מזרע שנופל מהפרי','מנצר, נבט שצומח ליד הבסיס של הצמח','מעלה שנופל לאדמה','מפרי שנקבר באדמה'], a:1, fb:'חותכים את הנצר ושותלים אותו. הוא לא ילד של הצמח, אלא עותק שלו.', btn:'next2' },
+  priceQ:{ q:'למה בננה מהסופר כמעט לא נותנת זרעים?', opts:['כי קוטפים אותה מוקדם','כי יש לה שלושה עותקים מכל כרומוזום, והם לא מתחלקים שווה','כי אין בה מים','כי החקלאים מוציאים אותם'], a:1, fb:'שלושה עותקים לא מתחלקים שווה בין שני תאים. כמעט כל חלוקה יוצאת לא שלמה, והזרע לא מתפתח.', btn:'next3' },
+  siteQ:{ q:'למה פטרייה מסוכנת במיוחד למטע של עותקים?', opts:['כי עותקים גדלים לאט','כי פטריות אוהבות צהוב','כי מה שמזיק לצמח אחד מזיק לכולם','כי עותקים שותים יותר מים'], a:2, fb:'כולם אותו צמח, עם אותה נקודת תורפה. אין צמח שהפטרייה תיתקע בו.', btn:'next4' },
+  deepQ:{ q:'למה בננות בר חשובות, אף שהן מלאות גרעינים?', opts:['כי הן מתוקות יותר','כי יש בהן גנים של עמידות, שאפשר ללמוד מהם ולהשתמש בהם','כי הן גדלות רק בישראל','כי הן לא צריכות מים'], a:1, fb:'בננות בר מגוונות, וביניהן יש עמידות למחלות. למשל, הגן שהוסיפו לקוונדיש באוסטרליה בא מבננת בר.' }
+};
+const MCQ = {
+  shared:[
+    { q:'מה קורה להוראות של צמח בננה כששותלים נצר ממנו?', opts:['הן נחצות בכל דור','הן מתערבבות עם הוראות של צמח אחר','הן נשארות כמעט זהות','הן נעלמות'], a:2, fb:'נצר הוא עותק של הצמח. בלי ערבוב, אין שינוי, חוץ ממוטציות קטנות.' },
+    { q:'כמה עותקים של כל כרומוזום יש בבננה מהסופר, וכמה בבננת בר?', opts:['שלושה בסופר, שניים בבר','שניים בסופר, שלושה בבר','שלושה בשתיהן','אחד בסופר, שניים בבר'], a:0, fb:'בבר שניים, ולכן החלוקה לזרעים קלה. בבננה מהסופר שלושה, והחלוקה כמעט תמיד נכשלת.' },
+    { q:'במטע של עותקים הוסיפו מספיק צמחים מזן עמיד. מה קורה לפטרייה?', opts:['היא נעשית חזקה יותר','היא נתקעת, כי הדרך בין הצמחים הרגישים נחסמת','היא הופכת את העמידים לרגישים','שום דבר לא משתנה'], a:1, fb:'זה הכוח של גיוון: הפטרייה צריכה מסלול של צמחים רגישים, והעמידים חוסמים אותו.' }
+  ],
+  younger:[
+    { q:'איזו בננה הייתה הבננה של הסופרים לפני שנות ה־<span class="num">1950</span>?', opts:['קוונדיש','בננת בר','גרוס מישל','בננה אדומה'], a:2, fb:'גרוס מישל שלטה עד שמחלת פנמה הרסה את המטעים שלה, ואז עברו לקוונדיש.' }
+  ],
+  older:[
+    { q:'עם כמה כרכים הסיכוי לחלוקה שלמה הוא <span class="num">1</span> מתוך <span class="num">8</span>?', opts:['<span class="num">3</span>','<span class="num">4</span>','<span class="num">8</span>','<span class="num">9</span>'], a:1, fb:'הכלל הוא <span class="math">2^(n−1)</span>. כאן <span class="math">2^3 = 8</span>, אז <span class="math">n − 1 = 3</span>, כלומר <span class="math">n = 4</span>. הכרך הראשון קובע, ושלושת האחרים צריכים ליפול כמוהו.' }
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'חקלאים קדומים בוחרים בננות עם פחות גרעינים, ושותלים נצרים.'},
+  {id:'b', t:'נולדת בננה עם שלושה עותקים של כל כרך, והיא כמעט בלי זרעים.'},
+  {id:'c', t:'הסוחרים שולחים לעולם כולו עותקים של גרוס מישל.'},
+  {id:'d', t:'מחלת פנמה הורסת את מטעי גרוס מישל.'},
+  {id:'e', t:'התעשייה עוברת לקוונדיש, שהפטרייה ההיא לא פוגעת בו.'},
+  {id:'f', t:'מתגלה TR4, גרסה חדשה של הפטרייה, והיא תוקפת גם קוונדיש.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלך: ' : '<span class="pill-ok">סדר מושלם!</span>')+' בחירה ← שלושה עותקים ← גרוס מישל ← מחלה ← קוונדיש ← TR4. פעמיים העולם נשען על עותק אחד, ופעמיים זה נסדק.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) גרוס מישל הייתה לפני קוונדיש. (2) החקלאים בחרו אלפי שנים לפני שהייתה תעשייה.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && a>=328 && a<=338, bOk = hasB && b>=41 && b<=42.5;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && Math.abs(a-50)<1) ? '(א): זה המספר של הטונות במיליונים. קודם המירו לגרמים.'
+    : (hasA && ((a>=32&&a<=34)||(a>=3000&&a<=3700)||(a>=0.3&&a<=0.36))) ? '(א): הספרות נכונות, אבל האפסים לא. בדקו: <span class="math">50,000,000 × 1,000,000</span> גרם, חלקי <span class="num">150</span>, וחלקי מיליארד.'
+    : '(א): רמז — קודם גרמים: <span class="math">50,000,000 × 1,000,000</span>. אחר כך חלקו ב־<span class="num">150</span>, וספרו כמה מיליארדים יצאו.';
+  const hintB = (hasB && b>0 && b<1) ? '(ב): חילקתם הפוך. מחלקים בננות בין אנשים.'
+    : '(ב): רמז — חלקו את התוצאה של (א) ב־<span class="num">8</span>.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">50,000,000 × 1,000,000</span> גרם הם <span class="math">50</span> מיליון מיליון גרם. מחלקים ב־<span class="num">150</span> גרם לבננה: <span class="math">50,000,000 ÷ 150 ≈ 333,333</span> מיליון, כלומר כ־<span class="num">333</span> מיליארד בננות. (ב) <span class="math">333 ÷ 8 ≈ 42</span> בננות לאדם בשנה. כמעט בננה בשבוע לכל אדם בעולם, מאותו צמח. עכשיו פתחו את השאלה למחשבה שלמטה.'
+    : aOk ? '<span class="pill-ok">(א) נכון — כ־<span class="math">333</span> מיליארד.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="math">42</span> בננות.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const sp=+numAdvR.value, ks=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && sp===4096), yOk=(hasY && ks>=7.2 && ks<=7.4), sc = dOk&&yOk?2:((dOk||yOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && sp===8192) ? 'ב־(א): כפלתם פעם אחת יותר מדי. הכרך הראשון לא נספר: <span class="math">n − 1 = 12</span>.'
+      : 'רמז ל־(א): <span class="math">n − 1 = 12</span>, והכפלה ב־<span class="num">2</span> שתים־עשרה פעמים: <span class="math">2, 4, 8, 16…</span>';
+    const hintY = (hasY && ks>1000) ? 'ב־(ב): כדאי לחלק, ולא לכפול. בכל <span class="num">4,096</span> תאים יש בערך חלוקה שלמה אחת.'
+      : 'רמז ל־(ב): חלקו את מספר התאים בתוצאה של (א).';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">2^12 = 4,096</span>. (ב) <span class="math">30,000 ÷ 4,096 ≈ 7.3</span> חלוקות שלמות. כדי למצוא משהו נדיר, צריך לבדוק המון.'
+      : dOk ? '<span class="pill-ok">(א) נכון — <span class="math">4,096</span>.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="math">7.3</span>.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-33)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">3 × 11 = 33</span>. לבננת בר יש <span class="math">2 × 11 = 22</span>.':(Math.abs(v-14)<0.01?'<span class="pill-bad">כמעט.</span> חיברתם. יש <span class="num">11</span> כרכים, ומכל אחד <span class="num">3</span> עותקים, אז צריך לכפול.':(Math.abs(v-22)<0.01?'<span class="pill-bad">כמעט.</span> זה בבננת בר, עם שני עותקים. כאן יש שלושה.':'<span class="pill-bad">עוד לא.</span> רמז: <span class="num">3</span> עותקים של כל אחד מ־<span class="num">11</span> הכרכים. אפשר לחבר <span class="num">11</span> שלוש פעמים.')); }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-256)<0.01; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> מ־<span class="num">8</span> ממשיכים עוד <span class="num">5</span> כרכים: <span class="math">8 → 16 → 32 → 64 → 128 → 256</span>. זה <span class="math">2^8 = 256</span>.':(Math.abs(v-512)<0.01?'<span class="pill-bad">עוד לא.</span> עברתם כרך אחד יותר מדי. עם <span class="num">4</span> כרכים זה <span class="num">8</span>. המשיכו מכאן: <span class="num">5</span> כרכים הם <span class="num">16</span>.':(Math.abs(v-128)<0.01?'<span class="pill-bad">כמעט.</span> עצרתם כרך אחד מוקדם: זה הסיכוי עם <span class="num">8</span> כרכים.':'<span class="pill-bad">עוד לא.</span> רמז: מתחילים מ־<span class="num">4</span> כרכים, <span class="num">1</span> מתוך <span class="num">8</span>, ומכפילים ב־<span class="num">2</span> על כל כרך נוסף.')); }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שלבננה מהסופר יש שלושה עותקים של כל כרומוזום (כרך), ולכן היא כמעט לא נותנת זרעים.',
+  'הסברתי שמגדלים אותה מנצרים, ולכן כל צמח חדש הוא עותק של הקודם.',
+  'כתבתי שמכיוון שכולם אותו צמח, מה שמזיק לאחד מזיק לכולם.',
+  'הזכרתי את הפטרייה (מחלת פנמה או TR4), ושגרוס מישל כבר נפגעה כך.',
+  'הוספתי פרט מדויק: <span class="num">33</span> כרכים, סיכוי של <span class="math">1 ÷ 1,024</span>, שפיה ב־<span class="num">2016</span>, או הגיוון כפתרון.',
+];
+const MODEL='לבננה מהסופר יש שלושה עותקים של כל כרומוזום, ושלושה עותקים לא מתחלקים שווה בין שני תאים. לכן כמעט כל חלוקה יוצאת לא שלמה, והיא כמעט לא נותנת זרעים. במקום זרעים שותלים נצרים, וכל נצר הוא עותק של הצמח, ולכן כמעט כל הבננות בסופר הן אותו צמח. זה מסוכן, כי מה שמזיק לצמח אחד מזיק לכולם. כך מחלת פנמה הרסה את גרוס מישל, ועכשיו TR4 תוקף את הקוונדיש. הפתרון הוא גיוון: הרבה זנים שונים.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון: שלושה עותקים של כל כרומוזום מתחלקים בין שני תאים באקראי, ולכן חלוקה שלמה נדירה (1 מתוך 1,024 ב־11 כרומוזומים), ואין זרעים; ריבוי בנצרים יוצר שיבוטים בלי ערבוב תורשתי; לכן לכל הצמחים אותה רגישות, והפטרייה (מחלת פנמה, TR4) עוברת ביניהם; גיוון קוטע את הדרך שלה, ולא רק את הסיפור':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "הבננה שאין לה הורים — וכולן בעצם אותו צמח". הרעיונות המרכזיים: (1) בננות בר מלאות גרעינים, וחקלאים בחרו במשך אלפי שנים בפירות עם פחות גרעינים; (2) לבננה מהסופר, קוונדיש, יש שלושה עותקים של כל אחד מ־11 הכרומוזומים, 33 בסך הכול, והם לא מתחלקים שווה, ולכן כמעט אין זרעים; (3) מגדלים אותה מנצרים, ולכן כל צמח הוא עותק (שיבוט) של הקודם; (4) לעותקים אותה רגישות: מחלת פנמה הרסה את גרוס מישל בשנות ה־1950, והגרסה TR4 תוקפת היום את הקוונדיש, וגם הגיעה לשפיה ב־2016; הפתרון הוא גיוון. חישובי המבחן: צעיר — 3 × 11 = 33; בוגר — 2^8 = 256; מתקדם — 2^12 = 4,096, 30,000 ÷ 4,096 ≈ 7.3; אתגר — כ־333 מיליארד בננות, 333 ÷ 8 ≈ 42 לאדם.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם למה הבננות הן עותקים (בלי זרעים, מגדלים מנצרים), וגם למה זה מסוכן (מה שמזיק לאחת מזיק לכולן); 1 אם יש רק אחד מהשניים או רק חלק. תשובה שאומרת שהבננה נוצרה כך במעבדה, או שאין לה כלל אבות קדומים — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', גם פקסטון היה מתרשם!':pct>=60?name+', הנצר שלך מכה שורשים!':name+', הנצר הבא כבר צומח!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=1;                                                       // none grow
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: <b>אף שתיל</b>. הנקודות הן זרעים שלא התפתחו.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>אף שתיל</b> — וקלעת. עכשיו גם יודעים למה: שלושה עותקים לא מתחלקים שווה.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. התשובה: אף שתיל. ועכשיו גם יודעים למה: שלושה עותקים לא מתחלקים שווה.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה שתילים מנקודות): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: אף שתיל)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "הבננה שאין לה הורים — וכולן בעצם אותו צמח", מהדורה 55, כ״ו בחשוון תשפ״ז (יום שישי, 6 בנובמבר 2026). נושא: ביולוגיה וגנטיקה (שיבוט, כרומוזומים, טריפלואידיה, ריבוי בנצרים, גיוון), היסטוריה וגאוגרפיה (גינאה החדשה, צ׳אטסוורת׳, גרוס מישל, ישראל), מתמטיקה (חזקות של 2, הסתברות, חלחול, הערכה). העובדות: העדויות הקדומות לגידול בננות הן מגינאה החדשה, לפני לפחות 7,000 שנה. בננות בר מלאות גרעינים קשים. חקלאים בחרו צמחים עם פחות גרעינים ויותר בשר; בננות כאלה מפתחות פרי בלי הפריה (פרתנוקרפיה). בבננה 11 כרומוזומים שונים; בבר 2 עותקים של כל אחד (22), ובקוונדיש 3 (33, טריפלואיד). בחלוקה לתאי מין שלושה עותקים לא מתחלקים שווה; במודל הפשוט של השיעור כל כרומוזום שולח שניים לצד אחד ואחד לשני, והסיכוי שכולם יתאימו הוא 1 ÷ 2^(n−1), עם 11 כרומוזומים 1 ÷ 1,024. זה מודל: בטבע לפעמים נוצר זרע נדיר. הנקודות השחורות בפרוסה הן זרעים שלא התפתחו. ריבוי: נצר צומח ליד הבסיס, שותלים אותו, והוא עותק (שיבוט); היום גם בתרבית רקמה במעבדה. הגזע הוא עלים עטופים: הבננה היא מעין עשב ענק, כל גזע נותן אשכול אחד ומת. בזרעים חלק האב הקדמון נחצה בכל דור (בממוצע). ג׳וזף פקסטון, גנן הדוכס של דבונשייר בצ׳אטסוורת׳, קיבל בשנות ה־1830 צמח ממאוריציוס, קרא לו קוונדיש וזכה במדליה; לפי האחוזה ארגז שתילים הגיע גם לאיי האוקיינוס השקט; הסיפור כנראה חלקי. כמעט כל הבננות בסחר הבין־לאומי הן קוונדיש, אבל בעולם כולו הן פחות מחצי (כ־50 מתוך כ־120 מיליון טונות); יש יותר מ־1,000 זנים, ובלוון שבבלגיה יש אוסף של כ־1,500. עד שנות ה־1950 שלטה גרוס מישל, עד שמחלת פנמה, פטרייה מהאדמה, הרסה מטעים; היא חוסמת צינורות מים בצמח, אין נגדה חומר יעיל, והיא נשארת באדמה עשרות שנים. קוונדיש עמיד לפטרייה ההיא, אבל לא ל־TR4, שהתגלה באסיה בשנות ה־1990. בישראל: קיץ 2016 בשפיה, ליד זיכרון יעקב, וגם בעין גב; גידרו, השמידו, הפסיקו השקיה; ב־2018 הוכרז חיסול, ובאותה שנה נמצאו מוקדים בעמק הירדן. קולומביה 2019, אקוודור סוף 2025; לפי FAO יותר מ־20 מדינות. סימולציית המטע: 144 צמחים, הפטרייה עוברת לארבעה שכנים; סף החלחול כ־40% עמידים; זה מודל. פתרונות: QCAV-4, קוונדיש מהונדס עם גן מבננת בר, אושר באוסטרליה ב־2024 (ג׳יימס דייל); שתילים עמידים חלקית מטייוואן; גיוון. הכותרות על "הכחדת הבננה" מוגזמות; המומחים חלוקים לגבי העתיד. בונוס: בננה רדיואקטיבית מעט מאוד בגלל אשלגן, וזה לא מסוכן. המבחן: צעיר — 3 × 11 = 33; בוגר — עם 9 כרכים 1 מתוך 256; מתקדם — 13 כרכים, 1 מתוך 4,096, ו־30,000 ÷ 4,096 ≈ 7.3; אתגר — כ־333 מיליארד בננות וכ־42 לאדם בשנה.';
+const CHIPS = ['למה אין זרעים בבננה?', 'מה זה שיבוט?', 'איך פטרייה הורגת צמח?', 'האם הבננות ייעלמו?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: 33 כרומוזומים ולמה הסיכוי הוא 1 ÷ 2^(n−1); (½)^k בזרעים מול 100% בנצרים; פרתנוקרפיה; מוטציות כמקור שינוי בשיבוט; חלחול ולמה יש סף; ההבדל בין מודל למציאות), שאל שאלות המשך שדורשות חשיבה (למשל: מה היה קורה לסיכוי עם 4 עותקים במקום 3? למה ריבוי בנצרים מסוכן לטווח ארוך אבל נוח לטווח קצר? מה היית משנה בתכנון של מטע? למה קשה לעשות מזן סטרילי זן חדש?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה אין זרעים בבננה?</b> יש לה שלושה עותקים של כל כרומוזום, ושלושה לא מתחלקים שווה בין שני תאים, ולכן כמעט אף זרע לא מתפתח.<br><br><b>האם הבננות ייעלמו?</b> לא. יש יותר מאלף זנים. בסכנה נמצא בעיקר הקוונדיש, הזן של הסופר.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; only the field runs a short timer */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>

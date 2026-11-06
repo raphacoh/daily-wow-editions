@@ -1,0 +1,23 @@
+{
+  "n": 55,
+  "code": "WOW-055",
+  "date": "2026-11-06",
+  "language": "he",
+  "title": "הבננה שאין לה הורים — וכולן בעצם אותו צמח",
+  "topics": [
+    "ביולוגיה",
+    "גנטיקה",
+    "גאוגרפיה",
+    "היסטוריה",
+    "מתמטיקה"
+  ],
+  "summary": "Why nearly every supermarket banana is a clone of one plant: triploidy and a 1-in-1,024 chance of a whole deal, shoots instead of seeds, Gros Michel, Panama disease, and TR4 reaching Shfeya near Zikhron Yaakov.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — nits left: runs ~30 min, likely 35–40 for a young support reader, ~1,300–1,400 words per track (above the 1,100 target); legends wrap one word on phones; kit lint/check are missing from the repo so local stand-ins were used; Arto and the AI grader not exercised on file://; the review copy doesn't declare the sample capability, so Arto falls back there (template)",
+  "review_url": "https://claude.ai/artifact/3YJtS2KFEAxCjFDiqcd6YK",
+  "editor_note": null
+}
