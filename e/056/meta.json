@@ -1,0 +1,23 @@
+{
+  "n": 56,
+  "code": "WOW-056",
+  "date": "2026-11-07",
+  "language": "he",
+  "title": "המחשב בן 2,000 השנה שנשלה מקרקעית הים",
+  "topics": [
+    "הנדסה",
+    "חלל",
+    "היסטוריה",
+    "מתמטיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "The Antikythera mechanism: Symi sponge divers (1900–01), Stais spots a gear (1902), X-rays and 2005 CT layers; gear ratios (teeth ratio = speed ratio, moon train 64/38×48/24×127/32 = 254/19); the front dial (13.37 sidereal laps vs 12.37 lunations, phase ball, pin-and-slot); the 223-month Saros spiral and the 8-hour shift (Exeligmos); the Metonic 19 y = 235 months shared with the Hebrew calendar (5787 is a leap year); the 2 Aug 2027 eclipse as one Saros after 22 Jul 2009.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-11-07T08:11:02.376Z",
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: older track runs ~30–35 min with the challenge; the step 2 older chain (254 vs 19) lets a strong kid pre-compute the step 3 guess; the 'המופע' label touches the ring on phones; kit lint/check are missing from the repo so local stand-ins were used; Arto and the AI grader not exercised on file://; the review copy doesn't declare the sample capability, so Arto falls back there (template)",
+  "review_url": "https://claude.ai/artifact/HYjMTaqm6e7676mRtcoDdk",
+  "editor_note": null
+}
