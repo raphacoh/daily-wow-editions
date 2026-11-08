@@ -1,0 +1,23 @@
+{
+  "n": 57,
+  "code": "WOW-057",
+  "date": "2026-11-08",
+  "language": "he",
+  "title": "הגז שלא קיים עד שחותכים את הבצל",
+  "topics": [
+    "כימיה",
+    "ביולוגיה",
+    "פיזיקה",
+    "היסטוריה",
+    "מתמטיקה"
+  ],
+  "summary": "Why onions make you cry: no tear gas in a whole onion — sulphur precursors (cytoplasm) and alliinase (vacuole) meet only when cells are cut; Imai et al. (Nature 2002) found the second enzyme, lachrymatory-factor synthase (absent in garlic; Ig Nobel 2013); gas peaks ~30 s; cold, sharp knife and water reduce tears; the 2015 House Foods low-tear onion has reduced alliinase (Kato 2016); maths: cube surface area grows ×k when each edge is cut into k, and the rough ×2-per-10 °C rule.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-11-08T08:08:50.000Z",
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: runs ~30–35 min (tag says כ־30 דקות), prose above the 1,100-word target as in recent editions; a few right MCQ options are still the longest; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised on file://; the review copy doesn't declare the sample capability, so Arto falls back there (template)",
+  "review_url": "https://claude.ai/artifact/757r1Cp9S1AuTF9jLLL3HG",
+  "editor_note": null
+}

@@ -1,0 +1,1786 @@
+<title>שורשים וכנפיים #57 · הגז שלא קיים עד שחותכים את הבצל</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#2F7D4F; --shadow-soft:#DDF0E0;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .tick{animation:tick 1.3373s ease-out infinite}}
+@keyframes tick{0%{opacity:.95}30%{opacity:.75}100%{opacity:.08}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 57</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs><radialGradient id="glow" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#9B5FB5" stop-opacity=".28"/><stop offset="60%" stop-color="#9B5FB5" stop-opacity=".08"/><stop offset="100%" stop-color="#9B5FB5" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <path d="M150 62 C150 92 222 118 226 186 C230 246 190 270 150 270 C110 270 70 246 74 186 C78 118 150 92 150 62 Z" fill="#D9A55B" stroke="#1B1F33" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M150 84 C150 110 200 132 202 190 C204 238 176 256 150 256" fill="none" stroke="#9C6A2C" stroke-width="3"/>
+    <path d="M150 84 C150 110 100 132 98 190 C96 238 124 256 150 256" fill="none" stroke="#9C6A2C" stroke-width="3"/>
+    <path d="M150 104 C150 128 176 146 176 192 C176 228 162 244 150 244 C138 244 124 228 124 192 C124 146 150 128 150 104" fill="none" stroke="#9C6A2C" stroke-width="3"/>
+    <path d="M150 64 C146 40 154 24 166 10 M150 64 C156 44 142 30 132 18" fill="none" stroke="#4DA36A" stroke-width="5" stroke-linecap="round"/>
+    <path d="M128 270 l-6 16 M150 272 v18 M172 270 l6 16" stroke="#9C6A2C" stroke-width="3" stroke-linecap="round"/>
+    <g class="spark"><path d="M0 0 c-14 -6 -10 -22 4 -20 c4 -14 24 -10 20 4 c12 4 6 20 -8 16 c-4 8 -14 6 -16 0 z" fill="#B36FCB" opacity=".75"/></g>
+    <g class="spark2"><path d="M0 0 c-10 -4 -7 -16 3 -14 c3 -10 17 -7 14 3 c9 3 4 14 -6 11 c-3 6 -10 4 -11 0 z" fill="#B36FCB" opacity=".6"/></g>
+    <path d="M58 92 C58 92 44 112 44 122 C44 130 50 136 58 136 C66 136 72 130 72 122 C72 112 58 92 58 92 Z" fill="#7FC4EE" stroke="#1B1F33" stroke-width="3"/>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 57</span><span class="tag">יום ראשון, 8 בנובמבר 2026</span><span class="tag">כ״ח בחשוון תשפ״ז</span><span class="tag">כ־30 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>הגז שלא קיים עד שחותכים את הבצל</h1>
+  <p class="lede">בצל שלם יכול לשכב במטבח שבועות, ואף אחד לא בוכה לידו. אבל ברגע שהסכין נכנסת, אחרי כמה שניות העיניים מתחילות לשרוף. הסוד: בתוך הבצל <b>אין בכלל גז דמעות</b>. יש בו שני חומרים שקטים, שמורים בשני "חדרים" נפרדים בכל תא, והבצל מרכיב מהם את הגז רק כשפוגעים בו. השאלה של היום: <b>איך צמח בונה נשק כימי ברגע אחד — ואיך מנצחים אותו במטבח?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">כשבצל שלם מונח על השולחן, איפה שמור בו גז הדמעות?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>בקליפה</b><span>בקליפה החומה והיבשה</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>במיץ</b><span>במיץ שבשכבות הלבנות</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>בשורשים</b><span>בבסיס, איפה שיוצאים השורשים</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>בשום מקום</b><span>הוא עוד לא קיים</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · TWO ROOMS IN ONE CELL (interactive 1: the cell) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>שני חדרים בתא אחד</h2>
+  <p>אפשר להחזיק בצל שלם, להריח אותו, אפילו לגלגל אותו על השולחן — ולא קורה כלום. אבל חותכים אותו, ותוך זמן קצר העיניים מתחילות לשרוף ולדמוע. מה השתנה ברגע החיתוך?</p>
+  <p>כדי להבין, צריך להסתכל על הבצל מקרוב מאוד. כל בצל בנוי ממיליוני חדרים זעירים שנקראים <b>תאים</b>. בשנת <span class="num">1665</span> הסתכל המדען האנגלי רוברט הוק במיקרוסקופ על פרוסה דקה של שעם, ראה בה חדרים קטנים, וקרא להם "תאים". את התאים של הבצל רואים יפה במיקרוסקופ של בית ספר, בקרום השקוף שבין השכבות. במעבדה נציץ לתוך תא אחד, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 1 — תא אחד ===== -->
+  <div class="panel instrument">
+    <h3>תא אחד, מקרוב</h3>
+    <p class="cap">נחשו קודם: בתא של בצל שלם, שעוד לא נחתך, כמה גז דמעות יש?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="clP0" onclick="clPredict(0)">הרבה</button>
+        <button id="clP1" onclick="clPredict(1)">רק קצת</button>
+        <button id="clP2" onclick="clPredict(2)">בכלל אין</button>
+      </div>
+    </div>
+    <canvas role="img" id="clCv" width="640" height="600" aria-label="תא גדול של בצל. בתוך התא שקית גדולה ובה צורות ירוקות, האנזימים. מסביב לשקית, בנוזל של התא, נקודות צהובות, החומר עם הגופרית. כשסכין חותכת את התא, הצורות הירוקות יוצאות, פוגשות את הנקודות הצהובות, ומכל מפגש עולה ענן סגול של גז אל האוויר שמעל התא"></canvas>
+    <div class="controls">
+      <button class="btn small" id="clGo" onclick="clCut()">חתכו את התא בסכין</button>
+      <button class="btn small ghost" onclick="clReset()">מהתחלה</button>
+    </div>
+    <div class="controls">
+      <div class="readout">מפגשים: <b id="clOut">—</b></div>
+      <div class="readout">ענני גז: <b id="clOut2">—</b></div>
+    </div>
+    <p class="cap" id="clMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="clReveal" hidden><span class="hand">!</span><p><b>בכלל אין!</b> בתא יש שני "חדרים". בנוזל של התא צפים חומרים עם גופרית (הנקודות הצהובות). בתוך שקית גדולה באמצע התא, שנקראת <b>חלולית</b>, שמורים <b>אנזימים</b> (הצורות הירוקות), מעין מספריים כימיים. כל עוד הקרום שבין החדרים שלם, הם לא נפגשים, ואין גז. הסכין קורעת את הקרום, הם נפגשים, ומיד מתחיל להיווצר גז. (הציור סכמטי: בתא אמיתי יש המון מולקולות, קטנות מכדי לראות אותן.)</p></div>
+
+  <div id="clAfter" hidden>
+  <p>כלומר, הבצל לא מחזיק גז דמעות מוכן. הוא מחזיק שני חומרים רגילים לגמרי, ומרכיב מהם את הגז רק במקום שבו משהו פגע בו.</p>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על מקל זוהר מהמסיבה. בתוכו יש שני נוזלים, ואחד מהם סגור בשפופרת קטנה. כל עוד לא נוגעים, המקל כהה. מכופפים אותו, השפופרת נשברת, הנוזלים נפגשים, והמקל מתחיל לזהור. הבצל עושה את אותו טריק בדיוק. הסכין היא ה"כיפוף": היא שוברת את הקיר שבין שני החדרים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>מה זה בעצם אנזים? אנזים הוא חלבון שמזרז תגובה כימית אחת מסוימת, בלי להיגמר בעצמו. אנזים אחד "חותך" מולקולה, משתחרר, וחותך את הבאה בתור, שוב ושוב. האנזים הראשון בסיפור שלנו נקרא <b>אליאינאז</b>, והחומר שהוא חותך הוא חומר עם גופרית שהבצל בונה בעצמו. שניהם נמצאים באותו תא, במרחק של אלפיות המילימטר, אבל קרום דק מפריד ביניהם. כשהקרום נקרע, התגובה מתחילה כמעט מיד. למדענים יש לזה שם: <b>הפרדה לתאים</b>. הצמח שומר את המרכיבים בנפרד, כמו שאריזה של דבק דו־רכיבי מפרידה בין שתי השפופרות.</p>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  </div>
+  <p class="small" id="hint1" style="text-align:center">כדי להמשיך, סיימו את המעבדה וענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE JOURNEY TO THE EYE (interactive 2: the kitchen) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>המסע אל העין</h2>
+  <p>כשהאנזים חותך את החומר עם הגופרית, נוצר בסוף גז עם שם ארוך: פרופנתיאל S־אוקסיד. החוקרים קוראים לו פשוט "גורם הדמעות". הוא קל מאוד ו<b>נדיף</b>, כלומר בורח בקלות מהבצל אל האוויר. הגז מתחיל להיווצר מיד, והכמות שלו מגיעה לשיא בערך <span class="num">30</span> שניות אחרי שהבצל נפגע. לכן לא בוכים בשנייה הראשונה, אלא אחרי כמה רגעים של חיתוך.</p>
+  <p>העין יודעת לשמור על עצמה. על פני העין יש קצות עצבים זעירים. כשהגז נוגע בהם, הם שולחים למוח אות של צריבה, והמוח עונה מיד: "לשטוף!" בלוטות הדמעות מציפות את העין, כדי לשטוף את הגז החוצה. במעבדה נחתוך בצל במטבח, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 2 — המטבח ===== -->
+  <div class="panel instrument">
+    <h3>המטבח</h3>
+    <p class="cap">נחשו קודם: איזה בצל יגרום לפחות דמעות?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="ktP0" onclick="ktPredict(0)">בצל ישר מהמקרר</button>
+        <button id="ktP1" onclick="ktPredict(1)">בצל שעמד על השיש</button>
+        <button id="ktP2" onclick="ktPredict(2)">אין הבדל</button>
+      </div>
+    </div>
+    <canvas role="img" id="ktCv" width="640" height="600" aria-label="מטבח. למטה קרש חיתוך ועליו חצי בצל וסכין. למעלה עין גדולה. מימין מדחום שמראה כמה הבצל קר או חם, וליד מדחום ברז כשבוחרים מים. משמאל מד שמתמלא ככל שיותר גז מגיע לעין, ועליו קו של דמעות. עננים סגולים עולים מהבצל אל העין, ואם המד עובר את הקו, יורדות דמעות"></canvas>
+    <div class="controls">
+      <label>הטמפרטורה של הבצל (ימינה: קר, שמאלה: חם)
+        <input type="range" id="ktT" min="4" max="34" step="1" value="24" oninput="ktSet()" aria-label="הטמפרטורה של הבצל" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="סכין">
+        <button id="ktK0" class="on" onclick="ktKnife(0)">סכין חדה</button>
+        <button id="ktK1" onclick="ktKnife(1)">סכין קהה</button>
+      </div>
+      <div class="seg" role="group" aria-label="מים">
+        <button id="ktW0" class="on" onclick="ktWater(0)">בלי מים</button>
+        <button id="ktW1" onclick="ktWater(1)">ליד מים זורמים</button>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn small" id="ktGo" onclick="ktRun()">חתכו חצי דקה</button>
+    </div>
+    <div class="controls">
+      <div class="readout">שניות: <b id="ktOut">—</b></div>
+      <div class="readout">גז בעין: <b id="ktOut2">—</b></div>
+    </div>
+    <p class="cap" id="ktMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="ktReveal" hidden><span class="hand">!</span><p><b>הבצל מהמקרר!</b> בקור, התגובות הכימיות איטיות יותר, ופחות גז מתנדף אל האוויר. גם סכין חדה עוזרת: היא עוברת דרך מעט תאים, וסכין קהה מועכת הרבה תאים מסביב. ומים זורמים לוכדים חלק מהגז לפני שהוא מגיע לעין. (המודל כאן מפושט: הוא מראה את הכיוון, לא מספרים מדויקים של מטבח אמיתי.)</p></div>
+
+  <div id="ktAfter" hidden>
+  <p>והטריק החזק מכולם: חום גבוה מפרק את האנזימים לגמרי. אנזים הוא חלבון, וכמו חלבון של ביצה שמתקשה במחבת, הוא משנה צורה ומפסיק לעבוד. לכן בצל מטוגן כבר לא גורם לדמעות.</p>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>שלושה טיפים של שפים: לשים את הבצל במקרר חצי שעה לפני החיתוך, לחתוך עם סכין חדה, ולא לקרב את הפנים לקרש. וכלל חשוב מכולם: חותכים רק עם מבוגר לידכם. ואם בכל זאת דומעים? לא לשפשף את העיניים עם ידיים של בצל. שוטפים ידיים, מתרחקים רגע מהקרש, והדמעות כבר יעשו את העבודה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>כימאים משתמשים ב<b>כלל אצבע</b>: בהרבה תגובות, כל <span class="num">10</span> מעלות חום מכפילות בערך את מהירות התגובה. זה כלל משוער ולא חוק מדויק, אבל הוא עוזר להבין. מ־<span class="num">4</span> מעלות ל־<span class="num">14</span> מעלות: פי <span class="num">2</span>. ל־<span class="num">24</span> מעלות: עוד הכפלה. כך בצל קר מייצר את הגז לאט יותר, ובנוסף פחות מהגז מתנדף. ויש סיבה שלישית: הגז לא "קופץ" לעין. הוא צריך לעלות בערך חצי מטר באוויר, ולכן רוח, חלון פתוח או מים בדרך מקטינים את מה שמגיע.</p>
+  </div>
+
+  <div class="q qc" id="snailQ"></div>
+  </div>
+  <p class="small" id="hint2" style="text-align:center">כדי להמשיך, סיימו את המעבדה.</p>
+  <div class="next"><button class="btn" id="next2" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE ENZYME EVERYONE MISSED (interactive 3: the chain) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>האנזים שכולם פספסו</h2>
+  <p>במשך שנים חשבו המדענים שהסיפור פשוט: האנזים הראשון חותך, והגז נוצר מעצמו. אבל משהו לא הסתדר. גם בשום יש את האנזים הזה, וגם השום מלא בחומרים עם גופרית. ובכל זאת, כשחותכים שום, הוא מריח חזק — אבל לא בוכים. למה?</p>
+  <p>ביפן, בחברת מזון בשם האוס פודס, חקר צוות בראשות <b>שינסוקה אימאי</b> את השאלה. בשנת <span class="num">2002</span> פרסמו החוקרים בכתב העת המדעי Nature את התשובה: בבצל יש <b>אנזים שני</b>, שאיש לא שם לב אליו. הוא לוקח את החומר שהאנזים הראשון יצר, והופך אותו לגז הדמעות. בשום אין אנזים כזה. במעבדה נבנה את השרשרת, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 3 — השרשרת ===== -->
+  <div class="panel instrument">
+    <h3>השרשרת</h3>
+    <p class="cap">נחשו קודם: אם נוציא מהבצל רק את האנזים השני, מה יקרה כשנחתוך אותו?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="chP0" onclick="chPredict(0)">לא ריח ולא דמעות</button>
+        <button id="chP1" onclick="chPredict(1)">ריח של בצל, בלי דמעות</button>
+        <button id="chP2" onclick="chPredict(2)">יותר דמעות</button>
+      </div>
+    </div>
+    <canvas role="img" id="chCv" width="640" height="600" aria-label="שרשרת של שלוש תחנות. מימין ערימה של נקודות צהובות, החומר עם הגופרית. אחריה מספריים ירוקים, האנזים הראשון, ונקודות כתומות, חומר הביניים. מכאן הדרך מתפצלת: למעלה מספריים סגולים, האנזים השני, וענן סגול של גז דמעות; למטה צנצנת של ריח וטעם. כשאין אנזים שני, המספריים הסגולים מחוקים, וכל הנקודות הולכות לצנצנת"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="מה חותכים">
+        <button id="chM0" class="on" onclick="chMode(0)">בצל רגיל</button>
+        <button id="chM1" onclick="chMode(1)">שום</button>
+        <button id="chM2" onclick="chMode(2)">בצל בלי האנזים השני</button>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn small" id="chGo" onclick="chRun()">חתכו!</button>
+    </div>
+    <div class="controls">
+      <div class="readout">גז דמעות: <b id="chOut">—</b></div>
+      <div class="readout">ריח וטעם: <b id="chOut2">—</b></div>
+    </div>
+    <p class="cap" id="chMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="chReveal" hidden><span class="hand">!</span><p><b>ריח של בצל, בלי דמעות!</b> השרשרת מתפצלת. כשהאנזים השני נמצא, הוא תופס מהר את רוב חומר הביניים והופך אותו לגז דמעות. כשהוא חסר, חומר הביניים הולך לדרך השנייה, ונוצרים יותר מהחומרים שנותנים לבצל ריח וטעם חריף. כך בדיוק קרה בניסוי של הצוות היפני. ושום? יש בו רק את הדרך השנייה, ולכן הוא מריח חזק, אבל לא גורם לדמעות. (בשום החומרים קצת אחרים, ולכן גם הריח אחר.)</p></div>
+
+  <div id="chAfter" hidden>
+  <p>על הגילוי הזה קיבלו החוקרים בשנת <span class="num">2013</span> את <b>פרס איג נובל</b> לכימיה. זה פרס היתולי, שניתן למחקרים "שקודם מצחיקים, ואחר כך גורמים לחשוב". ובשנת <span class="num">2015</span> הודיעה החברה שגידלה, בעזרת הקרנה של זרעים, בצל שכמעט לא גורם לדמעות. ומפתיע: בבצל הזה ירד דווקא <b>האנזים הראשון</b>, ולכן הוא גם פחות חריף.</p>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על פס ייצור של עוגיות. עובד אחד לש בצק, ועובד שני חותך אותו לכוכבים. אם העובד השני לא הגיע לעבודה, עדיין יש בצק, וגם הוא טעים — אבל אין כוכבים. בבצל, ה"עובד השני" הוא האנזים שמכין את הגז. בשום הוא פשוט לא קיים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>שימו לב לרעיון של <b>פיצול</b>: אותו חומר ביניים יכול ללכת לשני כיוונים. כשהאנזים השני נמצא, הוא "חוטף" את רוב חומר הביניים, כי אנזים עובד מהר מאוד. כשהוא חסר, חומר הביניים מגיב בלי עזרה של אנזים, ונוצרים החומרים שנותנים את הטעם. לכן החוקרים כתבו ב־<span class="num">2002</span> שאם רוצים בצל בלי דמעות שעדיין חריף, עדיף לכבות רק את האנזים השני: זה כמו לסגור רק אחת מהיציאות של צומת, ולשלוח את כל המכוניות לדרך השנייה. בבצל שגידלו ב־<span class="num">2015</span> ירד דווקא האנזים הראשון — וכמו שאפשר היה לצפות, הוא יצא בלי דמעות, אבל גם פחות חריף.</p>
+  </div>
+
+  <div class="q qc" id="priceQ"></div>
+  </div>
+  <p class="small" id="hint3" style="text-align:center">כדי להמשיך, סיימו את המעבדה.</p>
+  <div class="next"><button class="btn" id="next3" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · CHOP FINER, CRY MORE (interactive 4: the cube) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>חותכים דק יותר — בוכים יותר</h2>
+  <p>במתכונים כתוב לפעמים: "לקצוץ בצל לקוביות קטנות". מי שעשה את זה יודע שככל שחותכים דק יותר, העיניים שורפות יותר. למה? כי גז נוצר רק בתאים שנקרעו. כל חיתוך חדש פותח עוד שורה של תאים, על פני הצדדים החדשים שנוצרו.</p>
+  <p>אז השאלה האמיתית היא שאלה של מתמטיקה: כמה צדדים חדשים נוצרים? למדידה הזאת קוראים <b>שטח פנים</b>: השטח של כל הפאות של כל החתיכות ביחד. במעבדה ניקח חתיכת בצל בצורת קובייה, בצלע של <span class="num">6</span> ס״מ, ונחתוך אותה. אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 4 — הקובייה ===== -->
+  <div class="panel instrument">
+    <h3>הקובייה</h3>
+    <p class="cap">נחשו קודם: חותכים כל צלע של הקובייה לשניים, ומקבלים <span class="num">8</span> קוביות קטנות. כמה שטח פנים יש להן ביחד, לעומת הקובייה הגדולה?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="cbP0" onclick="cbPredict(0)">אותו דבר</button>
+        <button id="cbP1" onclick="cbPredict(1)">פי <span class="num">2</span></button>
+        <button id="cbP2" onclick="cbPredict(2)">פי <span class="num">8</span></button>
+      </div>
+    </div>
+    <canvas role="img" id="cbCv" width="640" height="600" aria-label="קובייה של בצל שמפורקת לקוביות קטנות, עם רווחים ביניהן. הפאות של הקובייה הגדולה בצבע זהוב, והפאות החדשות שנוצרו בחיתוך בצבע סגול. מעל הקובייה עננים של גז. למעלה כתוב כמה קוביות יש ומה גודלן"></canvas>
+    <div class="controls">
+      <label>חלקים בכל צלע (ימינה: מעט, שמאלה: הרבה)
+        <input type="range" id="cbK" min="1" max="6" step="1" value="1" oninput="cbSet()" aria-label="חלקים בכל צלע" style="direction:rtl">
+      </label>
+    </div>
+    <p class="cap" style="margin:8px 0 0"><span style="color:#D9A55B;font-weight:800">■</span> פאה של הקובייה הגדולה &nbsp; <span style="color:#9B5FB5;font-weight:800">■</span> פאה חדשה מהחיתוך — עוד תאים קרועים</p>
+    <div class="controls">
+      <div class="readout">קוביות: <b id="cbOut">—</b></div>
+      <div class="readout">שטח פנים: <b id="cbOut2">—</b></div>
+    </div>
+    <p class="cap" id="cbMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="cbReveal" hidden><span class="hand">!</span><p><b>פי <span class="num">2</span>, ולא פי <span class="num">8</span>!</b> יש הרבה יותר קוביות, אבל כל אחת קטנה בהרבה. לקובייה הגדולה יש <span class="num">6</span> פאות של <span class="math">6 × 6 = 36</span> סמ״ר, כלומר <span class="math">6 × 36 = 216</span> סמ״ר. לכל קובייה קטנה, בצלע <span class="num">3</span> ס״מ, יש <span class="math">6 × 9 = 54</span> סמ״ר, ולשמונה קוביות <span class="math">8 × 54 = 432</span> סמ״ר — בדיוק פי <span class="num">2</span>. חותכים כל צלע ל־<span class="num">3</span>? השטח גדל פי <span class="num">3</span>, וכן הלאה.</p></div>
+
+  <div id="cbAfter" hidden>
+  <p>וזה בדיוק מה שקורה בבצל: יותר שטח חתוך, יותר תאים קרועים, יותר גז. (בבצל אמיתי יש שכבות, והתאים לא מסודרים בקוביות, אבל הרעיון זהה.)</p>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על כריך עם ריבה. כשחותכים אותו לשניים, נוצרים שני צדדים חדשים שרואים בהם את הריבה. חותכים כל חצי שוב — עוד צדדים. כל חיתוך מגלה עוד מהפנים. בבצל, כל צד חדש הוא עוד תאים פתוחים, ועוד גז שעולה לעיניים. לכן כדאי לחתוך מהר, ולא לקצוץ יותר ממה שהמתכון צריך.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>החשבון הכללי: לקובייה בצלע <span class="math">L</span> יש <span class="num">6</span> פאות, ושטח הפנים שלה <span class="math">6 × L × L</span>. חותכים כל צלע ל־<span class="math">k</span> חלקים, ומקבלים <span class="math">k × k × k</span> קוביות, כל אחת בצלע <span class="math">L ÷ k</span>. בכל קובייה קטנה השטח קטן פי <span class="math">k × k</span>, אבל יש פי <span class="math">k × k × k</span> קוביות. לכן השטח הכולל גדל פי <span class="math">k</span> בלבד. מספר החתיכות מזנק, והשטח מטפס לאט יותר. אותו רעיון מסביר למה סוכר דק נמס בתה מהר יותר מקוביית סוכר: יותר שטח, יותר מגע.</p>
+  </div>
+
+  <div class="q qc" id="siteQ"></div>
+  </div>
+  <p class="small" id="hint4" style="text-align:center">כדי להמשיך, סיימו את המעבדה.</p>
+  <div class="next"><button class="btn" id="next4" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: WHY WOULD A PLANT DO THIS (figure) + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>למה שצמח יבנה גז דמעות?</h2>
+  <p>עכשיו אפשר לספר את כל הסיפור, בארבע תמונות.</p>
+
+  <figure class="calfig" aria-label="ארבע תמונות. בתמונה 1 בצל שלם באדמה. בתמונה 2 חרק נוגס בבצל. בתמונה 3 תאים קרועים, נקודות צהובות וצורות ירוקות מתערבבות. בתמונה 4 ענן סגול, והחרק בורח">
+    <svg viewBox="0 0 640 600" role="img" aria-hidden="true" focusable="false">
+      <defs><clipPath id="fp0"><rect x="0" y="0" width="300" height="286" rx="14"/></clipPath>
+        <path id="fonion" d="M0 -78 C0 -54 58 -34 60 20 C62 66 30 84 0 84 C-30 84 -62 66 -60 20 C-58 -34 0 -54 0 -78 Z" fill="#D9A55B" stroke="#1B1F33" stroke-width="4" stroke-linejoin="round"/>
+        <g id="fbug"><ellipse cx="0" cy="0" rx="30" ry="20" fill="#3E7F4F" stroke="#1B1F33" stroke-width="3"/><circle cx="-30" cy="-4" r="12" fill="#2F5F3C" stroke="#1B1F33" stroke-width="3"/><path d="M-12 18 l-8 14 M4 20 v14 M18 16 l8 14" stroke="#1B1F33" stroke-width="3" stroke-linecap="round"/><circle cx="-34" cy="-8" r="3" fill="#FFFFFF"/></g>
+      </defs>
+      <g transform="translate(330,10)"><g clip-path="url(#fp0)"><rect width="300" height="286" fill="#CFE3F2"/><rect y="150" width="300" height="136" fill="#8C6A44"/><use href="#fonion" transform="translate(150,128) scale(.9)"/><path d="M150 58 C146 36 156 22 168 10" fill="none" stroke="#4DA36A" stroke-width="6" stroke-linecap="round"/><rect x="26" y="220" width="248" height="54" rx="10" fill="#FFFFFF"/><text x="150" y="259" text-anchor="middle" font-family="Rubik,Arial" font-size="33" font-weight="700" fill="#1B1F33">בצל באדמה</text></g><circle cx="274" cy="26" r="20" fill="#F6C454" stroke="#1B1F33" stroke-width="2"/><text x="274" y="35" text-anchor="middle" font-family="Rubik,Arial" font-size="24" font-weight="800" fill="#1B1F33">1</text></g>
+      <g transform="translate(10,10)"><g clip-path="url(#fp0)"><rect width="300" height="286" fill="#CFE3F2"/><rect y="150" width="300" height="136" fill="#8C6A44"/><use href="#fonion" transform="translate(170,128) scale(.9)"/><path d="M110 120 l14 -8 l2 16 l14 -6 l-2 18 Z" fill="#CFE3F2" stroke="#1B1F33" stroke-width="3"/><use href="#fbug" transform="translate(80,124) scale(1.1)"/><rect x="26" y="220" width="248" height="54" rx="10" fill="#FFFFFF"/><text x="150" y="259" text-anchor="middle" font-family="Rubik,Arial" font-size="33" font-weight="700" fill="#1B1F33">מישהו נוגס</text></g><circle cx="274" cy="26" r="20" fill="#F6C454" stroke="#1B1F33" stroke-width="2"/><text x="274" y="35" text-anchor="middle" font-family="Rubik,Arial" font-size="24" font-weight="800" fill="#1B1F33">2</text></g>
+      <g transform="translate(330,304)"><g clip-path="url(#fp0)"><rect width="300" height="286" fill="#F7F0FA"/><path d="M30 30 H140 V200 H30 Z M160 30 H270 V200 H160 Z" fill="#FBF3DF" stroke="#4DA36A" stroke-width="6"/><path d="M140 60 L160 90 L140 120 L160 150" fill="none" stroke="#C8452D" stroke-width="6" stroke-linecap="round"/><g fill="#F6C454" stroke="#1B1F33" stroke-width="2"><circle cx="60" cy="70" r="10"/><circle cx="100" cy="150" r="10"/><circle cx="200" cy="60" r="10"/><circle cx="236" cy="160" r="10"/><circle cx="128" cy="96" r="10"/></g><g fill="#2F9E5A" stroke="#1B1F33" stroke-width="2"><path d="M150 110 l16 -10 a18 18 0 1 0 0 20 Z"/><path d="M84 110 l16 -10 a18 18 0 1 0 0 20 Z"/><path d="M214 116 l16 -10 a18 18 0 1 0 0 20 Z"/></g><rect x="26" y="220" width="248" height="54" rx="10" fill="#FFFFFF"/><text x="150" y="259" text-anchor="middle" font-family="Rubik,Arial" font-size="33" font-weight="700" fill="#1B1F33">התאים נקרעים</text></g><circle cx="274" cy="26" r="20" fill="#F6C454" stroke="#1B1F33" stroke-width="2"/><text x="274" y="35" text-anchor="middle" font-family="Rubik,Arial" font-size="24" font-weight="800" fill="#1B1F33">3</text></g>
+      <g transform="translate(10,304)"><g clip-path="url(#fp0)"><rect width="300" height="286" fill="#CFE3F2"/><rect y="150" width="300" height="136" fill="#8C6A44"/><use href="#fonion" transform="translate(196,128) scale(.9)"/><g fill="#B36FCB" opacity=".8"><circle cx="170" cy="60" r="30"/><circle cx="200" cy="44" r="26"/><circle cx="140" cy="76" r="24"/><circle cx="226" cy="66" r="22"/></g><use href="#fbug" transform="translate(60,130) scale(-1.1,1.1)"/><path d="M96 112 h-20 M96 128 h-24 M96 144 h-20" stroke="#1B1F33" stroke-width="4" stroke-linecap="round"/><rect x="26" y="220" width="248" height="54" rx="10" fill="#FFFFFF"/><text x="150" y="259" text-anchor="middle" font-family="Rubik,Arial" font-size="33" font-weight="700" fill="#1B1F33">ענן — ובורחים</text></g><circle cx="274" cy="26" r="20" fill="#F6C454" stroke="#1B1F33" stroke-width="2"/><text x="274" y="35" text-anchor="middle" font-family="Rubik,Arial" font-size="24" font-weight="800" fill="#1B1F33">4</text></g>
+    </svg>
+    <figcaption>קוראים מימין לשמאל, לפי המספרים: שלם ושקט, נגיסה, ערבוב, ענן.</figcaption>
+  </figure>
+
+  <p>מתחת לאדמה, הבצל הוא מחסן מזון של הצמח. חרקים, תולעים ומכרסמים היו שמחים לאכול אותו. לבצל אין רגליים לברוח ואין קוצים — יש לו כימיה. החוקרים חושבים שהחומרים החריפים האלה הם כנראה הגנה: מי שנוגס בבצל מקבל מיד פה מלא חריפות וענן שורף, ואולי יחפש ארוחה אחרת.</p>
+  <p>והטריק של שני החדרים חכם במיוחד. גז הדמעות הוא חומר פעיל מאוד, שמשתנה ומתפרק תוך דקות. קשה היה לשמור אותו בתוך התא בלי שיזיק לבצל עצמו, והוא היה בורח כל הזמן. במקום זה הבצל שומר שני חומרים שקטים, ומרכיב את ה"נשק" רק במקום הפגיעה וברגע הפגיעה. גם <b>חיפושית ההפצצה</b> עושה משהו דומה: בגופה יש תא אחד לחומרים ותא אחר לאנזימים, והיא מערבבת אותם רק כשמישהו תוקף אותה.</p>
+  <p>ובני אדם? אנחנו דווקא אוהבים את החריפות. בני אדם מגדלים בצל כבר אלפי שנים. ההיסטוריון היווני הרודוטוס כתב שעל אחת הפירמידות במצרים נחרט כמה כסף הוציאו על צנון, בצל ושום לפועלים. ובתורה, בספר במדבר, בני ישראל במדבר מתגעגעים למאכלים של מצרים: "...אֵת הַקִּשֻּׁאִים וְאֵת הָאֲבַטִּחִים וְאֶת הֶחָצִיר וְאֶת הַבְּצָלִים וְאֶת הַשּׁוּמִים". גם היום בצל הוא אחד הירקות הנפוצים בעולם, ומגדלים אותו גם בשדות של ישראל.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>מה לומדים מזה? צמח לא יכול לברוח, אבל הוא יכול להיות חכם. הבצל שומר את ה"מתכון" שלו בשני חלקים, כמו שני חצאים של סוד. רק מי שפוגע בו מחבר את החצאים. ובפעם הבאה שמישהו ליד יבכה מבצל, תוכלו להסביר: "זה לא עצב, אלה התאים של הבצל שנקרעו, והאנזימים שפגשו את החומר עם הגופרית!"</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בואו נחזור לכלל האצבע מפרק <span class="num">2</span>: כל <span class="num">10</span> מעלות מכפילות בערך את המהירות. אם מתחממים ב־<span class="num">20</span> מעלות, זה שתי הכפלות: <span class="math">2 × 2 = 4</span>. וכשתגובה מהירה פי <span class="num">4</span>, אותה כמות של תוצר נוצרת בזמן קצר פי <span class="num">4</span>. מדענים משתמשים בחשבון כזה גם כדי להבין למה אוכל במקרר מתקלקל לאט, ולמה חיפושיות ונמלים זזות לאט בבוקר קר.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> לפי כלל האצבע, כל <span class="num">10</span> מעלות מכפילות בערך את מהירות התגובה. (א) בצל אחד מהמקרר, בטמפרטורה של <span class="num">4</span> מעלות, ובצל שני שעמד במטבח ביום חם, בטמפרטורה של <span class="num">34</span> מעלות. פי כמה מהר יותר נוצר הגז בבצל החם? (ב) בבצל החם הגז מגיע לשיא אחרי <span class="num">15</span> שניות. נניח שבבצל הקר צריך בדיוק את אותה כמות תגובה. אחרי כמה <b>שניות</b> הוא יגיע לשיא? כמה דקות זה?</p>
+      <div class="controls">
+        <label>(א) פי כמה <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) שניות <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> למה הבצל לא שומר את גז הדמעות מוכן מראש, בתוך התאים, כדי שיהיה מוכן לכל תקיפה? מה היה משתבש?</p>
+      <details><summary>רמז</summary><p>חשבו על שני דברים: מה קורה לחומר נדיף שנמצא כל הזמן בתוך התא? ומה קורה לחומר פעיל מאוד שנוגע בתא של הבצל עצמו?</p></details>
+      <details><summary>התשובה</summary><p><b>כי זה היה מזיק ובזבזני.</b> גז הדמעות פעיל מאוד ומתפרק תוך דקות, ולכן הוא היה פוגע בתאים של הבצל עצמו, וגם בורח החוצה כל הזמן. הבצל היה צריך לייצר אותו שוב ושוב, בלי שאיש תקף אותו. שני חומרים שקטים נשמרים בבטחה חודשים, והנשק מורכב רק במקום הפגיעה וברגע הפגיעה. ועוד יתרון: אנזים לא נגמר, ולכן כמות קטנה של אנזים מספיקה לחתוך הרבה מאוד מולקולות.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>ניסוי אחד, ועוד שניים למי שרוצה. צריך שני בצלים, סכין, קרש, שעון עצר בטלפון — <b>ומבוגר שחותך או עומד לידכם כל הזמן.</b></p>
+
+  <div class="panel">
+    <h3>חלק א׳ — מקרר מול שיש (<span class="num">10</span> דקות, עם מבוגר)</h3>
+    <ol>
+      <li>חצי שעה לפני הניסוי, שימו בצל אחד במקרר, והשאירו בצל שני על השיש.</li>
+      <li>לפני שמתחילים: נחשו איזה בצל יגרום לדמעות מהר יותר, ורשמו את הניחוש.</li>
+      <li>המבוגר חותך חצי מהבצל מהשיש, ואתם מפעילים שעון עצר. כמה שניות עוברות עד שהעיניים מתחילות לשרוף? רשמו.</li>
+      <li>מחכים כמה דקות, מאווררים את המטבח, וחוזרים על הניסוי עם הבצל מהמקרר, באותה סכין ובאותה צורה.</li>
+      <li>בונוס: חצי שלישי חותכים ליד ברז פתוח או ליד חלון. מה קרה?</li>
+    </ol>
+    <p class="small" style="margin:0">אם העיניים שורפות: לא לשפשף עם ידיים של בצל. שוטפים ידיים ומתרחקים רגע מהקרש.</p>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — תאים בעיניים שלכם (<span class="num">5</span> דקות)</summary>
+    <ol>
+      <li>בקשו ממבוגר להפריד שכבה אחת של בצל. בצד הפנימי שלה יש קרום דק ושקוף, כמו נייר צלופן.</li>
+      <li>קלפו פיסה קטנה של הקרום, והניחו אותה על זכוכית או על צלחת שקופה, עם טיפת מים.</li>
+      <li>הסתכלו במיקרוסקופ של בית ספר, או בזכוכית מגדלת חזקה מול האור. אתם רואים "לבנים" קטנות? כל לבנה היא תא, ובכל אחד מהם מסתתרים שני החדרים.</li>
+    </ol>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — שום מול בצל: מבחן האף (<span class="num">3</span> דקות)</summary>
+    <p>בקשו ממבוגר לחתוך שן שום אחת וחתיכה קטנה של בצל, על שתי צלחות. הריחו כל צלחת מרחוק, בזהירות. לשניהם ריח חזק, אבל רק אחד גורם לעקצוץ בעיניים. איזה? עכשיו אתם יודעים למה: רק לבצל יש את האנזים השני.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>נשק בשני חלקים</h2>
+  <p>הדמעות שלנו ליד הבצל הן סוף של שרשרת ארוכה: סכין, תא קרוע, שני חומרים שנפגשים, שני אנזימים שעובדים אחד אחרי השני, גז שעולה באוויר, עצבים בעין, ומוח ששולח מים לשטוף. כל חוליה בשרשרת היא מקום שבו אפשר להתערב: לקרר, לחתוך בסכין חדה, לחתוך פחות, לפזר את הגז, או לגדל בצל בלי האנזים השני. ויש עוד שאלות פתוחות: החוקרים עדיין לומדים בדיוק איך הגז מפעיל את העצבים בעין, ואיך הצמח מחליט כמה חומר עם גופרית לבנות.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>הבצל לא מחזיק גז דמעות — הוא מכין אותו.</b> בכל תא יש שני חדרים. הסכין שוברת את הקיר, האנזים פוגש את החומר, ותוך שניות נוצר גז שעולה לעיניים. העיניים שוטפות אותו בדמעות. קור, סכין חדה ומים עוזרים. שאלה לחקור: אילו עוד ירקות או צמחים חריפים יש במטבח שלכם, והאם גם הם עושים "טריק" כזה?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>הפרדה היא מנגנון</b>: הבצל שומר את המרכיבים בחדרים נפרדים, והנזק עצמו מפעיל את ההגנה. <b>אנזימים בונים שרשראות שמתפצלות</b>: אותו חומר ביניים הופך לגז או לטעם, לפי האנזים שנמצא. <b>מספרים מסבירים את המטבח</b>: חיתוך דק מגדיל את שטח הפנים פי <span class="math">k</span>, וכל <span class="num">10</span> מעלות מכפילות בערך את מהירות התגובה. שאלה לחקור: אם היו מגדלים רק בצלים בלי דמעות, האם החרקים בשדה היו אוכלים אותם יותר?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הסיפור?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">כימיה · יום יום</div><h3>המקל הזוהר</h3><p>בתוך מקל זוהר יש שפופרת קטנה סגורה. כשמכופפים, היא נשברת, שני נוזלים נפגשים, ונוצר אור. אותו רעיון של שני חדרים, רק עם אור במקום דמעות.</p></div>
+    <div class="tile"><div class="dom">ביולוגיה · ליל הסדר</div><h3>החזרת שמעקצצת באף</h3><p>גם החריפות של החזרת, החרדל והוואסאבי נוצרת רק כשמגררים או לועסים: גם שם אנזים וחומר שמורים בתא בנפרד, ונפגשים רק כשהתאים נקרעים.</p></div>
+    <div class="tile"><div class="dom">מתמטיקה · פיזיקה</div><h3>סוכר דק מול קוביית סוכר</h3><p>אותה כמות סוכר, אבל לסוכר הדק יש הרבה יותר שטח פנים, ולכן הוא נמס בתה הרבה יותר מהר. כמו בצל קצוץ דק.</p></div>
+    <div class="tile"><div class="dom">היסטוריה · מדע</div><h3>פרס שקודם מצחיק</h3><p>פרס איג נובל ניתן מאז <span class="num">1991</span> למחקרים אמיתיים שנשמעים מצחיקים. הגילוי של אימאי על הבצל זכה ב־<span class="num">2013</span>, בפרס לכימיה.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): למה בצל מטוגן מתוק ולא גורם לדמעות?</summary>
+    <p>בצל חי חריף ושורף בעיניים. אבל אחרי טיגון ארוך הוא רך, חום ומתוק. מה קרה לו במחבת? נחשו לפני שאתם פותחים.</p>
+    <details><summary>התשובה</summary>
+      <p><b>החום מנצח את השרשרת.</b> חום גבוה מפרק את האנזימים, ולכן לא נוצר עוד גז דמעות, והחומרים החריפים שכבר נוצרו מתנדפים או מתפרקים. בבצל יש גם סוכרים, ובטיגון ארוך הם משחימים ונותנים טעם מתוק ועמוק. כך אותו בצל עובר מ"נשק" לממתק.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את השרשרת, מהסכין ועד הדמעות. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: אמא של דנה חתכה בצל לשני חצאים. אחר כך חתכה כל חצי ל־<span class="num">4</span> פרוסות. כמה פרוסות יש בסך הכול?</div>
+    <div class="controls"><label>פרוסות <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: חתיכת בצל בצורת קובייה, בצלע של <span class="num">10.5</span> ס״מ, נחתכת לקוביות קטנות בצלע של <span class="num">1.5</span> ס״מ. (א) כמה קוביות קטנות יש? (ב) מה שטח הפנים של כל הקוביות הקטנות ביחד, בסמ״ר? (מותר מחשבון.)</div>
+    <div class="controls"><label>(א) קוביות <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) סמ״ר <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: חתיכת בצל בצורת קובייה, בצלע של <span class="num">8</span> ס״מ, נחתכת לקוביות קטנות בצלע של <span class="num">1</span> ס״מ. כמה קוביות קטנות יש?</div>
+    <div class="controls"><label>קוביות <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה חיתוך של בצל גורם לדמעות, ובצל שלם לא?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="בצל שלם לא גורם לדמעות כי..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. בבצל שלם אין בכלל גז דמעות. בכל תא יש שני "חדרים": באחד חומר עם גופרית, ובשני אנזים. רק כשהסכין קורעת את הקיר ביניהם, הם נפגשים, והגז נוצר — והוא מגיע לשיא כחצי דקה אחרי החיתוך.<br>
+    2. שום לא גורם לדמעות, כי חסר בו אנזים אחד. חוקרים מיפן גילו את האנזים השני של הבצל ב־<span class="num">2002</span>, וקיבלו על זה את פרס איג נובל ב־<span class="num">2013</span>.<br>
+    3. קוצצים כל צלע של קובייה לשניים? מקבלים <span class="num">8</span> קוביות, אבל שטח הפנים של כולן ביחד רק פי <span class="num">2</span>. ובצל מהמקרר גורם לפחות דמעות, כי בקור התגובות איטיות יותר.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>הגילוי: Imai, S. et al., "An onion enzyme that makes the eyes water", Nature <span class="num">419</span>, <span class="num">685</span> (<span class="num">2002</span>) — האנזים lachrymatory-factor synthase; הגז נוצר רק כשיש אליאינאז, החומר PRENCSO והאנזים השני; בלעדיו נוצרים יותר thiosulfinates (טעם); אליאינאז של שום לא יוצר גז דמעות. Scientific American (בלוג Scicurious), "IgNobels 2013: The Tearless Onion" — פרס איג נובל בכימיה <span class="num">2013</span>. Improbable Research, ראיון עם שינסוקה אימאי (<span class="num">2015</span>) — האוס פודס; גורם הדמעות זוהה בשנות ה־<span class="num">1970</span>. Phys.org (<span class="num">2015</span>), "Japanese company 'makes tear-free onions'" — הקרנת יונים. Kato, M. et al., Scientific Reports <span class="num">6</span>:<span class="num">23779</span> (<span class="num">2016</span>) — בבצל הזה ירדה פעילות האליאינאז, ה־LFS תקין, והבצל לא חריף; לכן כתבנו שירד "האנזים הראשון".</p>
+    <p>המנגנון: Scientific American, "What is the chemical process that causes my eyes to tear when I peel an onion?" (Thomas Scott) — סולפוקסידים, חומצות סולפניות, syn-propanethial-S-oxide; עצבי הקרנית (ענף של העצב הטריגמינלי) והחזרה של בלוטות הדמעות; שיא היווצרות הגז כ־<span class="num">30</span> שניות אחרי הפגיעה, המחזור כולו כ־<span class="num">5</span> דקות. The Naked Scientists — חימום מפרק את האנזים; חיתוך באוורור או במים. Randle, ABLE lab manual vol. <span class="num">19</span> — האליאינאז בחלולית, החומרים בציטופלזמה; החומר של הבצל (1-propenyl) מתפרק כמעט מיד. Library of Congress, Everyday Mysteries — המחקר היפני מ־<span class="num">2002</span>.</p>
+    <p>פישוטים במכוון: "תא אחד" סכמטי. "המטבח" הוא מודל איכותי (קצב יחסי <span class="math">2^((T − 24) ÷ 10)</span>, סכין קהה פי <span class="num">1.8</span>, מים פי <span class="num">0.5</span>), ולא מדידה. כלל ההכפלה לכל <span class="num">10</span> מעלות הוא קירוב גס; באתגר הנחנו שכל ההבדל נובע מקצב התגובה, וכתבנו שבמציאות זה מורכב יותר. "ההגנה מפני בעלי חיים" מוצגת כהסבר הסביר ("כנראה"). "שני חדרים" הוא דימוי: החלולית מוקפת קרום (טונופלסט). הרודוטוס, היסטוריות ספר ב׳ <span class="num">125</span>; במדבר י״א <span class="num">5</span>. החזרת והחרדל: מערכת גלוקוזינולט־מירוזינאז, ידע מקובל. שטח הפנים: גאומטריה פשוטה.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:57, code:'WOW-057', date:'2026-11-08', title:'הגז שלא קיים עד שחותכים את הבצל', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '153XmdeZ15PXldehINed15nXqNeT15cg15nXoNep'; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'chemistry', w:3 }, { id:'biology', w:3 }, { id:'math', w:2 }, { id:'history', w:1 }, { id:'physics', w:1 } ],
+  hero: { name:'הגז שלא קיים עד שחותכים את הבצל — תא אחד, המטבח, השרשרת והקובייה', fact:'בבצל שלם אין גז דמעות: חומר עם גופרית ואנזים שמורים בשני חדרים בכל תא, ונפגשים רק כשהסכין קורעת את התא.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'prior-knowledge',       d:1 },
+    'qc:storyQ':      { skill:'cell-compartments',     d:2 },
+    'qc:snailQ':      { skill:'cell-damage',           d:2 },
+    'qc:priceQ':      { skill:'enzyme-chains',         d:2 },
+    'qc:siteQ':       { skill:'surface-area',          d:3 },
+    'qc:deepQ':       { skill:'plant-defence',         d:2 },
+    'mcq:shared:0':   { skill:'cell-compartments',     d:1 },
+    'mcq:shared:1':   { skill:'temperature-rates',     d:2 },
+    'mcq:shared:2':   { skill:'history-of-science',    d:2 },
+    'mcq:younger:0':  { skill:'kitchen-science',       d:1 },
+    'mcq:older:0':    { skill:'reflexes',              d:3 },
+    'order':          { skill:'mechanism-sequence',    d:2 },
+    'num:younger':    { skill:'multiplication',        d:1 },
+    'num:older':      { skill:'cubes-volume-counting', d:2 },
+    'num:adv':        { skill:'surface-area',          d:4 },
+    'challenge':      { skill:'doubling-rates',        d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); clDraw(); } if(n===2) ktDraw(); if(n===3) chDraw(); if(n===4) cbDraw(); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: where is the tear gas kept in a whole onion? ----------
+   Four choices. The right answer: 4 — nowhere; it is made only when cells are cut. */
+const SCALE_ANS = 4;
+const fmtSigns = n => ({1:'בקליפה',2:'במיץ',3:'בשורשים',4:'בשום מקום'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> בבצל שלם אין גז דמעות בכלל. הוא נוצר רק ברגע החיתוך. איך? על זה השיעור.';
+const SCALE_FB = {
+  1: '<span class="pill-bad">לא שם!</span> הקליפה יבשה ושקטה. בבצל שלם אין גז דמעות בכלל — הוא נוצר רק ברגע החיתוך. איך? על זה השיעור.',
+  2: '<span class="pill-bad">קרוב, אבל לא!</span> במיץ יש חומר אחד מהמתכון, אבל עוד לא גז. בבצל שלם אין גז דמעות בכלל — הוא נוצר רק ברגע החיתוך. איך? על זה השיעור.',
+  3: '<span class="pill-bad">לא שם!</span> בבצל שלם אין גז דמעות בכלל, גם לא בשורשים. הוא נוצר רק ברגע החיתוך. איך? על זה השיעור.',
+  4: SCALE_FB_RIGHT
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI, DEG = PI/180;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const GOLDT = () => isDark() ? '#F6C454' : '#8A5410';     // gold for text
+const GRAPH = () => isDark() ? '#B7BFD2' : '#3E4452';     // graphite grey
+const BLUE = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+const ORNG = () => isDark() ? '#F2A066' : '#C8601F';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+const fmt1 = v => (Math.round(v*10)/10).toLocaleString('en-US');
+const fmtI = v => Math.round(v).toLocaleString('en-US');
+/* ---------- this edition's picture colours ---------- */
+const INK = () => css('--ink');
+const FLESH = () => isDark() ? '#3A3352' : '#FBF3DF';
+const WALL = () => isDark() ? '#8FC36A' : '#6E9A45';
+const VAC = () => isDark() ? '#24456A' : '#D3E8F7';
+const VACL = () => isDark() ? '#7FB3DD' : '#4F86B8';
+const YEL = () => '#F2C230';
+const ENZ = () => isDark() ? '#5FD08F' : '#2F9E5A';
+const PURP = () => isDark() ? '#C89BE0' : '#9B5FB5';
+const SKIN = () => '#D9A55B';
+const SKIN2 = () => '#9C6A2C';
+const TEAR = () => '#5FB4EA';
+function xRand(s){ let x=Math.sin(s*12.9898)*43758.5453; return x-Math.floor(x); }
+function xMath(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+/* a puff of gas (three overlapping circles) */
+function xPuff(c,x,y,r,col,alpha){ c.save(); c.globalAlpha=alpha==null?.8:alpha; c.fillStyle=col; c.beginPath(); c.arc(x,y,r,0,2*PI); c.arc(x+r*.8,y-r*.35,r*.75,0,2*PI); c.arc(x-r*.8,y-r*.2,r*.7,0,2*PI); c.fill(); c.restore(); }
+/* an enzyme: a "pac-man" pair of scissors, mouth facing angle a */
+function xEnz(c,x,y,r,a,col,mouth){ const m=mouth==null?.42:mouth; c.fillStyle=col; c.strokeStyle=INK(); c.lineWidth=3; c.beginPath(); c.moveTo(x,y); c.arc(x,y,r,a+m,a+2*PI-m); c.closePath(); c.fill(); c.stroke(); c.fillStyle=INK(); c.beginPath(); c.arc(x+r*.35*Math.cos(a-PI/2)+r*.1*Math.cos(a), y+r*.35*Math.sin(a-PI/2)+r*.1*Math.sin(a), Math.max(2.5,r*.12), 0, 2*PI); c.fill(); }
+function xDot(c,x,y,r,col){ c.fillStyle=col; c.strokeStyle=INK(); c.lineWidth=2.5; c.beginPath(); c.arc(x,y,r,0,2*PI); c.fill(); c.stroke(); }
+const RM = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+/* ---------- step 1 (interactive 1): one onion cell (canvas 640 × 600) ----------
+   A cell with two rooms: sulphur compound (yellow) in the cell fluid, enzymes (green) in the vacuole.
+   "Cut" tears the vacuole membrane; each enzyme seeks the nearest compound, each meeting releases a puff of gas that rises into the air above. */
+const clCv=document.getElementById('clCv'), clctx=clCv.getContext('2d');
+const CL={ opened:0, pred:-1, revealed:0, cut:0, done:0, raf:0, kt:0, P:[], E:[], gas:[], meets:0 };
+const CL_BOX={x:50,y:150,w:540,h:390}, CL_V={x:320,y:345,rx:165,ry:108};
+function clEll(x,y,m){ return ((x-CL_V.x)/(CL_V.rx+m))**2+((y-CL_V.y)/(CL_V.ry+m))**2; }
+function clInit(){
+  CL.P=[]; CL.E=[]; CL.gas=[]; CL.meets=0; CL.cut=0; CL.done=0; CL.kt=0;
+  let s=1; while(CL.P.length<22 && s<4000){ const x=CL_BOX.x+30+(CL_BOX.w-60)*xRand(s*1.7), y=CL_BOX.y+30+(CL_BOX.h-60)*xRand(s*2.3+5); s++;
+    if(clEll(x,y,22)<1) continue; if(CL.P.some(p=>Math.hypot(p.x-x,p.y-y)<52)) continue; CL.P.push({x,y,on:1}); }
+  s=1; while(CL.E.length<9 && s<4000){ const x=CL_V.x-CL_V.rx+CL_V.rx*2*xRand(s*3.1+9), y=CL_V.y-CL_V.ry+CL_V.ry*2*xRand(s*4.7+3); s++;
+    if(clEll(x,y,-30)>1) continue; if(CL.E.some(e=>Math.hypot(e.x-x,e.y-y)<60)) continue; CL.E.push({x,y,a:xRand(s)*2*PI}); }
+}
+clInit();
+function clPredict(k){ CL.pred=k; segOn('clP',3,k); WOW.emit('item', { id:'cell:predict', kind:'quick', correct:k===2, attempt: wowTry('cell:predict') });
+  clMsg.innerHTML='רשמנו את הניחוש. עכשיו חתכו את התא בסכין, וצפו מה קורה.'; clDraw(); }
+function clReset(){ cancelAnimationFrame(CL.raf); clInit(); clDraw(); if(CL.pred>=0) clMsg.innerHTML='התא שלם שוב. אפשר לחתוך מחדש.'; }
+function clCut(){
+  if(CL.pred<0){ predictFirst(clMsg,'חתכו'); return; }
+  if(CL.cut){ clMsg.innerHTML='כבר חתכנו. לחצו "מהתחלה" כדי לנסות שוב.'; return; }
+  if(!CL.opened){ CL.opened=1; WOW.emit('open', { id:'cell' }); }
+  CL.cut=1; clMsg.innerHTML='הסכין קרעה את הקרום. צפו: מי פוגש את מי?';
+  if(RM()){ CL.kt=1; let g=0; while(!CL.done && g<3000){ clStep(); g++; } clDraw(); clFinish(); return; }
+  const tick=()=>{ if(CL.kt<1){ CL.kt=Math.min(1,CL.kt+0.04); } else clStep(); clDraw(); if(!CL.done) CL.raf=requestAnimationFrame(tick); else clFinish(); };
+  CL.raf=requestAnimationFrame(tick);
+}
+function clStep(){
+  if(CL.kt<1){ CL.kt=1; }
+  const left=CL.P.filter(p=>p.on);
+  CL.E.forEach((e,i)=>{ if(!left.length) return; let best=null, bd=1e9; left.forEach(p=>{ const d=Math.hypot(p.x-e.x,p.y-e.y); if(d<bd){ bd=d; best=p; } });
+    if(!best) return; const a=Math.atan2(best.y-e.y,best.x-e.x); e.a=a; const sp=2.6; e.x+=sp*Math.cos(a)+0.6*Math.sin(CL.meets+i); e.y+=sp*Math.sin(a)+0.6*Math.cos(CL.meets*1.3+i);
+    if(bd<20 && best.on){ best.on=0; CL.meets++; CL.gas.push({x:best.x,y:best.y,rest:40+80*xRand(CL.meets*7.7),vx:0}); } });
+  CL.gas.forEach((g,i)=>{ if(g.y>g.rest){ g.y-=2.2; } else { g.x+=0.35*Math.sin(i+g.y); } g.x=clamp(g.x,30,610); });
+  CL.done = !CL.P.some(p=>p.on) && CL.gas.every(g=>g.y<=g.rest+1);
+}
+function clFinish(){ clMsg.innerHTML='כל החומר עם הגופרית נחתך. מכל מפגש עלה ענן של גז דמעות.';
+  if(CL.pred>=0 && !CL.revealed){ CL.revealed=1; clReveal.hidden=false; clAfter.hidden=false; hint1.textContent='ענו על השאלה כדי להמשיך.'; } }
+function clDraw(){
+  const c=clctx, W=clCv.width, H=clCv.height, ink=INK(), B=CL_BOX, V=CL_V;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the cell */
+  c.fillStyle=FLESH(); c.strokeStyle=WALL(); c.lineWidth=9; c.beginPath(); c.roundRect(B.x,B.y,B.w,B.h,34); c.fill(); c.stroke();
+  /* the vacuole */
+  c.save(); c.fillStyle=VAC(); c.globalAlpha=CL.cut?.45:1; c.beginPath(); c.ellipse(V.x,V.y,V.rx,V.ry,0,0,2*PI); c.fill(); c.restore();
+  c.save(); c.strokeStyle=VACL(); c.lineWidth=5; if(CL.cut){ c.setLineDash([18,16]); c.globalAlpha=.6; } c.beginPath(); c.ellipse(V.x,V.y,V.rx,V.ry,0,0,2*PI); c.stroke(); c.restore();
+  /* compounds and enzymes */
+  CL.P.forEach(p=>{ if(p.on) xDot(c,p.x,p.y,11,YEL()); });
+  CL.E.forEach(e=>xEnz(c,e.x,e.y,17,e.a,ENZ()));
+  /* the knife cut */
+  if(CL.cut){ const t=CL.kt, x0=600,y0=140,x1=40,y1=560, xe=x0+(x1-x0)*t, ye=y0+(y1-y0)*t;
+    c.save(); c.strokeStyle=DANG(); c.lineWidth=6; c.lineCap='round'; c.beginPath(); c.moveTo(x0,y0); c.lineTo(xe,ye); c.stroke(); c.restore();
+    if(t<1){ c.save(); c.translate(xe,ye); c.rotate(Math.atan2(y1-y0,x1-x0)); c.fillStyle='#C9CED8'; c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(18,0); c.lineTo(-70,-16); c.lineTo(-70,14); c.closePath(); c.fill(); c.stroke(); c.fillStyle='#5E4A3A'; c.fillRect(-120,-12,50,24); c.restore(); } }
+  /* gas in the air */
+  CL.gas.forEach(g=>xPuff(c,g.x,g.y,15,PURP(),.85));
+  /* labels */
+  if(!CL.cut) xLabel(c,'תא שלם — אין גז',320,60,26,ink,.95);
+  else if(CL.done) xLabel(c,'גז דמעות באוויר!',320,24+10*LS(),26,PURP(),.92);
+  if(!CL.cut){ xLabel(c,'אנזימים',V.x,V.y-V.ry+34,22,ENZ(),.9); }
+  /* legend */
+  xDot(c,600,574,10,YEL()); xText(c,'חומר עם גופרית',584,575,22,ink,'right');
+  xEnz(c,282,574,13,PI,ENZ()); xText(c,'אנזים',262,575,22,ink,'right');
+  clOut.innerHTML='<span class="num">'+CL.meets+'</span>'; clOut2.innerHTML='<span class="num">'+CL.gas.length+'</span>';
+}
+
+/* ---------- step 2 (interactive 2): the kitchen (canvas 640 × 600) ----------
+   An eye on top, a half onion on a board below. Gas reaching the eye over 30 s: G(t) = r × 7.5 × t² ÷ (t + 10), tears at G ≥ 100.
+   r = 2^((T − 24) ÷ 10) × (blunt knife 1.8) × (running water 0.5). A qualitative model, not a measurement. */
+const ktCv=document.getElementById('ktCv'), ktctx=ktCv.getContext('2d');
+const KT={ opened:0, pred:-1, revealed:0, knife:0, water:0, t:0, G:0, raf:0, running:0, cold:0, warm:0, tearAt:null, puffs:[], seed:0 };
+function ktRate(){ const T=+ktT.value; return Math.pow(2,(T-24)/10)*(KT.knife?1.8:1)*(KT.water?0.5:1); }
+function ktG(t){ return ktRate()*7.5*t*t/(t+10); }
+function ktPredict(k){ KT.pred=k; segOn('ktP',3,k); WOW.emit('item', { id:'kitchen:predict', kind:'quick', correct:k===0, attempt: wowTry('kitchen:predict') });
+  ktMsg.innerHTML='רשמנו את הניחוש. עכשיו בחרו חום וחתכו. נסו גם בצל קר וגם בצל חם.'; ktStop(); ktDraw(); }
+function ktStop(){ cancelAnimationFrame(KT.raf); KT.running=0; KT.t=0; KT.G=0; KT.tearAt=null; KT.puffs=[]; }
+function ktSet(){ if(KT.pred<0){ ktT.value=24; predictFirst(ktMsg,'שנו'); return; } ktStop(); ktDraw(); }
+function ktKnife(k){ if(KT.pred<0){ predictFirst(ktMsg,'בחרו'); return; } KT.knife=k; segOn('ktK',2,k); ktStop(); ktDraw(); }
+function ktWater(k){ if(KT.pred<0){ predictFirst(ktMsg,'בחרו'); return; } KT.water=k; segOn('ktW',2,k); ktStop(); ktDraw(); }
+function ktRun(){
+  if(KT.pred<0){ predictFirst(ktMsg,'חתכו'); return; }
+  if(!KT.opened){ KT.opened=1; WOW.emit('open', { id:'kitchen' }); }
+  ktStop(); KT.running=1; ktMsg.innerHTML='חותכים...';
+  if(RM()){ KT.t=30; KT.G=ktG(30); if(KT.G>=100){ let s=0; while(ktG(s)<100) s+=0.1; KT.tearAt=s; } KT.running=0; ktDraw(); ktEnd(); return; }
+  const t0=performance.now();
+  const tick=now=>{ KT.t=Math.min(30,(now-t0)/150); KT.G=ktG(KT.t); if(KT.G>=100 && KT.tearAt==null) KT.tearAt=KT.t;
+    const r=ktRate(); KT.seed++; if(xRand(KT.seed*1.37)<Math.min(.9,.22*r)) KT.puffs.push({x:300+40*xRand(KT.seed*3.3),y:430,toWater:KT.water && xRand(KT.seed*5.1)<.5});
+    KT.puffs.forEach(p=>{ p.y-=3.2; if(p.toWater) p.x+=2.6; }); KT.puffs=KT.puffs.filter(p=>p.y>150 && p.x<482);
+    ktDraw(); if(KT.t<30) KT.raf=requestAnimationFrame(tick); else { KT.running=0; ktEnd(); } };
+  KT.raf=requestAnimationFrame(tick);
+}
+function ktEnd(){ const T=+ktT.value;
+  if(T<=10) KT.cold=1; if(T>=20) KT.warm=1;
+  ktMsg.innerHTML = KT.tearAt!=null ? 'דמעות אחרי <span class="num">'+Math.round(KT.tearAt)+'</span> שניות! נסו לשנות משהו אחד: טמפרטורה, סכין או מים.' : 'חצי דקה של חיתוך — בלי דמעות!'+(KT.cold&&KT.warm?'':' עכשיו נסו גם '+(KT.cold?'בצל חם':'בצל קר')+'.');
+  if(KT.pred>=0 && KT.cold && KT.warm && !KT.revealed){ KT.revealed=1; ktReveal.hidden=false; ktAfter.hidden=false; hint2.textContent='ענו על השאלה כדי להמשיך.'; } }
+function ktDraw(){
+  const c=ktctx, W=ktCv.width, H=ktCv.height, ink=INK(), T=+ktT.value, G=KT.G, tears=KT.tearAt!=null;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the eye */
+  c.save(); c.fillStyle='#FFFFFF'; c.strokeStyle=ink; c.lineWidth=5; c.beginPath(); c.moveTo(190,110); c.quadraticCurveTo(320,10,450,110); c.quadraticCurveTo(320,200,190,110); c.closePath(); c.fill(); c.stroke();
+  c.clip(); const red=clamp(G/100,0,1); if(red>0){ c.fillStyle='rgba(220,80,70,'+(0.35*red)+')'; c.fillRect(180,30,280,170); }
+  c.fillStyle='#6B8E4E'; c.beginPath(); c.arc(320,110,40,0,2*PI); c.fill(); c.fillStyle='#1B1F33'; c.beginPath(); c.arc(320,110,18,0,2*PI); c.fill(); c.fillStyle='#FFFFFF'; c.beginPath(); c.arc(330,100,7,0,2*PI); c.fill(); c.restore();
+  c.strokeStyle=ink; c.lineWidth=6; c.lineCap='round'; c.beginPath(); c.moveTo(196,48); c.quadraticCurveTo(320,-6,444,48); c.stroke();
+  if(tears){ c.fillStyle=TEAR(); for(let k=0;k<3;k++){ const y=150+((KT.seed*3+k*40)%90); c.beginPath(); c.moveTo(212,y-16); c.quadraticCurveTo(200,y+4,212,y+8); c.quadraticCurveTo(224,y+4,212,y-16); c.fill(); } }
+  /* water */
+  if(KT.water){ c.fillStyle='#8C9AAE'; c.fillRect(470,300,72,22); c.fillRect(520,300,22,-60); c.save(); c.globalAlpha=.75; c.fillStyle=TEAR(); c.fillRect(482,322,30,108); c.restore(); }
+  /* the board, the half onion, the knife */
+  c.fillStyle='#B98552'; c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.roundRect(170,470,300,60,10); c.fill(); c.stroke();
+  c.fillStyle=FLESH(); c.beginPath(); c.arc(320,470,82,PI,2*PI); c.closePath(); c.fill(); c.stroke();
+  c.strokeStyle=SKIN2(); c.lineWidth=3; [64,46,28].forEach(r=>{ c.beginPath(); c.arc(320,470,r,PI,2*PI); c.stroke(); });
+  c.strokeStyle=SKIN(); c.lineWidth=7; c.beginPath(); c.arc(320,470,82,PI,2*PI); c.stroke();
+  c.save(); c.fillStyle='#C9CED8'; c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(380,452); c.lineTo(500,438); c.lineTo(500,462); c.closePath(); c.fill(); c.stroke(); c.fillStyle='#5E4A3A'; c.beginPath(); c.roundRect(500,436,64,28,8); c.fill(); c.restore();
+  if(KT.knife){ c.save(); c.strokeStyle=ink; c.lineWidth=3; c.setLineDash([6,6]); c.beginPath(); c.moveTo(386,452); c.lineTo(500,442); c.stroke(); c.restore(); }
+  /* gas */
+  KT.puffs.forEach(p=>xPuff(c,p.x,p.y,13,PURP(),.75));
+  /* thermometer (right) */
+  const tx=590, ty0=150, ty1=440, f=(T-4)/30;
+  c.fillStyle=css('--card'); c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.roundRect(tx-14,ty0,28,ty1-ty0+10,14); c.fill(); c.stroke();
+  const col = T<=10 ? BLUE() : T>=20 ? DANG() : GOLD();
+  c.fillStyle=col; c.fillRect(tx-7,ty1-(ty1-ty0-14)*f,14,(ty1-ty0-14)*f+6); c.beginPath(); c.arc(tx,ty1+28,24,0,2*PI); c.fill(); c.stroke();
+  xMath(c,T+'°',tx-2,ty0-28,26,ink);
+  xLabel(c, T<=10?'מקרר':T>=20?(T>=30?'יום חם':'חדר'):'קריר', tx, ty1+84, 22, ink, .9);
+  /* tear meter (left) */
+  const mx=50, my0=150, my1=450, gf=clamp(G/150,0,1), yTh=my1-(my1-my0)*(100/150);
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(mx-18,my0,36,my1-my0,10); c.fill(); c.stroke();
+  c.fillStyle=PURP(); c.fillRect(mx-12,my1-(my1-my0-8)*gf-4,24,(my1-my0-8)*gf);
+  c.strokeStyle=TEAR(); c.lineWidth=5; c.beginPath(); c.moveTo(mx-26,yTh); c.lineTo(mx+30,yTh); c.stroke();
+  xText(c,'דמעות',mx+36,yTh-2,22,ink,'left');
+  xLabel(c,'גז בעין',mx,my1+34,22,ink,.9);
+  ktOut.innerHTML='<span class="num">'+Math.round(KT.t)+'</span>'; ktOut2.innerHTML='<span class="num">'+Math.round(G)+'</span> מתוך <span class="num">100</span>';
+}
+
+/* ---------- step 3 (interactive 3): the chain (canvas 640 × 600) ----------
+   compound → enzyme 1 → intermediate → (enzyme 2 → tear gas) or (→ smell and taste). Garlic and the "tearless" onion have no enzyme 2. */
+const chCv=document.getElementById('chCv'), chctx=chCv.getContext('2d');
+const CH={ opened:0, pred:-1, revealed:0, mode:0, raf:0, running:0, ran:new Set(), mols:[], gas:0, flav:0, f:0 };
+const CHN={ S:{x:560,y:330}, E1:{x:440,y:330}, M:{x:320,y:330}, E2:{x:205,y:205}, GAS:{x:90,y:110}, JAR:{x:150,y:440} };
+function chHasE2(){ return CH.mode===0; }
+function chPredict(k){ CH.pred=k; segOn('chP',3,k); WOW.emit('item', { id:'chain:predict', kind:'quick', correct:k===1, attempt: wowTry('chain:predict') });
+  chMsg.innerHTML='רשמנו את הניחוש. עכשיו חתכו כל אחד משלושת הצמחים, ובדקו לאן הולכות הנקודות.'; chDraw(); }
+function chMode(m){ if(CH.pred<0){ predictFirst(chMsg,'בחרו'); return; } cancelAnimationFrame(CH.raf); CH.running=0; CH.mode=m; segOn('chM',3,m); CH.mols=[]; CH.gas=0; CH.flav=0; chDraw(); }
+function chPath(i){ const N=CHN, toGas = chHasE2() && (i%12!==5);   /* with enzyme 2, 22 of 24 become gas */
+  return toGas ? [N.S,N.E1,N.M,N.E2,N.GAS] : [N.S,N.E1,N.M,{x:225,y:400},N.JAR]; }
+function chRun(){
+  if(CH.pred<0){ predictFirst(chMsg,'חתכו'); return; }
+  if(!CH.opened){ CH.opened=1; WOW.emit('open', { id:'chain' }); }
+  cancelAnimationFrame(CH.raf); CH.gas=0; CH.flav=0; CH.f=0; CH.running=1;
+  CH.mols=Array.from({length:24},(_,i)=>({i, seg:0, u:0, start:i*7, path:chPath(i), done:0}));
+  const step=()=>{ CH.f++; CH.mols.forEach(m=>{ if(m.done || CH.f<m.start) return; const a=m.path[m.seg], b=m.path[m.seg+1]; const L=Math.hypot(b.x-a.x,b.y-a.y); m.u+=6/L;
+      if(m.u>=1){ m.seg++; m.u=0; if(m.seg>=m.path.length-1){ m.done=1; if(m.path[m.path.length-1]===CHN.GAS) CH.gas++; else CH.flav++; } } }); };
+  if(RM()){ while(CH.mols.some(m=>!m.done)) step(); CH.running=0; chDraw(); chEnd(); return; }
+  const tick=()=>{ step(); step(); chDraw(); if(CH.mols.some(m=>!m.done)) CH.raf=requestAnimationFrame(tick); else { CH.running=0; chEnd(); } };
+  CH.raf=requestAnimationFrame(tick);
+}
+function chEnd(){ CH.ran.add(CH.mode);
+  chMsg.innerHTML = (CH.mode===0 ? 'בצל רגיל: האנזים השני הפך את רוב חומר הביניים לגז דמעות.' : CH.mode===1 ? 'שום: אין אנזים שני, ולכן הכול הלך לריח. ריח חזק, בלי דמעות!' : 'בצל בלי האנזים השני: ריח וטעם של בצל, בלי דמעות!')
+    + (CH.ran.size<3 ? ' נסו עוד צמח.' : '');
+  if(CH.pred>=0 && CH.ran.size>=3 && !CH.revealed){ CH.revealed=1; chReveal.hidden=false; chAfter.hidden=false; hint3.textContent='ענו על השאלה כדי להמשיך.'; } }
+function chArrowLine(c,a,b,col,w,faded){ c.save(); c.globalAlpha=faded?.25:1; c.strokeStyle=col; c.fillStyle=col; c.lineWidth=w; c.lineCap='round'; const dx=b.x-a.x, dy=b.y-a.y, L=Math.hypot(dx,dy), ux=dx/L, uy=dy/L;
+  const x0=a.x+ux*44, y0=a.y+uy*44, x1=b.x-ux*48, y1=b.y-uy*48; c.beginPath(); c.moveTo(x0,y0); c.lineTo(x1,y1); c.stroke(); xArrow(c,x1+ux*10,y1+uy*10,ux,uy,22); c.restore(); }
+function chPlant(c,x,y,mode){ const ink=INK();
+  if(mode===1){ /* garlic */ c.fillStyle='#F4EEE4'; c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.moveTo(x,y-50); c.bezierCurveTo(x+18,y-30,x+52,y-12,x+48,y+18); c.bezierCurveTo(x+44,y+46,x-44,y+46,x-48,y+18); c.bezierCurveTo(x-52,y-12,x-18,y-30,x,y-50); c.fill(); c.stroke();
+    c.strokeStyle='#B7AFA2'; c.lineWidth=3; [-24,0,24].forEach(d=>{ c.beginPath(); c.moveTo(x,y-40); c.quadraticCurveTo(x+d*1.2,y,x+d*.8,y+38); c.stroke(); }); return; }
+  c.fillStyle=SKIN(); c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.moveTo(x,y-54); c.bezierCurveTo(x+4,y-36,x+52,y-22,x+50,y+12); c.bezierCurveTo(x+48,y+44,x-48,y+44,x-50,y+12); c.bezierCurveTo(x-52,y-22,x-4,y-36,x,y-54); c.fill(); c.stroke();
+  c.strokeStyle=SKIN2(); c.lineWidth=3; c.beginPath(); c.moveTo(x,y-44); c.quadraticCurveTo(x+30,y,x+16,y+38); c.moveTo(x,y-44); c.quadraticCurveTo(x-30,y,x-16,y+38); c.stroke();
+  if(mode===2){ xEnz(c,x+38,y+30,14,PI,'#A7A7B5'); c.strokeStyle=DANG(); c.lineWidth=5; c.beginPath(); c.moveTo(x+24,y+16); c.lineTo(x+52,y+44); c.moveTo(x+52,y+16); c.lineTo(x+24,y+44); c.stroke(); } }
+function chDraw(){
+  const c=chctx, W=chCv.width, H=chCv.height, ink=INK(), N=CHN, e2=chHasE2();
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  chPlant(c,560,95,CH.mode);
+  xLabel(c, CH.mode===0?'בצל רגיל':CH.mode===1?'שום':'בלי אנזים 2', 560, 182, 22, ink, .92);
+  /* paths */
+  chArrowLine(c,N.S,N.E1,GRAPH(),6); chArrowLine(c,N.E1,N.M,GRAPH(),6);
+  chArrowLine(c,N.M,N.E2,PURP(),6,!e2); chArrowLine(c,N.E2,N.GAS,PURP(),6,!e2);
+  chArrowLine(c,N.M,N.JAR,ORNG(),6);
+  /* the source pile */
+  for(let k=0;k<9;k++){ const a=k*0.7, r=8+14*(k%3); xDot(c,N.S.x+r*Math.cos(a),N.S.y+r*Math.sin(a),9,YEL()); }
+  
+  /* enzyme 1 */
+  xEnz(c,N.E1.x,N.E1.y,32,PI,ENZ()); xLabel(c,'אנזים 1',N.E1.x,N.E1.y+64,22,ink,.92);
+  /* the intermediate */
+  c.save(); c.fillStyle=ORNG(); c.globalAlpha=.25; c.beginPath(); c.arc(N.M.x,N.M.y,30,0,2*PI); c.fill(); c.restore();
+  
+  /* enzyme 2 */
+  if(e2){ xEnz(c,N.E2.x,N.E2.y,32,PI*1.25,PURP()); }
+  else { c.save(); c.globalAlpha=.45; xEnz(c,N.E2.x,N.E2.y,32,PI*1.25,'#A7A7B5'); c.restore(); c.strokeStyle=DANG(); c.lineWidth=7; c.lineCap='round'; c.beginPath(); c.moveTo(N.E2.x-30,N.E2.y-30); c.lineTo(N.E2.x+30,N.E2.y+30); c.moveTo(N.E2.x+30,N.E2.y-30); c.lineTo(N.E2.x-30,N.E2.y+30); c.stroke(); }
+  xLabel(c, e2?'אנזים 2':'אין אנזים 2', N.E2.x+10, N.E2.y+62, 22, ink, .92);
+  /* the gas cloud */
+  const gr=12+CH.gas*1.6; if(CH.gas>0) xPuff(c,N.GAS.x,N.GAS.y,gr,PURP(),.85); else { c.save(); c.setLineDash([8,8]); c.strokeStyle=PURP(); c.lineWidth=3; c.beginPath(); c.arc(N.GAS.x,N.GAS.y,26,0,2*PI); c.stroke(); c.restore(); }
+  xLabel(c,'גז דמעות',250,74,22,PURP(),.92);
+  /* the jar */
+  const jx=N.JAR.x, jy=N.JAR.y, jh=80, lvl=clamp(CH.flav/24,0,1);
+  c.save(); c.fillStyle=ORNG(); c.globalAlpha=.75; c.fillRect(jx-38,jy+40-jh*lvl,76,jh*lvl); c.restore();
+  c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.moveTo(jx-40,jy-40); c.lineTo(jx-40,jy+40); c.lineTo(jx+40,jy+40); c.lineTo(jx+40,jy-40); c.stroke(); c.fillStyle=GRAPH(); c.fillRect(jx-46,jy-50,92,12);
+  xLabel(c, CH.mode===1?'ריח של שום':'ריח וטעם', jx, jy+70, 22, ink, .92);
+  /* legend */
+  xDot(c,600,578,10,YEL()); xText(c,'חומר עם גופרית',584,579,22,ink,'right');
+  xDot(c,300,578,10,ORNG()); xText(c,'חומר ביניים',284,579,22,ink,'right');
+  /* moving molecules */
+  CH.mols.forEach(m=>{ if(m.done || CH.f<m.start) return; const a=m.path[m.seg], b=m.path[m.seg+1], x=a.x+(b.x-a.x)*m.u, y=a.y+(b.y-a.y)*m.u;
+    if(m.seg===0) xDot(c,x,y,9,YEL()); else if(m.seg>=3 && m.path[4]===N.GAS) xPuff(c,x,y,9,PURP(),.9); else xDot(c,x,y,9,ORNG()); });
+  chOut.innerHTML='<span class="num">'+CH.gas+'</span>'; chOut2.innerHTML='<span class="num">'+CH.flav+'</span>';
+}
+
+/* ---------- step 4 (interactive 4): the cube (canvas 640 × 600) ----------
+   A 6 cm cube cut into k pieces per edge, drawn exploded in isometric view: k³ cubes, total surface 216 × k cm².
+   Faces of the original big cube in onion gold, new faces made by cutting in purple. */
+const cbCv=document.getElementById('cbCv'), cbctx=cbCv.getContext('2d');
+const CB={ opened:0, pred:-1, revealed:0, k:1, maxK:1 };
+function cbPredict(k){ CB.pred=k; segOn('cbP',3,k); WOW.emit('item', { id:'cube:predict', kind:'quick', correct:k===1, attempt: wowTry('cube:predict') });
+  cbMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את המחוון וחתכו את הקובייה.'; cbDraw(); }
+function cbSet(){ if(CB.pred<0){ cbK.value=1; predictFirst(cbMsg,'הזיזו'); cbDraw(); return; }
+  if(!CB.opened){ CB.opened=1; WOW.emit('open', { id:'cube' }); }
+  CB.k=+cbK.value; CB.maxK=Math.max(CB.maxK,CB.k); cbDraw();
+  const k=CB.k; cbMsg.innerHTML = k===1 ? 'זו הקובייה השלמה: <span class="num">6</span> פאות של <span class="math">6 × 6 = 36</span> סמ״ר.' : 'כל צלע נחתכה ל־<span class="num">'+k+'</span>: יש <span class="math">'+k+' × '+k+' × '+k+' = '+(k*k*k)+'</span> קוביות, אבל השטח גדל רק פי <span class="num">'+k+'</span>.';
+  if(CB.pred>=0 && CB.maxK>=3 && !CB.revealed){ CB.revealed=1; cbReveal.hidden=false; cbAfter.hidden=false; hint4.textContent='ענו על השאלה כדי להמשיך.'; } }
+function cbDraw(){
+  const c=cbctx, W=cbCv.width, H=cbCv.height, ink=INK(), k=CB.k, a=6/k, g=k>1?Math.min(1.6,0.55*a):0, E=6+(k-1)*g;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  const s=Math.min(400/(1.732*E), 360/(2*E)), cx=320, cy=355;
+  const P=(x,y,z)=>[cx+(x-y)*s*0.866, cy+(x+y)*s*0.5-z*s-E*s*0.5+E*s*0.5];
+  const dk=isDark();
+  const col={ top:[dk?'#E0B66E':'#F0CF8E', dk?'#B98ED6':'#CFA8E2'], right:[dk?'#C99A52':'#D9A55B', dk?'#9C70BA':'#A97BC4'], left:[dk?'#A87A3A':'#C08A42', dk?'#7E5498':'#8C5FA8'] };
+  const face=(pts,fill)=>{ c.fillStyle=fill; c.beginPath(); pts.forEach((p,i)=>{ const q=P(...p); if(i===0) c.moveTo(q[0],q[1]); else c.lineTo(q[0],q[1]); }); c.closePath(); c.fill(); c.strokeStyle=ink; c.lineWidth=k>4?1.6:2.4; c.stroke(); };
+  const list=[]; for(let i=0;i<k;i++) for(let j=0;j<k;j++) for(let l=0;l<k;l++) list.push([i,j,l]);
+  list.sort((A,B)=>(A[0]+A[1]+A[2])-(B[0]+B[1]+B[2]));
+  list.forEach(([i,j,l])=>{ const x0=i*(a+g), y0=j*(a+g), z0=l*(a+g), x1=x0+a, y1=y0+a, z1=z0+a;
+    face([[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]], col.top[l===k-1?0:1]);
+    face([[x1,y0,z0],[x1,y1,z0],[x1,y1,z1],[x1,y0,z1]], col.right[i===k-1?0:1]);
+    face([[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]], col.left[j===k-1?0:1]); });
+  /* gas: more cut faces, more puffs */
+  for(let n=0;n<3*(k-1);n++){ const side=n%2, x= side? 60+50*xRand(n*2.1) : 520+60*xRand(n*1.3), y=170+260*xRand(n*3.7+1); xPuff(c,x,y,12,PURP(),.7); }
+  /* labels */
+  xLabel(c, k===1 ? 'קובייה שלמה, צלע 6 ס״מ' : fmtI(k*k*k)+' קוביות, צלע '+fmt1(a)+' ס״מ', 320, 40, 26, ink, .95);
+  xLabel(c, k===1 ? 'שטח פנים: 216 סמ״ר' : 'שטח פנים: פי '+k, 320, 40+54*LS(), 26, k===1?ink:PURP(), .95);
+  cbOut.innerHTML='<span class="num">'+fmtI(k*k*k)+'</span>';
+  cbOut2.innerHTML= k===1 ? '<span class="num">216</span> סמ״ר' : '<span class="math">216 × '+k+' = '+fmtI(216*k)+'</span> סמ״ר';
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  storyQ:{ q:'למה בצל שלם, שעוד לא נחתך, לא גורם לדמעות?', opts:['כי הקליפה החומה סוגרת את הגז בפנים','כי הגז נוצר רק כשמבשלים את הבצל','כי שני המרכיבים של הגז שמורים בנפרד','כי בצל שלם עוד לא בשל'], a:2, fb:'החומר עם הגופרית בנוזל התא, והאנזים בחלולית. רק כשהקרום נקרע הם נפגשים, ורק אז נוצר הגז.', btn:'next1' },
+  snailQ:{ q:'למה סכין חדה גורמת לפחות דמעות מסכין קהה?', opts:['כי היא מקררת את הבצל','כי היא קורעת פחות תאים','כי היא סוגרת את התאים אחרי החיתוך','כי היא שואבת את הגז'], a:1, fb:'גז נוצר רק בתאים שנקרעו. סכין קהה מועכת הרבה תאים מסביב לחיתוך, ולכן נוצר יותר גז.', btn:'next2' },
+  priceQ:{ q:'למה חיתוך של שום לא גורם לדמעות, כמו בצל?', opts:['כי אין בו בכלל אנזימים','כי הוא קטן יותר מבצל','כי אין בו חומרים עם גופרית','כי חסר בו האנזים השני'], a:3, fb:'גם בשום יש אנזים ראשון וחומרים עם גופרית, ולכן הוא מריח חזק. אבל בלי האנזים השני לא נוצר גז דמעות.', btn:'next3' },
+  siteQ:{ q:'חותכים כל צלע של קובייה ל־<span class="num">3</span> חלקים. פי כמה גדל שטח הפנים של כל החתיכות ביחד?', opts:['הוא לא משתנה','פי <span class="num">3</span>','פי <span class="num">9</span>','פי <span class="num">27</span>'], a:1, fb:'יש <span class="math">3 × 3 × 3 = 27</span> קוביות, אבל לכל אחת שטח קטן פי <span class="num">9</span>. ביחד: פי <span class="num">3</span> בלבד.', btn:'next4' },
+  deepQ:{ q:'מה כנראה התפקיד של הכימיה הזאת בשביל הבצל עצמו?', opts:['לעזור לו לגדול מהר יותר','למשוך אליו דבורים','הגנה מפני מי שנוגס בו','לשמור עליו חם בחורף'], a:2, fb:'הבצל לא יכול לברוח. מי שנוגס בו מקבל חריפות וענן שורף — והנשק נבנה רק במקום הנגיסה.' }
+};
+const MCQ = {
+  shared:[
+    { q:'בצל שלם מונח על השולחן כבר שבוע. כמה גז דמעות יש בתוכו?', opts:['הרבה, והוא מחכה בתוך הקליפה','אין בכלל: הוא נוצר רק כשהתאים נקרעים','הרבה, אבל רק בשורשים','בדיוק כמו בבצל חתוך'], a:1, fb:'הבצל שומר שני חומרים שקטים בנפרד. הגז מורכב רק כשסכין או שיניים קורעים את התאים.' },
+    { q:'למה בצל ישר מהמקרר גורם לפחות דמעות?', opts:['כי הקור הורג את כל התאים','כי במקרר הבצל מאבד את הגופרית','כי בקור התגובות איטיות, ופחות גז מתנדף','כי בצל קר קשה יותר לחתוך'], a:2, fb:'האנזימים עובדים לאט יותר בקור, והגז בורח פחות אל האוויר. לכן פחות גז מגיע לעיניים.' },
+    { q:'מה גילה הצוות של שינסוקה אימאי ב־<span class="num">2002</span>?', opts:['שהבצל שואב את הגז מהאדמה','שהדמעות נוצרות בגלל הקליפה','שהשום גורם ליותר דמעות מבצל','שיש בבצל אנזים שני, שמכין את גז הדמעות'], a:3, fb:'עד אז חשבו שהגז נוצר מעצמו. בלי האנזים השני אין גז דמעות, ולכן שום, שאין בו אנזים כזה, לא גורם לדמעות.' }
+  ],
+  younger:[
+    { q:'איזה טיפ יעזור הכי הרבה לבכות פחות?', opts:['לחתוך ליד ברז פתוח או חלון פתוח','לקרב את הפנים לקרש','לקצוץ את הבצל דק ככל האפשר','לחתוך עם סכין קהה'], a:0, fb:'מים ורוח לוכדים או מפזרים את הגז לפני שהוא מגיע לעיניים. וכמובן: חותכים רק עם מבוגר.' }
+  ],
+  older:[
+    { q:'מה בעצם גורם לדמעות, כשהגז מגיע לעין?', opts:['עצבים בעין מרגישים את הגז, והמוח שולח דמעות לשטוף','הגז ממיס את שכבת העין החיצונית','הגז הופך למים בתוך העין','העין מתקררת מהגז ומתכווצת'], a:0, fb:'זו תגובה של הגנה: קצות העצבים בעין מדווחים על צריבה, ובלוטות הדמעות מציפות את העין כדי לשטוף את הגז החוצה.' }
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'הסכין קורעת את הקרומים של התאים.'},
+  {id:'b', t:'האנזים יוצא מהחלולית ופוגש את החומר עם הגופרית.'},
+  {id:'c', t:'האנזים הראשון חותך את החומר, ונוצר חומר ביניים.'},
+  {id:'d', t:'האנזים השני הופך את חומר הביניים לגז דמעות.'},
+  {id:'e', t:'הגז הנדיף עולה באוויר אל העיניים.'},
+  {id:'f', t:'עצבים בעין מרגישים צריבה, והעין מתמלאת דמעות.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלך: ' : '<span class="pill-ok">שרשרת מושלמת!</span>')+' סכין ← מפגש ← אנזים <span class="num">1</span> ← אנזים <span class="num">2</span> ← גז באוויר ← דמעות. ובכל חוליה אפשר להתערב.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) קודם שני החומרים חייבים להיפגש, ורק אחר כך אנזים יכול לחתוך. (2) האנזים הראשון עובד לפני השני: השני משתמש במה שהראשון יצר.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && Math.abs(a-8)<0.01, bOk = hasB && b>=119 && b<=121;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && Math.abs(a-4)<0.01) ? '(א): פי <span class="num">4</span> זה על <span class="num">20</span> מעלות. כאן ההפרש הוא <span class="math">34 − 4 = 30</span> מעלות.'
+    : (hasA && Math.abs(a-6)<0.01) ? '(א): שלוש הכפלות זה לא <span class="math">2 + 2 + 2</span>. כל הכפלה כופלת את מה שהיה: <span class="math">2 × 2 × 2</span>.'
+    : (hasA && Math.abs(a-30)<0.01) ? '(א): <span class="num">30</span> זה ההפרש במעלות. כמה הכפלות של <span class="num">10</span> מעלות יש בו?'
+    : (hasA && Math.abs(a-3)<0.01) ? '(א): נכון שיש שלוש הכפלות! אבל השאלה היא פי כמה המהירות גדלה בסך הכול.'
+    : '(א): רמז — <span class="math">34 − 4 = 30</span> מעלות. כמה הכפלות זה, ומה יוצא כשמכפילים כמה פעמים?';
+  const hintB = (hasB && b>0 && b<15) ? '(ב): הבצל הקר <b>איטי</b> יותר, ולכן לוקח לו <b>יותר</b> זמן. צריך לכפול, ולא לחלק.'
+    : (hasB && Math.abs(b-60)<0.5) ? '(ב): כפלתם פי <span class="num">4</span>. אבל ההפרש כאן הוא <span class="num">30</span> מעלות, לא <span class="num">20</span>.'
+    : (hasB && Math.abs(b-90)<0.5) ? '(ב): כפלתם פי <span class="num">6</span>. בדקו שוב את (א).'
+    : (hasB && Math.abs(b-2)<0.01) ? '(ב): <span class="num">2</span> זה בדקות. השדה מבקש שניות.'
+    : '(ב): רמז — אם התגובה איטית פי התשובה של (א), הזמן ארוך פי אותו מספר: <span class="math">15 × ?</span>';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">34 − 4 = 30</span> מעלות, שלוש הכפלות: <span class="math">2 × 2 × 2 = 8</span>. (ב) בבצל הקר התגובה איטית פי <span class="num">8</span>, ולכן הזמן ארוך פי <span class="num">8</span>: <span class="math">15 × 8 = 120</span> שניות, כלומר <span class="math">120 ÷ 60 = 2</span> דקות. במציאות זה פחות פשוט: בצל קר מתחמם קצת בזמן החיתוך, הכלל רק משוער, וחלק מההבדל הוא שפחות גז מתנדף. אבל הכיוון נכון — וזה בדיוק הניסוי שתעשו בבית. עכשיו פתחו את השאלה למחשבה שלמטה.'
+    : aOk ? '<span class="pill-ok">(א) נכון — פי <span class="num">8</span>.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — <span class="num">120</span> שניות, שתי דקות.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const sp=+numAdvR.value, ks=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && sp===343), yOk=(hasY && ks>=4629.5 && ks<=4631.5), sc = dOk&&yOk?2:((dOk||yOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && sp===7) ? 'ב־(א): <span class="num">7</span> זה מספר החלקים בכל צלע. הקובייה נחתכת בשלושה כיוונים.'
+      : (hasD && sp===49) ? 'ב־(א): <span class="num">49</span> זה רק שני כיוונים, כמו שכבה אחת. יש גם גובה.'
+      : 'רמז ל־(א): קודם <span class="math">10.5 ÷ 1.5</span> חלקים בכל צלע, ואז <span class="math">? × ? × ?</span>.';
+    const hintY = (hasY && Math.abs(ks-661.5)<1) ? 'ב־(ב): <span class="num">661.5</span> זה שטח הפנים של הקובייה הגדולה. אחרי החיתוך הוא גדל פי מספר החלקים בצלע.'
+      : (hasY && Math.abs(ks-771.75)<1) ? 'ב־(ב): ספרתם פאה אחת לכל קובייה. לכל קובייה יש <span class="num">6</span> פאות.'
+      : (hasY && Math.abs(ks-13.5)<0.1) ? 'ב־(ב): זה השטח של קובייה קטנה אחת. כמה קוביות יש?'
+      : 'רמז ל־(ב): פאה אחת היא <span class="math">1.5 × 1.5</span>, לקובייה יש <span class="num">6</span> פאות, ואז כופלים במספר הקוביות.';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">10.5 ÷ 1.5 = 7</span> חלקים בכל צלע, ו־<span class="math">7 × 7 × 7 = 343</span> קוביות. (ב) פאה אחת: <span class="math">1.5 × 1.5 = 2.25</span>, קובייה: <span class="math">6 × 2.25 = 13.5</span>, כולן: <span class="math">343 × 13.5 = 4,630.5</span> סמ״ר. ובדרך הקצרה: לקובייה הגדולה <span class="math">6 × 10.5 × 10.5 = 661.5</span> סמ״ר, ופי <span class="num">7</span> זה <span class="math">661.5 × 7 = 4,630.5</span>. פי <span class="num">343</span> יותר חתיכות, אבל רק פי <span class="num">7</span> יותר שטח.'
+      : dOk ? '<span class="pill-ok">(א) נכון — <span class="math">343</span>.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — <span class="math">4,630.5</span> סמ״ר.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-8)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">2 × 4 = 8</span>. בכל חצי יש <span class="num">4</span> פרוסות, ויש שני חצאים: <span class="math">4 + 4 = 8</span>.':(Math.abs(v-6)<0.01?'<span class="pill-bad">כמעט.</span> חיברתם <span class="math">2 + 4</span>. אבל <b>כל</b> חצי נחתך ל־<span class="num">4</span>. ציירו שני חצאים, וחלקו כל אחד ל־<span class="num">4</span>.':(Math.abs(v-4)<0.01?'<span class="pill-bad">לא בדיוק.</span> <span class="num">4</span> זה בחצי אחד. כמה יש בשני החצאים?':'<span class="pill-bad">עוד לא.</span> רמז: ציירו שני חצאים, וחלקו כל אחד ל־<span class="num">4</span>. עכשיו ספרו את כל הפרוסות.')); }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-512)<0.01; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">8 ÷ 1 = 8</span> חלקים בכל צלע, ו־<span class="math">8 × 8 × 8 = 512</span> קוביות. ושטח הפנים? רק פי <span class="num">8</span> מהקובייה הגדולה.':(Math.abs(v-8)<0.01?'<span class="pill-bad">כמעט.</span> <span class="num">8</span> זה מספר החלקים בכל צלע. הקובייה נחתכת בשלושה כיוונים: אורך, רוחב וגובה.':(Math.abs(v-64)<0.01?'<span class="pill-bad">כמעט.</span> <span class="num">64</span> זו שכבה אחת, <span class="math">8 × 8</span>. כמה שכבות כאלה יש?':(Math.abs(v-24)<0.01?'<span class="pill-bad">לא בדיוק.</span> חיברתם. בכל כיוון יש <span class="num">8</span> חלקים, ולכן כופלים.':'<span class="pill-bad">עוד לא.</span> רמז: כמה חלקים בכל צלע? ואז <span class="math">? × ? × ?</span>.'))); }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שבבצל שלם אין גז דמעות, ושהוא נוצר רק כשחותכים.',
+  'הסברתי שבתא יש שני "חדרים": חומר עם גופרית בנוזל התא, ואנזים בחלולית, והם נפרדים.',
+  'כתבתי שהסכין קורעת את התאים, ואז האנזים פוגש את החומר ונוצר גז.',
+  'הסברתי שהגז עף באוויר לעיניים, ועצבים בעין גורמים לדמעות שישטפו אותו.',
+  'הוספתי פרט מדויק: אנזים שני שאין בשום, שיא אחרי כ־<span class="num">30</span> שניות, קור שמאט, או שטח פנים שגדל פי <span class="math">k</span>.',
+];
+const MODEL='בבצל שלם אין גז דמעות בכלל. בכל תא יש שני חדרים: בנוזל של התא יש חומר עם גופרית, ובשקית שבאמצע, החלולית, יש אנזים. כל עוד התא שלם, הם לא נפגשים. כשהסכין קורעת את התאים, האנזים פוגש את החומר וחותך אותו, ואנזים שני הופך את מה שנוצר לגז דמעות. הגז קל ועף באוויר אל העיניים, ושם עצבים זעירים מרגישים צריבה, והעין מתמלאת דמעות כדי לשטוף אותו. לכן בצל קר, סכין חדה ומים עוזרים: הם מאטים את התגובה או לוכדים את הגז.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון: הפרדה לתאים (חומר עם גופרית בציטופלזמה, אנזים האליאינאז בחלולית); החיתוך קורע את הקרומים והם נפגשים; שרשרת של שני אנזימים (הראשון יוצר חומר ביניים, השני — שאין בשום — הופך אותו לגז הדמעות הנדיף); הגז מגיע לעין ומפעיל עצבים שגורמים לדמעות; ולמה קור, סכין חדה ומים מקטינים את זה (קצב תגובה, פחות תאים קרועים, לכידת הגז); ולא רק "הבצל מוציא גז"':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "הגז שלא קיים עד שחותכים את הבצל". הרעיונות המרכזיים: (1) בבצל שלם אין גז דמעות; בכל תא יש שני "חדרים": חומר עם גופרית בנוזל התא, ואנזים (אליאינאז) בחלולית, מופרדים בקרום; (2) החיתוך קורע את הקרום, האנזים פוגש את החומר וחותך אותו, ונוצר חומר ביניים; אנזים שני (שגילה צוות של שינסוקה אימאי ב־2002, פרס איג נובל 2013) הופך אותו לגז הדמעות; בשום אין אנזים שני, ולכן יש ריח בלי דמעות; (3) הגז נדיף, מגיע לשיא כ־30 שניות אחרי החיתוך, ועולה לעיניים; עצבים בעין מרגישים צריבה והמוח שולח דמעות לשטוף; (4) קור מאט את התגובה ומקטין התנדפות (כלל אצבע: כל 10 מעלות מכפילות בערך את המהירות), סכין חדה קורעת פחות תאים, מים ורוח לוכדים את הגז, וחום גבוה מפרק את האנזים; (5) חיתוך דק מגדיל את שטח הפנים: חיתוך כל צלע ל־k נותן k × k × k קוביות ושטח פי k. חישובי המבחן: צעיר — 2 × 4 = 8; בוגר — 8 × 8 × 8 = 512; מתקדם — 7 × 7 × 7 = 343, ו־343 × 13.5 = 4,630.5 סמ״ר; אתגר — מ־4 ל־34 מעלות פי 8, ו־15 × 8 = 120 שניות.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם שהמרכיבים נפרדים בבצל שלם ונפגשים רק כשהתאים נקרעים, וגם שנוצר גז שמגיע לעיניים וגורם לדמעות; 1 אם יש רק אחד מהשניים או רק חלק. תשובה שאומרת שהגז שמור מוכן בתוך הבצל או בקליפה — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', אפילו הבצל היה מתרשם!':pct>=60?name+', השרשרת אצלך ברורה!':name+', עוד חיתוך אחד וזה אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=4;                                                       // nowhere: the gas is made at the cut
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשת בהתחלה. התשובה: <b>בשום מקום</b> — בבצל שלם אין גז דמעות, והוא נוצר רק כשהתאים נקרעים.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשת <b>בשום מקום</b> — וקלעת. עכשיו גם יודעים איך: שני חדרים בכל תא, וסכין שמחברת ביניהם.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשת: <b>'+fmtSigns(S.guess)+'</b>. התשובה: בשום מקום — הגז לא קיים עד שחותכים. ועכשיו גם יודעים איך: שני חדרים בכל תא, וסכין שמחברת ביניהם.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (איפה שמור גז הדמעות): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: בשום מקום)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "הגז שלא קיים עד שחותכים את הבצל", מהדורה 57, כ״ח בחשוון תשפ״ז (יום ראשון, 8 בנובמבר 2026). נושא: כימיה (אנזימים, תגובות, חומרים נדיפים, קצב תגובה וטמפרטורה), ביולוגיה (תאים, חלולית, הגנה של צמחים, העין והרפלקס של הדמעות), היסטוריה (גילוי האנזים השני ב־2002, בצל בעולם העתיק) ומתמטיקה (שטח פנים של קובייה, חזקות, הכפלות). העובדות: בבצל שלם אין גז דמעות. בכל תא יש שני "חדרים": חומר עם גופרית שהבצל בונה (בשם המדעי PRENCSO) נמצא בנוזל התא, הציטופלזמה, והאנזים אליאינאז נמצא בחלולית, שקית גדולה באמצע התא, מופרד בקרום. אנזים הוא חלבון שמזרז תגובה אחת בלי להיגמר. כשהסכין קורעת את התאים, האנזים פוגש את החומר וחותך אותו, ונוצר חומר ביניים (חומצה סולפנית). אנזים שני, "האנזים שמייצר את גורם הדמעות" (lachrymatory-factor synthase), הופך אותו לגז הדמעות: פרופנתיאל S־אוקסיד. הגז נדיף, מתחיל להיווצר כמעט מיד, ומגיע לשיא כ־30 שניות אחרי הפגיעה. הוא עולה באוויר לעיניים; קצות עצבים בקרנית (ענף של העצב הטריגמינלי) מרגישים צריבה, והמוח מפעיל את בלוטות הדמעות כדי לשטוף. בלי האנזים השני חומר הביניים הופך לחומרים שנותנים ריח וטעם חריף (תיוסולפינטים). הצוות של שינסוקה אימאי מחברת האוס פודס ביפן פרסם את הגילוי ב־Nature ב־2002; עד אז חשבו שהגז נוצר מעצמו. בשום יש אליאינאז וחומרים עם גופרית אבל אין אנזים שני, ולכן שום מריח ולא גורם לדמעות. על הגילוי קיבלו פרס איג נובל בכימיה ב־2013 (פרס היתולי למחקרים שקודם מצחיקים ואחר כך גורמים לחשוב). ב־2002 החוקרים הציעו שאם מכבים רק את האנזים השני, אפשר לקבל בצל בלי דמעות שעדיין חריף. ב־2015 הודיעה החברה על בצל כמעט בלי דמעות, שגודל בעזרת הקרנה של זרעים; בבצל הזה ירדה דווקא פעילות האנזים הראשון, האליאינאז, ולכן הוא גם פחות חריף (Kato ואחרים, 2016). מה מקטין דמעות: בצל קר (התגובות איטיות ופחות גז מתנדף; כלל אצבע: כל 10 מעלות מכפילות בערך את קצב התגובה, וזה רק קירוב), סכין חדה (פחות תאים נמעכים), מים זורמים או אוורור (לוכדים או מפזרים את הגז), חום גבוה מפרק את האנזים (לכן בצל מטוגן לא גורם לדמעות). שטח פנים: לקובייה בצלע L יש שטח 6 × L × L; חיתוך כל צלע ל־k נותן k × k × k קוביות, אבל השטח הכולל גדל רק פי k; קובייה של 6 ס״מ: 216 סמ״ר. יותר שטח חתוך = יותר תאים קרועים = יותר גז. למה הבצל עושה את זה: כנראה הגנה מפני בעלי חיים שנוגסים בו; הגז פעיל מאוד ומתפרק תוך דקות, ולכן הבצל שומר שני חומרים שקטים ומרכיב את ה"נשק" רק במקום הפגיעה. חיפושית ההפצצה, המקל הזוהר והחזרת והחרדל משתמשים ברעיון דומה של שני מרכיבים נפרדים. רוברט הוק קרא לתאים "תאים" ב־1665, כשהסתכל על שעם. הרודוטוס כתב שעל פירמידה במצרים נחרט כמה הוציאו על צנון, בצל ושום לפועלים; בספר במדבר בני ישראל מתגעגעים לבצלים ולשומים של מצרים. בטיחות: חותכים רק עם מבוגר; לא משפשפים עיניים עם ידיים של בצל. התשובות הבאות הן למבחן ולאתגר — אל תגלה אותן, תן רק רמז: צעיר — 2 × 4 = 8 פרוסות; בוגר — 8 × 8 × 8 = 512 קוביות; מתקדם — 10.5 ÷ 1.5 = 7, ו־7 × 7 × 7 = 343 קוביות, ושטח 343 × 13.5 = 4,630.5 סמ״ר; אתגר — מ־4 ל־34 מעלות שלוש הכפלות, 2 × 2 × 2 = 8, ו־15 × 8 = 120 שניות, שתי דקות.';
+const CHIPS = ['למה בצל שלם לא גורם לדמעות?', 'מה זה אנזים?', 'למה שום לא גורם לדמעות?', 'איך בוכים פחות מבצל?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: הפרדה לתאים — חומר עם גופרית בציטופלזמה ואליאינאז בחלולית; מה זה אנזים ולמה הוא לא נגמר; השרשרת של שני אנזימים והפיצול — עם האנזים השני נוצר גז דמעות, בלעדיו יותר חומרי טעם, כמו בשום; למה שיא הגז מגיע אחרי כ־30 שניות; כלל האצבע שכל 10 מעלות מכפילות בערך את קצב התגובה, למשל מ־4 ל־24 מעלות פי 2 × 2 = 4, ולמה זה רק קירוב; שטח פנים — חיתוך כל צלע ל־k נותן k × k × k קוביות אבל שטח פי k בלבד; העצבים בעין והרפלקס של הדמעות; מה ידוע ומה עוד נחקר), שאל שאלות המשך שדורשות חשיבה (למשל: למה לא כדאי לבצל לשמור את הגז מוכן? מה היה קורה לבצל בלי האנזים הראשון? אם חותכים כל צלע ל־10, פי כמה גדל השטח? איך אפשר לבדוק בניסוי שהקור הוא שמאט את הדמעות?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה בצל שלם לא גורם לדמעות?</b> בכל תא של בצל יש שני חדרים: באחד חומר עם גופרית, ובשני אנזים. רק כשהסכין קורעת את התא הם נפגשים, ונוצר גז שעף לעיניים.<br><br><b>איך בוכים פחות?</b> בצל מהמקרר, סכין חדה, וחיתוך ליד ברז פתוח או חלון. ותמיד עם מבוגר לידכם.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; only the field runs a short timer */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
