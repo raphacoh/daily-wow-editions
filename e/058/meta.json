@@ -1,0 +1,24 @@
+{
+  "n": 58,
+  "code": "WOW-058",
+  "date": "2026-11-09",
+  "language": "he",
+  "title": "כשנופל שער — האדמה באמת רועדת",
+  "topics": [
+    "פיזיקה",
+    "גאולוגיה",
+    "ספורט",
+    "מתמטיקה",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "Footquakes: a seismometer ~500 m from Camp Nou recorded every Barcelona goal in the 6–1 vs PSG (8 Mar 2017), the 95' winner about twice as big; how a seismometer works (inertial mass on a soft spring), why synchronised jumping adds up while random jumping cancels, frequency fingerprints of a city (metro 20–40 Hz, traffic 8–12 Hz, goals 1–6 Hz, concert songs ~2 Hz; Díaz et al. 2017), P vs S waves and Israel's TRUAA early warning, magnitude as a ×10 scale (Beast Quake ~M2 vs 1927 Jericho M6.2).",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-11-09T08:12:44.000Z",
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: runs ~30–35 min with prose ~1.8× the 1,100-word target (tag says כ־30 דקות, same as recent editions); the password echoes the lesson's 'stubborn weight' idea; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised on file://; the review copy doesn't declare the sample capability, so Arto falls back there (template)",
+  "review_url": "https://claude.ai/artifact/P6hWcY9g9rtqRxjFi63dVh",
+  "editor_note": null
+}

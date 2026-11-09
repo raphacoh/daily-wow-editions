@@ -1,0 +1,1789 @@
+<title>שורשים וכנפיים #58 · כשנופל שער — האדמה באמת רועדת</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#2F7D4F; --shadow-soft:#DDF0E0;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .tick{animation:tick 1.3373s ease-out infinite}}
+@keyframes tick{0%{opacity:.95}30%{opacity:.75}100%{opacity:.08}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 58</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs><radialGradient id="glow" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#2F7D4F" stop-opacity=".25"/><stop offset="60%" stop-color="#2F7D4F" stop-opacity=".07"/><stop offset="100%" stop-color="#2F7D4F" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <path d="M40 150 C40 110 260 110 260 150 L260 196 C260 236 40 236 40 196 Z" fill="#8C96A8" stroke="#1B1F33" stroke-width="4" stroke-linejoin="round"/>
+    <ellipse cx="150" cy="150" rx="94" ry="26" fill="#4DA36A" stroke="#1B1F33" stroke-width="3"/>
+    <path d="M150 124 V176 M56 150 H244" stroke="#FFFFFF" stroke-width="2" opacity=".8"/>
+    <circle cx="150" cy="150" r="9" fill="none" stroke="#FFFFFF" stroke-width="2" opacity=".8"/>
+    <g fill="#E8A33D" stroke="#1B1F33" stroke-width="2"><circle cx="70" cy="122" r="6"/><circle cx="96" cy="114" r="6"/><circle cx="124" cy="110" r="6"/><circle cx="176" cy="110" r="6"/><circle cx="204" cy="114" r="6"/><circle cx="230" cy="122" r="6"/></g>
+    <path class="tick" d="M18 262 H96 L104 250 L112 274 L120 232 L130 290 L140 214 L150 284 L160 240 L170 266 L178 254 L186 262 H282" fill="none" stroke="#C8452D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="214" cy="60" r="20" fill="#FFFFFF" stroke="#1B1F33" stroke-width="4"/>
+    <path d="M214 40 l8 12 -8 10 -8 -10 Z M196 54 l10 4 M232 54 l-10 4 M204 76 l4 -10 M224 76 l-4 -10" fill="#1B1F33" stroke="#1B1F33" stroke-width="2"/>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 58</span><span class="tag">יום שני, 9 בנובמבר 2026</span><span class="tag">כ״ט בחשוון תשפ״ז</span><span class="tag">כ־30 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>כשנופל שער — האדמה באמת רועדת</h1>
+  <p class="lede">ברצלונה, <span class="num">8</span> במרץ <span class="num">2017</span>. הדקה ה־<span class="num">95</span>. סרג׳י רוברטו נוגע בכדור, והכדור בפנים: <span class="math">6–1</span> לברצלונה נגד פריז. כמעט <span class="num">100,000</span> אוהדים קופצים באותו רגע. ובמרתף שקט, כחצי קילומטר מהאצטדיון, מכשיר שנבנה כדי להרגיש <b>רעידות אדמה</b> משרטט קו שקופץ גבוה, הכי גבוה בכל הערב. השאלה של היום: <b>איך שמחה של קהל הופכת לרעד של האדמה — ואיך מדענים "שומעים" את העיר דרך הרצפה?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">באותו ערב, מה שרטט המכשיר שבמרתף, חצי קילומטר מהאצטדיון?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>כלום</b><span>קהל רחוק מדי בשביל מכשיר כזה</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>רק את שריקת הסיום</b><span>רק בסוף, כשכולם יוצאים</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>רעידת אדמה אמיתית</b><span>כזו שהזיזה בתים</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>"קפיצה" אחרי כל שער</b><span>רעד זעיר שאיש לא הרגיש</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">יוצאים למסע ←</button></div>
+</section>
+
+<!-- 1 · THE NEEDLE IN THE BASEMENT (interactive 1: the seismometer) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>המכשיר שבמרתף</h2>
+  <p>במרתף של מכון מחקר לחקר כדור הארץ בברצלונה עומד מכשיר בשם <b>סייסמומטר</b>, כלומר "מד רעידות". הסייסמולוג <b>ז׳ורדי דיאס</b> התקין אותו שם בכלל כדי להראות למבקרים איך מודדים רעידות אדמה. אבל המכשיר התחיל לספר סיפורים אחרים: על רמזורים, על רכבות, ועל כדורגל.</p>
+  <p>יש כאן חידה. הסייסמומטר עומד על הרצפה. כשהרצפה רועדת, גם המכשיר רועד איתה. אז איך הוא יכול למדוד את הרעד? זה כמו לנסות לצלם רכבת שזזה, כשגם המצלמה נמצאת על הרכבת. במעבדה נפתח את המכשיר, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 1 — הסייסמומטר ===== -->
+  <div class="panel instrument">
+    <h3>בתוך הסייסמומטר</h3>
+    <p class="cap">בתוך המכשיר יש משקולת כבדה, תלויה על קפיץ. נחשו קודם: כשהאדמה קופצת למעלה ולמטה, מה עושה המשקולת?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="smP0" onclick="smPredict(0)">קופצת יחד עם הקופסה</button>
+        <button id="smP1" onclick="smPredict(1)">כמעט נשארת במקום</button>
+        <button id="smP2" onclick="smPredict(2)">קופצת גבוה יותר</button>
+      </div>
+    </div>
+    <canvas role="img" id="smCv" width="640" height="600" aria-label="קופסה אפורה גדולה שעומדת על האדמה. מלמעלה תלוי קפיץ, ובקצה שלו כדור כבד. לכדור מחובר עט, שנוגע בפס נייר שמחובר לקופסה. כשהאדמה רועדת, הקופסה והנייר זזים למעלה ולמטה, הכדור כמעט נשאר במקום, והעט משרטט קו עם קפיצות על הנייר"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="מה מרעיד את האדמה">
+        <button id="smS0" onclick="smShake(0)">משאית עוברת</button>
+        <button id="smS1" onclick="smShake(1)">שער! הקהל קופץ</button>
+        <button id="smS2" onclick="smShake(2)">שקט</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="readout">הקופסה זזה: <b id="smOut">—</b></div>
+      <div class="readout">המשקולת זזה: <b id="smOut2">—</b></div>
+    </div>
+    <p class="cap" id="smMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="smReveal" hidden><span class="hand">!</span><p><b>המשקולת כמעט נשארת במקום!</b> חפץ כבד "מתעקש" להישאר כמו שהוא. לתכונה הזאת קוראים <b>התמדה</b>. הקופסה והנייר קופצים עם האדמה, המשקולת והעט כמעט לא זזים — ולכן העט משרטט על הנייר בדיוק את הקפיצות של האדמה. (סייסמומטר של היום הוא חשמלי וקטן, ובמקום עט יש בו חיישן ומחשב. אבל הרעיון של משקולת שמתעקשת להישאר במקום עדיין שם.)</p></div>
+
+  <div id="smAfter" hidden>
+  <p>לשרטוט הזה קוראים <b>סייסמוגרם</b>: קו שזז לאורך הזמן. כשהכול שקט, הקו כמעט ישר. כשמשהו מרעיד את האדמה, הקו קופץ. והמכשיר רגיש להפליא: הוא מרגיש תזוזות קטנות בהרבה מעובי של שערה.</p>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>דמיינו שאתם עומדים באוטובוס, מחזיקים כוס מים, והאוטובוס בולם פתאום. המים "ממשיכים לנסוע" קדימה ונשפכים. המים מתעקשים להמשיך כמו שהיו. המשקולת במכשיר עושה אותו דבר: האדמה זזה, והמשקולת מתעקשת להישאר. ובערב של המשחק? אחרי כל שער של ברצלונה הקו בסייסמוגרם קפץ.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה דווקא <b>כבדה</b>, ולמה <b>קפיץ</b>? משקולת כבדה צריכה כוח גדול כדי להתחיל לזוז. הקפיץ רך, ולכן הוא מעביר אליה רק כוח קטן. כשהאדמה רועדת מהר, הלוך ושוב כמה פעמים בשנייה, הקפיץ "לא מספיק" להזיז את המשקולת לפני שהכיוון מתהפך. כך המשקולת הופכת לנקודת ייחוס כמעט קבועה, ומה שנמדד הוא <b>ההפרש</b> בין הקופסה לבין המשקולת. ובמשחק אחר, נגד באיירן ב־<span class="num">2015</span>, התברר שאחרי שער האדמה זזה בעיקר מצד לצד — בערך פי <span class="num">3</span> יותר מאשר למעלה ולמטה.</p>
+  </div>
+
+  <div class="q qc" id="storyQ"></div>
+  </div>
+  <p class="small" id="hint1" style="text-align:center">כדי להמשיך, סיימו את המעבדה וענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · JUMPING TOGETHER (interactive 2: the crowd) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>קהל שקופץ יחד</h2>
+  <p>בעונה ההיא ברצלונה הייתה צריכה נס. בשמינית הגמר של ליגת האלופות היא הפסידה בפריז <span class="math">0–4</span>, ובמשחק הגומלין הייתה צריכה לנצח בהפרש של חמישה שערים. בדקה ה־<span class="num">87</span> המשחק עמד על <span class="math">3–1</span> בלבד, והנס נראה רחוק. ואז, בשבע הדקות האחרונות, היא הבקיעה שלושה שערים. השער השישי, של סרג׳י רוברטו, נכנס בדקה ה־<span class="num">95</span>.</p>
+  <p>בסייסמוגרם מאותו ערב רואים קפיצה אחרי כל שער. אבל הקפיצה של השער השישי הייתה <b>בערך כפולה</b> מכל מה שנמדד קודם, והיא גם נמשכה זמן רב יותר. למה דווקא הוא? כנראה כי אז כמעט כל האצטדיון קפץ, באותו רגע, והחגיגה לא נגמרה. במעבדה נבדוק מה זה משנה, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 2 — הקהל ===== -->
+  <div class="panel instrument">
+    <h3>היציע</h3>
+    <p class="cap">נחשו קודם: אותם אוהדים, אותה קפיצה. פעם כל אחד קופץ מתי שבא לו, ופעם כולם קופצים יחד. מתי הקו בסייסמוגרם גבוה יותר?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="crP0" onclick="crPredict(0)">כשכל אחד לחוד</button>
+        <button id="crP1" onclick="crPredict(1)">כשכולם יחד</button>
+        <button id="crP2" onclick="crPredict(2)">אין הבדל</button>
+      </div>
+    </div>
+    <canvas role="img" id="crCv" width="640" height="600" aria-label="יציע עם ארבע שורות של אוהדים. כל אוהד הוא דמות קטנה שקופצת למעלה ונוחתת. מתחת ליציע, סייסמוגרם שמשרטט את הרעד של האדמה. כשכל האוהדים קופצים באותו רגע, הקו בסייסמוגרם עולה ויורד חזק. כשכל אחד קופץ בזמן אחר, הקו נשאר קטן"></canvas>
+    <div class="controls">
+      <label>כמה מהקהל קופצים יחד (ימינה: כל אחד לחוד, שמאלה: כולם יחד)
+        <input type="range" id="crS" min="0" max="100" step="10" value="0" oninput="crSet()" aria-label="כמה מהקהל קופצים יחד" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="קצב">
+        <button id="crT0" class="on" onclick="crTempo(0)">קפיצה כל חצי שנייה</button>
+        <button id="crT1" onclick="crTempo(1)">קצב מהיר יותר</button>
+      </div>
+      <button class="btn small" id="crGo" onclick="crRun()">הקהל קופץ!</button>
+    </div>
+    <div class="controls">
+      <div class="readout">קופצים יחד: <b id="crOut">—</b></div>
+      <div class="readout">גובה הקו: <b id="crOut2">—</b></div>
+    </div>
+    <p class="cap" id="crMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="crReveal" hidden><span class="hand">!</span><p><b>כשכולם יחד!</b> כשכל אחד קופץ בזמן אחר, יש תמיד מישהו שנוחת ומישהו שעולה, והדחיפות "מבטלות" זו את זו. כשכולם נוחתים באותו רגע, כל הדחיפות מצטרפות לדחיפה אחת גדולה. אותם אנשים, אותה קפיצה — ורעד גדול בהרבה. (בציור יש רק <span class="num">32</span> אוהדים. באצטדיון אמיתי, עם עשרות אלפים, ההבדל גדול עוד יותר.)</p></div>
+
+  <div id="crAfter" hidden>
+  <p>מוזיקה היא המנצחת הגדולה בסיפור הזה. בהופעה של ברוס ספרינגסטין באותו אצטדיון, ב־<span class="num">2016</span>, קפצו <span class="num">65,000</span> איש לפי הקצב, וגם את זה המכשיר קלט. הקהל קפץ בקצב של השיר, ולכן הסייסמוגרם היה סדיר ונקי, והמדענים ידעו לזהות כל שיר. השיר שהרעיד הכי חזק היה <b>Shout</b>.</p>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על נדנדה בגן. אם דוחפים אותה כל פעם בדיוק כשהיא חוזרת, היא עפה גבוה. אם דוחפים מתי שבא — היא כמעט לא זזה. האדמה מתחת לאצטדיון היא כמו הנדנדה, והקהל הוא הדחיפות. בהופעה, הקהל קופץ <b>פעמיים בכל שנייה</b> בערך, לפי התופים. אחרי שער, כולם קופצים בבת אחת, אבל כל אחד בקצב שלו, וזה יוצא רעד גדול ובלגני.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למדענים יש מילה לקצב: <b>תדירות</b>, כמה פעמים משהו חוזר בשנייה. היחידה שלה נקראת <b>הרץ</b>. קהל שקופץ <span class="num">120</span> פעם בדקה קופץ <span class="math">120 ÷ 60 = 2</span> פעמים בשנייה, כלומר <span class="num">2</span> הרץ. בהופעה של ספרינגסטין מדדו לכל שיר תדירות משלו, בין <span class="num">1.9</span> הרץ ל־<span class="num">2.5</span> הרץ: שירים מהירים יותר נתנו תדירות גבוהה יותר. ואחרי שער? שם אין תופים. כל אחד קופץ בקצב שלו, ולכן הרעד מפוזר על תדירויות רבות, בערך בין <span class="num">1</span> ל־<span class="num">6</span> הרץ, ונמשך כ־<span class="num">17</span> שניות. מספרים כאלה הם טביעת אצבע.</p>
+  </div>
+
+  <div class="q qc" id="snailQ"></div>
+  </div>
+  <p class="small" id="hint2" style="text-align:center">כדי להמשיך, סיימו את המעבדה.</p>
+  <div class="next"><button class="btn" id="next2" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE CITY'S FINGERPRINTS (interactive 3: the seismogram detective) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>טביעות האצבע של העיר</h2>
+  <p>המכשיר במרתף לא שומע רק כדורגל. הוא שומע את כל העיר. במאמר מדעי מ־<span class="num">2017</span> הראו דיאס וחבריו מה מסתתר בסייסמוגרם של ברצלונה. בשדרה הגדולה שליד המכון נוסעות מכוניות, והרמזורים מתחלפים בסבב קבוע. מתחת לשדרה עובר קו של רכבת תחתית. וכל אחד מהם משאיר סימן אחר על הקו.</p>
+  <p>איך מבדילים ביניהם? שואלים שתי שאלות. <b>כמה זמן</b> נמשך הרעד, והאם הוא חוזר בסדר קבוע? ו<b>כמה מהר</b> הקו רוטט, כלומר כמה פעמים בשנייה הוא עולה ויורד? במעבדה נהיה בלשים של רעידות, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 3 — הבלש ===== -->
+  <div class="panel instrument">
+    <h3>בלש הרעידות</h3>
+    <p class="cap">נחשו קודם: מי מהם גורם לקו לרטוט הכי מהר — הכי הרבה פעמים בשנייה?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="fpP0" onclick="fpPredict(0)">קהל אחרי שער</button>
+        <button id="fpP1" onclick="fpPredict(1)">רכבת תחתית</button>
+        <button id="fpP2" onclick="fpPredict(2)">קהל בהופעה</button>
+      </div>
+    </div>
+    <canvas role="img" id="fpCv" width="640" height="600" aria-label="שני חלונות של סייסמוגרם. בחלון העליון, ארבע דקות שלמות: רואים מתי הרעד מתחיל, כמה זמן הוא נמשך, והאם הוא חוזר. בחלון התחתון, זום על שנייה אחת: רואים כמה פעמים הקו עולה ויורד. למעלה ציור קטן של מקור הרעד: רמזור, רכבת, כדור ברשת או תו מוזיקה"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="מקור הרעד">
+        <button id="fpM0" onclick="fpMode(0)">רמזורים בשדרה</button>
+        <button id="fpM1" onclick="fpMode(1)">רכבת תחתית</button>
+        <button id="fpM2" onclick="fpMode(2)">שער!</button>
+        <button id="fpM3" onclick="fpMode(3)">שיר בהופעה</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="readout">רטטים בשנייה: <b id="fpOut">—</b></div>
+      <div class="readout">נמשך: <b id="fpOut2">—</b></div>
+    </div>
+    <p class="cap" id="fpMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="fpReveal" hidden><span class="hand">!</span><p><b>הרכבת התחתית!</b> רכבת שנוסעת מתחת לאדמה מרעידה את הקרקע <span class="math">20–40</span> פעמים בשנייה, וחוזרת כל כמה דקות. מכוניות ברחוב רוטטות בערך <span class="math">8–12</span> פעמים בשנייה, בגלים שחוזרים עם הרמזורים. קהל בהופעה קופץ פעמיים בשנייה בערך, בסדר מושלם. וקהל אחרי שער? רעד איטי ובלגני, בין פעם לשש פעמים בשנייה, שנמשך בערך <span class="num">17</span> שניות. (הקווים כאן מצוירים לפי המספרים מהמאמר, ולא מועתקים מהמכשיר.)</p></div>
+
+  <div id="fpAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>זה כמו לזהות מי מגיע הביתה לפי הצעדים במדרגות. אחד רץ מהר, טק־טק־טק. אחת הולכת לאט ובכבדות. ואחד מקפץ בקצב של שיר. אתם לא רואים אף אחד מהם, אבל אתם יודעים מי זה. הסייסמולוגים עושים את אותו הדבר עם הקו: לפי האורך והמהירות של הרטטים, הם יודעים מה הרעיד את העיר.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הסבב של הרמזורים מופיע בסייסמוגרם כמו שעון: בערך כל <span class="num">2</span> דקות, כי לשדרה יש מופע של <span class="num">90</span> שניות ולרחוב שחוצה אותה עוד <span class="num">30</span>, ו־<span class="math">90 + 30 = 120</span> שניות. ברכבת התחתית, בשעות העומס, רכבת עוברת בערך כל <span class="num">4</span> דקות. וזו הדרך לעבוד: מכשיר אחד קולט הכול יחד, אבל לכל מקור יש <b>טווח תדירויות</b> משלו ו<b>דפוס בזמן</b> משלו. מפרידים את הקו לפי תדירויות — ובכל טווח מופיע סיפור אחר. ככה בדיוק מפרידים רעידת אדמה רחוקה מהרעש של העיר.</p>
+  </div>
+
+  <div class="q qc" id="priceQ"></div>
+  </div>
+  <p class="small" id="hint3" style="text-align:center">כדי להמשיך, סיימו את המעבדה.</p>
+  <div class="next"><button class="btn" id="next3" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · TWO WAVES (interactive 4: P and S, early warning) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>שני גלים, ומרוץ אחד</h2>
+  <p>איך הרעד מגיע מהאצטדיון למרתף? הקהל דוחף את היציע, היציע דוחף את האדמה, והדחיפה עוברת בתוך הקרקע כמו גל, מאבן לאבן. אותו דבר קורה ברעידת אדמה אמיתית, רק בעוצמה גדולה בהרבה ובמרחק של עשרות קילומטרים. ויש כאן הפתעה: מרעידת אדמה יוצאים <b>שני גלים שונים</b>, והם לא מגיעים יחד.</p>
+  <p>הגל הראשון נקרא <b>גל P</b>. הוא דוחף ומושך את הסלע קדימה ואחורה, כמו קפיץ שלוחצים, והוא מהיר: בערך <span class="num">6</span> קילומטרים בכל שנייה בתוך הסלע. הגל השני נקרא <b>גל S</b>. הוא מזיז את הסלע מצד לצד, כמו חבל שמנערים, והוא איטי יותר: בערך <span class="num">3.5</span> קילומטרים בשנייה. ודווקא הוא, האיטי, הוא שמטלטל בתים. במעבדה נצפה במרוץ, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 4 — המרוץ ===== -->
+  <div class="panel instrument">
+    <h3>המרוץ אל העיר</h3>
+    <p class="cap">נחשו קודם: רעידת אדמה רחוקה. איזה גל יגיע לעיר ראשון?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="wvP0" onclick="wvPredict(0)">הגל החזק, S</button>
+        <button id="wvP1" onclick="wvPredict(1)">הגל המהיר, P</button>
+        <button id="wvP2" onclick="wvPredict(2)">שניהם יחד</button>
+      </div>
+    </div>
+    <canvas role="img" id="wvCv" width="640" height="600" aria-label="מפה של האדמה, מלמעלה. מימין כוכב, המקום שבו הסלע נשבר. ליד הכוכב חיישן קטן עם אנטנה. משמאל עיר עם בתים. מהכוכב יוצאות שתי טבעות: טבעת כחולה מהירה, גל P, וטבעת אדומה איטית, גל S. כשהטבעת הכחולה פוגשת את החיישן, יוצאת אזעקה לעיר. למטה סרגל של קילומטרים ושעון של שניות"></canvas>
+    <div class="controls">
+      <label>המרחק של העיר מהרעידה (ימינה: קרוב, שמאלה: רחוק)
+        <input type="range" id="wvD" min="20" max="150" step="10" value="60" oninput="wvSet()" aria-label="המרחק של העיר מהרעידה" style="direction:rtl">
+      </label>
+    </div>
+    <div class="controls">
+      <button class="btn small" id="wvGo" onclick="wvRun()">רעידה!</button>
+    </div>
+    <div class="controls">
+      <div class="readout">מרחק: <b id="wvOut">—</b></div>
+      <div class="readout">הפער בין הגלים: <b id="wvOut2">—</b></div>
+    </div>
+    <p class="cap" id="wvMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="wvReveal" hidden><span class="hand">!</span><p><b>הגל המהיר, P!</b> הוא מגיע ראשון, והוא חלש יחסית. אחריו מגיע גל S, החזק. וככל שהעיר רחוקה יותר, הפער בין שני הגלים גדל, כי לגל המהיר יש יותר דרך "לברוח" קדימה. הפער הזה הוא מתנה: כמה שניות של אזהרה. (במודל המהירויות קבועות. בכדור הארץ האמיתי הן משתנות לפי סוג הסלע והעומק.)</p></div>
+
+  <div id="wvAfter" hidden>
+  <p>ישראל משתמשת בדיוק במרוץ הזה. בפברואר <span class="num">2022</span> הופעלה בארץ מערכת ההתרעה <b>"תרועה"</b>: כ־<span class="num">120</span> תחנות של חיישנים, רובן לאורך השבר של ים המלח, השבר שעובר מהכנרת דרך עמק הירדן ועד מפרץ אילת. כשחיישנים קולטים את גל P של רעידה חזקה, המערכת שולחת אזעקה לפני שגל S מגיע לערים. אזהרה של כמה שניות מספיקה כדי לצאת מבניין או להיכנס למרחב מוגן, ולעצור רכבות ומכונות. וגם לאורך הכרמל עובר שבר פעיל: שבר הכרמל, ענף של אותה מערכת.</p>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על סופה. קודם רואים את הברק, ורק אחר כך שומעים את הרעם, כי האור מהיר מהקול. ברעידת אדמה, גל P הוא כמו הברק: הוא מגיע ראשון ומזהיר. גל S הוא כמו הרעם: הוא מגיע אחריו, והוא החזק. והחיישנים של "תרועה" הם כמו חבר שרואה את הברק ראשון וצועק לכולם: "להתכונן!"</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>החשבון פשוט: <span class="math">זמן = מרחק ÷ מהירות</span>. לעיר שנמצאת <span class="num">60</span> ק״מ מהרעידה, גל P מגיע אחרי <span class="math">60 ÷ 6 = 10</span> שניות, וגל S אחרי <span class="math">60 ÷ 3.5 ≈ 17</span> שניות. כלומר, כ־<span class="num">7</span> שניות של אזהרה. הפוך, אפשר גם לגלות <b>מאיפה</b> באה רעידה: כל תחנה מודדת את הפער בין שני הגלים, ומחשבת ממנו את המרחק. שלוש תחנות, שלושה מרחקים — ויש רק נקודה אחת במפה שמתאימה לשלושתם.</p>
+  </div>
+
+  <div class="q qc" id="siteQ"></div>
+  </div>
+  <p class="small" id="hint4" style="text-align:center">כדי להמשיך, סיימו את המעבדה.</p>
+  <div class="next"><button class="btn" id="next4" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: HOW BIG IS A FOOTQUAKE? (figure) + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>כמה חזקה "רעידת שער"?</h2>
+  <p>עיתונים אוהבים לכתוב "האוהדים גרמו לרעידת אדמה!". אז בואו נבדוק. כדי להשוות רעידות, הסייסמולוגים משתמשים ב<b>סולם מגניטודה</b>: מספר שאומר כמה חזקה הייתה הרעידה עצמה. הסולם בנוי כמו סולם עם שלבים: כל שלב גבוה יותר אומר קו גבוה <b>פי <span class="num">10</span></b> בסייסמוגרם.</p>
+
+  <figure class="calfig" aria-label="סולם של מגניטודה, עם שלבים מ־2 עד 6. בשלב 2 אצטדיון של כדורגל אמריקאי בסיאטל. בשלב 3 אצטדיון של בייסבול בסיאטל. מעל שלב 6 בתים סדוקים, רעידת האדמה של 1927 בארץ. כל שלב — קו גבוה פי 10">
+    <svg viewBox="0 0 640 600" role="img" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="640" height="600" rx="14" fill="#F4EEDF"/>
+      <g stroke="#1B1F33" stroke-width="6" stroke-linecap="round"><path d="M560 560 V40 M620 560 V40"/></g>
+      <g stroke="#1B1F33" stroke-width="5" stroke-linecap="round"><path d="M560 520 H620 M560 420 H620 M560 320 H620 M560 220 H620 M560 120 H620"/></g>
+      <g font-family="Rubik,Arial" font-weight="800" font-size="34" fill="#1B1F33" text-anchor="middle"><text x="590" y="508">2</text><text x="590" y="408">3</text><text x="590" y="308">4</text><text x="590" y="208">5</text><text x="590" y="108">6</text></g>
+      <!-- each example sits on its rung -->
+      <g transform="translate(470,520)"><path d="M-62 0 C-62 -20 62 -20 62 0 L62 14 C62 30 -62 30 -62 14 Z" fill="#8C96A8" stroke="#1B1F33" stroke-width="3"/><ellipse cx="0" cy="0" rx="44" ry="10" fill="#4DA36A" stroke="#1B1F33" stroke-width="2"/></g>
+      <rect x="140" y="498" width="250" height="44" rx="10" fill="#FFFFFF"/><text x="265" y="529" text-anchor="middle" font-family="Rubik,Arial" font-size="28" font-weight="700" fill="#1B1F33">אוהדים, 2011</text>
+      <g transform="translate(470,420)"><path d="M-62 0 C-62 -20 62 -20 62 0 L62 14 C62 30 -62 30 -62 14 Z" fill="#8C96A8" stroke="#1B1F33" stroke-width="3"/><path d="M-36 -2 L0 -10 L36 -2" fill="none" stroke="#4DA36A" stroke-width="7"/></g>
+      <rect x="140" y="398" width="250" height="44" rx="10" fill="#FFFFFF"/><text x="265" y="429" text-anchor="middle" font-family="Rubik,Arial" font-size="28" font-weight="700" fill="#1B1F33">אוהדים, 2025</text>
+      <g transform="translate(470,112)" stroke="#1B1F33" stroke-width="3" stroke-linejoin="round"><path d="M-58 26 V-6 L-36 -24 L-14 -6 V26 Z" fill="#E3CC9E"/><path d="M-6 26 V-12 L22 -34 L50 -12 V26 Z" fill="#E3CC9E"/><path d="M-40 -12 L-32 4 L-40 16 L-34 26" fill="none" stroke="#C8452D" stroke-width="4"/><path d="M24 -22 L16 -4 L28 10 L20 26" fill="none" stroke="#C8452D" stroke-width="4"/></g>
+      <rect x="110" y="92" width="290" height="44" rx="10" fill="#FFFFFF"/><text x="255" y="123" text-anchor="middle" font-family="Rubik,Arial" font-size="28" font-weight="700" fill="#C8452D">רעידה בארץ, 1927</text>
+      <text x="300" y="582" text-anchor="middle" font-family="Rubik,Arial" font-size="32" font-weight="700" fill="#1B1F33">כל שלב — קו גבוה פי 10</text>
+    </svg>
+    <figcaption>קוראים מלמטה למעלה. כל שלב בסולם <b>כופל</b> את הקודם, ולא רק מוסיף לו.</figcaption>
+  </figure>
+
+  <p>האוהדים המפורסמים ביותר של עולם הרעידות הם בסיאטל, בארצות הברית. ב־<span class="num">2011</span>, במשחק של כדורגל אמריקאי, ריצה ארוכה של השחקן מרשון לינץ׳ הקפיצה <span class="num">66,336</span> צופים. חיישן ליד האצטדיון קלט רעד ששווה לרעידה במגניטודה <span class="num">2</span> בערך. ובאוקטובר <span class="num">2025</span>, במשחק בייסבול באותה עיר, הגיעו אוהדים למגניטודה <span class="num">3</span> בערך — קו גבוה פי <span class="num">10</span>. אבל אף אחד מחוץ לאצטדיון לא הרגיש כלום. "רעידת שער" היא רעד זעיר, שרק מכשירים רגישים שומעים.</p>
+  <p>ורעידת אדמה אמיתית? ב־<span class="num">1927</span> הייתה בארץ רעידה במגניטודה <span class="num">6.2</span>, שמרכזה היה ליד יריחו. היא הרסה בתים ונהרגו בה יותר מ־<span class="num">250</span> בני אדם. זה ההבדל בין רעד של שמחה לבין סכנה — ולכן ישראל משקיעה בחיישנים, בבנייה חזקה ובמערכת התרעה.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אז האוהדים לא עשו רעידת אדמה, אבל הם עשו משהו מגניב: הם הפכו את האצטדיון ל"תוף" ענק, והאדמה העבירה את הקול שלו למכשיר. וזה גם עוזר למדענים: כשהם יודעים בדיוק מתי נפל שער, הם יכולים לבדוק כמה זמן לקח לרעד להגיע, וללמוד ממנו על האדמה שמתחת לעיר.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הסולם הזה נקרא <b>לוגריתמי</b>: כל שלב כופל, ולא מוסיף. משלב <span class="num">2</span> לשלב <span class="num">3</span> הקו גבוה פי <span class="num">10</span>. משלב <span class="num">2</span> לשלב <span class="num">4</span>: <span class="math">10 × 10 = 100</span>. ויש עוד מספר חשוב: ה<b>אנרגיה</b> שהרעידה משחררת גדלה בכל שלב פי <span class="num">32</span> בערך. לכן רעידה במגניטודה <span class="num">3</span> היא לא "קצת יותר" מ־<span class="num">2</span>: היא משחררת פי <span class="num">32</span> אנרגיה. ודבר אחרון: ל"רעידות שער" אין מגניטודה אמיתית, כי הן לא נוצרות משבר בסלע. המספר הוא השוואה: "הקו נראה כמו רעידה בגודל כזה".</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> לפי הסולם, כל שלב מגניטודה מגדיל את הקו פי <span class="num">10</span>, ואת האנרגיה פי <span class="num">32</span> בערך. (א) הרעידה של <span class="num">1927</span> הייתה במגניטודה <span class="num">6.2</span>. אוהדים יצרו רעד ששווה למגניטודה <span class="num">2.2</span>. פי כמה גבוה היה הקו של רעידת <span class="num">1927</span>? (ב) רעד של אוהדים במגניטודה <span class="num">4</span> — אם היה כזה — פי כמה אנרגיה היה משחרר לעומת רעד במגניטודה <span class="num">2</span>?</p>
+      <div class="controls">
+        <label>(א) פי כמה הקו <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) פי כמה האנרגיה <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> בהופעה, הקו בסייסמוגרם היה סדיר ונקי, וחזר על עצמו לאורך כל שיר. אחרי שער הוא היה קצר ובלגני, אף שבאצטדיון היו יותר אנשים. למה? ומה היה קורה אם קהל היה קופץ בקצב קבוע הרבה זמן על יציע?</p>
+      <details><summary>רמז</summary><p>חזרו למעבדה של היציע. מה נותן לכולם את אותו רגע לנחות — ומה קורה לזה אחרי כמה שניות של שמחה?</p></details>
+      <details><summary>התשובה</summary><p><b>כי בהופעה כולם קופצים לפי אותו קצב.</b> התופים נותנים לכולם את אותו רגע לנחות, ולכן הדחיפות מצטרפות שוב ושוב, שיר שלם, בתדירות אחת. אחרי שער כולם מתחילים יחד, אבל כל אחד קופץ בקצב שלו, ותוך שניות הדחיפות כבר לא מתואמות — ולכן הרעד קצר ומפוזר על הרבה תדירויות. וכשהקצב חוזר שוב ושוב, האדמה והיציע מתחילים "להתנדנד" איתו, כמו נדנדה שדוחפים בזמן הנכון. לכן מהנדסים בונים יציעים כך שהקצב הטבעי שלהם יהיה מהיר הרבה יותר מקצב הקפיצה של קהל.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>בתוך כמעט כל טלפון חכם יש חיישן קטן שמרגיש תנועה, ועם אפליקציה חינמית (למשל phyphox) אפשר להפוך אותו לסייסמומטר. צריך טלפון, רצפה, וכמה אנשים שמוכנים לקפוץ. <b>בקשו רשות ממבוגר, ושימו לב שהטלפון במקום בטוח, שאף אחד לא ידרוך עליו.</b></p>
+
+  <div class="panel">
+    <h3>חלק א׳ — רעידת סלון (<span class="num">10</span> דקות)</h3>
+    <ol>
+      <li>פתחו באפליקציה את מד התאוצה, והניחו את הטלפון שטוח על הרצפה, כמטר וחצי מכם.</li>
+      <li>לפני שמתחילים: נחשו מה ייתן קו גבוה יותר, ורשמו את הניחוש.</li>
+      <li>סיבוב ראשון: כולם קופצים <span class="num">10</span> שניות, כל אחד מתי שבא לו. צלמו מסך של הקו.</li>
+      <li>סיבוב שני: כולם קופצים יחד, לפי ספירה בקול — "אחת, שתיים, אחת, שתיים". צלמו שוב.</li>
+      <li>השוו את שני הקווים. מה קרה? ואם הטלפון רחוק יותר, למשל בחדר אחר?</li>
+    </ol>
+    <p class="small" style="margin:0">קופצים על רצפה, לא על מיטה או ספה, ולא ליד פינות של רהיטים.</p>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — מודדים את הקצב (<span class="num">5</span> דקות)</summary>
+    <ol>
+      <li>שימו שיר שאתם אוהבים, וקפצו לפי התופים במשך <span class="num">10</span> שניות. מישהו אחד סופר את הקפיצות.</li>
+      <li>חלקו את המספר ב־<span class="num">10</span>, וקיבלתם כמה קפיצות בשנייה. יצא קרוב ל־<span class="num">2</span>, כמו בהופעה בברצלונה?</li>
+      <li>נסו שיר מהיר יותר. האם בקו של הטלפון הקפיצות צפופות יותר?</li>
+    </ol>
+  </details>
+
+  <details class="bonus">
+    <summary>חלק ג׳ — הבלש של הבית (<span class="num">3</span> דקות)</summary>
+    <p>השאירו את הטלפון על הרצפה דקה שלמה, בשקט. אחר כך בקשו ממישהו לעשות משהו אחד בלי לספר לכם: לסגור דלת, ללכת במסדרון, או להפעיל מכונת כביסה. הסתכלו על הקו — תצליחו לנחש מה זה היה? עכשיו אתם יודעים שלכל מקור יש טביעת אצבע.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>האדמה מקשיבה כל הזמן</h2>
+  <p>חשבנו על האדמה כעל משהו מוצק ושקט. אבל היא רוטטת כל הזמן: ממכוניות, מרכבות, מגלי ים רחוקים, מזיקוקים ומאוהדים. סייסמומטר הוא אוזן שמוצמדת לאדמה, והוא שומע את כל זה יחד. האומנות של המדענים היא לפרק את הקול הזה לסיפורים: מה נמשך כמה זמן, מה רוטט כמה מהר, ומה חוזר כמו שעון. ויש עוד שאלות פתוחות: מדענים עדיין לומדים איך להשתמש ב"רעש" של עיר כדי למפות את השכבות שמתחת לבתים, ואיך לתת התרעה מהירה עוד יותר.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>כשנופל שער, אלפי אנשים קופצים יחד, והאדמה באמת רועדת — קצת.</b> הסייסמומטר מרגיש את זה, כי יש בו משקולת כבדה שמתעקשת להישאר במקום. כשכולם קופצים יחד, הרעד גדול יותר. לכל דבר שמרעיד את העיר יש סימן משלו. וברעידת אדמה אמיתית, הגל המהיר מגיע ראשון ומזהיר אותנו. שאלה לחקור: מה עוד בבית או בבית הספר שלכם קופץ ביחד, בקצב?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>התמדה היא מנגנון מדידה</b>: משקולת על קפיץ רך כמעט לא זזה, ולכן אפשר למדוד את התנועה של כל השאר. <b>תיאום מגדיל רעד</b>: דחיפות בזמנים אקראיים מבטלות זו את זו, ודחיפות באותו זמן מצטרפות. <b>תדירות ודפוס בזמן הם טביעת אצבע</b>: רכבת, מכוניות, קהל ומוזיקה נמצאים כל אחד בטווח משלו. <b>מהירויות שונות נותנות אזהרה</b>: <span class="math">זמן = מרחק ÷ מהירות</span>, והפער בין גל P לגל S גדל עם המרחק. שאלה לחקור: אם היו לכם רק שתי תחנות, ולא שלוש, האם הייתם יכולים לדעת בדיוק איפה הייתה הרעידה?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הסיפור?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ספורט · גאוגרפיה</div><h3>שני שערים, שתי ערים</h3><p>ביולי <span class="num">2024</span>, בגמר אליפות אירופה, ספרד ניצחה. חיישנים במדריד ובברצלונה, ליד הכיכרות שבהן צפו האוהדים, קלטו שני רעדים — אחד על כל שער של ספרד.</p></div>
+    <div class="tile"><div class="dom">מוזיקה · פיזיקה</div><h3>השיר שאפשר לזהות מהרצפה</h3><p>בהופעה בברצלונה, לכל שיר הייתה תדירות משלו. ובסיאטל, ב־<span class="num">2023</span>, קהל בהופעה של טיילור סוויפט הרעיד את האדמה בדומה לרעידה במגניטודה <span class="num">2.3</span>.</p></div>
+    <div class="tile"><div class="dom">הנדסה · עיר</div><h3>השעון של הרמזורים</h3><p>מהסייסמוגרם של המכון אפשר לקרוא את הסבב של הרמזורים בשדרה, את הזמנים בין הרכבות, ואפילו את שעות העומס של הבוקר.</p></div>
+    <div class="tile"><div class="dom">גאולוגיה · ישראל</div><h3>השבר שעובר לאורך הארץ</h3><p>השבר של ים המלח עובר מטורקיה, דרך הכנרת ועמק הירדן, ועד מפרץ אילת. לאורכו פרושות רוב תחנות "תרועה", שמקשיבות לאדמה יומם ולילה.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): למה מהנדסים חוששים מקהל שקופץ בקצב?</summary>
+    <p>יציע של אצטדיון בנוי מבטון ופלדה, והוא חזק מאוד. אז למה מהנדסים בודקים בזהירות רבה דווקא קהל שקופץ <b>בקצב</b>? נחשו לפני שאתם פותחים.</p>
+    <details><summary>התשובה</summary>
+      <p><b>בגלל תהודה.</b> לכל מבנה יש קצב שבו הוא "אוהב" להתנדנד, כמו נדנדה. אם דוחפים אותו שוב ושוב בדיוק בקצב הזה, כל דחיפה מוסיפה עוד קצת, והתנודה גדלה. קהל קופץ בערך פעמיים או שלוש בשנייה. לכן תקני בנייה דורשים שהקצב הטבעי של יציעים יהיה מהיר בהרבה, בערך <span class="math">6–8</span> פעמים בשנייה ויותר. כך הקהל אף פעם לא "דוחף בזמן הנכון", והיציע נשאר יציב.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את השרשרת, מהשער ועד הקו בסייסמוגרם. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: בהופעה, הקהל קופץ <span class="num">2</span> פעמים בכל שנייה. כמה פעמים הוא קופץ בדקה שלמה, שיש בה <span class="num">60</span> שניות?</div>
+    <div class="controls"><label>קפיצות <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: רעידת אדמה התרחשה <span class="num">105</span> ק״מ מעיר. גל P עובר <span class="num">6</span> ק״מ בשנייה, וגל S עובר <span class="num">3.5</span> ק״מ בשנייה. (א) אחרי כמה שניות מגיע גל P לעיר? (ב) כמה שניות עוברות מהרגע שגל P מגיע לעיר ועד שמגיע גל S? (מותר מחשבון.)</div>
+    <div class="controls"><label>(א) שניות עד גל P <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) שניות של פער <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: רעידת אדמה התרחשה <span class="num">72</span> ק״מ מעיר. גל P עובר <span class="num">6</span> ק״מ בכל שנייה. אחרי כמה שניות הוא יגיע לעיר?</div>
+    <div class="controls"><label>שניות <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>איך מכשיר במרתף, חצי קילומטר מהאצטדיון, "יודע" שנפל שער?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="כשנופל שער, האוהדים..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. כשברצלונה הבקיעה את השער השישי נגד פריז, ב־<span class="num">2017</span>, מכשיר שמודד רעידות אדמה, חצי קילומטר מהאצטדיון, קלט את הקפיצות של הקהל — והשער הזה הרעיד הכי חזק.<br>
+    2. בסייסמומטר יש משקולת כבדה שמתעקשת להישאר במקום כשהאדמה זזה, ולכן אפשר למדוד את התנועה של האדמה. ולכל מקור רעד יש טביעת אצבע: רכבת תחתית רוטטת <span class="math">20–40</span> פעמים בשנייה, קהל בהופעה בערך פעמיים.<br>
+    3. ברעידת אדמה הגל המהיר, P, מגיע לפני הגל החזק, S. מערכת "תרועה" בישראל קולטת אותו ומזהירה כמה שניות לפני הטלטלה.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>הבסיס: Díaz, J., Ruiz, M., Sánchez-Pastor, P. S. &amp; Romero, P., "Urban Seismology: on the origin of earth vibrations within a city", Scientific Reports <span class="num">7</span>:<span class="num">15296</span> (<span class="num">2017</span>) — תחנה במכון ICTJA-CSIC, כ־<span class="num">500</span> מ׳ מהאצטדיון; "footquakes" בחצי הגמר מול באיירן (<span class="num">2015</span>) בטווח <span class="math">1–6</span> הרץ, כ־<span class="math">17–18</span> שניות, תנועה אופקית פי <span class="num">3</span> מאנכית; הופעת ספרינגסטין (<span class="num">14.5.2016</span>, <span class="num">65,000</span> איש), תדירות לכל שיר <span class="math">1.9–2.5</span> הרץ, החזק ביותר "Shout"; תנועה בשדרה <span class="math">8–12</span> הרץ, מחזורי רמזור <span class="num">90</span> ו־<span class="num">30</span> שניות, לילה חלש פי <span class="num">4</span>, סוף שבוע בערך חצי; מטרו <span class="math">20–40</span> הרץ; תקני בנייה לתדירות טבעית <span class="math">6–8</span> הרץ. Physics World, על המכשיר שהותקן לחינוך מבקרים ועל משחק פריז <span class="num">2017</span>. Temblor.net, "Seismometer picks up Barcelona's stunning Champions League victory" — השער השישי בערך כפול מכל קריאה קודמת ונמשך יותר. ESPN / Sky Sports (מרץ <span class="num">2017</span>) — סרג׳י רוברטו, דקה <span class="num">95</span>, <span class="math">6–1</span> אחרי <span class="math">0–4</span>. Xataka (יולי <span class="num">2024</span>) — גמר יורו <span class="num">2024</span>, הנתונים עובדו על ידי ז׳ורדי דיאס.</p>
+    <p>סיאטל: Wikipedia, "Beast Quake" (מבוסס על PNSN) — <span class="num">8.1.2011</span>, <span class="num">66,336</span> צופים, שווה ערך למגניטודה <span class="num">2.0</span>; "Swift Quake" <span class="num">2023</span>, <span class="num">2.3</span>; משחק המרינרס, אוקטובר <span class="num">2025</span>, כ־<span class="num">3.0</span>. ישראל: Temblor.net, "Israel to get earthquake early warnings" (<span class="num">2022</span>) — מערכת תרועה, כ־<span class="num">120</span> תחנות, רובן לאורך שבר ים המלח, סף התרעה <span class="num">4.5</span>; רעידת <span class="num">1927</span>, מגניטודה <span class="num">6.2</span>, יותר מ־<span class="num">250</span> הרוגים; שבר כרמל־צפירה כענף. Kurzon et al., Seismological Research Letters (<span class="num">2020</span>), ו־Frontiers in Earth Science (<span class="num">2021</span>) על TRUAA. USGS, "The Richter Magnitude Scale" — פי <span class="num">10</span> באמפליטודה ובערך פי <span class="num">31</span> באנרגיה לכל יחידה (בשיעור עיגלנו ל־<span class="num">32</span>). מהירויות גלים: ערכים טיפוסיים בקרום (P כ־<span class="num">6</span>, S כ־<span class="num">3.5</span> ק״מ בשנייה), ספרי לימוד בגאולוגיה.</p>
+    <p>דיוק ופישוטים: לא כתבנו שאפשר לזהות מהקו איזו קבוצה הבקיעה — לא מצאנו לכך מקור. "קרוב ל־<span class="num">100,000</span> אוהדים": קאמפ נואו הכיל אז כ־<span class="num">99,000</span>; המספר המדויק במשחק לא נבדק. בשאלה למחשבה השווינו רק את הצורה של האות (סדיר ומתמשך מול קצר ומפוזר), כי המאמר לא נותן אמפליטודה מספרית להופעה. הקווים באינטראקטיביים מצוירים לפי טווחי התדירויות במאמר ולא מנתונים אמיתיים. "המשקולת לא זזה": בפועל היא זזה מעט; זה נכון לרעד מהיר מהתדירות הטבעית של הקפיץ. מגניטודה של "רעידות שער" היא השוואה, לא מגניטודה של שבירת סלע. האנרגיה "פי <span class="num">32</span>" מעוגלת מ־<span class="num">31.6</span>, ולכן באתגר מקבלים <span class="math">1,000–1,024</span>.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:58, code:'WOW-058', date:'2026-11-09', title:'כשנופל שער — האדמה באמת רועדת', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '16rXmdeg16nXp9eiINeq15zXlden16nXng=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'physics', w:3 }, { id:'earth', w:3 }, { id:'math', w:2 }, { id:'history', w:1 }, { id:'engineering', w:1 } ],
+  hero: { name:'כשנופל שער — האדמה באמת רועדת — הסייסמומטר, היציע, בלש הרעידות והמרוץ של שני הגלים', fact:'מכשיר רעידות אדמה, חצי קילומטר מהאצטדיון של ברצלונה, קלט קפיצה של הקהל אחרי כל שער.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'prior-knowledge',       d:1 },
+    'qc:storyQ':      { skill:'inertia-measurement',   d:2 },
+    'qc:snailQ':      { skill:'synchronisation',       d:2 },
+    'qc:priceQ':      { skill:'frequency-fingerprint', d:2 },
+    'qc:siteQ':       { skill:'wave-speeds',           d:2 },
+    'qc:deepQ':       { skill:'magnitude-scale',       d:2 },
+    'mcq:shared:0':   { skill:'inertia-measurement',   d:1 },
+    'mcq:shared:1':   { skill:'frequency-fingerprint', d:2 },
+    'mcq:shared:2':   { skill:'early-warning',         d:2 },
+    'mcq:younger:0':  { skill:'synchronisation',       d:1 },
+    'mcq:older:0':    { skill:'frequency-hertz',       d:3 },
+    'order':          { skill:'mechanism-sequence',    d:2 },
+    'num:younger':    { skill:'multiplication',        d:1 },
+    'num:older':      { skill:'distance-speed-time',   d:2 },
+    'num:adv':        { skill:'distance-speed-time',   d:4 },
+    'challenge':      { skill:'powers-of-ten',         d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); smDraw(); } if(n===2) crDraw(); if(n===3) fpDraw(); if(n===4) wvDraw(); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: what did the basement instrument draw that evening? ----------
+   Four choices. The right answer: 4 — a small jump after every goal, felt by no one. */
+const SCALE_ANS = 4;
+const fmtSigns = n => ({1:'כלום',2:'רק את שריקת הסיום',3:'רעידת אדמה אמיתית',4:'קפיצה אחרי כל שער'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> אחרי כל שער של ברצלונה הקו קפץ — ואחרי השער השישי הכי גבוה. אף אחד לא הרגיש את זה, רק המכשיר. איך? על זה השיעור.';
+const SCALE_FB = {
+  1: '<span class="pill-bad">דווקא כן!</span> המכשיר רגיש מאוד, וקלט קפיצה אחרי כל שער של ברצלונה. איך? על זה השיעור.',
+  2: '<span class="pill-bad">לא רק!</span> המכשיר קלט גם את הכניסה והיציאה של הקהל, אבל הסימן הבולט היה קפיצה אחרי כל שער. איך? על זה השיעור.',
+  3: '<span class="pill-bad">לא עד כדי כך!</span> זה לא היה רעידת אדמה אמיתית ואף אחד לא הרגיש כלום. אבל המכשיר קלט קפיצה זעירה אחרי כל שער. איך? על זה השיעור.',
+  4: SCALE_FB_RIGHT
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(22,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI, DEG = PI/180;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const GOLDT = () => isDark() ? '#F6C454' : '#8A5410';     // gold for text
+const GRAPH = () => isDark() ? '#B7BFD2' : '#3E4452';     // graphite grey
+const BLUE = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+const ORNG = () => isDark() ? '#F2A066' : '#C8601F';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+const fmt1 = v => (Math.round(v*10)/10).toLocaleString('en-US');
+const fmtI = v => Math.round(v).toLocaleString('en-US');
+/* ---------- this edition's picture colours ---------- */
+const INK = () => css('--ink');
+const STEEL = () => isDark() ? '#5A6278' : '#AEB6C4';
+const STEEL2 = () => isDark() ? '#3B4258' : '#8C96A8';
+const SOIL = () => isDark() ? '#5E4E33' : '#B08A55';
+const SOIL2 = () => isDark() ? '#4A3D28' : '#8C6A44';
+const PAPER = () => isDark() ? '#2A2F55' : '#FFFDF6';
+const GRASS = () => isDark() ? '#3E9A62' : '#4DA36A';
+const TRACE = () => isDark() ? '#F2806F' : '#C8452D';
+const PCOL = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+const SCOL = () => isDark() ? '#F2806F' : '#C8452D';
+function xRand(s){ let x=Math.sin(s*12.9898)*43758.5453; return x-Math.floor(x); }
+function xMath(c,txt,x,y,size,col,align){ size=Math.max(22,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+const RM = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+function xBall(c,x,y,r){ const ink=INK(); c.fillStyle='#FFFFFF'; c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.arc(x,y,r,0,2*PI); c.fill(); c.stroke();
+  c.fillStyle=ink; c.beginPath(); for(let i=0;i<5;i++){ const a=-PI/2+i*2*PI/5, px=x+r*.42*Math.cos(a), py=y+r*.42*Math.sin(a); i?c.lineTo(px,py):c.moveTo(px,py); } c.closePath(); c.fill(); }
+
+/* ---------- step 1 (interactive 1): the seismometer (canvas 640 × 600) ----------
+   A box stands on the ground; a heavy mass hangs from a soft spring; a pen on the mass draws on a paper strip fixed to the box.
+   The ground (and box) moves up and down by g(t); the mass obeys m'' = −k(m − g) − c(m' − g') with a slow natural frequency,
+   so for fast shaking it barely moves and the pen draws m − g: the ground motion itself. Time is shown in slow motion. */
+const smCv=document.getElementById('smCv'), smctx=smCv.getContext('2d');
+const SM={ opened:0, pred:-1, revealed:0, mode:-1, raf:0, t:0, g:0, gv:0, m:0, mv:0, hist:[], gh:[], mh:[], goalT:0, last:0 };
+const SM_K=(2*PI*0.25)**2, SM_C=2*0.7*2*PI*0.25;
+function smGround(t){
+  if(SM.mode===0) return 5*Math.sin(2*PI*3.1*t)+2.5*Math.sin(2*PI*4.7*t+1);                      /* a truck: small and fast */
+  if(SM.mode===1){ const e = t<0.6 ? t/0.6 : Math.exp(-(t-0.6)/3.2);                                  /* a goal: a big messy burst that fades */
+    return 34*e*(0.55*Math.sin(2*PI*1.3*t)+0.3*Math.sin(2*PI*2.1*t+2)+0.2*Math.sin(2*PI*2.9*t+4)); }
+  return 0.8*Math.sin(2*PI*1.7*t)*Math.sin(2*PI*0.3*t);                                              /* quiet */
+}
+function smPredict(k){ SM.pred=k; segOn('smP',3,k); WOW.emit('item', { id:'seis:predict', kind:'quick', correct:k===1, attempt: wowTry('seis:predict') });
+  smMsg.innerHTML='רשמנו את הניחוש. עכשיו בחרו מה מרעיד את האדמה, וצפו במשקולת.'; smDraw(); }
+function smShake(k){
+  if(SM.pred<0){ predictFirst(smMsg,'בחרו'); return; }
+  if(!SM.opened){ SM.opened=1; WOW.emit('open', { id:'seismometer' }); }
+  SM.mode=k; segOn('smS',3,k); SM.t=0; if(k===1) SM.goalT=0;
+  smMsg.innerHTML = k===1 ? 'שער! עשרות אלפי אוהדים קופצים. הסתכלו על המשקולת — ועל הקו.' : k===0 ? 'משאית עוברת ברחוב. רעד קטן ומהיר.' : 'שקט. הקו כמעט ישר.';
+  cancelAnimationFrame(SM.raf); SM.last=0;
+  if(RM()){ for(let i=0;i<(k===1?150:420);i++) smStep(1/60); smDraw(); smCheck(); return; }
+  const tick=(ts)=>{ const dt = SM.last ? Math.min(0.05,(ts-SM.last)/1000) : 1/60; SM.last=ts; smStep(dt*0.55); smDraw(); smCheck(); SM.raf=requestAnimationFrame(tick); };
+  SM.raf=requestAnimationFrame(tick);
+}
+function smStep(dt){
+  const n=4, h=dt/n;
+  for(let i=0;i<n;i++){ SM.t+=h; const g=smGround(SM.t), gv=(g-SM.g)/h; SM.g=g; SM.gv=gv;
+    const a=-SM_K*(SM.m-SM.g)-SM_C*(SM.mv-SM.gv); SM.mv+=a*h; SM.m+=SM.mv*h; }
+  if(SM.mode===1) SM.goalT+=dt;
+  SM.hist.push(SM.m-SM.g); SM.gh.push(SM.g); SM.mh.push(SM.m); if(SM.hist.length>200){ SM.hist.shift(); SM.gh.shift(); SM.mh.shift(); }
+}
+function smWord(arr){ if(!arr.length) return '—'; const r=Math.max(...arr)-Math.min(...arr); return r>24?'הרבה':r>7?'קצת':'כמעט לא'; }
+function smCheck(){ if(SM.pred>=0 && !SM.revealed && SM.mode===1 && SM.goalT>2.2){ SM.revealed=1; smReveal.hidden=false; smAfter.hidden=false; hint1.textContent='ענו על השאלה כדי להמשיך.'; } }
+function smDraw(){
+  const c=smctx, W=smCv.width, H=smCv.height, ink=INK(), g=SM.g, m=SM.m;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the ground */
+  c.fillStyle=SOIL(); c.fillRect(0,512+g,W,H); c.fillStyle=SOIL2(); for(let i=0;i<14;i++){ c.beginPath(); c.arc(30+i*46,550+g+10*xRand(i),5,0,2*PI); c.fill(); }
+  c.fillStyle=GRASS(); c.fillRect(0,506+g,W,10);
+  /* the box (moves with the ground) */
+  const bx=60, by=110+g, bw=520, bh=396;
+  c.fillStyle=STEEL(); c.strokeStyle=ink; c.lineWidth=5; c.beginPath(); c.roundRect(bx,by,bw,bh,16); c.fill(); c.stroke();
+  c.fillStyle=css('--card'); c.beginPath(); c.roundRect(bx+20,by+20,bw-40,bh-40,10); c.fill();
+  /* the paper strip (fixed to the box) */
+  const px=bx+40, pw=250, py=by+90, ph=220, mid=py+ph/2;
+  c.fillStyle=PAPER(); c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.roundRect(px,py,pw,ph,6); c.fill(); c.stroke();
+  c.strokeStyle=css('--line'); c.lineWidth=1.5; for(let yy=py+20; yy<py+ph; yy+=25){ c.beginPath(); c.moveTo(px+4,yy); c.lineTo(px+pw-4,yy); c.stroke(); }
+  /* the trace: newest point at the pen (right end of the paper), older points scroll left */
+  const pen={x:px+pw, y:mid+(m-g)};
+  c.save(); c.beginPath(); c.rect(px,py,pw,ph); c.clip(); c.strokeStyle=TRACE(); c.lineWidth=4; c.lineJoin='round'; c.beginPath();
+  const N=SM.hist.length; for(let i=0;i<N;i++){ const x=pen.x-(N-1-i)*(pw/200), y=mid+clamp(SM.hist[i],-ph/2+6,ph/2-6); i?c.lineTo(x,y):c.moveTo(x,y); } if(N) c.stroke(); c.restore();
+  /* the spring from the box roof to the mass */
+  const sx=470, top=by+24, mx=470, my=330+m, R=52;
+  c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.moveTo(sx,top); const coils=9, L=my-R-top;
+  for(let i=1;i<=coils*2;i++){ c.lineTo(sx+(i%2?22:-22), top+L*i/(coils*2+1)); } c.lineTo(sx,my-R); c.stroke();
+  c.fillStyle=ink; c.fillRect(sx-40,top-6,80,10);
+  /* pen arm and the mass */
+  c.strokeStyle=ink; c.lineWidth=6; c.beginPath(); c.moveTo(mx-R+6,my); c.lineTo(pen.x+4,pen.y); c.stroke();
+  c.fillStyle=ink; c.beginPath(); c.moveTo(pen.x+6,pen.y-8); c.lineTo(pen.x-4,pen.y); c.lineTo(pen.x+6,pen.y+8); c.closePath(); c.fill();
+  c.fillStyle=STEEL2(); c.strokeStyle=ink; c.lineWidth=5; c.beginPath(); c.arc(mx,my,R,0,2*PI); c.fill(); c.stroke();
+  xText(c,'כבד',mx,my,24,'#FFFFFF','center','800');
+  /* motion arrows next to the ground when it shakes */
+  const big = SM.mode===1 ? Math.abs(g)>4 : SM.mode===0;
+  if(SM.mode>=0 && SM.mode<2 && big){ c.fillStyle=TRACE(); c.strokeStyle=TRACE(); c.lineWidth=5; c.beginPath(); c.moveTo(610,480+g); c.lineTo(610,560+g); c.stroke(); xArrow(c,610,470+g,0,-1,16); xArrow(c,610,570+g,0,1,16); }
+  /* labels */
+  xLabel(c,'הנייר זז עם הקופסה',px+pw/2,py-30,22,ink,.95);
+  xLabel(c,'משקולת על קפיץ',mx,my+R+34,22,ink,.95);
+  xLabel(c,'עט',(px+pw+mx-R)/2+20,my-34,22,ink,.9);
+  xLabel(c,'אדמה',90,560+g,22,ink,.9);
+  const title = SM.mode===1?'שער! הקהל קופץ':SM.mode===0?'משאית עוברת':SM.mode===2?'שקט':'בחרו מה מרעיד את האדמה';
+  xLabel(c,title,320,40,26,SM.mode===1?TRACE():ink,.95);
+  smOut.textContent=smWord(SM.gh); smOut2.textContent=smWord(SM.mh);
+}
+
+/* ---------- step 2 (interactive 2): the crowd (canvas 640 × 600) ----------
+   32 fans in 4 rows. Fan i jumps at the same tempo f with phase φ_i = (1 − s) × 2π × r_i (s = share jumping together).
+   Each fan pushes the ground while landing: p_i = max(0, −sin(2πft + φ_i))². Ground signal = Σ p_i − its mean; with random phases the
+   pushes cancel (≈ √N), together they add (≈ N). "Height" = peak of the signal ÷ the all-together peak × 100. Slow motion ×0.5. */
+const crCv=document.getElementById('crCv'), crctx=crCv.getContext('2d');
+const CR={ opened:0, pred:-1, revealed:0, tempo:0, raf:0, running:0, t:0, hist:[], peak:0, ranLow:0, ranHigh:0, last:0, end:0 };
+const CR_N=32, CR_R=[...Array(CR_N)].map((_,i)=>xRand(i*7.3+2.1));
+function crF(){ return CR.tempo ? 2.5 : 2; }
+function crPhase(i){ const s=+crS.value/100; return (1-s)*2*PI*CR_R[i]; }
+function crPush(i,t){ const v=-Math.sin(2*PI*crF()*t+crPhase(i)); return v>0? v*v : 0; }
+function crSignal(t){ let sum=0; for(let i=0;i<CR_N;i++) sum+=crPush(i,t); return sum-CR_N*0.25; }
+function crFull(){ return CR_N*0.75; }   /* all together: peak of Σ p − mean = N − N/4 */
+function crPredict(k){ CR.pred=k; segOn('crP',3,k); WOW.emit('item', { id:'crowd:predict', kind:'quick', correct:k===1, attempt: wowTry('crowd:predict') });
+  crMsg.innerHTML='רשמנו את הניחוש. לחצו "הקהל קופץ!" — פעם עם הסרגל ימינה, ופעם שמאלה.'; crDraw(); }
+function crSet(){ if(CR.pred<0){ crS.value=0; predictFirst(crMsg,'הזיזו'); crDraw(); return; } CR.hist=[]; CR.peak=0; crDraw(); if(CR.running){ CR.t=0; } }
+function crTempo(k){ if(CR.pred<0){ predictFirst(crMsg,'בחרו'); return; } CR.tempo=k; segOn('crT',2,k); CR.hist=[]; CR.peak=0; crDraw(); }
+function crRun(){
+  if(CR.pred<0){ predictFirst(crMsg,'לחצו'); return; }
+  if(!CR.opened){ CR.opened=1; WOW.emit('open', { id:'crowd' }); }
+  cancelAnimationFrame(CR.raf); CR.running=1; CR.t=0; CR.hist=[]; CR.peak=0; CR.last=0;
+  if(RM()){ for(let i=0;i<300;i++){ CR.t+=1/120; crSample(); } CR.running=0; crDraw(); crEnd(); return; }
+  const tick=(ts)=>{ const dt = CR.last ? Math.min(0.05,(ts-CR.last)/1000) : 1/60; CR.last=ts; CR.t+=dt*0.5; crSample(); crDraw(); if(CR.t<2.6) CR.raf=requestAnimationFrame(tick); else { CR.running=0; crDraw(); crEnd(); } };
+  CR.raf=requestAnimationFrame(tick);
+}
+function crSample(){ const v=crSignal(CR.t)/crFull(); CR.hist.push(v); if(CR.hist.length>260) CR.hist.shift(); CR.peak=Math.max(CR.peak,Math.abs(v)); }
+function crEnd(){ const s=+crS.value, h=Math.round(CR.peak*100);
+  if(s<=20) CR.ranLow=1; if(s>=80) CR.ranHigh=1;
+  crMsg.innerHTML = s>=80 ? 'כמעט כולם נוחתים באותו רגע — הקו עולה ויורד חזק: <span class="num">'+h+'</span> מתוך <span class="num">100</span>.'+(CR.ranLow?'':' עכשיו נסו עם הסרגל ימינה.')
+    : s<=20 ? 'כל אחד קופץ בזמן אחר — הדחיפות מבטלות זו את זו, והקו נשאר קטן: <span class="num">'+h+'</span> מתוך <span class="num">100</span>.'+(CR.ranHigh?'':' עכשיו נסו עם הסרגל שמאלה.')
+    : 'חלק קופצים יחד: <span class="num">'+h+'</span> מתוך <span class="num">100</span>. נסו גם את הקצוות של הסרגל.';
+  if(CR.pred>=0 && CR.ranLow && CR.ranHigh && !CR.revealed){ CR.revealed=1; crReveal.hidden=false; crAfter.hidden=false; hint2.textContent='ענו על השאלה כדי להמשיך.'; } }
+function crFan(c,x,y,lift,col){ const ink=INK(); const yy=y-lift;
+  c.strokeStyle=ink; c.lineWidth=4; c.lineCap='round';
+  c.beginPath(); c.moveTo(x,yy-14); c.lineTo(x,yy+12); c.moveTo(x,yy+12); c.lineTo(x-8,yy+28); c.moveTo(x,yy+12); c.lineTo(x+8,yy+28);
+  const up=lift>6; c.moveTo(x,yy-6); c.lineTo(x-12,up?yy-24:yy+4); c.moveTo(x,yy-6); c.lineTo(x+12,up?yy-24:yy+4); c.stroke();
+  c.fillStyle=col; c.beginPath(); c.arc(x,yy-24,10,0,2*PI); c.fill(); c.stroke(); }
+function crDraw(){
+  const c=crctx, W=crCv.width, H=crCv.height, ink=INK(), t=CR.t;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the stand: four steps */
+  for(let r=0;r<4;r++){ const y=134+r*58; c.fillStyle=r%2?STEEL():STEEL2(); c.fillRect(20,y+30,600,28); }
+  c.fillStyle=SOIL(); c.fillRect(0,366,W,12);
+  for(let r=0;r<4;r++) for(let k=0;k<8;k++){ const i=r*8+k, x=60+k*74+(r%2)*18, y=134+r*58;
+    const lift = (CR.running||CR.hist.length) ? 22*Math.max(0,Math.sin(2*PI*crF()*t+crPhase(i))) : 0;
+    crFan(c,x,y,lift, i%3===0?'#C8452D':i%3===1?'#2F6F9F':'#E8A33D'); }
+  /* the seismogram */
+  const gy=482, gh=94;
+  c.fillStyle=PAPER(); c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.roundRect(20,gy-gh,600,gh*2,10); c.fill(); c.stroke();
+  c.strokeStyle=css('--line'); c.lineWidth=2; c.beginPath(); c.moveTo(24,gy); c.lineTo(616,gy); c.stroke();
+  c.save(); c.beginPath(); c.rect(20,gy-gh,600,gh*2); c.clip(); c.strokeStyle=TRACE(); c.lineWidth=4; c.lineJoin='round'; c.beginPath();
+  const N=CR.hist.length; for(let i=0;i<N;i++){ const x=616-(N-1-i)*(592/260), y=gy+gh*0.35-CR.hist[i]*(gh*1.2); i?c.lineTo(x,y):c.moveTo(x,y); } if(N) c.stroke(); c.restore();
+  xLabel(c,'סייסמוגרם',100,gy-gh+24,22,ink,.9);
+  const s=+crS.value; xLabel(c, s>=80?'כולם יחד':s<=20?'כל אחד לחוד':'חלק יחד', 320, 30, 26, ink, .95);
+  crOut.innerHTML='<span class="num">'+s+'%</span>'; crOut2.innerHTML = CR.hist.length ? '<span class="num">'+Math.round(CR.peak*100)+'</span> מתוך <span class="num">100</span>' : '—';
+}
+
+/* ---------- step 3 (interactive 3): the seismogram detective (canvas 640 × 600) ----------
+   Four sources, drawn from the frequency bands and time patterns in Díaz et al. 2017 (illustrations, not recorded data):
+   traffic 8–12 Hz in a 2-minute light cycle; metro 20–40 Hz in short bursts minutes apart; a goal 1–6 Hz, one burst of ~17 s;
+   a concert song ~2.4 Hz with harmonics, all song long. Top: 4 minutes. Bottom: a 1-second zoom. */
+const fpCv=document.getElementById('fpCv'), fpctx=fpCv.getContext('2d');
+const FP={ opened:0, pred:-1, revealed:0, mode:-1, seen:new Set() };
+const FP_SRC=[
+  { name:'רמזורים בשדרה', hz:'בערך <span class="num">10</span>', dur:'חוזר כל 2 דקות',
+    env:t=>{ const p=t%120; return (p<60?0.55:p<90?0.12:0.35)*(0.75+0.25*xRand(Math.floor(t*3))); },
+    wave:x=>0.8*Math.sin(2*PI*10*x)+0.25*Math.sin(2*PI*11.3*x+1) },
+  { name:'רכבת תחתית', hz:'<span class="math">20–40</span>', dur:'כמה שניות, כל כמה דקות',
+    env:t=>{ const a=Math.max(0,1-Math.abs(t-110)/12); return 0.05+0.85*a*(0.8+0.2*xRand(Math.floor(t*4))); },
+    wave:x=>0.75*Math.sin(2*PI*30*x)+0.25*Math.sin(2*PI*24*x+2) },
+  { name:'שער!', hz:'<span class="math">1–6</span>, בבלגן', dur:'כ־17 שניות',
+    env:t=>{ const d=t-140; return 0.03+(d<0?0:d<2?d/2:Math.exp(-(d-2)/6))*0.95*(0.8+0.2*xRand(Math.floor(t*2))); },
+    wave:x=>0.45*Math.sin(2*PI*1.3*x+0.4)+0.3*Math.sin(2*PI*2.9*x+2)+0.25*Math.sin(2*PI*4.4*x+4)+0.18*Math.sin(2*PI*5.7*x+1) },
+  { name:'שיר בהופעה', hz:'בערך <span class="num">2.4</span>, בקצב', dur:'כל השיר',
+    env:t=>{ return (t>8&&t<232?0.62:0.06)*(0.9+0.1*Math.sin(t*0.9)); },
+    wave:x=>0.75*Math.sin(2*PI*2.4*x)+0.22*Math.sin(2*PI*4.8*x+0.5) }
+];
+function fpPredict(k){ FP.pred=k; segOn('fpP',3,k); WOW.emit('item', { id:'prints:predict', kind:'quick', correct:k===1, attempt: wowTry('prints:predict') });
+  fpMsg.innerHTML='רשמנו את הניחוש. עכשיו בחרו מקור, והסתכלו על שני החלונות. כמה פעמים הקו עולה ויורד בשנייה אחת?'; fpDraw(); }
+function fpMode(m){ if(FP.pred<0){ predictFirst(fpMsg,'בחרו'); return; }
+  if(!FP.opened){ FP.opened=1; WOW.emit('open', { id:'detective' }); }
+  FP.mode=m; segOn('fpM',4,m); FP.seen.add(m); fpDraw();
+  const left=3-FP.seen.size;
+  fpMsg.innerHTML = left>0 ? 'עכשיו נסו עוד '+(left===1?'מקור אחד':'שני מקורות')+', והשוו.' : 'הכי מהר — הרכבת התחתית: עשרות רטטים בשנייה. השוו גם את החלון העליון: מה חוזר, ומה קורה רק פעם אחת?';
+  if(FP.seen.size>=3 && !FP.revealed){ FP.revealed=1; fpReveal.hidden=false; fpAfter.hidden=false; hint3.textContent='ענו על השאלה כדי להמשיך.'; } }
+function fpIcon(c,m,x,y){ const ink=INK(); c.strokeStyle=ink; c.lineWidth=3;
+  if(m===0){ c.fillStyle=STEEL2(); c.beginPath(); c.roundRect(x-16,y-34,32,68,8); c.fill(); c.stroke(); ['#C8452D','#E2A21F','#1F8A5B'].forEach((col,i)=>{ c.fillStyle=col; c.beginPath(); c.arc(x,y-20+i*20,7,0,2*PI); c.fill(); }); }
+  else if(m===1){ c.fillStyle=PCOL(); c.beginPath(); c.roundRect(x-40,y-22,80,40,10); c.fill(); c.stroke(); c.fillStyle=PAPER(); c.fillRect(x-30,y-14,20,14); c.fillRect(x-4,y-14,20,14); c.fillStyle=ink; c.beginPath(); c.arc(x-22,y+22,7,0,2*PI); c.arc(x+22,y+22,7,0,2*PI); c.fill(); }
+  else if(m===2){ c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.rect(x-40,y-30,80,56); c.stroke(); c.lineWidth=1.5; for(let i=1;i<5;i++){ c.beginPath(); c.moveTo(x-40+i*16,y-30); c.lineTo(x-40+i*16,y+26); c.stroke(); } xBall(c,x+6,y+4,16); }
+  else { c.fillStyle=ink; c.beginPath(); c.ellipse(x-12,y+20,12,9,-0.4,0,2*PI); c.fill(); c.lineWidth=5; c.beginPath(); c.moveTo(x-1,y+18); c.lineTo(x-1,y-30); c.lineTo(x+22,y-20); c.stroke(); }
+}
+function fpDraw(){
+  const c=fpctx, W=fpCv.width, H=fpCv.height, ink=INK(), m=FP.mode, S=FP_SRC[m];
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* header */
+  if(m>=0){ fpIcon(c,m,580,64); xText(c,S.name,520,64,28,ink,'right','800'); } else xLabel(c,'בחרו מקור רעד',320,64,26,ink,.95);
+  /* top window: 4 minutes */
+  const ty=224, th=74; c.fillStyle=PAPER(); c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.roundRect(20,ty-th,600,th*2,10); c.fill(); c.stroke();
+  xText(c,'ארבע דקות',612,ty-th-22,22,ink,'right');
+  if(m>=0){ c.strokeStyle=TRACE(); c.lineWidth=1.6; c.beginPath(); for(let i=0;i<=590;i+=2){ const t=i/590*240, a=S.env(t)*(th-14)*(0.55+0.45*xRand(i*1.37)); c.moveTo(25+i,ty-a); c.lineTo(25+i,ty+a); } c.stroke(); }
+  c.fillStyle=ink; for(let k=0;k<=4;k++){ const x=25+k*590/4; c.fillRect(x-1,ty+th-14,2,10); }
+  xMath(c,'0',26,ty+th+20,22,ink,'left'); xText(c,'4 דקות',614,ty+th+20,22,ink,'right');
+  /* bottom window: 1 second */
+  const by=478, bh=82; c.fillStyle=PAPER(); c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.roundRect(20,by-bh,600,bh*2,10); c.fill(); c.stroke();
+  xText(c,'זום: שנייה אחת',612,by-bh-22,22,ink,'right');
+  c.strokeStyle=css('--line'); c.lineWidth=2; c.beginPath(); c.moveTo(24,by); c.lineTo(616,by); c.stroke();
+  if(m>=0){ c.strokeStyle=TRACE(); c.lineWidth=3.5; c.lineJoin='round'; c.beginPath(); for(let i=0;i<=590;i++){ const x=i/590, y=by-S.wave(x)*(bh-20); i?c.lineTo(25+i,y):c.moveTo(25+i,y); } c.stroke(); }
+  xMath(c,'0',26,by+bh+20,22,ink,'left'); xText(c,'שנייה',614,by+bh+20,22,ink,'right');
+  fpOut.innerHTML = m>=0 ? S.hz : '—'; fpOut2.textContent = m>=0 ? S.dur : '—';
+}
+
+/* ---------- step 4 (interactive 4): P and S, the race to the city (canvas 640 × 600) ----------
+   Map view: the quake at the right, a sensor 10 km away, the city d km away (slider). P = 6 km/s, S = 3.5 km/s (typical crust values).
+   Rings grow at those speeds; the alarm goes out 1 s after P reaches the sensor; city houses shake gently at P and hard at S.
+   Simulated time runs 8× faster than real time. */
+const wvCv=document.getElementById('wvCv'), wvctx=wvCv.getContext('2d');
+const WV={ opened:0, pred:-1, revealed:0, raf:0, running:0, t:-1, last:0, ran:0 };
+const WV_P=6, WV_S=3.5, WV_X0=585, WV_Y=300, WV_PX=530/150, WV_SENS=10;
+function wvDist(){ return +wvD_el.value; }
+const wvD_el=document.getElementById('wvD');
+function wvPredict(k){ WV.pred=k; segOn('wvP',3,k); WOW.emit('item', { id:'waves:predict', kind:'quick', correct:k===1, attempt: wowTry('waves:predict') });
+  wvMsg.innerHTML='רשמנו את הניחוש. עכשיו לחצו "רעידה!", וצפו בשתי הטבעות.'; wvDraw(); }
+function wvSet(){ if(WV.pred<0){ wvD_el.value=60; predictFirst(wvMsg,'הזיזו'); wvDraw(); return; } cancelAnimationFrame(WV.raf); WV.running=0; WV.t=-1; wvDraw(); }
+function wvRun(){
+  if(WV.pred<0){ predictFirst(wvMsg,'לחצו'); return; }
+  if(!WV.opened){ WV.opened=1; WOW.emit('open', { id:'waves' }); }
+  cancelAnimationFrame(WV.raf); WV.running=1; WV.t=0; WV.last=0;
+  const end=wvDist()/WV_S+3;
+  if(RM()){ WV.t=end; WV.running=0; wvDraw(); wvEnd(); return; }
+  const tick=(ts)=>{ const dt = WV.last ? Math.min(0.05,(ts-WV.last)/1000) : 1/60; WV.last=ts; WV.t+=dt*8; if(WV.t>=end){ WV.t=end; WV.running=0; wvDraw(); wvEnd(); return; } wvDraw(); WV.raf=requestAnimationFrame(tick); };
+  WV.raf=requestAnimationFrame(tick);
+}
+function wvEnd(){ const d=wvDist(), gap=d/WV_S-d/WV_P; WV.ran=1; wvDraw();
+  wvMsg.innerHTML='גל P הגיע ראשון, אחרי <span class="num">'+Math.round(d/WV_P)+'</span> שניות בערך. גל S הגיע אחריו, ובין שניהם עברו כ־<span class="num">'+Math.round(gap)+'</span> שניות. נסו עיר קרובה יותר ועיר רחוקה יותר.';
+  if(WV.pred>=0 && !WV.revealed){ WV.revealed=1; wvReveal.hidden=false; wvAfter.hidden=false; hint4.textContent='ענו על השאלה כדי להמשיך.'; } }
+function wvHouse(c,x,y,dx,col){ const ink=INK(); c.save(); c.translate(x+dx,y); c.fillStyle=col; c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(-18,0); c.lineTo(-18,-34); c.lineTo(0,-50); c.lineTo(18,-34); c.lineTo(18,0); c.closePath(); c.fill(); c.stroke(); c.fillStyle=PAPER(); c.fillRect(-7,-26,14,12); c.restore(); }
+function wvDraw(){
+  const c=wvctx, W=wvCv.width, H=wvCv.height, ink=INK(), d=wvDist(), t=WV.t;
+  c.clearRect(0,0,W,H); c.fillStyle=isDark()?'#2B3A2C':'#E6EBD2'; c.fillRect(0,0,W,H);
+  const cx=WV_X0-d*WV_PX, sx=WV_X0-WV_SENS*WV_PX;
+  /* the fault line */
+  c.strokeStyle=SOIL2(); c.lineWidth=6; c.setLineDash([16,10]); c.beginPath(); c.moveTo(WV_X0+10,100); c.lineTo(WV_X0-12,520); c.stroke(); c.setLineDash([]);
+  /* rings */
+  if(t>=0){ c.save(); c.beginPath(); c.rect(0,90,W,440); c.clip();
+    const rp=WV_P*t*WV_PX, rs=WV_S*t*WV_PX;
+    c.lineWidth=7; c.strokeStyle=PCOL(); c.beginPath(); c.arc(WV_X0,WV_Y,rp,0,2*PI); c.stroke();
+    c.strokeStyle=SCOL(); c.lineWidth=11; c.beginPath(); c.arc(WV_X0,WV_Y,rs,0,2*PI); c.stroke(); c.restore(); }
+  /* the quake */
+  c.fillStyle=SCOL(); c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); for(let i=0;i<10;i++){ const a=-PI/2+i*PI/5, r=i%2?11:26; c.lineTo(WV_X0+r*Math.cos(a),WV_Y+r*Math.sin(a)); } c.closePath(); c.fill(); c.stroke();
+  /* the sensor */
+  const pAtSens=t>=WV_SENS/WV_P, alarm=t>=WV_SENS/WV_P+1;
+  c.fillStyle=STEEL2(); c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.roundRect(sx-14,WV_Y+40,28,28,6); c.fill(); c.stroke();
+  c.beginPath(); c.moveTo(sx,WV_Y+40); c.lineTo(sx,WV_Y+14); c.stroke(); c.fillStyle=pAtSens?PCOL():ink; c.beginPath(); c.arc(sx,WV_Y+12,6,0,2*PI); c.fill();
+  /* the city */
+  const pIn=t>=d/WV_P, sIn=t>=d/WV_S, shake = sIn&&t<d/WV_S+2.5 ? 7*Math.sin(t*40) : pIn&&!sIn ? 1.5*Math.sin(t*50) : 0;
+  wvHouse(c,cx-26,WV_Y+30,shake,'#E3CC9E'); wvHouse(c,cx+18,WV_Y+30,-shake,'#F2C230'); wvHouse(c,cx-4,WV_Y+80,shake*0.8,'#AEB6C4');
+  /* alarm bubble */
+  if(alarm && !sIn){ xLabel(c,'אזעקה! להתכונן',clamp(cx,140,500),WV_Y-90,26,SCOL(),.96); }
+  else if(sIn){ xLabel(c,'הגל החזק הגיע',clamp(cx,140,500),WV_Y-90,26,SCOL(),.96); }
+  /* labels */
+  xLabel(c,'רעידה',WV_X0-6,WV_Y-52,22,ink,.9);
+  xLabel(c,'חיישן',sx-4,WV_Y+96,22,ink,.9);
+  xLabel(c,'העיר',cx,WV_Y+124,24,ink,.95);
+  /* legend */
+  c.fillStyle=PCOL(); c.fillRect(574,26,44,10); xText(c,'גל P — מהיר',564,31,22,ink,'right');
+  c.fillStyle=SCOL(); c.fillRect(574,58,44,14); xText(c,'גל S — חזק',564,65,22,ink,'right');
+  /* ruler and clock */
+  c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(WV_X0,548); c.lineTo(WV_X0-150*WV_PX,548); c.stroke();
+  for(let k=0;k<=150;k+=50){ const x=WV_X0-k*WV_PX; c.beginPath(); c.moveTo(x,540); c.lineTo(x,556); c.stroke(); xMath(c,String(k),clamp(x,30,610),578,22,ink); }
+  xText(c,'מרחק מהרעידה, בק״מ',WV_X0+30,520,22,ink,'right');
+  if(t>=0){ xPlate(c,16,16,200*LS(),46*LS(),.92); xText(c,(Math.round(t*10)/10).toFixed(1)+' שניות',16+100*LS(),16+23*LS(),26,ink,'center'); }
+  wvOut.innerHTML='<span class="num">'+d+'</span> ק״מ'; wvOut2.innerHTML = (WV.ran && !WV.running) ? 'כ־<span class="num">'+Math.round(d/WV_S-d/WV_P)+'</span> שניות' : '—';
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  storyQ:{ q:'למה המשקולת בסייסמומטר כבדה, ותלויה על קפיץ רך?', opts:['כדי שתזוז הכי חזק כשהאדמה זזה','כדי שכמעט תישאר במקום כשהאדמה זזה','כדי שהמכשיר לא ייפול מהשולחן','כדי שהמכשיר ישמע את הקהל'], a:1, fb:'משקולת כבדה מתעקשת להישאר במקום, והקפיץ הרך כמעט לא מושך אותה. כך הקופסה זזה סביבה, והעט משרטט את התנועה של האדמה.', btn:'next1' },
+  snailQ:{ q:'למה השער השישי הרעיד את האדמה יותר מהשערים שלפניו?', opts:['כי הכדור נבעט חזק יותר','כי כמעט כל הקהל קפץ יחד, וחגג זמן רב יותר','כי ירד גשם על המגרש','כי השחקנים קפצו על הדשא'], a:1, fb:'כשהרבה אנשים נוחתים באותו רגע, הדחיפות שלהם מצטרפות. ככל שיותר קופצים יחד, וזמן רב יותר, הקו גבוה יותר.', btn:'next2' },
+  priceQ:{ q:'בסייסמוגרם מופיע רעד מהיר מאוד, כ־<span class="num">30</span> רטטים בשנייה, שחוזר כל כמה דקות. מה זה כנראה?', opts:['קהל אחרי שער','רכבת תחתית','קהל בהופעה','גשם על הגג'], a:1, fb:'רכבת רוטטת מהר מאוד, <span class="math">20–40</span> פעמים בשנייה, וחוזרת לפי לוח הזמנים. קהל קופץ לאט בהרבה, פעם עד שש פעמים בשנייה.', btn:'next3' },
+  siteQ:{ q:'למה אפשר לקבל כמה שניות של אזהרה לפני הטלטלה החזקה של רעידת אדמה?', opts:['כי גל P המהיר מגיע לפני גל S החזק','כי החיישנים יודעים מראש מתי תהיה רעידה','כי גל S נעצר בדרך ומחכה','כי כל רעידה מתחילה לאט'], a:0, fb:'שני הגלים יוצאים יחד, אבל גל P מהיר יותר. החיישנים קולטים אותו, ושולחים אזעקה לפני שגל S מגיע.', btn:'next4' },
+  deepQ:{ q:'האם האוהדים בסיאטל גרמו לרעידת אדמה מסוכנת?', opts:['כן, היא סדקה בתים ליד האצטדיון','לא: זה רעד זעיר, שרק מכשירים רגישים קלטו','כן, היא הייתה בגודל של הרעידה של <span class="num">1927</span>','לא, כי המכשיר לא קלט כלום'], a:1, fb:'הרעד דומה בגודלו לרעידה במגניטודה <span class="num">2</span> בערך, ואף אחד מחוץ לאצטדיון לא הרגיש. רעידת <span class="num">1927</span> הייתה גדולה ממנו בהרבה, בהרבה שלבים בסולם.' }
+};
+const MCQ = {
+  shared:[
+    { q:'איך סייסמומטר מודד את הרעד של האדמה?', opts:['הוא שומע את הרעש של הקהל','משקולת כבדה כמעט נשארת במקום, והמכשיר מודד כמה הקופסה זזה סביבה','הוא מצלם את היציע','הוא סופר כמה אנשים קופצים'], a:1, fb:'הקופסה זזה עם האדמה, והמשקולת מתעקשת להישאר במקום. ההפרש ביניהן הוא בדיוק התנועה של האדמה.' },
+    { q:'מה מבדיל, בסייסמוגרם, בין רכבת תחתית לבין קהל בהופעה?', opts:['הרכבת רוטטת הרבה יותר מהר — עשרות פעמים בשנייה','הקהל רוטט מהר יותר מהרכבת','אין שום הבדל בין הקווים','רק הרכבת מופיעה בסייסמוגרם'], a:0, fb:'לכל מקור יש טביעת אצבע: רכבת <span class="math">20–40</span> רטטים בשנייה, קהל בהופעה בערך פעמיים בשנייה, בקצב של השיר.' },
+    { q:'מה עושה מערכת "תרועה" בישראל?', opts:['מונעת רעידות אדמה','קולטת את גל P ומזהירה לפני שגל S מגיע','סופרת אוהדים באצטדיונים','מודדת כמה גשם ירד'], a:1, fb:'אי אפשר למנוע רעידת אדמה, אבל אפשר להזהיר. כ־<span class="num">120</span> תחנות קולטות את הגל המהיר, והאזעקה יוצאת לפני הטלטלה החזקה.' }
+  ],
+  younger:[
+    { q:'מאה ילדים קופצים בחצר, וטלפון מונח על הרצפה. מתי הטלפון יקלוט רעד גדול יותר?', opts:['כשכל אחד קופץ מתי שבא לו','כשכולם קופצים יחד, לפי ספירה','כשרק חצי מהם קופצים','אין שום הבדל'], a:1, fb:'כשכולם נוחתים באותו רגע, כל הדחיפות מצטרפות לדחיפה אחת גדולה. כשכל אחד לחוד, הן מבטלות זו את זו.' }
+  ],
+  older:[
+    { q:'קהל בהופעה קופץ <span class="num">150</span> פעמים בדקה. מה התדירות של הקפיצות?', opts:['<span class="num">150</span> הרץ','<span class="num">2.5</span> הרץ','<span class="num">60</span> הרץ','<span class="num">0.4</span> הרץ'], a:1, fb:'הרץ = פעמים בשנייה. בדקה יש <span class="num">60</span> שניות: <span class="math">150 ÷ 60 = 2.5</span>. זה בדיוק הקצב של השיר Shout, שהרעיד הכי חזק בהופעה בברצלונה.' }
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'הכדור נכנס לרשת.'},
+  {id:'b', t:'עשרות אלפי אוהדים קופצים באותו רגע.'},
+  {id:'c', t:'היציע דוחף את האדמה שמתחתיו.'},
+  {id:'d', t:'הרעד עובר בתוך האדמה, כמו גל, עד המכון.'},
+  {id:'e', t:'הקופסה של הסייסמומטר רועדת, והמשקולת כמעט לא זזה.'},
+  {id:'f', t:'המכשיר משרטט קפיצה בקו של הסייסמוגרם.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלכם: ' : '<span class="pill-ok">שרשרת מושלמת!</span>')+' שער ← קפיצה ← היציע דוחף ← גל באדמה ← הקופסה רועדת ← קו בסייסמוגרם.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) קודם האנשים קופצים, אחר כך היציע דוחף, ורק אז האדמה. (2) הרעד צריך קודם לעבור בתוך האדמה עד המכון, ורק אז הקופסה במרתף יכולה לרעוד.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && Math.abs(a-10000)<0.5, bOk = hasB && b>=999.5 && b<=1024.5;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && Math.abs(a-40)<0.01) ? '(א): <span class="num">40</span> זה <span class="math">4 × 10</span> — חיברתם. כל שלב <b>כופל</b> פי <span class="num">10</span> את מה שהיה.'
+    : (hasA && Math.abs(a-4)<0.01) ? '(א): נכון, יש <span class="num">4</span> שלבים! אבל השאלה היא פי כמה הקו גבוה בסך הכול.'
+    : (hasA && Math.abs(a-1000)<0.5) ? '(א): זה שלושה שלבים. ספרו שוב: <span class="math">6.2 − 2.2 = ?</span>'
+    : (hasA && Math.abs(a-100000)<0.5) ? '(א): זה חמישה שלבים. ספרו שוב: <span class="math">6.2 − 2.2 = ?</span>'
+    : '(א): רמז — <span class="math">6.2 − 2.2 = 4</span> שלבים, וכל שלב כופל פי <span class="num">10</span>: <span class="math">10 × 10 × …</span>';
+  const hintB = (hasB && Math.abs(b-64)<0.5) ? '(ב): <span class="num">64</span> זה <span class="math">32 + 32</span>. השלב השני כופל את מה שהיה אחרי הראשון.'
+    : (hasB && Math.abs(b-32)<0.5) ? '(ב): פי <span class="num">32</span> זה שלב אחד. מ־<span class="num">2</span> ל־<span class="num">4</span> יש שני שלבים.'
+    : (hasB && Math.abs(b-100)<0.5) ? '(ב): <span class="num">100</span> זה הגובה של הקו. לאנרגיה יש מספר אחר לכל שלב: <span class="num">32</span>.'
+    : '(ב): רמז — מ־<span class="num">2</span> ל־<span class="num">4</span> יש שני שלבים, וכל שלב כופל את האנרגיה פי <span class="num">32</span>: <span class="math">32 × ?</span>';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">6.2 − 2.2 = 4</span> שלבים, ולכן <span class="math">10 × 10 × 10 × 10 = 10,000</span>: הקו של <span class="num">1927</span> גבוה פי עשרת אלפים. (ב) שני שלבים: <span class="math">32 × 32 = 1,024</span>, בערך פי אלף אנרגיה. (עם המספר המדויק, <span class="num">31.6</span>, יוצא בדיוק <span class="num">1,000</span>.) זה מה שעושה סולם לוגריתמי: כמה שלבים קטנים — וקפיצה ענקית. עכשיו פתחו את השאלה למחשבה שלמטה.'
+    : aOk ? '<span class="pill-ok">(א) נכון — פי <span class="num">10,000</span>.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — בערך פי <span class="num">1,000</span>.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const sp=+numAdvR.value, ks=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && Math.abs(sp-17.5)<0.06), yOk=(hasY && Math.abs(ks-12.5)<=0.3), sc = dOk&&yOk?2:((dOk||yOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && Math.abs(sp-30)<0.06) ? 'ב־(א): <span class="num">30</span> שניות זה הזמן של גל S, האיטי. השאלה על גל P.'
+      : (hasD && Math.abs(sp-630)<0.6) ? 'ב־(א): כפלתם. זמן = מרחק <b>חלקי</b> מהירות.'
+      : 'רמז ל־(א): <span class="math">זמן = מרחק ÷ מהירות</span>, כלומר <span class="math">105 ÷ 6</span>.';
+    const hintY = (hasY && Math.abs(ks-30)<0.3) ? 'ב־(ב): <span class="num">30</span> זה מתי גל S מגיע, מרגע הרעידה. הפער מתחיל רק כשגל P מגיע.'
+      : (hasY && Math.abs(ks-47.5)<0.3) ? 'ב־(ב): חיברתם את שני הזמנים. הפער הוא ההפרש ביניהם.'
+      : (hasY && Math.abs(ks-2.5)<0.3) ? 'ב־(ב): <span class="math">6 − 3.5 = 2.5</span> זה הפרש המהירויות, לא הפרש הזמנים. חשבו קודם מתי מגיע כל גל.'
+      : 'רמז ל־(ב): חשבו מתי מגיע גל S, <span class="math">105 ÷ 3.5</span>, והחסירו ממנו את הזמן של גל P.';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">105 ÷ 6 = 17.5</span> שניות עד גל P. (ב) גל S: <span class="math">105 ÷ 3.5 = 30</span> שניות, והפער: <span class="math">30 − 17.5 = 12.5</span> שניות. זה הזמן להתכונן — פחות כמה שניות שהמערכת צריכה כדי לזהות ולשלוח אזעקה.'
+      : dOk ? '<span class="pill-ok">(א) נכון — <span class="math">17.5</span> שניות.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — <span class="math">12.5</span> שניות.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-120)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">2 × 60 = 120</span>. בכל שנייה שתי קפיצות, ויש <span class="num">60</span> שניות: <span class="num">120</span> קפיצות בדקה.':(Math.abs(v-62)<0.01?'<span class="pill-bad">כמעט.</span> חיברתם <span class="math">2 + 60</span>. אבל בכל <b>אחת</b> מ־<span class="num">60</span> השניות יש <span class="num">2</span> קפיצות.':(Math.abs(v-30)<0.01?'<span class="pill-bad">לא בדיוק.</span> חילקתם. בדקה יש <b>יותר</b> קפיצות מבשנייה אחת, לא פחות.':(Math.abs(v-60)<0.01?'<span class="pill-bad">כמעט.</span> <span class="num">60</span> זה מספר השניות. בכל שנייה יש שתי קפיצות.':'<span class="pill-bad">עוד לא.</span> רמז: בשנייה אחת <span class="num">2</span> קפיצות, בשתי שניות <span class="num">4</span>. ובשישים שניות?'))); }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-12)<0.01; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">72 ÷ 6 = 12</span> שניות. בכל שנייה הגל עובר <span class="num">6</span> ק״מ, ואחרי <span class="num">12</span> שניות: <span class="math">12 × 6 = 72</span> ק״מ.':(Math.abs(v-432)<0.01?'<span class="pill-bad">כמעט.</span> כפלתם <span class="math">72 × 6</span>. כשהגל מהיר, לוקח לו <b>פחות</b> זמן — לכן מחלקים.':(Math.abs(v-66)<0.01?'<span class="pill-bad">לא בדיוק.</span> החסרתם. בכל שנייה הגל עובר <span class="num">6</span> ק״מ: כמה פעמים <span class="num">6</span> נכנס ב־<span class="num">72</span>?':(Math.abs(v-78)<0.01?'<span class="pill-bad">לא בדיוק.</span> חיברתם. זמן = מרחק חלקי מהירות.':'<span class="pill-bad">עוד לא.</span> רמז: <span class="math">זמן = מרחק ÷ מהירות</span>.'))); }
+  fb.classList.add('show'); }
+
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שהאוהדים קופצים, והקפיצות דוחפות את היציע ואת האדמה.',
+  'הסברתי שהרעד עובר בתוך האדמה, כמו גל, עד למכשיר.',
+  'כתבתי שבמכשיר יש משקולת כבדה שכמעט נשארת במקום, והמכשיר מודד כמה האדמה זזה סביבה.',
+  'כתבתי שכשהרבה אנשים קופצים יחד, הרעד גדול יותר.',
+  'הוספתי פרט מדויק: <span class="num">500</span> מטר, השער השישי שהרעיד כפול, תדירות של <span class="math">1–6</span> הרץ, או ההבדל בין גל P לגל S.',
+];
+const MODEL='כשנופל שער, עשרות אלפי אוהדים קופצים כמעט באותו רגע. כל נחיתה דוחפת את היציע, והיציע דוחף את האדמה. הדחיפות של כולם מצטרפות, והרעד עובר בתוך האדמה כמו גל, עד המרתף. בסייסמומטר יש משקולת כבדה על קפיץ רך: הקופסה רועדת עם האדמה, אבל המשקולת מתעקשת להישאר במקום, וההפרש ביניהן משורטט כקו. אחרי כל שער הקו קופץ, וכשכמעט כולם קופצים יחד, כמו בשער השישי, הוא קופץ הכי גבוה. ואפשר לדעת שזה שער ולא רכבת לפי טביעת האצבע: רעד איטי ובלגני של פעם עד שש פעמים בשנייה, שנמשך בערך <span class="num">17</span> שניות.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון: הקהל קופץ יחד והנחיתות דוחפות את היציע ואת האדמה (דחיפות בזמנים אקראיים מבטלות זו את זו, דחיפות מתואמות מצטרפות — לכן השער השישי הרעיד בערך כפול); הרעד עובר באדמה כגל עד המכשיר, כ־500 מטר; בסייסמומטר משקולת כבדה על קפיץ רך כמעט נשארת במקום בגלל התמדה, והמכשיר מודד את ההפרש בין הקופסה לבין המשקולת; ומזהים שזה שער לפי טביעת האצבע — תדירות של 1 עד 6 הרץ בבלגן ומשך של כ־17 שניות, לעומת רכבת (20–40 הרץ) או שיר (כ־2 הרץ, סדיר); ולא רק "האדמה רעדה מהאוהדים"':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "כשנופל שער — האדמה באמת רועדת". הרעיונות המרכזיים: (1) ב־8 במרץ 2017 ברצלונה ניצחה את פריז 6–1, וסייסמומטר במרתף של מכון מחקר כ־500 מטר מהאצטדיון קלט קפיצה בקו אחרי כל שער; השער השישי של סרג׳י רוברטו, בדקה ה־95, הרעיד בערך כפול ולאורך זמן רב יותר; (2) בסייסמומטר יש משקולת כבדה על קפיץ רך: הקופסה זזה עם האדמה, והמשקולת כמעט נשארת במקום (התמדה), ולכן העט או החיישן מודדים את תנועת האדמה; (3) כשהרבה אנשים קופצים יחד, הדחיפות מצטרפות; כשכל אחד קופץ בזמן אחר, הן מבטלות זו את זו; (4) לכל מקור רעד טביעת אצבע — כמה מהר הקו רוטט (תדירות, בהרץ) וכמה זמן זה נמשך: רכבת תחתית 20–40 הרץ, מכוניות 8–12 הרץ עם הרמזורים, שער 1–6 הרץ בבלגן כ־17 שניות, שיר בהופעה כ־2 הרץ סדיר; (5) ברעידת אדמה גל P מהיר (כ־6 ק״מ בשנייה) מגיע לפני גל S החזק (כ־3.5 ק״מ בשנייה), ומערכת "תרועה" בישראל משתמשת בפער כדי להזהיר; (6) "רעידת שער" היא רעד זעיר, לא רעידת אדמה מסוכנת. חישובי המבחן: צעיר — 2 × 60 = 120; בוגר — 72 ÷ 6 = 12 שניות; מתקדם — 105 ÷ 6 = 17.5, ו־105 ÷ 3.5 = 30, פער 30 − 17.5 = 12.5 שניות; אתגר — 6.2 − 2.2 = 4 שלבים, 10 × 10 × 10 × 10 = 10,000, ו־32 × 32 = 1,024 (בערך אלף).\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם שהקפיצות של הקהל דוחפות את האדמה והרעד מגיע כגל עד המכשיר, וגם איך המכשיר מרגיש את זה (משקולת שנשארת במקום, או לפחות שהמכשיר רגיש מאוד ומשרטט קו שקופץ); 1 אם יש רק אחד מהשניים או רק חלק. הסבר שאומר שהמכשיר "שומע את הרעש" או שהייתה רעידת אדמה אמיתית — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', גם הסייסמומטר קפץ מזה!':pct>=60?name+', הקו אצלך עולה יפה!':name+', עוד קפיצה אחת וזה אצלך!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=4;                                                       // a small jump after every goal
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשתם בהתחלה. התשובה: <b>קפיצה אחרי כל שער</b> — רעד זעיר שאיש לא הרגיש, והשער השישי הרעיד הכי חזק.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשתם <b>קפיצה אחרי כל שער</b> — וקלעתם. עכשיו גם יודעים איך: משקולת שמתעקשת להישאר במקום, וקהל שקופץ יחד.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשתם: <b>'+fmtSigns(S.guess)+'</b>. התשובה: קפיצה אחרי כל שער. ועכשיו גם יודעים איך: משקולת שמתעקשת להישאר במקום, וקהל שקופץ יחד.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (מה שרטט המכשיר במרתף): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: קפיצה אחרי כל שער)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "כשנופל שער — האדמה באמת רועדת", מהדורה 58, כ״ט בחשוון תשפ״ז (יום שני, 9 בנובמבר 2026). נושא: פיזיקה (התמדה, קפיץ ומשקולת, גלים, תדירות בהרץ, תיאום ותהודה), גאולוגיה (סייסמומטר, סייסמוגרם, גלי P ו־S, מגניטודה, שבר ים המלח), ספורט, היסטוריה ומתמטיקה (מרחק, מהירות וזמן; חזקות של 10). העובדות: ב־8 במרץ 2017, בשמינית הגמר של ליגת האלופות, ברצלונה ניצחה את פריז סן ז׳רמן 6–1 אחרי הפסד 0–4 בפריז; בדקה ה־87 המשחק עמד על 3–1, ובשבע הדקות האחרונות ברצלונה הבקיעה שלושה שערים; השער השישי, של סרג׳י רוברטו, נכנס בדקה ה־95. סייסמומטר במרתף של מכון מחקר לחקר כדור הארץ בברצלונה (ICTJA-CSIC), כ־500 מטר מהאצטדיון קאמפ נואו, קלט קפיצה בקו אחרי כל שער; אחרי השער השישי הקו היה בערך כפול מכל קריאה קודמת ונמשך יותר. הסייסמולוג ז׳ורדי דיאס התקין את המכשיר במקור כדי ללמד מבקרים. במאמר של דיאס וחבריו (Scientific Reports, 2017): רעד של שער ("footquake", נמדד בחצי הגמר מול באיירן ב־2015) נמצא בטווח של 1 עד 6 הרץ, בלי קצב קבוע, ונמשך כ־17–18 שניות; התנועה מצד לצד הייתה חזקה בערך פי 3 מהתנועה למעלה ולמטה. בהופעה של ברוס ספרינגסטין באותו אצטדיון (14 במאי 2016, 65,000 איש) לכל שיר הייתה תדירות משלו, בין 1.9 ל־2.5 הרץ, עם הדים בכפולות; שירים מהירים נתנו תדירות גבוהה יותר; השיר שהרעיד הכי חזק היה Shout (2.5 הרץ). מכוניות בשדרה ליד המכון: 8–12 הרץ, במחזור של כ־2 דקות לפי הרמזורים (90 שניות לשדרה ו־30 לרחוב החוצה); בלילה חלש פי 4 בערך, בסופי שבוע בערך חצי. רכבת תחתית: 20–40 הרץ, רכבת כל כ־4 דקות בשעות העבודה. איך עובד סייסמומטר: משקולת כבדה על קפיץ רך; כשהאדמה רועדת מהר, המשקולת כמעט נשארת במקום (התמדה), והמכשיר מודד את ההפרש בין הקופסה לבין המשקולת; היום יש חיישן חשמלי ומחשב במקום עט. תיאום: דחיפות בזמנים אקראיים מבטלות זו את זו, דחיפות באותו זמן מצטרפות. תדירות = כמה פעמים בשנייה; 120 קפיצות בדקה = 2 הרץ. גלים ברעידת אדמה: גל P (דוחף ומושך, כמו קפיץ) מהיר, בערך 6 ק״מ בשנייה בקרום; גל S (מצד לצד, כמו חבל) איטי יותר, בערך 3.5 ק״מ בשנייה, והוא שמטלטל בתים; המהירויות משתנות לפי הסלע. זמן = מרחק ÷ מהירות; לעיר במרחק 60 ק״מ: P אחרי 10 שניות, S אחרי כ־17, פער של כ־7 שניות. משלוש תחנות אפשר למצוא את מקום הרעידה. מערכת "תרועה" בישראל הופעלה בפברואר 2022, כ־120 תחנות, רובן לאורך שבר ים המלח (מטורקיה, דרך הכנרת ועמק הירדן, עד מפרץ אילת); היא קולטת את גל P של רעידה חזקה (מגניטודה 4.5 ומעלה) ומזהירה כמה שניות לפני גל S. שבר הכרמל, לאורך רכס הכרמל, הוא ענף של המערכת. מגניטודה: כל שלב = קו גבוה פי 10 ואנרגיה גדולה פי 32 בערך (31.6). בסיאטל, ב־8 בינואר 2011, 66,336 צופים בכדורגל אמריקאי, אחרי ריצה של מרשון לינץ׳, יצרו רעד ששווה למגניטודה 2 בערך ("Beast Quake"); בהופעה של טיילור סוויפט שם ב־2023 — כ־2.3; במשחק בייסבול של המרינרס באוקטובר 2025 — כ־3. ל"רעידות שער" אין מגניטודה אמיתית; זו השוואה. אף אחד מחוץ לאצטדיון לא מרגיש אותן. רעידת האדמה של 1927 בארץ, ליד יריחו: מגניטודה 6.2, יותר מ־250 הרוגים. ביולי 2024, בגמר יורו 2024, חיישנים במדריד ובברצלונה קלטו שני רעדים — אחד על כל שער של ספרד. תהודה: לכל מבנה קצב טבעי; תקני בנייה דורשים שהקצב הטבעי של יציעים יהיה בערך 6–8 הרץ ומעלה, הרבה מעל קצב הקפיצה של קהל (2–3 הרץ). לא ידוע לנו על מקור שאומר שאפשר לזהות מהקו איזו קבוצה הבקיעה — אם שואלים, אמור שלא בטוח. בטיחות בניסוי בבית: קופצים על רצפה, לא על מיטה, רחוק מפינות של רהיטים, ושומרים שהטלפון לא יידרך. התשובות הבאות הן למבחן ולאתגר — אל תגלה אותן, תן רק רמז: צעיר — 2 × 60 = 120 קפיצות; בוגר — 72 ÷ 6 = 12 שניות; מתקדם — 105 ÷ 6 = 17.5 שניות, ו־105 ÷ 3.5 = 30, ולכן פער של 30 − 17.5 = 12.5 שניות; אתגר — 6.2 − 2.2 = 4 שלבים, 10 × 10 × 10 × 10 = 10,000, ו־32 × 32 = 1,024, בערך פי אלף.';
+const CHIPS = ['איך מכשיר מרגיש רעד של קהל?', 'מה זה הרץ?', 'למה גל P מגיע ראשון?', 'האם אוהדים יכולים לגרום לרעידת אדמה?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: התמדה ולמה משקולת כבדה על קפיץ רך כמעט לא זזה ברעד מהיר; מה נמדד — ההפרש בין הקופסה למשקולת; למה דחיפות מתואמות מצטרפות ואקראיות מבטלות זו את זו; תדירות בהרץ, למשל 150 קפיצות בדקה = 150 ÷ 60 = 2.5 הרץ; טביעות האצבע של רכבת, מכוניות, שער ושיר; גלי P ו־S, זמן = מרחק ÷ מהירות, והפער שגדל עם המרחק; איך שלוש תחנות מוצאות את מקום הרעידה; סולם לוגריתמי — פי 10 בקו ופי 32 בערך באנרגיה לכל שלב; תהודה ולמה יציעים נבנים עם קצב טבעי מהיר; מה ידוע ומה עוד נחקר), שאל שאלות המשך שדורשות חשיבה (למשל: למה משקולת קלה הייתה מכשיר גרוע? מה יקרה לפער בין P ל־S בעיר שרחוקה פי 2? למה הופעה מרעידה חזק יותר מקהל גדול יותר אחרי שער? אם יש רק שתי תחנות, איפה יכולה להיות הרעידה?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>איך מכשיר מרגיש רעד של קהל?</b> בתוכו יש משקולת כבדה על קפיץ. כשהאדמה רועדת, הקופסה זזה איתה, אבל המשקולת כמעט נשארת במקום — וההפרש ביניהן משורטט כקו.<br><br><b>למה גל P מגיע ראשון?</b> כי הוא מהיר יותר: בערך <span class="num">6</span> ק״מ בשנייה, לעומת <span class="num">3.5</span> של גל S.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; only the field runs a short timer */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
