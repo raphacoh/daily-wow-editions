@@ -1,0 +1,23 @@
+{
+  "n": 59,
+  "code": "WOW-059",
+  "date": "2026-11-10",
+  "language": "he",
+  "title": "הספרה שפותחת שליש מכל המספרים בעולם",
+  "topics": [
+    "מתמטיקה",
+    "היסטוריה",
+    "גאוגרפיה",
+    "טכנולוגיה",
+    "פיזיקה"
+  ],
+  "summary": "Benford's law: in real-world lists ~30.1% of numbers start with 1 and 4.6% with 9 — Newcomb's dirty log-table pages (1881), Benford's 20,229 numbers (1938), why multiplicative growth and the log ruler give the staircase (a town growing 10%/yr spends ~7 years from 1,000 to 2,000 but ~1 from 9,000 to 10,000), which lists don't obey (heights, draws), and Nigrini's fraud detector catching Arizona's Wayne Nelson (18 of 23 fake checks began with 8 or 9).",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-11-10T08:10:53.000Z",
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: runs ~30–32 min (tag says כ־30 דקות), prose ~1,450/1,720 words per track, above the 1,100 target; a few step-5 figure labels render ~16–17 CSS px on phones; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised on file://; the review copy doesn't declare the sample capability, so Arto falls back there (template)",
+  "review_url": "https://claude.ai/artifact/E7aPsnw6sDtbJhQNQq9TiK",
+  "editor_note": null
+}
