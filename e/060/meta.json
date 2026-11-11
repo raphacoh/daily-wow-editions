@@ -1,0 +1,24 @@
+{
+  "n": 60,
+  "code": "WOW-060",
+  "date": "2026-11-11",
+  "language": "he",
+  "title": "המשדר שחלש כמו נורת מקרר — ושומעים אותו מ־26 מיליארד ק״מ",
+  "topics": [
+    "חלל",
+    "פיזיקה",
+    "הנדסה",
+    "מתמטיקה",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "Voyager 1 reaches one light-day (25.9 billion km, 173 AU) on 18 Nov 2026: light-travel time (Moon 1.3 s, Sun 8.3 min, Voyager ~24 h, a question-and-answer takes two days), the inverse-square law with a torch on a grid, why 70 m DSN dishes catch a ~20 W whisper (area ∝ diameter², 160 bps vs 115,200 at Jupiter), the 2023–24 remote memory fix and the fading plutonium RTG, the Golden Record's Hebrew 'shalom', and a light-day calculation (300,000 × 86,400) with a 17 km/s challenge (~48 years per light-day).",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-11-11T08:10:40.000Z",
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: prose ~1,350/1,500 words per track, above the 1,100 target (≈25–32 min); in the torch lab the lit squares sit off-centre at even distances; the '80 מטר' label touches the field border on phones; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised on file://; the review copy doesn't declare the sample capability, so Arto falls back there (template)",
+  "review_url": "https://claude.ai/artifact/GoWzJALhsFECfi1rry7sPH",
+  "editor_note": null
+}
