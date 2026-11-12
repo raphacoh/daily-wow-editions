@@ -1,0 +1,24 @@
+{
+  "n": 61,
+  "code": "WOW-061",
+  "date": "2026-11-12",
+  "language": "he",
+  "title": "הקוצים שנדבקו לכלב — ונהפכו לסקוץ׳ שבנעליים שלכם",
+  "topics": [
+    "ביולוגיה",
+    "הנדסה",
+    "פיזיקה",
+    "היסטוריה",
+    "מתמטיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "Velcro: George de Mestral's 1941 Alpine hunting trip, burdock burrs under the microscope (hundreds of hooks catching loops), seed hitchhiking (epizoochory; Israel's Xanthium strumarium on Nahal Oren near Atlit), Lyon cotton strips, nylon hardened under infrared and loops cut into hooks, ~10 years of mechanisation, Swiss patent 1951/1955, velours+crochet, NASA/Apollo; peel vs shear (all hooks share load sideways ~0.84 kg/cm², peel depends on width only ~0.75 kg/cm), with a 10% creep safety-factor challenge.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-11-12T08:10:04.000Z",
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: prose still ~1.6× the 1,100-word target (tag says כ־30 דקות; younger kids may need 35–40 min); labels ~17 CSS px on 360px phones; step-5 figure is a top view only; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised on file://; the review copy doesn't declare the sample capability, so Arto falls back there (template)",
+  "review_url": "https://claude.ai/artifact/HcW9uXKToG66y2Vq73Pakj",
+  "editor_note": null
+}
