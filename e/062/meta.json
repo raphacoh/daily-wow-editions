@@ -1,0 +1,24 @@
+{
+  "n": 62,
+  "code": "WOW-062",
+  "date": "2026-11-13",
+  "language": "he",
+  "title": "המגילה שנשרפה לגחל — וקראו אותה בלי לפתוח",
+  "topics": [
+    "היסטוריה",
+    "פיזיקה",
+    "טכנולוגיה",
+    "מתמטיקה",
+    "הנדסה",
+    "מדע ישראלי"
+  ],
+  "summary": "Reading the Herculaneum scrolls without opening them: Vesuvius (79) carbonised the Villa of the Papyri library (found 1752, >1,800 scrolls), Piaggio's silk-thread machine (~4 years for one scroll), X-ray absorption — metal ink shows (En-Gedi Leviticus scroll, IAA + Seales, 2016) while carbon ink vanishes, tomography and virtual unrolling of a spiral (length ≈ turns × π × mean diameter; 11–15 m), Handmer's crackle pattern and Farritor's first word ΠΟΡΦΥΡΑϹ 'purple' (2023), the 2024 grand prize (~2,000 letters, ~5%), 'On Vices' (2025) and the June 2026 full unwrap; with a 5%→whole and reading-rate challenge.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-11-13T08:10:39.000Z",
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — nits left: X-ray beams cross the 'בעין: שחור על שחור' label at 1100px; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised on file://; the review copy doesn't declare the sample capability, so Arto falls back there (template)",
+  "review_url": "https://claude.ai/artifact/EhATVio1wzNpEtniCLY9yZ",
+  "editor_note": null
+}

@@ -1,0 +1,1649 @@
+<title>שורשים וכנפיים #62 · המגילה שנשרפה לגחל — וקראו אותה בלי לפתוח</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#2F7D4F; --shadow-soft:#DDF0E0;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .tick{animation:tick 1.3373s ease-out infinite}}
+@keyframes tick{0%{opacity:.95}30%{opacity:.75}100%{opacity:.08}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 62</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs><radialGradient id="glow" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#E8A33D" stop-opacity=".28"/><stop offset="60%" stop-color="#E8A33D" stop-opacity=".08"/><stop offset="100%" stop-color="#E8A33D" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <path d="M160.0 150.0 L160.7 151.3 L161.1 152.9 L161.4 154.5 L161.3 156.2 L161.1 158.0 L160.5 159.9 L159.7 161.7 L158.5 163.4 L157.1 165.1 L155.4 166.5 L153.4 167.8 L151.2 168.8 L148.8 169.5 L146.2 170.0 L143.5 170.0 L140.7 169.7 L137.9 169.0 L135.2 167.9 L132.5 166.4 L130.0 164.5 L127.7 162.3 L125.6 159.7 L123.9 156.7 L122.5 153.5 L121.6 150.0 L121.1 146.3 L121.0 142.6 L121.5 138.7 L122.5 134.9 L124.0 131.1 L126.0 127.5 L128.6 124.1 L131.6 121.0 L135.1 118.3 L138.9 115.9 L143.2 114.1 L147.7 112.8 L152.4 112.1 L157.3 111.9 L162.2 112.4 L167.1 113.6 L172.0 115.4 L176.6 117.9 L180.9 120.9 L184.9 124.6 L188.5 128.8 L191.5 133.6 L194.0 138.7 L195.8 144.2 L196.9 150.0 L197.2 156.0 L196.8 162.0 L195.6 168.1 L193.7 174.0 L190.9 179.7 L187.4 185.1 L183.2 190.1 L178.3 194.6 L172.8 198.4 L166.8 201.6 L160.3 204.0 L153.5 205.6 L146.5 206.4 L139.3 206.2 L132.1 205.1 L125.0 203.1 L118.2 200.2 L111.7 196.3 L105.6 191.7 L100.1 186.2 L95.4 180.0 L91.3 173.2 L88.2 165.9 L85.9 158.1 L84.7 150.0 L84.5 141.7 L85.3 133.4 L87.2 125.1 L90.2 117.1 L94.2 109.4 L99.2 102.3 L105.1 95.7 L111.8 89.9 L119.4 84.9 L127.5 80.9 L136.2 77.9 L145.3 76.0 L154.7 75.2 L164.2 75.7 L173.6 77.4 L182.8 80.2 L191.7 84.3 L200.1 89.4 L207.8 95.7 L214.8 102.9 L220.8 111.1 L225.8 120.0 L229.7 129.5 L232.4 139.6 L233.8 150.0 L233.8 160.6 L232.5 171.2 L229.9 181.6 L226.0 191.8 L220.7 201.4 L214.3 210.4 L206.7 218.5 L198.0 225.7 L188.5 231.8 L178.2 236.7 L167.2 240.2 L155.8 242.4 L144.1 243.2 L132.4 242.4 L120.7 240.2 L109.3 236.5 L98.4 231.3 L88.2 224.8 L78.7 216.9 L70.3 207.9 L63.0 197.8 L57.0 186.8 L52.5 175.0 L49.3 162.7 L47.8 150.0 L47.9 137.1 L49.6 124.2 L52.9 111.6 L57.9 99.3 L64.3 87.8 L72.3 77.0 L81.6 67.3 L92.1 58.7 L103.7 51.5 L116.1 45.8 L129.3 41.7 L143.0 39.2 L157.0 38.4 L171.1 39.5 L185.0 42.3 L198.5 46.9 L211.5 53.1 L223.6 61.0 L234.7 70.5 L244.6 81.3 L253.1 93.3 L260.1 106.4 L265.4 120.4 L268.9 135.0 L270.6 150.0 L270.4 165.2 L268.3 180.4 L264.2 195.2 L258.3 209.5 L250.6 223.1 L241.2 235.6 L230.2 246.9 L217.8 256.8 L204.2 265.2 L189.6 271.7" fill="none" stroke="#5A3A24" stroke-width="7" stroke-linecap="round"/>
+    <g fill="#8E3BB0" opacity=".85"><circle cx="236" cy="58" r="6"/><circle cx="262" cy="92" r="4"/><circle cx="214" cy="30" r="3.5"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 62</span><span class="tag">יום שישי, 13 בנובמבר 2026</span><span class="tag">ג׳ בכסלו תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>המגילה שנשרפה לגחל — וקראו אותה בלי לפתוח</h1>
+  <p class="lede">בשנת <span class="num">79</span> התפרץ הר הגעש <b>וזוב</b> שבאיטליה, וקבר תחת אפר לוהט את העיר הרומית <b>הרקולנאום</b>. באחת הווילות בעיר הייתה ספרייה, ובה מגילות — הספרים של פעם: רצועה ארוכה של פפירוס, מגולגלת. החום לא שרף אותן לאפר, אלא הפך אותן ל<b>גחלים</b>: גושים שחורים ושבירים, שמתפוררים אם רק מנסים לפתוח אותם. כמעט <span class="num">2,000</span> שנה אף אחד לא ידע מה כתוב בפנים. ואז, ב־<span class="num">2023</span>, סטודנט בן <span class="num">21</span> קרא מילה מתוך מגילה סגורה — בלי לפתוח אותה בכלל. השאלה של היום: <b>איך קוראים ספר שאסור לפתוח?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">נניח שהיה אפשר לפרוש מגילה כזאת עד הסוף, בלי שתתפורר. כמה ארוכה היא הייתה?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>כמו סרגל</b><span>בערך <span class="num">30</span> ס״מ</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>כמו דלת</b><span>בערך <span class="num">2</span> מטר</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>כמו אוטובוס</b><span>בערך <span class="num">12</span> מטר</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>כמו מגרש כדורגל</b><span>בערך <span class="num">100</span> מטר</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">נכנסים לספרייה ←</button></div>
+</section>
+
+<!-- 1 · A LUMP OF CHARCOAL WITH A SECRET (figure: Piaggio's machine) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>גוש פחם עם סוד</h2>
+  <p>הווילה ההיא נקראת היום <b>וילת הפפירוסים</b>. כנראה היא הייתה שייכת לחותן של יוליוס קיסר — אבא של אשתו. ב־<span class="num">1752</span> פועלים שחפרו שם מצאו גושים שחורים, וחשבו שזה פחם. רק אחר כך הבינו: אלה ספרים — יותר מ־<span class="num">1,800</span> מגילות וחלקי מגילות.</p>
+  <p>איך פותחים ספר כזה? זמן קצר אחרי הגילוי, כומר בשם <b>אנטוניו פיאג׳ו</b> בנה מכונה מיוחדת. הוא הדביק חוטי משי לשכבה החיצונית, וברגים משכו אותם לאט למעלה.</p>
+
+  <figure class="calfig" aria-label="מכונה מעץ: למעלה קורה עם ברגים, ממנה יורדים חוטים דקים אל פיסת פפירוס שמתקלפת מעל גליל שחור — המגילה. המכונה מושכת מילימטרים ספורים ביום">
+    <svg viewBox="0 0 640 400" role="img" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="640" height="400" rx="14" fill="#F4EEDF"/>
+      <text x="320" y="38" text-anchor="middle" font-family="Rubik,Arial" font-size="34" font-weight="700" fill="#1B1F33">ברגים שמושכים לאט</text>
+      <g fill="#B08A55" stroke="#1B1F33" stroke-width="3">
+        <rect x="90" y="60" width="22" height="290"/><rect x="528" y="60" width="22" height="290"/>
+        <rect x="80" y="52" width="480" height="26" rx="4"/><rect x="70" y="340" width="500" height="22" rx="4"/>
+      </g>
+      <g stroke="#1B1F33" stroke-width="3" fill="#DDD4BE"><rect x="250" y="48" width="22" height="22" rx="3"/><rect x="368" y="48" width="22" height="22" rx="3"/></g>
+      <g stroke="#585C72" stroke-width="2"><path d="M261 78 V100 M261 140 V186 M379 78 V100 M379 140 V186 M300 78 V100 M300 140 V180 M340 78 V100 M340 140 V180"/></g>
+      <path d="M262 270 C262 230 266 200 270 182 L370 182 C374 200 378 230 378 270 Z" fill="#C9A06A" stroke="#1B1F33" stroke-width="3"/>
+      <rect x="190" y="262" width="260" height="64" fill="#2A1E16" stroke="#1B1F33" stroke-width="4"/>
+      <ellipse cx="450" cy="294" rx="18" ry="32" fill="#3A2C22" stroke="#1B1F33" stroke-width="4"/>
+      <path d="M450 294 m-4 0 a4 6 0 1 1 8 0 a9 13 0 1 1 -18 0 a13 20 0 1 1 26 0" fill="none" stroke="#B08A55" stroke-width="3"/>
+      <ellipse cx="190" cy="294" rx="18" ry="32" fill="#2A1E16" stroke="#1B1F33" stroke-width="4"/>
+      <text x="320" y="306" text-anchor="middle" font-family="Rubik,Arial" font-size="34" font-weight="700" fill="#F4EEDF">המגילה</text>
+      <text x="320" y="128" text-anchor="middle" font-family="Rubik,Arial" font-size="34" font-weight="700" fill="#1B1F33" stroke="#F4EEDF" stroke-width="8" paint-order="stroke">חוטי משי</text>
+      <text x="320" y="226" text-anchor="middle" font-family="Rubik,Arial" font-size="30" font-weight="700" fill="#5A3A24">שכבה</text>
+    </svg>
+    <figcaption>המכונה של פיאג׳ו: חוטים מושכים את השכבה החיצונית, מילימטר אחרי מילימטר. השכבה (בצבע בהיר) מתקלפת מהגליל השחור. המגילה הראשונה נפתחה אחרי כ־<span class="num">4</span> שנים.</figcaption>
+  </figure>
+
+  <p>המכונה התקדמה מילימטרים ספורים ביום, ובדרך שכבות רבות נקרעו או התפוררו. היום מדענים החליטו: <b>לא פותחים</b>. מסתכלים פנימה.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על עלה יבש מהסתיו: מקמטים אותו, והוא מתפורר. המגילות שבירות עוד יותר. כל נגיעה יכולה להרוס מילה שחיכתה אלפיים שנה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה החום לא שרף אותן לגמרי? כדי לבעור בלהבה צריך חמצן. על העיר ירדו ענני גז ואפר בחום של מאות מעלות. בלי מספיק אוויר, הפפירוס לא בער — הוא <b>התפחם</b>, כמו שמכינים פחם לגריל: מחממים עץ כמעט בלי אוויר. וזה גם הציל את המגילות: חיידקים ופטריות לא אוכלים פחם.</p>
+  </div>
+
+  <div class="q qc" id="vesuvQ"></div>
+  <p class="small" id="hint1" style="text-align:center">כדי להמשיך, ענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · WHAT DO X-RAYS SEE? (interactive 1: the X-ray lab) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>מה רואים ברנטגן?</h2>
+  <p>בצילום רנטגן בבית החולים רואים את העצמות, אבל כמעט לא את הבשר. קרני רנטגן הן אור שהעין לא רואה, והן עוברות דרך רוב החומרים. חומר צפוף וכבד, כמו עצם או מתכת, עוצר יותר קרניים, ולכן נראה בהיר בצילום.</p>
+  <p>אז הרעיון פשוט: מצלמים את המגילה ברנטגן, ורואים את הדיו. אבל יש בעיה. במעבדה תבדקו שני סוגים של דיו, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 1 — מעבדת הרנטגן ===== -->
+  <div class="panel instrument">
+    <h3>מעבדת הרנטגן</h3>
+    <p class="cap">למעלה: פיסה שרופה של מגילה, ועליה מילה. בעין רואים רק שחור על שחור. למטה: מה שהרנטגן רואה. נחשו קודם: באיזה דיו נראה את האותיות בצילום?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="xrP0" onclick="xrPredict(0)">בשני סוגי הדיו</button>
+        <button id="xrP1" onclick="xrPredict(1)">רק בדיו עם מתכת</button>
+        <button id="xrP2" onclick="xrPredict(2)">באף אחד</button>
+      </div>
+    </div>
+    <canvas role="img" id="xrCv" width="640" height="600" aria-label="למעלה מכשיר רנטגן ששולח קרניים כלפי מטה, דרך פיסת פפירוס שרופה וכהה שכתובה עליה המילה ויקרא. למטה מסך הצילום: עם דיו שיש בו מתכת האותיות בוהקות, ועם דיו מפחם הן נעלמות"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="סוג הדיו">
+        <button id="xrI0" onclick="xrInk(0)">דיו עם מתכת</button>
+        <button id="xrI1" onclick="xrInk(1)">דיו מפחם</button>
+      </div>
+    </div>
+    <div class="controls">
+      <label>עוצמת הקרניים (שמאלה: כבוי, ימינה: חזק)
+        <input type="range" id="xrS" min="0" max="3" step="1" value="0" oninput="xrSet()" aria-label="עוצמת הקרניים" style="direction:ltr">
+      </label>
+      <div class="readout">עוצמה: <b id="xrOut">כבוי</b></div>
+    </div>
+    <p class="cap" id="xrMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="xrReveal" hidden><span class="hand">!</span><p><b>רק בדיו עם מתכת!</b> מתכת עוצרת הרבה קרניים, ולכן האותיות בוהקות. אבל הרומאים כתבו בהרקולנאום בדיו של <b>פיח</b> — אבקת פחם שחורה, מעורבבת בדבק. והמגילה עצמה הפכה לפחם. בעיני הרנטגן הם כמעט אותו חומר, ולכן האותיות פשוט נעלמות.</p></div>
+
+  <div id="xrAfter" hidden>
+  <p>ובכל זאת, יש מגילה שרופה שנקראה בדיוק ככה — והיא מישראל. ב־<span class="num">1970</span> ארכאולוגים חפרו ב<b>עין גדי</b>, ליד ים המלח, בית כנסת עתיק שנשרף בשריפה גדולה לפני כ־<span class="num">1,400</span> שנה. בארון הקודש מצאו מגילה שהפכה לגוש פחם. אנשי <b>רשות העתיקות</b> סרקו אותה, והמדען ברנט סילס מאוניברסיטת קנטקי בארצות הברית "פרש" אותה במחשב. ב־<span class="num">2016</span> התפרסמה התוצאה: אלה הפסוקים הראשונים של <b>ספר ויקרא</b>. בדיו שלה הייתה כנראה מתכת, ברזל או עופרת, ולכן האותיות נראו בסריקה.</p>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על ציור בעיפרון לבן על דף לבן: הוא שם, אבל לא רואים אותו. ככה דיו של פחם על מגילה של פחם, בעיני הרנטגן.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>רנטגן לא רואה צבעים; הוא מודד כמה קרניים החומר <b>בולע</b>. אטומים כבדים, כמו ברזל ועופרת, בולעים הרבה יותר מפחמן. ובסריקה לא מצלמים תמונה אחת: מצלמים מאלפי כיוונים, והמחשב בונה אלפי <b>פרוסות</b> — טומוגרפיה, כמו סי־טי בבית החולים. את מגילות הרקולנאום סרקו במאיץ חלקיקים באנגליה.</p>
+  </div>
+
+  <div class="q qc" id="xrayQ"></div>
+  </div>
+  <p class="small" id="hint2" style="text-align:center">כדי להמשיך, נחשו, ונסו את שני סוגי הדיו בעוצמה בינונית לפחות.</p>
+  <div class="next"><button class="btn" id="next2" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · UNROLL WITHOUT TOUCHING (interactive 2: the virtual unroller) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>לפרוש בלי לגעת</h2>
+  <p>כל פרוסה מהסריקה נראית כמו <b>ספירלה</b>, כמו רולדה חתוכה. כל קו בה הוא שכבה של פפירוס. עוקבים אחרי השכבה בכל הפרוסות, ואז מיישרים אותה במחשב, כמו שפורשים שטיח: <b>פרישה וירטואלית</b>. זה קשה, כי השכבות מעוכות, דבוקות וקרועות.</p>
+  <p>במעבדה תפרשו מגילה בעצמכם, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 2 — הפורש הווירטואלי ===== -->
+  <div class="panel instrument">
+    <h3>הפורש הווירטואלי</h3>
+    <p class="cap">למעלה: פרוסה מהסריקה — המגילה מבפנים. למטה: הרצועה שנפרשת. במגילה <span class="num">5</span> סיבובים, והרוחב הממוצע שלהם <span class="num">4</span> ס״מ. נחשו קודם: כמה ארוכה תהיה הרצועה?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="urP0" onclick="urPredict(0)">בערך <span class="num">4</span> ס״מ</button>
+        <button id="urP1" onclick="urPredict(1)">בערך <span class="num">20</span> ס״מ</button>
+        <button id="urP2" onclick="urPredict(2)">בערך <span class="num">60</span> ס״מ</button>
+      </div>
+    </div>
+    <canvas role="img" id="urCv" width="640" height="600" aria-label="למעלה ספירלה חומה גדולה, כמו רולדה חתוכה: פרוסה של המגילה. כשפורשים, הספירלה מתקצרת, ולמטה גדלה רצועה ישרה עם שורות כתב, ליד סרגל בסנטימטרים"></canvas>
+    <div class="controls">
+      <label>לפרוש (שמאלה: מגולגל, ימינה: פרוש)
+        <input type="range" id="urU" min="0" max="100" step="1" value="0" oninput="urSet()" aria-label="לפרוש" style="direction:ltr">
+      </label>
+      <label>מספר הסיבובים
+        <input type="range" id="urN" min="3" max="10" step="1" value="5" oninput="urTurns()" aria-label="מספר הסיבובים" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">סיבובים: <b id="urOutN">5</b></div>
+      <div class="readout">נפרש עד עכשיו: <b id="urOut">0 ס״מ</b></div>
+    </div>
+    <p class="cap" id="urMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="urReveal" hidden><span class="hand">!</span><p><b>כ־<span class="num">60</span> ס״מ!</b> כל סיבוב ארוך בערך פי <span class="num">3</span> מהרוחב שלו (ליתר דיוק: פי <span class="num">3.14</span> בערך, המספר שנקרא π, "פאי"). רוחב של <span class="num">4</span> ס״מ נותן <span class="math">3.14 × 4 = 12.56</span> ס״מ לכל סיבוב, וחמישה סיבובים: <span class="math">5 × 12.56 ≈ 63</span> ס״מ. ככה גם גליל קטן מסתיר רצועה ארוכה — וכל סיבוב נוסף מאריך אותה עוד.</p></div>
+
+  <div id="urAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>גליל נייר טואלט הוא בגודל כף יד, אבל אם פורשים אותו, הוא עובר את כל המסדרון. כל סיבוב מוסיף עוד חתיכה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה פי <span class="num">3</span> בערך? ההיקף של עיגול הוא הקוטר כפול π, כש־<span class="math">π ≈ 3.14</span>. בספירלה כל סיבוב רחב קצת יותר מהקודם, אבל אם לוקחים את הקוטר <b>הממוצע</b>, אפשר לחשב: <span class="math">אורך ≈ סיבובים × π × קוטר ממוצע</span>. בפרק <span class="num">5</span> נחשב ככה מגילה אמיתית.</p>
+  </div>
+
+  <div class="q qc" id="unrollQ"></div>
+  </div>
+  <p class="small" id="hint3" style="text-align:center">כדי להמשיך, נחשו, פרשו את המגילה עד הסוף, ונסו גם מספר סיבובים אחר.</p>
+  <div class="next"><button class="btn" id="next3" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE CRACKS THAT GAVE THE INK AWAY (interactive 3: the ink filter) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>הסדקים שגילו את הדיו</h2>
+  <p>ב־<span class="num">2023</span> הוכרזה תחרות: <b>אתגר וזוב</b>. הסריקות פורסמו לכל העולם, עם פרסים למי שיקרא בהן משהו. בקיץ, משתתף בשם <b>קייסי הנדמר</b> בהה בסריקות שעות, והבחין בדוגמה מוזרה: רשת של סדקים זעירים, כמו בוץ שהתייבש בשלולית. היא הופיעה רק במקומות מסוימים. אולי זה הדיו?</p>
+  <p><b>לוק פריטור</b>, סטודנט בן <span class="num">21</span> ממדינת נברסקה בארצות הברית, לימד מחשב לזהות את הסדקים — גם כשהעין לא מבחינה בהם. במעבדה תפעילו "מסנן" כזה בעצמכם, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 3 — המסנן של המחשב ===== -->
+  <div class="panel instrument">
+    <h3>המסנן של המחשב</h3>
+    <p class="cap">זו פיסה מתוך הסריקה הפרושה: פפירוס חרוך, עם סיבים לאורך ולרוחב. הזיזו את המחוון, והמחשב יחפש סדקים, צעד אחרי צעד. נחשו קודם: מה מסתתר כאן? (רמז: המגילה הגיעה מספרייה של פילוסוף יווני.)</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="ckP0" onclick="ckPredict(0)">אותיות עבריות</button>
+        <button id="ckP1" onclick="ckPredict(1)">אותיות יווניות</button>
+        <button id="ckP2" onclick="ckPredict(2)">ציור של פרח</button>
+      </div>
+    </div>
+    <canvas role="img" id="ckCv" width="640" height="600" aria-label="רצועה כהה של פפירוס עם סיבים. ככל שמגבירים את המסנן, מופיעים סדקים זהובים, הם מתקבצים לכתמים, ובסוף נחשפות שמונה אותיות יווניות סגולות: פורפירס, ארגמן"></canvas>
+    <div class="controls">
+      <label>המסנן (שמאלה: הסריקה המקורית, ימינה: חיפוש מלא)
+        <input type="range" id="ckF" min="0" max="4" step="1" value="0" oninput="ckSet()" aria-label="המסנן" style="direction:ltr">
+      </label>
+      <div class="readout">שלב: <b id="ckOut">0 / 4</b></div>
+    </div>
+    <p class="cap" id="ckMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="ckReveal" hidden><span class="hand">!</span><p><b>אותיות!</b> באוגוסט <span class="num">2023</span> התוכנה של פריטור חשפה יותר מעשר אותיות יווניות, וחוקרים קראו בהן מילה: <b>ΠΟΡΦΥΡΑϹ</b>, "פּוֹרְפִירָס" — <b>ארגמן</b>, הצבע הסגול־אדום היקר. זו המילה הראשונה שנקראה אי פעם מתוך מגילה סגורה מהרקולנאום. פריטור זכה ב־<span class="num">40,000</span> דולר, ו<b>יוסף נאדר</b>, סטודנט ממצרים, מצא את אותה מילה בעצמו.</p></div>
+
+  <div id="ckAfter" hidden>
+  <p>בפברואר <span class="num">2024</span> נאדר, פריטור ויוליאן שילינגר משווייץ קראו יחד יותר מ־<span class="num">2,000</span> אותיות — בערך <span class="num">5%</span> מהמגילה — וזכו ב־<span class="num">700,000</span> דולר. זה חיבור של הפילוסוף היווני <b>פילודמוס</b>, כנראה, על השאלה מה גורם לנו ליהנות. ב־<span class="num">2025</span> נקראה לראשונה כותרת של מגילה סגורה: "על המידות הרעות", גם היא של פילודמוס. וב־<span class="num">2026</span> כבר נקראו מאותה מגילה יותר מ־<span class="num">70</span> טורים.</p>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>זה כמו חיפוש מטמון: את האוצר לא רואים, אבל רואים עקבות. הסדקים הם העקבות של הדיו. ובסוף אנשים שיודעים יוונית עתיקה קוראים את האותיות.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה דווקא סדקים? כנראה שכבת הדיו הדקה התכווצה אחרת מהפפירוס שמתחתיה ונסדקה, כמו בוץ בשמש; היא גם מוסיפה לדף עובי זעיר. התוכנה היא <b>למידת מכונה</b>: נותנים למחשב דוגמאות של "יש דיו" ו"אין דיו", והוא לומד מה מבדיל ביניהן. ואז חוקרים בודקים שהמחשב לא "דמיין" אותיות בכתמים אקראיים.</p>
+  </div>
+
+  <div class="q qc" id="crackQ"></div>
+  </div>
+  <p class="small" id="hint4" style="text-align:center">כדי להמשיך, נחשו והפעילו את המסנן עד הסוף.</p>
+  <div class="next"><button class="btn" id="next4" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: THE ARITHMETIC OF A SCROLL (figure) + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>החשבון של המגילה</h2>
+  <p>חוקרים באינסטיטו דה פראנס, מוסד מחקר בפריז, העריכו שאם היו פורשים מגילה מהרקולנאום עד הסוף, היא הייתה באורך של <span class="math">11–15</span> מטר. בואו נבדוק אם החשבון מהמעבדה מסכים.</p>
+
+  <figure class="calfig" aria-label="עיגול עם קו קוטר. לידו קו ישר באורך ההיקף של העיגול, מחולק לשלושה קטעים באורך הקוטר ועוד חתיכה קטנה: היקף הוא שלושה קטרים ועוד קצת">
+    <svg viewBox="0 0 640 400" role="img" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="640" height="400" rx="14" fill="#F4EEDF"/>
+      <text x="320" y="50" text-anchor="middle" font-family="Rubik,Arial" font-size="34" font-weight="700" fill="#1B1F33">סיבוב = 3 קטרים ועוד קצת</text>
+      <circle cx="320" cy="150" r="60" fill="#E3CC9E" stroke="#1B1F33" stroke-width="4"/>
+      <path d="M260 150 H380" stroke="#2F6F9F" stroke-width="6" stroke-linecap="round"/>
+      <text x="320" y="140" text-anchor="middle" font-family="Rubik,Arial" font-size="32" font-weight="700" fill="#2F6F9F">קוטר</text>
+      <path d="M320 240 v24" stroke="#585C72" stroke-width="4"/><path d="M308 258 l12 14 l12 -14" fill="none" stroke="#585C72" stroke-width="4" stroke-linejoin="round"/>
+      <g stroke-width="10" stroke-linecap="butt">
+        <path d="M509 300 H389" stroke="#2F6F9F"/><path d="M389 300 H269" stroke="#5B93C2"/><path d="M269 300 H149" stroke="#2F6F9F"/><path d="M149 300 H132" stroke="#C8452D"/>
+      </g>
+      <g stroke="#1B1F33" stroke-width="3"><path d="M509 286 v28 M389 288 v24 M269 288 v24 M149 288 v24 M132 286 v28"/></g>
+      <text x="449" y="344" text-anchor="middle" font-family="Rubik,Arial" font-size="34" font-weight="700" fill="#1B1F33">1</text>
+      <text x="329" y="344" text-anchor="middle" font-family="Rubik,Arial" font-size="34" font-weight="700" fill="#1B1F33">2</text>
+      <text x="209" y="344" text-anchor="middle" font-family="Rubik,Arial" font-size="34" font-weight="700" fill="#1B1F33">3</text>
+      <text x="140" y="346" text-anchor="middle" font-family="Rubik,Arial" font-size="32" font-weight="700" fill="#C8452D">קצת</text>
+      <text x="320" y="388" text-anchor="middle" font-family="Rubik,Arial" font-size="34" font-weight="700" fill="#1B1F33" direction="ltr" unicode-bidi="embed">π ≈ 3.14</text>
+    </svg>
+    <figcaption>אם פורשים סיבוב אחד לקו ישר, נכנסים בו <span class="num">3</span> קטרים ועוד חתיכה קטנה: <span class="math">π ≈ 3.14</span>.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>נסו בעצמכם: כרכו חוט סביב כוס, פעם אחת. עכשיו הניחו את החוט ליד הכוס — הוא ארוך בערך פי <span class="num">3</span> מהרוחב שלה! זה נכון לכל עיגול: צלחת, גלגל, מגילה. אז במגילה ברוחב <span class="num">4</span> ס״מ, כל סיבוב ארוך בערך <span class="num">12</span> ס״מ. ואם יש בה <span class="num">100</span> סיבובים? <span class="math">100 × 12 = 1,200</span> ס״מ — כלומר <span class="num">12</span> מטר. כמו אוטובוס!</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הנה החשבון. נניח שבמגילה <span class="num">100</span> סיבובים, והקוטר הממוצע שלהם <span class="num">4</span> ס״מ (אלה מספרים לדוגמה). סיבוב אחד: <span class="math">3.14 × 4 = 12.56</span> ס״מ. כל המגילה: <span class="math">100 × 12.56 = 1,256</span> ס״מ, כלומר כ־<span class="num">12.6</span> מטר — בתוך הטווח שהחוקרים העריכו.</p>
+    <p>ומה עם הכתב? מגילה כתובה ב<b>טורים</b>, כמו עמודים צרים זה ליד זה. נניח שכל טור, עם הרווח שאחריו, תופס <span class="num">7.5</span> ס״מ. אז במגילה של <span class="num">1,256</span> ס״מ יש <span class="math">1,256 ÷ 7.5 ≈ 167</span> טורים. וביוני <span class="num">2026</span> כבר פרשו במחשב את כל מה ששרד ממגילה אחת, וקראו בה כ־<span class="num">20</span> טורים — אבל מאות מגילות עדיין מחכות.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> ב־<span class="num">2024</span> הזוכים קראו כ־<span class="num">2,000</span> אותיות, שהן בערך <span class="num">5%</span> מהמגילה. (א) כמה אותיות יש, בערך, בכל המגילה? (ב) נניח שבעזרת מחשבים משופרים אפשר לקרוא <span class="num">4,000</span> אותיות בחודש. כמה חודשים ייקח לקרוא את כל מה שנשאר? (מותר מחשבון.)</p>
+      <div class="controls">
+        <label>(א) אותיות בכל המגילה <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) חודשים <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> פיאג׳ו פתח מגילות בזהירות רבה, ובכל זאת הרס חלקים מהן. היום יש סורקים מצוינים — ובכל זאת מדענים משאירים בכוונה הרבה מגילות סגורות, בלי לסרוק את כולן מיד. למה? ומה הייתם עושים במקומם?</p>
+      <details><summary>רמז</summary><p>חשבו על המגילה מעין גדי: כמה שנים היא חיכתה, ולמה זה השתלם?</p></details>
+      <details><summary>התשובה</summary><p><b>כל פתיחה היא הזדמנות אחת ויחידה.</b> מה שמתפורר — אבד לתמיד. גם הטכנולוגיה ממשיכה להשתפר: סורקים חדים יותר ותוכנות חכמות יותר יקראו מחר מה שאנחנו לא מצליחים לקרוא היום, וכל טלטול או הובלה של מגילה הם סיכון. לכן משאירים מגילות לדור הבא — כמו המגילה מעין גדי, שחיכתה יותר מ־<span class="num">40</span> שנה עד שהמחשבים היו מספיק טובים. ויש עוד סוד: חלקים מהווילה בהרקולנאום עדיין לא נחפרו, וייתכן שמחכות בהם עוד מגילות.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>צריך: פס של נייר מדפסת, טוש שחור, מרקר צהוב, עיפרון (רק כדי לגלגל), ופנס (אפשר הפנס של הטלפון). <b>לא מסתכלים ישר לתוך הפנס.</b></p>
+
+  <div class="panel">
+    <h3>חלק א׳ — לקרוא בלי לפתוח (<span class="num">15</span> דקות)</h3>
+    <ol>
+      <li>כתבו על פס הנייר שתי מילים סודיות: אחת בטוש שחור ואחת במרקר צהוב.</li>
+      <li>גלגלו את הפס חזק סביב העיפרון, עם הכתב כלפי פנים, והוציאו את העיפרון. עכשיו יש לכם "מגילה".</li>
+      <li>לפני הצעד הבא נחשו: אם מאירים דרך המגילה בחדר חשוך, איזו מילה תראו הכי טוב?</li>
+      <li>כבו את האור והאירו את המגילה מצד אחד, בזמן שמישהו אחר מסתכל מהצד השני. נסו לקרוא.</li>
+      <li>פתחו ובדקו: איזו מילה כמעט "נעלמה"? המרקר הצהוב עוצר כמעט אותו אור כמו הנייר — בדיוק כמו דיו הפחם על פפירוס חרוך בעיני הרנטגן: הוא שם, אבל לא שונה מהרקע.</li>
+    </ol>
+    <p class="small">ככל שיש יותר סיבובים, קשה יותר לקרוא — כי האור צריך לעבור דרך יותר שכבות. בדיוק כמו במגילות האמיתיות.</p>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — פי <span class="num">3</span> בכל עיגול (<span class="num">10</span> דקות)</summary>
+    <ol>
+      <li>מצאו שלושה חפצים עגולים: כוס, צלחת, קופסת שימורים.</li>
+      <li>כרכו חוט סביב כל אחד, פעם אחת, וסמנו את החוט בעט.</li>
+      <li>מדדו בסרגל את אורך החוט עד הסימן, ואת הרוחב של החפץ.</li>
+      <li>חלקו את אורך החוט ברוחב (מותר מחשבון). מה יצא? בכל החפצים זה בערך אותו מספר: קצת יותר מ־<span class="num">3</span>.</li>
+    </ol>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>ספר שנפתח בלי ידיים</h2>
+  <p>כדי לקרוא מגילה סגורה, היו צריכים לעבוד יחד פיזיקאים, מתמטיקאים, מתכנתים וחוקרים שקוראים יוונית עתיקה. ומה שעוד לא יודעים: מה כתוב במאות המגילות שעדיין סגורות.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>מצלמים את המגילה ברנטגן, פורשים אותה במחשב, ומחפשים את הדיו.</b> דיו של פחם קשה לראות על מגילה שהפכה לפחם, אבל הוא משאיר סדקים קטנים, והמחשב למד למצוא אותם. שאלה לחקור: איזה ספר הייתם רוצים שיחכה אלפיים שנה, כדי שמישהו יקרא אותו בעתיד?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>טומוגרפיה</b> נותנת פרוסות; <b>פרישה וירטואלית</b> מיישרת שכבה; רנטגן מודד <b>בליעה</b>, ולכן מתכת נראית ופחם כמעט לא; <b>למידת מכונה</b> מוצאת סדקים, וחוקרים בודקים. <b>החשבון</b>: <span class="math">אורך ≈ סיבובים × π × קוטר ממוצע</span>. שאלה לחקור: אילו עוד דברים סגורים — ביצה, גזע עץ, מומיה — אפשר "לפתוח" בלי לגעת בהם?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הסיפור?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">כימיה · היסטוריה</div><h3>ארגמן? כבר נפגשנו</h3><p>המילה הראשונה מהמגילה הייתה "ארגמן" — הצבע שהופק מחילזון ים, והיה יקר מזהב. זוכרים את גיליון <span class="num">47</span>? ועכשיו מתברר שגם פילוסוף לפני אלפיים שנה כתב עליו.</p></div>
+    <div class="tile"><div class="dom">רפואה</div><h3>אותו רעיון, בבית החולים</h3><p>סי־טי, טומוגרפיה ממוחשבת, עובד בדיוק ככה: צילומי רנטגן מסביב לגוף, והמחשב בונה מהם פרוסות. רופאים "רואים" בתוך הגוף בלי לנתח.</p></div>
+    <div class="tile"><div class="dom">ישראל</div><h3>מגילות ים המלח באינטרנט</h3><p>רשות העתיקות צילמה את מגילות מדבר יהודה באור מיוחד, ואת התמונות אפשר לראות באינטרנט, בספרייה דיגיטלית — ולהגדיל כל אות.</p></div>
+    <div class="tile"><div class="dom">גאולוגיה</div><h3>וזוב עדיין חי</h3><p>ההתפרצות האחרונה שלו הייתה ב־<span class="num">1944</span>. מדענים עוקבים אחריו כל יום, כי מסביבו גרים היום מאות אלפי אנשים.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): קראו בעצמכם יוונית</summary>
+    <p>המילה מהמגילה כתובה באותיות יווניות: <b>ΠΟΡΦΥΡΑϹ</b>. הנה המפתח: Π = פ, Ο = ו (o), Ρ = ר, Φ = פ (f), Υ = י (כמו u צרפתית), Α = א (a), Ϲ = ס. לפני שאתם פותחים — נסו לקרוא בעצמכם!</p>
+    <details><summary>התשובה</summary>
+      <p><b>פּוֹרְפִירָס</b> — "ארגמן". ה־Ϲ בסוף היא סיגמה, האות ס, בצורה העגולה שבה כתבו אותה אז. מהמילה הזאת באה המילה האנגלית purple. ועוד דבר: האלף־בית שלכם בשיעורי אנגלית צמח מהאותיות היווניות האלה — וגם היוונים קיבלו את הרעיון מהאלף־בית של הפיניקים, השכנים שלנו מצפון.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את הדרך של המגילה, מהר הגעש ועד המילה הראשונה. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: כדי לזכות בפרס הגדול של אתגר וזוב, היה צריך לקרוא <span class="num">4</span> קטעים מהמגילה, ובכל קטע <span class="num">140</span> אותיות. כמה אותיות היה צריך לקרוא בסך הכול?</div>
+    <div class="controls"><label>אותיות <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: במגילה <span class="num">85</span> סיבובים, והקוטר הממוצע שלהם <span class="num">4.4</span> ס״מ. (א) מה האורך שלה, בס״מ? (ב) כל טור כתב, עם הרווח שאחריו, תופס <span class="num">7.5</span> ס״מ. כמה טורים יש בה בערך? (השתמשו ב־<span class="math">π ≈ 3.14</span> ועגלו לשלם. מותר מחשבון.)</div>
+    <div class="controls"><label>(א) ס״מ <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) טורים <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: במגילה <span class="num">70</span> סיבובים, והקוטר הממוצע שלהם <span class="num">5</span> ס״מ. בערך מה האורך שלה, בס״מ? (השתמשו ב־<span class="math">π ≈ 3.14</span>.)</div>
+    <div class="controls"><label>ס״מ <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>איך אפשר לקרוא מגילה שרופה בלי לפתוח אותה — ולמה זה היה כל כך קשה?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="קודם סורקים את המגילה..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. ב־<span class="num">79</span> הר הגעש וזוב הפך מאות מגילות לגחלים. ב־<span class="num">2023</span> סטודנט בן <span class="num">21</span> קרא מילה מתוך אחת מהן בלי לפתוח אותה: "ארגמן".<br>
+    2. בעין גדי, ליד ים המלח, "פרשו" במחשב מגילה שרופה, וגילו בה את תחילת ספר ויקרא. שם זה עבד כי בדיו הייתה כנראה מתכת, שנראית ברנטגן.<br>
+    3. כל סיבוב של מגילה ארוך בערך פי <span class="num">3</span> מהרוחב שלה — ולכן גוש קטן מסתיר רצועה באורך של אוטובוס.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>הרקולנאום ואתגר וזוב: Wikipedia, "Herculaneum papyri" — וילה שנמצאה ב־<span class="num">1752</span>, יותר מ־<span class="num">1,800</span> מגילות וקטעים (הרשימה הרשמית <span class="num">1,814</span>); מכונת חוטי המשי של אנטוניו פיאג׳ו, שהתקדמה מילימטרים ביום, הרסה תחילות של מגילות רבות, ופתיחת המגילה הראשונה נמשכה כ־<span class="num">4</span> שנים; דיו פחם שכמעט זהה בהרכבו לפפירוס המפוחם ולכן לא נראה בסי־טי רגיל, ועובי זעיר של הדיו שהדמיית phase-contrast מבחינה בו; הערכת מכון דה פראנס לאורך מגילה פרושה (<span class="math">11–15</span> מ׳); הפרס לפריטור ב־<span class="num">12</span> באוקטובר <span class="num">2023</span>, בן <span class="num">21</span>, המילה porphyras. Scrollprize.org, "First Letters" — קייסי הנדמר וה־crackle pattern (תחילת אוגוסט <span class="num">2023</span>, פרס First Ink); פריטור — מודל שאומן על הדפוס, <span class="num">13</span> אותיות שסומנו, <span class="num">40,000</span> דולר; יוסף נאדר — אותה מילה, מקום שני (<span class="num">10,000</span> דולר). Live Science (פברואר <span class="num">2024</span>) — נאדר, פריטור ושילינגר חלקו <span class="num">700,000</span> דולר; יותר מ־<span class="num">2,000</span> תווים, כ־<span class="num">5%</span> מהמגילה; חיבור אפיקוראי על הנאה, כנראה של פילודמוס; סריקות ב־Diamond Light Source; הדרישה: <span class="num">4</span> קטעים של <span class="num">140</span> תווים; הווילה כנראה של חותנו של יוליוס קיסר. University of Nebraska–Lincoln News — פריטור, סטודנט למדעי המחשב. CNN (מאי <span class="num">2025</span>) — הכותרת "על המידות הרעות" של פילודמוס ב־PHerc. 172 (ספריות בודלי, אוקספורד). Diamond Light Source, "New secrets revealed from the Herculaneum scrolls" (<span class="num">25</span> ביוני <span class="num">2026</span>) — פרישה וירטואלית של כל מה ששרד מ־PHerc. 1667 (כ־<span class="num">20</span> טורים), יותר מ־<span class="num">70</span> טורים מ־PHerc. 172, והכותרת "על האלים", ספר <span class="num">8</span>, ב־PHerc. 139.</p>
+    <p>עין גדי: Live Science (<span class="num">2016</span>), על פי Seales et al., Science Advances — המגילה נמצאה ב־<span class="num">1970</span> בארון הקודש של בית הכנסת בעין גדי, שנחרב בשריפה בסביבות <span class="num">600</span> לספירה; סריקת micro-CT של רשות העתיקות (פנינה שור), פרישה וירטואלית של צוות ברנט סילס מאוניברסיטת קנטקי; תחילת ספר ויקרא, <span class="num">2</span> טורים ו־<span class="num">35</span> שורות; חמישה סיבובים; הדיו נראה צפוף בסריקה וכנראה הכיל מתכת (ברזל או עופרת); תיארוך פחמן <span class="num">14</span> למאות ה־<span class="num">3–4</span>, ותיארוך לפי כתב היד למאות ה־<span class="num">1–2</span>.</p>
+    <p>דיוק ופישוטים: מספרי הסיבובים, הקטרים, רוחב הטור (<span class="num">7.5</span> ס״מ) וקצב הקריאה באתגר (<span class="num">4,000</span> אותיות בחודש) הם מספרים לדוגמה, לא נתונים של מגילה מסוימת; "<span class="num">5%</span>" הוא הערכה של מארגני האתגר. ההסבר לסדקים (שכבת דיו שהתכווצה ונסדקה) הוא השערה סבירה; ידוע שהדפוס מופיע במקומות הדיו, והמנגנון המדויק עדיין נחקר. ב"מעבדת הרנטגן" ההבדל בין הדיו מוגזם לצורך המחשה; במציאות גם דיו מתכת וגם עובי הדיו נראים בעדינות רבה יותר. ב"פורש הווירטואלי" הקוטר הפנימי <span class="num">1</span> ס״מ והחיצוני <span class="num">7</span> ס״מ, ולכן הממוצע <span class="num">4</span> ס״מ בכל מספר סיבובים. ב"מסנן" האותיות מצוירות מחדש, וזו לא תמונה מהסריקה המקורית. בעלות הווילה ("כנראה") ושנות הפתיחה של פיאג׳ו מנוסחות בזהירות כי המקורות נבדלים בפרטים.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:62, code:'WOW-062', date:'2026-11-13', title:'המגילה שנשרפה לגחל — וקראו אותה בלי לפתוח', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15zXl9eS15Qg15rXldeq154g15/XnteS16jXkA=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'history', w:3 }, { id:'physics', w:3 }, { id:'technology', w:2 }, { id:'math', w:2 }, { id:'engineering', w:1 } ],
+  hero: { name:'המגילה שנשרפה לגחל — מעבדת הרנטגן, הפורש הווירטואלי, המסנן של המחשב', fact:'ב־2023 קרא לוק פריטור, בן 21, את המילה "ארגמן" מתוך מגילה שהר הגעש וזוב הפך לגחל ב־79 — בלי לפתוח אותה: רנטגן, פרישה במחשב וסדקים של דיו.' },
+  items: {
+    'predict':        { skill:'estimation',            d:2 },
+    'qc:scale':       { skill:'prior-knowledge',       d:1 },
+    'qc:vesuvQ':      { skill:'carbonisation',         d:1 },
+    'qc:xrayQ':       { skill:'x-ray-absorption',      d:2 },
+    'qc:unrollQ':     { skill:'virtual-unrolling',     d:1 },
+    'qc:crackQ':      { skill:'human-verification',    d:1 },
+    'qc:deepQ':       { skill:'circumference',         d:2 },
+    'mcq:shared:0':   { skill:'carbonisation',         d:1 },
+    'mcq:shared:1':   { skill:'x-ray-absorption',      d:2 },
+    'mcq:shared:2':   { skill:'machine-learning',      d:2 },
+    'mcq:younger:0':  { skill:'story-recall',          d:1 },
+    'mcq:older:0':    { skill:'spiral-length',         d:3 },
+    'order':          { skill:'process-sequence',      d:2 },
+    'num:younger':    { skill:'multiplication',        d:1 },
+    'num:older':      { skill:'turns-times-pi-d',      d:2 },
+    'num:adv':        { skill:'length-then-columns',   d:4 },
+    'challenge':      { skill:'percent-and-rate',      d:4 },
+    'explain':        { skill:'mechanism-explanation', d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); } if(n===2) xrDraw(); if(n===3) urDraw(); if(n===4) ckDraw(); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: how long would a Herculaneum scroll be, unrolled? ----------
+   Four choices. The right answer: 3 — like a bus, about 12 m (the Institut de France team estimated 11–15 m). */
+const SCALE_ANS = 3;
+const fmtSigns = n => ({1:'כמו סרגל',2:'כמו דלת',3:'כמו אוטובוס',4:'כמו מגרש כדורגל'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> חוקרים העריכו שמגילה כזאת, פרושה, הייתה באורך של <span class="math">11–15</span> מטר — כמו אוטובוס. ובכל זאת אסור לפתוח אותה. אז איך קוראים? על זה השיעור.';
+const SCALE_FB = {
+  1: '<span class="pill-bad">הרבה יותר!</span> חוקרים העריכו <span class="math">11–15</span> מטר — כמו אוטובוס, פי <span class="num">40</span> בערך מסרגל. ובכל זאת אסור לפתוח אותה. אז איך קוראים? על זה השיעור.',
+  2: '<span class="pill-bad">יותר!</span> חוקרים העריכו <span class="math">11–15</span> מטר — כמו אוטובוס. ובכל זאת אסור לפתוח אותה. אז איך קוראים? על זה השיעור.',
+  3: SCALE_FB_RIGHT,
+  4: '<span class="pill-bad">פחות.</span> חוקרים העריכו <span class="math">11–15</span> מטר — כמו אוטובוס, לא כמו מגרש. ובכל זאת אסור לפתוח אותה. אז איך קוראים? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(24,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI, DEG = PI/180;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const GOLDT = () => isDark() ? '#F6C454' : '#8A5410';     // gold for text
+const BLUE = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+const PURP = () => isDark() ? '#D59AF0' : '#8E3BB0';      // purple ink (porphyra)
+const INK = () => css('--ink');
+const CHAR = () => isDark() ? '#2B2019' : '#3A2C22';      // charred papyrus
+const FIBRE = () => isDark() ? '#3A2D23' : '#4A3A2D';
+const PAPY = () => isDark() ? '#B08A55' : '#C9A06A';      // papyrus strip (unrolled, drawn light so the text reads)
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+const fmtI = v => Math.round(v).toLocaleString('en-US');
+function xMath(c,txt,x,y,size,col,align){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+const RM = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+function xRand(s){ let x=Math.sin(s*12.9898)*43758.5453; return x-Math.floor(x); }
+
+/* ---------- step 2 (interactive 1): the X-ray lab (canvas 640 × 600) ----------
+   Top: an X-ray tube shining down through a charred sheet with the word ויקרא (black on black to the eye).
+   Bottom: the detector. Strength 0–3. Metal ink absorbs far more than the charred papyrus → bright letters;
+   carbon ink absorbs almost exactly like the charred papyrus → the letters vanish (contrast exaggerated for teaching). */
+const xrCv=document.getElementById('xrCv'), xrctx=xrCv.getContext('2d');
+const XR_S=['כבוי','חלש','בינוני','חזק'];
+const XR={ opened:0, pred:-1, revealed:0, ink:-1, s:0, seen:new Set() };
+function xrPredict(k){ XR.pred=k; segOn('xrP',3,k); WOW.emit('item', { id:'xray:predict', kind:'quick', correct:k===1, attempt: wowTry('xray:predict') });
+  xrMsg.innerHTML='רשמנו את הניחוש. עכשיו בחרו סוג דיו, והזיזו את מחוון העוצמה.'; xrDraw(); }
+function xrInk(k){ if(XR.pred<0){ predictFirst(xrMsg,'בחרו'); return; }
+  if(!XR.opened){ XR.opened=1; WOW.emit('open', { id:'xray' }); }
+  XR.ink=k; segOn('xrI',2,k); xrUpdate(); }
+function xrSet(){ if(XR.pred<0){ xrS.value=0; predictFirst(xrMsg,'הזיזו'); xrDraw(); return; }
+  if(XR.ink<0){ xrS.value=0; xrMsg.innerHTML='קודם בחרו סוג דיו (מתחת לתמונה).'; xrDraw(); return; }
+  xrUpdate(); }
+function xrUpdate(){ XR.s=+xrS.value; if(XR.ink>=0 && XR.s>=2) XR.seen.add(XR.ink); xrDraw();
+  xrMsg.innerHTML = XR.ink<0 ? 'בחרו סוג דיו.' : XR.s===0 ? 'הקרניים כבויות. הזיזו את המחוון ימינה.'
+    : XR.ink===0 ? (XR.s>=2 ? 'האותיות בוהקות! המתכת שבדיו עוצרת הרבה יותר קרניים מהפפירוס החרוך.' : 'משהו מתחיל להופיע... הגבירו עוד.')
+    : (XR.s>=2 ? 'שום אותיות. דיו מפחם ופפירוס חרוך עוצרים את הקרניים כמעט אותו דבר.' : 'הגבירו עוד — אולי משהו יופיע?');
+  if(!XR.revealed && XR.seen.has(0) && XR.seen.has(1)){ XR.revealed=1; xrReveal.hidden=false; xrAfter.hidden=false; hint2.textContent='ענו על השאלה כדי להמשיך.'; } }
+function xrWord(c,x,y,col){ c.font='800 '+(118)+'px Rubik, Arial'; c.direction='rtl'; c.textAlign='center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText('ויקרא',x,y); c.direction='ltr'; }
+function xrDraw(){
+  const c=xrctx, W=xrCv.width, H=xrCv.height, ink=INK(), s=XR.s, on=XR.ink>=0 && s>0;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the X-ray tube */
+  c.fillStyle=isDark()?'#383C5E':'#DDD4BE'; c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.roundRect(250,14,140,40,10); c.fill(); c.stroke();
+  xLabel(c,'מכשיר רנטגן',140,34,22,ink,.92);
+  /* the charred sheet (to the eye: black on black) */
+  const sx=110, sy=92, sw=420, sh=150;
+  c.fillStyle=CHAR(); c.fillRect(sx,sy,sw,sh); c.strokeStyle=ink; c.lineWidth=3; c.strokeRect(sx,sy,sw,sh);
+  c.globalAlpha=0.5; xrWord(c,320,sy+sh/2+4, isDark()?'#291E17':'#33271E'); c.globalAlpha=1;
+  c.strokeStyle=FIBRE(); c.lineWidth=2; for(let y=sy+8;y<sy+sh;y+=10){ c.beginPath(); c.moveTo(sx+2,y); c.lineTo(sx+sw-2,y+Math.sin(y)*1.5); c.stroke(); }
+  xLabel(c,'בעין: שחור על שחור',320,sy+sh+22,22,ink,.92);
+  /* beams */
+  if(on){ c.strokeStyle=GOLD(); c.globalAlpha=0.35+0.2*s; c.lineWidth=3; c.setLineDash([10,8]);
+    for(let i=0;i<7;i++){ const x=150+i*57; c.beginPath(); c.moveTo(320+(x-320)*0.25,56); c.lineTo(x,sy); c.stroke(); c.beginPath(); c.moveTo(x,sy+sh); c.lineTo(x,330); c.stroke(); }
+    c.setLineDash([]); c.globalAlpha=1; c.fillStyle=GOLD(); for(let i=0;i<7;i++){ xArrow(c,150+i*57,334,0,1,14); } }
+  /* the detector image */
+  const dy=340, dh=200; c.fillStyle='#0B0D16'; c.fillRect(60,dy,520,dh); c.strokeStyle=ink; c.lineWidth=3; c.strokeRect(60,dy,520,dh);
+  if(on){ const base=Math.round(30+22*s);                         /* the sheet: a dim grey that grows with strength */
+    c.fillStyle='rgb('+base+','+base+','+(base+6)+')'; c.fillRect(sx,dy+25,sw,sh);
+    const L = XR.ink===0 ? Math.min(255, base+70*s) : base;      /* metal ink: much brighter; carbon ink: the same as the sheet */
+    xrWord(c,320,dy+25+sh/2+4,'rgb('+L+','+L+','+Math.min(255,L+8)+')'); }
+  else { xText(c, XR.ink<0 ? 'בחרו סוג דיו' : 'הקרניים כבויות', 320, dy+dh/2, 26, '#B0B4CC'); }
+  xLabel(c,'צילום הרנטגן'+(XR.ink<0?'':(XR.ink===0?' · דיו עם מתכת':' · דיו מפחם')),320,dy+dh+30,22,ink,.95);
+  xrOut.textContent=XR_S[s];
+}
+
+/* ---------- step 3 (interactive 2): the virtual unroller (canvas 640 × 600) ----------
+   A CT slice: an Archimedean spiral from r_in = 1 cm to R_out = 7 cm across (radii 0.5 → 3.5 cm), N turns (3–10),
+   so the mean diameter is always 4 cm and the length ≈ N × π × 4 cm. Unrolling p (0–100%) removes the spiral from
+   its outer end and lays it as a straight strip (drawn at a smaller scale) along a ruler, right to left. */
+const urCv=document.getElementById('urCv'), urctx=urCv.getContext('2d');
+const UR_PX=40, UR_RIN=0.5, UR_ROUT=3.5, UR_CX=320, UR_CY=196, UR_SC=4.4, UR_X1=600;   /* px per cm (slice); strip px per cm */
+const UR={ opened:0, pred:-1, revealed:0, p:0, n:5, full:0, nChanged:0, pts:null };
+const UR_TEXT='ויקרא אל משה וידבר ה׳ אליו מאהל מועד לאמר · ';
+function urBuild(){ const n=UR.n, M=Math.round(n*120), pts=[]; let s=0;
+  for(let i=0;i<=M;i++){ const t=i/M*2*PI*n, r=(UR_RIN+(UR_ROUT-UR_RIN)*i/M)*UR_PX, x=UR_CX+r*Math.cos(t), y=UR_CY+r*Math.sin(t);
+    if(i) s+=Math.hypot(x-pts[i-1].x, y-pts[i-1].y); pts.push({x,y,s}); }
+  UR.pts=pts; UR.L=s/UR_PX; }                                           /* length in cm (≈ N × π × 4) */
+function urPredict(k){ UR.pred=k; segOn('urP',3,k); WOW.emit('item', { id:'unroll:predict', kind:'quick', correct:k===2, attempt: wowTry('unroll:predict') });
+  urMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את מחוון הפרישה ימינה.'; urDraw(); }
+function urSet(){ if(UR.pred<0){ urU.value=0; predictFirst(urMsg,'פרשו'); urDraw(); return; }
+  if(!UR.opened){ UR.opened=1; WOW.emit('open', { id:'unroll' }); }
+  UR.p=+urU.value/100; if(UR.p>=1){ UR.full=1; } urDraw(); urText(); urCheck(); }
+function urTurns(){ if(UR.pred<0){ urN.value=UR.n; predictFirst(urMsg,'שנו'); return; }
+  UR.n=+urN.value; if(UR.n!==5) UR.nChanged=1; UR.pts=null; urDraw(); urText(); urCheck(); }
+function urText(){ const L=UR.L, d=Math.round(L*UR.p);
+  urMsg.innerHTML = UR.p<=0 ? 'המגילה מגולגלת. הזיזו את מחוון הפרישה.'
+    : UR.p<1 ? 'נפרשו כבר <span class="num">'+d+'</span> ס״מ. השכבה החיצונית יוצאת ראשונה.'
+    : 'פרושה כולה: <span class="math">'+UR.n+' × 3.14 × 4 ≈ '+Math.round(UR.n*3.14*4)+'</span> ס״מ. '+(UR.nChanged?'':'עכשיו נסו מספר סיבובים אחר.'); }
+function urCheck(){ if(UR.pred>=0 && !UR.revealed && UR.full && UR.nChanged){ UR.revealed=1; urReveal.hidden=false; urAfter.hidden=false; hint3.textContent='ענו על השאלה כדי להמשיך.'; } }
+function urDraw(){
+  if(!UR.pts) urBuild();
+  const c=urctx, W=urCv.width, H=urCv.height, ink=INK(), pts=UR.pts, Ltot=pts[pts.length-1].s, keep=Ltot*(1-UR.p);
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  xLabel(c,'פרוסה מהסריקה',UR_CX,26,22,ink,.92);
+  /* the slice: what remains rolled */
+  c.fillStyle=isDark()?'#1B1F3C':'#FFFDF6'; c.beginPath(); c.arc(UR_CX,UR_CY,UR_ROUT*UR_PX+14,0,2*PI); c.fill();
+  c.strokeStyle=isDark()?'#D2804A':'#5A3A24'; c.lineWidth=7; c.lineCap='round'; c.lineJoin='round';
+  c.globalAlpha=0.13; c.beginPath(); c.moveTo(pts[0].x,pts[0].y); for(const p of pts) c.lineTo(p.x,p.y); c.stroke(); c.globalAlpha=1; c.beginPath();
+  let last=pts[0]; c.moveTo(pts[0].x,pts[0].y); for(const p of pts){ if(p.s>keep) break; c.lineTo(p.x,p.y); last=p; } c.stroke();
+  /* the strip */
+  const sy=400, sh=44, len=UR.L*UR.p*UR_SC, xl=UR_X1-len;
+  if(UR.p>0){ c.strokeStyle=GOLD(); c.lineWidth=3; c.setLineDash([8,7]); c.beginPath(); c.moveTo(last.x,last.y); c.lineTo(Math.max(40,xl),sy); c.stroke(); c.setLineDash([]);
+    c.fillStyle=PAPY(); c.fillRect(xl,sy,len,sh); c.strokeStyle=ink; c.lineWidth=2.5; c.strokeRect(xl,sy,len,sh);
+    c.save(); c.beginPath(); c.rect(xl,sy,len,sh); c.clip(); c.font='700 '+(22*LS())+'px Rubik, Arial'; c.direction='rtl'; c.textAlign='right'; c.textBaseline='middle'; c.fillStyle='#2A1E16';
+    let tx=UR_X1-6; for(let k=0;k<6;k++){ c.fillText(UR_TEXT,tx,sy+sh/2); tx-=c.measureText(UR_TEXT).width; } c.direction='ltr'; c.restore(); }
+  /* the ruler: 0 at the strip's start (right), cm to the left */
+  const ry=sy+sh+22; c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(UR_X1,ry); c.lineTo(UR_X1-130*UR_SC,ry); c.stroke();
+  for(let cm=0; cm<=120; cm+=20){ const x=UR_X1-cm*UR_SC; c.beginPath(); c.moveTo(x,ry-10); c.lineTo(x,ry+10); c.stroke(); if(LS()===1 || cm%40===0) xMath(c,String(cm),x,ry+30,22,ink); }
+  xLabel(c,'סנטימטרים',320,ry+86,22,ink,.9);
+  xLabel(c, UR.p>0 ? 'הרצועה הפרושה' : 'כאן תופיע הרצועה', 320, sy-24, 22, ink, .92);
+  urOutN.textContent=String(UR.n); urOut.innerHTML='<span class="num">'+Math.round(UR.L*UR.p)+'</span> ס״מ';
+}
+
+/* ---------- step 4 (interactive 3): the computer's ink filter (canvas 640 × 600) ----------
+   A charred strip with fibres. Hidden inside: ΠΟΡΦΥΡΑϹ. Ink is drawn as "crackle" — short cracks seeded inside the
+   letter shapes (plus a few random false cracks outside). Filter 0–4: raw → contrast → mark cracks → group into blobs → letters. */
+const ckCv=document.getElementById('ckCv'), ckctx=ckCv.getContext('2d');
+const CK_WORD='ΠΟΡΦΥΡΑϹ', CK_Y0=110, CK_Y1=390;
+const CK_TXT=['הסריקה המקורית','מגבירים ניגודיות','מסמנים כל סדק','מקבצים סדקים לצורות','אותיות! ΠΟΡΦΥΡΑϹ'];
+const CK={ opened:0, pred:-1, revealed:0, f:0, cracks:null };
+function ckBuild(){ const o=document.createElement('canvas'); o.width=640; o.height=600; const x=o.getContext('2d');
+  x.font='700 84px "DejaVu Serif", Georgia, "Times New Roman", serif'; x.textAlign='center'; x.textBaseline='middle'; x.direction='ltr'; x.fillStyle='#000'; x.fillText(CK_WORD,320,250);
+  const d=x.getImageData(0,0,640,600).data, ink=[], noise=[];
+  for(let i=0;i<9000 && ink.length<1100;i++){ const px=40+xRand(i*1.7+3)*560, py=CK_Y0+10+xRand(i*2.9+7)*(CK_Y1-CK_Y0-20); if(d[(Math.floor(py)*640+Math.floor(px))*4+3]>140) ink.push([px,py,i]); else if(noise.length<160 && xRand(i*5.1)>0.88) noise.push([px,py,i]); }
+  const mk=([px,py,i])=>{ const seg=[[px,py]]; let a=xRand(i*3.3)*2*PI; for(let k=0;k<3;k++){ a+= (xRand(i*7.1+k)-0.5)*2.2; const l=5+xRand(i*1.3+k)*7; const q=seg[seg.length-1]; seg.push([q[0]+l*Math.cos(a), q[1]+l*Math.sin(a)]); } return seg; };
+  CK.cracks={ ink:ink.map(mk), noise:noise.map(mk) }; }
+function ckPredict(k){ CK.pred=k; segOn('ckP',3,k); WOW.emit('item', { id:'crackle:predict', kind:'quick', correct:k===1, attempt: wowTry('crackle:predict') });
+  ckMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את מחוון המסנן ימינה, צעד אחרי צעד.'; ckDraw(); }
+function ckSet(){ if(CK.pred<0){ ckF.value=0; predictFirst(ckMsg,'הפעילו'); ckDraw(); return; }
+  if(!CK.opened){ CK.opened=1; WOW.emit('open', { id:'crackle' }); }
+  CK.f=+ckF.value; ckDraw();
+  ckMsg.innerHTML=['הסריקה כמו שהיא. רואים אותיות? כמעט אי אפשר.','הגברנו ניגודיות. יש פה ושם קווים דקים ובהירים.','המחשב סימן כל סדק בזהב. שימו לב: ברוב המקומות הם צפופים, ובחלק — סדק בודד, אולי סתם רעש.','מקבצים: איפה שיש הרבה סדקים יחד, מופיעה צורה. הסדקים הבודדים נעלמים.','הצורות הן אותיות יווניות! חוקרים קוראים: <b>ΠΟΡΦΥΡΑϹ</b>, פּוֹרְפִירָס — ארגמן.'][CK.f];
+  if(!CK.revealed && CK.f===4){ CK.revealed=1; ckReveal.hidden=false; ckAfter.hidden=false; hint4.textContent='ענו על השאלה כדי להמשיך.'; } }
+function ckLine(c,seg){ c.beginPath(); c.moveTo(seg[0][0],seg[0][1]); for(let k=1;k<seg.length;k++) c.lineTo(seg[k][0],seg[k][1]); c.stroke(); }
+function ckDraw(){
+  if(!CK.cracks) ckBuild();
+  const c=ckctx, W=ckCv.width, H=ckCv.height, ink=INK(), f=CK.f;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  xLabel(c,'פיסה מתוך הסריקה הפרושה',320,40,22,ink,.92);
+  /* the charred strip */
+  c.fillStyle=CHAR(); c.fillRect(30,CK_Y0,580,CK_Y1-CK_Y0); c.strokeStyle=ink; c.lineWidth=3; c.strokeRect(30,CK_Y0,580,CK_Y1-CK_Y0);
+  c.save(); c.beginPath(); c.rect(32,CK_Y0+2,576,CK_Y1-CK_Y0-4); c.clip();
+  const fa = f>=2 ? 0.35 : 1; c.globalAlpha=fa; c.strokeStyle=FIBRE(); c.lineWidth=2.5;
+  for(let y=CK_Y0+6;y<CK_Y1;y+=9){ c.beginPath(); for(let x=30;x<=610;x+=20){ const yy=y+Math.sin((x+y)*0.05)*1.6; x===30?c.moveTo(x,yy):c.lineTo(x,yy); } c.stroke(); }
+  c.lineWidth=1.5; for(let x=36;x<610;x+=15){ c.beginPath(); c.moveTo(x,CK_Y0); c.lineTo(x+Math.sin(x)*3,CK_Y1); c.stroke(); }
+  c.globalAlpha=1;
+  /* the cracks */
+  const raw = isDark() ? '#3F3127' : '#4F3E30', lift = isDark() ? '#8A7058' : '#7C6450';
+  c.lineCap='round';
+  if(f<=1){ c.strokeStyle = f===0 ? raw : lift; c.globalAlpha = f===0 ? 0.45 : 0.9; c.lineWidth = f===0 ? 1.3 : 2; [...CK.cracks.ink, ...CK.cracks.noise].forEach(s=>ckLine(c,s)); c.globalAlpha=1; }
+  else if(f===2){ c.strokeStyle=GOLD(); c.lineWidth=2.2; [...CK.cracks.ink, ...CK.cracks.noise].forEach(s=>ckLine(c,s)); }
+  else { c.fillStyle=PURP(); c.globalAlpha = f===3 ? 0.16 : 0.10; CK.cracks.ink.forEach(s=>{ c.beginPath(); c.arc(s[0][0],s[0][1],10,0,2*PI); c.fill(); }); c.globalAlpha=1;
+    c.strokeStyle=GOLD(); c.lineWidth=2; c.globalAlpha = f===3 ? 0.9 : 0.5; CK.cracks.ink.forEach(s=>ckLine(c,s)); c.globalAlpha=1;
+    if(f===4){ c.font='700 84px "DejaVu Serif", Georgia, "Times New Roman", serif'; c.textAlign='center'; c.textBaseline='middle'; c.direction='ltr'; c.fillStyle=PURP(); c.globalAlpha=0.88; c.fillText(CK_WORD,320,250); c.globalAlpha=1; } }
+  c.restore();
+  if(f===4){ xLabel(c,'פּוֹרְפִירָס, כלומר ארגמן',320,CK_Y1+48,28,PURP(),.95); }
+  xLabel(c,CK_TXT[f],320,H-40,22,ink,.95);
+  ckOut.innerHTML='<span class="math">'+f+' / 4</span>';
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  vesuvQ:{ q:'למה אי אפשר פשוט לפתוח את המגילות מהרקולנאום?', opts:['הן נעולות במנעול רומי עתיק','הן הפכו לגחלים שבירים שמתפוררים','הן כתובות בשפה סודית','הן דבוקות בדבק חזק במיוחד'], a:1, fb:'החום של הר הגעש הפך את הפפירוס לפחם. גחל כזה מתפורר כמעט בכל נגיעה — לכן המכונה של פיאג׳ו הרסה חלקים מהמגילות, והיום מעדיפים לא לפתוח.', btn:'next1' },
+  xrayQ:{ q:'למה אי אפשר לראות את הדיו של מגילות הרקולנאום בצילום רנטגן רגיל?', opts:['הדיו נמחק במשך אלפיים שנה','הדיו עשוי מפחם, כמו הפפירוס החרוך','קרני רנטגן לא עוברות דרך פפירוס','הדיו היה שקוף כבר מההתחלה'], a:1, fb:'הדיו הוא פיח — פחם — והמגילה הפכה לפחם. רנטגן מודד כמה קרניים החומר עוצר, ושניהם עוצרים כמעט אותו דבר. דיו עם מתכת, כמו בעין גדי, עוצר הרבה יותר ולכן נראה.', btn:'next2' },
+  unrollQ:{ q:'מה פירוש "פרישה וירטואלית"?', opts:['לפתוח את המגילה בזהירות בידיים','לעקוב במחשב אחרי שכבה ולפרוש אותה לדף שטוח','לצלם את המגילה רק מבחוץ','להרטיב את המגילה עד שהיא נפתחת'], a:1, fb:'"וירטואלי" פירושו "בתוך המחשב". מוצאים את אותה שכבה של פפירוס בכל הפרוסות, מחברים, ומיישרים אותה — והמגילה עצמה נשארת סגורה.', btn:'next3' },
+  crackQ:{ q:'אחרי שהמחשב מוצא אותיות, מי בודק שהוא לא טעה?', opts:['אף אחד — סומכים על המחשב','המחשב בודק את עצמו שוב','חוקרי פפירוסים שיודעים יוונית עתיקה','התייר הראשון שעובר במוזיאון'], a:2, fb:'מחשב שמחפש אותיות עלול "לראות" אותיות גם בכתמים אקראיים. לכן חוקרים שקוראים יוונית עתיקה בודקים כל אות, ורק מה שהם מאשרים נחשב לקריאה.', btn:'next4' },
+  deepQ:{ q:'לגליל יש קוטר של <span class="num">10</span> ס״מ. בערך כמה ארוך סיבוב אחד שלו?', opts:['כ־<span class="num">10</span> ס״מ','כ־<span class="num">20</span> ס״מ','כ־<span class="num">30</span> ס״מ','כ־<span class="num">100</span> ס״מ'], a:2, fb:'סיבוב אחד הוא בערך פי <span class="num">3</span> מהקוטר: <span class="math">3.14 × 10 ≈ 31</span> ס״מ. <span class="num">10</span> זה רק הקוטר, ו־<span class="num">20</span> זה רק פעמיים — חסר עוד קוטר אחד ועוד קצת.' }
+};
+const MCQ = {
+  shared:[
+    { q:'מה הפך את מגילות הרקולנאום לגחלים?', opts:['הרטיבות של הים התיכון','החום של התפרצות הר הגעש וזוב','שרפו אותן בכוונה בתנור','חיידקים שאכלו אותן'], a:1, fb:'ב־<span class="num">79</span> ענני גז ואפר לוהטים כיסו את העיר. בלי מספיק אוויר, הפפירוס לא בער — הוא התפחם. רטיבות וחיידקים דווקא מרקיבים פפירוס, אבל פחם כמעט לא נרקב.' },
+    { q:'למה בעין גדי ראו את האותיות בסריקה, ובהרקולנאום לא?', opts:['בעין גדי הדיו כנראה הכיל מתכת, שעוצרת יותר קרני רנטגן','רנטגן רואה אותיות בעברית, אבל לא ביוונית','המגילה מעין גדי בכלל לא נשרפה','בעין גדי האירו עליה בפנס חזק במיוחד'], a:0, fb:'רנטגן לא קורא שפות ולא רואה צבעים — הוא מודד כמה החומר עוצר. מתכת עוצרת הרבה, ולכן הדיו מעין גדי בהק. גם המגילה מעין גדי נשרפה, ופנס רגיל לא עובר דרך גחל.' },
+    { q:'מה התוכנה של לוק פריטור למדה לזהות?', opts:['את הריח של הדיו העתיק','סדקים זעירים במקומות שבהם יש דיו','את הקול של מי שכתב את המגילה','צבע ירוק שנשאר על הפפירוס'], a:1, fb:'קייסי הנדמר הבחין בדוגמה של סדקים זעירים, "כמו בוץ יבש", במקומות של הכתב. פריטור לימד מחשב למצוא את הדוגמה הזאת גם כשהעין לא רואה אותה. בסריקת רנטגן אין ריח, קול או צבע.' }
+  ],
+  younger:[
+    { q:'מה הייתה המילה הראשונה שנקראה מתוך מגילה סגורה מהרקולנאום?', opts:['שלום','ארגמן — צבע סגול־אדום','וזוב','ספר'], a:1, fb:'המילה היוונית ΠΟΡΦΥΡΑϹ, פּוֹרְפִירָס, פירושה ארגמן — הצבע היקר שהופק מחילזון ים. "וזוב" הוא שם הר הגעש, ו"שלום" ו"ספר" הן מילים בעברית — והמגילה כתובה ביוונית.' }
+  ],
+  older:[
+    { q:'במגילה <span class="num">50</span> סיבובים, והקוטר הממוצע שלהם <span class="num">6</span> ס״מ. בערך מה האורך שלה?', opts:['כ־<span class="num">3</span> מטר','כ־<span class="num">9.4</span> מטר','כ־<span class="num">30</span> מטר','כ־<span class="num">94</span> מטר'], a:1, fb:'<span class="math">50 × 3.14 × 6 = 942</span> ס״מ, כלומר כ־<span class="num">9.4</span> מטר. <span class="num">3</span> מטר יוצא אם שוכחים את π (<span class="math">50 × 6 = 300</span>). <span class="num">30</span> ו־<span class="num">94</span> מטר הם טעות בהמרה מס״מ למטרים: <span class="math">942 ÷ 100 = 9.42</span>.' }
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'הר הגעש וזוב מתפרץ, והמגילות הופכות לגחלים.'},
+  {id:'b', t:'פועלים מוצאים את המגילות בווילה, מתחת לאבן ולאפר.'},
+  {id:'c', t:'סורקים מגילה סגורה ברנטגן, מאלפי כיוונים.'},
+  {id:'d', t:'המחשב בונה אלפי פרוסות, ועוקבים בהן אחרי שכבה אחת.'},
+  {id:'e', t:'פורשים את השכבה במחשב לדף שטוח.'},
+  {id:'f', t:'תוכנה מחפשת סדקים של דיו, וחוקרים קוראים את האותיות.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלכם: ' : '<span class="pill-ok">מסע מושלם!</span>')+' הר הגעש ← הגילוי בווילה ← סריקה ← פרוסות ומעקב אחרי שכבה ← פרישה ← סדקים וקריאה. מהשריפה ועד המילה הראשונה — כמעט אלפיים שנה.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) אי אפשר לפרוש שכבה לפני שיש פרוסות לעקוב בהן. (2) מחפשים דיו רק על הדף הפרוש, ובסוף אנשים קוראים.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && Math.abs(a-40000)<=1000, bOk = hasB && Math.abs(b-9.5)<=0.1;
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && Math.abs(a-100)<0.5) ? '(א): <span class="num">100</span> זה <span class="num">5%</span> מ־<span class="num">2,000</span>. כאן הפוך: ה־<span class="num">2,000</span> הן ה־<span class="num">5%</span>, ומחפשים את השלם.'
+    : (hasA && Math.abs(a-400)<0.5) ? '(א): חילקתם ב־<span class="num">5</span>. אבל <span class="num">5%</span> זה <span class="num">5</span> מתוך <span class="num">100</span> — חלק אחד מתוך <span class="num">20</span>. כמה פעמים <span class="num">2,000</span> נכנס בשלם?'
+    : (hasA && Math.abs(a-10000)<0.5) ? '(א): כפלתם ב־<span class="num">5</span>. <span class="num">5%</span> זה חלק אחד מתוך <span class="num">20</span>, לא מתוך <span class="num">5</span>.'
+    : '(א): רמז — <span class="num">5%</span> = חלק אחד מתוך <span class="num">20</span>. אז השלם הוא <span class="math">2,000 × 20 = ?</span>';
+  const hintB = (hasB && Math.abs(b-10)<0.01) ? '(ב): קרוב! אם עיגלתם — כתבו את התשובה בלי לעגל. ואם לא: <span class="num">2,000</span> אותיות כבר נקראו. כמה <b>נשאר</b>? <span class="math">40,000 − 2,000 = ?</span>'
+    : (hasB && Math.abs(b-0.5)<0.01) ? '(ב): זה הזמן לקרוא <span class="num">2,000</span> אותיות — מה שכבר נקרא. חשבו את מה שנשאר.'
+    : (hasB && b>1000) ? '(ב): זה מספר אותיות, לא חודשים. חלקו את מה שנשאר ב־<span class="num">4,000</span> אותיות בחודש.'
+    : '(ב): רמז — <span class="math">(השלם − 2,000) ÷ 4,000 = ?</span>';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="num">5%</span> זה חלק אחד מתוך <span class="num">20</span>, ולכן <span class="math">2,000 × 20 = 40,000</span> אותיות. (ב) נשאר <span class="math">40,000 − 2,000 = 38,000</span>, ו־<span class="math">38,000 ÷ 4,000 = 9.5</span> חודשים. וזה רק למגילה אחת — ויש מאות! עכשיו פתחו את השאלה למחשבה שלמטה.'
+    : aOk ? '<span class="pill-ok">(א) נכון — כ־<span class="num">40,000</span> אותיות.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — <span class="num">9.5</span> חודשים.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const sp=+numAdvR.value, ks=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && Math.abs(sp-1174.4)<=10), yOk=(hasY && ks>=154 && ks<=159), sc = dOk&&yOk?2:((dOk||yOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && Math.abs(sp-374)<1) ? 'ב־(א): <span class="math">85 × 4.4 = 374</span> — שכחתם את π. כל סיבוב ארוך פי <span class="num">3.14</span> מהקוטר.'
+      : (hasD && Math.abs(sp-13.816)<0.1) ? 'ב־(א): זה האורך של סיבוב <b>אחד</b>. במגילה יש <span class="num">85</span> כאלה.'
+      : (hasD && Math.abs(sp-11.744)<0.05) ? 'ב־(א): קיבלתם מטרים. השאלה בס״מ: כפלו ב־<span class="num">100</span>.'
+      : (hasD && Math.abs(sp-92.54)<0.5) ? 'ב־(א): חיברתם במקום לכפול. <span class="math">85 × 3.14 × 4.4 = ?</span>'
+      : 'רמז ל־(א): <span class="math">סיבובים × 3.14 × קוטר = 85 × 3.14 × 4.4 = ?</span>';
+    const hintY = (hasY && Math.abs(ks-49.9)<1) ? 'ב־(ב): חילקתם את <span class="num">374</span> — האורך בלי π. השתמשו באורך הנכון מ־(א).'
+      : (hasY && ks>0 && ks<1) ? 'ב־(ב): חילקתם הפוך. כמה טורים נכנסים = האורך ÷ <span class="num">7.5</span>.'
+      : (hasY && Math.abs(ks-8808)<50) ? 'ב־(ב): כפלתם ב־<span class="num">7.5</span>. כדי לדעת כמה טורים נכנסים — מחלקים.'
+      : (hasY && Math.abs(ks-1.8)<0.3) ? 'ב־(ב): חילקתם את סיבוב אחד ב־<span class="num">7.5</span>. צריך את כל המגילה.'
+      : 'רמז ל־(ב): <span class="math">(התשובה של א) ÷ 7.5 = ?</span> ועגלו לשלם.';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) סיבוב אחד: <span class="math">3.14 × 4.4 = 13.816</span> ס״מ, וכל המגילה: <span class="math">85 × 13.816 ≈ 1,174</span> ס״מ — כ־<span class="num">11.7</span> מטר. (ב) <span class="math">1,174.4 ÷ 7.5 ≈ 157</span> טורים. מגילה שלמה של טקסט.'
+      : dOk ? '<span class="pill-ok">(א) נכון — כ־<span class="num">1,174</span> ס״מ.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">157</span> טורים.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-560)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">4 × 140 = 560</span> אותיות. והזוכים קראו הרבה יותר: יותר מ־<span class="num">2,000</span>!':(Math.abs(v-144)<0.01?'<span class="pill-bad">כמעט.</span> <span class="math">4 + 140 = 144</span> — חיברתם. אבל יש <span class="num">4</span> קטעים, ו<b>בכל אחד</b> מהם <span class="num">140</span> אותיות.':(Math.abs(v-280)<0.01||Math.abs(v-420)<0.01?'<span class="pill-bad">קרוב!</span> ספרו שוב: <span class="num">4</span> קטעים. <span class="math">140 + 140 + 140 + 140 = ?</span>':'<span class="pill-bad">עוד לא.</span> רמז: <span class="num">4</span> קטעים, ובכל קטע <span class="num">140</span>. אפשר לחבר: <span class="math">140 + 140 = 280</span>, ועוד פעם.')); }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-1099)<=10; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> סיבוב אחד: <span class="math">3.14 × 5 = 15.7</span> ס״מ, וכל המגילה: <span class="math">70 × 15.7 = 1,099</span> ס״מ — כמעט <span class="num">11</span> מטר, בדיוק בטווח של מגילות הרקולנאום.':(Math.abs(v-350)<0.5?'<span class="pill-bad">כמעט.</span> <span class="math">70 × 5 = 350</span> — שכחתם את π. כל סיבוב ארוך פי <span class="num">3.14</span> מהקוטר.':(Math.abs(v-15.7)<0.1?'<span class="pill-bad">חצי דרך.</span> זה סיבוב <b>אחד</b>. במגילה יש <span class="num">70</span> סיבובים.':(Math.abs(v-10.99)<0.05?'<span class="pill-bad">כמעט!</span> זה במטרים. השאלה בס״מ.':(Math.abs(v-78.14)<0.1?'<span class="pill-bad">לא בדיוק.</span> חיברתם. צריך לכפול: <span class="math">70 × 3.14 × 5 = ?</span>':'<span class="pill-bad">עוד לא.</span> רמז: <span class="math">סיבובים × 3.14 × קוטר = ?</span>')))); }
+  fb.classList.add('show'); }
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שסורקים את המגילה בקרני רנטגן מהרבה כיוונים, ומקבלים פרוסות — תמונה של המגילה מבפנים.',
+  'הסברתי שבמחשב עוקבים אחרי שכבה אחת של פפירוס ו"פורשים" אותה לדף שטוח.',
+  'הסברתי למה הדיו קשה לראות: הוא עשוי מפחם, כמו הפפירוס החרוך (ובעין גדי הדיו הכיל כנראה מתכת, ולכן נראה).',
+  'הסברתי שמחשב למד לזהות סדקים זעירים במקומות שיש בהם דיו, וחוקרים קראו ובדקו את האותיות.',
+  'הוספתי פרט מדויק: וזוב ב־<span class="num">79</span>, עין גדי וספר ויקרא, לוק פריטור והמילה "ארגמן" ב־<span class="num">2023</span>, או אורך של <span class="math">11–15</span> מטר.',
+];
+const MODEL='ב־<span class="num">79</span> הר הגעש וזוב הפך את המגילות בהרקולנאום לגחלים, ואם פותחים אותן הן מתפוררות. לכן סורקים אותן בקרני רנטגן מאלפי כיוונים, והמחשב בונה אלפי פרוסות — כל פרוסה נראית כמו ספירלה. במחשב עוקבים אחרי שכבה אחת של פפירוס ופורשים אותה לדף שטוח, בלי לגעת במגילה. הקושי הגדול: הדיו עשוי מפחם, בדיוק כמו הפפירוס החרוך, ולכן ברנטגן הוא כמעט לא נראה. (במגילה מעין גדי הדיו הכיל כנראה מתכת, ולכן קראו בה את תחילת ספר ויקרא.) ב־<span class="num">2023</span> התגלה שבמקומות של הכתב יש סדקים זעירים, כמו בוץ יבש. לוק פריטור לימד מחשב למצוא אותם, וחוקרים קראו את המילה הראשונה: "ארגמן".';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון: טומוגרפיה — צילומי רנטגן מכל הכיוונים שמהם בונים פרוסות; פרישה וירטואלית — מעקב אחרי שכבה אחת בספירלה ויישור שלה; למה דיו פחם כמעט בלתי נראה (רנטגן מודד בליעה, ופחמן בדיו ובפפירוס החרוך בולע כמעט אותו דבר, בעוד מתכת בולעת הרבה — עין גדי); איך למידת מכונה זיהתה את דפוס הסדקים ואת העובי הזעיר של הדיו, וחוקרים אימתו; ולא רק "צילמו ברנטגן"':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "המגילה שנשרפה לגחל — וקראו אותה בלי לפתוח". הרעיונות המרכזיים: (1) ב־79 התפרצות הר הגעש וזוב קברה את הרקולנאום; בווילת הפפירוסים (כנראה של חותנו של יוליוס קיסר) נמצאו ב־1752 יותר מ־1,800 מגילות וקטעים שהתפחמו לגחלים שבירים; (2) אנטוניו פיאג׳ו פתח מגילות במכונה עם חוטי משי, מילימטרים ביום, כ־4 שנים למגילה הראשונה, והרס חלקים; היום לא פותחים; (3) רנטגן מודד כמה החומר עוצר: מתכת עוצרת הרבה ופחם מעט; דיו הרקולנאום עשוי מפיח (פחם) כמו הפפירוס החרוך ולכן כמעט לא נראה; בעין גדי (נמצאה ב־1970, בית כנסת שנשרף בסביבות 600 לספירה) הדיו הכיל כנראה מתכת, ולכן אחרי סריקה של רשות העתיקות ופרישה של ברנט סילס התגלתה ב־2016 תחילת ספר ויקרא; (4) טומוגרפיה: צילומים מאלפי כיוונים, אלפי פרוסות שכל אחת נראית כמו ספירלה; פרישה וירטואלית: מעקב אחרי שכבה ויישור במחשב; אורך ≈ סיבובים × π × קוטר ממוצע; מגילה פרושה כ־11–15 מטר; (5) אתגר וזוב 2023: קייסי הנדמר הבחין בדפוס סדקים ("כמו בוץ יבש") במקומות של הדיו; לוק פריטור, בן 21 מנברסקה, אימן תוכנה לזהות אותו וקרא את המילה ΠΟΡΦΥΡΑϹ, ארגמן (40,000 דולר); יוסף נאדר מצא אותה גם; ב־2024 נאדר, פריטור ויוליאן שילינגר קראו יותר מ־2,000 אותיות, כ־5% מהמגילה (700,000 דולר) — חיבור על הנאה, כנראה של פילודמוס; ב־2025 נקראה כותרת: "על המידות הרעות"; ב־2026 נפרשה וירטואלית מגילה שלמה (PHerc. 1667, כ־20 טורים) ומ־PHerc. 172 נקראו יותר מ־70 טורים; חוקרי פפירוסים בודקים את האותיות. חישובי המבחן: צעיר — 4 × 140 = 560; בוגר — 70 × 3.14 × 5 = 1,099 ס״מ; מתקדם — 85 × 3.14 × 4.4 ≈ 1,174 ס״מ, 1,174.4 ÷ 7.5 ≈ 157 טורים; אתגר — 2,000 × 20 = 40,000 אותיות, (40,000 − 2,000) ÷ 4,000 = 9.5 חודשים.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם איך קוראים בלי לפתוח (סריקה ברנטגן ופרישה במחשב) וגם למה זה היה קשה (הדיו מפחם כמו הפפירוס החרוך, ולכן צריך למצוא אותו אחרת — סדקים, מחשב שלומד); 1 אם יש רק אחד מהשניים או רק חלק. הסבר שאומר שפתחו את המגילה בידיים, או שהרנטגן "רואה" את הדיו בקלות — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', קראת את המגילה עד הסוף!':pct>=60?name+', כמעט כל האותיות נחשפו!':name+', עוד כמה סדקים — והמילה תופיע!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=3;                                                       // like a bus, about 12 m (11–15 m)
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשתם בהתחלה. התשובה: <b>כמו אוטובוס</b> — חוקרים העריכו שמגילה פרושה הייתה באורך של <span class="math">11–15</span> מטר.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשתם <b>כמו אוטובוס</b> — וקלעתם. עכשיו גם יודעים למה: כל סיבוב ארוך פי <span class="num">3.14</span> מהקוטר, ובמגילה יש עשרות סיבובים.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשתם: <b>'+fmtSigns(S.guess)+'</b>. התשובה: כמו אוטובוס, <span class="math">11–15</span> מטר. ועכשיו גם יודעים למה: <span class="math">אורך ≈ סיבובים × π × קוטר ממוצע</span>.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה ארוכה מגילה מהרקולנאום אם פורשים אותה): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: כמו אוטובוס, 11–15 מטר)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "המגילה שנשרפה לגחל — וקראו אותה בלי לפתוח", מהדורה 62, ג׳ בכסלו תשפ״ז (יום שישי, 13 בנובמבר 2026). נושא: היסטוריה (הרקולנאום, וילת הפפירוסים, עין גדי), פיזיקה (קרני רנטגן ובליעה, טומוגרפיה), טכנולוגיה ומחשבים (פרישה וירטואלית, למידת מכונה), מתמטיקה (היקף, π, אורך ספירלה, אחוזים וקצב) והנדסה. העובדות: ב־79 לספירה התפרץ הר הגעש וזוב וקבר את הרקולנאום ואת פומפיי; ענני גז ואפר בחום של מאות מעלות כיסו את העיר, ובלי מספיק חמצן הפפירוס לא בער אלא התפחם, ולכן שרד. וילת הפפירוסים, כנראה של חותנו של יוליוס קיסר (Lucius Calpurnius Piso), נחפרה החל מ־1752; נמצאו יותר מ־1,800 מגילות וקטעים (הרשימה הרשמית 1,814), שבהתחלה נחשבו לפחם. אנטוניו פיאג׳ו בנה מכונה עם חוטי משי וברגים שפתחה מגילות מילימטרים ביום; פתיחת הראשונה נמשכה כ־4 שנים, ותחילות מגילות רבות נהרסו. רנטגן: אור שהעין לא רואה; חומר צפוף וכבד (עצם, מתכת) עוצר יותר קרניים ונראה בהיר; אטומים כבדים כמו ברזל ועופרת בולעים הרבה יותר מפחמן. דיו הרקולנאום עשוי מפיח (פחם) ודבק, כמעט זהה בהרכבו לפפירוס המפוחם, ולכן לא נראה בסי־טי רגיל; הדיו מוסיף עובי זעיר שסריקה רגישה (phase-contrast) יכולה להבחין בו. סריקה: צילומים מאלפי כיוונים ואלפי פרוסות (טומוגרפיה, כמו סי־טי); את מגילות הרקולנאום סרקו במאיץ החלקיקים Diamond Light Source באנגליה. בפרוסה המגילה נראית כמו ספירלה; פרישה וירטואלית = מעקב אחרי שכבה אחת בכל הפרוסות ויישורה במחשב. עין גדי: ב־1970 נמצאה מגילה שרופה בארון הקודש של בית כנסת שנשרף בסביבות 600 לספירה; רשות העתיקות (פנינה שור) סרקה ב־micro-CT, צוות ברנט סילס מאוניברסיטת קנטקי פרש, וב־2016 (Science Advances) פורסם: תחילת ספר ויקרא, 2 טורים, 35 שורות, חמישה סיבובים; הדיו נראה צפוף, כנראה עם ברזל או עופרת; תיארוך פחמן 14 למאות ה־3–4, ולפי כתב היד המאות ה־1–2. אתגר וזוב (הוכרז במרץ 2023 על ידי ברנט סילס, נאט פרידמן ודניאל גרוס): באוגוסט 2023 קייסי הנדמר הבחין ב"crackle pattern" — דפוס סדקים כמו בוץ יבש — במקומות של הדיו (פרס First Ink); לוק פריטור, בן 21, סטודנט למדעי המחשב באוניברסיטת נברסקה, אימן מודל למידת מכונה על הדפוס ומצא את המילה ΠΟΡΦΥΡΑϹ (porphyras, ארגמן); 13 אותיות סומנו; פרס 40,000 דולר שהוכרז ב־12 באוקטובר 2023; יוסף נאדר, דוקטורנט מצרי בברלין, מצא אותה מילה (מקום שני, 10,000 דולר). ב־5 בפברואר 2024 נאדר, פריטור ויוליאן שילינגר (שווייץ) זכו ב־700,000 דולר: יותר מ־2,000 אותיות, כ־5% מהמגילה; התנאי היה 4 קטעים של 140 אותיות; החיבור עוסק בהנאה מנקודת מבט אפיקוראית, כנראה של פילודמוס (בערך 110–30 לפנה״ס). במאי 2025 נקראה כותרת מגילה סגורה, PHerc. 172 באוקספורד: פילודמוס, "על המידות הרעות". ב־25 ביוני 2026 הוכרז בנאפולי: את כל מה ששרד מ־PHerc. 1667 פרשו וירטואלית — כ־20 טורים, כ־1.5 מטר של טקסט, אולי חיבור סטואי; מ־PHerc. 172 נקראו יותר מ־70 טורים; וב־PHerc. 139 נמצאה כותרת: פילודמוס, "על האלים", ספר 8. מגילה פרושה מוערכת ב־11–15 מטר (מכון דה פראנס). היקף = π × קוטר, π ≈ 3.14; אורך ספירלה ≈ סיבובים × π × קוטר ממוצע. מספרי הסיבובים, הקטרים, רוחב טור 7.5 ס״מ וקצב 4,000 אותיות בחודש הם מספרים לדוגמה. ההסבר לסדקים (שכבת דיו שהתכווצה) הוא השערה; המנגנון עדיין נחקר. ההדמיות (מעבדת הרנטגן, הפורש הווירטואלי, המסנן) מפושטות: הניגוד בין סוגי הדיו מוגזם, והאותיות במסנן מצוירות מחדש. וזוב עדיין פעיל; ההתפרצות האחרונה ב־1944. התשובות הבאות הן למבחן ולאתגר — אל תגלה אותן, תן רק רמז: צעיר — 4 × 140 = 560 אותיות; בוגר — 70 × 3.14 × 5 = 1,099 ס״מ; מתקדם — 85 × 3.14 × 4.4 ≈ 1,174 ס״מ, 1,174.4 ÷ 7.5 ≈ 157 טורים; אתגר — 2,000 × 20 = 40,000 אותיות, 38,000 ÷ 4,000 = 9.5 חודשים.';
+const CHIPS = ['למה אי אפשר לפתוח את המגילה?', 'איך רנטגן רואה דרך דברים?', 'מה זה פרישה וירטואלית?', 'מה כתוב במגילות?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: למה פפירוס מתפחם ולא נשרף בלי חמצן; למה רנטגן מודד בליעה ואטומים כבדים בולעים יותר; למה דיו פחם כמעט בלתי נראה ודיו מתכת כן; טומוגרפיה — איך מאלפי צילומים בונים פרוסות; פרישה וירטואלית ולמה מעקב אחרי שכבה מעוכה קשה; היקף = π × קוטר ואורך ספירלה ≈ סיבובים × π × קוטר ממוצע; למידת מכונה — דוגמאות של יש דיו ואין דיו, וסכנת "הזיה" של אותיות שמחייבת בדיקה של חוקרים; אחוזים — 5% הם חלק אחד מתוך 20), שאל שאלות המשך שדורשות חשיבה (למשל: למה הקוטר הממוצע נותן אורך טוב לספירלה? מה יקרה לאורך אם נכפיל את מספר הסיבובים ואת הקוטר יחד? למה כדאי להשאיר מגילות סגורות לעתיד? איך היית בודק שמחשב לא "המציא" אות?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה אי אפשר לפתוח את המגילה?</b> החום של הר הגעש הפך אותה לגחל שבירה, שמתפוררת בכל נגיעה. לכן סורקים אותה ברנטגן ופורשים אותה בתוך המחשב.<br><br><b>למה קשה לראות את הדיו?</b> הדיו עשוי מפחם, בדיוק כמו המגילה החרוכה, ולכן ברנטגן הם נראים כמעט אותו דבר. מחשב למד למצוא סדקים זעירים במקומות של הכתב — וכך נקראה המילה "ארגמן".');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; only the field runs a short timer */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
