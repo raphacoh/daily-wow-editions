@@ -1,0 +1,24 @@
+{
+  "n": 63,
+  "code": "WOW-063",
+  "date": "2026-11-14",
+  "language": "he",
+  "title": "העכביש שעף בלי כנפיים — מאות קילומטרים, על חוטי משי",
+  "topics": [
+    "ביולוגיה",
+    "פיזיקה",
+    "גאוגרפיה",
+    "מתמטיקה",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "Ballooning spiders: Darwin's Beagle (1832) covered in spiders ~60 miles offshore, the lone spider on Krakatoa (1884), like charges repel so silk threads fan out, the global electric circuit (~100 V/m fair weather, Tel Aviv University stations at Mitzpe Ramon and Hermon), field enhancement at sharp tips, Morley & Robert's 2018 windless-box experiment (Erigone, trichobothria; electric fields sufficient, not proven necessary); voltage = field × height and m/s → km/h, with a miles→km→hours challenge.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: older track still ~1,500 words (est. 30–33 min with the optional challenge); kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised on file://; review copy doesn't declare the sample capability (template)",
+  "review_url": "https://claude.ai/artifact/1eKWQbw49z6cKmoVNiEacA",
+  "editor_note": null
+}
