@@ -16,7 +16,7 @@
   "teaser": null,
   "max_score": null,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-11-14T08:09:22.237Z",
   "password": null,
   "reviewer_verdict": "PASS (2 rounds) — nits left: older track still ~1,500 words (est. 30–33 min with the optional challenge); kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised on file://; review copy doesn't declare the sample capability (template)",
   "review_url": "https://claude.ai/artifact/1eKWQbw49z6cKmoVNiEacA",
