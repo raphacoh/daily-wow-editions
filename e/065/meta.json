@@ -17,7 +17,7 @@
   "teaser": null,
   "max_score": null,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-11-17T08:09:56.090Z",
   "password": null,
   "reviewer_verdict": "PASS (3 rounds) — nits left: reviewer estimates ~35–40 min (younger) / ~35 min (older) vs the 'כ־25 דקות' tag; the Arto button covers each canvas's bottom-left corner on phones (engine); kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template)",
   "review_url": "https://claude.ai/artifact/Ld4S3yakqhz2gpNZXsSumJ",
