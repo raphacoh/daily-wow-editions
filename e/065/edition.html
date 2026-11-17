@@ -1,0 +1,1712 @@
+<title>שורשים וכנפיים #65 · הכדור שמסגיר את עצמו 500 פעמים בשנייה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#2F7D4F; --shadow-soft:#DDF0E0;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .tick{animation:tick 1.3373s ease-out infinite}}
+@keyframes tick{0%{opacity:.95}30%{opacity:.75}100%{opacity:.08}}
+@keyframes spark{0%{transform:translate(236px,236px);opacity:0}15%{opacity:1}100%{transform:translate(286px,120px);opacity:0}}
+@keyframes spark2{0%{transform:translate(240px,250px);opacity:0}15%{opacity:1}100%{transform:translate(200px,290px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 65</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs><radialGradient id="glow" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#E8A33D" stop-opacity=".28"/><stop offset="60%" stop-color="#E8A33D" stop-opacity=".08"/><stop offset="100%" stop-color="#E8A33D" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <circle cx="150" cy="140" r="78" fill="#FFFDF6" stroke="#1B1F33" stroke-width="5"/>
+    <path d="M150 62 Q120 140 150 218 M72 140 Q150 112 228 140 M96 86 Q150 150 204 194" fill="none" stroke="#1B1F33" stroke-width="3" opacity=".55"/>
+    <circle cx="150" cy="140" r="13" fill="#C8452D"/>
+    <path d="M30 262 H96 L110 232 L124 288 L140 214 L154 262 H270" fill="none" stroke="#C8452D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <g class="spark" fill="#E8A33D"><circle cx="0" cy="0" r="4"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 65</span><span class="tag">יום שלישי, 17 בנובמבר 2026</span><span class="tag">ז׳ בכסלו תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>הכדור שמסגיר את עצמו <span class="num">500</span> פעמים בשנייה</h1>
+  <p class="lede">בתוך כדור של מונדיאל מסתתר חיישן קטן. הוא לא רואה ולא שומע, אבל מרגיש כל נגיעה — ומספר עליה לשופטים. בזכותו כוכב כדורגל גילה שהשער שחגג לא נרשם על שמו, ובזכותו מחשב מחליט בתוך שניות אם שחקן היה בנבדל. השאלה של היום: <b>איך כדור "מעיד" מה קרה לו?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">החיישן שבתוך כדור המונדיאל שולח למחשב דיווח: "ככה אני זז עכשיו". כמה פעמים בכל שנייה הוא שולח דיווח כזה?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>פעם אחת</b><span>דיווח אחד בכל שנייה</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>כמו מחיאות כפיים מהירות</b><span><span class="num">10</span> פעמים בשנייה</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>כמו מצלמת טלוויזיה</b><span><span class="num">50</span> פעמים בשנייה</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>הרבה יותר מהר מעין</b><span><span class="num">500</span> פעמים בשנייה</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">שורקים לפתיחה ←</button></div>
+</section>
+
+<!-- 1 · THE GOAL THAT WASN'T HIS (figure) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>השער שהכדור "לקח" מכוכב</h2>
+  <p>ב־<span class="num">28</span> בנובמבר <span class="num">2022</span>, במונדיאל בקטאר, שיחקה פורטוגל נגד אורוגוואי. השחקן <b>ברונו פרננדס</b> הרים כדור גבוה אל מול השער. הקפטן, <b>כריסטיאנו רונאלדו</b>, זינק לנגוח — והכדור נכנס לרשת. רונאלדו רץ לחגוג, בטוח שזה השער שלו.</p>
+  <p>אבל האם הראש שלו באמת נגע בכדור? או שהכדור רק עבר מעליו, מילימטרים מהשיער? בהילוך חוזר אי אפשר היה לדעת בוודאות.</p>
+
+  <figure class="calfig" aria-label="מגרש מהצד. משמאל שחקן שבועט, באמצע שחקן קופץ לנגיחה, ומימין שער. הכדור עובר בקשת מעל הראש של הקופץ אל השער, ובתוך הכדור נקודה אדומה: החיישן">
+    <svg viewBox="0 0 640 400" role="img" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="640" height="400" rx="14" fill="#F4EEDF"/>
+      <rect x="0" y="310" width="640" height="90" fill="#5DAE6B"/>
+      <path d="M530 150 H620 V310 M530 150 V310" fill="none" stroke="#1B1F33" stroke-width="6"/>
+      <g stroke="#585C72" stroke-width="1.5" opacity=".7"><path d="M540 160 L612 300 M560 160 L612 260 M540 200 L600 300 M540 240 L570 300 M580 160 L612 220"/></g>
+      <path d="M120 290 Q300 -20 575 240" fill="none" stroke="#2F6F9F" stroke-width="4" stroke-dasharray="12 9"/>
+      <g stroke="#1B1F33" stroke-width="9" stroke-linecap="round" fill="none"><path d="M90 230 V275 M90 275 L72 310 M90 275 L118 296 M90 244 L66 268 M90 244 L112 262"/></g>
+      <circle cx="90" cy="210" r="17" fill="#1B1F33"/>
+      <g stroke="#C8452D" stroke-width="9" stroke-linecap="round" fill="none"><path d="M330 186 V236 M330 236 L314 268 M330 236 L348 268 M330 198 L304 176 M330 198 L356 176"/></g>
+      <circle cx="330" cy="166" r="17" fill="#C8452D"/>
+      <circle cx="334" cy="128" r="16" fill="#FFFDF6" stroke="#1B1F33" stroke-width="3"/>
+      <circle cx="334" cy="128" r="5" fill="#C8452D"/>
+      <text x="90" y="360" text-anchor="middle" font-family="Rubik,Arial" font-size="26" font-weight="700" fill="#1B1F33">המוסר</text>
+      <text x="330" y="360" text-anchor="middle" font-family="Rubik,Arial" font-size="26" font-weight="700" fill="#1B1F33">הנוגח</text>
+      <text x="575" y="360" text-anchor="middle" font-family="Rubik,Arial" font-size="26" font-weight="700" fill="#1B1F33">שער</text>
+      <text x="460" y="70" text-anchor="middle" font-family="Rubik,Arial" font-size="28" font-weight="700" fill="#C8452D">נגע או לא נגע?</text>
+    </svg>
+    <figcaption>הנקודה האדומה בתוך הכדור היא החיישן. הוא היחיד שהיה "שם" — בתוך הכדור — ברגע הנגיחה.</figcaption>
+  </figure>
+
+  <p>את התשובה נתן הכדור עצמו. בדיוק באמצע הכדור, תלוי על חוטים, היה <b>חיישן</b> ששולח דיווח <span class="num">500</span> פעמים בכל שנייה. החברה שייצרה את הכדור בדקה את הנתונים והודיעה: כשהכדור עבר ליד הראש של רונאלדו, החיישן לא הרגיש שום דחיפה. השער נרשם על שם <b>ברונו פרננדס</b>. פורטוגל ניצחה <span class="math">2–0</span>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על הכדור כמו על חבר עם עיניים עצומות: הוא לא רואה מי מתקרב, אבל כל נגיעה — אפילו הכי קלה — הוא מרגיש, ומספר עליה מיד.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה מצלמה לא הספיקה? מצלמת טלוויזיה רגילה מצלמת <span class="num">50</span> תמונות בשנייה, כלומר תמונה כל <span class="math">1000 ÷ 50 = 20</span> אלפיות שנייה. נגיעה בכדור נמשכת זמן קצר מאוד, ויכולה "ליפול" בין שתי תמונות. החיישן מדווח כל <span class="math">1000 ÷ 500 = 2</span> אלפיות שנייה — פי <span class="num">10</span> יותר פעמים.</p>
+  </div>
+
+  <div class="q qc" id="goalQ"></div>
+  <p class="small" id="hint1" style="text-align:center">כדי להמשיך, ענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE BALL'S HEARTBEAT (interactive 1) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>הדופק של הכדור</h2>
+  <p>איך חיישן "מרגיש" נגיעה? בתוכו יש <b>מד־תאוצה</b>: דמיינו משקולת זעירה שתלויה על קפיצים קטנטנים. כשמישהו דוחף את הכדור, המשקולת "מאחרת" לרגע ולוחצת על הקפיץ — והשבב מודד כמה חזק. בעיטה חזקה לוחצת הרבה, נגיעה עדינה לוחצת מעט.</p>
+  <p>וכשהכדור טס באוויר ואף אחד לא נוגע בו? הכדור והמשקולת נופלים יחד, ושום דבר לא נלחץ — בגרף זה קו שקט. כל נגיעה קופצת מעליו כמו פעימה של דופק. במעבדה תראו בעצמכם, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 1 — הדופק של הכדור ===== -->
+  <div class="panel instrument">
+    <h3>הדופק של הכדור</h3>
+    <p class="cap">למעלה: הכדור עף מהמוסר, עובר ליד הראש של הנוגח ונכנס לשער. למטה: מה שהחיישן מרגיש בכל רגע. נחשו קודם: אם הראש של הנוגח נגע בכדור, מה נראה בגרף ברגע שהכדור עובר ליד הראש?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="hbP0" onclick="hbPredict(0)">קפיצה חדה למעלה</button>
+        <button id="hbP1" onclick="hbPredict(1)">הקו יישאר שקט</button>
+        <button id="hbP2" onclick="hbPredict(2)">הגרף ייעלם</button>
+      </div>
+    </div>
+    <canvas role="img" id="hbCv" width="640" height="600" aria-label="למעלה מגרש מהצד: שחקן בועט, כדור עף בקשת, עובר ליד ראש של שחקן קופץ ונכנס לשער. למטה גרף: קו שקט עם קפיצה גדולה בבעיטה וקפיצה גדולה ברשת. בגרסה שבה הראש נוגע יש קפיצה נוספת באמצע"></canvas>
+    <div class="controls">
+      <label>הזמן (שמאלה: הבעיטה, ימינה: השער)
+        <input type="range" id="hbT" min="0" max="100" step="1" value="0" oninput="hbSet()" aria-label="הזמן" style="direction:ltr">
+      </label>
+      <div class="seg" role="group" aria-label="איזה גרף">
+        <button id="hbV0" class="on" onclick="hbVer(0)">אם הראש היה נוגע</button>
+        <button id="hbV1" onclick="hbVer(1)">מה החיישן מדד באמת</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="readout">החיישן מרגיש: <b id="hbOut">כלום</b></div>
+    </div>
+    <p class="cap" id="hbMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="hbReveal" hidden><span class="hand">!</span><p><b>נגיעה = קפיצה חדה בגרף.</b> בגרסה "אם הראש היה נוגע" יש פעימה ליד הראש. בנתונים האמיתיים מהמשחק — רק שתי פעימות: הבעיטה של ברונו והרשת. בדיוק במקום של הראש, הקו שקט. החברה כתבה שאין שום "דופק" ברגע הזה, ולכן אין נגיעה.</p></div>
+
+  <div id="hbAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>תזכרו שלושה סימנים: <b>בעיטה</b> — פעימה גדולה. <b>נגיעה קלה</b> — פעימה קטנה. <b>כדור שעף לבד</b> — קו שקט. וזה בדיוק מה ששופטי הווידאו קוראים בגרף.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה באוויר הקו כמעט שטוח? מד־תאוצה מרגיש רק כוח שדוחף את הכדור <b>מבחוץ</b>: רגל, ראש, קרקע, רשת (ומעט גם האוויר שמאט אותו). כוח המשיכה מושך את הכדור ואת המשקולת שבתוכו באותה מידה, אז הם נופלים יחד והקפיץ לא נלחץ — כמו אסטרונאוטים שמרחפים בחללית. לחיישן יש גם <b>ג׳ירוסקופ</b> שמודד כמה מהר הכדור מסתובב, וכך אפשר לזהות גם נגיעה שרק סובבה אותו.</p>
+  </div>
+
+  <div class="q qc" id="beatQ"></div>
+  </div>
+  <p class="small" id="hint2" style="text-align:center">כדי להמשיך, נחשו, והריצו את הזמן עד השער בשתי הגרסאות.</p>
+  <div class="next"><button class="btn" id="next2" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE MOMENT OF THE PASS (interactive 2: the frame train) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>הרגע של המסירה</h2>
+  <p>החיישן עוזר גם בהחלטה הכי מתווכחת בכדורגל: <b>נבדל</b>. החוק, בקיצור: אם <b>ברגע</b> שחבר מוסר לכם אתם קרובים יותר לקו השער של היריב גם מהכדור וגם מהשחקן <b>השני הכי אחורי</b> שלו (בדרך כלל השוער הוא האחרון, אז קובע המגן שלפניו) — ואתם משתתפים במשחק — זה נבדל. בחצי המגרש שלכם אין נבדל בכלל.</p>
+  <p>מילת המפתח היא <b>ברגע</b>: לעבור את המגן שנייה אחרי המסירה זה בסדר גמור. אבל שחקנים רצים מהר, והמצלמות מצלמות רק <span class="num">50</span> תמונות בשנייה. מה קורה בין שתי תמונות? קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 2 — רכבת התמונות ===== -->
+  <div class="panel instrument">
+    <h3>רכבת התמונות</h3>
+    <p class="cap">חלוץ רץ לכיוון השער. העיגולים הם המקומות שבהם המצלמה "תפסה" אותו, תמונה אחרי תמונה. הכוכב הוא המקום שבו הוא היה ברגע שחבר מסר לו. נחשו קודם: חלוץ מהיר רץ <span class="num">9</span> מטרים בשנייה. כמה הוא מתקדם בין שתי תמונות של המצלמה?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="frP0" onclick="frPredict(0)">סנטימטר אחד</button>
+        <button id="frP1" onclick="frPredict(1)">בערך <span class="num">18</span> סנטימטרים</button>
+        <button id="frP2" onclick="frPredict(2)"><span class="num">9</span> מטרים</button>
+      </div>
+    </div>
+    <canvas role="img" id="frCv" width="640" height="600" aria-label="מגרש מלמעלה. חלוץ רץ ימינה, לכיוון השער. עיגולים ממוספרים מראים איפה הוא היה בכל תמונה של המצלמה, וכוכב צהוב מראה איפה הוא היה ברגע המסירה, בין שתי תמונות. קו כחול מקווקו הוא קו המגן. למטה ציר זמן של עשירית שנייה עם סימנים לכל תמונה, ובמצב חיישן — סימנים צפופים לכל דיווח של הכדור"></canvas>
+    <div class="controls">
+      <label>מהירות הריצה (שמאלה: לאט, ימינה: מהר)
+        <input type="range" id="frV" min="3" max="10" step="0.5" value="5" oninput="frSet()" aria-label="מהירות הריצה" style="direction:ltr">
+      </label>
+      <div class="seg" role="group" aria-label="מי מודד">
+        <button id="frM0" class="on" onclick="frMode(0)">מצלמה: <span class="num">50</span> בשנייה</button>
+        <button id="frM1" onclick="frMode(1)">חיישן בכדור: <span class="num">500</span> בשנייה</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="readout">מהירות: <b id="frOutV"><span class="num">5</span> מ׳ בשנייה</b></div>
+      <div class="readout">בין שתי מדידות: <b id="frOutG"><span class="num">10</span> ס״מ</b></div>
+    </div>
+    <p class="cap" id="frMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="frReveal" hidden><span class="hand">!</span><p><b>בערך <span class="num">18</span> סנטימטרים!</b> בשנייה הוא רץ <span class="num">9</span> מטרים, ובשנייה יש <span class="num">50</span> תמונות: <span class="math">9 ÷ 50 = 0.18</span> מטר — בערך האורך של עיפרון! הכוכב נופל בין שתי תמונות: באחת החלוץ מאחורי קו המגן, ובשנייה כבר לפניו. החיישן בכדור מדווח <span class="num">500</span> פעמים בשנייה, ולכן הוא יודע בדיוק מתי הייתה הבעיטה. בין שני דיווחים החלוץ זז רק <span class="math">18 ÷ 10 = 1.8</span> סנטימטר.</p></div>
+
+  <div id="frAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>לפני המחשבים את זה עשו <b>קוונים</b>, השופטים עם הדגל — והם טעו לא מעט. זה לא כי הם לא טובים. הקוון צריך להסתכל בבת אחת על שני דברים רחוקים: על הרגל שמוסרת ועל החלוץ שרץ. העיניים לא יכולות להיות בשני מקומות באותו רגע. לכדור אין את הבעיה הזאת — הוא תמיד יודע מתי בעטו בו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>לפני המחשבים את זה עשו <b>קוונים</b>, השופטים עם הדגל. חוקרים מבלגיה בדקו <span class="num">337</span> החלטות נבדל במונדיאל <span class="num">2002</span>: כרבע מהן (<span class="num">26%</span>) היו שגויות, ורוב הטעויות היו דגל מורם כשלא היה נבדל. למה דווקא דגלים מיותרים? ההסבר המקובל הוא תופעה במוח שנקראת <b>flash-lag</b>: כשמשהו זז, ופתאום קורה אירוע קצר (כמו הבעיטה), נדמה לנו שהדבר שזז כבר <b>מתקדם יותר</b> ממה שהיה באמת. המוח "מנחש קדימה" את מקומו של חלוץ רץ, ולכן נראה שהוא כבר עבר את הקו. החוקרים בדקו גם הסבר אחר — שהקוון עומד במקום לא טוב — ומצאו שזה לא מסביר את הטעויות.</p>
+  </div>
+
+  <div class="q qc" id="frameQ"></div>
+  </div>
+  <p class="small" id="hint3" style="text-align:center">כדי להמשיך, נחשו, הגבירו את המהירות ל־<span class="num">9</span> לפחות, ונסו גם את החיישן.</p>
+  <div class="next"><button class="btn" id="next3" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · 29 POINTS ON THE BODY (interactive 3: the offside line) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2><span class="num">29</span> נקודות על הגוף</h2>
+  <p>החיישן יודע <b>מתי</b> בעטו בכדור. אבל הוא לא יודע <b>איפה</b> השחקנים — הוא הרי בתוך הכדור. בשביל זה, מתחת לגג של כל אצטדיון במונדיאל, הותקנו <span class="num">12</span> מצלמות מיוחדות. הן מוצאות על כל שחקן עד <span class="num">29</span> נקודות — ראש, כתפיים, מרפקים, ברכיים, קצות הנעליים — <span class="num">50</span> פעמים בשנייה. ככה המחשב בונה לכל שחקן "שלד" ממוחשב.</p>
+  <p>ואיזה חלק בשלד קובע? החוק אומר: נספרים רק חלקי הגוף שמותר לבקוע בהם שער — <b>הראש, הגוף והרגליים</b>. <b>הידיים לא נספרות</b>. הגבול הוא התחתית של בית השחי: מעליה זו עוד הכתף, ומתחתיה כבר היד. במעבדה תמתחו קו נבדל בעצמכם, אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 3 — קו הנבדל ===== -->
+  <div class="panel instrument">
+    <h3>קו הנבדל</h3>
+    <p class="cap">השער של היריב נמצא ימינה. אדום — התוקף, כחול — המגן. הנקודות הן חלק מהנקודות שהמצלמות מוצאות, והידיים צבועות באפור — כי הן לא נספרות. נחשו קודם: התוקף מושיט יד, והיד שלו יותר קדימה מהמגן — אבל כל שאר הגוף מאחוריו. זה נבדל?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="osP0" onclick="osPredict(0)">כן, נבדל</button>
+        <button id="osP1" onclick="osPredict(1)">לא, זה לא נבדל</button>
+        <button id="osP2" onclick="osPredict(2)">תלוי במצב הרוח של השופט</button>
+      </div>
+    </div>
+    <canvas role="img" id="osCv" width="640" height="600" aria-label="שני שחקנים מהצד, שלד עם נקודות על המפרקים. התוקף אדום, המגן כחול, השער ימינה. קו כחול אנכי עובר בחלק הגוף הכי קדמי של המגן, וקו אדום בחלק הגוף הכי קדמי של התוקף שמותר לבקוע בו. הנקודות של היד מסומנות באפור כי הן לא נספרות. למעלה כתוב אם זה נבדל, ובכמה סנטימטרים"></canvas>
+    <div class="controls">
+      <label>המקום של התוקף (שמאלה: אחורה, ימינה: קדימה)
+        <input type="range" id="osX" min="-120" max="60" step="2" value="-50" oninput="osSet()" aria-label="המקום של התוקף" style="direction:ltr">
+      </label>
+      <div class="seg" role="group" aria-label="תנוחה">
+        <button id="osK0" class="on" onclick="osPose(0)">יד מושטת</button>
+        <button id="osK1" onclick="osPose(1)">ברך קדימה</button>
+        <button id="osK2" onclick="osPose(2)">נוגח בראש</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="readout">ההחלטה: <b id="osOut">—</b></div>
+    </div>
+    <p class="cap" id="osMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="osReveal" hidden><span class="hand">!</span><p><b>היד לא נחשבת — ולכן זה לא נבדל.</b> המחשב מחפש בשלד של כל שחקן את החלק הכי קדמי <b>שמותר לבקוע בו</b>: ראש, כתף, ברך או קצה הנעל. וראיתם שגם ברך אחת שעוברת את הקו מספיקה כדי שיהיה נבדל, גם אם כל השאר מאחור.</p></div>
+
+  <div id="osAfter" hidden>
+  <p>המחשב לא מחליט לבד: הוא מציע קווים, <b>שופט הווידאו</b> מאשר בתוך שניות, והקהל רואה אנימציה בתלת־ממד. וגם בישראל עובדים על זה: חברת <b>Track160</b> מתל אביב בונה שלד תלת־ממדי של שחקנים ממצלמה אחת בלבד.</p>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>זה קצת כמו לשחק תופסת עם כלל מיוחד: נגיעה ביד לא נחשבת, רק בגוף. אז כשבודקים מי "הכי קדימה", מסתכלים על הראש, הכתפיים, הברכיים והנעליים — ולא על הידיים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>חשוב להיות כנים: גם המערכת הזאת לא מושלמת. המצלמות מצלמות <span class="num">50</span> פעמים בשנייה, והמחשב צריך <b>להעריך</b> איפה בדיוק נמצאת כל נקודה בגוף, בתוך שרוול ונעל. לכן יש מומחים שמתווכחים כמה סנטימטרים אפשר לסמוך על קו אחד. אבל ההחלטות מהירות ועקביות הרבה יותר מבעבר, והקהל רואה בדיוק על מה הן מבוססות.</p>
+  </div>
+
+  <div class="q qc" id="lineQ"></div>
+  </div>
+  <p class="small" id="hint4" style="text-align:center">כדי להמשיך, נחשו, ואז בחרו "ברך קדימה" ומצאו מצב שבו המחשב אומר "נבדל".</p>
+  <div class="next"><button class="btn" id="next4" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: SPEED FROM FRAMES (figure) + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>החשבון של התמונות</h2>
+  <p>גם בטלפון יש מצלמה שסופרת תמונות. במצב <b>הילוך איטי</b> הרבה טלפונים מצלמים <span class="num">240</span> תמונות בכל שנייה. ואם יודעים כמה תמונות עברו, אפשר לחשב כמה זמן עבר — ומזה גם כמה מהר משהו זז. בדיוק ככה המחשב במונדיאל מחשב מהירויות.</p>
+
+  <figure class="calfig" aria-label="פס של חמש תמונות מסרט. בכל תמונה הכדור קצת יותר ימינה. מתחת: 240 תמונות בשנייה, ובין שתי תמונות עובר זמן קצר מאוד">
+    <svg viewBox="0 0 640 400" role="img" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="640" height="400" rx="14" fill="#F4EEDF"/>
+      <rect x="20" y="70" width="600" height="190" rx="10" fill="#1B1F33"/>
+      <g fill="#F4EEDF"><rect x="34" y="80" width="14" height="10" rx="2"/><rect x="154" y="80" width="14" height="10" rx="2"/><rect x="274" y="80" width="14" height="10" rx="2"/><rect x="394" y="80" width="14" height="10" rx="2"/><rect x="514" y="80" width="14" height="10" rx="2"/><rect x="34" y="240" width="14" height="10" rx="2"/><rect x="154" y="240" width="14" height="10" rx="2"/><rect x="274" y="240" width="14" height="10" rx="2"/><rect x="394" y="240" width="14" height="10" rx="2"/><rect x="514" y="240" width="14" height="10" rx="2"/></g>
+      <g fill="#5DAE6B"><rect x="30" y="98" width="110" height="134" rx="4"/><rect x="150" y="98" width="110" height="134" rx="4"/><rect x="270" y="98" width="110" height="134" rx="4"/><rect x="390" y="98" width="110" height="134" rx="4"/><rect x="510" y="98" width="100" height="134" rx="4"/></g>
+      <g fill="#FFFDF6" stroke="#1B1F33" stroke-width="3"><circle cx="52" cy="190" r="14"/><circle cx="190" cy="180" r="14"/><circle cx="328" cy="170" r="14"/><circle cx="466" cy="160" r="14"/><circle cx="600" cy="150" r="9"/></g>
+      <g fill="#FFFDF6" font-family="Rubik,Arial" font-size="24" font-weight="700" text-anchor="middle"><text x="85" y="125">1</text><text x="205" y="125">2</text><text x="325" y="125">3</text><text x="445" y="125">4</text><text x="560" y="125">5</text></g>
+      <text x="320" y="40" text-anchor="middle" font-family="Rubik,Arial" font-size="28" font-weight="700" fill="#1B1F33">הילוך איטי: 240 תמונות בשנייה</text>
+      <text x="320" y="310" text-anchor="middle" font-family="Rubik,Arial" font-size="26" font-weight="700" fill="#1B1F33">סופרים תמונות ← יודעים כמה זמן עבר</text>
+      <text x="320" y="360" text-anchor="middle" font-family="Rubik,Arial" font-size="26" font-weight="700" fill="#C8452D">ומודדים את המרחק ← יודעים את המהירות</text>
+    </svg>
+    <figcaption>כל תמונה בסרט היא "רגע קפוא". כשסופרים את התמונות, סופרים בעצם את הזמן.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>בואו נספור דיווחים. החיישן שולח <span class="num">500</span> דיווחים בכל שנייה. בשתי שניות: <span class="math">500 + 500 = 1,000</span>. ובשלוש שניות? <span class="math">3 × 500 = 1,500</span>. ובמשחק שלם של <span class="num">90</span> דקות — יותר משני מיליון וחצי דיווחים!</p>
+    <p>והמצלמות? <span class="num">50</span> תמונות בשנייה. בשנייה שבה המצלמה מצלמת <span class="num">50</span> תמונות, החיישן שולח <span class="num">500</span> דיווחים: פי <span class="num">10</span>. לכן החיישן "תופס" רגעים קצרים שהמצלמה מפספסת.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הנה השיטה, בשני צעדים. <b>צעד 1 — הזמן:</b> מחלקים את מספר התמונות במספר התמונות בשנייה. <b>צעד 2 — המהירות:</b> מחלקים את המרחק בזמן. דוגמה: בסרט של <span class="num">240</span> תמונות בשנייה, הכדור עבר <span class="num">4</span> מטרים ב־<span class="num">48</span> תמונות. הזמן: <span class="math">48 ÷ 240 = 0.2</span> שנייה. המהירות: <span class="math">4 ÷ 0.2 = 20</span> מטרים בשנייה.</p>
+    <p>ואיך עוברים לקמ״ש? בשעה יש <span class="math">60 × 60 = 3,600</span> שניות, ובקילומטר <span class="num">1,000</span> מטר, ולכן כופלים ב־<span class="math">3,600 ÷ 1,000 = 3.6</span>. כלומר <span class="math">20 × 3.6 = 72</span> קמ״ש. ועוד כלל אחד: כשחלוץ רץ קדימה ומגן רץ בדיוק לכיוון ההפוך, הרווח ביניהם משתנה במהירות של שניהם יחד — <b>מחברים</b> את המהירויות.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> חלוץ רץ קדימה במהירות <span class="num">9</span> מטרים בשנייה, ובאותו רגע המגן יוצא קדימה, לכיוון ההפוך, במהירות <span class="num">6</span> מטרים בשנייה. (א) בכמה <b>סנטימטרים</b> יכול הרווח ביניהם להשתנות בין שתי תמונות של מצלמה (<span class="num">50</span> תמונות בשנייה)? (ב) ובכמה סנטימטרים בין שני דיווחים של החיישן (<span class="num">500</span> בשנייה)? (מותר מחשבון.)</p>
+      <div class="controls">
+        <label>(א) ס״מ <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) ס״מ <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> למה המערכת צריכה גם מצלמות וגם חיישן בכדור — למה אחד מהם לא מספיק? ומה יקרה אם הסוללה של החיישן תיגמר באמצע משחק?</p>
+      <details><summary>רמז</summary><p>חשבו מה כל אחד מהם "יודע": מי יודע <b>מתי</b>, ומי יודע <b>איפה</b>?</p></details>
+      <details><summary>התשובה</summary><p><b>כל אחד יודע חצי מהסיפור.</b> החיישן נמצא בתוך הכדור: הוא יודע בדיוק מתי בעטו בכדור, אבל לא רואה איפה השחקנים. המצלמות רואות את כל השחקנים, אבל רק <span class="num">50</span> פעמים בשנייה, אז הן לא יודעות בדיוק מתי הייתה הבעיטה. ביחד: רגע מדויק ומקום מדויק. אם הסוללה נגמרת, המשחק נמשך: המחשב בוחר את רגע הבעיטה מתוך תמונות המצלמות, ושופט הווידאו בודק — רק בפחות דיוק. לכן מטעינים את הכדורים לפני כל משחק.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <p class="small" id="hint5" style="text-align:center">כדי להמשיך, ענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next5" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>צריך: כדור, שני סימנים על הרצפה (נעליים, בקבוקים או גיר), סרט מדידה, וטלפון עם מצלמת הילוך איטי — בעזרת מבוגר. אפשר בחצר, בפארק או במסדרון ארוך.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — מד המהירות של הבעיטה (<span class="num">15</span> דקות)</h3>
+    <ol>
+      <li>שימו שני סימנים במרחק של <span class="num">2</span> מטרים זה מזה.</li>
+      <li>מבוגר מצלם מהצד, במצב הילוך איטי. בדקו בהגדרות כמה תמונות בשנייה הטלפון מצלם (לרוב <span class="num">120</span> או <span class="num">240</span>).</li>
+      <li>לפני הבעיטה נחשו: כמה מהר תצא הבעיטה שלכם, בקמ״ש?</li>
+      <li>בעטו כך שהכדור יתגלגל על פני שני הסימנים.</li>
+      <li>בסרט, התקדמו תמונה אחרי תמונה וספרו כמה תמונות עוברות מהסימן הראשון לשני.</li>
+      <li>חשבו את הזמן: מספר התמונות לחלק במספר התמונות בשנייה. ואז את המהירות: <span class="num">2</span> מטרים לחלק בזמן. כפלו ב־<span class="num">3.6</span> וקיבלתם קמ״ש. מי בבית בועט הכי חזק?</li>
+    </ol>
+    <p class="small">טיפ: אם קשה לספור, צלמו שוב עם בעיטה חלשה יותר. וכדאי לבדוק כמה פעמים, ולקחת את התוצאה האמצעית.</p>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — שופטי הווידאו של הסלון (<span class="num">5</span> דקות)</summary>
+    <ol>
+      <li>עצרו משחק בטלוויזיה (או צלמו שני חברים רצים) בדיוק ברגע של מסירה.</li>
+      <li>מצאו את החלק הכי קדמי של "המגן" שמותר לבקוע בו — ראש, כתף, ברך או נעל — ושימו שם סרגל ישר, מקביל לקו השער.</li>
+      <li>עשו אותו דבר לתוקף. מי לפני מי? ותבדקו: האם החלק הכי קדמי של מישהו היה דווקא יד?</li>
+    </ol>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>שופט שאי אפשר לראות</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>בתוך הכדור יש חיישן שמרגיש כל נגיעה, ומדווח <span class="num">500</span> פעמים בשנייה.</b> נגיעה נראית בגרף כמו פעימה, ולכן הוא גילה שהראש של רונאלדו לא נגע בכדור. מצלמות מתחת לגג מוצאות על כל שחקן נקודות על הגוף, וככה המחשב מותח קו נבדל — בלי ידיים. שאלה לחקור: איזה עוד ספורט היה צריך כדור כזה?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>מד־תאוצה</b> מרגיש רק כוח מבחוץ, ולכן נגיעה היא "פעימה" וכדור עף הוא קו שקט; <span class="num">500</span> דיווחים בשנייה נותנים את <b>רגע</b> המסירה, ו־<span class="num">12</span> מצלמות עם <span class="num">29</span> נקודות לשחקן, <span class="num">50</span> פעמים בשנייה, נותנות את <b>המקום</b>; הקו עובר בחלק הכי קדמי שמותר לבקוע בו; העין טועה בגלל <b>flash-lag</b>. <b>החשבון</b>: זמן = תמונות ÷ תמונות בשנייה, מהירות = מרחק ÷ זמן, ולקמ״ש כופלים ב־<span class="num">3.6</span>. שאלה לחקור: כמה סנטימטרים של "טעות" צריך להרשות למערכת לפני שקובעים נבדל?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הסיפור?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">פיזיקה</div><h3>אותו חיישן — בכיס שלכם</h3><p>בכל טלפון יש מד־תאוצה. בזכותו המסך מסתובב כשמטים את הטלפון, ובזכותו אפליקציה סופרת צעדים.</p></div>
+    <div class="tile"><div class="dom">הנדסה</div><h3>כדור שצריך לטעון</h3><p>ב־<span class="num">2022</span> החיישן היה תלוי באמצע הכדור. בכדור של מונדיאל <span class="num">2026</span> הוא עבר לאחד מארבעת החלקים של הכדור, ובשלושת האחרים שמו משקולות קטנות — כדי שהכדור יישאר מאוזן.</p></div>
+    <div class="tile"><div class="dom">היסטוריה · מדע</div><h3>רבע מההחלטות</h3><p>במונדיאל <span class="num">2002</span> בערך רבע מהחלטות הנבדל של הקוונים היו שגויות. המחקר הזה עזר לשכנע שצריך עזרה טכנולוגית.</p></div>
+    <div class="tile"><div class="dom">מדע ישראלי</div><h3>שלד מתוך מצלמה אחת</h3><p>חברת Track160 מתל אביב מפתחת תוכנה שבונה שלד תלת־ממדי של שחקנים ממצלמה אחת, בשביל קבוצות שאין להן אצטדיון עם <span class="num">12</span> מצלמות.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): איך הטלפון יודע איפה "למטה"?</summary>
+    <p>הטלפון מונח על השולחן, אף אחד לא דוחף אותו — ובכל זאת הוא יודע איך המסך צריך לעמוד. לפני שאתם פותחים — נחשו: מה "מרגיש" מד־התאוצה כשהטלפון סתם עומד?</p>
+    <details><summary>התשובה</summary>
+      <p>השולחן! השולחן דוחף את הטלפון למעלה, ולא נותן לו ליפול. הדחיפה הזאת לוחצת על המשקולת הזעירה שבתוך החיישן, תמיד לכיוון השולחן — ומזה הטלפון יודע איפה למטה. ואם זורקים את הטלפון (לא כדאי!), באוויר שום דבר לא דוחף אותו, והחיישן מרגיש כמעט אפס — בדיוק כמו הכדור שעף בלי שאף אחד נוגע בו.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו איך מתקבלת החלטת נבדל עם המערכת החדשה, מהמסירה ועד המסך הגדול. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: החיישן בכדור שולח <span class="num">500</span> דיווחים בכל שנייה. הכדור עף <span class="num">4</span> שניות. כמה דיווחים שלח החיישן?</div>
+    <div class="controls"><label>דיווחים <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: בסרט בהילוך איטי של <span class="num">240</span> תמונות בשנייה, כדור עבר <span class="num">2.7</span> מטרים ב־<span class="num">18</span> תמונות. (א) מה מהירות הכדור, במטרים בשנייה? (ב) ומה המהירות בקמ״ש? (מותר מחשבון.)</div>
+    <div class="controls"><label>(א) מ׳ בשנייה <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) קמ״ש <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: בסרט בהילוך איטי של <span class="num">240</span> תמונות בשנייה, כדור עבר <span class="num">3</span> מטרים ב־<span class="num">24</span> תמונות. מה מהירות הכדור, במטרים בשנייה?</div>
+    <div class="controls"><label>מ׳ בשנייה <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>איך כדור יכול "להעיד" שהראש של שחקן לא נגע בו — ואיך הוא עוזר לשפוט נבדל?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="בתוך הכדור יש חיישן..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. במונדיאל <span class="num">2022</span> כולם חשבו שרונאלדו נגח שער — אבל חיישן בתוך הכדור הראה שהראש שלו לא נגע בו, והשער נרשם על שם ברונו פרננדס.<br>
+    2. החיישן בכדור מדווח <span class="num">500</span> פעמים בשנייה, פי <span class="num">10</span> יותר מהמצלמות, ולכן הוא יודע בדיוק באיזה רגע בעטו בכדור.<br>
+    3. בנבדל הידיים לא נחשבות: המחשב מותח את הקו מהחלק הכי קדמי שמותר לבקוע בו — ראש, כתף, ברך או נעל.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>הטכנולוגיה: FIFA, "Semi-automated offside technology" (inside.fifa.com, מונדיאל <span class="num">2022</span>) — <span class="num">12</span> מצלמות מעקב מתחת לגג, עד <span class="num">29</span> נקודות לכל שחקן, <span class="num">50</span> פעמים בשנייה; חיישן IMU במרכז כדור Al Rihla ששולח נתונים לחדר הווידאו <span class="num">500</span> פעמים בשנייה; בינה מלאכותית מציעה את נקודת הבעיטה ואת הקווים, שופטי הווידאו מאמתים תוך שניות, ונוצרת אנימציה בתלת־ממד לקהל. Engineering Sport (<span class="num">2023</span>), "How instrumented footballs are transforming the World Cup" — IMU של <span class="num">500</span> הרץ על מערכת תלייה בחוטים במרכז הכדור. כדור Trionda של <span class="num">2026</span>: Circuit Digest ו־PhoneArena — IMU של <span class="num">500</span> הרץ באחד מארבעת חלקי הכדור עם משקולות נגדיות בשלושת האחרים, טעינה אלחוטית לפני משחקים.</p>
+    <p>השער מול אורוגוואי: Sky Sports, <span class="num">29</span> בנובמבר <span class="num">2022</span> — פורטוגל <span class="math">2–0</span> אורוגוואי; הודעת adidas: "we are able to definitively show no contact on the ball from Cristiano Ronaldo… No external force on the ball could be measured as shown by the lack of 'heartbeat' in the measurements", "The 500Hz IMU sensor inside the ball…"; השער נרשם לברונו פרננדס.</p>
+    <p>חוק הנבדל: IFAB, Laws of the Game, Law <span class="num">11</span> (באתר ה־FA) — עמדת נבדל רק בחצי של היריב, קרוב יותר לקו השער גם מהכדור וגם מהיריב השני מהסוף; נספרים חלקי הראש, הגוף והרגליים, לא הידיים; הגבול העליון של היד בקו התחתית של בית השחי; העמדה נקבעת ברגע שחבר לקבוצה משחק או נוגע בכדור; אין נבדל מבעיטת שער, זריקת חוץ או קרן. קוונים: Helsen, Gilis &amp; Weston (<span class="num">2006</span>), Journal of Sports Sciences <span class="num">24</span>(<span class="num">5</span>): <span class="math">521–528</span> — <span class="num">26.2%</span> שגיאות ב־<span class="num">337</span> החלטות במונדיאל <span class="num">2002</span>, <span class="num">86.6%</span> מהן דגלים מיותרים, תמיכה בהסבר ה־flash-lag ולא בהסבר האופטי. ישראל: NVIDIA Blog, "AI on the Ball" — Track160 מתל אביב, שלד תלת־ממדי ממצלמה אחת.</p>
+    <p>דיוק ופישוטים: "המשקולת על קפיצים" היא תיאור פשוט של מד־תאוצה MEMS. בנתוני הכדור באוויר יש גם השפעה קטנה של התנגדות האוויר והסיבוב, ולכן הקו "כמעט" שטוח. ב"דופק של הכדור" צורת הגרף להמחשה בלבד ואינה הנתונים המקוריים. ב"רכבת התמונות" ובמבחן — מהירויות ריצה ובעיטה, <span class="num">240</span> תמונות בשנייה ורגע הבעיטה הם מספרים לדוגמה. ב"קו הנבדל" השלד מצויר עם פחות מ־<span class="num">29</span> נקודות. המערכת מציעה ושופט הווידאו מחליט; על הדיוק בסנטימטרים יש ויכוח בין מומחים, וכך גם מנוסח בשיעור.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:65, code:'WOW-065', date:'2026-11-17', title:'הכדור שמסגיר את עצמו 500 פעמים בשנייה', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '16jXldeT15vXlCDXnNepINen16TXldeT15Q='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'engineering', w:3 }, { id:'physics', w:3 }, { id:'math', w:2 }, { id:'history', w:1 }, { id:'sport', w:1 } ],
+  hero: { name:'הכדור שמסגיר את עצמו 500 פעמים בשנייה — הדופק של הכדור, רכבת התמונות, קו הנבדל', fact:'חיישן בתוך כדור המונדיאל מדווח 500 פעמים בשנייה — ובזכותו ידוע שהראש של רונאלדו לא נגע בכדור ב־2022.' },
+  items: {
+    'predict':        { skill:'estimation',               d:2 },
+    'qc:scale':       { skill:'prior-knowledge',          d:1 },
+    'qc:goalQ':       { skill:'story-recall',             d:1 },
+    'qc:beatQ':       { skill:'accelerometer-signal',     d:1 },
+    'qc:frameQ':      { skill:'sampling-rate',            d:2 },
+    'qc:lineQ':       { skill:'offside-rule',             d:2 },
+    'qc:deepQ':       { skill:'ratio',                    d:1 },
+    'mcq:shared:0':   { skill:'accelerometer-signal',     d:2 },
+    'mcq:shared:1':   { skill:'offside-rule',             d:1 },
+    'mcq:shared:2':   { skill:'sensor-plus-cameras',      d:2 },
+    'mcq:younger:0':  { skill:'story-recall',             d:1 },
+    'mcq:older:0':    { skill:'flash-lag',                d:3 },
+    'order':          { skill:'process-sequence',         d:2 },
+    'num:younger':    { skill:'multiplication',           d:1 },
+    'num:older':      { skill:'speed-from-frames',        d:2 },
+    'num:adv':        { skill:'speed-then-unit-conversion', d:4 },
+    'challenge':      { skill:'relative-speed-and-sampling', d:4 },
+    'explain':        { skill:'mechanism-explanation',    d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); } if(n===2) hbDraw(); if(n===3) frDraw(); if(n===4) osDraw(); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: how many reports per second does the ball's sensor send? ----------
+   Four choices. The right answer: 4 — 500 times a second (ten times the 50 frames a second of the tracking cameras). */
+const SCALE_ANS = 4;
+const fmtSigns = n => ({1:'פעם אחת בשנייה',2:'10 פעמים בשנייה',3:'50 פעמים בשנייה',4:'500 פעמים בשנייה'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> החיישן מדווח <span class="num">500</span> פעמים בכל שנייה — פי <span class="num">10</span> יותר מהמצלמות במגרש. למה צריך כל כך הרבה? על זה השיעור.';
+const SCALE_FB = {
+  1: '<span class="pill-bad">הרבה יותר!</span> החיישן מדווח <span class="num">500</span> פעמים בכל שנייה. בשנייה אחת כדור בעיטה עף יותר מ־<span class="num">20</span> מטרים — דיווח אחד היה מפספס כמעט הכול. למה צריך כל כך הרבה? על זה השיעור.',
+  2: '<span class="pill-bad">עוד הרבה יותר!</span> החיישן מדווח <span class="num">500</span> פעמים בכל שנייה — פי <span class="num">50</span> ממה שניחשתם. למה צריך כל כך הרבה? על זה השיעור.',
+  3: '<span class="pill-bad">קרוב — אבל פי עשרה!</span> <span class="num">50</span> בשנייה זה הקצב של המצלמות במגרש. החיישן בכדור מדווח <span class="num">500</span> פעמים בשנייה. למה צריך כל כך הרבה? על זה השיעור.',
+  4: SCALE_FB_RIGHT
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(24,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI, DEG = PI/180;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const GOLDT = () => isDark() ? '#F6C454' : '#8A5410';     // gold for text
+const BLUE = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+const INK = () => css('--ink');
+const PITCH = () => isDark() ? '#1F4A33' : '#7CC08A';     // grass
+const PITCH2 = () => isDark() ? '#245A3D' : '#6DB27B';    // grass stripes
+const CHALK = () => isDark() ? '#E9E2CF' : '#FFFFFF';     // pitch lines
+const BALL = () => isDark() ? '#F2EDE0' : '#FFFFFF';
+const GREY = () => isDark() ? '#8C90AE' : '#9AA0B4';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+const fmtI = v => Math.round(v).toLocaleString('en-US');
+function xMath(c,txt,x,y,size,col,align){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+const RM = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+function xRand(s){ let x=Math.sin(s*12.9898)*43758.5453; return x-Math.floor(x); }
+/* a Hebrew label whose plate ends just left of a → arrow at the right edge */
+function xLabelArrowR(c,txt,y,col){ const size=24*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; c.direction='ltr'; xLabel(c,txt,W_(c)-60-w/2-10,y,22,col,.95); c.fillStyle=col; c.fillRect(W_(c)-50,y-3,24,6); xArrow(c,W_(c)-12,y,1,0,14); }
+const W_ = c => c.canvas.width;
+/* a football with the sensor dot inside */
+function drawBall(c,x,y,r,sensor){ c.fillStyle=BALL(); c.strokeStyle='#1B1F33'; c.lineWidth=3; c.beginPath(); c.arc(x,y,r,0,2*PI); c.fill(); c.stroke();
+  c.strokeStyle='#1B1F33'; c.globalAlpha=.45; c.lineWidth=2; c.beginPath(); c.moveTo(x-r*0.6,y-r*0.6); c.quadraticCurveTo(x,y,x+r*0.6,y+r*0.6); c.moveTo(x-r*0.7,y+r*0.4); c.quadraticCurveTo(x,y,x+r*0.5,y-r*0.7); c.stroke(); c.globalAlpha=1;
+  if(sensor){ c.fillStyle='#C8452D'; c.beginPath(); c.arc(x,y,Math.max(4,r*0.3),0,2*PI); c.fill(); } }
+/* a stick figure from named joints (side view): pts = {name:[x,y]}; col = colour */
+function drawStick(c,pts,col,lw,armCol){ const L=(a,b)=>{ if(!pts[a]||!pts[b]) return; c.beginPath(); c.moveTo(pts[a][0],pts[a][1]); c.lineTo(pts[b][0],pts[b][1]); c.stroke(); };
+  c.strokeStyle=col; c.lineWidth=lw||10; c.lineCap='round'; c.lineJoin='round';
+  L('neck','hip'); L('hip','kneeF'); L('kneeF','footF'); L('hip','kneeB'); L('kneeB','footB'); if(armCol) c.strokeStyle=armCol; L('shoulder','elbow'); L('elbow','hand'); L('shoulder','elbow2'); L('elbow2','hand2'); c.strokeStyle=col;
+  c.fillStyle=col; c.beginPath(); c.arc(pts.head[0],pts.head[1],(lw||10)>11?24:17,0,2*PI); c.fill(); }
+
+/* ---------- step 2 (interactive 1): the ball's heartbeat (canvas 640 × 600) ----------
+   Top (y < 300): side view — the passer kicks at t=0, the ball flies a quadratic arc past the header's head (t=0.5) into the net (t≈0.92).
+   Bottom (y 330–570): what the accelerometer feels — a quiet line with a big spike at the kick and at the net;
+   version 0 ("if the head had touched") adds a spike at the head; version 1 ("what was really measured") has none there. */
+const hbCv=document.getElementById('hbCv'), hbctx=hbCv.getContext('2d');
+const HB_P0=[118,262], HB_C=[300,-40], HB_P2=[586,236], HB_HEAD=[318,140];
+const HB={ opened:0, pred:-1, revealed:0, v:0, t:0, seen:[0,0] };
+function hbPos(t){ const u=Math.min(1,t/0.92), a=(1-u)*(1-u), b=2*(1-u)*u, d=u*u; let x=a*HB_P0[0]+b*HB_C[0]+d*HB_P2[0], y=a*HB_P0[1]+b*HB_C[1]+d*HB_P2[1];
+  if(HB.v===0 && u>0.5){ y += (u-0.5)*70; }   /* a touch nudges the ball a little lower */
+  return [x,y]; }
+function hbSig(t,v){ const g=(c,w,a)=>a*Math.exp(-((t-c)*(t-c))/(2*w*w)); return 0.035*(0.5+xRand(Math.round(t*400))) + g(0.02,0.012,1) + (v===0?g(0.46,0.012,0.5):0) + g(0.92,0.014,0.8); }
+function hbPredict(k){ HB.pred=k; segOn('hbP',3,k); WOW.emit('item', { id:'beat:predict', kind:'quick', correct:k===0, attempt: wowTry('beat:predict') });
+  hbMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את מחוון הזמן ימינה, עד שהכדור נכנס לשער.'; hbDraw(); }
+function hbSet(){ if(HB.pred<0){ hbT.value=0; predictFirst(hbMsg,'הזיזו'); hbDraw(); return; }
+  if(!HB.opened){ HB.opened=1; WOW.emit('open', { id:'beat' }); }
+  HB.t=+hbT.value/100; if(HB.t>=0.96) HB.seen[HB.v]=1;
+  const t=HB.t;
+  hbMsg.innerHTML = t<0.08 ? 'הבעיטה: הרגל דוחפת חזק — פעימה גדולה.'
+    : t<0.4 ? 'הכדור עף באוויר ואף אחד לא נוגע בו — הקו שקט.'
+    : t<0.56 ? (HB.v===0 ? 'הראש נוגע בכדור: עוד פעימה, קטנה יותר.' : 'הכדור עובר ליד הראש... והקו נשאר שקט. אין דחיפה.')
+    : t<0.86 ? 'שוב באוויר: קו שקט.'
+    : 'הרשת עוצרת את הכדור — פעימה גדולה.'+(HB.seen[1-HB.v]?'':' עכשיו נסו את הגרסה השנייה.');
+  hbDraw(); hbCheck(); }
+function hbVer(k){ if(HB.pred<0){ predictFirst(hbMsg,'בחרו'); return; }
+  if(!HB.opened){ HB.opened=1; WOW.emit('open', { id:'beat' }); }
+  HB.v=k; segOn('hbV',2,k); HB.t=0; hbT.value=0;
+  hbMsg.innerHTML = k ? 'אלה הנתונים שנמדדו במשחק. הזיזו שוב את הזמן, והסתכלו על הרגע שבו הכדור עובר ליד הראש.' : 'כך היה נראה הגרף אילו הראש היה נוגע. הזיזו את הזמן.';
+  hbDraw(); }
+function hbCheck(){ if(HB.pred>=0 && !HB.revealed && HB.seen[0] && HB.seen[1]){ HB.revealed=1; hbReveal.hidden=false; hbAfter.hidden=false; hint2.textContent='ענו על השאלה כדי להמשיך.'; } }
+function hbDraw(){
+  const c=hbctx, W=hbCv.width, H=hbCv.height, ink=INK(), t=HB.t, v=HB.v;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the pitch, side view */
+  c.fillStyle=PITCH(); c.fillRect(0,270,W,40);
+  /* goal */
+  c.strokeStyle=ink; c.lineWidth=6; c.beginPath(); c.moveTo(560,270); c.lineTo(560,150); c.lineTo(628,150); c.lineTo(628,270); c.stroke();
+  c.strokeStyle=GREY(); c.lineWidth=1.5; for(let k=0;k<6;k++){ c.beginPath(); c.moveTo(566+k*11,154); c.lineTo(566+k*11,268); c.stroke(); } for(let k=0;k<5;k++){ c.beginPath(); c.moveTo(562,168+k*24); c.lineTo(626,168+k*24); c.stroke(); }
+  /* the passer: kicking leg forward at the start */
+  const kick = t<0.06;
+  drawStick(c,{head:[78,186], neck:[80,206], shoulder:[80,212], hip:[82,240], kneeF: kick?[100,252]:[92,256], footF: kick?[120,262]:[96,270], kneeB:[74,256], footB:[66,270], elbow:[64,228], hand:[58,244], elbow2:[96,226], hand2:[104,240]}, ink, 9);
+  /* the header, mid-jump, head just under the ball's path */
+  drawStick(c,{head:HB_HEAD, neck:[318,160], shoulder:[318,166], hip:[318,206], kneeF:[332,228], footF:[326,252], kneeB:[306,228], footB:[300,250], elbow:[298,150], hand:[290,132], elbow2:[338,150], hand2:[346,132]}, DANG(), 9);
+  /* the dashed path so far, then the ball */
+  c.strokeStyle=BLUE(); c.lineWidth=3; c.setLineDash([10,8]); c.beginPath(); for(let s=0;s<=t+1e-9;s+=0.01){ const p=hbPos(s); s===0?c.moveTo(p[0],p[1]):c.lineTo(p[0],p[1]); } c.stroke(); c.setLineDash([]);
+  const bp=hbPos(t); drawBall(c,bp[0],bp[1],15,true);
+  xLabel(c,'המוסר',80,300,22,ink,.9); xLabel(c,'הנוגח',318,300,22,DANG(),.9); xLabel(c,'שער',594,300,22,ink,.9);
+  if(t<0.04){ xLabel(c,'החיישן בתוך הכדור',190,104,22,DANG(),.95); c.fillStyle=DANG(); c.fillRect(117,136,5,90); xArrow(c,119,240,0,1,14); }
+  /* the graph */
+  const gx0=60, gx1=600, gy0=560, gy1=380, gw=gx1-gx0, gh=gy0-gy1;
+  c.fillStyle=css('--card'); c.fillRect(gx0-20,gy1-30,gw+40,gh+60);
+  c.strokeStyle=ink; c.lineWidth=2.5; c.beginPath(); c.moveTo(gx0,gy1-10); c.lineTo(gx0,gy0); c.lineTo(gx1,gy0); c.stroke();
+  c.fillStyle=ink; xArrow(c,gx1+6,gy0,1,0,12); xArrow(c,gx0,gy1-16,0,-1,12);
+  xLabel(c,'כמה חזק דוחפים את הכדור',W/2,348,22,ink,.95);
+  xText(c,'הזמן',gx1-34,gy0+24,22,ink,'center');
+  /* the signal up to t */
+  c.strokeStyle=DANG(); c.lineWidth=3.2; c.beginPath();
+  for(let s=0;s<=t+1e-9;s+=0.0025){ const x=gx0+s*gw, y=gy0-6-hbSig(s,v)*(gh-30); s===0?c.moveTo(x,y):c.lineTo(x,y); } c.stroke();
+  /* the "now" cursor */
+  const cx=gx0+t*gw; c.strokeStyle=BLUE(); c.lineWidth=2; c.setLineDash([6,6]); c.beginPath(); c.moveTo(cx,gy1-10); c.lineTo(cx,gy0); c.stroke(); c.setLineDash([]);
+  /* labels on the beats that have happened */
+  if(t>=0.03) xLabel(c,'בעיטה',gx0+0.02*gw+50,gy1+14,22,ink,.9);
+  if(t>=0.47) xLabel(c, v===0 ? 'ראש!' : 'ליד הראש: שקט', gx0+0.46*gw, v===0 ? gy1+70 : gy0-50, 22, v===0?DANG():GOOD(), .95);
+  if(t>=0.93) xLabel(c,'רשת',gx0+0.92*gw-20,gy1+34,22,ink,.9);
+  xLabel(c, v===0 ? 'גרסה: אם הראש היה נוגע' : 'גרסה: מה נמדד באמת', W/2, 30, 22, v===0?ink:GOOD(), .95);
+  hbOut.textContent = hbSig(t,v)>0.2 ? 'דחיפה!' : 'כלום';
+}
+
+/* ---------- step 3 (interactive 2): the frame train (canvas 640 × 600) ----------
+   Top-down strip. The striker runs right at speed v (3–10 m/s), drawn at 400 px per metre over a window of 0.1 s starting at x=110.
+   Camera mode: ghosts at every 1/50 s (6 frames). The pass happens at t=0.047 s (gold star), between frames 3 and 4.
+   The defender's line sits where the striker is at t=0.05 s, so frame 3 says "behind", frame 4 says "past it", and the truth is "behind".
+   Sensor mode: a dense trail of 1/500 s marks, and the bracket shrinks to the gap between two reports. */
+const frCv=document.getElementById('frCv'), frctx=frCv.getContext('2d');
+const FR_X0=110, FR_PXM=400, FR_TK=0.047, FR_TL=0.05, FR_Y=200;
+const FR={ opened:0, pred:-1, revealed:0, v:5, m:0, fast:0, sensor:0 };
+function frPredict(k){ FR.pred=k; segOn('frP',3,k); WOW.emit('item', { id:'frames:predict', kind:'quick', correct:k===1, attempt: wowTry('frames:predict') });
+  frMsg.innerHTML='רשמנו את הניחוש. עכשיו הגבירו את מהירות הריצה, והסתכלו על הרווח בין העיגולים.'; frDraw(); }
+function frSet(){ if(FR.pred<0){ frV.value=FR.v; predictFirst(frMsg,'הזיזו'); return; }
+  if(!FR.opened){ FR.opened=1; WOW.emit('open', { id:'frames' }); }
+  FR.v=+frV.value; if(FR.v>=9) FR.fast=1; frUpdate(); }
+function frMode(k){ if(FR.pred<0){ predictFirst(frMsg,'בחרו'); return; }
+  if(!FR.opened){ FR.opened=1; WOW.emit('open', { id:'frames' }); }
+  FR.m=k; segOn('frM',2,k); if(k===1) FR.sensor=1; frUpdate(); }
+function frUpdate(){ const cam=FR.v*2, sen=FR.v*0.2;
+  frMsg.innerHTML = FR.m===0
+    ? 'בין שתי תמונות: <span class="math">'+FR.v+' ÷ 50 = '+(FR.v/50).toFixed(2)+'</span> מטר, כלומר <span class="math">'+cam.toFixed(0)+'</span> ס״מ. בתמונה <span class="num">3</span> החלוץ מאחורי הקו, בתמונה <span class="num">4</span> כבר לפניו — והמסירה הייתה ביניהן. באיזו תמונה להשתמש?'
+    : 'החיישן מדווח כל <span class="math">1 ÷ 500 = 0.002</span> שנייה: בין שני דיווחים החלוץ זז רק <span class="math">'+sen.toFixed(1)+'</span> ס״מ. עכשיו ידוע בדיוק: ברגע המסירה הוא עוד היה מאחורי הקו.';
+  frDraw(); frCheck(); }
+function frCheck(){ if(FR.pred>=0 && !FR.revealed && FR.fast && FR.sensor){ FR.revealed=1; frReveal.hidden=false; frAfter.hidden=false; hint3.textContent='ענו על השאלה כדי להמשיך.'; } }
+function frDraw(){
+  const c=frctx, W=frCv.width, H=frCv.height, ink=INK(), v=FR.v, X=t=>FR_X0+v*t*FR_PXM;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* pitch strip with mowing stripes */
+  c.fillStyle=PITCH(); c.fillRect(0,70,W,260); c.fillStyle=PITCH2(); for(let x=0;x<W;x+=80) c.fillRect(x,70,40,260);
+  xLabelArrowR(c,'לשער של היריב',34,ink);
+  /* the defender's line */
+  const lx=X(FR_TL); c.strokeStyle=BLUE(); c.lineWidth=4; c.setLineDash([12,9]); c.beginPath(); c.moveTo(lx,76); c.lineTo(lx,326); c.stroke(); c.setLineDash([]);
+  xLabel(c,'קו המגן',clamp(lx,90,W-90),110,22,BLUE(),.95);
+  /* sensor trail */
+  if(FR.m===1){ c.fillStyle=GOLD(); for(let k=0;k<=50;k++){ const x=X(k*0.002); c.beginPath(); c.arc(x,FR_Y+46,3.2,0,2*PI); c.fill(); } }
+  /* camera ghosts, numbered */
+  for(let k=0;k<=5;k++){ const x=X(k*0.02); c.strokeStyle=CHALK(); c.lineWidth=3; c.globalAlpha=0.95; c.beginPath(); c.arc(x,FR_Y,18,0,2*PI); c.stroke(); c.globalAlpha=1;
+    xMath(c,String(k+1),x,FR_Y-42,22,ink); }
+  /* the striker at the true moment of the pass */
+  const tx=X(FR_TK); c.fillStyle=DANG(); c.beginPath(); c.arc(tx,FR_Y,16,0,2*PI); c.fill();
+  c.fillStyle=GOLD(); xStar(c,tx,FR_Y,11);
+  /* bracket: the gap between two measurements around the pass */
+  const step = FR.m===0 ? 0.02 : 0.002, t0=Math.floor(FR_TK/step+1e-9)*step, ax=X(t0), bx=X(t0+step), by=FR_Y+(FR.m===0?70:64);
+  c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(ax,by-10); c.lineTo(ax,by); c.lineTo(bx,by); c.lineTo(bx,by-10); c.stroke();
+  xLabel(c,'החלוץ ברגע המסירה',clamp(tx,120,W-120),308,22,DANG(),.95);
+  /* the timeline, 0 → 0.1 s */
+  const tl0=80, tl1=560, ty=482, T=t=>tl0+t/0.1*(tl1-tl0);
+  c.fillStyle=css('--card'); c.fillRect(20,350,W-40,244);
+  xLabel(c,'ציר הזמן: עשירית שנייה',W/2,384,22,ink,.95);
+  c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.moveTo(tl0,ty); c.lineTo(tl1,ty); c.stroke();
+  if(FR.m===1){ c.strokeStyle=GOLDT(); c.lineWidth=2; for(let k=0;k<=50;k++){ const x=T(k*0.002); c.beginPath(); c.moveTo(x,ty-10); c.lineTo(x,ty+10); c.stroke(); } }
+  c.strokeStyle=ink; c.lineWidth=4; for(let k=0;k<=5;k++){ const x=T(k*0.02); c.beginPath(); c.moveTo(x,ty-24); c.lineTo(x,ty+24); c.stroke(); xMath(c,String(k+1),x,ty+54,22,ink); }
+  c.fillStyle=GOLD(); xStar(c,T(FR_TK),ty,14);
+  xMath(c,'0',tl0,ty-42,22,ink); xText(c,'0.1 שנ׳',tl1-14,ty-42,22,ink,'center');
+  xLabel(c, FR.m===0 ? 'קווים שחורים = תמונות' : 'קווים צהובים = דיווחים', W/2, 568, 22, FR.m===0?ink:GOLDT(), .95);
+  frOutV.innerHTML='<span class="num">'+v+'</span> מ׳ בשנייה';
+  frOutG.innerHTML='<span class="num">'+(FR.m===0 ? (v*2).toFixed(0) : (v*0.2).toFixed(1))+'</span> ס״מ';
+}
+function xStar(c,x,y,r){ c.beginPath(); for(let i=0;i<10;i++){ const a=-PI/2+i*PI/5, rr=i%2?r*0.45:r; c.lineTo(x+rr*Math.cos(a), y+rr*Math.sin(a)); } c.closePath(); c.fill(); c.strokeStyle='#1B1F33'; c.lineWidth=1.5; c.stroke(); }
+
+/* ---------- step 4 (interactive 3): the offside line (canvas 640 × 600) ----------
+   Side view, goal to the right, 1 m = 200 px. Defender (blue) fixed at x=330 on y=556; attacker (red) at 330+off on y=500.
+   Each figure is a set of joints; the arm joints (elbow, hand) do not count. For each player the line goes through the
+   counting joint with the largest x (nearest the goal). Offside when the attacker's line is right of the defender's. */
+const osCv=document.getElementById('osCv'), osctx=osCv.getContext('2d');
+const OS_DX=360, OS_DY=588, OS_AY=478, OS_SC=1.45, OS_ARM=['elbow','hand','elbow2','hand2'];
+const OS_POSES=[
+  /* 0: arm stretched forward */ { head:[4,-214], neck:[2,-192], shoulder:[0,-180], hip:[0,-112], kneeF:[14,-58], footF:[26,0], kneeB:[-12,-56], footB:[-30,-2], elbow:[44,-174], hand:[86,-170], elbow2:[-16,-142], hand2:[-12,-106] },
+  /* 1: knee forward */           { head:[2,-214], neck:[2,-192], shoulder:[0,-180], hip:[6,-112], kneeF:[60,-72], footF:[54,-4], kneeB:[-16,-54], footB:[-36,-2], elbow:[-16,-142], hand:[-10,-106], elbow2:[14,-142], hand2:[24,-112] },
+  /* 2: leaning header */         { head:[46,-196], neck:[32,-178], shoulder:[24,-168], hip:[0,-112], kneeF:[12,-58], footF:[20,0], kneeB:[-14,-56], footB:[-32,-2], elbow:[-8,-140], hand:[-30,-118], elbow2:[6,-140], hand2:[-14,-112] }
+];
+const OS_DEF = { head:[0,-214], neck:[0,-192], shoulder:[0,-180], hip:[0,-112], kneeF:[12,-58], footF:[26,0], kneeB:[-12,-56], footB:[-26,0], elbow:[-14,-144], hand:[-8,-108], elbow2:[12,-144], hand2:[18,-108] };
+const OS={ opened:0, pred:-1, revealed:0, off:-50, pose:0, sawOff:0, sawHand:0, sawKnee:0, moved:0 };
+function osPlace(p,x0,y0){ const o={}; for(const k in p) o[k]=[x0+p[k][0]*OS_SC, y0+p[k][1]*OS_SC]; return o; }
+function osFront(pts){ let best=-1e9, at=null; for(const k in pts){ if(OS_ARM.includes(k)) continue; const x=pts[k][0]+(k==='head'?17*OS_SC:0); if(x>best){ best=x; at=k; } } return { x:best, at }; }
+function osState(){ const A=osPlace(OS_POSES[OS.pose],OS_DX+OS.off*OS_SC,OS_AY), D=osPlace(OS_DEF,OS_DX,OS_DY), fa=osFront(A), fd=osFront(D);
+  const handAhead = Math.max(A.hand[0],A.elbow[0]) > fd.x; return { A, D, fa, fd, off: fa.x>fd.x, cm: Math.round(Math.abs(fa.x-fd.x)/(1.1*OS_SC)), handAhead }; }
+const OS_PART = { head:'הראש', neck:'הצוואר', shoulder:'הכתף', hip:'הירך', kneeF:'הברך', kneeB:'הברך', footF:'קצה הנעל', footB:'קצה הנעל' };
+function osPredict(k){ OS.pred=k; segOn('osP',3,k); WOW.emit('item', { id:'offside:predict', kind:'quick', correct:k===1, attempt: wowTry('offside:predict') });
+  osMsg.innerHTML='רשמנו את הניחוש. הסתכלו מה המחשב החליט, ואז הזיזו את התוקף ונסו תנוחות אחרות.'; osUpdate(); }
+function osSet(){ if(OS.pred<0){ osX.value=OS.off; predictFirst(osMsg,'הזיזו'); return; }
+  if(!OS.opened){ OS.opened=1; WOW.emit('open', { id:'offside' }); }
+  OS.off=+osX.value; OS.moved=1; osUpdate(); }
+function osPose(k){ if(OS.pred<0){ predictFirst(osMsg,'בחרו'); return; }
+  if(!OS.opened){ OS.opened=1; WOW.emit('open', { id:'offside' }); }
+  OS.pose=k; segOn('osK',3,k); osUpdate(); }
+function osUpdate(){ const s=osState();
+  if(s.off) OS.sawOff=1; if(s.off && OS.pose===1) OS.sawKnee=1;
+  if(OS.pose===0 && s.handAhead && !s.off) OS.sawHand=1;
+  osMsg.innerHTML = (!s.off && s.cm===0) ? '<b>לא נבדל.</b> באותו קו בדיוק — וזה לא נבדל: צריך להיות <b>לפני</b> המגן.'+(OS.sawKnee ? '' : ' עכשיו בחרו "ברך קדימה" ומצאו מצב שבו יש נבדל.') : s.off
+    ? '<b>נבדל.</b> החלק הכי קדמי של התוקף שנחשב ('+OS_PART[s.fa.at]+') עבר את הקו של המגן ב־<span class="math">'+s.cm+'</span> ס״מ.'
+    : (OS.pose===0 && s.handAhead ? '<b>לא נבדל.</b> היד יותר קדימה מהמגן — אבל יד לא נחשבת. החלק הכי קדמי שנחשב ('+OS_PART[s.fa.at]+') מאחורי הקו ב־<span class="math">'+s.cm+'</span> ס״מ.' : '<b>לא נבדל.</b> החלק הכי קדמי שנחשב ('+OS_PART[s.fa.at]+') מאחורי הקו ב־<span class="math">'+s.cm+'</span> ס״מ.')
+    + (OS.sawKnee ? '' : ' עכשיו בחרו "ברך קדימה" ומצאו מצב שבו יש נבדל.');
+  osDraw(); osCheck(); }
+function osCheck(){ if(OS.pred>=0 && !OS.revealed && OS.sawKnee && OS.sawHand){ OS.revealed=1; osReveal.hidden=false; osAfter.hidden=false; hint4.textContent='ענו על השאלה כדי להמשיך.'; } }
+function osDraw(){
+  const c=osctx, W=osCv.width, H=osCv.height, ink=INK(), s=osState();
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  c.fillStyle=PITCH(); c.fillRect(0,420,W,H-420); c.fillStyle=PITCH2(); c.fillRect(0,500,W,40);
+  xLabelArrowR(c,'לשער',44,ink);
+  /* the zone between the two lines */
+  if(OS.pred>=0){ const a=Math.min(s.fa.x,s.fd.x), b=Math.max(s.fa.x,s.fd.x); c.fillStyle=s.off?DANG():GOOD(); c.globalAlpha=0.18; c.fillRect(a,140,b-a,H-140); c.globalAlpha=1; }
+  /* the two players */
+  drawStick(c,s.D,BLUE(),13,GREY());
+  c.globalAlpha=0.96; drawStick(c,s.A,DANG(),13,GREY()); c.globalAlpha=1;
+  /* joints: counting = filled, arm = grey and hollow */
+  for(const [P,col] of [[s.D,BLUE()],[s.A,DANG()]]){ for(const k in P){ if(k==='head') continue; const arm=OS_ARM.includes(k); c.beginPath(); c.arc(P[k][0],P[k][1],arm?9:8,0,2*PI);
+      if(arm){ c.fillStyle=css('--card'); c.fill(); c.strokeStyle=GREY(); c.lineWidth=3; c.stroke(); } else { c.fillStyle=css('--card'); c.fill(); c.strokeStyle=col; c.lineWidth=3; c.stroke(); } } }
+  /* the lines */
+  if(OS.pred>=0){
+    c.lineWidth=4; c.setLineDash([12,8]);
+    c.strokeStyle=BLUE(); c.beginPath(); c.moveTo(s.fd.x,140); c.lineTo(s.fd.x,H); c.stroke();
+    c.strokeStyle=DANG(); c.beginPath(); c.moveTo(s.fa.x,140); c.lineTo(s.fa.x,H); c.stroke(); c.setLineDash([]);
+    xLabel(c, s.off ? 'נבדל!' : 'לא נבדל', W/2, 44, 30, s.off?DANG():GOOD(), .97);
+    xLabel(c, s.cm+' ס״מ', W/2, 112, 22, ink, .95);
+  } else { xLabel(c,'נחשו קודם — ואז המחשב יחליט',W/2,44,22,ink,.95); }
+  xLabel(c,'כחול: מגן',112,112,22,BLUE(),.95);
+  xLabel(c,'אדום: תוקף',W-112,112,22,DANG(),.95);
+  osOut.textContent = OS.pred<0 ? '—' : (s.off ? 'נבדל' : 'לא נבדל');
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  goalQ:{ q:'מי "גילה" שהראש של רונאלדו לא נגע בכדור?', opts:['השופט, שעמד ממש קרוב','חיישן בתוך הכדור','הקהל, שהצביע','רונאלדו עצמו'], a:1, fb:'החיישן שבתוך הכדור מדווח <span class="num">500</span> פעמים בשנייה, והוא לא הרגיש שום דחיפה ליד הראש. השופט לא יכול לראות מילימטרים בזמן כזה קצר, הקהל לא מחליט, ורונאלדו דווקא חשב שנגע.', btn:'next1' },
+  beatQ:{ q:'איך נראה בגרף של החיישן רגע שבו מישהו נוגע בכדור?', opts:['קפיצה חדה — כמו פעימה','קו שקט ושטוח','הגרף נעלם לרגע','הקו יורד מתחת לאפס'], a:0, fb:'נגיעה דוחפת את הכדור, והמשקולת שבתוך החיישן לוחצת על הקפיץ — זו הפעימה. קו שקט אומר שאף אחד לא נוגע, כמו כשהכדור עף לבד.', btn:'next2' },
+  frameQ:{ q:'למה החיישן בכדור עוזר לשפוט נבדל, אם יש גם מצלמות?', opts:['הוא יודע בדיוק באיזה רגע בעטו בכדור','הוא רואה איפה השחקנים עומדים','הוא מאט את הכדור','הוא שומע את השריקה'], a:0, fb:'המצלמות מצלמות <span class="num">50</span> פעמים בשנייה, וחלוץ מהיר זז ביניהן כמעט <span class="num">20</span> סנטימטרים. החיישן מדווח <span class="num">500</span> פעמים בשנייה, ולכן יודע בדיוק את רגע המסירה. הוא לא רואה שחקנים — הוא בתוך הכדור.', btn:'next3' },
+  lineQ:{ q:'מה המחשב מחפש בשלד של כל שחקן כדי למתוח את קו הנבדל?', opts:['את החלק הכי קדמי שמותר לבקוע בו','את המספר על החולצה','את היד הכי ארוכה','את האמצע של הגוף'], a:0, fb:'הקו עובר בחלק הכי קרוב לקו השער מבין הראש, הגוף והרגליים. ידיים לא נחשבות, ואמצע הגוף לא מספיק — לפעמים ברך אחת מכריעה.', btn:'next4' },
+  deepQ:{ q:'החיישן מדווח <span class="num">500</span> פעמים בשנייה, והמצלמות מצלמות <span class="num">50</span> פעמים בשנייה. פי כמה החיישן מהיר יותר?', opts:['פי <span class="num">5</span>','פי <span class="num">10</span>','פי <span class="num">50</span>','פי <span class="num">450</span>'], a:1, fb:'<span class="math">500 ÷ 50 = 10</span>. בכל פעם שהמצלמה מצלמת תמונה אחת, החיישן שולח <span class="num">10</span> דיווחים. <span class="num">450</span> זה ההפרש (<span class="math">500 − 50</span>), לא "פי כמה".', btn:'next5' }
+};
+const MCQ = {
+  shared:[
+    { q:'כשהכדור עבר ליד הראש של רונאלדו, מה הראה החיישן?', opts:['פעימה חדה, כמו בבעיטה','קו שקט — שום דחיפה','שהכדור הסתובב לאחור','שהסוללה נגמרה'], a:1, fb:'החברה שייצרה את הכדור כתבה שבאותו רגע לא נמדד שום כוח מבחוץ — אין "דופק". לכן השער נרשם על שם ברונו פרננדס. פעימה הייתה אומרת שהראש נגע.' },
+    { q:'איזה חלק בגוף <b>לא</b> נספר כשבודקים נבדל?', opts:['הראש','הברך','היד','קצה הנעל'], a:2, fb:'נספרים רק חלקי הגוף שמותר לבקוע בהם: ראש, גוף ורגליים. היד לא נספרת, והגבול הוא התחתית של בית השחי. ראש, ברך ונעל — כולם נספרים.' },
+    { q:'המצלמות מוצאות את השחקנים <span class="num">50</span> פעמים בשנייה. בשביל מה צריך גם את החיישן בכדור?', opts:['כדי לדעת בדיוק באיזה רגע בעטו בכדור','כדי לראות איפה השחקנים עומדים','כדי שהכדור יהיה כבד יותר','כדי לספור את הקהל'], a:0, fb:'כל אחד יודע חצי: המצלמות יודעות <b>איפה</b> השחקנים, והחיישן יודע <b>מתי</b> הייתה המסירה — <span class="num">500</span> פעמים בשנייה. החיישן לא רואה שחקנים, הוא בתוך הכדור.' }
+  ],
+  younger:[
+    { q:'כמה פעמים בכל שנייה החיישן שבכדור שולח דיווח?', opts:['פעם אחת','<span class="num">12</span> פעמים','<span class="num">50</span> פעמים','<span class="num">500</span> פעמים'], a:3, fb:'<span class="num">500</span> פעמים בשנייה! <span class="num">50</span> זה הקצב של המצלמות, ו־<span class="num">12</span> זה מספר המצלמות מתחת לגג.' }
+  ],
+  older:[
+    { q:'במונדיאל <span class="num">2002</span> כרבע מהחלטות הנבדל של הקוונים היו שגויות, ורובן היו דגל מורם כשלא היה נבדל. מה ההסבר המקובל?', opts:['הקוונים עמדו רחוק מדי מהקו','המוח "מקדים" שחקן שרץ, ולכן נראה שהוא כבר עבר את הקו','הדגלים היו כבדים מדי','השחקנים רימו בכוונה'], a:1, fb:'זו תופעת flash-lag: כשמשהו זז וקורה אירוע קצר (הבעיטה), נדמה שהדבר הזז כבר מתקדם יותר. לכן הטעות היא בעיקר דגל מיותר. החוקרים בדקו גם את המרחק של הקוון מהקו — והוא היה דומה בהחלטות נכונות ושגויות.' }
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'המצלמות מתחת לגג עוקבות אחרי כל השחקנים, כל הזמן.'},
+  {id:'b', t:'שחקן מוסר לחבר, והחיישן בכדור מרגיש את הבעיטה.'},
+  {id:'c', t:'המחשב בוחר את התמונה של רגע המסירה.'},
+  {id:'d', t:'המחשב מוצא את החלק הכי קדמי שנחשב, ומותח קווים.'},
+  {id:'e', t:'שופט הווידאו בודק ומאשר את ההחלטה.'},
+  {id:'f', t:'הקהל רואה על המסך אנימציה בתלת־ממד.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלכם: ' : '<span class="pill-ok">החלטה מושלמת!</span>')+' מצלמות עוקבות ← מסירה והחיישן מרגיש ← התמונה של הרגע ← קווים ← שופט הווידאו ← המסך הגדול.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) אי אפשר לבחור את התמונה של רגע המסירה לפני שהייתה מסירה. (2) המחשב רק מציע — אדם מאשר, ורק אז הקהל רואה.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && Math.abs(a-30)<=0.5, bOk = hasB && Math.abs(b-3)<=0.05;   /* 9 + 6 = 15 m/s; 15 ÷ 50 = 0.3 m = 30 cm; 15 ÷ 500 = 0.03 m = 3 cm */
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && Math.abs(a-18)<0.5) ? '(א): זה רק החלוץ. גם המגן זז, לכיוון ההפוך — חברו את המהירויות.'
+    : (hasA && Math.abs(a-12)<0.5) ? '(א): זה רק המגן. גם החלוץ זז — חברו את המהירויות.'
+    : (hasA && Math.abs(a-6)<0.5) ? '(א): חיסרתם. הם רצים לכיוונים <b>הפוכים</b>, אז הרווח משתנה במהירות של שניהם יחד: <span class="math">9 + 6 = 15</span>.'
+    : (hasA && Math.abs(a-0.3)<0.01) ? '(א): זה נכון — אבל במטרים. ביקשנו סנטימטרים: במטר יש <span class="num">100</span> ס״מ.'
+    : (hasA && Math.abs(a-750)<1) ? '(א): כפלתם ב־<span class="num">50</span>. בשנייה יש <span class="num">50</span> תמונות, אז בין שתיים עובר רק חלק אחד מ־<span class="num">50</span> של שנייה: מחלקים.'
+    : '(א): רמז — <span class="math">9 + 6 = 15</span> מטרים בשנייה; חלקו ב־<span class="num">50</span>, והפכו לסנטימטרים.';
+  const hintB = (hasB && Math.abs(b-1.8)<0.05) ? '(ב): זה רק החלוץ. חברו גם את המגן: <span class="math">9 + 6 = 15</span>.'
+    : (hasB && Math.abs(b-0.03)<0.001) ? '(ב): נכון במטרים! עכשיו לסנטימטרים: כפול <span class="num">100</span>.'
+    : (hasB && Math.abs(b-30)<0.5) ? '(ב): זה בין שתי תמונות של מצלמה. החיישן מדווח פי <span class="num">10</span> יותר פעמים.'
+    : (hasB && Math.abs(b-300)<1) ? '(ב): הלכתם בכיוון ההפוך — כשמודדים יותר פעמים, הרווח בין שתי מדידות <b>קטן</b>.'
+    : '(ב): רמז — <span class="math">15 ÷ 500 = ?</span> מטר, ואז כפול <span class="num">100</span>.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> הם רצים לכיוונים הפוכים, אז הרווח משתנה ב־<span class="math">9 + 6 = 15</span> מטרים בשנייה. (א) <span class="math">15 ÷ 50 = 0.3</span> מטר, כלומר <span class="math">0.3 × 100 = 30</span> ס״מ — אורך של סרגל שלם! (ב) <span class="math">15 ÷ 500 = 0.03</span> מטר, כלומר <span class="math">0.03 × 100 = 3</span> ס״מ. לכן רגע המסירה נלקח מהחיישן, ולא מהתמונות. עכשיו פתחו את השאלה למחשבה שלמטה.'
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">30</span> ס״מ.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — <span class="num">3</span> ס״מ.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const sp=+numAdvR.value, ks=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && Math.abs(sp-36)<=0.5), yOk=(hasY && Math.abs(ks-129.6)<=1), sc = dOk&&yOk?2:((dOk||yOk)?1:0);
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && Math.abs(sp-0.075)<0.001) ? 'ב־(א): זה הזמן, בשניות — צעד ראשון מצוין! עכשיו חלקו את המרחק בזמן.'
+      : (hasD && Math.abs(sp-0.15)<0.005) ? 'ב־(א): חילקתם את המרחק במספר התמונות. אבל תמונות הן לא שניות: קודם <span class="math">18 ÷ 240 = ?</span> שנייה.'
+      : (hasD && Math.abs(sp-648)<1) ? 'ב־(א): כפלתם במקום לחלק. קודם הזמן: <span class="math">18 ÷ 240 = ?</span>'
+      : (hasD && (Math.abs(sp-3.6)<0.05 || Math.abs(sp-360)<1)) ? 'ב־(א): כמעט! בדקו איפה הנקודה העשרונית.'
+      : 'רמז ל־(א): הזמן הוא <span class="math">18 ÷ 240 = ?</span>, ואז המהירות <span class="math">2.7 ÷ ?</span>';
+    const hintY = (hasY && Math.abs(ks-10)<0.05) ? 'ב־(ב): חילקתם ב־<span class="num">3.6</span>. קמ״ש הוא מספר <b>גדול</b> יותר: כופלים.'
+      : (hasY && Math.abs(ks-36)<0.5) ? 'ב־(ב): זה במטרים בשנייה. כדי לעבור לקמ״ש כופלים ב־<span class="num">3.6</span>.'
+      : (hasY && Math.abs(ks-129600)<10) ? 'ב־(ב): כפלתם ב־<span class="num">3,600</span> בלבד. זכרו לחלק גם ב־<span class="num">1,000</span> (מטרים בקילומטר).'
+      : 'רמז ל־(ב): כפלו את התשובה של (א) ב־<span class="num">3.6</span>.';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) הזמן: <span class="math">18 ÷ 240 = 0.075</span> שנייה; המהירות: <span class="math">2.7 ÷ 0.075 = 36</span> מטרים בשנייה. (ב) <span class="math">36 × 3.6 = 129.6</span> קמ״ש — מהר יותר ממכונית בכביש מהיר!'
+      : dOk ? '<span class="pill-ok">(א) נכון — <span class="num">36</span> מטרים בשנייה.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">129.6</span> קמ״ש.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-2000)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">4 × 500 = 2,000</span> דיווחים — באוויר, בזמן שאתם סופרים עד ארבע.':(Math.abs(v-504)<0.01?'<span class="pill-bad">כמעט.</span> <span class="math">500 + 4 = 504</span> — חיברתם. אבל בכל שנייה יש <span class="num">500</span> דיווחים, ויש <span class="num">4</span> שניות.':(Math.abs(v-500)<0.01?'<span class="pill-bad">קרוב!</span> זה מספר הדיווחים בשנייה <b>אחת</b>. הכדור עף <span class="num">4</span> שניות: <span class="math">500 + 500 + 500 + 500 = ?</span>':(Math.abs(v-125)<0.01?'<span class="pill-bad">לא בדיוק.</span> חילקתם. ככל שעובר יותר זמן, יש <b>יותר</b> דיווחים: כופלים.':(Math.abs(v-200)<0.01||Math.abs(v-20000)<0.01?'<span class="pill-bad">כמעט!</span> ספרו שוב את האפסים: <span class="math">4 × 500 = ?</span>':'<span class="pill-bad">עוד לא.</span> רמז: בכל שנייה עוד <span class="num">500</span> דיווחים, והכדור עף <span class="num">4</span> שניות. אפשר לחבר: <span class="math">500 + 500 = 1,000</span>, וככה הלאה.')))); }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-30)<=0.5; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> הזמן: <span class="math">24 ÷ 240 = 0.1</span> שנייה. המהירות: <span class="math">3 ÷ 0.1 = 30</span> מטרים בשנייה — כמעט <span class="num">110</span> קמ״ש.':(Math.abs(v-0.1)<0.005?'<span class="pill-bad">חצי דרך.</span> <span class="num">0.1</span> זה הזמן, בשניות. עכשיו חלקו את המרחק בזמן.':(Math.abs(v-0.125)<0.005?'<span class="pill-bad">לא בדיוק.</span> חילקתם את המרחק במספר התמונות. תמונות הן לא שניות: קודם <span class="math">24 ÷ 240 = ?</span> שנייה.':(Math.abs(v-720)<0.5?'<span class="pill-bad">לא בדיוק.</span> כפלתם את המרחק ב־<span class="num">240</span>. קודם מצאו כמה זמן עבר: <span class="math">24 ÷ 240 = ?</span>':(Math.abs(v-3)<0.01||Math.abs(v-300)<0.5?'<span class="pill-bad">כמעט!</span> בדקו את האפסים ואת הנקודה העשרונית.':'<span class="pill-bad">עוד לא.</span> רמז: צעד 1 — הזמן הוא מספר התמונות לחלק ב־<span class="num">240</span>. צעד 2 — המרחק לחלק בזמן.')))); }
+  fb.classList.add('show'); }
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שבתוך הכדור יש חיישן שמרגיש כל דחיפה או נגיעה ומדווח <span class="num">500</span> פעמים בשנייה.',
+  'הסברתי שנגיעה נראית בגרף כמו פעימה (קפיצה חדה), וכשאף אחד לא נוגע הקו שקט — ולכן ידעו שהראש לא נגע.',
+  'הסברתי שבנבדל חשוב הרגע של המסירה, והחיישן יודע אותו בדיוק, כי המצלמות מצלמות רק <span class="num">50</span> פעמים בשנייה.',
+  'הסברתי שהמצלמות מוצאות נקודות על הגוף, ושהקו עובר בחלק הכי קדמי שמותר לבקוע בו — בלי הידיים.',
+  'הוספתי פרט מדויק: רונאלדו וברונו פרננדס ב־<span class="num">2022</span>; <span class="num">12</span> מצלמות ו־<span class="num">29</span> נקודות; בערך <span class="num">18</span> ס״מ בין שתי תמונות; או שופט הווידאו שמאשר.',
+];
+const MODEL='בתוך כדור המונדיאל יש חיישן קטן, מד־תאוצה, שמרגיש כל דחיפה שבאה מבחוץ ומדווח עליה <span class="num">500</span> פעמים בשנייה. כשמישהו נוגע בכדור — רגל, ראש או רשת — בגרף יש פעימה חדה, וכשהכדור עף לבד הקו שקט. ב־<span class="num">2022</span> הקו היה שקט בדיוק כשהכדור עבר ליד הראש של רונאלדו, ולכן ידעו שהוא לא נגע, והשער נרשם על שם ברונו פרננדס. בנבדל קובע המקום של השחקנים ברגע המסירה: <span class="num">12</span> מצלמות מוצאות על כל שחקן <span class="num">29</span> נקודות, <span class="num">50</span> פעמים בשנייה, אבל חלוץ מהיר זז בין שתי תמונות כמעט <span class="num">20</span> סנטימטרים. החיישן יודע בדיוק מתי בעטו בכדור, והמחשב מותח קו דרך החלק הכי קדמי שמותר לבקוע בו — ראש, גוף או רגליים, בלי ידיים. שופט הווידאו בודק ומאשר.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון: מד־תאוצה מרגיש רק כוח חיצוני (בנפילה חופשית הכדור והמשקולת נעים יחד ולכן הקו שקט), ולכן נגיעה היא פעימה והיעדר פעימה ליד הראש פירושו שאין מגע; קצב דגימה — 500 דיווחים בשנייה מול 50 תמונות בשנייה, ומה זז בין שתי מדידות (מהירות ÷ קצב); החיישן נותן את רגע המסירה והמצלמות את מקום השחקנים (29 נקודות, 12 מצלמות), ושניהם נחוצים; הקו עובר בחלק הכי קדמי שמותר לבקוע בו, בלי הידיים (עד תחתית בית השחי); ושופט וידאו מאשר; ולא רק "המצלמה ראתה"':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "הכדור שמסגיר את עצמו 500 פעמים בשנייה". הרעיונות המרכזיים: (1) ב־28 בנובמבר 2022, במונדיאל בקטאר, פורטוגל נגד אורוגוואי (2–0): ברונו פרננדס הרים כדור, כריסטיאנו רונאלדו קפץ לנגוח וחגג, אבל החיישן שבתוך הכדור (Al Rihla של אדידס) לא מדד שום כוח חיצוני — אין "heartbeat" — ולכן השער נרשם לברונו פרננדס; (2) החיישן הוא IMU — מד־תאוצה (משקולת זעירה על קפיצים) וג׳ירוסקופ — שמדווח 500 פעמים בשנייה; הוא מרגיש רק דחיפה מבחוץ (רגל, ראש, רשת), ולכן נגיעה היא פעימה בגרף, וכשהכדור עף לבד הקו כמעט שקט (הכדור והמשקולת נופלים יחד); (3) חוק הנבדל: ברגע שחבר מוסר, אסור להיות קרוב יותר לקו השער של היריב מהכדור ומהשחקן השני הכי אחורי של היריב; רק בחצי של היריב; נספרים ראש, גוף ורגליים, לא הידיים (הגבול: תחתית בית השחי); (4) מצלמות מצלמות 50 תמונות בשנייה, ולכן חלוץ ב־9 מטרים בשנייה זז 9 ÷ 50 = 0.18 מ׳ = 18 ס״מ בין שתי תמונות, ובין שני דיווחים של החיישן רק 1.8 ס״מ; לכן החיישן נותן את רגע המסירה; (5) קוונים במונדיאל 2002: 26% טעויות ב־337 החלטות, רובן דגל מיותר — מוסבר בתופעת flash-lag (המוח "מקדים" דבר שזז); (6) 12 מצלמות מתחת לגג מוצאות עד 29 נקודות על כל שחקן, 50 פעמים בשנייה, בונות שלד, המחשב מותח קו דרך החלק הכי קדמי שנחשב, שופט הווידאו מאשר בתוך שניות, והקהל רואה אנימציה בתלת־ממד; Track160 מתל אביב בונה שלד ממצלמה אחת; (7) זמן = תמונות ÷ תמונות בשנייה; מהירות = מרחק ÷ זמן; ממטר לשנייה לקמ״ש כופלים ב־3.6. חישובי המבחן: צעיר — 4 × 500 = 2,000 דיווחים; בוגר — 24 ÷ 240 = 0.1 שנייה, 3 ÷ 0.1 = 30 מ׳ בשנייה; מתקדם — 18 ÷ 240 = 0.075, 2.7 ÷ 0.075 = 36 מ׳ בשנייה, 36 × 3.6 = 129.6 קמ״ש; אתגר — 9 + 6 = 15 מ׳ בשנייה, 15 ÷ 50 = 0.3 מ׳ = 30 ס״מ, 15 ÷ 500 = 0.03 מ׳ = 3 ס״מ.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם איך הכדור "יודע" על נגיעה (חיישן שמרגיש דחיפה, פעימה מול קו שקט) וגם איך זה עוזר בנבדל (רגע המסירה מהחיישן, ומקום השחקנים מהמצלמות או הקו דרך החלק הקדמי בלי ידיים); 1 אם יש רק אחד מהשניים או רק חלק. הסבר שאומר שהחיישן "רואה" או "מצלם" את השחקנים, שהידיים נספרות בנבדל, או שהמחשב מחליט לבד בלי שופט — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', שער בחיבורים!':pct>=60?name+', כמעט בחיבורים!':name+', עוד מסירה אחת — ובפנים!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=4;                                                       // 500 reports a second
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשתם בהתחלה. התשובה: <b><span class="num">500</span> פעמים בשנייה</b> — פי <span class="num">10</span> יותר מהמצלמות.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשתם <b><span class="num">500</span> פעמים בשנייה</b> — וקלעתם. ועכשיו גם יודעים למה צריך כל כך הרבה: בין שתי תמונות של מצלמה חלוץ מהיר זז כמעט <span class="num">20</span> סנטימטרים.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשתם: <b>'+fmtSigns(S.guess)+'</b>. התשובה: <span class="num">500</span> פעמים בשנייה. ועכשיו גם יודעים למה צריך כל כך הרבה: בין שתי תמונות של מצלמה חלוץ מהיר זז כמעט <span class="num">20</span> סנטימטרים.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה דיווחים בשנייה): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: 500 פעמים בשנייה)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "הכדור שמסגיר את עצמו 500 פעמים בשנייה", מהדורה 65, ז׳ בכסלו תשפ״ז (יום שלישי, 17 בנובמבר 2026). נושא: הנדסה וטכנולוגיה (חיישן IMU בכדור, מערכת הנבדל החצי־אוטומטית, מצלמות ומעקב שלד), פיזיקה (מד־תאוצה מרגיש כוח חיצוני בלבד; בנפילה חופשית כמעט אפס), מתמטיקה (קצב דגימה, מהירות ÷ קצב, זמן מתוך תמונות, מהירות = מרחק ÷ זמן, המרה לקמ״ש, מהירות יחסית), היסטוריה (מונדיאל 2002 ו־2022) וספורט (חוק הנבדל). העובדות: מונדיאל 2022 בקטאר, 28 בנובמבר 2022, פורטוגל–אורוגוואי 2–0: ברונו פרננדס הרים כדור, כריסטיאנו רונאלדו קפץ וחגג כאילו נגח; אדידס (הכדור Al Rihla) הודיעה ש־Connected Ball Technology הראתה "no contact on the ball from Cristiano Ronaldo… No external force on the ball could be measured as shown by the lack of heartbeat in the measurements", ו־"The 500Hz IMU sensor inside the ball allows for a high level of accuracy"; פיפ״א רשמה את השער לברונו פרננדס. ב־2022 החיישן היה תלוי במערכת חוטים במרכז הכדור ושלח נתונים לחדר הווידאו 500 פעמים בשנייה (Kinexon פיתחה עם אדידס). בכדור של מונדיאל 2026, Trionda, ה־IMU של 500 הרץ עבר לאחד מארבעת חלקי הכדור, עם משקולות נגדיות בשלושת האחרים; הכדורים נטענים לפני משחקים (טעינה אלחוטית). מד־תאוצה: מסה זעירה על קפיצים (MEMS) — מרגיש רק כוח חיצוני (רגל, ראש, קרקע, רשת, מעט התנגדות אוויר); בתעופה חופשית הכדור והמסה נופלים יחד והקריאה קרובה לאפס; ג׳ירוסקופ מודד סיבוב. מערכת הנבדל החצי־אוטומטית (SAOT) של פיפ״א: 12 מצלמות מעקב מתחת לגג, עד 29 נקודות לכל שחקן, 50 פעמים בשנייה; בינה מלאכותית מציעה את נקודת הבעיטה והקווים, שופטי הווידאו מאמתים ידנית תוך שניות, ובמקרים צמודים משתמשים בנתוני ה־IMU לרגע המגע; אנימציה בתלת־ממד לקהל. חוק 11 של IFAB: עמדת נבדל — בחצי של היריב, קרוב יותר לקו השער גם מהכדור וגם מהיריב השני מהסוף, ברגע שחבר לקבוצה משחק או נוגע בכדור; נספרים חלקי הראש, הגוף והרגליים, לא הידיים (גם לא של השוער), והגבול העליון של היד בקו התחתית של בית השחי; נענשים רק אם מעורבים במשחק; אין נבדל מבעיטת שער, זריקת חוץ או קרן. Helsen, Gilis ו־Weston (2006), Journal of Sports Sciences: 26.2% שגיאות ב־337 החלטות נבדל במונדיאל 2002, 86.6% מהן דגלים מיותרים, תמיכה בהסבר flash-lag ולא בהסבר האופטי (המרחק מהקו היה דומה בהחלטות נכונות ושגויות). Track160 — חברה מתל אביב (נוסדה 2017) שבונה שלד תלת־ממדי של שחקנים ממצלמה אחת. מספרים בשיעור: חלוץ ב־9 מ׳ בשנייה זז 18 ס״מ בין שתי תמונות (50 בשנייה) ו־1.8 ס״מ בין שני דיווחים (500 בשנייה); טלפונים בהילוך איטי מצלמים לרוב 120 או 240 תמונות בשנייה; דוגמה בשיעור: 4 מ׳ ב־48 תמונות ב־240 בשנייה → 0.2 שנייה → 20 מ׳ בשנייה → 72 קמ״ש. ההדמיות (הדופק של הכדור, רכבת התמונות, קו הנבדל) מפושטות; צורת הגרף אינה הנתונים המקוריים; על הדיוק בסנטימטרים של מערכת הנבדל יש ויכוח בין מומחים. התשובות הבאות הן למבחן ולאתגר — אל תגלה אותן, תן רק רמז: צעיר — 4 × 500 = 2,000 דיווחים; בוגר — 24 ÷ 240 = 0.1, 3 ÷ 0.1 = 30 מ׳ בשנייה; מתקדם — 18 ÷ 240 = 0.075, 2.7 ÷ 0.075 = 36 מ׳ בשנייה, 36 × 3.6 = 129.6 קמ״ש; אתגר — 9 + 6 = 15, 15 ÷ 50 = 0.3 מ׳ = 30 ס״מ, 15 ÷ 500 = 0.03 מ׳ = 3 ס״מ.';
+const CHIPS = ['איך הכדור יודע שנגעו בו?', 'מה זה בדיוק נבדל?', 'למה הידיים לא נחשבות בנבדל?', 'למה צריך גם מצלמות וגם חיישן?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: מד־תאוצה הוא מסה על קפיצים שמרגישה רק כוח חיצוני, ולכן בנפילה חופשית הקריאה כמעט אפס ונגיעה היא פעימה; ג׳ירוסקופ למדידת סיבוב; קצב דגימה — 500 דיווחים מול 50 תמונות בשנייה, ומה שזז בין שתי מדידות הוא מהירות ÷ קצב; למה צריך גם "מתי" מהחיישן וגם "איפה" מהמצלמות; מהירות יחסית כשרצים לכיוונים הפוכים; זמן מתוך מספר תמונות והמרה לקמ״ש ב־3.6; flash-lag כהסבר לטעויות הקוונים), שאל שאלות המשך שדורשות חשיבה (למשל: מה יראה החיישן כשהכדור נוחת על הדשא? למה קריאה של אפס בתעופה היא דווקא סימן טוב? כמה ס״מ "טעות" היית מרשה למערכת לפני שקובעים נבדל, ולמה? איך היית בודק אם flash-lag הוא באמת ההסבר?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>איך הכדור יודע שנגעו בו?</b> בתוכו יש חיישן שמרגיש כל דחיפה מבחוץ, ומדווח <span class="num">500</span> פעמים בשנייה. נגיעה נראית בגרף כמו פעימה, וכשהכדור עף לבד הקו שקט.<br><br><b>מה זה נבדל?</b> ברגע שחבר מוסר לכם, אסור שתהיו קרובים יותר לשער של היריב מהכדור ומהשחקן השני הכי אחורי שלו. נספרים ראש, גוף ורגליים — לא ידיים.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; only the field runs a short timer */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>

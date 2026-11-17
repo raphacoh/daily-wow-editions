@@ -1,0 +1,25 @@
+{
+  "n": 65,
+  "code": "WOW-065",
+  "date": "2026-11-17",
+  "language": "he",
+  "title": "הכדור שמסגיר את עצמו 500 פעמים בשנייה",
+  "topics": [
+    "הנדסה",
+    "טכנולוגיה",
+    "פיזיקה",
+    "מתמטיקה",
+    "ספורט",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "The connected World Cup ball: the 500 Hz IMU inside Al Rihla showed no 'heartbeat' at Ronaldo's head (Portugal 2–0 Uruguay, 28 Nov 2022) so the goal went to Bruno Fernandes; an accelerometer feels only external force (touch = spike, free flight = quiet line); semi-automated offside — the sensor gives the moment of the pass, 12 roof cameras track 29 points per player 50×/s, the line goes through the most forward scoring body part (arms excluded, Law 11); 18 cm between camera frames vs 1.8 cm between sensor reports; linesmen's 26% errors in 2002 and flash-lag (Helsen 2006); Track160 (Tel Aviv); speed from slow-mo frames, ×3.6 to km/h, and a relative-speed challenge.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — nits left: reviewer estimates ~35–40 min (younger) / ~35 min (older) vs the 'כ־25 דקות' tag; the Arto button covers each canvas's bottom-left corner on phones (engine); kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template)",
+  "review_url": "https://claude.ai/artifact/Ld4S3yakqhz2gpNZXsSumJ",
+  "editor_note": null
+}
