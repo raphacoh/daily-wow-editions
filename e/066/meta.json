@@ -1,0 +1,24 @@
+{
+  "n": 66,
+  "code": "WOW-066",
+  "date": "2026-11-18",
+  "language": "he",
+  "title": "הסנטימטר שאתם מאבדים בכל יום — ומקבלים בחזרה בחלל",
+  "topics": [
+    "ביולוגיה",
+    "חלל",
+    "פיזיקה",
+    "מתמטיקה",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "Why we are ~1% shorter every evening: Rev. Joseph Wasse's 1724 nail-in-the-wall measurements (soldiers kept in service), 23 intervertebral discs whose water is squeezed out by body weight and drawn back at night by the proteoglycan gel (de Puky 1935: 1,216 people, ~1%; Tyrrell et al. 1985: 54% lost in the first hour, 70% back in the first half of the night), <1 mm per disc adding up; astronauts grow up to ~3% in microgravity (Scott Kelly ~5 cm, Kanai's 9 cm → 2 cm), back pain and ~19% paraspinal muscle loss; Eytan Stibbe's Ax-1; percent change, per-disc share and a 3% vs 1.1% ratio challenge.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: est. ~28–32 min (younger) / ~32–36 min (older, +5 for the optional challenge) vs the 'כ־25 דקות' tag; at 390px the step-5 figure arrows sit close to the edge; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template); challenge heading for standard older kids shows both the optional and recommended labels (engine, same as 065)",
+  "review_url": "https://claude.ai/artifact/AxnYiFztRfUfHR9VnDDAmN",
+  "editor_note": null
+}
