@@ -1,0 +1,1723 @@
+<title>שורשים וכנפיים #67 · למה אי אפשר לדגדג את עצמך — והרובוט שהוכיח למה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#2F7D4F; --shadow-soft:#DDF0E0;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes tick{0%{opacity:.95}30%{opacity:.75}100%{opacity:.08}}
+@keyframes spark{0%{transform:translate(110px,143px);opacity:0}15%{opacity:1}100%{transform:translate(40px,150px);opacity:0}}
+@keyframes spark2{0%{transform:translate(195px,203px);opacity:0}15%{opacity:1}100%{transform:translate(265px,210px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 67</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs><radialGradient id="glow" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#E8A33D" stop-opacity=".28"/><stop offset="60%" stop-color="#E8A33D" stop-opacity=".08"/><stop offset="100%" stop-color="#E8A33D" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <path d="M86 236 C120 168 168 112 236 66" stroke="#1B1F33" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M236 66 C200 70 150 100 120 150 C112 166 104 186 98 206 C126 196 160 176 186 150 C212 124 228 96 236 66 Z" fill="#F39A6B" stroke="#1B1F33" stroke-width="4"/>
+    <g stroke="#1B1F33" stroke-width="3" fill="none" stroke-linecap="round"><path d="M200 104 L222 112"/><path d="M178 128 L204 136"/><path d="M156 154 L182 160"/><path d="M134 178 L158 184"/></g>
+    <g class="spark" fill="#E8A33D"><circle cx="0" cy="0" r="5"/></g>
+    <g class="spark2" fill="#E8A33D"><circle cx="0" cy="0" r="4"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון 67</span><span class="tag">יום חמישי, 19 בנובמבר 2026</span><span class="tag">ט׳ בכסלו תשפ״ז</span><span class="tag">כ־25 דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>למה אי אפשר לדגדג את עצמך — והרובוט שהוכיח למה</h1>
+  <p class="lede">נסו עכשיו: העבירו אצבע לאט־לאט על כף היד שלכם, או מתחת לכף הרגל. כמעט כלום, נכון? אבל אם מישהו אחר עושה בדיוק אותה תנועה — צוחקים ומתפתלים. אותה אצבע, אותו עור, אותו מקום. השאלה של היום: <b>מה המוח שלכם יודע כשאתם נוגעים בעצמכם — ואיך רובוט הצליח לבלבל אותו?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">ביד אחת אתם מזיזים ידית. רובוט מעביר ספוג רך על כף היד השנייה — בדיוק באותה תנועה, אבל באיחור קטן. כמה הרובוט צריך לאחר, כדי שזה ידגדג כמו יד של מישהו אחר?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>אף פעם</b><span>זו התנועה שלי — זה לעולם לא ידגדג</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>חמישית שנייה</b><span>בערך כמו מצמוץ</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>חמש שניות</b><span>כמו לספור עד חמש</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>דקה שלמה</b><span>כמו לחכות לאוטובוס</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">מתחילים לגלות ←</button></div>
+</section>
+
+<!-- 1 · THE OLDEST PUZZLE AND THE TWO ROBOTS (figure) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק 1</div>
+  <h2>חידה בת אלפיים שנה — ושני רובוטים</h2>
+  <p>כבר ביוון העתיקה שאלו פילוסופים למה אי אפשר לדגדג את עצמך. אריסטו אפילו כתב שהאדם הוא היצור היחיד שאפשר לדגדג (על זה הוא טעה — תכף נראה). <span class="num">2,000</span> שנה אחר כך גם צ׳רלס דרווין ניסה: הוא חשב שדגדוג עובד רק כשלא יודעים בדיוק איפה ייגעו בך.</p>
+  <p>בשנות ה־<span class="num">90</span>, בלונדון, החליטה סטודנטית לדוקטורט בשם <b>שרה־ג׳יין בלייקמור</b> לבדוק את זה בניסוי. יחד עם החוקרים <b>דניאל וולפרט</b> ו<b>כריס פרית׳</b> היא חיברה שני רובוטים זה לזה — מכונה מוזרה למדי.</p>
+
+  <figure class="calfig" aria-label="שני רובוטים מחוברים בכבל. מימין: יד שמזיזה ידית של רובוט אחד. משמאל: רובוט שני מעביר ספוג רך על כף יד פתוחה. בין הרובוטים שעון קטן שמראה שהרובוט יכול לחכות רגע לפני שהוא מעתיק את התנועה">
+    <svg viewBox="0 0 640 400" role="img" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="640" height="400" rx="14" fill="#F4EEDF"/>
+      <rect x="0" y="318" width="640" height="82" fill="#DDD4BE"/>
+      <!-- right robot + hand moving it -->
+      <rect x="440" y="250" width="130" height="68" rx="12" fill="#5B5E70"/>
+      <rect x="497" y="150" width="16" height="104" rx="8" fill="#5B5E70"/>
+      <circle cx="505" cy="146" r="22" fill="#C8452D"/>
+      <path d="M470 120 q35 -26 70 0 l-6 30 q-30 14 -58 0 z" fill="#E8B98F" stroke="#1B1F33" stroke-width="3"/>
+      <!-- left robot with foam on a palm -->
+      <rect x="70" y="250" width="130" height="68" rx="12" fill="#5B5E70"/>
+      <path d="M135 250 V160 H254" stroke="#5B5E70" stroke-width="16" fill="none" stroke-linecap="round"/>
+      <g fill="#E8B98F" stroke="#1B1F33" stroke-width="3"><rect x="318" y="200" width="56" height="16" rx="8"/><rect x="326" y="216" width="60" height="16" rx="8"/><rect x="322" y="232" width="54" height="16" rx="8"/><rect x="200" y="196" width="140" height="58" rx="26"/></g>
+      <rect x="232" y="176" width="44" height="26" rx="10" fill="#F6C454" stroke="#1B1F33" stroke-width="3"/>
+      <!-- cable and clock -->
+      <path d="M200 296 C280 340 360 340 440 296" stroke="#2F6F9F" stroke-width="6" fill="none" stroke-dasharray="12 8"/>
+      <circle cx="320" cy="300" r="30" fill="#FFFFFF" stroke="#1B1F33" stroke-width="4"/>
+      <path d="M320 300 V280 M320 300 L334 308" stroke="#1B1F33" stroke-width="4" stroke-linecap="round"/>
+      <text x="505" y="60" text-anchor="middle" font-family="Rubik,Arial" font-size="32" font-weight="700" fill="#1B1F33">היד מזיזה</text>
+      <text x="160" y="60" text-anchor="middle" font-family="Rubik,Arial" font-size="32" font-weight="700" fill="#1B1F33">הספוג מלטף</text>
+      <text x="320" y="378" text-anchor="middle" font-family="Rubik,Arial" font-size="30" font-weight="700" fill="#2F6F9F">אפשר לחכות רגע</text>
+    </svg>
+    <figcaption>הנבדקים הזיזו ידית ביד שמאל. הרובוט השני העתיק את התנועה, והעביר ספוג רך על כף יד ימין. המחשב יכול היה לגרום לרובוט לחכות רגע, או לשנות את כיוון התנועה.</figcaption>
+  </figure>
+
+  <p>בניסוי הראשון הרובוט העתיק את התנועה בדיוק, באותו רגע. ומה הרגישו? כמעט לא דגדוג — כאילו נגעו בעצמם. וכשרובוט הזיז את הספוג לבד, בלי שהנבדק הזיז כלום, זה דגדג הרבה יותר. אז ההבדל הוא לא באצבע, ולא בספוג. ההבדל הוא <b>מי נתן את הפקודה</b>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על הפתעה. כשמישהו קופץ מאחורי הדלת ואומר "בּוּ!" — נבהלים. אבל אם אתם עצמכם אומרים "בּוּ!" — לא קורה כלום. אי אפשר להפתיע את עצמך. ודגדוג? הוא עובד בדיוק כמו הפתעה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>שימו לב לחוכמה של הניסוי: המגע על כף היד <b>זהה לגמרי</b> — אותו ספוג, אותו כוח, אותו מסלול. משתנה רק הקשר בין התנועה של הנבדק לבין המגע. כך בודקים רעיון אחד בכל פעם — מה שדרווין לא יכול היה לעשות בלי רובוט.</p>
+  </div>
+
+  <div class="q qc" id="goalQ"></div>
+  <p class="small" id="hint1" style="text-align:center">כדי להמשיך, ענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE BRAIN'S GUESSING MACHINE (interactive 1) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק 2</div>
+  <h2>המוח שמנחש מראש</h2>
+  <p>בכל פעם שאתם מחליטים להזיז את היד, המוח שולח פקודה לשרירים. אבל הוא שולח גם <b>עותק</b> של הפקודה לאזור אחר, שמנחש: "אם היד זזה ככה — זה מה שהעור ירגיש עוד רגע." וכשהמגע האמיתי מגיע, המוח <b>מוריד</b> ממנו את הניחוש. מה שנשאר — זה מה שאתם מרגישים.</p>
+  <p>במעבדה תנסו להעביר נוצה על כף הרגל: פעם אתם, ופעם חבר. אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 1 — מכונת הניחושים ===== -->
+  <div class="panel instrument">
+    <h3>מכונת הניחושים</h3>
+    <p class="cap">למעלה: יד עם נוצה, וכף רגל. למטה שלושה עמודים: <b>המגע האמיתי</b>, <b>הניחוש של המוח</b>, ו<b>מה שמרגישים בסוף</b>. נחשו קודם: כשאתם מעבירים את הנוצה בעצמכם — מה המוח עושה?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="prP0" onclick="prPredict(0)">מרגיש את זה חזק פי שניים</button>
+        <button id="prP1" onclick="prPredict(1)">מנחש מראש ומחליש את זה</button>
+        <button id="prP2" onclick="prPredict(2)">לא מרגיש בכלל שום מגע</button>
+      </div>
+    </div>
+    <canvas role="img" id="prCv" width="640" height="600" aria-label="למעלה יד שמחזיקה נוצה ליד כף רגל, ופרצוף שצוחק או לא. למטה שלושה עמודים: המגע האמיתי, הניחוש של המוח, ומה שמרגישים — והחשבון ביניהם, משמאל לימין"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="מי מזיז את הנוצה">
+        <button id="prM0" class="on" onclick="prMode(0)">אתם מזיזים</button>
+        <button id="prM1" onclick="prMode(1)">חבר מזיז</button>
+      </div>
+      <label>כמה חזק הנוצה נוגעת (שמאלה: עדין, ימינה: חזק)
+        <input type="range" id="prS" min="2" max="10" step="1" value="6" oninput="prSet()" aria-label="חוזק המגע" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">מגע: <b id="prOutR"><span class="num">6</span></b></div>
+      <div class="readout">מרגישים: <b id="prOutF"><span class="num">?</span></b></div>
+    </div>
+    <p class="cap" id="prMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="prReveal" hidden><span class="hand">!</span><p><b>המוח מנחש מראש — ומוריד את הניחוש מהמגע.</b> כשאתם מזיזים את הנוצה, המוח יודע בדיוק מתי ואיפה היא תיגע, ולכן כמעט כל המגע "מתבטל". כשחבר מזיז אותה, למוח אין פקודה ואין עותק — אין ממה לנחש. אז כל המגע מגיע בהפתעה, ומדגדג. (המספרים בהדמיה להמחשה.)</p></div>
+
+  <div id="prAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>זה כמו לשחק תופסת עם מישהו שיודע לאן תרוצו. אם הוא יודע מראש — הוא לא מופתע. המוח שלכם תמיד יודע לאן היד שלכם תזוז, כי הוא זה שהחליט. רק יד של מישהו אחר יכולה להפתיע אותו.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה שמוח יחזיק "מכונת ניחושים" כזאת? מדענים קוראים לה <b>מודל קדימה</b>: חישוב שמקבל את הפקודה ומחזיר מה החושים צפויים להרגיש. ניחוש טוב מוריד כמעט הכול — אבל לא לגמרי: אתם עדיין יודעים שנגעתם בעצמכם, רק שזה לא מפתיע ולא מדגדג.</p>
+  </div>
+
+  <div class="q qc" id="beatQ"></div>
+  </div>
+  <p class="small" id="hint2" style="text-align:center">כדי להמשיך, נחשו, נסו את שני המצבים, והזיזו את החוזק.</p>
+  <div class="next"><button class="btn" id="next2" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · FOOLING THE BRAIN WITH A ROBOT (interactive 2) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק 3</div>
+  <h2>לבלבל את המוח בחמישית שנייה</h2>
+  <p>אם המוח באמת מנחש, אפשר לנסות לגרום לו לנחש <b>לא נכון</b>. וזה בדיוק מה שבלייקמור עשתה. בניסוי של <span class="num">1999</span>, עם <span class="num">16</span> מבוגרים, היא שינתה שני דברים: <b>זמן</b> — הרובוט חיכה רגע לפני שהעתיק את התנועה; ו<b>כיוון</b> — הרובוט הזיז את הספוג בזווית אחרת מהיד. הנבדקים דירגו כמה זה דגדג, מ־<span class="num">0</span> עד <span class="num">10</span>.</p>
+  <p>במעבדה תשחקו ברובוט. אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 2 — הרובוט של בלייקמור ===== -->
+  <div class="panel instrument">
+    <h3>הרובוט של בלייקמור</h3>
+    <p class="cap">למעלה: היד שלכם מזיזה ידית הלוך ושוב. הנקודה המקווקווה היא איפה שהמוח <b>מנחש</b> שהספוג יהיה. הספוג הצהוב הוא איפה שהוא <b>באמת</b>. מימין: מד הדגדוג. נחשו קודם: חוץ מאיחור, מה עוד יכול לבלבל את המוח?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="rbP0" onclick="rbPredict(0)">רובוט רועש יותר</button>
+        <button id="rbP1" onclick="rbPredict(1)">לשנות את כיוון התנועה</button>
+        <button id="rbP2" onclick="rbPredict(2)">ספוג בצבע אחר</button>
+      </div>
+    </div>
+    <canvas role="img" id="rbCv" width="640" height="600" aria-label="למעלה ידית שזזה הלוך ושוב. למטה כף יד פתוחה, עם נקודה מקווקווה שמראה את הניחוש של המוח וספוג צהוב שמראה איפה הספוג באמת — ככל שהאיחור או הזווית גדלים, הספוג מתרחק מהניחוש. מימין מד דגדוג, עם קו של יד של מישהו אחר"></canvas>
+    <div class="controls">
+      <label>איחור (שמאלה: בלי איחור, ימינה: <span class="num">300</span> אלפיות שנייה)
+        <input type="range" id="rbD" min="0" max="300" step="50" value="0" oninput="rbSet()" aria-label="איחור" style="direction:ltr">
+      </label>
+      <label>שינוי כיוון (שמאלה: אותו כיוון, ימינה: <span class="num">90</span> מעלות)
+        <input type="range" id="rbA" min="0" max="90" step="30" value="0" oninput="rbSet()" aria-label="זווית" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">איחור: <b id="rbOutD"><span class="num">0</span> אלפיות</b></div>
+      <div class="readout">זווית: <b id="rbOutA"><span class="num">0</span>°</b></div>
+      <div class="readout">דגדוג: <b id="rbOutT"><span class="num">?</span></b></div>
+    </div>
+    <p class="cap" id="rbMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="rbReveal" hidden><span class="hand">!</span><p><b>גם זמן וגם כיוון מבלבלים את המוח!</b> ככל שהאיחור גדל מ־<span class="num">0</span> ל־<span class="num">200</span> אלפיות שנייה — חמישית שנייה — הנבדקים דירגו את המגע כמדגדג יותר. ב־<span class="num">200</span> וב־<span class="num">300</span> אלפיות, הוא כבר לא היה שונה ממגע שהרובוט עשה לבד. וגם שינוי כיוון של <span class="num">90</span> מעלות הפך את המגע למדגדג כמו של מישהו אחר. (צורת המד בהדמיה להמחשה.)</p></div>
+
+  <div id="rbAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>המוח מנחש "עכשיו, ופה". אם הספוג מגיע קצת אחר כך, או ממקום אחר — הניחוש כבר לא מתאים, והמגע מפתיע שוב. חמישית שנייה זה בערך כמו מצמוץ — ובכל זאת זה מספיק כדי לבלבל את המוח.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>זה מה שהופך את הניסוי להוכחה: אם הדגדוג היה תלוי רק בספוג, האיחור לא היה משנה כלום. אבל הוא משנה, ובהדרגה. כלומר, המוח צופה לא רק <b>אם</b> תהיה נגיעה, אלא גם <b>מתי</b> ו<b>איפה</b>.</p>
+  </div>
+
+  <div class="q qc" id="frameQ"></div>
+  </div>
+  <p class="small" id="hint3" style="text-align:center">כדי להמשיך, נחשו, הזיזו את האיחור עד <span class="num">200</span> לפחות, ואת הזווית עד <span class="num">90</span>.</p>
+  <div class="next"><button class="btn" id="next3" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · TIT FOR TAT (interactive 3) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק 4</div>
+  <h2>"הוא התחיל! הוא לחץ חזק יותר!"</h2>
+  <p>אם המוח מחליש את מה שאנחנו עושים בעצמנו, יש לזה תוצאה מצחיקה — ולפעמים פחות מצחיקה. ב־<span class="num">2003</span> הושיבו אותה קבוצה מלונדון זוגות של מבוגרים זה מול זה. מנוע לחץ קצת על האצבע של הראשון, והוא היה צריך ללחוץ בחזרה על האצבע של השני, <b>בדיוק באותו כוח</b> שהרגיש. ואז השני החזיר לו, וכך הלאה — שמונה תורות.</p>
+  <p>במעבדה תשחקו את המשחק. אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 3 — לחיצה תמורת לחיצה ===== -->
+  <div class="panel instrument">
+    <h3>לחיצה תמורת לחיצה</h3>
+    <p class="cap">למעלה: שתי אצבעות, ושל מי התור. למטה: עמוד לכל תור — כמה חזק לחצו. הקווים מראים למה זה דומה: המשקל של תפוח קטן, ושל שני תפוחים. נחשו קודם: אם כל אחד מנסה להחזיר <b>בדיוק</b> מה שהרגיש — מה יקרה לכוח?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="ttP0" onclick="ttPredict(0)">נשאר אותו דבר</button>
+        <button id="ttP1" onclick="ttPredict(1)">הולך וגדל</button>
+        <button id="ttP2" onclick="ttPredict(2)">הולך וקטן</button>
+      </div>
+    </div>
+    <canvas role="img" id="ttCv" width="640" height="600" aria-label="למעלה שתי אצבעות שלוחצות זו על זו, וחץ שגודלו כגודל הכוח. למטה גרף עמודות של שמונה תורות, בשני צבעים לשני השחקנים, עם קווים של משקל של תפוח קטן ושל שני תפוחים"></canvas>
+    <div class="controls">
+      <button class="btn small" id="ttGo" onclick="ttTurn()">התור הבא ←</button>
+      <button class="btn small ghost" onclick="ttReset()">מהתחלה</button>
+      <div class="seg" role="group" aria-label="איך לוחצים">
+        <button id="ttM0" class="on" onclick="ttMode(0)">אצבע על אצבע</button>
+        <button id="ttM1" onclick="ttMode(1)">דרך ג׳ויסטיק</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="readout">תור: <b id="ttOutN"><span class="num">1</span></b></div>
+      <div class="readout">כוח: <b id="ttOutF"><span class="num">0.25</span> ניוטון</b></div>
+    </div>
+    <p class="cap" id="ttMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="ttReveal" hidden><span class="hand">!</span><p><b>הכוח הלך וגדל — בכל תור בערך ב־<span class="num">38%</span>!</b> כל אחד היה בטוח שהוא מחזיר בדיוק, ושהשני הוא זה שמגביר. אבל לחיצה שאנחנו עושים בעצמנו מרגישה למוח בערך <b>חצי</b> מחוזקה האמיתי, אז כדי "להרגיש" שלחצנו מספיק — לוחצים חזק יותר. ובניסוי אחר, כשלחצו דרך ג׳ויסטיק שהפעיל מנוע ולא באצבע עצמה, הכוח יצא הרבה יותר מדויק. (מצב הג׳ויסטיק בהדמיה מראה מה היה קורה אילו כל תור היה מדויק כך.)</p></div>
+
+  <div id="ttAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>עכשיו ברור למה ריב קטן בהפסקה נהיה גדול כל כך מהר: "רק נגעתי בו!" — "לא, דחפת חזק!" ושניהם צודקים, כל אחד מהמוח שלו. הטריק: כשאתם מחזירים, זכרו שהמוח מקטין את הלחיצה שלכם — ועדיף לא להחזיר בכלל.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הניסוי התחיל ב־<span class="num">0.25</span> ניוטון — בערך כמו המשקל של שלושה מטבעות של <span class="num">10</span> שקלים. <span class="num">38%</span> יותר בכל תור זה כפל ב־<span class="num">1.38</span>, שוב ושוב: <span class="math">0.25 × 1.38 ≈ 0.35</span>, ואז <span class="math">0.35 × 1.38 ≈ 0.48</span>, וכך הלאה. זה נקרא <b>גדילה בכפל</b>: כל צעד גדול מהקודם. בתור השמיני הכוח כבר כמעט פי עשרה מההתחלה — וכל אחד מהשניים בטוח שהוא רק "החזיר".</p>
+  </div>
+
+  <div class="q qc" id="lineQ"></div>
+  </div>
+  <p class="small" id="hint4" style="text-align:center">כדי להמשיך, נחשו, שחקו את כל שמונה התורות באצבע, ואז לפחות שלוש תורות דרך ג׳ויסטיק.</p>
+  <div class="next"><button class="btn" id="next4" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: THE CEREBELLUM (figure) + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק 5</div>
+  <h2>המוח הקטן — מכונת הניחושים</h2>
+  <p>איפה במוח נעשה הניחוש? ב־<span class="num">1998</span> שכבו נבדקים בסורק מוח, וספוג רך הועבר על כף היד שלהם — פעם בידי הנסיין, ופעם בידם. כשהם נגעו בעצמם, <b>האזור שמרגיש מגע</b> עבד פחות. ועוד אזור התנהג מוזר: <b>המוח הקטן</b>, שיושב בחלק האחורי והתחתון של הראש. החוקרים הציעו שהוא זה שמנחש מה ירגישו — ושולח את הניחוש כדי להחליש את המגע.</p>
+
+  <figure class="calfig" aria-label="ציור של ראש מהצד. מהמוח יוצא חץ פקודה אל היד. חץ שני, של עותק, הולך אל המוח הקטן בחלק האחורי. מהמוח הקטן יוצא ניחוש אל אזור המגע, ומהיד מגיע המגע האמיתי. התוצאה: כמעט כלום">
+    <svg viewBox="0 0 640 400" role="img" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="640" height="400" rx="14" fill="#F4EEDF"/>
+      <path d="M470 70 C560 70 600 140 590 210 C584 256 560 286 520 300 L520 360 L430 360 L430 312 C360 300 330 250 336 190 C344 110 400 70 470 70 Z" fill="#E8B98F" stroke="#1B1F33" stroke-width="4"/>
+      <path d="M470 92 C540 92 570 140 566 186 C562 224 530 244 490 246 C440 248 380 232 372 190 C364 140 410 92 470 92 Z" fill="#F3B6C4" stroke="#1B1F33" stroke-width="3"/>
+      <ellipse cx="548" cy="250" rx="34" ry="22" fill="#B98AD6" stroke="#1B1F33" stroke-width="3"/>
+      <circle cx="440" cy="150" r="14" fill="#C8452D"/>
+      <circle cx="500" cy="130" r="14" fill="#2F6F9F"/>
+      <!-- command to the hand -->
+      <path d="M430 160 C330 190 230 210 150 236" stroke="#C8452D" stroke-width="7" fill="none"/>
+      <path d="M150 236 L176 218 L172 246 Z" fill="#C8452D"/>
+      <path d="M60 250 q40 -36 90 -14 l10 22 q-50 22 -100 6 z" fill="#E8B98F" stroke="#1B1F33" stroke-width="3"/>
+      <!-- copy to the cerebellum -->
+      <path d="M452 160 C480 210 506 236 520 244" stroke="#C8452D" stroke-width="5" fill="none" stroke-dasharray="10 7"/>
+      <!-- prediction to touch area -->
+      <path d="M552 228 C560 190 540 150 512 140" stroke="#7A4DA8" stroke-width="5" fill="none"/>
+      <path d="M512 140 L534 140 L522 160 Z" fill="#7A4DA8"/>
+      <!-- real touch back -->
+      <path d="M160 270 C260 300 380 250 490 150" stroke="#2F6F9F" stroke-width="5" fill="none"/>
+      <text x="250" y="180" text-anchor="middle" font-family="Rubik,Arial" font-size="30" font-weight="700" fill="#C8452D">פקודה</text>
+      <text x="250" y="318" text-anchor="middle" font-family="Rubik,Arial" font-size="30" font-weight="700" fill="#2F6F9F">מגע אמיתי</text>
+      <text x="556" y="388" text-anchor="middle" font-family="Rubik,Arial" font-size="28" font-weight="700" fill="#7A4DA8">המוח הקטן</text>
+      <text x="300" y="44" text-anchor="middle" font-family="Rubik,Arial" font-size="30" font-weight="700" fill="#1B1F33">מגע − ניחוש = כמעט כלום</text>
+    </svg>
+    <figcaption>הפקודה יוצאת אל היד (אדום), ועותק שלה הולך למוח הקטן (מקווקו). המוח הקטן שולח ניחוש (סגול) לאזור שמרגיש מגע, ושם הוא פוגש את המגע האמיתי (כחול). הציור מפושט מאוד.</figcaption>
+  </figure>
+
+  <p>ולמה צריך את כל זה? כי המוח רוצה לשים לב ל<b>חדש</b>. אתם זזים כל הזמן, והשרוול נוגע ביד בלי הפסקה. אם כל נגיעה כזאת הייתה מרגישה כמו יד זרה — הייתם קופצים כל שנייה. בזכות הניחוש, המוח "משתיק" את מה שאתם עושים, וכך נמלה על הזרוע מורגשת מיד.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>בואו נחשב כמו המוח. נניח שהנוצה נוגעת בחוזק <span class="num">10</span>, והמוח ניחש <span class="num">8</span>. מה מרגישים? <span class="math">10 − 8 = 2</span> — כמעט כלום. ועכשיו חבר מזיז את הנוצה: המוח לא ניחש כלום, כלומר <span class="num">0</span>. מה מרגישים? <span class="math">10 − 0 = 10</span> — הכול!</p>
+    <p>ומה עם הזמן? שנייה אחת מתחלקת ל־<span class="num">1,000</span> חלקים קטנטנים, שנקראים <b>אלפיות שנייה</b>. הרובוט של בלייקמור חיכה <span class="num">200</span> אלפיות שנייה. סופרים במאתיים: <span class="math">200, 400, 600, 800, 1000</span> — חמש קפיצות. אז <span class="num">200</span> אלפיות זה חמישית שנייה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>למה דווקא זמן כל כך קצר מקלקל את הניחוש? כי הניחוש הוא לא "תהיה נגיעה", אלא "תהיה נגיעה <b>כאן ועכשיו</b>". היד זזה, ולכן כל רגע של איחור פירושו שהספוג נמצא במקום אחר ממה שהמוח צפה. אם היד זזה במהירות <span class="num">10</span> ס״מ בשנייה, איחור של <span class="num">200</span> אלפיות שנייה הוא <span class="math">200 ÷ 1000 = 0.2</span> שנייה, והספוג מפגר ב־<span class="math">10 × 0.2 = 2</span> ס״מ. בשביל העור, זו כבר נגיעה במקום אחר — כמו של מישהו אחר.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b>1. שאלה כמותית:</b> נניח שהיד מזיזה את הידית במהירות <span class="num">15</span> ס״מ בשנייה, והרובוט מאחר ב־<span class="num">200</span> אלפיות שנייה. (א) בכמה <b>סנטימטרים</b> הספוג מפגר אחרי המקום שהמוח ניחש? (ב) כמה אלפיות שנייה צריך הרובוט לאחר, כדי שהספוג יפגר ב־<span class="num">4.5</span> ס״מ? (מותר מחשבון.)</p>
+      <div class="controls">
+        <label>(א) ס״מ <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) אלפיות שנייה <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b>2. שאלה למחשבה:</b> ניתוחים בבתי חולים נעשים היום לפעמים בעזרת רובוט: הרופא מזיז ידיות, והרובוט מזיז את הכלים. מה עלול לקרות אם יש איחור קטן בין היד של הרופא לבין הרובוט — ולמה המהנדסים מתאמצים כל כך שהאיחור יהיה הכי קטן שאפשר?</p>
+      <details><summary>רמז</summary><p>חשבו על המוח הקטן: הוא מנחש מה יקרה <b>עכשיו</b>, לפי התנועה. מה קורה לניחוש כשהתוצאה מגיעה מאוחר?</p></details>
+      <details><summary>התשובה</summary><p><b>הניחוש של המוח כבר לא מתאים למה שקורה.</b> המוח מתכנן תנועות לפי הניחוש של מה שהיד תעשה. אם הכלי זז קצת אחרי היד, התנועה מרגישה "לא שלי" — קשה לדייק, ויש סכנה לתקן יותר מדי. ככל שהאיחור קטן יותר, המוח יכול להרגיש שהכלי הוא כמו המשך של היד. לכן במערכות כאלה מנסים שהאיחור יהיה כמה שיותר קטן, ובניתוח מרחוק, על פני מרחק גדול, האיחור הוא אחד האתגרים הגדולים.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <p class="small" id="hint5" style="text-align:center">כדי להמשיך, ענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next5" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>צריך: חבר או מבוגר מהמשפחה, גרב, טלפון עם שעון עצר, משקל מטבח — ודף לרשום. ושימו לב: מדגדגים רק מי שרוצה, ועוצרים מיד כשמבקשים.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — מבחן הדגדוג (<span class="num">10</span> דקות)</h3>
+    <ol>
+      <li>הורידו גרב. העבירו אצבע לאט מתחת לכף הרגל שלכם. תנו ציון מ־<span class="num">0</span> (כלום) עד <span class="num">10</span> (אי אפשר להחזיק את עצמי).</li>
+      <li>עכשיו החבר עושה בדיוק אותה תנועה. ציון?</li>
+      <li>החבר שם את היד שלו על היד שלכם ומזיז אותה. האצבע שלכם נוגעת — אבל הוא מוביל. ציון?</li>
+      <li>החבר מדגדג, ואתם עם עיניים עצומות. ועכשיו דרך גרב. ציונים?</li>
+      <li>לפני שמתחילים — נחשו: באיזה מצב יהיה הכי מדגדג? ובאיזה הכי פחות? רשמו טבלה, והשוו בין כולם במשפחה.</li>
+    </ol>
+    <p class="small">טיפ: בניסוי מ־<span class="num">1971</span> באוקספורד, כשהנסיין הזיז את היד של הנבדק, זה דגדג יותר מנגיעה עצמית — אבל פחות מנגיעה של הנסיין עצמו. מה יצא לכם?</p>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — לחיצה תמורת לחיצה עם משקל מטבח (<span class="num">5</span> דקות)</summary>
+    <ol>
+      <li>שחקן א׳ לוחץ באצבע אחת על משקל המטבח, בעדינות, עד שהוא מראה בערך <span class="num">100</span> גרם. שחקן ב׳ מרגיש את הלחיצה: הוא שם אצבע על המשקל, וא׳ לוחץ על הציפורן שלו.</li>
+      <li>עכשיו ב׳ לוחץ על הציפורן של א׳ (האצבע של א׳ על המשקל), ומנסה ללחוץ <b>בדיוק</b> כמו שהרגיש. מישהו שלישי מקריא את המספר.</li>
+      <li>מחליפים כמה פעמים, ורושמים את המספרים. האם הם עולים? כלל ברזל: עוצרים ב־<span class="num">500</span> גרם, ולוחצים רק בעדינות.</li>
+    </ol>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>המוח שמשתיק את עצמו</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>אי אפשר לדגדג את עצמך, כי המוח שלך יודע מראש.</b> כשאתם מזיזים יד, המוח מנחש מה תרגישו ומוריד את זה מהמגע — אז כמעט לא נשאר דגדוג. רובוט שמחכה חמישית שנייה, או זז בכיוון אחר, מבלבל את הניחוש, והדגדוג חוזר. ובגלל אותו טריק, הלחיצה שלכם מרגישה לכם חלשה — ולכן ריבים מתגברים. שאלה לחקור: האם אפשר להפתיע את עצמך בדרך אחרת — למשל בקול?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>מודל קדימה</b>: עם כל פקודה, המוח (כנראה בעזרת המוח הקטן) מנחש מה נרגיש ומוריד את הניחוש מהמגע. הניחוש מדויק בזמן ובמקום — ולכן <span class="num">200</span> אלפיות שנייה או <span class="num">90</span> מעלות מחזירים את הדגדוג. ומאותה סיבה הלחיצה שלנו מרגישה חלשה, והכוח בזוג גדל ב־<span class="num">38%</span> בכל תור. שאלה לחקור: אם המוח מחליש את מה שאנחנו עושים — למה בכל זאת מרגישים כשנוגעים בעצמנו?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הסיפור?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ביולוגיה</div><h3>חולדות שצוחקות</h3><p>אריסטו טעה: ב־<span class="num">2016</span> חוקרים בברלין דגדגו חולדות צעירות, והן "צחקו" בצפצופים גבוהים מכדי שנשמע אותם, קפצו משמחה ורדפו אחרי היד. וחולדה מפוחדת — כמעט לא מגיבה.</p></div>
+    <div class="tile"><div class="dom">מדע המוח · ראייה</div><h3>העולם שלא קופץ</h3><p>העיניים שלכם זזות כמה פעמים בכל שנייה, ובכל זאת החדר לא נראה רועד. גם כאן המוח יודע מראש איך העין תזוז, ומתקן את התמונה לפני שאתם שמים לב.</p></div>
+    <div class="tile"><div class="dom">היסטוריה</div><h3>מאריסטו ועד דרווין</h3><p>אריסטו קישר דגדוג לצחוק. דרווין חשב שדגדוג עובד רק כשלא יודעים איפה ייגעו. אבל האם זה כל ההסבר? כדי לדעת, היה צריך ניסוי אמיתי.</p></div>
+    <div class="tile"><div class="dom">מדע ישראלי</div><h3>"זה אני?"</h3><p>במעבדה של רועי סלומון באוניברסיטת בר־אילן חוקרים איך המוח יודע מה "אני" ומה לא — בעזרת רובוטים שנוגעים בגוף ועולם וירטואלי, ממש כמו המשך של הרובוט מלונדון.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): למה מצחיק כשמישהו רק <b>מתכונן</b> לדגדג?</summary>
+    <p>הרבה ילדים מתחילים לצחוק כשמישהו מתקרב עם אצבעות מדגדגות — עוד לפני שנגע. אם המוח מנחש הכול מראש, למה זה קורה? לפני שאתם פותחים — נחשו!</p>
+    <details><summary>התשובה</summary>
+      <p>כי כאן המוח <b>לא</b> יכול לנחש. הוא יודע שתבוא נגיעה, אבל לא <b>מתי</b> ולא <b>איפה</b> בדיוק — הפקודה נמצאת במוח של מישהו אחר. ככה כל רגע מרגיש כמו "עכשיו?!", והגוף כבר מוכן. מדענים עדיין מתווכחים למה בדיוק דגדוג מצחיק אותנו; אחד הרעיונות הוא שזה משחק שמקרב בין אנשים — כמו אצל החולדות, שמדגדגות זו את זו במשחק.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו מה קורה כשמנסים לדגדג את עצמכם, מההחלטה ועד שלא מרגישים כמעט כלום. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: בשנייה אחת יש <span class="num">1,000</span> אלפיות שנייה. הרובוט מחכה בכל פעם <span class="num">200</span> אלפיות שנייה. כמה המתנות כאלה נכנסות בשנייה אחת?</div>
+    <div class="controls"><label>המתנות <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: במשחק "לחיצה תמורת לחיצה" התור הראשון היה בכוח של <span class="num">1.65</span> ניוטון, ובכל תור הכוח גדל ב־<span class="num">38%</span>. (א) מה הכוח בתור השני? (ב) ומה הכוח בתור השלישי? (בניוטון, עגלו לשתי ספרות אחרי הנקודה. מותר מחשבון.)</div>
+    <div class="controls"><label>(א) תור <span class="num">2</span> <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) תור <span class="num">3</span> <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: במשחק "לחיצה תמורת לחיצה" התור הראשון היה בכוח של <span class="num">2</span> ניוטון, ובכל תור הכוח גדל ב־<span class="num">38%</span>. מה הכוח בתור השני, בניוטון?</div>
+    <div class="controls"><label>ניוטון <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה אי אפשר לדגדג את עצמנו — ואיך הרובוט של בלייקמור הצליח בכל זאת?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="כשאנחנו מזיזים את היד, המוח..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt">0</b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+0</b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3>3 דברים לספר בארוחת ערב</h3>
+    <p style="margin:0">1. אי אפשר לדגדג את עצמך, כי המוח מנחש מראש מה תרגישו כשאתם זזים — ומוריד את הניחוש מהמגע. אין הפתעה, אין דגדוג.<br>
+    2. בלונדון חיברו רובוט שמעתיק את התנועה שלכם באיחור של חמישית שנייה — וזה הספיק כדי שתוכלו לדגדג את עצמכם.<br>
+    3. כששניים מחזירים לחיצה "בדיוק באותו כוח", הכוח גדל בכל תור בערך ב־<span class="num">38%</span> — כי הלחיצה של עצמנו מרגישה לנו חלשה. ככה ריבים מתגברים.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>הרובוט: S.-J. Blakemore, C. D. Frith &amp; D. M. Wolpert, "Spatio-temporal prediction modulates the perception of self-produced stimuli", Journal of Cognitive Neuroscience <span class="num">11</span>(<span class="num">5</span>) (<span class="num">1999</span>): <span class="math">551–559</span> — <span class="num">16</span> מבוגרים, שני רובוטים, ספוג רך על כף היד הימנית לפי תנועת היד השמאלית; איחורים של <span class="num">0, 100, 200, 300</span> אלפיות שנייה ושינויי מסלול של <span class="num">30°</span>, <span class="num">60°</span>, <span class="num">90°</span>; דירוג "tickly" על סולם <span class="math">0–10</span>; הדירוג עלה בהדרגה מ־<span class="num">0</span> עד <span class="num">200</span> אלפיות, ו־<span class="num">200</span>/<span class="num">300</span> אלפיות וגם <span class="num">90°</span> לא נבדלו סטטיסטית ממגע חיצוני של הרובוט. הניסוי מוזכר גם ב־Blakemore, Wolpert &amp; Frith, NeuroImage <span class="num">10</span> (<span class="num">1999</span>): <span class="math">448–459</span>.</p>
+    <p>סורק המוח: Blakemore, Wolpert &amp; Frith, "Central cancellation of self-produced tickle sensation", Nature Neuroscience <span class="num">1</span>(<span class="num">7</span>) (<span class="num">1998</span>): <span class="math">635–640</span> — <span class="num">6</span> נבדקים; פחות פעילות בקליפת החישה המשנית ובחלק הקדמי של המוח הקטן במגע עצמי; ההצעה שהמוח הקטן מנבא את התוצאות החושיות של תנועה. סקירה: "Why can't you tickle yourself?", NeuroReport (<span class="num">2000</span>).</p>
+    <p>לחיצה תמורת לחיצה: S. S. Shergill, P. M. Bays, C. D. Frith &amp; D. M. Wolpert, "Two eyes for an eye: the neuroscience of force escalation", Science <span class="num">301</span> (<span class="num">11</span> ביולי <span class="num">2003</span>) — <span class="num">6</span> זוגות, <span class="num">8</span> תורות, התחלה ב־<span class="num">0.25</span> ניוטון, הסלמה ממוצעת של <span class="num">38%</span> בכל תור; בניסוי נפרד (<span class="num">12</span> נבדקים) כוח שנוצר ישירות באצבע הוערך בחסר — "בערך בחצי" — וכשהכוח הופעל דרך ג׳ויסטיק ההתאמה הייתה מדויקת הרבה יותר; הודעת UCL מ־<span class="num">23</span> ביולי <span class="num">2003</span>. מצב "ג׳ויסטיק" בהדמיה הוא המחשה של התאמה מדויקת ולא שחזור של ניסוי זוגות.</p>
+    <p>חולדות: S. Ishiyama &amp; M. Brecht, "Neural correlates of ticklishness in the rat somatosensory cortex", Science (<span class="num">2016</span>), אוניברסיטת הומבולדט בברלין — קריאות "צחוק" אולטרה־סוניות של <span class="num">50</span> קילוהרץ, "קפיצות שמחה", הכי רגישות בבטן ובכפות הרגליים, וחרדה מפחיתה את התגובה (ScienceDaily, <span class="num">10</span> בנובמבר <span class="num">2016</span>).</p>
+    <p>היסטוריה: אריסטו, "על חלקי בעלי החיים" III.10 — רק האדם רגיש לדגדוג, בגלל עדינות העור ומפני שהוא היחיד שצוחק; ההשערה של דרווין ש"המקום המדויק שייגעו בו חייב להיות לא ידוע" — מצוטטת אצל L. Weiskrantz, J. Elliott &amp; C. Darlington, "Preliminary observations on tickling oneself", Nature <span class="num">230</span> (<span class="num">1971</span>): <span class="math">598–599</span>, שהציעו לראשונה שאותות הפקודה מבטלים את התחושה הצפויה, ומצאו (לפי הסקירה של בלייקמור ואח׳) שתנועה פסיבית של יד הנבדק מדגדגת יותר מתנועה עצמית ופחות ממגע של הנסיין. Radboud University / K. Kilteni, Science Advances (<span class="num">2025</span>) — מה שעדיין לא ידוע על דגדוג.</p>
+    <p>ישראל: M. Hara, N. Kanayama, O. Blanke &amp; R. Salomon, "Modulation of bodily self-consciousness by self and external touch", IEEE Transactions on Haptics <span class="num">14</span>(<span class="num">3</span>) (<span class="num">2021</span>) — רובוטיקה ומציאות מדומה במחקר על תחושת ה"אני", אוניברסיטת בר־אילן.</p>
+    <p>דיוק ופישוטים: "מכונת הניחושים" (פרק <span class="num">2</span>) מציגה את רעיון ההפחתה במספרים להמחשה (הניחוש מוריד <span class="num">80%</span>); במציאות ההחלשה אינה חיסור פשוט, ומידתה משתנה. מד הדגדוג ב"רובוט של בלייקמור" בנוי לפי המגמה שדווחה (עלייה עד <span class="num">200</span> אלפיות שנייה ועד <span class="num">90°</span>) ואינו מציג ממוצעים שפורסמו. בגרף "לחיצה תמורת לחיצה" כל תור גדל בדיוק ב־<span class="num">38%</span> — זה הממוצע, לא כל זוג. "המוח הקטן מנחש" — זו ההשערה המובילה של החוקרים, נתמכת בסריקות; גם אזורים אחרים מעורבים. ההסבר למה דגדוג מצחיק — עדיין שנוי במחלוקת, וכך גם מנוסח בשיעור. המהירות <span class="num">15</span> ס״מ בשנייה באתגר היא הנחה לתרגיל.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:67, code:'WOW-067', date:'2026-11-19', title:'למה אי אפשר לדגדג את עצמך — והרובוט שהוכיח למה', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15LXk9eS15PXniDXmNeV15HXldeo'; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'biology', w:3 }, { id:'engineering', w:2 }, { id:'math', w:2 }, { id:'history', w:1 } ],
+  hero: { name:'למה אי אפשר לדגדג את עצמך — והרובוט שהוכיח למה — מכונת הניחושים, הרובוט של בלייקמור, לחיצה תמורת לחיצה', fact:'המוח מנחש מראש מה נרגיש כשאנחנו זזים ומחליש את המגע — ורובוט שמאחר חמישית שנייה מבלבל את הניחוש ומחזיר את הדגדוג.' },
+  items: {
+    'predict':        { skill:'estimation',               d:2 },
+    'qc:scale':       { skill:'prior-knowledge',          d:1 },
+    'qc:goalQ':       { skill:'story-recall',             d:1 },
+    'qc:beatQ':       { skill:'forward-model',            d:2 },
+    'qc:frameQ':      { skill:'timing-prediction',        d:2 },
+    'qc:lineQ':       { skill:'force-escalation',         d:2 },
+    'qc:deepQ':       { skill:'subtraction',              d:1 },
+    'mcq:shared:0':   { skill:'forward-model',            d:1 },
+    'mcq:shared:1':   { skill:'experiment-design',        d:2 },
+    'mcq:shared:2':   { skill:'force-escalation',         d:2 },
+    'mcq:younger:0':  { skill:'cerebellum',               d:1 },
+    'mcq:older:0':    { skill:'timing-prediction',        d:3 },
+    'order':          { skill:'process-sequence',         d:2 },
+    'num:younger':    { skill:'division-units',           d:1 },
+    'num:older':      { skill:'percent-increase',         d:2 },
+    'num:adv':        { skill:'repeated-percent-growth',  d:4 },
+    'challenge':      { skill:'speed-time-distance',      d:4 },
+    'explain':        { skill:'mechanism-explanation',    d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); } if(n===2) prDraw(); if(n===3) rbStart(); if(n===4) ttDraw(); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: how late must the robot be so a self-made touch tickles like someone else's? ----------
+   Four choices. The right answer: 2 — about a fifth of a second (200 ms; Blakemore, Frith & Wolpert 1999). */
+const SCALE_ANS = 2;
+const fmtSigns = n => ({1:'אף פעם',2:'חמישית שנייה',3:'חמש שניות',4:'דקה שלמה'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> חמישית שנייה בלבד — <span class="num">200</span> אלפיות שנייה. בערך כמו מצמוץ, ובכל זאת זה מספיק כדי לבלבל את המוח. איך ולמה? על זה השיעור.';
+const SCALE_FB = {
+  1: '<span class="pill-bad">דווקא כן!</span> איחור של חמישית שנייה בלבד הספיק כדי שהנגיעה "שלכם" תדגדג כמעט כמו של מישהו אחר. איך זה אפשרי? על זה השיעור.',
+  2: SCALE_FB_RIGHT,
+  3: '<span class="pill-bad">הרבה פחות!</span> הספיקה חמישית שנייה — פי <span class="num">25</span> פחות מחמש שניות. המוח מנחש מאוד מדויק, ולכן קל לבלבל אותו. על זה השיעור.',
+  4: '<span class="pill-bad">הרבה הרבה פחות!</span> רק חמישית שנייה — <span class="num">200</span> אלפיות שנייה. איך כל כך מעט משנה כל כך הרבה? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(24,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI, DEG = PI/180;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const GOLDT = () => isDark() ? '#F6C454' : '#8A5410';     // gold for text
+const BLUE = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+const INK = () => css('--ink');
+const BONE = () => isDark() ? '#E9E2CF' : '#FFFDF6';      // vertebrae
+const BONEL = () => '#1B1F33';                            // vertebra outline (on bone, always dark)
+const DISC = () => isDark() ? '#4E9AD0' : '#5FA8DA';      // the disc jelly
+const WATER = () => isDark() ? '#7FC3F0' : '#2F86C8';     // water drops
+const NIGHT = () => isDark() ? '#0B1226' : '#283258';
+const GREY = () => isDark() ? '#8C90AE' : '#9AA0B4';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+const fmtI = v => Math.round(v).toLocaleString('en-US');
+function xMath(c,txt,x,y,size,col,align){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+const RM = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+function xRand(s){ let x=Math.sin(s*12.9898)*43758.5453; return x-Math.floor(x); }
+const W_ = c => c.canvas.width;
+/* a vertebra: a rounded bone block */
+const SKIN = () => isDark() ? '#C9A27E' : '#E8B98F';
+const FEATHER = () => isDark() ? '#F6C454' : '#E2A21F';
+const FRIEND = () => isDark() ? '#FFB38A' : '#D9682F';
+function drawFace(c,x,y,r,felt){ /* felt 0–10: flat mouth → big laughing mouth */
+  c.fillStyle=isDark()?'#F6D47A':'#FBD46B'; c.strokeStyle='#1B1F33'; c.lineWidth=4; c.beginPath(); c.arc(x,y,r,0,2*PI); c.fill(); c.stroke();
+  const k=clamp(felt/10,0,1);
+  c.fillStyle='#1B1F33';
+  if(k>0.55){ c.lineWidth=5; c.beginPath(); c.moveTo(x-r*0.45,y-r*0.22); c.lineTo(x-r*0.22,y-r*0.32); c.moveTo(x-r*0.45,y-r*0.42); c.lineTo(x-r*0.22,y-r*0.32); c.moveTo(x+r*0.45,y-r*0.22); c.lineTo(x+r*0.22,y-r*0.32); c.moveTo(x+r*0.45,y-r*0.42); c.lineTo(x+r*0.22,y-r*0.32); c.stroke(); }
+  else { c.beginPath(); c.arc(x-r*0.33,y-r*0.28,r*0.1,0,2*PI); c.arc(x+r*0.33,y-r*0.28,r*0.1,0,2*PI); c.fill(); }
+  if(k<0.25){ c.lineWidth=5; c.beginPath(); c.moveTo(x-r*0.4,y+r*0.35); c.lineTo(x+r*0.4,y+r*0.35); c.stroke(); }
+  else { const h=r*(0.12+0.5*k); c.fillStyle='#8A2B1E'; c.beginPath(); c.moveTo(x-r*0.55,y+r*0.18); c.quadraticCurveTo(x,y+r*0.18+h*2,x+r*0.55,y+r*0.18); c.closePath(); c.fill(); c.lineWidth=4; c.stroke(); }
+}
+function drawFeather(c,x,y,s,rot){ c.save(); c.translate(x,y); c.rotate(rot||0);
+  c.fillStyle=FEATHER(); c.strokeStyle='#1B1F33'; c.lineWidth=3; c.beginPath(); c.moveTo(0,0); c.quadraticCurveTo(s*0.35,-s*0.32,s,-s*0.08); c.quadraticCurveTo(s*0.45,s*0.22,0,0); c.fill(); c.stroke();
+  c.beginPath(); c.moveTo(-s*0.18,s*0.05); c.lineTo(s*0.95,-s*0.07); c.stroke(); c.restore(); }
+function drawHand(c,x,y,col,flip){ /* a simple fist with a pointing grip, facing right (or left if flip) */
+  c.save(); c.translate(x,y); if(flip) c.scale(-1,1);
+  c.fillStyle=col; c.strokeStyle='#1B1F33'; c.lineWidth=3;
+  c.beginPath(); c.roundRect(-150,-26,110,52,20); c.fill(); c.stroke();        /* the arm */
+  c.beginPath(); c.roundRect(-52,-36,70,72,24); c.fill(); c.stroke();          /* the fist */
+  c.beginPath(); c.roundRect(4,-14,40,18,9); c.fill(); c.stroke();             /* thumb + fingers holding */
+  c.restore(); }
+function drawFoot(c,x,y){ /* the sole of a bare foot, toes up */
+  c.fillStyle=SKIN(); c.strokeStyle='#1B1F33'; c.lineWidth=4;
+  c.beginPath(); c.ellipse(x,y+40,62,104,0,0,2*PI); c.fill(); c.stroke();
+  [[-42,-58,15],[-14,-74,17],[14,-76,16],[38,-68,14],[56,-50,12]].forEach(([dx,dy,r])=>{ c.beginPath(); c.arc(x+dx,y+dy,r,0,2*PI); c.fill(); c.stroke(); });
+  c.strokeStyle='rgba(27,31,51,.25)'; c.lineWidth=3; c.beginPath(); c.moveTo(x-20,y+40); c.quadraticCurveTo(x,y+70,x+18,y+100); c.stroke(); }
+
+/* ---------- step 2 (interactive 1): the brain's guessing machine (canvas 640 × 600) ----------
+   A feather touches the sole with strength s (2–10). Mode 0: you move it — the brain's forward model predicts 80% of the touch (illustrative);
+   mode 1: a friend moves it — no command, no copy, no prediction (0). Felt = touch − prediction. Bottom: three bars, left to right, with "−" and "=" between,
+   so the bars read in the same order as the LTR maths line under them. */
+const prCv=document.getElementById('prCv'), prctx=prCv.getContext('2d');
+const PR={ opened:0, pred:-1, revealed:0, m:0, s:6, moved:0, friend:0, selfAfter:0 };
+const PR_K=0.8;
+function prPredict(k){ PR.pred=k; segOn('prP',3,k); WOW.emit('item', { id:'guess:predict', kind:'quick', correct:k===1, attempt: wowTry('guess:predict') });
+  prMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את החוזק, ואז בחרו "חבר מזיז" — והשוו.'; prUpdate(); }
+function prSet(){ if(PR.pred<0){ prS.value=PR.s; predictFirst(prMsg,'הזיזו'); return; }
+  if(!PR.opened){ PR.opened=1; WOW.emit('open', { id:'guess' }); }
+  PR.s=+prS.value; PR.moved=1; prUpdate(); }
+function prMode(k){ if(PR.pred<0){ predictFirst(prMsg,'בחרו'); return; }
+  if(!PR.opened){ PR.opened=1; WOW.emit('open', { id:'guess' }); }
+  PR.m=k; segOn('prM',2,k); if(k===1) PR.friend=1; if(k===0 && PR.friend) PR.selfAfter=1; prUpdate(); }
+function prVals(){ const g = PR.m===0 ? PR.s*PR_K : 0; return { r:PR.s, g, f:PR.s-g }; }
+const f1 = v => (Math.round(v*10)/10).toString();
+function prUpdate(){ const v=prVals();
+  prMsg.innerHTML = PR.m===0
+    ? 'אתם מזיזים: המוח שלח פקודה, ולכן הוא יודע מראש — הניחוש מוריד כמעט הכול: <span class="math">'+f1(v.r)+' − '+f1(v.g)+' = '+f1(v.f)+'</span>. כמעט לא מדגדג.'
+    : 'חבר מזיז: למוח שלכם אין פקודה ואין עותק, אז הניחוש הוא אפס: <span class="math">'+f1(v.r)+' − 0 = '+f1(v.f)+'</span>. כל המגע מפתיע — ומדגדג!';
+  prDraw(); prCheck(); }
+function prCheck(){ if(PR.pred>=0 && !PR.revealed && PR.moved && PR.friend){ PR.revealed=1; prReveal.hidden=false; prAfter.hidden=false; hint2.textContent='ענו על השאלה כדי להמשיך.'; } }
+function prDraw(){
+  const c=prctx, W=prCv.width, H=prCv.height, ink=INK(), v=prVals(), known=PR.pred>=0;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the scene */
+  drawFoot(c,520,150);
+  const col = PR.m===0 ? BLUE() : FRIEND();
+  drawHand(c,330,170,col,false);
+  drawFeather(c,372,162,96,-0.18);
+  xLabel(c, PR.m===0 ? 'היד שלכם' : 'היד של חבר', 240, 250, 22, col, .95);
+  /* the face: how it feels */
+  drawFace(c,96,120,64, known ? v.f : 0);
+  if(!known) xLabel(c,'?',96,120,34,DANG(),.95);
+  /* the brain's thought bubble (only in "you move") */
+  if(known && PR.m===0){ c.fillStyle=css('--card'); c.strokeStyle=ink; c.lineWidth=2; c.beginPath(); c.ellipse(250,58,112,36,0,0,2*PI); c.fill(); c.stroke();
+    c.beginPath(); c.arc(170,104,9,0,2*PI); c.fill(); c.stroke(); xText(c,'ידעתי!',250,58,22,'#7A4DA8','center'); }
+  /* the bars, left to right: touch − guess = felt */
+  c.fillStyle=css('--card'); c.fillRect(0,300,W,H-300);
+  const base=528, PXU=19, bw=112, xs=[110,320,530];
+  const vals=[v.r, known?v.g:null, known?v.f:null], cols=[BLUE(), '#7A4DA8', DANG()], names=['מגע','ניחוש','מרגישים'];
+  c.strokeStyle=ink; c.lineWidth=2; c.beginPath(); c.moveTo(30,base); c.lineTo(W-30,base); c.stroke();
+  for(let i=0;i<3;i++){ const x=xs[i];
+    if(vals[i]===null){ xLabel(c,'?',x,base-60,30,DANG(),.95); }
+    else { const h=vals[i]*PXU; c.fillStyle=cols[i]; c.globalAlpha = (i===1?.85:1); c.beginPath(); c.roundRect(x-bw/2,base-h,bw,Math.max(h,2),8); c.fill(); c.globalAlpha=1; xMath(c,f1(vals[i]),x,base-h-24,24,ink,'center'); }
+    xText(c,names[i],x,base+38,22,cols[i],'center'); }
+  xMath(c,'−',215,base-80,40,ink,'center'); xMath(c,'=',425,base-80,40,ink,'center');
+  prOutR.innerHTML='<span class="num">'+PR.s+'</span>'; prOutF.innerHTML= known ? '<span class="num">'+f1(v.f)+'</span>' : '?';
+}
+
+/* ---------- step 3 (interactive 2): Blakemore's robot (canvas 640 × 600) ----------
+   The handle moves sinusoidally, period 1.6 s. The brain predicts the foam at the matching point on the palm, now (dotted ring).
+   The real foam (gold) follows the handle d ms late and along a path rotated by θ. Tickle meter: illustrative, rising from ~2.5 (self, no change)
+   to ~9 (like someone else) as max(d/200, θ/90) → 1 (Blakemore, Frith & Wolpert 1999: ratings rose 0→200 ms and 0→90°; 200/300 ms and 90° ≈ external). */
+const rbCv=document.getElementById('rbCv'), rbctx=rbCv.getContext('2d');
+const RB={ opened:0, pred:-1, revealed:0, d:0, a:0, maxD:0, maxA:0, t0:0, raf:0 };
+const RB_P=1.6;
+function rbTickle(){ const x=Math.min(1, Math.hypot(RB.d/200, RB.a/90)); return 2.5+6.5*x; }
+function rbWord(v){ return v<4 ? 'חלש — כמו לבד' : v<7 ? 'בינוני' : 'חזק — כמו מישהו אחר'; }
+function rbPredict(k){ RB.pred=k; segOn('rbP',3,k); WOW.emit('item', { id:'robot:predict', kind:'quick', correct:k===1, attempt: wowTry('robot:predict') });
+  rbMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את האיחור ימינה, ואז את הזווית.'; rbUpdate(); }
+function rbSet(){ if(RB.pred<0){ rbD.value=RB.d; rbA.value=RB.a; predictFirst(rbMsg,'הזיזו'); return; }
+  if(!RB.opened){ RB.opened=1; WOW.emit('open', { id:'robot' }); }
+  RB.d=+rbD.value; RB.a=+rbA.value; RB.maxD=Math.max(RB.maxD,RB.d); RB.maxA=Math.max(RB.maxA,RB.a); rbUpdate(); }
+function rbUpdate(){ const v=rbTickle();
+  rbMsg.innerHTML = (RB.d===0 && RB.a===0) ? 'בלי איחור ובלי שינוי: הספוג בדיוק איפה שהמוח ניחש. כמעט לא מדגדג.'
+    : 'הספוג כבר לא איפה שהמוח ניחש'+(RB.d>0?' — הוא מפגר ב־<span class="num">'+RB.d+'</span> אלפיות שנייה':'')+(RB.a>0?' — והוא זז בזווית של <span class="num">'+RB.a+'</span>°':'')+'. '+(v>=7?'עכשיו זה מדגדג כמו יד של מישהו אחר!':'הדגדוג חוזר לאט־לאט.');
+  rbOutD.innerHTML='<span class="num">'+RB.d+'</span> אלפיות'; rbOutA.innerHTML='<span class="num">'+RB.a+'</span>°'; rbOutT.innerHTML = RB.pred<0 ? '?' : rbWord(v);
+  rbDraw(); rbCheck(); }
+function rbCheck(){ if(RB.pred>=0 && !RB.revealed && RB.maxD>=200 && RB.maxA>=90){ RB.revealed=1; rbReveal.hidden=false; rbAfter.hidden=false; hint3.textContent='ענו על השאלה כדי להמשיך.'; } }
+function rbStart(){ rbDraw(); if(RM() || RB.raf) return; const loop=()=>{ rbDraw(); RB.raf = (S.step>=3 && S.step<=4) ? requestAnimationFrame(loop) : 0; }; RB.raf=requestAnimationFrame(loop); }
+function rbDraw(){
+  const c=rbctx, W=rbCv.width, H=rbCv.height, ink=INK(), t = RM() ? 0.45 : performance.now()/1000;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  const ph = s => Math.sin(2*PI*s/RB_P);
+  /* the handle on its rail (top) */
+  const hx0=250, A=150, hy=128, hx=hx0+A*ph(t);
+  xLabel(c,'הידית — היד שלכם מזיזה',250,30,22,ink,.0001);
+  c.fillStyle='#5B5E70'; c.beginPath(); c.roundRect(hx0-A-24,hy-8,2*A+48,16,8); c.fill();
+  c.fillStyle=DANG(); c.beginPath(); c.arc(hx,hy,24,0,2*PI); c.fill(); c.strokeStyle='#1B1F33'; c.lineWidth=3; c.stroke();
+  c.fillStyle=SKIN(); c.beginPath(); c.roundRect(hx-26,hy-64,52,40,16); c.fill(); c.stroke();
+  /* the palm */
+  const px=226, py=360, Ap=120;
+  c.fillStyle=SKIN(); c.strokeStyle='#1B1F33'; c.lineWidth=4;
+  [[-96,-150,26,70],[-36,-176,26,80],[24,-172,26,78],[80,-146,24,66]].forEach(([dx,dy,w,h])=>{ c.beginPath(); c.roundRect(px+dx-w/2,py+dy,w,h,13); c.fill(); c.stroke(); });
+  c.beginPath(); c.ellipse(px,py,170,122,0,0,2*PI); c.fill(); c.stroke();
+  c.beginPath(); c.ellipse(px+178,py+30,24,58,-0.6,0,2*PI); c.fill(); c.stroke();
+  /* the predicted path (dotted) and the real path (solid, rotated) */
+  const th=RB.a*DEG, cs=Math.cos(th), sn=Math.sin(th);
+  c.strokeStyle=ink; c.lineWidth=3; c.setLineDash([8,8]); c.beginPath(); c.moveTo(px-Ap,py); c.lineTo(px+Ap,py); c.stroke(); c.setLineDash([]);
+  if(RB.pred>=0 && RB.a>0){ c.strokeStyle=GOLDT(); c.lineWidth=4; c.beginPath(); c.moveTo(px-Ap*cs,py-Ap*sn); c.lineTo(px+Ap*cs,py+Ap*sn); c.stroke(); }
+  const up=Ap*ph(t), pxp=px+up, pyp=py;
+  const ua=Ap*ph(t-RB.d/1000), fx=px+ua*cs, fy=py+ua*sn;
+  c.strokeStyle='#7A4DA8'; c.lineWidth=5; c.setLineDash([6,6]); c.beginPath(); c.arc(pxp,pyp,30,0,2*PI); c.stroke(); c.setLineDash([]);
+  c.fillStyle=FEATHER(); c.strokeStyle='#1B1F33'; c.lineWidth=3; c.beginPath(); c.roundRect(fx-26,fy-17,52,34,12); c.fill(); c.stroke();
+  /* legend */
+  c.strokeStyle='#7A4DA8'; c.lineWidth=5; c.setLineDash([6,6]); c.beginPath(); c.arc(420,560,18,0,2*PI); c.stroke(); c.setLineDash([]);
+  xText(c,'הניחוש',370,560,22,'#7A4DA8','right');
+  c.fillStyle=FEATHER(); c.strokeStyle='#1B1F33'; c.lineWidth=3; c.beginPath(); c.roundRect(170,546,40,28,10); c.fill(); c.stroke();
+  xText(c,'הספוג',156,560,22,ink,'right');
+  /* the tickle meter (right) */
+  const mx=580, m0=500, m1=236, v=rbTickle(), lvl = RB.pred<0 ? 0 : v;
+  xLabel(c,'דגדוג',mx,196,22,ink,.0001);
+  c.fillStyle=css('--card'); c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.roundRect(mx-22,m1,44,m0-m1,20); c.fill(); c.stroke();
+  c.beginPath(); c.arc(mx,m0+18,30,0,2*PI); c.fillStyle=DANG(); c.fill(); c.stroke();
+  const yl=m0-(m0-m1)*lvl/10; c.fillStyle=DANG(); c.fillRect(mx-12,yl,24,m0-yl+10);
+  const yr=m0-(m0-m1)*0.9; c.strokeStyle=GOOD(); c.lineWidth=4; c.setLineDash([8,6]); c.beginPath(); c.moveTo(mx-40,yr); c.lineTo(mx+30,yr); c.stroke(); c.setLineDash([]);
+  xLabel(c,'מישהו אחר',440,yr,20,GOOD(),.95);
+  if(RB.pred<0) xLabel(c,'?',mx,340,30,DANG(),.95);
+}
+
+/* ---------- step 4 (interactive 3): tit for tat (canvas 640 × 600) ----------
+   Shergill, Bays, Frith & Wolpert 2003: start 0.25 N, each turn ≈ 38% harder (×1.38), 8 turns → 0.25 × 1.38^7 ≈ 2.38 N.
+   Joystick mode: illustrative accurate matching, each turn within ±3% of the last. Reference lines: 1 N ≈ the weight of 100 g (a small apple), 2 N ≈ 200 g. */
+const ttCv=document.getElementById('ttCv'), ttctx=ttCv.getContext('2d');
+const TT={ opened:0, pred:-1, revealed:0, m:0, f:[0.25], fullFinger:0, joy:0 };
+function ttPredict(k){ TT.pred=k; segOn('ttP',3,k); WOW.emit('item', { id:'tat:predict', kind:'quick', correct:k===1, attempt: wowTry('tat:predict') });
+  ttMsg.innerHTML='רשמנו את הניחוש. תור <span class="num">1</span>: א׳ לוחץ ב־<span class="num">0.25</span> ניוטון. לחצו "התור הבא" — עכשיו ב׳ מחזיר.'; ttUpdate(); }
+function ttTurn(){ if(TT.pred<0){ predictFirst(ttMsg,'שחקו'); return; }
+  if(!TT.opened){ TT.opened=1; WOW.emit('open', { id:'tat' }); }
+  if(TT.f.length>=8){ ttMsg.innerHTML='שמונה תורות! לחצו "מהתחלה"'+(TT.m===0?', ונסו גם "דרך ג׳ויסטיק".':'.'); return; }
+  const last=TT.f[TT.f.length-1], n=TT.f.length;
+  TT.f.push(TT.m===0 ? last*1.38 : last*(1+0.06*(xRand(n*7+3)-0.5)));
+  if(TT.m===0 && TT.f.length===8) TT.fullFinger=1; if(TT.m===1 && TT.f.length>=4) TT.joy=1;
+  ttUpdate(); }
+function ttReset(){ TT.f=[0.25]; ttUpdate(); }
+function ttMode(k){ if(TT.pred<0){ predictFirst(ttMsg,'בחרו'); return; }
+  TT.m=k; segOn('ttM',2,k); TT.f=[0.25]; ttUpdate(); }
+function ttUpdate(){ const n=TT.f.length, F=TT.f[n-1], who = n%2 ? 'א׳' : 'ב׳';
+  if(TT.pred>=0 && n>1) ttMsg.innerHTML = TT.m===0
+    ? 'תור <span class="num">'+n+'</span>: '+who+' בטוח שהחזיר בדיוק — אבל לחץ <span class="math">'+TT.f[n-2].toFixed(2)+' × 1.38 ≈ '+F.toFixed(2)+'</span> ניוטון.'+(n===8?' פי <span class="num">'+Math.round(F/0.25*10)/10+'</span> מההתחלה!':'')
+    : 'תור <span class="num">'+n+'</span>: דרך הג׳ויסטיק המוח לא מחליש את הלחיצה, ו'+who+' מחזיר כמעט בדיוק: <span class="num">'+F.toFixed(2)+'</span> ניוטון.';
+  ttOutN.innerHTML='<span class="num">'+n+'</span>'; ttOutF.innerHTML='<span class="num">'+F.toFixed(2)+'</span> ניוטון';
+  ttGo.disabled = false; ttDraw(); ttCheck(); }
+function ttCheck(){ if(TT.pred>=0 && !TT.revealed && TT.fullFinger && TT.joy){ TT.revealed=1; ttReveal.hidden=false; ttAfter.hidden=false; hint4.textContent='ענו על השאלה כדי להמשיך.'; } }
+function ttDraw(){
+  const c=ttctx, W=ttCv.width, H=ttCv.height, ink=INK(), n=TT.f.length, F=TT.f[n-1], aTurn = n%2===1;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* two fingers meeting in the middle; the presser's arrow grows with the force */
+  const cy=110, colA=BLUE(), colB=FRIEND();
+  c.strokeStyle='#1B1F33'; c.lineWidth=3;
+  c.fillStyle=colA; c.beginPath(); c.roundRect(60,cy-24,240,48,24); c.fill(); c.stroke();
+  c.fillStyle=colB; c.beginPath(); c.roundRect(340,cy-24,240,48,24); c.fill(); c.stroke();
+  c.fillStyle=SKIN(); c.beginPath(); c.roundRect(250,cy-20,66,40,20); c.fill(); c.stroke(); c.beginPath(); c.roundRect(324,cy-20,66,40,20); c.fill(); c.stroke();
+  xText(c,'א׳',110,cy,26,'#FFFFFF','center'); xText(c,'ב׳',530,cy,26,'#FFFFFF','center');
+  if(TT.pred>=0){ const L=30+Math.min(150,F*60), w=6+Math.min(16,F*6), col=aTurn?colA:colB; c.strokeStyle=col; c.fillStyle=col; c.lineWidth=w;
+    if(aTurn){ c.beginPath(); c.moveTo(250-L,cy+56); c.lineTo(282,cy+56); c.stroke(); xArrow(c,300,cy+56,1,0,22); }
+    else { c.beginPath(); c.moveTo(390+L,cy+56); c.lineTo(358,cy+56); c.stroke(); xArrow(c,340,cy+56,-1,0,22); }
+    xLabel(c,'לוחץ: '+(aTurn?'א׳':'ב׳'),320,30,22,col,.95); }
+  /* the bar graph */
+  c.fillStyle=css('--card'); c.fillRect(0,210,W,H-210);
+  const gx0=70, gx1=610, base=520, PXN=112, slot=(gx1-gx0)/8;
+  [[1,'תפוח קטן'],[2,'שני תפוחים']].forEach(([nv,lbl])=>{ const y=base-nv*PXN; c.strokeStyle=GREY(); c.lineWidth=2; c.setLineDash([8,7]); c.beginPath(); c.moveTo(gx0,y); c.lineTo(gx1,y); c.stroke(); c.setLineDash([]); xLabel(c,lbl,gx0+110,y-22,20,ink,.9); xMath(c,String(nv),gx0-24,y,22,ink,'center'); });
+  c.strokeStyle=ink; c.lineWidth=2; c.beginPath(); c.moveTo(gx0,base-2.6*PXN); c.lineTo(gx0,base); c.lineTo(gx1,base); c.stroke();
+  xMath(c,'0',gx0-24,base,22,ink,'center');
+  for(let i=0;i<8;i++){ const x=gx0+slot*(i+0.5); xMath(c,String(i+1),x,base+26,22,ink,'center');
+    if(TT.pred>=0 && i<n){ const h=Math.min(2.6,TT.f[i])*PXN; c.fillStyle= i%2===0?colA:colB; c.beginPath(); c.roundRect(x-slot*0.34,base-h,slot*0.68,Math.max(h,3),6); c.fill(); } }
+  if(TT.pred>=0){ const x=gx0+slot*(n-0.5), h=Math.min(2.6,F)*PXN; xMath(c,F.toFixed(2),clamp(x,gx0+40,gx1-40),Math.max(base-h-24,240),22,ink,'center'); }
+  else xLabel(c,'?',W/2,base-120,34,DANG(),.95);
+  xText(c,'תור',W/2,base+54,22,ink,'center'); xText(c,'ניוטון',gx0+8,232,20,ink,'left');
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  goalQ:{ q:'מה עשה הרובוט השני בניסוי של בלייקמור?', opts:['העביר ספוג רך על כף היד — לפי התנועה של היד השנייה של הנבדק','צילם את המוח של הנבדק','דגדג את הנבדק בכפות הרגליים בלי קשר לשום תנועה','מדד כמה הנבדק צוחק'], a:0, fb:'הנבדק הזיז ידית ביד אחת, והרובוט השני העתיק את התנועה והעביר ספוג רך על כף היד השנייה. ככה המגע זהה — ורק הקשר בין התנועה למגע משתנה.', btn:'next1' },
+  beatQ:{ q:'למה כשחבר מעביר את הנוצה זה מדגדג הרבה יותר?', opts:['כי למוח שלכם אין פקודה ואין עותק — הוא לא יכול לנחש ולהחליש את המגע','כי לחבר יש אצבעות חמות יותר','כי הנוצה של החבר רכה יותר','כי חברים לוחצים תמיד חזק יותר'], a:0, fb:'המגע יכול להיות זהה לגמרי. ההבדל הוא שהמוח שלכם לא שלח את הפקודה, אז אין לו ממה לנחש. בלי ניחוש — שום דבר לא "מתבטל", והמגע מפתיע.', btn:'next2' },
+  frameQ:{ q:'מה החזיר את הדגדוג בניסוי עם הרובוט?', opts:['איחור של חמישית שנייה, או שינוי בכיוון התנועה','ספוג גדול יותר','מוזיקה מצחיקה בחדר','להזיז את הידית מהר מאוד'], a:0, fb:'איחור של <span class="num">200</span> אלפיות שנייה, או שינוי כיוון של <span class="num">90</span> מעלות, הספיקו כדי שמגע "עצמי" ירגיש כמו מגע של מישהו אחר — כי הניחוש של המוח כבר לא התאים.', btn:'next3' },
+  lineQ:{ q:'למה הלחיצות בזוג הלכו וגדלו, למרות שכל אחד ניסה להחזיר בדיוק?', opts:['כי הלחיצה של עצמך מרגישה לך חלשה יותר, אז לוחצים חזק יותר ממה שחושבים','כי כל אחד רצה לנצח בכוונה','כי האצבעות התעייפו','כי המנוע לחץ חזק יותר בכל פעם'], a:0, fb:'המוח מחליש את מה שאנחנו עושים בעצמנו — הלחיצה שלך מרגישה לך בערך חצי. כדי "להרגיש" שהחזרת מספיק, לוחצים חזק יותר, והכוח גדל בכל תור בכ־<span class="num">38%</span>.', btn:'next4' },
+  deepQ:{ q:'הנוצה נוגעת בחוזק <span class="num">10</span>, והמוח ניחש <span class="num">7</span>. כמה מרגישים?', opts:['<span class="num">17</span>','<span class="num">3</span>','<span class="num">10</span>','<span class="num">70</span>'], a:1, fb:'מה שמרגישים = המגע פחות הניחוש: <span class="math">10 − 7 = 3</span>. <span class="num">17</span> זה מה שיוצא אם מחברים במקום להחסיר, ו־<span class="num">10</span> זה מה שמרגישים כשאין ניחוש בכלל — כשמישהו אחר נוגע.', btn:'next5' }
+};
+const MCQ = {
+  shared:[
+    { q:'למה אי אפשר לדגדג את עצמנו?', opts:['כי העור שלנו מכיר את האצבעות שלנו','כי המוח מנחש מראש את המגע לפי הפקודה ששלח, ומחליש אותו','כי כשאנחנו נוגעים בעצמנו, אנחנו לוחצים חלש מדי','כי אי אפשר להגיע לכפות הרגליים'], a:1, fb:'עם כל פקודה לשרירים, המוח שולח עותק לאזור שמנחש מה ירגישו, ומוריד את הניחוש מהמגע. העור עצמו לא "יודע" של מי האצבע — אותו מגע מרובוט באיחור כבר מדגדג.' },
+    { q:'בניסוי של בלייקמור, הנבדקים הזיזו ידית והרובוט העביר ספוג על כף היד. מתי זה דגדג הכי פחות?', opts:['כשהרובוט חיכה <span class="num">300</span> אלפיות שנייה','כשהרובוט העתיק את התנועה בדיוק, בלי איחור ובלי שינוי כיוון','כשהרובוט הזיז את הספוג בזווית של <span class="num">90</span> מעלות','כשהרובוט זז לבד, בלי הנבדק'], a:1, fb:'בלי איחור ובלי שינוי, הספוג נמצא בדיוק איפה ומתי שהמוח ניחש — ולכן כמעט כל המגע מתבטל. איחור, זווית, או רובוט שזז לבד — כולם מדגדגים יותר.' },
+    { q:'שני ילדים מחזירים זה לזה לחיצה, וכל אחד מנסה ללחוץ בדיוק כמו שהרגיש. מה יקרה כנראה?', opts:['הלחיצות יישארו בדיוק אותו דבר','הלחיצות ילכו ויחלשו','הלחיצות ילכו ויתחזקו','הם יפסיקו להרגיש את הלחיצות'], a:2, fb:'בניסוי מ־<span class="num">2003</span> הכוח גדל בכל תור בכ־<span class="num">38%</span>, כי הלחיצה של עצמך מרגישה חלשה יותר מכפי שהיא. כל אחד בטוח שהשני הוא זה שהגביר.' }
+  ],
+  younger:[
+    { q:'איזה חלק במוח, לפי החוקרים, עוזר לנחש מראש מה תרגישו כשאתם זזים?', opts:['המוח הקטן, בחלק האחורי של הראש','הלב','הבטן','האוזניים'], a:0, fb:'בסורק מוח, המוח הקטן — שיושב מאחור ולמטה — התנהג אחרת כשהנבדקים נגעו בעצמם. החוקרים הציעו שהוא "מכונת הניחושים" שמחלישה את המגע.' }
+  ],
+  older:[
+    { q:'למה איחור של חמישית שנייה בלבד מבטל את ההחלשה?', opts:['כי בחמישית שנייה הספוג מתחמם','כי הניחוש של המוח הוא "כאן ועכשיו" — וכשהמגע מגיע מאוחר, הוא כבר במקום ובזמן אחרים','כי המוח נרדם לחמישית שנייה','כי איחור גורם לספוג ללחוץ חזק יותר'], a:1, fb:'המוח מנחש לא רק אם תהיה נגיעה, אלא מתי ואיפה. היד זזה, ולכן ספוג שמגיע מאוחר נמצא במקום אחר ממה שנוחש. ככל שהפער גדל, פחות מהמגע מתבטל — עד שהוא מרגיש כמו של מישהו אחר.' }
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'המוח מחליט: "עכשיו אני מדגדג את כף הרגל".'},
+  {id:'b', t:'פקודה יוצאת לשרירים של היד — ועותק שלה הולך למוח הקטן.'},
+  {id:'c', t:'המוח הקטן מנחש מה העור ירגיש, ומתי.'},
+  {id:'d', t:'האצבע נוגעת בכף הרגל, והעור שולח את המגע האמיתי.'},
+  {id:'e', t:'המוח מוריד את הניחוש מהמגע האמיתי.'},
+  {id:'f', t:'כמעט לא נשאר כלום — לא מדגדג.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלכם: ' : '<span class="pill-ok">בדיוק כמו המוח!</span>')+' החלטה ← פקודה ועותק ← ניחוש ← מגע אמיתי ← הורדת הניחוש ← כמעט כלום.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) הניחוש בא <b>לפני</b> המגע — המוח מנחש מהעותק של הפקודה. (2) אי אפשר להוריד את הניחוש לפני שהמגע האמיתי הגיע.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && Math.abs(a-3)<=0.05, bOk = hasB && Math.abs(b-300)<=2;   /* 200 ms = 0.2 s; 15 × 0.2 = 3 cm; 4.5 ÷ 15 = 0.3 s = 300 ms */
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && Math.abs(a-3000)<1) ? '(א): כפלתם ב־<span class="num">200</span> אלפיות. קודם הפכו לשניות: <span class="math">200 ÷ 1000 = 0.2</span> שנייה.'
+    : (hasA && Math.abs(a-0.075)<0.002) ? '(א): חילקתם את המהירות בזמן. המרחק = המהירות <b>כפול</b> הזמן — והזמן בשניות: <span class="math">200 ÷ 1000 = 0.2</span>.'
+    : (hasA && Math.abs(a-13.33)<0.05) ? '(א): חילקתם את הזמן במהירות. המרחק = המהירות <b>כפול</b> הזמן — והזמן בשניות: <span class="math">200 ÷ 1000 = 0.2</span>.'
+    : (hasA && Math.abs(a-75)<0.05) ? '(א): חילקתם במקום לכפול. המרחק = המהירות כפול הזמן: <span class="math">15 × 0.2 = ?</span>'
+    : (hasA && Math.abs(a-15)<0.01) ? '(א): <span class="num">15</span> ס״מ זה המרחק בשנייה שלמה. הרובוט מאחר רק חמישית שנייה.'
+    : '(א): רמז — הפכו את האיחור לשניות, ואז <span class="math">15 × ? = ?</span> ס״מ.';
+  const hintB = (hasB && Math.abs(b-0.3)<0.005) ? '(ב): נכון — בשניות! ביקשנו אלפיות שנייה: כפול <span class="num">1,000</span>.'
+    : (hasB && Math.abs(b-67.5)<0.5) ? '(ב): כפלתם. שואלים כמה זמן לוקח להגיע ל־<span class="num">4.5</span> ס״מ — מחלקים את המרחק במהירות.'
+    : (hasB && Math.abs(b-3.33)<0.05) ? '(ב): חילקתם הפוך. הזמן = המרחק לחלק במהירות: <span class="math">4.5 ÷ 15</span>.'
+    : (hasB && Math.abs(b-450)<1) ? '(ב): קרוב! אבל <span class="num">4.5</span> ס״מ זה פי <span class="num">1.5</span> מ־<span class="num">3</span> ס״מ — אז גם הזמן פי <span class="num">1.5</span> מ־<span class="num">200</span>.'
+    : '(ב): רמז — <span class="math">4.5 ÷ 15 = ?</span> שניות, ואז הפכו לאלפיות שנייה.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">200 ÷ 1000 = 0.2</span> שנייה, ולכן <span class="math">15 × 0.2 = 3</span> ס״מ. (ב) <span class="math">4.5 ÷ 15 = 0.3</span> שנייה, כלומר <span class="math">0.3 × 1000 = 300</span> אלפיות שנייה. קיצור דרך: <span class="num">4.5</span> זה פי <span class="num">1.5</span> מ־<span class="num">3</span>, אז <span class="math">200 × 1.5 = 300</span>. בשביל העור, <span class="num">3</span> ס״מ זה כבר מקום אחר לגמרי על כף היד. עכשיו פתחו את השאלה למחשבה שלמטה.'
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">3</span> ס״מ.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — <span class="num">300</span> אלפיות שנייה.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const sp=+numAdvR.value, ks=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && Math.abs(sp-2.277)<=0.011), yOk=(hasY && Math.abs(ks-3.142)<=0.03), sc = dOk&&yOk?2:((dOk||yOk)?1:0);   /* 1.65 × 1.38 = 2.277; 2.277 × 1.38 = 3.142 (= 1.65 × 1.9044) */
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && Math.abs(sp-0.627)<0.005) ? 'ב־(א): <span class="num">0.627</span> זו רק התוספת — <span class="num">38%</span> מ־<span class="num">1.65</span>. צעד מצוין! עכשיו הוסיפו אותה לכוח של התור הראשון.'
+      : (hasD && Math.abs(sp-62.7)<0.1) ? 'ב־(א): כפלתם ב־<span class="num">38</span> במקום ב־<span class="num">0.38</span>. אחוז הוא חלק אחד ממאה.'
+      : (hasD && Math.abs(sp-2.03)<0.005) ? 'ב־(א): הוספתם <span class="num">0.38</span> ניוטון. אבל <span class="num">38%</span> זה חלק מהכוח, לא <span class="num">0.38</span> ניוטון: <span class="math">1.65 × 0.38 = ?</span>'
+      : (hasD && Math.abs(sp-1.196)<0.005) ? 'ב־(א): חילקתם ב־<span class="num">1.38</span>. הכוח <b>גדל</b> — כופלים.'
+      : 'רמז ל־(א): <span class="num">38%</span> יותר זה כפול <span class="num">1.38</span>: <span class="math">1.65 × 1.38 = ?</span>';
+    const hintY = (hasY && Math.abs(ks-2.904)<0.01) ? 'ב־(ב): הוספתם שוב את אותה תוספת של התור הראשון. בכל תור התוספת גדלה, כי היא <span class="num">38%</span> מהכוח של התור הקודם.'
+      : (hasY && Math.abs(ks-4.336)<0.02) ? 'ב־(ב): זה כבר התור הרביעי. ביקשנו את השלישי.'
+      : (hasY && Math.abs(ks-2.277)<0.011) ? 'ב־(ב): זה התור השני. בתור השלישי כופלים שוב ב־<span class="num">1.38</span>.'
+      : 'רמז ל־(ב): קחו את התשובה של (א) וכפלו שוב ב־<span class="num">1.38</span>.';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">1.65 × 1.38 ≈ 2.28</span> ניוטון. (ב) <span class="math">2.277 × 1.38 ≈ 3.14</span> ניוטון. אפשר גם בבת אחת: <span class="math">1.65 × 1.38 × 1.38 = 1.65 × 1.9044 ≈ 3.14</span>. בשני תורות בלבד הכוח כמעט הוכפל — זו גדילה בכפל.'
+      : dOk ? '<span class="pill-ok">(א) נכון — כ־<span class="num">2.28</span> ניוטון.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">3.14</span> ניוטון.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-5)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">1000 ÷ 200 = 5</span>: סופרים <span class="math">200, 400, 600, 800, 1000</span> — חמש המתנות. כלומר כל המתנה היא חמישית שנייה.':(Math.abs(v-800)<0.01?'<span class="pill-bad">לא בדיוק.</span> חיסרתם. השאלה היא כמה פעמים <span class="num">200</span> נכנס ב־<span class="num">1,000</span> — סופרים במאתיים.':(Math.abs(v-1200)<0.01?'<span class="pill-bad">לא בדיוק.</span> חיברתם. השאלה היא כמה פעמים <span class="num">200</span> נכנס ב־<span class="num">1,000</span>.':(Math.abs(v-4)<0.01||Math.abs(v-6)<0.01?'<span class="pill-bad">כמעט!</span> ספרו שוב בקפיצות של <span class="num">200</span>, עד שמגיעים ל־<span class="num">1,000</span>.':'<span class="pill-bad">עוד לא.</span> רמז: ספרו בקפיצות של <span class="num">200</span>: <span class="math">200, 400, …</span> עד <span class="num">1,000</span>. כמה קפיצות היו?'))); }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-2.76)<=0.01; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="num">38%</span> מ־<span class="num">2</span> זה <span class="math">2 × 0.38 = 0.76</span>, ולכן <span class="math">2 + 0.76 = 2.76</span> ניוטון. בקיצור: <span class="math">2 × 1.38 = 2.76</span>.':(Math.abs(v-0.76)<0.005?'<span class="pill-bad">חצי דרך.</span> <span class="num">0.76</span> זו התוספת. מה הכוח כולו בתור השני?':(Math.abs(v-78)<0.05||Math.abs(v-76)<0.05?'<span class="pill-bad">לא בדיוק.</span> כפלתם ב־<span class="num">38</span> במקום ב־<span class="num">0.38</span>. אחוז הוא חלק אחד ממאה.':(Math.abs(v-2.38)<0.005?'<span class="pill-bad">כמעט!</span> הוספתם <span class="num">0.38</span> ניוטון. אבל <span class="num">38%</span> זה חלק מתוך <span class="num">2</span>: <span class="math">2 × 0.38 = ?</span>':(Math.abs(v-1.45)<0.01?'<span class="pill-bad">לא בדיוק.</span> חילקתם. הכוח <b>גדל</b> — כופלים ב־<span class="num">1.38</span>.':'<span class="pill-bad">עוד לא.</span> רמז: צעד 1 — כמה זה <span class="num">38%</span> מ־<span class="num">2</span>? צעד 2 — הוסיפו את זה ל־<span class="num">2</span>.')))); }
+  fb.classList.add('show'); }
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שכשאנחנו מזיזים את היד, המוח שולח פקודה — ויודע מראש מה עומד לקרות.',
+  'הסברתי שהמוח מנחש את המגע (בעזרת עותק של הפקודה, כנראה במוח הקטן) ומוריד את הניחוש מהמגע — ולכן נגיעה עצמית מרגישה חלשה ולא מפתיעה.',
+  'הסברתי שכשמישהו אחר נוגע, אין למוח פקודה וניחוש, ולכן המגע מפתיע ומדגדג.',
+  'הסברתי שהרובוט של בלייקמור הזיז ספוג לפי היד של הנבדק, ושאיחור של חמישית שנייה (<span class="num">200</span> אלפיות) או שינוי כיוון בלבלו את הניחוש — והדגדוג חזר.',
+  'הוספתי פרט מדויק: הניסוי של <span class="num">1999</span> בלונדון; <span class="num">90</span> מעלות; הלחיצות שגדלו בכ־<span class="num">38%</span> בכל תור; או החולדות שצוחקות.',
+];
+const MODEL='כשאנחנו מזיזים את היד, המוח שולח פקודה לשרירים, ובאותו רגע גם עותק שלה לאזור שמנחש מה נרגיש — כנראה המוח הקטן. כשהאצבע נוגעת, המוח מוריד את הניחוש מהמגע האמיתי, ולכן כמעט לא נשאר כלום: אין הפתעה, אין דגדוג. כשמישהו אחר נוגע בנו, למוח שלנו אין פקודה ואין ניחוש, ולכן כל המגע מפתיע ומדגדג. שרה־ג׳יין בלייקמור הוכיחה את זה ב־<span class="num">1999</span> עם רובוט: הנבדקים הזיזו ידית, והרובוט העביר ספוג על כף היד שלהם. כשהרובוט העתיק את התנועה בדיוק — זה כמעט לא דגדג. אבל כשהוא חיכה חמישית שנייה (<span class="num">200</span> אלפיות שנייה), או הזיז את הספוג בכיוון אחר, הניחוש כבר לא התאים — וזה דגדג כמעט כמו יד של מישהו אחר.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון: עם כל פקודה לשרירים המוח שולח עותק (העתק של הפקודה) ל"מודל קדימה" — כנראה במוח הקטן — שמנבא את התחושה הצפויה; התחושה הצפויה מופחתת מהמגע האמיתי (מה שמרגישים = מגע פחות ניחוש), ולכן מגע עצמי מוחלש; במגע של אחר אין פקודה ואין ניבוי; הניבוי מדויק בזמן ובמקום, ולכן איחור של 200 אלפיות שנייה או סיבוב של 90 מעלות ברובוט של בלייקמור (1999) הופכים מגע עצמי למדגדג כמו מגע חיצוני; ולא רק "המוח יודע שזה אני" או "אי אפשר להפתיע את עצמך" בלי המנגנון':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "למה אי אפשר לדגדג את עצמך — והרובוט שהוכיח למה". הרעיונות המרכזיים: (1) כבר ביוון העתיקה שאלו למה אי אפשר לדגדג את עצמך; אריסטו כתב שרק האדם רגיש לדגדוג (ובזה טעה — חולדות צוחקות כשמדגדגים אותן, Ishiyama ו־Brecht, ברלין 2016, צפצופים של 50 קילוהרץ); דרווין חשב שדגדוג עובד רק כשלא יודעים איפה ייגעו; (2) עם כל פקודה לשרירים המוח שולח עותק לאזור שמנחש מה נרגיש ("מודל קדימה", כנראה המוח הקטן), ומוריד את הניחוש מהמגע האמיתי — לכן מגע עצמי מוחלש ולא מפתיע; כשמישהו אחר נוגע אין פקודה ואין ניחוש; (3) Blakemore, Wolpert ו־Frith (1998, סורק מוח): במגע עצמי פחות פעילות באזור שמרגיש מגע ושינוי בפעילות המוח הקטן; (4) Blakemore, Frith ו־Wolpert (1999): 16 מבוגרים, שני רובוטים — הנבדק מזיז ידית ביד שמאל, הרובוט מעביר ספוג רך על כף יד ימין; איחורים של 0 עד 300 אלפיות שנייה וסיבובים של 30, 60, 90 מעלות; הדירוג "מדגדג" עלה בהדרגה עד 200 אלפיות, וב־200/300 אלפיות או 90 מעלות זה הרגיש כמו מגע של הרובוט לבד; (5) Shergill ואח׳ (2003): זוגות שהחזירו לחיצה "בדיוק באותו כוח" — התחלה ב־0.25 ניוטון, הסלמה של כ־38% בכל תור במשך 8 תורות, כי כוח שנוצר בעצמך מורגש בערך בחצי; דרך ג׳ויסטיק ההתאמה מדויקת יותר; (6) המטרה של ההחלשה: לשים לב לחדש ולמה שבא מבחוץ. חישובי המבחן: צעיר — 1000 ÷ 200 = 5; בוגר — 2 × 1.38 = 2.76 ניוטון; מתקדם — 1.65 × 1.38 ≈ 2.28, 2.277 × 1.38 ≈ 3.14 ניוטון; אתגר — 200 ÷ 1000 = 0.2 שנייה, 15 × 0.2 = 3 ס״מ, 4.5 ÷ 15 = 0.3 שנייה = 300 אלפיות שנייה.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם למה אי אפשר לדגדג את עצמנו (המוח יודע/מנחש מראש את המגע לפי הפקודה שלו ומחליש אותו; אצל אחר אין ניחוש) וגם איך הרובוט הראה את זה (איחור של חמישית שנייה או שינוי כיוון מבלבלים את הניחוש והדגדוג חוזר); 1 אם יש רק אחד מהשניים או רק חלק. הסבר שאומר שהעור מזהה את האצבעות שלנו, שאנחנו פשוט לוחצים חלש מדי, או שהרובוט מדגדג כי הוא מכונה — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', המוח שלך ניחש נכון!':pct>=60?name+', כמעט בלי טעויות ניחוש!':name+', עוד חמישית שנייה — ומגיעים!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=2;                                                       // a fifth of a second
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשתם בהתחלה. התשובה: <b>חמישית שנייה</b> — <span class="num">200</span> אלפיות שנייה של איחור הספיקו כדי שהרובוט ידגדג כמו מישהו אחר.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשתם <b>חמישית שנייה</b> — וקלעתם. ועכשיו גם יודעים למה: המוח מנחש את המגע "כאן ועכשיו", ואיחור קטן כבר מקלקל את הניחוש.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשתם: <b>'+fmtSigns(S.guess)+'</b>. התשובה: חמישית שנייה — <span class="num">200</span> אלפיות. ועכשיו גם יודעים למה: המוח מנחש את המגע "כאן ועכשיו", ואיחור קטן כבר מקלקל את הניחוש.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה הרובוט צריך לאחר): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: חמישית שנייה)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "למה אי אפשר לדגדג את עצמך — והרובוט שהוכיח למה", מהדורה 67, ט׳ בכסלו תשפ״ז (יום חמישי, 19 בנובמבר 2026). נושא: ביולוגיה ומדע המוח (מודל קדימה, העתק של הפקודה, המוח הקטן, החלשה של מגע עצמי), הנדסה (רובוטים, איחור), מתמטיקה (חיסור, אלפיות שנייה, מהירות × זמן, גדילה של 38% בכל תור) והיסטוריה (אריסטו, דרווין). העובדות: אריסטו ("על חלקי בעלי החיים") כתב שרק האדם רגיש לדגדוג, בגלל עדינות העור ומפני שהוא היחיד שצוחק; דרווין חשב שדגדוג עובד רק כש"המקום המדויק שייגעו בו אינו ידוע"; Weiskrantz, Elliott ו־Darlington (Nature, 1971, אוקספורד) הציעו שאותות הפקודה מבטלים את התחושה הצפויה, ומצאו שכשהנסיין מזיז את יד הנבדק זה מדגדג יותר ממגע עצמי ופחות ממגע של הנסיין. שרה־ג׳יין בלייקמור, אז דוקטורנטית ב־UCL בלונדון, עם דניאל וולפרט וכריס פרית׳: Nature Neuroscience 1998 — 6 נבדקים בסורק, במגע עצמי פחות פעילות בקליפת החישה המשנית ובחלק הקדמי של המוח הקטן; ההצעה שהמוח הקטן מנבא את התוצאות החושיות של תנועה ומחליש אותן. Journal of Cognitive Neuroscience 1999 — 16 מבוגרים, שני רובוטים: היד השמאלית מזיזה ידית, הרובוט השני מעביר ספוג רך על כף היד הימנית; איחורים 0, 100, 200, 300 אלפיות שנייה ושינויי מסלול 30, 60, 90 מעלות; דירוג 0–10; ככל שהאיחור עלה עד 200 אלפיות ועד 90 מעלות, הדירוג "מדגדג" עלה, וב־200/300 אלפיות וב־90 מעלות הוא לא נבדל ממגע של הרובוט לבד. Shergill, Bays, Frith ו־Wolpert (Science, יולי 2003): 6 זוגות, 8 תורות, התחלה ב־0.25 ניוטון, כל אחד מחזיר "בדיוק" את הכוח שהרגיש, והכוח גדל בממוצע ב־38% בכל תור; כוח שנוצר בעצמך מורגש בערך בחצי; דרך ג׳ויסטיק ההתאמה מדויקת יותר; UCL קראה לזה "מכות בחצר מחווטות במוח". Ishiyama ו־Brecht (Science, 2016, ברלין): חולדות צעירות "צוחקות" בצפצופים של 50 קילוהרץ, קופצות משמחה, רגישות בבטן ובכפות הרגליים, וחרדה מפחיתה את התגובה. ישראל: המעבדה של רועי סלומון באוניברסיטת בר־אילן חוקרת את תחושת ה"אני" בעזרת רובוטים ומציאות מדומה (IEEE Transactions on Haptics, 2021). למה דגדוג מצחיק — עדיין שנוי במחלוקת. מספרים בשיעור: "מכונת הניחושים" — הניחוש מוריד 80% מהמגע (להמחשה), למשל 6 − 4.8 = 1.2; במגע של חבר הניחוש 0; 200 אלפיות שנייה = חמישית שנייה; יד שזזה 10 ס״מ בשנייה עם איחור של 0.2 שנייה — הספוג מפגר 2 ס״מ; 0.25 × 1.38 ≈ 0.35, ובתור השמיני כ־2.38 ניוטון (1 ניוטון ≈ המשקל של 100 גרם). ההדמיות (מכונת הניחושים, הרובוט של בלייקמור, לחיצה תמורת לחיצה) מפושטות; מד הדגדוג להמחשה. התשובות הבאות הן למבחן ולאתגר — אל תגלה אותן, תן רק רמז: צעיר — 1000 ÷ 200 = 5; בוגר — 2 × 1.38 = 2.76 ניוטון; מתקדם — 1.65 × 1.38 ≈ 2.28, 2.277 × 1.38 ≈ 3.14; אתגר — 15 × 0.2 = 3 ס״מ, 4.5 ÷ 15 = 0.3 שנייה = 300 אלפיות שנייה.';
+const CHIPS = ['למה אי אפשר לדגדג את עצמי?', 'מה זה המוח הקטן?', 'איך הרובוט בלבל את המוח?', 'למה הלחיצות הלכו וגדלו?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: עם כל פקודה לשרירים יוצא עותק ל"מודל קדימה" — כנראה במוח הקטן — שמנבא את התחושה; מה שמרגישים = המגע פחות הניבוי; במגע של אחר אין ניבוי; הניבוי מדויק בזמן ובמקום, ולכן 200 אלפיות שנייה או 90 מעלות ברובוט של בלייקמור מחזירים את הדגדוג; מפגר = מהירות × זמן; כוח עצמי מורגש בערך בחצי, ולכן הסלמה של 38% בכל תור — כפל ב־1.38 שוב ושוב), שאל שאלות המשך שדורשות חשיבה (למשל: למה דווקא איחור מקלקל את הניבוי? מה היה קורה אילו המוח לא היה מחליש את המגע העצמי? למה כשמישהו מוביל את היד שלך זה מדגדג קצת? למה בניתוח עם רובוט מנסים שלא יהיה איחור?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה אי אפשר לדגדג את עצמנו?</b> כשאתם מזיזים את היד, המוח שולח פקודה — ועותק שלה לאזור שמנחש מה תרגישו. כשהאצבע נוגעת, המוח מוריד את הניחוש מהמגע, אז כמעט לא נשאר כלום ואין הפתעה.<br><br><b>איך הרובוט בלבל את המוח?</b> הוא העתיק את התנועה של היד, אבל באיחור של חמישית שנייה, או בכיוון אחר. הניחוש כבר לא התאים — והדגדוג חזר.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; only the field runs a short timer */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>

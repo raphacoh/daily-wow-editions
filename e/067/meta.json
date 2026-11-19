@@ -1,0 +1,24 @@
+{
+  "n": 67,
+  "code": "WOW-067",
+  "date": "2026-11-19",
+  "language": "he",
+  "title": "למה אי אפשר לדגדג את עצמך — והרובוט שהוכיח למה",
+  "topics": [
+    "ביולוגיה",
+    "מדע המוח",
+    "הנדסה",
+    "מתמטיקה",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "Why you can't tickle yourself: the brain's forward model sends a copy of each motor command (cerebellum) and subtracts the predicted touch; Blakemore, Frith & Wolpert's two-robot experiment (1999, 16 adults) — a 200 ms delay or a 90° rotation made self-touch as tickly as external touch; 1998 fMRI (cerebellum, secondary somatosensory cortex); Shergill 2003 tit-for-tat force escalation (0.25 N, +38% per turn, self-made force felt ~half); laughing rats (Berlin 2016), Aristotle and Darwin, Bar-Ilan self-touch research; ms to s, speed × time, and repeated ×1.38 growth.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: prose ~1,320 (younger) / ~1,510 (older) words, est. 30–35 min vs the 'כ־25 דקות' tag; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template); engine strings ('נבדק', '1 יום ברצף') unchanged",
+  "review_url": "https://claude.ai/artifact/7w97ZXiv6oA4vUQZb7KTqh",
+  "editor_note": null
+}
