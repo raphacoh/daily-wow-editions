@@ -15,7 +15,7 @@
   "teaser": null,
   "max_score": null,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-11-20T08:12:30.158Z",
   "password": null,
   "reviewer_verdict": "PASS (2 rounds) — nits left: est. ~24–28 min (younger) / ~28–32 min (older, +3–5 with the challenge) vs the 'כ־25 דקות' tag; the correct option is still the longest in a few MCQs; the 1979 weekend story rests on one source (ABC, Nov 2026); kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template)",
   "review_url": "https://claude.ai/artifact/Q2F1P8AUUSr3qH1w2aa6QC",
