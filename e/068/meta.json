@@ -1,0 +1,23 @@
+{
+  "n": 68,
+  "code": "WOW-068",
+  "date": "2026-11-20",
+  "language": "he",
+  "title": "הניסוי שמטפטף מאז 1927 — והמדען שחיכה 52 שנה ולא ראה טיפה אחת",
+  "topics": [
+    "פיזיקה",
+    "מתמטיקה",
+    "היסטוריה",
+    "גאוגרפיה",
+    "מדע ישראלי"
+  ],
+  "summary": "The Queensland pitch drop experiment: Thomas Parnell (1927; stem cut Oct 1930) showed that shatterable pitch is a liquid ~230 billion × as viscous as water (2.3×10^8 Pa·s, 1984); 9 drops 1938–2014 (~8 years apart, then 12.3 and 13.4 after air conditioning in the 1980s); John Mainstone kept it 52 years and never saw a drop fall (1979 weekend, 1988 drink, 2000 blackout); Markus Reiner (Technion) and the Deborah number from Judges 5:5 — solid or liquid depends on observation time vs flow time; Dead Sea asphalt, glaciers, the glass myth; year subtraction, averages, rates and a percent-change challenge.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: est. ~24–28 min (younger) / ~28–32 min (older, +3–5 with the challenge) vs the 'כ־25 דקות' tag; the correct option is still the longest in a few MCQs; the 1979 weekend story rests on one source (ABC, Nov 2026); kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template)",
+  "review_url": "https://claude.ai/artifact/Q2F1P8AUUSr3qH1w2aa6QC",
+  "editor_note": null
+}

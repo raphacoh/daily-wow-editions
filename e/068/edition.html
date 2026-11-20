@@ -1,0 +1,1731 @@
+<title>שורשים וכנפיים #68 · הניסוי שמטפטף מאז 1927 — והמדען שחיכה 52 שנה ולא ראה טיפה אחת</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#2F7D4F; --shadow-soft:#DDF0E0;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes tick{0%{opacity:.95}30%{opacity:.75}100%{opacity:.08}}
+@keyframes spark{0%{transform:translate(110px,143px);opacity:0}15%{opacity:1}100%{transform:translate(40px,150px);opacity:0}}
+@keyframes spark2{0%{transform:translate(195px,203px);opacity:0}15%{opacity:1}100%{transform:translate(265px,210px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 68</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+    <defs><radialGradient id="glow" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#E8A33D" stop-opacity=".28"/><stop offset="60%" stop-color="#E8A33D" stop-opacity=".08"/><stop offset="100%" stop-color="#E8A33D" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="150" cy="150" r="146" fill="url(#glow)"/>
+    <path d="M70 60 H230 L162 150 V196 H138 V150 Z" fill="#2A2420" stroke="#1B1F33" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M86 70 H214" stroke="#8C7A5E" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+    <path d="M138 196 C138 214 162 214 162 196 Z" fill="#2A2420" stroke="#1B1F33" stroke-width="4"/>
+    <path d="M150 210 C134 236 138 262 150 262 C162 262 166 236 150 210 Z" fill="#2A2420" stroke="#1B1F33" stroke-width="4"/>
+    <circle cx="144" cy="246" r="4" fill="#C9B48A"/>
+    <g class="spark" fill="#E8A33D"><circle cx="0" cy="0" r="5"/></g>
+    <g class="spark2" fill="#E8A33D"><circle cx="0" cy="0" r="4"/></g>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון <span class="num">68</span></span><span class="tag">יום שישי, <span class="num">20</span> בנובמבר <span class="num">2026</span></span><span class="tag">י׳ בכסלו תשפ״ז</span><span class="tag">כ־<span class="num">25</span> דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>הניסוי שמטפטף מאז <span class="num">1927</span> — והמדען שחיכה <span class="num">52</span> שנה ולא ראה טיפה אחת</h1>
+  <p class="lede">באוניברסיטה אחת באוסטרליה עומד בתוך ארון זכוכית משפך מלא בחומר שחור. אם מכים בחומר הזה בפטיש — הוא מתנפץ לרסיסים, כמו אבן. ובכל זאת, מתחת למשפך מחכה כוס, ומדי פעם נופלת לתוכה טיפה. הניסוי הזה רץ כבר כמעט <span class="num">100</span> שנה, ואף אדם עוד לא ראה טיפה נופלת מעצמה. השאלה של היום: <b>איך דבר שמתנפץ כמו אבן יכול להיות נוזל — ומה זה אומר על ההרים?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">החומר השחור במשפך נקרא זפת. היא זורמת למטה דרך הצינור הצר של המשפך. כל כמה זמן נופלת ממנה טיפה?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>כל דקה</b><span>כמו ברז שמטפטף</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>כל שבוע</b><span>טיפה אחת בכל יום ראשון</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>בערך פעם בעשר שנים</b><span>יותר מכל השנים שלכם בבית הספר</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>אף פעם</b><span>זה מוצק — מוצקים לא מטפטפים</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">מתחילים לגלות ←</button></div>
+</section>
+
+<!-- 1 · PARNELL'S FUNNEL (figure) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">1</span></div>
+  <h2>המורה שטען שאבן היא נוזל</h2>
+  <p>ב־<span class="num">1927</span>, באוניברסיטת קווינסלנד שבעיר בריסביין באוסטרליה, עמד פרופסור לפיזיקה בשם <b>תומס פרנל</b> מול התלמידים שלו עם גוש שחור ומבריק: <b>זפת</b> — חומר דביק שמפיקים מפחם ומשתמשים בו, למשל, כדי לאטום סירות וגגות. בטמפרטורת החדר הזפת קשה למגע, ואם מכים בה בפטיש — היא מתנפצת לרסיסים.</p>
+  <p>ופרנל אמר להם משהו מוזר: <b>"הזפת הזאת היא נוזל."</b> כדי להוכיח את זה, הוא חימם זפת, שפך אותה לתוך משפך זכוכית וסגר אותו. שלוש שנים חיכה שהזפת תתקרר ותשקע. ובאוקטובר <span class="num">1930</span> הוא חתך את הקצה התחתון של הצינור — ונתן לה לזרום.</p>
+
+  <figure class="calfig" aria-label="משפך זכוכית מלא זפת שחורה בתוך כיפת זכוכית, וטיפה שחורה תלויה מתחתיו מעל כוס. מימין פטיש שפוגע בגוש זפת שמתנפץ לרסיסים">
+    <svg viewBox="0 0 640 400" role="img" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="640" height="400" rx="14" fill="#F4EEDF"/>
+      <rect x="0" y="350" width="640" height="50" fill="#DDD4BE"/>
+      <!-- the bell jar -->
+      <path d="M70 350 V110 C70 40 290 40 290 110 V350" fill="#DCEAF5" fill-opacity=".45" stroke="#2F6F9F" stroke-width="4"/>
+      <!-- stand -->
+      <rect x="96" y="150" width="168" height="10" rx="5" fill="#5B5E70"/>
+      <rect x="100" y="150" width="10" height="200" fill="#5B5E70"/><rect x="250" y="150" width="10" height="200" fill="#5B5E70"/>
+      <!-- the funnel full of pitch -->
+      <path d="M112 86 H248 L192 152 V214 H168 V152 Z" fill="#2A2420" stroke="#1B1F33" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M126 94 H234" stroke="#9C8A6A" stroke-width="4" stroke-linecap="round"/>
+      <!-- the drop -->
+      <path d="M168 214 C168 230 192 230 192 214 Z" fill="#2A2420"/>
+      <path d="M180 226 C162 252 166 284 180 284 C194 284 198 252 180 226 Z" fill="#2A2420" stroke="#1B1F33" stroke-width="3"/>
+      <circle cx="174" cy="268" r="4" fill="#C9B48A"/>
+      <!-- the beaker -->
+      <path d="M140 300 V346 H220 V300" fill="#FFFFFF" fill-opacity=".6" stroke="#1B1F33" stroke-width="4"/>
+      <path d="M146 340 C160 326 200 326 214 340 V344 H146 Z" fill="#2A2420"/>
+      <!-- the hammer and the shattered lump -->
+      <g transform="rotate(-28 470 140)"><rect x="456" y="70" width="28" height="150" rx="8" fill="#B08A55" stroke="#1B1F33" stroke-width="4"/><rect x="420" y="50" width="100" height="44" rx="8" fill="#5B5E70" stroke="#1B1F33" stroke-width="4"/></g>
+      <path d="M440 300 L476 262 L512 270 L540 300 L520 328 L462 330 Z" fill="#2A2420" stroke="#1B1F33" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M476 262 L486 296 L540 300 M486 296 L462 330 M486 296 L520 328" stroke="#C9B48A" stroke-width="3" fill="none"/>
+      <g fill="#2A2420" stroke="#1B1F33" stroke-width="2"><path d="M410 286 l14 -8 l6 12 z"/><path d="M568 284 l16 4 l-8 12 z"/><path d="M420 330 l12 -2 l-2 12 z"/><path d="M560 326 l14 2 l-6 12 z"/></g>
+      <text x="180" y="34" text-anchor="middle" font-family="Rubik,Arial" font-size="30" font-weight="700" fill="#1B1F33">זפת במשפך</text>
+      <text x="180" y="390" text-anchor="middle" font-family="Rubik,Arial" font-size="32" font-weight="700" fill="#1B1F33">כוס לטיפות</text>
+      <text x="490" y="372" text-anchor="middle" font-family="Rubik,Arial" font-size="30" font-weight="700" fill="#C8452D">פטיש — מתנפצת!</text>
+    </svg>
+    <figcaption>משמאל: הניסוי של פרנל — משפך מלא זפת, כיפת זכוכית מעליו, וכוס שמחכה לטיפות. מימין: אותה זפת, כשמכים בה מכה חזקה ומהירה.</figcaption>
+  </figure>
+
+  <p>ואז... כמעט כלום. הזפת זרמה, אבל לאט כל כך שאי אפשר לראות שום תנועה, גם אם בוהים בה יום שלם. הטיפה הראשונה נפלה לכוס רק בדצמבר <span class="num">1938</span> — שמונה שנים אחרי שחתכו את הצינור. היום הניסוי רשום בספר השיאים של גינס כניסוי המעבדה הארוך ביותר שעדיין רץ, ובשנת <span class="num">2005</span> קיבלו עליו פרס "איג נובל" — פרס לניסויים שקודם מצחיקים, ואחר כך גורמים לחשוב.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על פלסטלינה. אם זורקים כדור פלסטלינה על הרצפה — הוא כמעט לא משתנה. אבל אם משאירים אותו על אדן חלון חם, אחרי כמה ימים הוא שוקע ומשתטח. הזפת היא כמו פלסטלינה בהילוך איטי במיוחד: היא לא "מחליטה" אם היא קשה או רכה — זה תלוי כמה זמן מחכים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>מה ההבדל בין מוצק לנוזל? מוצק שומר על הצורה שלו, גם אם מחכים הרבה זמן. נוזל מקבל את צורת הכלי שהוא נמצא בו — לפעמים מהר, ולפעמים לאט. הניסוי של פרנל בודק בדיוק את זה: אם הזפת מוצק, היא תישאר במשפך לנצח. אם היא נוזל, בסוף היא תטפטף. בשביל לדעת, צריך רק דבר אחד — סבלנות.</p>
+  </div>
+
+  <div class="q qc" id="goalQ"></div>
+  <p class="small" id="hint1" style="text-align:center">כדי להמשיך, ענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · THE DRIP TIME MACHINE (interactive 1) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">2</span></div>
+  <h2>טיפה אחת בעשור</h2>
+  <p>למה הזפת כל כך איטית? כי היא <b>סמיכה</b> מאוד. המדענים קוראים לזה <b>צמיגות</b>: כמה קשה לנוזל לזרום. למים יש צמיגות נמוכה — הם נשפכים מיד. לדבש יש צמיגות גבוהה בהרבה — הוא נמרח לאט מהכפית. ולזפת? ב־<span class="num">1984</span> חישבו בקווינסלנד, לפי הקצב של הטיפות, שהזפת סמיכה בערך <b>פי <span class="num">230</span> מיליארד</b> מהמים.</p>
+  <p>מספר כזה קשה לדמיין. אז בנינו מכונת זמן: אותו משפך, עם נוזלים שונים, ושעון שאפשר להריץ קדימה — כמו סרט מואץ של פרח שנפתח. אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 1 — מכונת הזמן של הטיפה ===== -->
+  <div class="panel instrument">
+    <h3>מכונת הזמן של הטיפה</h3>
+    <p class="cap">למעלה: משפך, ומתחתיו כוס. השעון מראה כמה זמן עבר "באמת". אפשר להחליף נוזל, ולהריץ את הזמן מהר יותר. נחשו קודם: אם נריץ את הסרט של הזפת מהר מאוד — מה נראה?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="dpP0" onclick="dpPredict(0)">היא תישבר לחתיכות</button>
+        <button id="dpP1" onclick="dpPredict(1)">היא תטפטף כמו דבש</button>
+        <button id="dpP2" onclick="dpPredict(2)">לא יקרה כלום</button>
+      </div>
+    </div>
+    <canvas role="img" id="dpCv" width="640" height="600" aria-label="משפך גדול במרכז, שממנו נוזל זורם או מטפטף לכוס. למעלה שעון שמראה כמה זמן עבר באמת, ולמטה כמה טיפות נאספו. כשמריצים את הזמן מהר, גם הזפת מטפטפת כמו דבש"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="איזה נוזל">
+        <button id="dpL0" onclick="dpLiq(0)">מים</button>
+        <button id="dpL1" class="on" onclick="dpLiq(1)">דבש</button>
+        <button id="dpL2" onclick="dpLiq(2)">זפת</button>
+      </div>
+      <label>מהירות הזמן (שמאלה: רגיל, ימינה: פי מאה מיליון)
+        <input type="range" id="dpS" min="0" max="3" step="1" value="0" oninput="dpSet()" aria-label="מהירות הזמן" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">זמן: <b id="dpOutS">רגיל</b></div>
+      <div class="readout">טיפה כל: <b id="dpOutT">?</b></div>
+    </div>
+    <p class="cap" id="dpMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="dpReveal" hidden><span class="hand">!</span><p><b>במהירות של פי מאה מיליון, הזפת מטפטפת בדיוק כמו דבש!</b> אין בה שום קסם: היא נוזל רגיל, רק סמיך כל כך שכל טיפה לוקחת בערך תשע שנים. מים זורמים מהר מדי בשביל טיפות — זרם רציף. דבש מטפטף בקצב של שניות. והזפת — בקצב של שנים. (הזמנים בהדמיה לפי היחס בין הצמיגויות, להמחשה.)</p></div>
+
+  <div id="dpAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>ראיתם פעם סרטון שבו צמח צומח מזרע לפרח בעשר שניות? הצמח לא באמת גדל כל כך מהר — פשוט צילמו תמונה כל שעה, והריצו את התמונות מהר. ככה בדיוק עשינו עם הזפת: בסרט מהיר רואים מה שהעיניים שלנו לא מספיקות לראות — שהיא זורמת, כל הזמן.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>כלל אצבע: באותו משפך, ככל שהנוזל סמיך יותר, כך כל טיפה לוקחת יותר זמן — באותו יחס. דבש סמיך (בערך פי <span class="num">10,000</span> מהמים), והזפת סמיכה מהדבש עוד בערך פי <span class="num">23</span> מיליון. אם טיפת דבש לוקחת בהדמיה <span class="num">12</span> שניות, טיפת זפת תיקח <span class="math">12 × 23,000,000 ≈ 276,000,000</span> שניות — וזה כמעט תשע שנים.</p>
+  </div>
+
+  <div class="q qc" id="beatQ"></div>
+  </div>
+  <p class="small" id="hint2" style="text-align:center">כדי להמשיך, נחשו, נסו את הדבש, ואז את הזפת במהירות הכי גבוהה.</p>
+  <div class="next"><button class="btn" id="next2" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · THE KEEPER WHO NEVER SAW A DROP (interactive 2) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">3</span></div>
+  <h2>השומר שאף פעם לא ראה טיפה</h2>
+  <p>ב־<span class="num">1961</span> קיבל את הניסוי לידיו פיזיקאי צעיר בשם <b>ג׳ון מיינסטון</b>. הוא שמר עליו <span class="num">52</span> שנה — וכל פעם, הטיפה הצליחה לחמוק ממנו. ב־<span class="num">1979</span> הוא ישב ליד הזפת כל הלילה של יום שישי, כל השבת, ועוד לילה — והיא לא נפלה. הוא הלך הביתה, וכשחזר ביום שני בבוקר, הטיפה כבר שכבה בכוס. ב־<span class="num">1988</span> הניסוי הוצג בתערוכה גדולה, הטיפה הייתה ממש מוכנה — וכשמיינסטון יצא לכמה דקות להביא משהו לשתות, היא נפלה. ב־<span class="num">2000</span> כבר כיוונו מצלמה — ובדיוק אז הייתה הפסקת חשמל.</p>
+  <p>מיינסטון נפטר ב־<span class="num">2013</span>, בלי שראה אף טיפה נופלת. ובאפריל <span class="num">2014</span> הטיפה התשיעית נגעה בשמינית שבכוס — הפעם מול מצלמה שצילמה כל הזמן, ויותר מ־<span class="num">31,000</span> אנשים מכל העולם נרשמו לצפות בשידור. ויש עוד תעלומה: משהו בחדר שינה את הקצב של הטיפות. אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 2 — המזגן שהאט את הזפת ===== -->
+  <div class="panel instrument">
+    <h3>המזגן שהאט את הזפת</h3>
+    <p class="cap">למעלה: החדר של הניסוי, עם מדחום. למטה: הנתונים האמיתיים — כמה שנים עברו עד כל אחת מתשע הטיפות. נחשו קודם: אם מקררים את החדר — מה יקרה לזמן בין הטיפות?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="tpP0" onclick="tpPredict(0)">יתקצר</button>
+        <button id="tpP1" onclick="tpPredict(1)">יתארך</button>
+        <button id="tpP2" onclick="tpPredict(2)">לא ישתנה</button>
+      </div>
+    </div>
+    <canvas role="img" id="tpCv" width="640" height="600" aria-label="למעלה חדר עם מדחום גדול ומשפך זפת, וכמה שנים לוקחת טיפה בטמפרטורה שנבחרה. למטה גרף עמודות של תשע הטיפות האמיתיות: כמה שנים עברו עד כל טיפה, משנת 1938 עד 2014, והשתיים האחרונות גבוהות יותר"></canvas>
+    <div class="controls">
+      <label>טמפרטורה בחדר (שמאלה: קר, ימינה: חם)
+        <input type="range" id="tpT" min="18" max="30" step="1" value="26" oninput="tpSet()" aria-label="טמפרטורה" style="direction:ltr">
+      </label>
+      <button class="btn small ghost" id="tpAC" onclick="tpToggle()">הראו מתי הותקן מזגן</button>
+    </div>
+    <div class="controls">
+      <div class="readout">טמפרטורה: <b id="tpOutT"><span class="num">26</span>°</b></div>
+      <div class="readout">טיפה כל: <b id="tpOutY">?</b></div>
+    </div>
+    <p class="cap" id="tpMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="tpReveal" hidden><span class="hand">!</span><p><b>קר יותר — סמיך יותר — לאט יותר!</b> בשנות ה־<span class="num">80</span> הותקן מזגן בבניין. עד אז נפלה טיפה בערך כל שמונה שנים. שתי הטיפות שאחרי המזגן לקחו <span class="num">12.3</span> ו־<span class="num">13.4</span> שנים. כשהזפת קרה יותר, היא סמיכה יותר, והיא זורמת לאט יותר. (הגרף למטה אמיתי. המספרים בחלק העליון, לכל טמפרטורה, הם להמחשה.)</p></div>
+
+  <div id="tpAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אתם כבר מכירים את זה מהמטבח: דבש מהמקרר כמעט לא יוצא מהצנצנת, ודבש חם נשפך כמו מיץ. גם שוקולד קשה במקרר ונמס ביד. הזפת מתנהגת אותו דבר — רק שאצלה ההבדל הוא בין טיפה כל שמונה שנים לטיפה כל שלוש־עשרה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>זה מראה שוב שהזפת היא נוזל: הצמיגות של נוזלים כאלה רגישה מאוד לטמפרטורה. הבעיה בתור ניסוי מדעי: כשמשנים שני דברים בבת אחת, קשה לדעת מה גרם למה. החוקרים בקווינסלנד שמו לב גם שתאורה חדשה מעל התצוגה מחממת אותה קצת — ואולי תקצר את הזמן עד הטיפה העשירית.</p>
+  </div>
+
+  <div class="q qc" id="frameQ"></div>
+  </div>
+  <p class="small" id="hint3" style="text-align:center">כדי להמשיך, נחשו, הזיזו את הטמפרטורה עד הסוף לשני הצדדים, ולחצו על כפתור המזגן.</p>
+  <div class="next"><button class="btn" id="next3" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE MOUNTAINS FLOWED (interactive 3) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">4</span></div>
+  <h2>"הרים נזלו" — המדען מהטכניון ושירת דבורה</h2>
+  <p>אז הזפת מוצק או נוזל? מדען ישראלי ענה על זה בדרך מבריקה. <b>מרקוס ריינר</b> היה מהנדס שעלה לארץ ישראל ב־<span class="num">1922</span>, ואחר כך פרופסור בטכניון בחיפה. הוא עזר להמציא תחום מדע שלם — <b>ריאולוגיה</b>, המדע של איך דברים זורמים.</p>
+  <p>ב־<span class="num">1963</span> נאם ריינר בכנס של מדענים בארצות הברית, והזכיר להם פסוק משירת דבורה, בספר שופטים: <b>"הָרִים נָזְלוּ מִפְּנֵי ה׳"</b>. דבורה, אמר ריינר, ידעה שגם הרים זורמים. אבל הם זורמים "לפני האלוהים" — כי מי שמסתכל זמן אינסופי רואה הכול זורם. בן אדם, שחי פחות מ־<span class="num">100</span> שנה, רואה הר עומד במקום. לכבודה, הוא קרא לרעיון <b>"מספר דבורה"</b>.</p>
+  <p>הרעיון: לכל חומר יש "זמן זרימה" — כמה זמן לוקח לו לזרום מספיק כדי שנראה. אם מסתכלים זמן קצר הרבה יותר — הוא נראה מוצק. אם מסתכלים זמן ארוך הרבה יותר — הוא נראה נוזל. במעבדה תבדקו את זה בעצמכם. אבל קודם — נחשו!</p>
+
+  <!-- ===== INTERACTIVE 3 — מוצק או נוזל? תלוי כמה מחכים ===== -->
+  <div class="panel instrument">
+    <h3>מוצק או נוזל? תלוי כמה מחכים</h3>
+    <p class="cap">למעלה: גוש של חומר על שולחן, ולידו לוח שנה שמראה כמה זמן מסתכלים עליו. אם הגוש שומר על הצורה — הוא נראה מוצק. אם הוא מתפשט לשלולית — הוא נראה נוזל. נחשו קודם: גוש סלע מעמקי כדור הארץ, שמסתכלים עליו מיליון שנה — מה נראה?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="dbP0" onclick="dbPredict(0)">הוא יישאר בדיוק אותו דבר</button>
+        <button id="dbP1" onclick="dbPredict(1)">הוא יזרום, כמו נוזל</button>
+        <button id="dbP2" onclick="dbPredict(2)">הוא יתפורר לחול</button>
+      </div>
+    </div>
+    <canvas role="img" id="dbCv" width="640" height="600" aria-label="גוש של החומר שנבחר על שולחן. כשזמן ההסתכלות קצר הוא נשאר גוש עם פינות, וכשזמן ההסתכלות ארוך הוא מתפשט לשלולית. מעליו לוח שנה עם זמן ההסתכלות, ושלט גדול: נראה מוצק או נראה נוזל"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="איזה חומר">
+        <button id="dbM0" onclick="dbMat(0)">מים</button>
+        <button id="dbM1" onclick="dbMat(1)">דבש</button>
+        <button id="dbM2" class="on" onclick="dbMat(2)">זפת</button>
+        <button id="dbM3" onclick="dbMat(3)">קרח של קרחון</button>
+        <button id="dbM4" onclick="dbMat(4)">סלע מעמקי כדור הארץ</button>
+      </div>
+    </div>
+    <div class="controls">
+      <label>כמה זמן מסתכלים (שמאלה: שנייה, ימינה: מיליארד שנה)
+        <input type="range" id="dbO" min="0" max="6" step="1" value="0" oninput="dbSet()" aria-label="זמן ההסתכלות" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">מסתכלים: <b id="dbOutO">שנייה</b></div>
+      <div class="readout">נראה: <b id="dbOutV">?</b></div>
+    </div>
+    <p class="cap" id="dbMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="dbReveal" hidden><span class="hand">!</span><p><b>כל חומר נראה מוצק, אם מסתכלים מהר מספיק — ונוזל, אם מחכים מספיק זמן.</b> מים "זורמים" בחלקיק שנייה, זפת — בעשר שנים, קרחון — בחודשים, וסלע במעמקי כדור הארץ — במאות אלפי שנים ויותר. ככה זה גם עם הפטיש: המכה נמשכת חלקיק שנייה, הרבה פחות מזמן הזרימה של הזפת — ולכן היא מתנפצת כמו מוצק. (זמני הזרימה בהדמיה הם סדרי גודל, להמחשה.)</p></div>
+
+  <div id="dbAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>קפיצה לבריכה מגובה רב כואבת, כי המים לא מספיקים לזוז מהדרך — לרגע הם מתנהגים כמעט כמו משטח קשה. אבל כשנכנסים לאט, במדרגות, המים זזים בקלות. אותם מים! ההבדל הוא רק כמה מהר. כך גם הזפת: מכה מהירה — מוצק. הרבה סבלנות — נוזל.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>ריינר הגדיר את מספר דבורה כחילוק: זמן הזרימה של החומר, לחלק בזמן ההסתכלות. כשהתוצאה גדולה הרבה יותר מ־<span class="num">1</span> — רואים מוצק. כשהיא קטנה הרבה יותר מ־<span class="num">1</span> — רואים נוזל. לזפת, זמן זרימה של עשר שנים חלקי מכה של אלפית שנייה נותן מספר ענק — מוצק. אותן עשר שנים חלקי מאה שנה של ניסוי נותנות <span class="math">10 ÷ 100 = 0.1</span> — קטנה מ־<span class="num">1</span>, והזפת כבר מטפטפת. ואם מחכים אלף שנה: <span class="math">10 ÷ 1000 = 0.01</span> — נוזל לגמרי.</p>
+  </div>
+
+  <div class="q qc" id="lineQ"></div>
+  </div>
+  <p class="small" id="hint4" style="text-align:center">כדי להמשיך, נחשו, נסו לפחות שלושה חומרים, והזיזו את הזמן עד הסוף לשני הצדדים.</p>
+  <div class="next"><button class="btn" id="next4" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: WHY PITCH IS SO SLOW (figure) + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">5</span></div>
+  <h2>למה הזפת כל כך עצלנית?</h2>
+  <p>כל נוזל בנוי מחלקיקים זעירים שנקראים <b>מולקולות</b>. בנוזל, המולקולות לא תקועות במקום כמו במוצק — הן יכולות להחליק זו ליד זו. במים המולקולות קטנות וזזות בקלות, ולכן המים זורמים מהר. בזפת המולקולות גדולות, כבדות, ונאחזות זו בזו. כדי שהזפת תזוז, כל מולקולה צריכה להשתחרר מהשכנות שלה — וזה קורה לאט־לאט.</p>
+
+  <figure class="calfig" aria-label="שני ריבועים. משמאל: מים — עיגולים קטנים וחצים ארוכים, מחליקים בקלות. מימין: זפת — צורות גדולות ומחוברות זו לזו, עם חצים קצרצרים. מעל הזפת להבה קטנה שמראה שחום עוזר לה לזוז">
+    <svg viewBox="0 0 640 400" role="img" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="640" height="400" rx="14" fill="#F4EEDF"/>
+      <rect x="30" y="70" width="270" height="270" rx="16" fill="#DCEAF5" stroke="#2F6F9F" stroke-width="4"/>
+      <rect x="340" y="70" width="270" height="270" rx="16" fill="#EDE3CF" stroke="#1B1F33" stroke-width="4"/>
+      <g fill="#2F86C8" stroke="#1B1F33" stroke-width="2"><circle cx="70" cy="110" r="13"/><circle cx="130" cy="140" r="13"/><circle cx="200" cy="105" r="13"/><circle cx="260" cy="150" r="13"/><circle cx="90" cy="200" r="13"/><circle cx="170" cy="215" r="13"/><circle cx="250" cy="240" r="13"/><circle cx="70" cy="290" r="13"/><circle cx="150" cy="300" r="13"/><circle cx="230" cy="305" r="13"/></g>
+      <g stroke="#2F6F9F" stroke-width="5" stroke-linecap="round" fill="none"><path d="M88 110 H120"/><path d="M148 140 H190"/><path d="M108 200 H150"/><path d="M188 215 H230"/><path d="M88 290 H128"/><path d="M168 300 H208"/></g>
+      <g fill="#2A2420" stroke="#C9B48A" stroke-width="3" stroke-linejoin="round">
+        <path d="M370 100 h60 v30 h30 v40 h-50 v-20 h-40 z"/><path d="M470 96 h70 v34 h40 v44 h-60 v-30 h-50 z"/>
+        <path d="M366 196 h54 v44 h44 v36 h-60 v-24 h-38 z"/><path d="M480 196 h60 v30 h44 v52 h-56 v-34 h-48 z"/>
+        <path d="M380 290 h70 v36 h-70 z"/><path d="M480 290 h96 v36 h-96 z"/>
+      </g>
+      <g stroke="#C8452D" stroke-width="5" stroke-linecap="round"><path d="M430 178 l12 0"/><path d="M548 186 l10 0"/><path d="M470 250 l10 0"/></g>
+      <path d="M560 30 C548 46 572 52 560 66 C586 56 584 32 560 30 Z" fill="#E8A33D" stroke="#1B1F33" stroke-width="3"/>
+      <text x="165" y="48" text-anchor="middle" font-family="Rubik,Arial" font-size="32" font-weight="700" fill="#2F6F9F">מים: מחליקים</text>
+      <text x="460" y="48" text-anchor="middle" font-family="Rubik,Arial" font-size="32" font-weight="700" fill="#1B1F33">זפת: נאחזת</text>
+      <text x="320" y="384" text-anchor="middle" font-family="Rubik,Arial" font-size="32" font-weight="700" fill="#C8452D">חום עוזר להשתחרר</text>
+    </svg>
+    <figcaption>משמאל: מולקולות קטנות של מים מחליקות זו ליד זו בקלות (חצים ארוכים). מימין: המולקולות הגדולות של הזפת נאחזות זו בזו, וזזות רק קצת (חצים קצרים). כשמחממים, הן רועדות חזק יותר ומשתחררות בקלות רבה יותר. הציור מפושט מאוד.</figcaption>
+  </figure>
+
+  <p>ולמה חום עוזר? כשמחממים חומר, המולקולות שלו רועדות ונעות מהר יותר. ככה קל להן יותר להשתחרר מהשכנות ולהחליק הלאה. לכן פרנל חימם את הזפת כדי לשפוך אותה, ולכן המזגן האט את הטיפות.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>בואו נחשב כמו השומרים של הניסוי. פרנל חתך את הצינור ב־<span class="num">1930</span>, והטיפה הראשונה נפלה שמונה שנים אחר כך. באיזו שנה? <span class="math">1930 + 8 = 1938</span>. ומיינסטון? הוא התחיל לשמור ב־<span class="num">1961</span> וסיים ב־<span class="num">2013</span>. כמה שנים? <span class="math">2013 − 1961 = 52</span> — יותר מחצי מאה, ואף טיפה אחת לא נפלה מול העיניים שלו.</p>
+    <p>ועוד משחק מספרים: אם נופלת טיפה בערך כל עשר שנים, כמה טיפות ייפלו בזמן שילד גדל מגיל <span class="num">10</span> עד גיל <span class="num">40</span>? <span class="math">40 − 10 = 30</span> שנים, כלומר בערך שלוש טיפות. הניסוי הזה הוא ממש מרוץ של סבלנות.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>איך מודדים צמיגות? הצמיגות של מים היא בערך <span class="math">0.001</span> ביחידה שנקראת "פסקל־שנייה". ב־<span class="num">1984</span> פרסמו פיזיקאים מקווינסלנד חישוב לפי שש הטיפות הראשונות: הצמיגות של הזפת היא בערך <span class="math">230,000,000</span> פסקל־שנייה. <span class="math">230,000,000 ÷ 0.001 = 230,000,000,000</span> — פי <span class="num">230</span> מיליארד מהמים.</p>
+    <p>הנתונים האמיתיים מספרים סיפור: שבע הטיפות הראשונות נפלו כל <span class="math">7.2–9.2</span> שנים. אחרי המזגן: <span class="num">12.3</span> שנים, ואז <span class="num">13.4</span>. הטיפה התשיעית נגעה בשמינית לפני שהשתחררה, ושתיהן נשארו מחוברות כמו גשר. כשהחליפו את הכוס, היא ניתקה מהמשפך. עכשיו מחכה כוס חדשה לטיפה העשירית.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b><span class="num">1</span>. שאלה כמותית:</b> לפני המזגן נפלה טיפה בממוצע כל <b><span class="num">8</span></b> שנים. שתי הטיפות שאחרי המזגן לקחו <span class="num">12.3</span> שנים ו־<span class="num">13.4</span> שנים. (א) מה הזמן <b>הממוצע</b> של שתי הטיפות האלה? (ב) בכמה <b>אחוזים</b> הוא ארוך יותר מ־<span class="num">8</span> שנים? (עגלו למספר שלם. מותר מחשבון.)</p>
+      <div class="controls">
+        <label>(א) שנים <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) אחוזים <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b><span class="num">2</span>. שאלה למחשבה:</b> נניח שמחממים את החדר של הניסוי ל־<span class="num">40</span> מעלות, במשך שבוע. מה יקרה לזפת במשפך — ולמה זה יכול לקלקל ניסוי שרץ כמעט מאה שנה?</p>
+      <details><summary>רמז</summary><p>חשבו על המולקולות: מה החום עושה להן? ומה המדענים רוצים לדעת מהניסוי — כמה מהר הזפת זורמת באיזה מצב?</p></details>
+      <details><summary>התשובה</summary><p><b>הזפת תזרום הרבה יותר מהר.</b> בחום המולקולות רועדות חזק יותר ומשתחררות זו מזו בקלות, ולכן הצמיגות יורדת מאוד. טיפה שהייתה אמורה ליפול עוד כמה שנים עלולה להתארך ולהיפול בתוך ימים, ואולי אפילו להימרח על דפנות המשפך. וזה מקלקל את הניסוי: המדענים משתמשים בקצב הטיפות כדי לחשב את הצמיגות. אם הטמפרטורה קופצת, הם כבר לא יודעים איזה חלק מהזרימה נגרם מהזפת עצמה ואיזה מהחום. לכן ניסוי טוב שומר על תנאים קבועים — או לפחות רושם אותם.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <p class="small" id="hint5" style="text-align:center">כדי להמשיך, ענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next5" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>צריך: צלחת שטוחה, ספר עבה כדי להטות אותה, כפית, מים, שמן, דבש (או סילאן), קטשופ, טלפון עם שעון עצר — ומבוגר שיעזור לחמם מים.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — מרוץ הנוזלים (<span class="num">10</span> דקות)</h3>
+    <ol>
+      <li>הניחו את הצלחת על השולחן, והרימו צד אחד שלה על הספר, כך שתהיה משופעת.</li>
+      <li>לפני שמתחילים — נחשו: מי יגיע ראשון לתחתית, ומי אחרון? רשמו.</li>
+      <li>שימו בבת אחת כפית קטנה מכל נוזל בראש המדרון, והפעילו את שעון העצר. מתי כל אחד מגיע לתחתית?</li>
+      <li>עכשיו הדבש: שימו צנצנת דבש במקרר לשעה, ובכוס אחרת — כפית דבש בתוך כוס עם מים חמים מהברז (המבוגר עוזר). הריצו את שני הדבשים במרוץ. מי ניצח, ובכמה?</li>
+    </ol>
+    <p class="small">שאלה לחקור: אם הדבש הקר איטי פי כמה מהחם — מה זה אומר על הזפת בחדר עם מזגן?</p>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — הנוזל שמתנהג כמו מוצק כשמכים בו (<span class="num">5</span> דקות)</summary>
+    <ol>
+      <li>בקערה, ערבבו כוס קורנפלור (עמילן תירס) עם קצת פחות מחצי כוס מים, עד שיש עיסה סמיכה.</li>
+      <li>הכניסו אצבע לאט — היא שוקעת, כמו בנוזל. עכשיו הכו מהר על פני העיסה באצבע — היא קשה!</li>
+      <li>קחו חופן ולחצו חזק בין הידיים — כדור. הפסיקו ללחוץ — הוא נוזל בין האצבעות.</li>
+    </ol>
+    <p class="small">זה טריק קצת אחר מהזפת (כאן הגרגירים נדחסים זה לזה כשמכים), אבל הלקח דומה: מה שרואים תלוי בכמה מהר בודקים.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>הכול זורם — אם מחכים מספיק</h2>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>הזפת נראית כמו אבן, אבל היא נוזל סמיך מאוד.</b> טיפה ממנה נופלת בערך פעם בעשר שנים, ולכן מאז <span class="num">1930</span> נפלו רק תשע טיפות — ואף אחת מהן לא נראתה נופלת מעצמה. המולקולות שלה גדולות ונאחזות זו בזו, ובקור הן זזות עוד יותר לאט. שאלה לחקור: אילו עוד דברים סביבכם אולי זורמים לאט מכדי שתראו?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>הזפת היא נוזל עם צמיגות של כ־<span class="math">230,000,000</span> פסקל־שנייה</b> — פי <span class="num">230</span> מיליארד מהמים, ולכן טיפה לוקחת <span class="math">8–13</span> שנים. המולקולות הגדולות שלה נאחזות זו בזו, והחום עוזר להן להשתחרר, ולכן המזגן האט את הטיפות. ומרקוס ריינר מהטכניון הראה שהשאלה "מוצק או נוזל?" תלויה בזמן ההסתכלות לעומת זמן הזרימה — מספר דבורה. שאלה לחקור: אם גם סלעים זורמים, למה ההרים לא נמסים לשלוליות?</p>
+  </div>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הסיפור?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">גאוגרפיה · ים המלח</div><h3>"ים האספלט"</h3><p>היוונים והרומאים קראו לים המלח "אגם האספלט": מעמקיו עולים לפעמים גושים של חומר שחור דומה לזפת — אספלט טבעי — וצפים על המים. המצרים הקדמונים קנו אספלט מאזור ים המלח, והשתמשו בו בחניטת מומיות.</p></div>
+    <div class="tile"><div class="dom">היסטוריה · תנ״ך</div><h3>תיבה אטומה</h3><p>נח קיבל הוראה לצפות את התיבה "מִבַּיִת וּמִחוּץ בַּכֹּפֶר", ואמא של משה ציפתה את התיבה של התינוק "בַּחֵמָר וּבַזָּפֶת". חומרים כמו זפת מונעים ממים לחדור — עד היום אוטמים בהם גגות וכבישים.</p></div>
+    <div class="tile"><div class="dom">גאולוגיה</div><h3>קרחונים וסלעים שזורמים</h3><p>קרחון נראה כמו גוש קרח קשה, אבל הוא זורם במורד ההר — לפעמים עשרות מטרים בשנה, בלי להימס. ועמוק מתחת לרגליים, הסלע של כדור הארץ זורם כמה סנטימטרים בשנה — ומזיז את היבשות.</p></div>
+    <div class="tile"><div class="dom">טכנולוגיה · מצלמות</div><h3>הטיפה שצולמה בדבלין</h3><p>בדבלין שבאירלנד יש ניסוי זפת אחר, מ־<span class="num">1944</span>. ב־<span class="num">2013</span> כיוונו אליו מצלמה, ובפעם הראשונה בהיסטוריה תועדה בווידאו טיפת זפת נופלת. בקווינסלנד, אחרי כמעט <span class="num">100</span> שנה, עדיין מחכים.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): האם גם זכוכית היא נוזל שזורם?</summary>
+    <p>יש סיפור מפורסם: בכנסיות עתיקות באירופה, הזכוכית בחלונות עבה יותר למטה, כי היא "נזלה" במשך מאות שנים. לפני שאתם פותחים — נחשו: נכון או לא?</p>
+    <details><summary>התשובה</summary>
+      <p><b>כנראה שלא.</b> פעם ייצרו זכוכית לחלונות ביד, והיא יצאה לא אחידה — עבה בצד אחד ודקה בצד השני. הבנאים התקינו אותה לרוב עם הצד העבה למטה, אבל לפעמים גם למעלה. מדענים חישבו שבטמפרטורת החדר זכוכית רגילה זורמת לאט כל כך, שגם במשך זמן ארוך מגיל היקום כמעט לא היו רואים שינוי. אז הזפת מטפטפת — אבל החלון בבית שלכם לא.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את הסיפור של ניסוי הזפת, מההתחלה ועד היום. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: פרנל שפך את הזפת למשפך בשנת <span class="num">1927</span>. עכשיו שנת <span class="num">2026</span>. כמה שנים עברו מאז?</div>
+    <div class="controls"><label>שנים <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: מאוקטובר <span class="num">1930</span> (חיתוך הצינור) ועד אפריל <span class="num">2014</span> עברו <span class="num">83.5</span> שנים, ונפלו <span class="num">9</span> טיפות. (א) כל כמה שנים נפלה טיפה, בממוצע? (ב) אם הקצב הזה יימשך, כמה טיפות ייפלו בממוצע במשך <span class="num">100</span> שנה? (עגלו לשתי ספרות אחרי הנקודה. מותר מחשבון.)</div>
+    <div class="controls"><label>(א) שנים <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) טיפות <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: מ־<span class="num">1930</span> ועד <span class="num">2014</span> עברו בערך <span class="num">84</span> שנים, ונפלו <span class="num">9</span> טיפות. כל כמה שנים נפלה טיפה, בממוצע? (עגלו לשתי ספרות אחרי הנקודה.)</div>
+    <div class="controls"><label>שנים <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>איך זפת יכולה להתנפץ מפטיש — ובכל זאת להיות נוזל שמטפטף?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="הזפת היא בעצם נוזל, אבל..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt"><span class="num">0</span></b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+<span class="num">0</span></b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3><span class="num">3</span> דברים לספר בארוחת ערב</h3>
+    <p style="margin:0"><span class="num">1</span>. באוסטרליה יש ניסוי שרץ מאז <span class="num">1927</span>: זפת שמתנפצת מפטיש — ובכל זאת מטפטפת ממשפך, טיפה אחת בערך כל עשר שנים. אף אחד עוד לא ראה שם טיפה נופלת מעצמה.<br>
+    <span class="num">2</span>. השומר של הניסוי חיכה <span class="num">52</span> שנה ופספס כל טיפה — פעם אחת כי יצא לכמה דקות להביא משהו לשתות.<br>
+    <span class="num">3</span>. מדען מהטכניון קרא לרעיון "מספר דבורה", על שם הפסוק "הרים נזלו": כל דבר נראה מוצק אם מסתכלים מהר — ונוזל אם מחכים מספיק.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>הניסוי בקווינסלנד: University of Queensland, "Explainer: the pitch drop experiment" (UQ News, <span class="num">10</span> בנובמבר <span class="num">2014</span>); UQ Physics Museum, "The Pitch Drop Experiment" — הזפת הקשה "would shatter if hit by a hammer"; Wikipedia, "Pitch drop experiment" — תומס פרנל, <span class="num">1927</span>; חיתוך הצינור באוקטובר <span class="num">1930</span>; תשע טיפות: דצמבר <span class="num">1938</span>, פברואר <span class="num">1947</span>, אפריל <span class="num">1954</span>, מאי <span class="num">1962</span>, אוגוסט <span class="num">1970</span>, אפריל <span class="num">1979</span>, יולי <span class="num">1988</span>, נובמבר <span class="num">2000</span>, אפריל <span class="num">2014</span> (מרווחים של <span class="num">8.1</span>, <span class="num">8.2</span>, <span class="num">7.2</span>, <span class="num">8.1</span>, <span class="num">8.3</span>, <span class="num">8.7</span>, <span class="num">9.2</span>, <span class="num">12.3</span>, <span class="num">13.4</span> שנים); המזגן הותקן בשנות ה־<span class="num">80</span> (ויקיפדיה: אחרי יולי <span class="num">1988</span>); ג׳ון מיינסטון שומר <span class="math">1961–2013</span> (נפטר ב־<span class="num">13</span> באוגוסט <span class="num">2013</span>), ממשיכו אנדרו ווייט; איג נובל בפיזיקה <span class="num">2005</span>; שיא גינס. ABC News, "University of Queensland's world record pitch drop experiment about to turn <span class="num">100</span>" (<span class="num">8</span> בנובמבר <span class="num">2026</span>) — הסיפור של <span class="num">1979</span> (מפי אנדרו ווייט), הטיפה של <span class="num">1988</span> בזמן ש"יצאו להביא משהו לשתות" (ויקיפדיה מייחסת זאת למיינסטון), הפסקת החשמל ב־<span class="num">2000</span>, הטיפה התשיעית "נגעה" בשמינית, וב־<span class="num">24</span> באפריל <span class="num">2014</span>, בזמן החלפת הכוס, ניתקה מהמשפך (UQ News); כוס חדשה מחכה לטיפה העשירית ש"צפויה בשנתיים הקרובות"; UQ <span class="num">2014</span>: ‏<span class="num">31,335</span> נרשמים מ־<span class="num">158</span> מדינות לשידור החי, והתאורה שמחממת את התצוגה.</p>
+    <p>צמיגות: R. Edgeworth, B. J. Dalton &amp; T. Parnell, "The pitch drop experiment", European Journal of Physics <span class="num">5</span>(<span class="num">4</span>) (<span class="num">1984</span>): <span class="math">198–200</span> — ‏<span class="math">2.3 × 10⁸</span> פסקל־שנייה (ממוצע שש הטיפות הראשונות). היחס למים: <span class="math">2.3 × 10⁸ ÷ 10⁻³ ≈ 2.3 × 10¹¹</span> — ויקיפדיה "כ־<span class="num">230</span> מיליארד", UQ כותבת "כ־<span class="num">250</span> מיליארד"; בשיעור — <span class="num">230</span> מיליארד.</p>
+    <p>מספר דבורה: M. Reiner, "The Deborah Number", Physics Today <span class="num">17</span>(<span class="num">1</span>) (<span class="num">1964</span>): <span class="num">62</span> — נאום אחרי ארוחת ערב בכנס הבינלאומי הרביעי לריאולוגיה, פרובידנס, אוגוסט <span class="num">1963</span> (לפי המאמר עצמו; ויקיפדיה כותבת <span class="num">1962</span>); ‏D = זמן הרפיה ÷ זמן התצפית; שופטים ה׳, ה׳. ריינר (<span class="math">1886–1976</span>) עלה ב־<span class="num">1922</span>, היה מהנדס במחלקת העבודות הציבוריות בירושלים, ומ־<span class="num">1947</span> פרופסור בטכניון; טבע את המונח "ריאולוגיה" יחד עם E. C. Bingham (ויקיפדיה, "Markus Reiner", "Deborah number").</p>
+    <p>ים המלח: Wikipedia, "Dead Sea" — השם Lacus Asphaltites; גושי אספלט שעולים מהמעמקים; אספלט מאזור ים המלח בחניטה המצרית; Biblical Archaeology Review <span class="num">34</span>:<span class="num">1</span> (<span class="num">2008</span>) — גושים גדולים צפו לפעמים, בייחוד בתקופת יוספוס. דבלין: ניסוי מ־<span class="num">1944</span> ב־Trinity College; הטיפה צולמה ב־<span class="num">11</span> ביולי <span class="num">2013</span>. תנ״ך: בראשית ו׳, י״ד; שמות ב׳, ג׳.</p>
+    <p>דיוק ופישוטים: "מכונת הזמן של הטיפה" מניחה שזמן הטיפה פרופורציוני לצמיגות באותו משפך (טיפת דבש כ־<span class="num">12</span> שניות, צמיגות דבש כ־<span class="num">10</span> פסקל־שנייה — בפועל <span class="math">2–10</span> לפי הסוג והחום); במים יש זרם ולא טיפות. החלק העליון של "המזגן שהאט את הזפת" — זמן טיפה לפי טמפרטורה — הוא נוסחה להמחשה בלבד (הנתונים בגרף אמיתיים). "זמני הזרימה" ב"מוצק או נוזל?" הם סדרי גודל להמחשת הרעיון של ריינר (שמוגדר במדויק דרך זמן הרפיה), לא מדידות. הממוצע "כל <span class="num">8</span> שנים לפני המזגן" באתגר מעוגל (שבע הטיפות הראשונות: כ־<span class="num">8.26</span>). העיסה מקורנפלור היא נוזל "מתעבה בגזירה" — מנגנון שונה מהזפת, וכך מנוסח. מיתוס החלונות: הסבר מקובל בספרות (למשל E. D. Zanotto, American Journal of Physics, <span class="num">1998</span>).</p>
+  </details>
+</section>
+</main>
+
+
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:68, code:'WOW-068', date:'2026-11-20', title:'הניסוי שמטפטף מאז 1927 — והמדען שחיכה 52 שנה ולא ראה טיפה אחת', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15XXnNeW16Ag153Xmdeo15TXlA=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'physics', w:3 }, { id:'math', w:2 }, { id:'history', w:2 }, { id:'geography', w:1 } ],
+  hero: { name:'הניסוי שמטפטף מאז 1927 — מכונת הזמן של הטיפה, המזגן שהאט את הזפת, מוצק או נוזל?', fact:'זפת שמתנפצת מפטיש היא נוזל סמיך פי 230 מיליארד מהמים: מאז 1930 נפלו ממשפך בקווינסלנד רק תשע טיפות — ואף אדם לא ראה אחת נופלת מעצמה.' },
+  items: {
+    'predict':        { skill:'estimation',               d:2 },
+    'qc:scale':       { skill:'prior-knowledge',          d:1 },
+    'qc:goalQ':       { skill:'story-recall',             d:1 },
+    'qc:beatQ':       { skill:'viscosity',                d:2 },
+    'qc:frameQ':      { skill:'temperature-viscosity',    d:2 },
+    'qc:lineQ':       { skill:'deborah-number',           d:2 },
+    'qc:deepQ':       { skill:'molecular-mechanism',      d:2 },
+    'mcq:shared:0':   { skill:'solid-vs-liquid',          d:1 },
+    'mcq:shared:1':   { skill:'temperature-viscosity',    d:2 },
+    'mcq:shared:2':   { skill:'story-reasoning',          d:2 },
+    'mcq:younger:0':  { skill:'timescale-intuition',      d:1 },
+    'mcq:older:0':    { skill:'deborah-number',           d:3 },
+    'order':          { skill:'process-sequence',         d:2 },
+    'num:younger':    { skill:'subtraction-years',        d:1 },
+    'num:older':      { skill:'average-rate',             d:2 },
+    'num:adv':        { skill:'rate-and-inverse',         d:4 },
+    'challenge':      { skill:'mean-and-percent-change',  d:4 },
+    'explain':        { skill:'mechanism-explanation',    d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); } if(n===2) dpStart(); if(n===3) tpDraw(); if(n===4) dbDraw(); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+
+/* ---------- hero guess: how often does a drop of pitch fall? ----------
+   Four choices. The right answer: 3 — about once a decade (9 drops between October 1930 and April 2014: every 7.2–13.4 years). */
+const SCALE_ANS = 3;
+const fmtSigns = n => ({1:'כל דקה',2:'כל שבוע',3:'בערך פעם בעשר שנים',4:'אף פעם'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> בערך פעם בעשר שנים — מאז <span class="num">1930</span> נפלו רק תשע טיפות. איך זה שהיא בכלל מטפטפת, ולמה כל כך לאט? על זה השיעור.';
+const SCALE_FB = {
+  1: '<span class="pill-bad">הרבה יותר לאט!</span> טיפה אחת נופלת בערך פעם בעשר שנים — מאז <span class="num">1930</span> נפלו רק תשע. איך זה אפשרי? על זה השיעור.',
+  2: '<span class="pill-bad">עוד הרבה יותר לאט!</span> לא כל שבוע — בערך פעם בעשר שנים. מאז <span class="num">1930</span> נפלו רק תשע טיפות. על זה השיעור.',
+  3: SCALE_FB_RIGHT,
+  4: '<span class="pill-bad">דווקא כן מטפטף!</span> הזפת נראית מוצקה, אבל מאז <span class="num">1930</span> נפלו ממנה תשע טיפות — בערך אחת בעשר שנים. איך מוצק מטפטף? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(24,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI, DEG = PI/180;
+/* this edition's colours */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const GOLDT = () => isDark() ? '#F6C454' : '#8A5410';     // gold for text
+const BLUE = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+const INK = () => css('--ink');
+const GREY = () => isDark() ? '#8C90AE' : '#9AA0B4';
+const PITCH = () => '#2A2420';                            // the pitch itself (outlined with RIM so it reads on dark backgrounds)
+const RIM = () => isDark() ? '#C9B48A' : '#1B1F33';
+const SHINE = () => '#C9B48A';
+const HONEY = () => isDark() ? '#F2B24A' : '#E09A1E';
+const WATERC = () => isDark() ? '#6FB8EE' : '#3E9BD6';
+const ICE = () => isDark() ? '#BFE6F5' : '#A9DDF0';
+const ROCK = () => isDark() ? '#B07A5A' : '#9A5B3C';
+const GLASS = () => isDark() ? 'rgba(127,179,221,.25)' : 'rgba(47,111,159,.16)';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+function xMath(c,txt,x,y,size,col,align){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+const RM = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+/* a duration in seconds → short Hebrew words (for the canvas and the readouts) */
+function heDur(s){
+  const r = v => v>=10 ? Math.round(v) : Math.round(v*10)/10;
+  if(s<1) return 'פחות משנייה';
+  if(s<60) return r(s)+' שניות';
+  if(s<3600) return r(s/60)+' דקות';
+  if(s<86400) return r(s/3600)+' שעות';
+  if(s<3.156e7) return r(s/86400)+' ימים';
+  return r(s/3.156e7)+' שנים';
+}
+const heDurH = s => heDur(s).replace(/^([\d.]+)/,'<span class="num">$1</span>');
+/* the funnel shared by the drip pictures: rim at (cx, y0), stem bottom at y1 */
+function drawFunnel(c,cx,y0,w,y1,fill,level){
+  const sw=18, yc=y0+(y1-y0)*0.55;
+  c.save();
+  c.beginPath(); c.moveTo(cx-w/2,y0); c.lineTo(cx+w/2,y0); c.lineTo(cx+sw,yc); c.lineTo(cx+sw,y1); c.lineTo(cx-sw,y1); c.lineTo(cx-sw,yc); c.closePath();
+  c.fillStyle=GLASS(); c.fill();
+  if(fill){ c.save(); c.clip(); c.fillStyle=fill; c.fillRect(cx-w/2-4, y0+(yc-y0)*(level==null?0.12:level), w+8, y1-y0+10); c.restore(); }
+  c.strokeStyle=INK(); c.lineWidth=4; c.lineJoin='round'; c.stroke();
+  c.restore();
+}
+
+/* ---------- step 2 (interactive 1): the drip time machine (canvas 640 × 600) ----------
+   Same funnel, three liquids. Real time per drop ∝ viscosity (illustrative): honey ≈ 12 s (≈10 Pa·s),
+   pitch ≈ 12 × 23,000,000 ≈ 2.8 × 10⁸ s ≈ 9 years (≈2.3 × 10⁸ Pa·s; Edgeworth, Dalton & Parnell 1984), water ≈ 1 ms → a continuous stream.
+   The time slider runs the clock ×1, ×1,000, ×1,000,000 or ×100,000,000; below ~0.35 s per drop on screen the drops merge into a stream. */
+const dpCv=document.getElementById('dpCv'), dpctx=dpCv.getContext('2d');
+const DP_L=[ { n:'מים', real:0.0012, col:()=>WATERC() }, { n:'דבש', real:12, col:()=>HONEY() }, { n:'זפת', real:2.84e8, col:()=>PITCH() } ];
+const DP_S=[ [1,'רגיל'], [1e3,'פי אלף'], [1e6,'פי מיליון'], [1e8,'פי מאה מיליון'] ];
+const DP={ opened:0, pred:-1, revealed:0, l:1, s:0, sim:0, last:0, raf:0, honey:0, pitchFast:0 };
+function dpPredict(k){ DP.pred=k; segOn('dpP',3,k); WOW.emit('item', { id:'guess:predict', kind:'quick', correct:k===1, attempt: wowTry('guess:predict') });
+  dpMsg.innerHTML='רשמנו את הניחוש. התחילו עם הדבש בזמן רגיל, ואז עברו לזפת והריצו את הזמן.'; DP.sim=0; dpUpdate(); dpStart(); }
+function dpLiq(k){ if(DP.pred<0){ predictFirst(dpMsg,'בחרו'); return; }
+  if(!DP.opened){ DP.opened=1; WOW.emit('open', { id:'guess' }); }
+  DP.l=k; DP.sim=0; segOn('dpL',3,k); dpUpdate(); }
+function dpSet(){ if(DP.pred<0){ dpS.value=DP.s; predictFirst(dpMsg,'הזיזו'); return; }
+  if(!DP.opened){ DP.opened=1; WOW.emit('open', { id:'guess' }); }
+  DP.s=+dpS.value; dpUpdate(); }
+function dpUpdate(){ const L=DP_L[DP.l], sp=DP_S[DP.s][0], scr=L.real/sp;
+  if(DP.l===1) DP.honey=1; if(DP.l===2 && DP.s===3) DP.pitchFast=1;
+  const perSec = heDurH(sp);
+  dpOutS.textContent=DP_S[DP.s][1];
+  dpOutT.innerHTML = DP.pred<0 ? '?' : DP.l===0 ? 'זרם רציף' : (DP.l===2?'כ־':'')+heDurH(L.real);
+  let m;
+  if(DP.l===0) m='מים: הם זורמים כל כך בקלות, שהם לא מספיקים ליצור טיפות — יוצא זרם רציף. '+(DP.s>0?'ובזמן מהיר — בכלל רק פס כחול.':'');
+  else if(DP.l===1) m = DP.s===0 ? 'דבש: טיפה בערך כל <span class="num">12</span> שניות. סמיך — אבל רואים אותו זורם.' : 'דבש בזמן מהיר: הטיפות כבר מתחברות לזרם. עכשיו נסו את הזפת.';
+  else m = DP.s===0 ? 'זפת בזמן רגיל: נראית כמו אבן. אפשר לחכות דקה, שעה, יום — הטיפה כמעט לא זזה.'
+    : DP.s<3 ? DP_S[DP.s][1]+': כל שנייה על המסך היא '+perSec+' בזמן אמת. '+(DP.s===1?'ועדיין כמעט כלום.':'הטיפה מתחילה לגדול!')
+    : 'פי מאה מיליון: כל שנייה על המסך היא כ־<span class="num">3</span> שנים בזמן אמת. עכשיו הזפת מטפטפת — בדיוק כמו דבש!';
+  dpMsg.innerHTML=m; dpDraw(); dpCheck(); }
+function dpCheck(){ if(DP.pred>=0 && !DP.revealed && DP.honey && DP.pitchFast){ DP.revealed=1; dpReveal.hidden=false; dpAfter.hidden=false; hint2.textContent='ענו על השאלה כדי להמשיך.'; } }
+function dpStart(){ dpDraw(); if(RM() || DP.raf || DP.pred<0) return; DP.last=performance.now();
+  const loop=now=>{ const dt=Math.min(0.05,(now-DP.last)/1000); DP.last=now; DP.sim+=dt*DP_S[DP.s][0]; dpDraw(); DP.raf = (S.step>=2 && S.step<=3) ? requestAnimationFrame(loop) : 0; };
+  DP.raf=requestAnimationFrame(loop); }
+function dpDraw(){
+  const c=dpctx, W=dpCv.width, H=dpCv.height, ink=INK(), L=DP_L[DP.l], sp=DP_S[DP.s][0], known=DP.pred>=0;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  const cx=320, y0=96, y1=300, fill=L.col();
+  /* stand + funnel */
+  c.fillStyle=GREY(); c.fillRect(196,y0+64,248,12);
+  drawFunnel(c,cx,y0,280,y1,fill, DP.l===2?0.1:0.2);
+  if(DP.l===2){ c.strokeStyle=SHINE(); c.lineWidth=4; c.lineCap='round'; c.beginPath(); c.moveTo(cx-110,y0+22); c.lineTo(cx+90,y0+22); c.stroke(); }
+  /* the beaker */
+  const bx0=240, bx1=400, by0=470, by1=570;
+  const scr = L.real/sp, stream = scr<0.35 && known;
+  const drops = known ? Math.floor(DP.sim/L.real) : 0;
+  const lvl = DP.l===0 ? (known ? Math.min(0.9, 0.15+DP.sim*0.02) : 0) : Math.min(1, drops/18);
+  c.fillStyle=fill; const hh=(by1-by0-8)*lvl; if(hh>1){ c.fillRect(bx0+4,by1-4-hh,bx1-bx0-8,hh); }
+  c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.moveTo(bx0,by0); c.lineTo(bx0,by1); c.lineTo(bx1,by1); c.lineTo(bx1,by0); c.stroke();
+  /* the drip */
+  c.fillStyle=fill; c.strokeStyle=RIM(); c.lineWidth=3;
+  if(stream){ const w = DP.l===0 ? 14 : 10; c.fillRect(cx-w/2,y1,w,by1-4-hh-y1); }
+  else if(known){
+    const ph=(DP.sim % L.real)/L.real;
+    if(ph<0.86){ const r=8+30*Math.pow(ph/0.86,0.7), yb=y1+r*1.2;
+      c.beginPath(); c.moveTo(cx-17,y1); c.quadraticCurveTo(cx-r*0.7,y1+r*0.3,cx-r,yb); c.arc(cx,yb,r,PI,0,true); c.quadraticCurveTo(cx+r*0.7,y1+r*0.3,cx+17,y1); c.closePath(); c.fill(); c.stroke(); }
+    else { const f=(ph-0.86)/0.14, y=y1+34+f*f*(by1-hh-y1-60);
+      c.beginPath(); c.arc(cx,y,30,0,2*PI); c.fill(); c.stroke();
+      c.beginPath(); c.arc(cx,y1+6,8,0,PI); c.fill(); }
+  } else { c.beginPath(); c.arc(cx,y1+16,14,0,PI); c.fill(); c.stroke(); }
+  /* labels: the liquid (top), the clock (left), the drops in the cup (right) */
+  xLabel(c, L.n, cx, 46, 30, DP.l===2?ink:fill, .95);
+  const tl = known ? heDur(Math.max(DP.sim,0)) : '?';
+  xLabel(c, 'עברו באמת:', 92, 300, 22, ink, .92); xLabel(c, tl, 92, 350, 26, DANG(), .95);
+  xLabel(c, 'זמן: '+DP_S[DP.s][1], 92, 220, 22, BLUE(), .92);
+  if(DP.l!==0){ xLabel(c,'טיפות בכוס:',548,300,22,ink,.92); xLabel(c, known?String(Math.min(drops,999)):'?', 548, 350, 30, DANG(), .95); }
+  else { xLabel(c,'זרם',548,320,26,ink,.92); }
+  if(!known) xLabel(c,'?',cx,y1+90,40,DANG(),.95);
+}
+
+/* ---------- step 3 (interactive 2): the air conditioner that slowed the pitch (canvas 640 × 600) ----------
+   Top: an illustrative formula, years per drop = 8 × 1.6^((26 − T)/4) (≈ 8 years at 26°, ≈ 12.6 at 22°).
+   Bottom: the REAL intervals of the nine drops (Wikipedia timeline; air conditioning in the 1980s, after the 1988 drop). */
+const tpCv=document.getElementById('tpCv'), tpctx=tpCv.getContext('2d');
+const TP_INT=[8.1,8.2,7.2,8.1,8.3,8.7,9.2,12.3,13.4], TP_YR=[1938,1947,1954,1962,1970,1979,1988,2000,2014];
+const TP={ opened:0, pred:-1, revealed:0, t:26, lo:0, hi:0, ac:0 };
+const tpYears = t => 8*Math.pow(1.6,(26-t)/4);
+const f1 = v => (Math.round(v*10)/10).toString();
+function tpPredict(k){ TP.pred=k; segOn('tpP',3,k); WOW.emit('item', { id:'ac:predict', kind:'quick', correct:k===1, attempt: wowTry('ac:predict') });
+  tpMsg.innerHTML='רשמנו את הניחוש. עכשיו קררו את החדר (שמאלה), חממו אותו (ימינה), ולחצו על כפתור המזגן.'; tpUpdate(); }
+function tpSet(){ if(TP.pred<0){ tpT.value=TP.t; predictFirst(tpMsg,'הזיזו'); return; }
+  if(!TP.opened){ TP.opened=1; WOW.emit('open', { id:'ac' }); }
+  TP.t=+tpT.value; if(TP.t<=20) TP.lo=1; if(TP.t>=28) TP.hi=1; tpUpdate(); }
+function tpToggle(){ if(TP.pred<0){ predictFirst(tpMsg,'לחצו'); return; }
+  if(!TP.opened){ TP.opened=1; WOW.emit('open', { id:'ac' }); }
+  TP.ac=TP.ac?0:1; tpAC.textContent = TP.ac ? 'הסתירו את המזגן' : 'הראו מתי הותקן מזגן'; if(TP.ac) TP.acSeen=1; tpUpdate(); }
+function tpUpdate(){ const y=tpYears(TP.t);
+  tpOutT.innerHTML='<span class="num">'+TP.t+'</span>°'; tpOutY.innerHTML = TP.pred<0 ? '?' : '<span class="num">'+f1(y)+'</span> שנים';
+  if(TP.pred>=0) tpMsg.innerHTML = (TP.t<=22 ? 'קר בחדר: הזפת סמיכה יותר, וטיפה לוקחת בערך <span class="num">'+f1(y)+'</span> שנים.' : TP.t>=28 ? 'חם בחדר: הזפת רכה יותר, וטיפה לוקחת רק בערך <span class="num">'+f1(y)+'</span> שנים.' : 'טמפרטורה רגילה של בריסביין בלי מזגן: טיפה בערך כל <span class="num">'+f1(y)+'</span> שנים.')
+    + (TP.ac ? ' למטה: שתי הטיפות שאחרי המזגן — <span class="num">12.3</span> ו־<span class="num">13.4</span> שנים.' : '');
+  tpDraw(); tpCheck(); }
+function tpCheck(){ if(TP.pred>=0 && !TP.revealed && TP.lo && TP.hi && TP.acSeen){ TP.revealed=1; tpReveal.hidden=false; tpAfter.hidden=false; hint3.textContent='ענו על השאלה כדי להמשיך.'; } }
+function tpDraw(){
+  const c=tpctx, W=tpCv.width, H=tpCv.height, ink=INK(), known=TP.pred>=0, t=TP.t;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the thermometer (left) */
+  const tx=86, tTop=40, tBot=230, k=(t-18)/12, hot = t>=27, cold = t<=21;
+  const col = hot ? DANG() : cold ? BLUE() : GOLD();
+  c.fillStyle=css('--card'); c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.roundRect(tx-18,tTop,36,tBot-tTop+10,18); c.fill(); c.stroke();
+  c.beginPath(); c.arc(tx,tBot+26,30,0,2*PI); c.fillStyle=col; c.fill(); c.stroke();
+  const yl=tBot-(tBot-tTop-20)*k; c.fillStyle=col; c.fillRect(tx-9,yl,18,tBot-yl+12);
+  xLabel(c, t+'°', tx+76, Math.min(Math.max(yl,70),170), 28, col, .95);
+  /* the funnel (middle) */
+  drawFunnel(c,300,40,180,190,PITCH(),0.1);
+  const r = known ? 10+16*Math.min(1, 8/tpYears(t)) : 12;
+  c.fillStyle=PITCH(); c.strokeStyle=RIM(); c.lineWidth=3; c.beginPath(); c.moveTo(288,190); c.quadraticCurveTo(300-r,190+r*0.3,300-r,190+r*1.1); c.arc(300,190+r*1.1,r,PI,0,true); c.quadraticCurveTo(300+r,190+r*0.3,312,190); c.closePath(); c.fill(); c.stroke();
+  /* the air conditioner on the wall, blowing when it is cold */
+  if(cold){ c.fillStyle=css('--card'); c.strokeStyle=ink; c.lineWidth=3; c.beginPath(); c.roundRect(150,236,150,40,8); c.fill(); c.stroke(); xText(c,'מזגן',225,256,20,BLUE(),'center');
+    c.strokeStyle=BLUE(); c.lineWidth=3; for(let i=0;i<3;i++){ c.beginPath(); c.moveTo(185+i*40,282); c.quadraticCurveTo(195+i*40,292,185+i*40,302); c.stroke(); } }
+  /* the big answer (right) */
+  xLabel(c,'טיפה כל:',520,90,24,ink,.92);
+  xLabel(c, known ? f1(tpYears(t))+' שנים' : '?', 520, 150, 34, known?col:DANG(), .95);
+  xText(c,'(להמחשה)',520,206,20,GREY(),'center');
+  /* the real data (bottom) */
+  c.fillStyle=css('--card'); c.fillRect(0,310,W,H-310);
+  const gx0=86, gx1=616, base=530, PXY=12, slot=(gx1-gx0)/9;
+  [0,5,10].forEach(v=>{ const y=base-v*PXY; c.strokeStyle=GREY(); c.lineWidth=1.5; c.setLineDash(v?[6,6]:[]); c.beginPath(); c.moveTo(gx0,y); c.lineTo(gx1,y); c.stroke(); c.setLineDash([]); xMath(c,String(v),gx0-30,y,22,ink,'center'); });
+  xText(c,'הנתונים האמיתיים',W/2+20,336,22,ink,'center'); xText(c,'שנים',gx0-30,374,20,GREY(),'center');
+  for(let i=0;i<9;i++){ const x=gx0+slot*(i+0.5), h=TP_INT[i]*PXY, after = TP.ac && i>=7;
+    c.fillStyle = after ? BLUE() : (TP.ac ? '#D9682F' : GREY()); c.beginPath(); c.roundRect(x-slot*0.36,base-h,slot*0.72,h,6); c.fill();
+    c.save(); c.translate(x,base-h/2); c.rotate(-PI/2); xMath(c,String(TP_INT[i]),0,0,22,'#FFFFFF','center'); c.restore();
+    xMath(c,String(i+1),x,base+24,22,ink,'center'); }
+  [[0,1938],[6,1988],[8,2014]].forEach(([i,yr])=>xMath(c,String(yr),gx0+slot*(i+0.5),base+58,20,GREY(),'center'));
+  if(TP.ac){ const x=gx0+slot*7; c.strokeStyle=BLUE(); c.lineWidth=4; c.setLineDash([10,7]); c.beginPath(); c.moveTo(x,base); c.lineTo(x,base-14*PXY); c.stroke(); c.setLineDash([]);
+    xLabel(c,'מזגן',x-46,392,22,BLUE(),.95); }
+  if(!known) xLabel(c,'?',W/2,base-90,34,DANG(),.95);
+}
+
+/* ---------- step 4 (interactive 3): solid or liquid? it depends how long you watch (canvas 640 × 600) ----------
+   Reiner's Deborah-number idea with ORDER-OF-MAGNITUDE "flow times" (illustrative): water 1 ms, honey 0.3 s, glacier ice ~4 months,
+   pitch ~10 years, deep-Earth rock ~100,000 years. k = clamp((log10(watch ÷ flow) + 1) ÷ 2, 0, 1): ≤ 0.3 looks solid, ≥ 0.7 looks liquid. */
+const dbCv=document.getElementById('dbCv'), dbctx=dbCv.getContext('2d');
+const DB_M=[ { n:'מים', flow:1e-3, col:()=>WATERC() }, { n:'דבש', flow:0.3, col:()=>HONEY() }, { n:'זפת', flow:3e8, col:()=>PITCH() }, { n:'קרח של קרחון', flow:1e7, col:()=>ICE() }, { n:'סלע מעמקי כדור הארץ', flow:3e12, col:()=>ROCK() } ];
+const DB_O=[ ['שנייה',1], ['דקה',60], ['יום',86400], ['שנה',3.156e7], ['100 שנה',3.156e9], ['מיליון שנה',3.156e13], ['מיליארד שנה',3.156e16] ];
+const DB={ opened:0, pred:-1, revealed:0, m:2, o:0, mats:{}, lo:0, hi:0 };
+function dbK(){ const r=DB_O[DB.o][1]/DB_M[DB.m].flow; return clamp((Math.log10(r)+1)/2,0,1); }
+function dbWord(k){ return k<=0.3 ? 'מוצק' : k>=0.7 ? 'נוזל' : 'באמצע — מתחיל לזרום'; }
+function dbPredict(k){ DB.pred=k; segOn('dbP',3,k); WOW.emit('item', { id:'deborah:predict', kind:'quick', correct:k===1, attempt: wowTry('deborah:predict') });
+  dbMsg.innerHTML='רשמנו את הניחוש. התחילו בזפת: הזיזו את הזמן ימינה. ואז נסו חומרים אחרים.'; DB.mats[DB.m]=1; dbUpdate(); }
+function dbMat(k){ if(DB.pred<0){ predictFirst(dbMsg,'בחרו'); return; }
+  if(!DB.opened){ DB.opened=1; WOW.emit('open', { id:'deborah' }); }
+  DB.m=k; DB.mats[k]=1; segOn('dbM',5,k); dbUpdate(); }
+function dbSet(){ if(DB.pred<0){ dbO.value=DB.o; predictFirst(dbMsg,'הזיזו'); return; }
+  if(!DB.opened){ DB.opened=1; WOW.emit('open', { id:'deborah' }); }
+  DB.o=+dbO.value; if(DB.o===6) DB.hi=1; if(DB.o===0 && DB.hi) DB.lo=1; dbUpdate(); }
+function dbUpdate(){ const k=dbK(), M=DB_M[DB.m], O=DB_O[DB.o];
+  dbOutO.textContent=O[0]; dbOutV.textContent = DB.pred<0 ? '?' : dbWord(k);
+  if(DB.pred>=0) dbMsg.innerHTML = M.n+', כשמסתכלים '+O[0].replace(/^(\d+)/,'<span class="num">$1</span>')+': '+(k<=0.3 ? 'הגוש שומר על הצורה — נראה מוצק. הזמן קצר מדי בשבילו לזרום.' : k>=0.7 ? (DB.m>=3 ? 'הגוש שקע והתפשט לגבעה נמוכה — נראה נוזל, אבל הוא לא נמס. היה לו מספיק זמן לזרום.' : 'הגוש התפשט לשלולית — נראה נוזל. היה לו מספיק זמן לזרום.') : (DB.m>=3 ? 'הגוש מתחיל לשקוע ולהתפשט, בלי להימס. עוד קצת זמן — והוא ישקע עוד.' : 'הגוש מתחיל לשקוע ולהתפשט. עוד קצת זמן — והוא יהיה שלולית.'));
+  dbDraw(); dbCheck(); }
+function dbCheck(){ if(DB.pred>=0 && !DB.revealed && Object.keys(DB.mats).length>=3 && DB.hi && DB.lo){ DB.revealed=1; dbReveal.hidden=false; dbAfter.hidden=false; hint4.textContent='ענו על השאלה כדי להמשיך.'; } }
+function dbDraw(){
+  const c=dbctx, W=dbCv.width, H=dbCv.height, ink=INK(), known=DB.pred>=0, M=DB_M[DB.m], k = known ? dbK() : 0;
+  c.clearRect(0,0,W,H); c.fillStyle=css('--sky2'); c.fillRect(0,0,W,H);
+  /* the calendar: how long we watch */
+  c.fillStyle=css('--card'); c.strokeStyle=ink; c.lineWidth=4; c.beginPath(); c.roundRect(130,20,380,116,12); c.fill(); c.stroke();
+  c.fillStyle=DANG(); c.beginPath(); c.roundRect(130,20,380,44,[12,12,0,0]); c.fill();
+  xText(c,'מסתכלים:',320,42,20,'#FFFFFF','center');
+  xText(c,DB_O[DB.o][0],320,100,28,ink,'center');
+  /* the table */
+  const ty=470; c.fillStyle=isDark()?'#5E4E33':'#B08A55'; c.fillRect(30,ty,W-60,22); c.fillRect(70,ty+22,18,90); c.fillRect(W-88,ty+22,18,90);
+  /* the lump: a block (k = 0) that sinks into a puddle (k = 1) */
+  const creep = DB.m>=3;                                   /* ice and rock creep into a low mound — they never melt into a puddle */
+  const w = creep ? 180+250*k : 180+360*k, h = creep ? 190-120*k : 190-164*k, rr=Math.min(h/2, 8+60*k), x=320-w/2, y=ty-h;
+  c.fillStyle=M.col(); c.strokeStyle=RIM(); c.lineWidth=4; c.beginPath();
+  if(creep && k>0.3){ c.moveTo(x,ty); c.bezierCurveTo(x+w*0.18,ty-h*1.05,x+w*0.82,ty-h*1.05,x+w,ty); c.closePath(); } else c.roundRect(x,y,w,h,rr);
+  c.fill(); c.stroke();
+  if(DB.m===3 && known && k>0.3) xLabel(c,'זורם — בלי להימס!',320,262,24,BLUE(),.95);
+  if((DB.m===2 || DB.m===4) && !(DB.m===4 && k>0.3)){ c.strokeStyle=SHINE(); c.lineWidth=4; c.lineCap='round'; c.beginPath(); c.moveTo(x+18,y+Math.min(16,h/3)); c.lineTo(x+Math.min(80,w/3),y+Math.min(16,h/3)); c.stroke(); }
+  /* the sign */
+  const word = known ? 'נראה: '+dbWord(k) : '?', scol = !known ? DANG() : k<=0.3 ? BLUE() : k>=0.7 ? GOOD() : GOLDT();
+  xLabel(c, word, 320, 196, 32, scol, .96);
+  xLabel(c, M.n, 320, 548, 26, ink, .92);
+}
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  goalQ:{ q:'מה תומס פרנל רצה להראות לתלמידים שלו?', opts:['שזפת נמסה מהר בשמש של אוסטרליה','שזפת נשברת לרסיסים כשמכים בה בפטיש','שזפת, שנראית מוצקה, היא בעצם נוזל שזורם לאט מאוד','שאפשר לאטום סירות וגגות בעזרת זפת'], a:2, fb:'פרנל רצה להוכיח שהזפת — קשה למגע ומתנפצת מפטיש — היא נוזל. הדרך לראות את זה: לתת לה לזרום ממשפך, ולחכות שנים.', btn:'next1' },
+  beatQ:{ q:'בהדמיה הרצנו את הזמן של הזפת פי מאה מיליון. מה ראינו?', opts:['היא נשברה לחתיכות קטנות, כמו מהפטיש','היא לא זזה בכלל, גם בזמן המהיר','היא טפטפה בדיוק כמו דבש','היא התאדתה ונעלמה מהמשפך'], a:2, fb:'בזמן מואץ הזפת מתנהגת כמו כל נוזל סמיך: הטיפה גדלה, נמתחת ונופלת. היא פשוט עושה את זה במשך שנים, ולא במשך שניות.', btn:'next2' },
+  frameQ:{ q:'למה אחרי שהתקינו מזגן הטיפות נפלו לאט יותר?', opts:['בקור הזפת סמיכה יותר, ולכן היא זורמת לאט יותר','המזגן נשב על הטיפה ודחף אותה חזרה למעלה','הזפת במשפך התחילה להיגמר אחרי שבע טיפות','רעש המזגן הרעיד את המשפך ועצר את הזפת'], a:0, fb:'כמו דבש מהמקרר: ככל שקר יותר, הצמיגות גבוהה יותר. לפני המזגן — טיפה בערך כל <span class="num">8</span> שנים; אחריו — <span class="num">12.3</span> ו־<span class="num">13.4</span> שנים.', btn:'next3' },
+  lineQ:{ q:'לפי מרקוס ריינר, מה קובע אם חומר ייראה לנו מוצק או נוזל?', opts:['רק הצבע שלו — חומרים כהים הם מוצקים','רק כמה הוא כבד — חומרים כבדים הם מוצקים','אם יש לו ריח חזק או לא','כמה זמן מסתכלים עליו, לעומת כמה זמן לוקח לו לזרום'], a:3, fb:'זה הרעיון של מספר דבורה: אם מסתכלים זמן קצר בהרבה מזמן הזרימה — רואים מוצק. אם מחכים הרבה יותר — רואים נוזל. "הרים נזלו" — בשביל מי שמחכה מספיק.', btn:'next4' },
+  deepQ:{ q:'מה קורה למולקולות של הזפת כשמחממים אותה?', opts:['הן נעשות דביקות יותר ונתקעות זו בזו','הן רועדות מהר יותר ומשתחררות זו מזו בקלות — ולכן הזפת זורמת מהר יותר','הן נעלמות אחת אחרי השנייה','שום דבר — חום לא משפיע על המולקולות של זפת'], a:1, fb:'חום נותן למולקולות יותר תנועה. ככה קל להן להשתחרר מהשכנות ולהחליק הלאה, והצמיגות יורדת. לכן פרנל חימם את הזפת כדי לשפוך אותה.', btn:'next5' }
+};
+const MCQ = {
+  shared:[
+    { q:'האם זפת היא מוצק או נוזל?', opts:['מוצק — הרי היא מתנפצת כשמכים בה בפטיש','גז — שנראה קשה רק כשהוא קר','לא מוצק ולא נוזל — חומר מסוג חדש לגמרי','נוזל סמיך מאוד, שזורם לאט כל כך שלא רואים אותו זורם'], a:3, fb:'הזפת היא נוזל: בניסוי בקווינסלנד נפלו ממנה כבר תשע טיפות. היא מתנפצת מפטיש רק כי המכה מהירה מדי בשבילה — אין לה זמן לזרום.' },
+    { q:'בקווינסלנד, הטיפות שאחרי שנות ה־<span class="num">80</span> לקחו יותר זמן. מה הסיבה המרכזית?', opts:['הותקן מזגן, הזפת התקררה ונעשתה סמיכה יותר','מישהו הוסיף עוד זפת למשפך, והיא כבדה יותר','השומר הפסיק להסתכל, אז לא ספרו את הטיפות','הכוס התמלאה, והטיפות לא יכלו ליפול'], a:0, fb:'עד שנות ה־<span class="num">80</span> נפלה טיפה בערך כל <span class="num">8</span> שנים. אחרי שהותקן מזגן — <span class="num">12.3</span> ו־<span class="num">13.4</span> שנים. קור מעלה את הצמיגות.' },
+    { q:'למה ג׳ון מיינסטון, ששמר על הניסוי <span class="num">52</span> שנה, אף פעם לא ראה טיפה נופלת?', opts:['כי הטיפות נופלות רק בלילה, כשהאוניברסיטה סגורה','כי הניסוי היה סגור בחדר נעול שאסור להיכנס אליו','כי טיפה נופלת בערך פעם בעשור, והנפילה עצמה קורית ברגע — ובכל פעם הוא לא היה שם','כי הזפת לא באמת מטפטפת, רק נראה כך'], a:2, fb:'טיפה מתארכת במשך שנים, אבל הנפילה קורית ברגע. ב־<span class="num">1979</span> הוא הלך הביתה אחרי סוף שבוע של המתנה, ב־<span class="num">1988</span> יצא לכמה דקות להביא משהו לשתות, וב־<span class="num">2000</span> הייתה הפסקת חשמל במצלמה.' }
+  ],
+  younger:[
+    { q:'למה הזפת מתנפצת כשמכים בה בפטיש?', opts:['כי המכה מהירה מאוד — לזפת אין זמן לזרום, ולכן היא נשברת','כי היא מוצק אמיתי, ולא נוזל בכלל','כי הפטיש מחמם אותה והיא נעשית שבירה','כי בתוך הזפת מסתתרות חתיכות זכוכית'], a:0, fb:'מכה של פטיש נמשכת חלקיק שנייה, והזפת צריכה שנים כדי לזרום. מול משהו כל כך מהיר היא מתנהגת כמו מוצק — כמו מים, שמכאיבים כשקופצים אליהם מגובה.' }
+  ],
+  older:[
+    { q:'זמן הזרימה של קרחון הוא בערך ארבעה חודשים. מסתכלים עליו יום אחד. איך הוא ייראה, ולמה?', opts:['נוזל — כי זמן הזרימה קצר מזמן ההסתכלות','נוזל — כי קרח תמיד נמס כשמסתכלים עליו','מוצק — כי זמן הזרימה ארוך בהרבה מזמן ההסתכלות, ולכן מספר דבורה גדול בהרבה מ־<span class="num">1</span>','אי אפשר לדעת בלי למדוד את הקרחון'], a:2, fb:'ארבעה חודשים הם בערך <span class="num">120</span> ימים: <span class="math">120 ÷ 1 = 120</span> — גדול בהרבה מ־<span class="num">1</span>, ולכן ביום אחד הקרחון נראה כמו גוש קרח קשה. רק במשך שנים רואים אותו זורם במורד ההר.' }
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'פרנל מחמם זפת ושופך אותה למשפך זכוכית סגור.'},
+  {id:'b', t:'הזפת מתקררת ושוקעת במשפך במשך שלוש שנים.'},
+  {id:'c', t:'פרנל חותך את הקצה התחתון של הצינור.'},
+  {id:'d', t:'הטיפה הראשונה נופלת לכוס.'},
+  {id:'e', t:'ג׳ון מיינסטון מתחיל לשמור על הניסוי.'},
+  {id:'f', t:'טיפה נופלת בדיוק כשמיינסטון יצא להביא משהו לשתות.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלכם: ' : '<span class="pill-ok">בדיוק ככה!</span>')+' חימום ושפיכה (<span class="num">1927</span>) ← שלוש שנות המתנה ← חיתוך הצינור (<span class="num">1930</span>) ← הטיפה הראשונה (<span class="num">1938</span>) ← מיינסטון מתחיל (<span class="num">1961</span>) ← הטיפה שפוספסה (<span class="num">1988</span>).' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) אי אפשר לחתוך את הצינור לפני שהזפת התקררה ושקעה. (2) שום טיפה לא נופלת לפני שחתכו את הצינור — ומיינסטון הגיע אחרי שכבר נפלו כמה טיפות.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && Math.abs(a-12.85)<=0.02, bOk = hasB && b>=60 && b<=61.5;   /* (12.3 + 13.4) ÷ 2 = 12.85; (12.85 − 8) ÷ 8 = 0.606 → ≈ 61% */
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && Math.abs(a-25.7)<0.02) ? '(א): חיברתם את שני הזמנים — מצוין! עכשיו חלקו ב־<span class="num">2</span>, כי יש שתי טיפות.'
+    : (hasA && (Math.abs(a-12.3)<0.01 || Math.abs(a-13.4)<0.01)) ? '(א): זה רק אחד הזמנים. ממוצע: מחברים את שניהם, ומחלקים ב־<span class="num">2</span>.'
+    : (hasA && Math.abs(a-1.1)<0.01) ? '(א): זה ההפרש בין הזמנים. ממוצע זה חיבור ואז חלוקה: <span class="math">(12.3 + 13.4) ÷ 2 = ?</span>'
+    : '(א): רמז — <span class="math">(12.3 + 13.4) ÷ 2 = ?</span>';
+  const hintB = (hasB && Math.abs(b-4.85)<0.02) ? '(ב): <span class="num">4.85</span> זו התוספת בשנים. כמה זה באחוזים מתוך <span class="num">8</span>? חלקו ב־<span class="num">8</span>, וכפלו ב־<span class="num">100</span>.'
+    : (hasB && b>=160 && b<=161.5) ? '(ב): זה היחס כולו — פי <span class="num">1.61</span>. השאלה היא בכמה אחוזים <b>יותר</b>: רק מה שמעל <span class="num">100%</span>.'
+    : (hasB && b>=37 && b<=38.5) ? '(ב): חילקתם ב־<span class="num">12.85</span>. השאלה היא בכמה הזמן ארוך יותר <b>מ־<span class="num">8</span></b> — אז מחלקים ב־<span class="num">8</span>.'
+    : (hasB && b>0.59 && b<0.62) ? '(ב): זה השבר — נכון! כדי לקבל אחוזים, כפלו ב־<span class="num">100</span>.'
+    : '(ב): רמז — קודם ההפרש: <span class="math">12.85 − 8 = ?</span>, ואז <span class="math">? ÷ 8 × 100</span>.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">12.3 + 13.4 = 25.7</span>, <span class="math">25.7 ÷ 2 = 12.85</span> שנים. (ב) <span class="math">12.85 − 8 = 4.85</span>, <span class="math">4.85 ÷ 8 ≈ 0.61</span> — כלומר בערך <span class="math">61%</span> יותר. אחרי המזגן, כל טיפה לקחה בערך פי <span class="math">1.6</span> יותר זמן. עכשיו פתחו את השאלה למחשבה שלמטה.'
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">12.85</span> שנים.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — בערך <span class="num">61%</span>.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const sp=+numAdvR.value, ks=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && Math.abs(sp-9.278)<=0.03), yOk=(hasY && Math.abs(ks-10.778)<=0.1), sc = dOk&&yOk?2:((dOk||yOk)?1:0);   /* 83.5 ÷ 9 ≈ 9.28 years per drop; 100 ÷ 9.28 ≈ 10.78 drops per century (= 9 × 100 ÷ 83.5) */
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && Math.abs(sp-0.108)<0.003) ? 'ב־(א): חילקתם הפוך — יצא כמה טיפות בשנה. השאלה: כמה <b>שנים</b> לכל טיפה — שנים ÷ טיפות.'
+      : (hasD && Math.abs(sp-751.5)<0.5) ? 'ב־(א): כפלתם. כדי לחלק את השנים בין הטיפות — מחלקים.'
+      : (hasD && Math.abs(sp-74.5)<0.05) ? 'ב־(א): חיסרתם. כדי לחלק את השנים בין הטיפות — מחלקים: <span class="math">83.5 ÷ 9 = ?</span>'
+      : (hasD && (Math.abs(sp-9.3)<0.001 || Math.abs(sp-9)<0.001)) ? 'ב־(א): כמעט! עגלו לשתי ספרות אחרי הנקודה: <span class="math">83.5 ÷ 9 = ?</span>'
+      : 'רמז ל־(א): שנים ÷ טיפות: <span class="math">83.5 ÷ 9 = ?</span>';
+    const hintY = (hasY && Math.abs(ks-0.0928)<0.002) ? 'ב־(ב): חילקתם הפוך. כמה פעמים <span class="num">9.28</span> שנים נכנסות ב־<span class="num">100</span> שנה? <span class="math">100 ÷ 9.28</span>'
+      : (hasY && Math.abs(ks-928)<2) ? 'ב־(ב): כפלתם. השאלה היא כמה פעמים טיפה "נכנסת" במאה שנה — מחלקים.'
+      : (hasY && (Math.abs(ks-11)<0.001 || Math.abs(ks-10)<0.001)) ? 'ב־(ב): קרוב! אבל ביקשנו שתי ספרות אחרי הנקודה: <span class="math">100 ÷ 9.28 = ?</span>'
+      : (hasY && Math.abs(ks-9)<0.001) ? 'ב־(ב): <span class="num">9</span> זה מספר הטיפות ב־<span class="num">83.5</span> שנים. במאה שנה ייפלו יותר.'
+      : 'רמז ל־(ב): קחו את התשובה של (א), וחשבו כמה פעמים היא נכנסת ב־<span class="num">100</span>: <span class="math">100 ÷ ?</span>';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">83.5 ÷ 9 ≈ 9.28</span> שנים לכל טיפה. (ב) <span class="math">100 ÷ 9.28 ≈ 10.78</span> טיפות במאה שנה. בדיקה: <span class="math">10.78 × 9.28 ≈ 100</span>. אבל שימו לב: אחרי המזגן הקצב האט, אז בפועל כנראה ייפלו פחות.'
+      : dOk ? '<span class="pill-ok">(א) נכון — כ־<span class="num">9.28</span> שנים.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">10.78</span> טיפות.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-99)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">2026 − 1927 = 99</span> שנים. בשנה הבאה, ב־<span class="num">2027</span>, הניסוי יחגוג <span class="num">100</span>!':(Math.abs(v-3953)<0.01?'<span class="pill-bad">לא בדיוק.</span> חיברתם. כדי לדעת כמה שנים עברו, מחסירים: מהשנה המאוחרת את המוקדמת.':((Math.abs(v-98)<0.01||Math.abs(v-100)<0.01||Math.abs(v-101)<0.01||Math.abs(v-109)<0.01||Math.abs(v-89)<0.01)?'<span class="pill-bad">כמעט!</span> בדקו שוב: מ־<span class="num">1927</span> עד <span class="num">2027</span> זה <span class="num">100</span> שנים — ו־<span class="num">2026</span> זה שנה אחת לפני.':'<span class="pill-bad">עוד לא.</span> רמז: מחסירים — <span class="math">2026 − 1927 = ?</span>. אפשר בקפיצות: מ־<span class="num">1927</span> ל־<span class="num">2027</span> יש <span class="num">100</span> שנים.')); }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-9.333)<=0.04; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">84 ÷ 9 ≈ 9.33</span> שנים לכל טיפה — תשע שנים ושליש. לפני המזגן קצת פחות, ואחריו הרבה יותר.':(Math.abs(v-0.107)<0.003?'<span class="pill-bad">הפוך.</span> יצא כמה טיפות בשנה. השאלה: כמה שנים לכל טיפה — שנים ÷ טיפות.':(Math.abs(v-756)<0.5?'<span class="pill-bad">לא בדיוק.</span> כפלתם. כדי לחלק את השנים בין הטיפות — מחלקים.':(Math.abs(v-75)<0.01?'<span class="pill-bad">לא בדיוק.</span> חיסרתם. מחלקים: <span class="math">84 ÷ 9 = ?</span>':(Math.abs(v-9)<0.001?'<span class="pill-bad">כמעט!</span> ביקשנו שתי ספרות אחרי הנקודה.':'<span class="pill-bad">עוד לא.</span> רמז: שנים ÷ טיפות = <span class="math">84 ÷ 9 = ?</span>')))); }
+  fb.classList.add('show'); }
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שהזפת היא נוזל — סמיך מאוד (צמיגות גבוהה), שזורם לאט כל כך שלא רואים אותו זורם.',
+  'הסברתי שבניסוי של פרנל באוסטרליה נופלת ממנה טיפה בערך פעם ב־<span class="math">8–13</span> שנים.',
+  'הסברתי שמכת פטיש מהירה מאוד — אין לזפת זמן לזרום, ולכן היא מתנפצת כמו מוצק.',
+  'הסברתי שהשאלה "מוצק או נוזל" תלויה בכמה זמן מסתכלים, לעומת כמה זמן החומר צריך כדי לזרום (מספר דבורה של ריינר).',
+  'הוספתי פרט מדויק: <span class="num">1927</span> או <span class="num">1930</span>; תשע טיפות; המזגן שהאט את הטיפות; מיינסטון שפספס <span class="num">52</span> שנה; או המולקולות שנאחזות זו בזו.',
+];
+const MODEL='הזפת נראית כמו אבן, אבל היא נוזל — נוזל סמיך מאוד, בערך פי <span class="num">230</span> מיליארד מהמים. המולקולות הגדולות שלה נאחזות זו בזו, ולכן היא זורמת לאט כל כך שאי אפשר לראות. בניסוי שתומס פרנל התחיל ב־<span class="num">1927</span> באוסטרליה נופלת מהמשפך טיפה בערך פעם ב־<span class="math">8–13</span> שנים, ומאז <span class="num">1930</span> נפלו רק תשע טיפות. כשמכים בזפת בפטיש, המכה נמשכת חלקיק שנייה — הרבה פחות מהזמן שהזפת צריכה כדי לזרום — ולכן היא מתנפצת כמו מוצק. מרקוס ריינר מהטכניון הסביר שזה תמיד כך: אם מסתכלים זמן קצר — רואים מוצק, ואם מחכים מספיק — גם הרים "נוזלים".';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון: הזפת היא נוזל בעל צמיגות עצומה (כ־230,000,000 פסקל־שנייה, פי 230 מיליארד ממים) כי המולקולות הגדולות שלה נאחזות זו בזו ומחליקות זו ליד זו רק לאט; באותו משפך זמן הטיפה גדל ביחס לצמיגות, ולכן טיפה כל 8 עד 13 שנים; אם חומר נראה מוצק או נוזל תלוי ביחס בין זמן הזרימה שלו לזמן ההסתכלות (מספר דבורה של מרקוס ריינר) — מכת פטיש קצרה בהרבה מזמן הזרימה ולכן הזפת מתנפצת, ובמשך עשרות שנים היא מטפטפת; חום מוריד את הצמיגות, ולכן המזגן האט את הטיפות; ולא רק "היא נוזל איטי" בלי המנגנון':'');
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "הניסוי שמטפטף מאז 1927 — והמדען שחיכה 52 שנה ולא ראה טיפה אחת". הרעיונות המרכזיים: (1) תומס פרנל, אוניברסיטת קווינסלנד בבריסביין, 1927: חימם זפת (קשה, מתנפצת מפטיש), שפך למשפך זכוכית סגור, חיכה שלוש שנים, ובאוקטובר 1930 חתך את קצה הצינור — כדי להראות שהזפת נוזל; (2) תשע טיפות בלבד: 1938, 1947, 1954, 1962, 1970, 1979, 1988, 2000, 2014 — בערך כל 8 שנים, ואחרי שהותקן מזגן בשנות ה־80: 12.3 ו־13.4 שנים, כי בקור הזפת סמיכה יותר; (3) ג׳ון מיינסטון שמר על הניסוי 1961–2013 ולא ראה אף טיפה נופלת (1979 — הלך הביתה אחרי סוף שבוע של המתנה; 1988 — יצא לכמה דקות לשתות; 2000 — הפסקת חשמל במצלמה); באפריל 2014 הטיפה התשיעית נגעה בשמינית מול מצלמה, ואף אדם לא ראה טיפה נופלת מעצמה; פרס איג נובל 2005; (4) צמיגות: כמה קשה לנוזל לזרום; זפת כ־230,000,000 פסקל־שנייה (1984), פי 230 מיליארד מהמים; המולקולות הגדולות נאחזות זו בזו, וחום עוזר להן להשתחרר; (5) מרקוס ריינר, פרופסור בטכניון, ממייסדי הריאולוגיה, "מספר דבורה" (1963/1964) על שם "הרים נזלו מפני ה׳" (שופטים ה׳): אם חומר נראה מוצק או נוזל תלוי בזמן ההסתכלות לעומת זמן הזרימה — פטיש מהיר = מוצק, עשרות שנים = נוזל; גם קרחונים וסלעים במעמקי כדור הארץ זורמים. חישובי המבחן: צעיר — 2026 − 1927 = 99; בוגר — 84 ÷ 9 ≈ 9.33; מתקדם — 83.5 ÷ 9 ≈ 9.28 ו־100 ÷ 9.28 ≈ 10.78; אתגר — (12.3 + 13.4) ÷ 2 = 12.85, (12.85 − 8) ÷ 8 ≈ 61%.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם שהזפת היא נוזל סמיך מאוד שזורם/מטפטף לאט מאוד (טיפה בערך פעם בעשור) וגם למה היא מתנפצת מפטיש (המכה מהירה מדי ואין לה זמן לזרום / מוצק או נוזל תלוי בזמן); 1 אם יש רק אחד מהשניים או רק חלק. הסבר שאומר שהזפת "נמסה", שהפטיש "מחמם" אותה, או שהיא מוצק שהפך לנוזל — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', טיפה אחרי טיפה — הגעת לפסגה!':pct>=60?name+', כמעט כל הטיפות בכוס!':name+', כמו הזפת — לאט, אבל מגיעים!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=3;                                                       // about once a decade
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשתם בהתחלה. התשובה: <b>בערך פעם בעשר שנים</b> — מאז <span class="num">1930</span> נפלו רק תשע טיפות.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשתם <b>בערך פעם בעשר שנים</b> — וקלעתם. ועכשיו גם יודעים למה: הזפת היא נוזל, אבל סמיך פי <span class="num">230</span> מיליארד מהמים.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשתם: <b>'+fmtSigns(S.guess)+'</b>. התשובה: בערך פעם בעשר שנים (בין <span class="math">7–13</span> שנים לטיפה). ועכשיו גם יודעים למה: הזפת היא נוזל, אבל סמיך פי <span class="num">230</span> מיליארד מהמים.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כל כמה זמן נופלת טיפה): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: בערך פעם בעשר שנים)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "הניסוי שמטפטף מאז 1927 — והמדען שחיכה 52 שנה ולא ראה טיפה אחת", מהדורה 68, י׳ בכסלו תשפ״ז (יום שישי, 20 בנובמבר 2026). נושא: פיזיקה (צמיגות, מוצק ונוזל, השפעת טמפרטורה, מספר דבורה), מתמטיקה (חיסור שנים, ממוצע, קצב, אחוזים, יחסים) והיסטוריה (ניסוי המעבדה הארוך בעולם), עם קשר לישראל (מרקוס ריינר מהטכניון, ים המלח — "אגם האספלט"). העובדות: תומס פרנל, פרופסור לפיזיקה באוניברסיטת קווינסלנד בבריסביין, אוסטרליה, רצה להראות לתלמידים שחומרים שנראים מוצקים יכולים להיות נוזלים סמיכים מאוד. ב־1927 חימם זפת (קשה בטמפרטורת החדר, מתנפצת מפטיש), שפך אותה למשפך זכוכית סגור, וחיכה שלוש שנים; באוקטובר 1930 חתך את קצה הצינור. תשע טיפות נפלו: דצמבר 1938, פברואר 1947, אפריל 1954, מאי 1962, אוגוסט 1970, אפריל 1979, יולי 1988, נובמבר 2000, אפריל 2014 — מרווחים של 8.1, 8.2, 7.2, 8.1, 8.3, 8.7, 9.2, 12.3, 13.4 שנים (בסך הכול 83.5 שנים). בשנות ה־80 הותקן מזגן (לפי ויקיפדיה אחרי טיפת 1988), והמרווח עלה מכ־8 שנים ל־12–13. ג׳ון מיינסטון שמר על הניסוי 1961–2013 (נפטר באוגוסט 2013) ולא ראה טיפה נופלת: ב־1979 ישב ליד הזפת מליל שישי עד יום ראשון בבוקר, הלך הביתה, ובשני בבוקר הטיפה כבר נפלה; ב־1988, בתערוכת אקספו 88, יצא לכמה דקות להביא משהו לשתות; ב־2000 הפסקת חשמל מנעה צילום. היום השומר הוא אנדרו ווייט. באפריל 2014 הטיפה התשיעית נגעה בשמינית מול מצלמת רשת (31,335 נרשמו לצפייה מ־158 מדינות), ושתיהן נשארו מחוברות; ב־24 באפריל 2014, בזמן החלפת הכוס, הטיפה התשיעית ניתקה מהמשפך; כוס חדשה מחכה לטיפה העשירית, שצפויה בשנים הקרובות. איג נובל בפיזיקה 2005 לפרנל ולמיינסטון; שיא גינס לניסוי המעבדה הארוך שעדיין רץ; הניסוי יהיה בן 100 ב־2027. צמיגות — כמה קשה לנוזל לזרום: מים כ־0.001 פסקל־שנייה; זפת כ־230,000,000 (חישוב מ־1984 לפי שש הטיפות הראשונות) — פי 230 מיליארד מהמים (מקורות אחרים: כ־250 מיליארד); דבש סמיך בערך פי 10,000 מהמים. המולקולות של הזפת גדולות ונאחזות זו בזו; חום מרעיד אותן ועוזר להן להשתחרר, ולכן חום מוריד צמיגות וקור מעלה. מרקוס ריינר (1886–1976) עלה ב־1922, היה מהנדס בירושלים ומ־1947 פרופסור בטכניון בחיפה; טבע עם יוג׳ין בינגהם את המונח "ריאולוגיה" (מדע הזרימה). באוגוסט 1963 נאם על "מספר דבורה" (פורסם ב־Physics Today ב־1964), על שם שירת דבורה: "הרים נזלו מפני ה׳" (שופטים ה׳, ה׳) — גם הרים זורמים, אבל רק בעיני מי שמסתכל זמן אינסופי. מספר דבורה = זמן הזרימה (הרפיה) של החומר ÷ זמן ההסתכלות: גדול מ־1 — נראה מוצק; קטן מ־1 — נראה נוזל. פטיש: מכה של חלקיק שנייה → הזפת מתנפצת. קרחונים זורמים במורד ההר; סלע במעמקי כדור הארץ זורם כמה סנטימטרים בשנה ומזיז יבשות. בדבלין יש ניסוי זפת מ־1944, ושם צולמה ב־11 ביולי 2013 לראשונה טיפה נופלת. ים המלח נקרא ביוונית ובלטינית "אגם האספלט" — גושי אספלט עולים ממעמקיו וצפים; המצרים השתמשו באספלט מאזור ים המלח בחניטה. נח צופה את התיבה "בכופר", ומשה הונח בתיבה שצופתה "בחמר ובזפת". מיתוס: חלונות כנסיות עבים למטה בגלל זרימה — כנראה לא; זה מדרך הייצור. בהדמיות (מכונת הזמן של הטיפה, המזגן שהאט את הזפת, מוצק או נוזל?) הזמנים להמחשה: טיפת דבש כ־12 שניות, טיפת זפת ⟨12 × 23,000,000 ≈ 276,000,000 שניות, כ־9 שנים⟩; החלק העליון של המזגן — נוסחה להמחשה; זמני הזרימה — סדרי גודל. התשובות הבאות הן למבחן ולאתגר — אל תגלה אותן, תן רק רמז: צעיר — 2026 − 1927 = 99; בוגר — 84 ÷ 9 ≈ 9.33; מתקדם — 83.5 ÷ 9 ≈ 9.28 ו־100 ÷ 9.28 ≈ 10.78; אתגר — (12.3 + 13.4) ÷ 2 = 12.85, (12.85 − 8) ÷ 8 ≈ 0.61 = 61%.';
+const CHIPS = ['איך זפת יכולה להיות נוזל?', 'מה זה צמיגות?', 'מה זה מספר דבורה?', 'למה אף אחד לא ראה טיפה נופלת?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: צמיגות — כמה קשה לנוזל לזרום; זפת כ־230,000,000 פסקל־שנייה, פי 230 מיליארד ממים, כי המולקולות הגדולות שלה נאחזות זו בזו; באותו משפך זמן הטיפה גדל ביחס לצמיגות — טיפה כל 8 עד 13 שנים; חום מוריד צמיגות, ולכן המזגן האט את הטיפות מ־8 ל־12.3 ו־13.4 שנים; מספר דבורה של ריינר = זמן הזרימה ÷ זמן ההסתכלות — גדול מ־1 נראה מוצק, קטן מ־1 נראה נוזל; ממוצע = סכום ÷ מספר; קצב = כמות ÷ זמן), שאל שאלות המשך שדורשות חשיבה (למשל: למה הפטיש שובר את הזפת אם היא נוזל? מה היה קורה לניסוי בחדר של 40 מעלות? אם גם סלעים זורמים, למה ההרים לא נמסים? איך אפשר לחשב צמיגות מקצב הטיפות?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולהוכיח.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>איך זפת יכולה להיות נוזל?</b> הזפת סמיכה מאוד — בערך פי <span class="num">230</span> מיליארד מהמים — ולכן היא זורמת לאט כל כך שלא רואים. בניסוי באוסטרליה נופלת ממנה טיפה בערך פעם בעשר שנים.<br><br><b>אז למה היא מתנפצת מפטיש?</b> כי המכה מהירה מאוד, ואין לזפת זמן לזרום. מוצק או נוזל — זה תלוי כמה זמן מסתכלים.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; only the field runs a short timer */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
