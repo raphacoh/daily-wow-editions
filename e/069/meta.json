@@ -1,0 +1,23 @@
+{
+  "n": 69,
+  "code": "WOW-069",
+  "date": "2026-11-21",
+  "language": "he",
+  "title": "הרופא שעצר מגפה בעזרת מפה — ונקודה אחת שהסגירה הכול",
+  "topics": [
+    "גאוגרפיה",
+    "מתמטיקה",
+    "היסטוריה",
+    "ביולוגיה",
+    "מדע ישראלי"
+  ],
+  "summary": "John Snow and the 1854 Broad Street cholera outbreak: miasma vs water; the dot map (Snow's real daily fatal attacks, 616 total, peak 143 on 1 Sep); nearest-pump regions (Voronoi) and the outliers — brewery (70+ workers, none died), workhouse (5 of 535), the Hampstead widow; handle removed 8 Sep 1854 after the decline had begun (correlation vs causation); Whitehead, baby Frances Lewis and the leaking cesspool; Pacini 1854 / Koch 1883; the Grand Experiment (315 vs 37 deaths per 10,000 houses); Jerusalem cholera 1970; addition, ratios, rates per 10,000 and percent.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — nits left: est. ~35 (younger) / ~40 (older) min vs the 'כ־25 דקות' tag (prose ≈ edition 68); at 390px the dashed handle line crosses the curve's axis title; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template)",
+  "review_url": "https://claude.ai/artifact/Aaqp2iZBsgmcwLQuRYrzGE",
+  "editor_note": null
+}
