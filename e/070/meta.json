@@ -16,7 +16,7 @@
   "teaser": null,
   "max_score": null,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-11-22T08:09:16.007Z",
   "password": null,
   "reviewer_verdict": "PASS (2 rounds) — nits left: younger track est. ~33–38 min (older ~28–30, advanced ~32–35) vs the ’כ־25 דקות’ tag; Figure 2 labels small at 390px; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn’t declare the sample capability (template)",
   "review_url": "https://claude.ai/artifact/2JsxNG4sHwdoFqWFyFRW8X",
