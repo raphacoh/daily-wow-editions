@@ -1,0 +1,24 @@
+{
+  "n": 70,
+  "code": "WOW-070",
+  "date": "2026-11-22",
+  "language": "he",
+  "title": "הקצף שהשופט מצייר על הדשא — ונעלם אחרי דקה",
+  "topics": [
+    "כימיה",
+    "פיזיקה",
+    "מתמטיקה",
+    "ספורט",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "The referee’s vanishing spray: ~80% water, ~17% butane, ~1% surfactant — butane (bp −0.5 °C) stays liquid only under pressure in the can and boils on release, expanding ~230× and blowing the soapy water into foam; the line vanishes in ~1 minute as the films drain, thin and burst and the gas escapes; surfactant head/tail molecules hold the films; Heine Allemagne (Brazil, 2000), Pablo Silva, 2014 World Cup opener, Israel FA adoption (Sept 2014), the FIFA lawsuit; similar triangles — the wall’s shadow on the goal (2 × 20 ÷ 9.15 ≈ 60% of the goal, ~91% at 6 m); subtraction, density ratio, percent and unit-conversion challenge.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: younger track est. ~33–38 min (older ~28–30, advanced ~32–35) vs the ’כ־25 דקות’ tag; Figure 2 labels small at 390px; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn’t declare the sample capability (template)",
+  "review_url": "https://claude.ai/artifact/2JsxNG4sHwdoFqWFyFRW8X",
+  "editor_note": null
+}
