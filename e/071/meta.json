@@ -1,0 +1,23 @@
+{
+  "n": 71,
+  "code": "WOW-071",
+  "date": "2026-11-24",
+  "language": "he",
+  "title": "הברק שחם פי חמישה מהשמש — ומשאיר זכוכית בתוך האדמה",
+  "topics": [
+    "פיזיקה",
+    "גאולוגיה",
+    "מתמטיקה",
+    "היסטוריה",
+    "מדע ישראלי"
+  ],
+  "summary": "Lightning heats air to ~30,000 °C (NWS 50,000 °F ≈ 27,760 °C, ~5× the Sun's 5,500 °C surface) through electrical resistance in a cm-wide channel; the explosive expansion is thunder; light vs sound (343 m/s, seconds ÷ 3 = km) and lightning safety; fulgurites — quartz melts ~1,700 °C, hot gas leaves a hollow core, fast cooling makes glass; Darwin at Maldonado, the 1996 Florida 5.2 m record, Franklin 1752, Lake Maracaibo, Hess 2021 phosphorus; Israel's winter lightning max over Mount Carmel; division, distance = speed × time, time = distance ÷ speed, °F→°C and ratio challenge.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": "2026-11-24T08:09:38.000Z",
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — nits left: est. ~28–32 min per track vs the 'כ־25 דקות' tag; thunder readout label wraps at 390px; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template)",
+  "review_url": "https://claude.ai/artifact/4MUxdST25yBcHpZBxKbeDr",
+  "editor_note": null
+}
