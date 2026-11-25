@@ -1,0 +1,23 @@
+{
+  "n": 72,
+  "code": "WOW-072",
+  "date": "2026-11-25",
+  "language": "he",
+  "title": "שבעת הגשרים שאי אפשר לחצות — והטיול שהמציא מתמטיקה חדשה",
+  "topics": [
+    "מתמטיקה",
+    "גאוגרפיה",
+    "היסטוריה",
+    "טכנולוגיה",
+    "מדע ישראלי"
+  ],
+  "summary": "The Seven Bridges of Königsberg: Euler (1735, aged 28) turns the city into dots and lines and counts degrees 5,3,3,3 — every pass through a vertex uses an in/out pair, so only start and end may be odd, hence impossible; one-stroke drawing lab (house, butterfly, square-with-X), handshake lemma (sum of degrees = 2 × edges), 1944 bombing leaves 5 bridges and makes an island-to-island walk possible; Waze, Chinese postman, football seams (60×3÷2 = 90); addition-and-halving, degree-sum, factorial-and-hours challenge.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: est. ~30–35 min per track vs the 'כ־25 דקות' tag even after trims; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template)",
+  "review_url": "https://claude.ai/artifact/HhvnMMASnnA5YFdG4ybvx6",
+  "editor_note": null
+}
