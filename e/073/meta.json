@@ -1,0 +1,24 @@
+{
+  "n": 73,
+  "code": "WOW-073",
+  "date": "2026-11-26",
+  "language": "he",
+  "title": "החור שיש לכם בעין — והמוח שמצייר עליו טלאי",
+  "topics": [
+    "ביולוגיה",
+    "מדע המוח",
+    "מתמטיקה",
+    "היסטוריה",
+    "פיזיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "The blind spot: Mariotte (~1668) makes a spot on a wall vanish at ~9 ft; the retina's ~1 million nerve fibres run in front of the ~97 M photoreceptors and leave together through the optic disc, which has no receptors; octopus wiring runs behind so it has none; the other eye covers each hole and the brain fills in from the surround (stripes continue, lines complete, a small star inside vanishes); geometry — 15° off fixation, 5.5° × 7.5°: distance ≈ 3.7 × gap, hole width ≈ 0.096 × distance, so a head vanishes from ~1.7 m; Technion Müller-cell light pipes; ÷10, ×3.7, two-step ratio and moons-in-the-hole challenge.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: older track est. ~30–34 min vs the 'כ־25 דקות' tag; the yellow disc in the top-view canvas is small (true to scale); kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template)",
+  "review_url": "https://claude.ai/artifact/EjDXcjzHtwkkBVfxvboV7s",
+  "editor_note": null
+}

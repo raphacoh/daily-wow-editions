@@ -1,0 +1,1780 @@
+<title>שורשים וכנפיים #73 · החור שיש לכם בעין — והמוח שמצייר עליו טלאי</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#2F7D4F; --shadow-soft:#DDF0E0;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes tick{0%{opacity:.95}30%{opacity:.75}100%{opacity:.08}}
+@keyframes spark{0%{transform:translate(110px,143px);opacity:0}15%{opacity:1}100%{transform:translate(40px,150px);opacity:0}}
+@keyframes spark2{0%{transform:translate(195px,203px);opacity:0}15%{opacity:1}100%{transform:translate(265px,210px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 73</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false" style="opacity:.45">
+    <ellipse cx="150" cy="150" rx="130" ry="80" fill="#FFFFFF" stroke="#1B1F33" stroke-width="6"/>
+    <circle cx="150" cy="150" r="62" fill="#2F6F9F"/>
+    <circle cx="150" cy="150" r="28" fill="#1B1F33"/>
+    <circle cx="168" cy="132" r="10" fill="#FFFFFF"/>
+    <ellipse cx="118" cy="176" rx="14" ry="18" fill="#F6C454" stroke="#1B1F33" stroke-width="3" stroke-dasharray="6 5"/>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון <span class="num">73</span></span><span class="tag">יום חמישי, <span class="num">26</span> בנובמבר <span class="num">2026</span></span><span class="tag">ט״ז בכסלו תשפ״ז</span><span class="tag">כ־<span class="num">25</span> דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>החור שיש לכם בעין — והמוח שמצייר עליו טלאי</h1>
+  <p class="lede">ברגע זה, בכל אחת מהעיניים שלכם יש מקום שלא רואה <b>שום דבר</b>. לא מטושטש, לא חשוך — פשוט כלום. ובכל זאת, אף פעם לא ראיתם שם חור. השאלה של היום: <b>איפה מסתתר החור — ומי מסתיר אותו מכם?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">כמה גדול החור שבעין?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>אין שום חור</b><span>העין רואה הכול</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>חור זעיר</b><span>בגודל של חוד סיכה</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>חור גדול</b><span>מעלים ראש של חבר בקצה החדר</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>חצי מכל מה שרואים</b><span>ואת החצי השני רואה העין השנייה</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">מתחילים לגלות ←</button></div>
+</section>
+
+<!-- 1 · MARIOTTE + THE SCREEN TEST (figure) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">1</span></div>
+  <h2>הנקודה שנעלמה מהקיר</h2>
+  <p>לפני יותר מ־<span class="num">350</span> שנה, בצרפת, חי מדען סקרן בשם <b>אֶדְם מריוט</b>. בשנת <span class="num">1668</span> בערך הוא עשה ניסוי פשוט: הדביק על קיר כהה שתי נקודות לבנות גדולות, זו ליד זו. הוא כיסה עין אחת, הסתכל בעין השנייה על הנקודה השמאלית — והתחיל ללכת אחורה, לאט.</p>
+  <p>כשהיה רחוק מהקיר כמעט שלושה מטרים, קרה משהו מוזר: <b>הנקודה הימנית נעלמה</b>. לא היה שם שום דבר שהסתיר אותה. היא פשוט לא נראתה — ובמקומה ראה מריוט רק את הקיר הכהה. מריוט הציג את הקסם הזה גם לאנשי החצר של מלך צרפת, ואנשים לא האמינו למראה עיניהם.</p>
+
+  <figure class="calfig" aria-label="כרטיס בדיקה על המסך: משמאל איקס שחור גדול, מימין עיגול אדום גדול. ההוראות: עוצמים את העין השמאלית, מסתכלים בעין הימנית רק על האיקס, ומקרבים לאט את הפנים למסך עד שהעיגול האדום נעלם">
+    <svg viewBox="0 0 640 300" role="img" aria-hidden="true" focusable="false" style="direction:ltr">
+      <rect x="0" y="0" width="640" height="300" rx="14" fill="#FFFFFF" stroke="#DDD4BE" stroke-width="3"/>
+      <g stroke="#1B1F33" stroke-width="12" stroke-linecap="round"><line x1="92" y1="122" x2="148" y2="178"/><line x1="148" y1="122" x2="92" y2="178"/></g>
+      <circle cx="520" cy="150" r="34" fill="#C8452D"/>
+      <g font-family="Rubik,Arial" font-weight="700" font-size="32" fill="#585C72" text-anchor="middle" direction="rtl">
+        <text x="120" y="240">מסתכלים כאן</text>
+        <text x="520" y="240">זה ייעלם</text>
+      </g>
+    </svg>
+    <figcaption><b>נסו עכשיו:</b> עִצמו את העין <b>השמאלית</b>. בעין הימנית הסתכלו רק על האיקס — לא על העיגול! — והתחילו רחוק מהמסך. קרבו את הפנים לאט־לאט. באיזשהו מרחק העיגול האדום ייעלם, ואם תמשיכו להתקרב, הוא יחזור. בטלפון: החזיקו אותו ביד ישרה וקרבו לאט.</figcaption>
+  </figure>
+
+  <p>מריוט הבין שזו לא אשליה של הקיר, אלא משהו שקורה <b>בתוך העין</b>. יש בעין מקום אחד שלא קולט אור בכלל. היום קוראים לו <b>הנקודה העיוורת</b>.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הצלחתם להעלים את העיגול? זו לא בעיה בעיניים שלכם — לכל האנשים יש נקודה עיוורת, בכל עין. גם לאמא, גם למורה וגם לשחקן הכדורגל הכי טוב בעולם. ואם לא הצלחתם בפעם הראשונה, נסו שוב: התחילו רחוק יותר, וזכרו להסתכל כל הזמן רק על האיקס.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>שימו לב לשני פרטים. ראשית, העיגול נעלם רק בטווח מרחקים מסוים — קרוב מדי או רחוק מדי והוא שם. שנית, בעין הימנית החור נמצא <b>מימין</b> למקום שמסתכלים עליו. אלה רמזים: החור נמצא במקום קבוע בעין, בזווית קבועה מהמבט. עוד מעט נמדוד את הזווית הזאת.</p>
+  </div>
+
+  <div class="q qc" id="goalQ"></div>
+  <p class="small" id="hint1" style="text-align:center">כדי להמשיך, ענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · FIND THE HOLE (interactive 1) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">2</span></div>
+  <h2>מחפשים את החור</h2>
+  <p>מה בעצם קרה כשהעיגול נעלם? בואו נציץ על הניסוי מלמעלה. אור מכל דבר שאנחנו רואים נכנס לעין דרך חור קטן — האישון — ונוחת על "מסך" שבתחתית העין, הרשתית. האיקס שמסתכלים עליו נוחת בדיוק באמצע. העיגול נוחת קצת הצידה.</p>
+
+  <!-- ===== INTERACTIVE 1 — מוצאים את החור ===== -->
+  <div class="panel instrument">
+    <h3>הניסוי של מריוט, מלמעלה</h3>
+    <p class="cap">למעלה: מה רואה העין הימנית. למטה: העין והכרטיס, במבט מלמעלה. הקווים מראים לאן נוחת האור מהאיקס ומהעיגול. הכתם הצהוב בתחתית העין הוא החור. הזיזו את הסליידר כדי לקרב או להרחיק את הכרטיס. נחשו קודם: באיזה מרחק העיגול ייעלם?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="bsP0" onclick="bsPredict(0)">קרוב מאוד, <span class="num">10</span> ס״מ</button>
+        <button id="bsP1" onclick="bsPredict(1)">באמצע, בערך <span class="num">30</span> ס״מ</button>
+        <button id="bsP2" onclick="bsPredict(2)">רחוק, <span class="num">60</span> ס״מ</button>
+      </div>
+    </div>
+    <canvas role="img" id="bsCv" width="640" height="700" aria-label="למעלה: כרטיס עם איקס שחור ועיגול אדום, כמו שהעין רואה אותו. למטה: עין גדולה במבט מלמעלה, ומעליה כרטיס. קו ירוק יוצא מהאיקס ונוחת באמצע תחתית העין. קו אדום יוצא מהעיגול ונוחת בצד. בתחתית העין כתם צהוב: החור. כשהקו האדום נוחת על הכתם הצהוב, העיגול נעלם מהתמונה למעלה"></canvas>
+    <div class="controls">
+      <label>המרחק של הכרטיס מהעין
+        <input type="range" id="bsD" min="10" max="60" step="1" value="50" oninput="bsSet()" aria-label="מרחק הכרטיס" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">מרחק: <b id="bsOutD">?</b></div>
+      <div class="readout">העיגול: <b id="bsOutV">?</b></div>
+    </div>
+    <p class="cap" id="bsMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="bsReveal" hidden><span class="hand">!</span><p><b>העיגול נעלם רק כשהאור שלו נוחת על הכתם הצהוב.</b> כשהכרטיס קרוב, האור מהעיגול נוחת רחוק מהאמצע; כשהוא רחוק, קרוב לאמצע. רק בטווח צר, בסביבות <span class="num">30</span> סנטימטרים, הוא נופל בדיוק על החור — ונעלם. בכל מקום אחר בתחתית העין יש תאים שקולטים אור. בחור הזה אין אף אחד.</p></div>
+
+  <div id="bsAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>תחשבו על הרשתית כמו על שטיח ענק של חיישנים קטנטנים — כמעט מאה מיליון. כל חיישן מרגיש אור ושולח הודעה. אבל באמצע השטיח יש עיגול קטן בלי חיישנים בכלל. אור שנוחת שם — כאילו לא היה. וזה מה שקרה לעיגול האדום.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>שימו לב: העדשה הופכת את התמונה. העיגול נמצא <b>מימין</b> לאיקס, אבל האור שלו נוחת <b>משמאל</b> לאמצע הרשתית — בצד של האף. לכן גם החור עצמו נמצא בצד האף של כל עין, אבל אנחנו "מרגישים" אותו בצד החיצוני של שדה הראייה. והנקודה החשובה: ההיעלמות תלויה רק בזווית שבין האיקס לעיגול, כפי שהעין רואה אותם.</p>
+  </div>
+
+  <div class="q qc" id="beatQ"></div>
+  </div>
+  <p class="small" id="hint2" style="text-align:center">כדי להמשיך, נחשו, העלימו את העיגול, ובדקו גם מרחק קרוב וגם מרחק רחוק.</p>
+  <div class="next"><button class="btn" id="next2" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · WHY IS THERE A HOLE (interactive 2) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">3</span></div>
+  <h2>החוטים שיוצאים מהעין</h2>
+  <p>אז למה יש בכלל חור? כל תא שקולט אור צריך "חוט" — סיב עצב — שמעביר את ההודעה שלו למוח. ובעין שלנו יש סידור מפתיע: החוטים לא עוברים מאחורי תאי האור, אלא <b>לפניהם</b>, בצד שממנו מגיע האור. האור עובר דרכם, כי הם שקופים כמעט לגמרי.</p>
+  <p>מכל העין יחד יוצאים יותר ממיליון חוטים. בסוף כולם צריכים לצאת מהעין אל המוח, והם יוצאים יחד, כמו צרור כבלים, דרך פתח אחד בתחתית העין. זה <b>עצב הראייה</b>. ובפתח הזה, שכולו חוטים, אין מקום לתאי אור.</p>
+
+  <!-- ===== INTERACTIVE 2 — בתוך העין ===== -->
+  <div class="panel instrument">
+    <h3>בתוך הרשתית: אדם מול תמנון</h3>
+    <p class="cap">זו פרוסה מוגדלת של תחתית העין. האור מגיע מלמעלה. החוטים כחולים, ותאי האור צהובים. הזיזו את הסליידר כדי להזיז את קרן האור, והחליפו בין העין של אדם לעין של תמנון. נחשו קודם: גם לתמנון יש חור?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="eyP0" onclick="eyPredict(0)">כן, לכל עין יש</button>
+        <button id="eyP1" onclick="eyPredict(1)">לא, אין לו</button>
+      </div>
+      <div class="seg" role="group" aria-label="בחירת עין">
+        <button id="eyS0" onclick="eyShow(0)" class="on">העין שלנו</button>
+        <button id="eyS1" onclick="eyShow(1)">העין של התמנון</button>
+      </div>
+    </div>
+    <canvas role="img" id="eyCv" width="640" height="600" aria-label="פרוסה של רשתית. בעין של אדם: קווים כחולים, החוטים, עוברים מעל תאי האור הצהובים, ובאמצע כולם יורדים יחד דרך פתח — ושם אין תאים צהובים. בעין של תמנון: התאים הצהובים למעלה, החוטים מתחתם, ואין פתח. קרן אור צהובה יורדת מלמעלה, ואפשר להזיז אותה ימינה ושמאלה"></canvas>
+    <div class="controls">
+      <label>קרן האור: ימינה ושמאלה
+        <input type="range" id="eyX" min="0" max="100" step="1" value="15" oninput="eySet()" aria-label="מיקום קרן האור" style="direction:ltr">
+      </label>
+    </div>
+    <p class="cap" id="eyMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="eyReveal" hidden><span class="hand">!</span><p><b>לתמנון אין נקודה עיוורת.</b> אצלו תאי האור נמצאים מלמעלה, מול האור, והחוטים יוצאים מאחוריהם — כך שאין צורך בפתח ברשתית. אצלנו החוטים עוברים לפני תאי האור, ולכן הם חייבים "לצלול" דרך הרשתית במקום אחד. שם נוצר החור.</p></div>
+
+  <div id="eyAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>דמיינו כיתה שבה לכל תלמיד יש חוט טלפון למנהלת. כל החוטים עוברים על השולחנות, ובסוף יוצאים מהכיתה יחד דרך חור אחד ברצפה. במקום של החור אי אפשר לשים שולחן. לכן יש בכיתה פינה אחת בלי תלמידים — וזו הנקודה העיוורת.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>העין של התמנון ושל בני אדם דומות מאוד — עדשה, אישון, כדור חלול אחד גדול — אבל הן התפתחו בנפרד, בשני ענפים רחוקים של עץ החיים. לזה קוראים <b>אבולוציה מתכנסת</b>: הטבע הגיע פעמיים לפתרון דומה. ההבדל הקטן בכיוון של תאי האור יצר הבדל גדול: אצלנו חור, אצלו לא.</p>
+  </div>
+
+  <div class="q qc" id="frameQ"></div>
+  </div>
+  <p class="small" id="hint3" style="text-align:center">כדי להמשיך, נחשו, הזיזו את קרן האור אל הפתח בעין שלנו, ובדקו גם את העין של התמנון.</p>
+  <div class="next"><button class="btn" id="next3" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE BRAIN'S PATCH (interactive 3) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">4</span></div>
+  <h2>הטלאי של המוח</h2>
+  <p>אם יש חור, למה אף פעם לא ראינו כתם שחור? יש לזה שתי סיבות. הראשונה: כששתי העיניים פתוחות, כל עין רואה את מה שחסר לשנייה. החור של העין הימנית נמצא בצד ימין, והחור של השמאלית בצד שמאל — הם לא נופלים על אותו מקום.</p>
+  <p>אבל גם עם עין אחת עצומה לא רואים חור. וזו הסיבה השנייה, המדהימה: <b>המוח ממלא את החור</b>. הוא מסתכל על מה שיש מסביב, ו"מצייר" בתוך החור את מה שהכי סביר שיהיה שם.</p>
+
+  <!-- ===== INTERACTIVE 3 — הטלאי ===== -->
+  <div class="panel instrument">
+    <h3>מה העין שולחת, ומה המוח מראה</h3>
+    <p class="cap">בחרו תמונה. בלחיצה על "מה העין שולחת" רואים את החור — במקום שבו אין שום מידע. בלחיצה על "מה המוח מראה" רואים מה אנחנו באמת רואים. נחשו קודם: מה המוח שם בתוך החור?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="fiP0" onclick="fiPredict(0)">כתם שחור</button>
+        <button id="fiP1" onclick="fiPredict(1)">כתם לבן</button>
+        <button id="fiP2" onclick="fiPredict(2)">המשך של מה שמסביב</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="בחירת תמונה">
+        <button id="fiS0" onclick="fiPic(0)" class="on">פסים</button>
+        <button id="fiS1" onclick="fiPic(1)">משבצות</button>
+        <button id="fiS2" onclick="fiPic(2)">קו שחוצה</button>
+        <button id="fiS3" onclick="fiPic(3)">כוכב בתוך החור</button>
+      </div>
+    </div>
+    <canvas role="img" id="fiCv" width="640" height="560" aria-label="תמונה גדולה עם דוגמה: פסים, משבצות, קו ארוך, או כוכב קטן. במצב מה העין שולחת יש באמצע אליפסה אפורה עם סימן שאלה: אין שם מידע. במצב מה המוח מראה הדוגמה ממשיכה בתוך האליפסה, הקו מושלם, והכוכב הקטן נעלם"></canvas>
+    <div class="controls">
+      <button class="btn small ghost" id="fiV0" onclick="fiView(0)">מה העין שולחת</button>
+      <button class="btn small ghost" id="fiV1" onclick="fiView(1)">מה המוח מראה</button>
+    </div>
+    <p class="cap" id="fiMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="fiReveal" hidden><span class="hand">!</span><p><b>המוח ממשיך את מה שמסביב.</b> פסים ממשיכים להיות פסים, משבצות ממשיכות, וקו שעובר דרך החור מושלם — כאילו לא נקטע. אבל כוכב קטן שכולו בתוך החור? למוח אין שום רמז שהוא שם, אז הוא מצייר במקומו רקע — והכוכב נעלם. בדיוק כמו העיגול האדום.</p></div>
+
+  <div id="fiAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>זה כמו פאזל שחסרה בו חתיכה אחת מתוך שמיים כחולים. גם בלי החתיכה, ברור לכם שגם שם יש שמיים כחולים. המוח עושה את זה כל הזמן, מהר כל כך שאתם לא שמים לב. אבל אם על החתיכה החסרה הייתה מצוירת ציפור — אין לכם דרך לדעת.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>כלומר, מה שאנחנו "רואים" הוא לא צילום של העולם, אלא <b>ניחוש חכם</b> של המוח, שבנוי מהמידע שהגיע מהעיניים. ברוב המקומות יש מספיק מידע, ובחור — המוח משלים לפי מה שמסביב. זה עובד מצוין על דוגמאות שחוזרות על עצמן, ונכשל על פרט קטן ובודד.</p>
+  </div>
+
+  <div class="q qc" id="lineQ"></div>
+  </div>
+  <p class="small" id="hint4" style="text-align:center">כדי להמשיך, נחשו, השוו בין שני המצבים, ובדקו גם את "כוכב בתוך החור".</p>
+  <div class="next"><button class="btn" id="next4" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: MEASURING THE HOLE (figure) + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">5</span></div>
+  <h2>מודדים את החור</h2>
+  <p>לחור יש מקום קבוע וגודל קבוע. מדענים מודדים אותו ב<b>מעלות</b> — כמו זווית. כשמסתכלים ישר קדימה, החור נמצא בערך <span class="num">15</span> מעלות הצידה, ורוחבו בערך <span class="num">5.5</span> מעלות. כמה זה? יד מושטת קדימה, עם אגרוף סגור: רוחב האגרוף הוא בערך <span class="num">10</span> מעלות. אז החור הוא בערך חצי אגרוף — במרחק של אגרוף וחצי מהמקום שמסתכלים עליו.</p>
+
+  <figure class="calfig" aria-label="מבט מלמעלה: עין בתחתית. מעליה שני כרטיסים, אחד קרוב ואחד רחוק פי שניים. מכל כרטיס יוצאים שני קווים לעין: אחד מהאיקס ואחד מהעיגול. כל הקווים נפגשים בעין באותה זווית, 15 מעלות. בכרטיס הקרוב הרווח 8 סנטימטרים והמרחק 30, ובכרטיס הרחוק הרווח 16 והמרחק 60">
+    <svg viewBox="0 0 640 440" role="img" aria-hidden="true" focusable="false" style="direction:ltr">
+      <rect x="0" y="0" width="640" height="440" rx="14" fill="#F4EEDF"/>
+      <line x1="200" y1="390" x2="200" y2="50" stroke="#1F8A5B" stroke-width="6"/>
+      <line x1="200" y1="390" x2="291" y2="50" stroke="#C8452D" stroke-width="6"/>
+      <line x1="150" y1="220" x2="300" y2="220" stroke="#1B1F33" stroke-width="5"/>
+      <line x1="150" y1="50" x2="360" y2="50" stroke="#1B1F33" stroke-width="5"/>
+      <circle cx="200" cy="220" r="10" fill="#1F8A5B"/><circle cx="245" cy="220" r="10" fill="#C8452D"/>
+      <circle cx="200" cy="50" r="10" fill="#1F8A5B"/><circle cx="291" cy="50" r="10" fill="#C8452D"/>
+      <ellipse cx="200" cy="405" rx="34" ry="26" fill="#FFFFFF" stroke="#1B1F33" stroke-width="4"/>
+      <path d="M200 340 A50 50 0 0 1 213 342" fill="none" stroke="#1B1F33" stroke-width="4"/>
+      <g font-family="Rubik,Arial" font-weight="700" font-size="30" fill="#1B1F33">
+        <text x="222" y="335">15°</text>
+      </g>
+      <g font-family="Rubik,Arial" font-weight="700" font-size="30" fill="#1B1F33" text-anchor="middle" direction="rtl">
+        <text x="420" y="230">רווח 8 ס״מ</text>
+        <text x="480" y="60">רווח 16 ס״מ</text>
+        <text x="66" y="140">60 ס״מ</text>
+        <text x="66" y="310">30 ס״מ</text>
+      </g>
+      <path d="M130 220 V390 M120 220 H140 M120 390 H140" stroke="#585C72" stroke-width="3"/>
+      <path d="M100 50 V390 M90 50 H110" stroke="#585C72" stroke-width="3"/>
+    </svg>
+    <figcaption>שני כרטיסים, שני משולשים — קטן וגדול — עם אותה זווית בדיוק בעין. השוו את המספרים שליד כל אחד.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הנה כלל קל לזכור את גודל החור, <b>כלל העשירית</b>: רוחב החור, בכל מרחק, הוא בערך <b>עשירית</b> מהמרחק. מה זה אומר? מחלקים את המרחק ב־<span class="num">10</span>.</p>
+    <p>חבר עומד במרחק <span class="num">2</span> מטרים, כלומר <span class="num">200</span> סנטימטרים. <span class="math">200 ÷ 10 = 20</span> — שם החור רחב בערך <span class="num">20</span> סנטימטרים. וראש של ילד רחב בערך <span class="num">16</span> סנטימטרים. <b>הראש נכנס כולו לתוך החור!</b> ורחוק יותר, על גבעה במרחק <span class="num">100</span> מטרים, החור כבר רחב כמו שתי מכוניות: <span class="math">100 ÷ 10 = 10</span> מטרים.</p>
+    <p>ומה עם הכרטיס? האיקס והעיגול צריכים להיות בערך בזווית של <span class="num">15</span> מעלות זה מזה. לכן אם הרווח ביניהם <span class="num">8</span> סנטימטרים, העיגול נעלם כשהכרטיס במרחק של כ־<span class="num">30</span> סנטימטרים מהעין — כמעט פי <span class="num">4</span> מהרווח.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הזווית קבועה, ולכן אפשר לחשב בעזרת <b>משולשים דומים</b>: משולש קטן ומשולש גדול עם אותן זוויות. בכל המשולשים האלה היחס בין המרחק לרווח הוא אותו יחס. לזווית של <span class="num">15</span> מעלות היחס הוא בערך <span class="num">3.7</span>: <span class="math">מרחק ≈ 3.7 × רווח</span>. בדיקה: רווח של <span class="num">8</span> סנטימטרים — <span class="math">3.7 × 8 = 29.6</span>, כלומר כ־<span class="num">30</span> סנטימטרים. בדיוק מה שראיתם בהדמיה.</p>
+    <p>אותו רעיון עובד על רוחב החור. לזווית של <span class="num">5.5</span> מעלות, הרוחב שהחור "מכסה" הוא בערך <span class="num">0.096</span> מהמרחק — כמעט עשירית: <span class="math">רוחב ≈ 0.096 × מרחק</span>. במרחק <span class="num">2</span> מטרים: <span class="math">0.096 × 200 ≈ 19</span> סנטימטרים — ראש שלם נעלם. ושימו לב: אצל כל אדם הזווית קצת שונה, בין <span class="num">12</span> ל־<span class="num">15</span> מעלות בערך. לכן המספרים הם הערכה — ובבית תוכלו למדוד את היחס שלכם.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b><span class="num">1</span>. שאלה כמותית:</b> הירח המלא נראה בשמיים ברוחב של בערך <span class="num">0.5</span> מעלה. החור רחב <span class="num">5.5</span> מעלות וגבוה <span class="num">7.5</span> מעלות. (א) כמה ירחים מלאים, זה ליד זה בשורה, נכנסים לרוחב של החור? (ב) נניח שממלאים מלבן ברוחב <span class="num">5.5</span> ובגובה <span class="num">7.5</span> מעלות בירחים — שורות על גבי שורות. כמה ירחים נכנסים?</p>
+      <div class="controls">
+        <label>(א) ירחים בשורה <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) ירחים במלבן <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b><span class="num">2</span>. שאלה למחשבה:</b> החור של העין הימנית נמצא בצד ימין של מה שרואים, ושל השמאלית — בצד שמאל. מה היה קורה אילו שני החורים היו נופלים בדיוק על אותו מקום?</p>
+      <details><summary>רמז</summary><p>כששתי העיניים פתוחות, מי "מכסה" כרגע על החור של העין הימנית?</p></details>
+      <details><summary>התשובה</summary><p>היום כל עין רואה בדיוק את מה שחסר לשנייה, ולכן עם שתי עיניים פתוחות <b>אין בכלל חור</b> — יש מידע אמיתי מכל מקום. אילו החורים היו באותו מקום, גם עם שתי עיניים היה חור אמיתי, והמוח היה צריך להמציא שם תמונה כל הזמן. כדור קטן שעף בדיוק דרך המקום הזה היה נעלם לרגע — גם לשוער הכי טוב בעולם.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <p class="small" id="hint5" style="text-align:center">כדי להמשיך, ענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next5" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>צריך: כרטיס או דף, טוש, סרגל, ומישהו מהבית שיעזור למדוד.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — מודדים את החור שלכם (<span class="num">10</span> דקות)</h3>
+    <ol>
+      <li>ציירו על הכרטיס איקס בצד שמאל, ועיגול מלא בצד ימין, במרחק <span class="num">7</span> סנטימטרים בדיוק זה מזה.</li>
+      <li>עִצמו את העין השמאלית (או כסו אותה ביד). בעין הימנית הסתכלו רק על האיקס.</li>
+      <li>התחילו כשהכרטיס ביד מושטת, וקרבו אותו לאט אל הפנים, עד שהעיגול נעלם.</li>
+      <li>עצרו! מי שעוזר לכם מודד בסרגל את המרחק מהעין לכרטיס.</li>
+      <li>חלקו את המרחק ב־<span class="num">7</span> (אפשר לבקש עזרה ממבוגר). יצא לכם מספר קרוב ל־<span class="num">4</span>? זה היחס שלכם. השוו עם מי שעזר לכם — לכל אחד יוצא מספר קצת אחר.</li>
+    </ol>
+    <details><summary>מה אמור לצאת?</summary><p>אצל רוב האנשים העיגול נעלם במרחק של בערך <span class="math">25–32</span> סנטימטרים, ולכן היחס יוצא בין <span class="num">3.5</span> ל־<span class="num">4.5</span>. אם זה לא עובד: ודאו שהעין הנכונה עצומה, ושלא "הצצתם" על העיגול. העיניים נוטות לברוח אליו!</p></details>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — הקסם של מריוט (<span class="num">5</span> דקות)</summary>
+    <ol>
+      <li>בקשו ממישהו לעמוד ליד קיר, במרחק של בערך <span class="num">2</span> מטרים מכם.</li>
+      <li>עצמו את העין השמאלית. בעין הימנית הסתכלו על נקודה על הקיר, קצת <b>משמאל</b> לראש שלו — בערך אגרוף וחצי של יד מושטת.</li>
+      <li>הזיזו לאט את המבט, או צעד קטן קדימה ואחורה, עד שהראש שלו נעלם — ונשאר רק הקיר.</li>
+      <li>החליפו תפקידים. ואל תשכחו לספר לו מה ראיתם!</li>
+    </ol>
+    <p class="small">טיפ: זה עובד הכי טוב כשהקיר מאחוריו בצבע אחד, בלי תמונות.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE: THE VANISHING HEAD (interactive 4) -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>הראש שנעלם</h2>
+  <p>עכשיו אפשר לעשות את הקסם של מריוט בהדמיה. כשחבר מתרחק, הוא נראה קטן יותר. אבל החור נשאר באותו גודל — כי הוא זווית קבועה בתוך העין. אז באיזשהו מרחק, כל הראש נכנס לתוך החור.</p>
+
+  <!-- ===== INTERACTIVE 4 — הראש שנעלם ===== -->
+  <div class="panel instrument">
+    <h3>להעלים ראש</h3>
+    <p class="cap">העין השמאלית עצומה, והעין הימנית מסתכלת על הכוכב. הקו המקווקו מראה איפה החור. הזיזו את הסליידר כדי שהחבר יתרחק או יתקרב. נחשו קודם: מאיזה מרחק הראש נעלם כולו?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="hdP0" onclick="hdPredict(0)">מטר אחד</button>
+        <button id="hdP1" onclick="hdPredict(1)">שני מטרים</button>
+        <button id="hdP2" onclick="hdPredict(2)">עשרה מטרים</button>
+      </div>
+      <button class="btn small ghost" id="hdH" onclick="hdHole()">הסתירו את החור</button>
+    </div>
+    <canvas role="img" id="hdCv" width="640" height="520" aria-label="חדר עם קיר. משמאל כוכב שמסתכלים עליו. מימין חבר עומד: ראש עגול וגוף. סביב מקום הראש קו מקווקו בצורת אליפסה: החור. כשהחבר מתרחק הוא קטן, והאליפסה נשארת באותו גודל. כשהראש כולו בתוך האליפסה, הוא נעלם ונשאר רק הקיר"></canvas>
+    <div class="controls">
+      <label>המרחק של החבר
+        <input type="range" id="hdD" min="50" max="400" step="10" value="80" oninput="hdSet()" aria-label="מרחק החבר" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">מרחק: <b id="hdOutD">?</b></div>
+      <div class="readout">רוחב החור שם: <b id="hdOutW">?</b></div>
+    </div>
+    <p class="cap" id="hdMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="hdReveal" hidden><span class="hand">!</span><p><b>מבערך <span class="num">1.7</span> מטרים, הראש נעלם כולו.</b> ראש רחב בערך <span class="num">16</span> סנטימטרים, ובמרחק <span class="num">1.7</span> מטרים החור כבר רחב <span class="math">0.096 × 170 ≈ 16</span> סנטימטרים. מכאן והלאה הראש קטן מהחור — והמוח מצייר במקומו קיר. מריוט הציג את החור בחצר המלך לפני יותר מ־<span class="num">350</span> שנה — ואתם יכולים להעלים ראש כבר הערב.</p></div>
+
+  <div id="hdAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>מה למדנו היום:</b> בתחתית כל עין יש מקום שאין בו תאי אור, כי משם יוצאים כל החוטים אל המוח. מה שנופל שם — לא נראה. אבל אנחנו לא שמים לב, כי העין השנייה רואה את מה שחסר, והמוח ממלא את החור במה שיש מסביב. שאלה לחקור: מה תראו אם תעלימו ראש של חבר שעומד ליד קיר עם פסים?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>שלושה רעיונות בחור אחד.</b> ביולוגיה: החוטים של הרשתית עוברים לפני תאי האור ויוצאים יחד בעצב הראייה, ולכן שם אין תאי אור; לתמנון, עם הסידור ההפוך, אין חור. מדע המוח: המוח משלים את החור לפי מה שמסביב — מה שרואים הוא ניחוש חכם. מתמטיקה: החור הוא זווית קבועה, ולכן גודלו גדל ביחס ישר למרחק. שאלה לחקור: למה כדאי לנהג להזיז את הראש לפני שהוא עובר נתיב?</p>
+  </div>
+  </div>
+
+  <p class="small" id="hint7" style="text-align:center">כדי להמשיך, נחשו, והרחיקו את החבר עד שהראש נעלם.</p>
+  <div class="next"><button class="btn" id="next7" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר החור?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ישראל · פיזיקה</div><h3>הסיבים האופטיים שבתוך העין</h3><p>אם החוטים עוברים לפני תאי האור, איך התמונה לא מטושטשת? בשנת <span class="num">2010</span> הראו בטכניון בחיפה הפיזיקאי ארז ריבק והסטודנט עמיחי לבין, שתאים מיוחדים ברשתית — <b>תאי מילר</b> — עובדים כמו צינורות של אור. הם מובילים את האור דרך כל השכבות, ישר אל תאי האור, כמו סיבים אופטיים של אינטרנט.</p></div>
+    <div class="tile"><div class="dom">ביולוגיה · ים</div><h3>העין בלי החור</h3><p>לתמנון, לדיונון ולקרוביהם יש עיניים גדולות וחדות, ממש כמו שלנו — אבל בלי נקודה עיוורת, כי החוטים שלהם יוצאים מאחורי תאי האור. שני בעלי חיים רחוקים מאוד, ששניהם "המציאו" עין מצלמה, כל אחד בדרך משלו.</p></div>
+    <div class="tile"><div class="dom">פיזיקה · היסטוריה</div><h3>האיש של החור ושל הבלונים</h3><p>מריוט לא חקר רק עיניים. הוא גילה גם כלל על גזים: כשלוחצים על גז פי <span class="num">2</span> חזק יותר, הנפח שלו קטן פי <span class="num">2</span>. בצרפת קוראים לזה עד היום "חוק מריוט", ובאנגליה "חוק בויל" — על שם רוברט בויל, שגילה את אותו כלל כמה שנים קודם.</p></div>
+    <div class="tile"><div class="dom">הנדסה · דרכים</div><h3>השטח המת של המכונית</h3><p>גם למכונית יש "נקודה עיוורת": מקום ליד הרכב שהנהג לא רואה, לא דרך החלון ולא במראות. לכן נהגים מסובבים את הראש לפני שהם עוברים נתיב, ובמכוניות חדשות יש חיישנים שמדליקים אור אזהרה. ולכם, כשאתם על אופניים: אם אתם לא רואים את הנהג במראה, כנראה גם הוא לא רואה אתכם.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): צרור הכבלים הכי צפוף בגוף</summary>
+    <p>הפתח שבו עצב הראייה יוצא מהעין קטן מאוד — פחות משני מילימטרים, בערך כמו חוד של עיפרון קהה. לפני שאתם פותחים — נחשו: כמה חוטים עוברים דרכו?</p>
+    <details><summary>התשובה</summary>
+      <p><b>בערך מיליון חוטים — ויותר.</b> כל אחד מהם נושא הודעות מקבוצה של תאי אור אל המוח. מיליון חוטים בפתח קטן מגרגר אורז! ואם עצב הראייה נפגע, המוח לא יכול לקבל את התמונה, גם כשהעין עצמה בריאה. לכן רופאי עיניים בודקים את הפתח הזה בעזרת פנס קטן וזכוכית מגדלת.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את המסע של האור, מהרגע שהוא נכנס לעין ועד שאתם "רואים". לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: חברה עומדת במרחק <span class="num">3</span> מטרים, כלומר <span class="num">300</span> סנטימטרים. לפי כלל העשירית, כמה סנטימטרים רוחב החור במרחק הזה?</div>
+    <div class="controls"><label>סנטימטרים <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: על כרטיס ציירו איקס ועיגול, ברווח של <span class="num">7.5</span> סנטימטרים. (א) לפי <span class="math">מרחק ≈ 3.7 × רווח</span>, באיזה מרחק מהעין (בסנטימטרים) העיגול נעלם? (ב) באותו מרחק, כמה סנטימטרים רוחב החור? השתמשו ב־<span class="math">רוחב ≈ 0.096 × מרחק</span>, ועגלו לעשירית. (מותר מחשבון.)</div>
+    <div class="controls"><label>(א) מרחק, ס״מ <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) רוחב החור, ס״מ <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: על כרטיס ציירו איקס ועיגול, ברווח של <span class="num">9</span> סנטימטרים. לפי <span class="math">מרחק ≈ 3.7 × רווח</span>, באיזה מרחק מהעין (בסנטימטרים) העיגול נעלם?</div>
+    <div class="controls"><label>מרחק, ס״מ <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה יש בכל עין מקום שלא רואה כלום — ולמה אנחנו לא שמים לב אליו?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="בתחתית העין יש..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt"><span class="num">0</span></b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+<span class="num">0</span></b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+
+    <h3><span class="num">3</span> דברים לספר בארוחת ערב</h3>
+    <p style="margin:0"><span class="num">1</span>. בכל עין יש מקום שלא רואה כלום — הנקודה העיוורת. משם יוצאים יותר ממיליון חוטים אל המוח, ובמקום הזה אין אף תא שקולט אור.<br>
+    <span class="num">2</span>. אנחנו לא רואים חור, כי העין השנייה רואה את מה שחסר, והמוח "מצייר" בתוך החור את מה שיש מסביב. מה שאנחנו רואים הוא ניחוש חכם של המוח.<br>
+    <span class="num">3</span>. החור כל כך גדול, שמשני מטרים הוא מעלים ראש של אדם. בשנת <span class="num">1668</span> בערך עשה את זה המדען אדם מריוט — ולתמנון, אגב, אין חור בכלל.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>מריוט והגילוי: Linda Hall Library, "Scientist of the Day — Edmé Mariotte" — שתי נקודות נייר בקוטר כ־<span class="num">9</span> אינץ׳ על קיר, כשני רגל זו מזו; בעין אחת, במרחק כ־<span class="num">9</span> רגל (כ־<span class="math">2.7</span> מ׳), הנקודה הימנית נעלמת. Encyclopedia.com (Complete Dictionary of Scientific Biography), "Mariotte, Edme" — המכתב מדיז׳ון ב־<span class="num">1668</span> והחיבור Nouvelle découverte touchant la veüe (<span class="num">1668</span>); הוויכוח עם פקה. Wikipedia, "Edme Mariotte" — שם מופיעה גם השנה <span class="num">1660</span> לגילוי, ולכן בשיעור "<span class="num">1668</span> בערך"; Wikipedia, "Blind spot (vision)" — הוצג בחצר של לואי ה־<span class="num">14</span> ובחברה המלכותית בלונדון. "שלושה מטרים" בשיעור הוא עיגול של <span class="num">9</span> רגל. הסיפור על אנשי החצר שראשיהם "נעלמו" נפוץ, אבל לא מצאנו לו מקור ראשוני; בשיעור נאמר רק שמריוט הציג את התופעה בחצר.</p>
+    <p>הגודל והמיקום: Wikipedia, "Blind spot (vision)" — כ־<span class="num">7.5</span>° גובה, כ־<span class="num">5.5</span>° רוחב, כ־<span class="math">12–15</span>° לצד הרקתי וכ־<span class="num">1.5</span>° מתחת לקו האופק; המוח משלים לפי הסביבה ולפי העין השנייה; לעיני דיונונים ותמנונים אין נקודה עיוורת. Wikipedia, "Optic disc" — ממדים ממוצעים <span class="math">1.76 × 1.92</span> מ״מ, <span class="math">1–1.2</span> מיליון סיבי עצב. Curcio et al., "Human photoreceptor topography", J Comp Neurol (<span class="num">1990</span>) — ממוצע כ־<span class="num">92</span> מיליון קנים וכ־<span class="num">4.6</span> מיליון מדוכים ("כמעט מאה מיליון"). UC Berkeley, Understanding Evolution, "How your eye works" — החוטים עוברים לפני הרשתית; לתמנון ולדיונון החוטים מאחור ואין נקודה עיוורת; אבולוציה מתכנסת.</p>
+    <p>החישובים: בשיעור נבחרה זווית של <span class="num">15</span>° (הקצה העליון בטווח המקובל) — <span class="math">1 ÷ tan 15° ≈ 3.73</span>, ובשיעור <span class="num">3.7</span>. רוחב: <span class="math">2 × tan 2.75° ≈ 0.096</span>; "כלל העשירית" לצעירים הוא עיגול של היחס הזה. רוחב ראש כ־<span class="num">16</span> ס״מ הוא הערכה לילד או למבוגר. "רוחב אגרוף ביד מושטת ≈ <span class="num">10</span>°" — כלל אצבע מקובל באסטרונומיה חובבנית. הירח המלא נראה ברוחב של כ־<span class="num">0.5</span>° (בפועל כ־<span class="math">0.49–0.56</span>°). אצל אדם עם זווית של <span class="num">12</span>° היחס הוא כ־<span class="num">4.7</span>, ולכן בבית יוצאים יחסים שונים. בהדמיות הממדים מפושטים: העין מצוירת גדולה מהמציאות, והשלמת המוח מוצגת בצורה סכמטית.</p>
+    <p>החיבורים: AIP Inside Science, "Funnel Vision" (מאי <span class="num">2010</span>) — ארז ריבק ועמיחי לבין, הטכניון: תאי הגליה (מילר) משמשים "צינורות אור" ברשתית (Physical Review Letters). Technion, "Color sorting in the retina by natural optical fibers" (<span class="num">2014</span>) — לבין, שאדי ספורי, ריבק ועידו פרלמן, Nature Communications. Wikipedia, "Edme Mariotte" — חוק בויל־מריוט (מריוט פרסם ב־<span class="num">1676</span>; בויל ב־<span class="num">1662</span>). "שטח מת" ברכב — תיאור כללי של בטיחות בדרכים.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:73, code:'WOW-073', date:'2026-11-26', title:'החור שיש לכם בעין — והמוח שמצייר עליו טלאי', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '153XnNei16DXqSDXqdeQ16jXlA=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'biology', w:3 }, { id:'physics', w:2 }, { id:'math', w:2 }, { id:'history', w:1 } ],
+  hero: { name:'הנקודה העיוורת — החור שיש בכל עין, והטלאי שהמוח מצייר עליו', fact:'משם יוצאים יותר ממיליון חוטים אל המוח, ואין שם אף תא אור. משני מטרים החור מעלים ראש שלם.' },
+  items: {
+    'predict':        { skill:'estimation',               d:2 },
+    'qc:scale':       { skill:'prior-knowledge',          d:1 },
+    'qc:goalQ':       { skill:'story-recall',             d:1 },
+    'qc:beatQ':       { skill:'experiment-observation',   d:1 },
+    'qc:frameQ':      { skill:'retina-anatomy',           d:2 },
+    'qc:lineQ':       { skill:'filling-in',               d:2 },
+    'qc:deepQ':       { skill:'proportional-reasoning',   d:2 },
+    'mcq:shared:0':   { skill:'optic-disc-cause',         d:2 },
+    'mcq:shared:1':   { skill:'brain-fills-in',           d:2 },
+    'mcq:shared:2':   { skill:'comparative-anatomy',      d:2 },
+    'mcq:younger:0':  { skill:'blind-spot-side',          d:1 },
+    'mcq:older:0':    { skill:'similar-triangles',        d:3 },
+    'order':          { skill:'light-to-brain-sequence',  d:2 },
+    'num:younger':    { skill:'divide-by-ten-rule',       d:1 },
+    'num:older':      { skill:'ratio-multiplication',     d:2 },
+    'num:adv':        { skill:'ratio-then-proportion',    d:4 },
+    'challenge':      { skill:'angular-size-division-and-area', d:4 },
+    'explain':        { skill:'mechanism-explanation',    d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); } if(n===2) bsDraw(); if(n===3) eyDraw(); if(n===4) fiDraw(); if(n===7) hdDraw(); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+/* ---------- hero guess: how big is the hole in your eye? ----------
+   Four choices. The right answer: 3 — big: about 5.5° wide, so from about 2 m it swallows a whole head. */
+const SCALE_ANS = 3;
+const fmtSigns = n => ({1:'אין שום חור',2:'חור זעיר',3:'חור גדול',4:'חצי מכל מה שרואים'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> החור גדול כל כך, שמשני מטרים הוא מעלים ראש שלם. אז למה אף פעם לא ראיתם אותו? על זה השיעור.';
+const SCALE_FB = {
+  1: '<span class="pill-bad">יש חור — בכל עין.</span> והוא בכלל לא קטן: משני מטרים הוא מעלים ראש שלם. למה לא ראיתם אותו אף פעם? על זה השיעור.',
+  2: '<span class="pill-bad">גדול הרבה יותר.</span> משני מטרים החור מעלים ראש שלם של אדם. ואיך לא שמתם לב? על זה השיעור.',
+  3: SCALE_FB_RIGHT,
+  4: '<span class="pill-bad">לא עד כדי כך.</span> החור הוא כתם אחד, בצד — אבל גדול מספיק כדי להעלים ראש שלם משני מטרים. איך זה קורה? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(24,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI, DEG = PI/180;
+/* ---------- this edition's colours ---------- */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const GOLDT = () => isDark() ? '#F6C454' : '#8A5410';     // gold for text
+const BLUE = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+const INK = () => css('--ink');
+const GREY = () => isDark() ? '#8C90AE' : '#9AA0B4';
+const RIVER = () => isDark() ? '#1B4F7E' : '#3E9BD6';
+const LANDC = () => isDark() ? '#5E4E33' : '#E3CC9E';
+const WOOD = () => isDark() ? '#B07A55' : '#8C5A3C';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+function xMath(c,txt,x,y,size,col,align){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+const RM = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+const $ = id => document.getElementById(id);
+/* canvas pointer → canvas coordinates */
+function cvPoint(cv, e){ const r=cv.getBoundingClientRect(); return { x:(e.clientX-r.left)*cv.width/r.width, y:(e.clientY-r.top)*cv.height/r.height }; }
+function segDist(p,a,b){ const dx=b.x-a.x, dy=b.y-a.y, L=dx*dx+dy*dy; let t=L?((p.x-a.x)*dx+(p.y-a.y)*dy)/L:0; t=clamp(t,0,1); const x=a.x+t*dx-p.x, y=a.y+t*dy-p.y; return Math.sqrt(x*x+y*y); }
+const lerp=(a,b,t)=>a+(b-a)*t;
+/* ---------- this edition's extra colours ---------- */
+const CARD = () => isDark() ? '#2A2F55' : '#FFFDF6';
+const WALL = () => isDark() ? '#2B3156' : '#EFE6D2';
+const SKIN = () => isDark() ? '#D9A27E' : '#E8B98A';
+const SHIRT = () => isDark() ? '#4F86B8' : '#2F6F9F';
+const RECEP = () => isDark() ? '#F6C454' : '#E8A33D';
+const WIRE = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+function xStar(c,x,y,r,col){ c.fillStyle=col; c.beginPath(); for(let i=0;i<10;i++){ const a=-PI/2+i*PI/5, rr=i%2?r*0.45:r; c.lineTo(x+rr*Math.cos(a), y+rr*Math.sin(a)); } c.closePath(); c.fill(); }
+function xCross(c,x,y,s,col,w){ c.strokeStyle=col; c.lineWidth=w||10; c.lineCap='round'; c.beginPath(); c.moveTo(x-s,y-s); c.lineTo(x+s,y+s); c.moveTo(x+s,y-s); c.lineTo(x-s,y+s); c.stroke(); }
+const fmt1 = v => (Math.round(v*10)/10).toString();
+
+/* ---------- step 2 (interactive 1): Mariotte's test seen from above ----------
+   Right eye, left eye closed. Cross straight ahead, red dot 8 cm to its right. The dot vanishes when its ray
+   lands on the optic disc: 15° ± 2.75° from the line of sight → atan(8/d) in [12.25°, 17.75°] → d ≈ 25–36 cm.
+   Inscribed angle: a ray through the pupil (top of the eye circle) at θ from the axis lands 2θ (central angle) from the fovea. */
+const bsCv=$('bsCv'), bsctx=bsCv.getContext('2d');
+const BS={ opened:0, pred:-1, d:50, revealed:0, gone:0, near:0, far:0 };
+const BS_GAP=8, BS_C=15, BS_HW=2.75;
+function bsAngle(d){ return Math.atan(BS_GAP/d)/DEG; }
+function bsHidden(d){ const a=bsAngle(d); return a>=BS_C-BS_HW && a<=BS_C+BS_HW; }
+function bsPredict(k){ BS.pred=k; segOn('bsP',3,k); WOW.emit('item', { id:'find:predict', kind:'quick', correct:k===1, attempt: wowTry('find:predict') });
+  bsMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את הסליידר: קרבו והרחיקו את הכרטיס.'; bsUpdate(); }
+function bsSet(){ if(BS.pred<0){ bsD.value=BS.d; predictFirst(bsMsg,'הזיזו'); return; }
+  if(!BS.opened){ BS.opened=1; WOW.emit('open', { id:'find' }); }
+  BS.d=+bsD.value; if(bsHidden(BS.d)) BS.gone=1; if(BS.d<=22) BS.near=1; if(BS.d>=40) BS.far=1;
+  const a=bsAngle(BS.d);
+  bsMsg.innerHTML = bsHidden(BS.d) ? '<b>העיגול נעלם!</b> האור שלו נוחת בדיוק על הכתם הצהוב — על החור.'
+    : a>BS_C ? 'הכרטיס קרוב: האור מהעיגול נוחת <b>מעבר</b> לחור. הרחיקו קצת.'
+    : 'הכרטיס רחוק: האור מהעיגול נוחת <b>בין האמצע לחור</b>. קרבו קצת.';
+  bsUpdate(); }
+function bsUpdate(){ const known=BS.pred>=0;
+  bsOutD.innerHTML = known ? '<span class="num">'+BS.d+'</span> ס״מ' : '?';
+  bsOutV.innerHTML = known ? (bsHidden(BS.d) ? '<span class="pill-bad">נעלם!</span>' : 'נראה') : '?';
+  bsDraw(); bsCheck(); }
+function bsCheck(){ if(BS.pred>=0 && !BS.revealed && BS.gone && BS.near && BS.far){ BS.revealed=1; bsReveal.hidden=false; bsAfter.hidden=false; hint2.textContent='ענו על השאלה כדי להמשיך.'; } }
+function bsDraw(){
+  const c=bsctx, W=bsCv.width, H=bsCv.height, known=BS.pred>=0, d=BS.d, hid=known && bsHidden(d);
+  c.clearRect(0,0,W,H);
+  /* top: what the right eye sees */
+  xLabel(c,'מה רואה העין הימנית',320,30,22,INK(),.9);
+  c.fillStyle=CARD(); c.strokeStyle=GREY(); c.lineWidth=3; c.beginPath(); c.roundRect(60,58,520,150,16); c.fill(); c.stroke();
+  xCross(c,200,133,30,INK(),12);
+  if(!hid){ c.fillStyle=DANG(); c.beginPath(); c.arc(440,133,36,0,2*PI); c.fill(); }
+  else { xLabel(c,'נעלם!',440,133,26,DANG(),.95); }
+  /* divider */
+  c.strokeStyle=GREY(); c.lineWidth=2; c.setLineDash([8,8]); c.beginPath(); c.moveTo(20,228); c.lineTo(620,228); c.stroke(); c.setLineDash([]);
+  xLabel(c,'מבט מלמעלה',540,258,22,INK(),.9);
+  /* the eye (drawn big; the card distance is to scale: 4.2 px per cm) */
+  const S=4.2, EX=250, EY=590, R=92, PY=EY-R;   // pupil at the top of the eye circle
+  const cy=PY-d*S, cx=EX, dx=EX+BS_GAP*S;
+  /* optic nerve leaving from the disc (nasal side = left) */
+  const phi0=2*(BS_C)*DEG, dpx=EX-R*Math.sin(phi0), dpy=EY+R*Math.cos(phi0);
+  c.strokeStyle=isDark()?'#8A7047':'#D9C49A'; c.lineWidth=26; c.lineCap='butt'; c.beginPath(); c.moveTo(dpx+4,dpy-4); c.lineTo(dpx-90,dpy+30); c.stroke();
+  c.fillStyle=isDark()?'#232747':'#FFFFFF'; c.strokeStyle=INK(); c.lineWidth=4; c.beginPath(); c.arc(EX,EY,R,0,2*PI); c.fill(); c.stroke();
+  /* the retina: a thin red-pink lining; the disc: the arc 2·(15 ± 2.75)° from the fovea */
+  c.strokeStyle=isDark()?'#C86A7A':'#E9A5A0'; c.lineWidth=8; c.beginPath(); c.arc(EX,EY,R-5, 0.15*PI, 0.85*PI); c.stroke();
+  c.lineCap='butt'; c.strokeStyle=INK(); c.lineWidth=26; c.beginPath(); c.arc(EX,EY,R-6, PI/2+2*(BS_C-BS_HW)*DEG-0.03, PI/2+2*(BS_C+BS_HW)*DEG+0.03); c.stroke();
+  c.strokeStyle=GOLD(); c.lineWidth=20; c.beginPath(); c.arc(EX,EY,R-6, PI/2+2*(BS_C-BS_HW)*DEG, PI/2+2*(BS_C+BS_HW)*DEG); c.stroke();
+  /* lens */
+  c.fillStyle=BLUE(); c.beginPath(); c.ellipse(EX,PY+8,24,10,0,0,2*PI); c.fill();
+  /* leader from the label to the hole */
+  c.strokeStyle=GOLDT(); c.lineWidth=3; c.beginPath(); c.moveTo(100,548); c.lineTo(dpx-6,dpy-10); c.stroke();
+  if(known){
+    c.strokeStyle=INK(); c.lineWidth=6; c.beginPath(); c.moveTo(cx-50,cy); c.lineTo(dx+50,cy); c.stroke();
+    xCross(c,cx,cy-16,10,INK(),5);
+    c.fillStyle=DANG(); c.beginPath(); c.arc(dx,cy-16,9,0,2*PI); c.fill();
+    /* rays: cross → pupil → fovea; dot → pupil → retina */
+    c.lineWidth=5; c.strokeStyle=GOOD(); c.beginPath(); c.moveTo(cx,cy); c.lineTo(EX,EY+R); c.stroke();
+    const th=Math.atan(BS_GAP/d), hx=EX-R*Math.sin(2*th), hy=EY+R*Math.cos(2*th);
+    c.strokeStyle=DANG(); c.beginPath(); c.moveTo(dx,cy); c.lineTo(EX,PY); c.lineTo(hx,hy); c.stroke();
+    c.fillStyle=hid?GOLD():DANG(); c.strokeStyle=INK(); c.lineWidth=3; c.beginPath(); c.arc(hx,hy,10,0,2*PI); c.fill(); c.stroke();
+    c.fillStyle=GOOD(); c.beginPath(); c.arc(EX,EY+R,8,0,2*PI); c.fill();
+    /* distance bracket */
+    c.strokeStyle=GREY(); c.lineWidth=3; c.beginPath(); c.moveTo(EX+110,cy); c.lineTo(EX+110,PY); c.moveTo(EX+100,cy); c.lineTo(EX+120,cy); c.moveTo(EX+100,PY); c.lineTo(EX+120,PY); c.stroke();
+    xLabel(c, d+' ס״מ', EX+190, (cy+PY)/2, 26, INK(), .95);
+  } else {
+    xLabel(c,'נחשו קודם',360,400,30,DANG(),.95);
+  }
+  xLabel(c,'החור',90,530,26,GOLDT(),.95);
+  xLabel(c,'העין',EX+150,EY+30,24,INK(),.9);
+}
+
+/* ---------- step 3 (interactive 2): inside the retina — us vs the octopus ----------
+   Us: wires (blue) in front of the receptors (yellow), all diving through one gap = the optic nerve → no receptors there.
+   Octopus: receptors face the light, wires leave from behind → no gap. */
+const eyCv=$('eyCv'), eyctx=eyCv.getContext('2d');
+const EYS={ opened:0, pred:-1, mode:0, x:15, revealed:0, hole:0, oct:0 };
+const HOLE_X=330, HOLE_W=40;
+function eyPredict(k){ EYS.pred=k; segOn('eyP',2,k); WOW.emit('item', { id:'inside:predict', kind:'quick', correct:k===1, attempt: wowTry('inside:predict') });
+  eyMsg.innerHTML='רשמנו את הניחוש. הזיזו את קרן האור, ובדקו את שתי העיניים.'; eyUpdate(); }
+function eyShow(k){ if(EYS.pred<0){ predictFirst(eyMsg,'החליפו'); return; } EYS.mode=k; segOn('eyS',2,k); if(!EYS.opened){ EYS.opened=1; WOW.emit('open', { id:'inside' }); } eyUpdate(); }
+function eySet(){ if(EYS.pred<0){ eyX.value=EYS.x; predictFirst(eyMsg,'הזיזו'); return; } if(!EYS.opened){ EYS.opened=1; WOW.emit('open', { id:'inside' }); } EYS.x=+eyX.value; eyUpdate(); }
+function beamX(){ return 40+EYS.x*5.6; }
+function inHole(){ return EYS.mode===0 && Math.abs(beamX()-HOLE_X)<HOLE_W; }
+function eyUpdate(){ if(EYS.pred>=0){
+    if(inHole()) EYS.hole=1;
+    if(EYS.mode===1 && EYS.opened) EYS.oct=1;
+    eyMsg.innerHTML = EYS.mode===0 ? (inHole() ? '<b>כאן אין תאי אור.</b> יש רק חוטים שיורדים אל עצב הראייה — האור עובר ולא נקלט. זה החור.' : 'האור עובר דרך החוטים השקופים ופוגע בתא אור — הוא נקלט, וההודעה רצה בחוט.')
+      : 'בעין של התמנון תאי האור למעלה, והחוטים יוצאים מאחוריהם. הזיזו את הקרן לכל מקום: אין פתח.'; }
+  eyDraw(); eyCheck(); }
+function eyCheck(){ if(EYS.pred>=0 && !EYS.revealed && EYS.hole && EYS.oct){ EYS.revealed=1; eyReveal.hidden=false; eyAfter.hidden=false; hint3.textContent='ענו על השאלה כדי להמשיך.'; } }
+function eyDraw(){
+  const c=eyctx, W=eyCv.width, H=eyCv.height, known=EYS.pred>=0, oct=EYS.mode===1, bx=beamX();
+  c.clearRect(0,0,W,H);
+  /* light from above */
+  c.fillStyle=isDark()?'#3A2A12':'#FBEBD0'; c.fillRect(0,0,W,70);
+  /* the retina slab */
+  c.fillStyle=isDark()?'#3A2030':'#F6DCD3'; c.fillRect(20,110,600,360);
+  const xs=[]; for(let x=48;x<=600;x+=36){ if(oct || Math.abs(x-HOLE_X)>HOLE_W) xs.push(x); }
+  const hitX = xs.reduce((b,x)=>Math.abs(x-bx)<Math.abs(b-bx)?x:b, xs[0]);
+  const hit = known && !(EYS.mode===0 && inHole()) && Math.abs(hitX-bx)<20;
+  /* beam */
+  if(known){ c.fillStyle=isDark()?'rgba(246,196,84,.35)':'rgba(232,163,61,.35)'; const bottom = oct?150:(inHole()?600:330); c.fillRect(bx-14,0,28,bottom); }
+  if(!oct){
+    /* wires in front, diving through the gap */
+    xs.forEach((x,i)=>{ const side=x<HOLE_X?-1:1, k=Math.abs(x-HOLE_X), yw=150+ (k/300)*70, hx=HOLE_X+side*(6+Math.min(30,k/10));
+      c.strokeStyle=(hit&&x===hitX)?GOLD():WIRE(); c.lineWidth=(hit&&x===hitX)?6:3;
+      c.beginPath(); c.moveTo(x,330); c.lineTo(x,yw); c.lineTo(hx,yw); c.lineTo(hx,600); c.stroke(); });
+    /* receptors pointing down */
+    xs.forEach(x=>{ c.fillStyle=(hit&&x===hitX)?GOOD():RECEP(); c.strokeStyle=INK(); c.lineWidth=2; c.beginPath(); c.roundRect(x-11,330,22,90,8); c.fill(); c.stroke(); });
+    /* the gap */
+    c.strokeStyle=DANG(); c.lineWidth=3; c.setLineDash([8,6]); c.beginPath(); c.roundRect(HOLE_X-HOLE_W+4,300,2*HOLE_W-8,150,10); c.stroke(); c.setLineDash([]);
+    xLabel(c,'החוטים',520,190,22,WIRE(),.92);
+    xLabel(c,'תאי אור',120,375,22,INK(),.92);
+    xLabel(c,'החור',HOLE_X,490,24,DANG(),.95);
+    xLabel(c,'עצב הראייה',HOLE_X+150,560,22,INK(),.92);
+  } else {
+    /* receptors at the top, facing the light */
+    xs.forEach(x=>{ c.strokeStyle=(hit&&x===hitX)?GOLD():WIRE(); c.lineWidth=(hit&&x===hitX)?6:3; c.beginPath(); c.moveTo(x,240); c.lineTo(x,420); c.lineTo(lerp(x,HOLE_X,.85),520); c.lineTo(lerp(x,HOLE_X,.95),600); c.stroke(); });
+    xs.forEach(x=>{ c.fillStyle=(hit&&x===hitX)?GOOD():RECEP(); c.strokeStyle=INK(); c.lineWidth=2; c.beginPath(); c.roundRect(x-11,150,22,90,8); c.fill(); c.stroke(); });
+    xLabel(c,'תאי אור',120,280,22,INK(),.92);
+    xLabel(c,'החוטים — מאחור',470,350,22,WIRE(),.92);
+    xLabel(c,'אין חור',HOLE_X+170,555,24,GOOD(),.95);
+  }
+  xLabel(c,'האור מגיע מכאן',320,36,22,INK(),.9);
+  if(known){ if(EYS.mode===0 && inHole()) xLabel(c,'לא נקלט!',bx,96,24,DANG(),.97); else if(hit) xLabel(c,'נקלט!',bx,96,24,GOOD(),.97); }
+  else xLabel(c,'נחשו קודם',320,300,30,DANG(),.95);
+  xLabel(c, oct?'העין של התמנון':'העין שלנו', 120, 560, 24, INK(), .95);
+}
+
+/* ---------- step 4 (interactive 3): the brain's patch (filling-in) ---------- */
+const fiCv=$('fiCv'), fictx=fiCv.getContext('2d');
+const FI={ opened:0, pred:-1, pic:0, view:0, revealed:0, brain:0, star:0 };
+const HX=420, HYc=300, HRX=78, HRY=104;
+function fiPredict(k){ FI.pred=k; segOn('fiP',3,k); WOW.emit('item', { id:'patch:predict', kind:'quick', correct:k===2, attempt: wowTry('patch:predict') });
+  fiMsg.innerHTML='רשמנו את הניחוש. עכשיו לחצו על "מה המוח מראה", ונסו את כל התמונות.'; fiUpdate(); }
+function fiPic(k){ if(FI.pred<0){ predictFirst(fiMsg,'בחרו'); return; } FI.pic=k; segOn('fiS',4,k); if(!FI.opened){ FI.opened=1; WOW.emit('open', { id:'patch' }); } fiUpdate(); }
+function fiView(k){ if(FI.pred<0){ predictFirst(fiMsg,'לחצו'); return; } FI.view=k; if(!FI.opened){ FI.opened=1; WOW.emit('open', { id:'patch' }); } fiUpdate(); }
+function fiUpdate(){ if(FI.pred>=0){
+    if(FI.view===1){ FI.brain=1; if(FI.pic===3) FI.star=1; }
+    const M = [ ['בפסים יש חור: העין לא שולחת שם כלום.','הפסים ממשיכים בתוך החור — המוח המשיך אותם.'],
+                ['במשבצות יש חור: אין שם מידע.','המשבצות ממשיכות — המוח "העתיק" את מה שמסביב.'],
+                ['הקו נקטע: באמצע אין מידע.','הקו שלם! המוח חיבר את שני החלקים.'],
+                ['הכוכב כולו בתוך החור — העין לא שולחת עליו שום מידע.','הכוכב נעלם! למוח אין שום רמז שהוא שם, אז הוא צייר רקע.'] ];
+    fiMsg.innerHTML = M[FI.pic][FI.view]; }
+  fiV0.classList.toggle('on', FI.pred>=0 && FI.view===0); fiV1.classList.toggle('on', FI.pred>=0 && FI.view===1);
+  fiDraw(); fiCheck(); }
+function fiCheck(){ if(FI.pred>=0 && !FI.revealed && FI.brain && FI.star){ FI.revealed=1; fiReveal.hidden=false; fiAfter.hidden=false; hint4.textContent='ענו על השאלה כדי להמשיך.'; } }
+function fiPattern(c,pic,withStar){
+  const W=640,H=560;
+  if(pic===0){ for(let x=0;x<W;x+=40){ c.fillStyle=((x/40)%2)?(isDark()?'#1E3650':'#DCEAF5'):(isDark()?'#2F6F9F':'#7FB3DD'); c.fillRect(x,0,40,H); } }
+  else if(pic===1){ for(let y=0;y<H;y+=56) for(let x=0;x<W;x+=56){ c.fillStyle=(((x+y)/56)%2)?(isDark()?'#173A2C':'#DDF0E0'):(isDark()?'#2F7D4F':'#7FD09A'); c.fillRect(x,y,56,56); } }
+  else { c.fillStyle=isDark()?'#232747':'#F8F5EC'; c.fillRect(0,0,W,H);
+    if(pic===2){ c.strokeStyle=INK(); c.lineWidth=16; c.lineCap='round'; c.beginPath(); c.moveTo(40,HYc); c.lineTo(600,HYc); c.stroke(); }
+    if(pic===3 && withStar) xStar(c,HX,HYc,42,GOLD()); }
+}
+function fiDraw(){
+  const c=fictx, known=FI.pred>=0, brain=known && FI.view===1;
+  c.clearRect(0,0,640,560);
+  fiPattern(c, FI.pic, !brain);
+  /* fixation mark */
+  c.fillStyle=isDark()?'#1B1F3C':'#FFFFFF'; c.beginPath(); c.arc(140,150,30,0,2*PI); c.fill(); xCross(c,140,150,14,INK(),7);
+  xLabel(c,'מסתכלים כאן',140,212,22,INK(),.95);
+  if(!brain){
+    c.fillStyle=isDark()?'#5A5F80':'#9AA0B4'; c.beginPath(); c.ellipse(HX,HYc,HRX,HRY,0,0,2*PI); c.fill();
+    c.strokeStyle=INK(); c.lineWidth=3; c.stroke();
+    c.font='800 '+(70*LS())+'px Rubik, Arial'; c.textAlign='center'; c.textBaseline='middle'; c.fillStyle='#FFFFFF'; c.fillText('?',HX,HYc);
+    xLabel(c,'אין כאן מידע',HX,HYc+HRY+34,22,INK(),.95);
+  } else {
+    c.strokeStyle=INK(); c.lineWidth=3; c.setLineDash([10,8]); c.beginPath(); c.ellipse(HX,HYc,HRX,HRY,0,0,2*PI); c.stroke(); c.setLineDash([]);
+    xLabel(c,'כאן המוח צייר',HX,HYc+HRY+34,22,INK(),.95);
+  }
+  xLabel(c, !known ? 'נחשו קודם' : brain ? 'מה המוח מראה' : 'מה העין שולחת', 320, 520, 26, !known?DANG():INK(), .96);
+}
+
+/* ---------- step 7 (interactive 4): the vanishing head ----------
+   16 px per degree. Fixation star at x=150; the hole 15° to the right and 1.5° below, 5.5° wide and 7.5° tall.
+   Head 16 cm wide, 20 cm tall; whatever falls inside the hole is painted as wall (the brain's patch). */
+const hdCv=$('hdCv'), hdctx=hdCv.getContext('2d');
+const HD={ opened:0, pred:-1, d:80, show:1, revealed:0, gone:0, near:0 };
+const PXD=16, SX=150, SY=190, BX=SX+15*PXD, BY=SY+1.5*PXD, BRX=2.75*PXD, BRY=3.75*PXD;
+const angPx = (cm,d) => 2*Math.atan(cm/2/d)/DEG*PXD;
+function hdGone(d){ return angPx(16,d)/2<=BRX && angPx(20,d)/2<=BRY; }
+function hdPredict(k){ HD.pred=k; segOn('hdP',3,k); WOW.emit('item', { id:'head:predict', kind:'quick', correct:k===1, attempt: wowTry('head:predict') });
+  hdMsg.innerHTML='רשמנו את הניחוש. עכשיו הרחיקו את החבר לאט.'; hdUpdate(); }
+function hdHole(){ HD.show=HD.show?0:1; hdH.textContent = HD.show ? 'הסתירו את החור' : 'הראו את החור'; hdDraw(); }
+function hdSet(){ if(HD.pred<0){ hdD.value=HD.d; predictFirst(hdMsg,'הזיזו'); return; }
+  if(!HD.opened){ HD.opened=1; WOW.emit('open', { id:'head' }); }
+  HD.d=+hdD.value; if(hdGone(HD.d)) HD.gone=1; if(HD.d<=120) HD.near=1;
+  const hw=angPx(16,HD.d)/2;
+  hdMsg.innerHTML = hdGone(HD.d) ? '<b>הראש נעלם כולו!</b> הוא קטן מהחור, והמוח צייר במקומו קיר.' : hw<=BRX*1.6 ? 'חלק מהראש כבר בתוך החור — והחלק הזה נעלם. המשיכו.' : 'החבר קרוב, והראש שלו גדול בהרבה מהחור.';
+  hdUpdate(); }
+function hdUpdate(){ const known=HD.pred>=0;
+  hdOutD.innerHTML = known ? '<span class="num">'+fmt1(HD.d/100)+'</span> מ׳' : '?';
+  hdOutW.innerHTML = known ? 'בערך <span class="num">'+Math.round(0.096*HD.d)+'</span> ס״מ' : '?';
+  hdH.textContent = HD.show ? 'הסתירו את החור' : 'הראו את החור';
+  hdDraw(); hdCheck(); }
+function hdCheck(){ if(HD.pred>=0 && !HD.revealed && HD.gone && HD.near){ HD.revealed=1; hdReveal.hidden=false; hdAfter.hidden=false; hint7.hidden=true; next7.disabled=false; } }
+function hdFriend(c,d){
+  const hw=angPx(16,d)/2, hh=angPx(20,d)/2, sh=angPx(44,d)/2, neck=angPx(10,d), body=angPx(70,d);
+  const top=BY+hh+neck*0.6;
+  c.fillStyle=SHIRT(); c.beginPath(); c.roundRect(BX-sh, top, 2*sh, body, Math.min(40,sh*0.5)); c.fill();
+  c.fillStyle=SKIN(); c.fillRect(BX-hw*0.35, BY+hh*0.8, hw*0.7, neck);
+  c.beginPath(); c.ellipse(BX,BY,hw,hh,0,0,2*PI); c.fill();
+  c.fillStyle=isDark()?'#5E4E33':'#6B4A2E'; c.beginPath(); c.ellipse(BX,BY-hh*0.55,hw*1.02,hh*0.5,0,PI,2*PI); c.fill();
+  c.fillStyle='#1B1F33'; c.beginPath(); c.arc(BX-hw*0.38,BY-hh*0.05,Math.max(2,hw*0.09),0,2*PI); c.arc(BX+hw*0.38,BY-hh*0.05,Math.max(2,hw*0.09),0,2*PI); c.fill();
+  c.strokeStyle='#1B1F33'; c.lineWidth=Math.max(2,hw*0.06); c.beginPath(); c.arc(BX,BY+hh*0.25,hw*0.4,0.15*PI,0.85*PI); c.stroke();
+}
+/* the brain's patch: the hole is filled with the colour that dominates the ring just around it (skin when the face surrounds the hole, wall once the head is inside it) */
+function hdPatch(c){
+  const x0=Math.floor(BX-BRX*1.4), y0=Math.floor(BY-BRY*1.4), w=Math.ceil(BRX*2.8), h=Math.ceil(BRY*2.8);
+  const img=c.getImageData(x0,y0,w,h), D=img.data, count={};
+  for(let a=0;a<360;a+=3) for(const f of [1.04,1.08,1.12]){ const x=Math.round(BX+BRX*f*Math.cos(a*DEG))-x0, y=Math.round(BY+BRY*f*Math.sin(a*DEG))-y0; if(x<0||y<0||x>=w||y>=h) continue; const k=(y*w+x)*4, key=D[k]+','+D[k+1]+','+D[k+2]; count[key]=(count[key]||0)+1; }
+  const best=Object.entries(count).sort((p,q)=>q[1]-p[1])[0][0];
+  c.save(); c.beginPath(); c.ellipse(BX,BY,BRX,BRY,0,0,2*PI); c.clip(); c.fillStyle='rgb('+best+')'; c.fillRect(BX-BRX-2,BY-BRY-2,2*BRX+4,2*BRY+4); c.restore();
+}
+function hdDraw(){
+  const c=hdctx, W=hdCv.width, H=hdCv.height, known=HD.pred>=0, d=HD.d;
+  c.clearRect(0,0,W,H);
+  c.fillStyle=WALL(); c.fillRect(0,0,W,H);
+  c.fillStyle=isDark()?'#232747':'#DDD4BE'; c.fillRect(0,455,W,65);
+  hdFriend(c,d);
+  hdPatch(c);
+  if(HD.show){ c.strokeStyle=DANG(); c.lineWidth=4; c.setLineDash([10,8]); c.beginPath(); c.ellipse(BX,BY,BRX,BRY,0,0,2*PI); c.stroke(); c.setLineDash([]); }
+  /* fixation star */
+  xStar(c,SX,SY,26,GOLDT());
+  xLabel(c,'מסתכלים כאן',SX,SY+52,22,INK(),.95);
+  if(HD.show) xLabel(c,'החור',BX+BRX+50,BY-BRY+6,22,DANG(),.95);
+  if(!known) xLabel(c,'נחשו קודם',320,488,30,DANG(),.95);
+  else xLabel(c, hdGone(d)?'הראש נעלם!':'הראש עוד נראה', 320, 488, 26, hdGone(d)?DANG():INK(), .96);
+}
+[bsDraw, eyDraw, fiDraw, hdDraw].forEach(f=>f());
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  goalQ:{ q:'מה גילה מריוט בניסוי עם שתי הנקודות?', opts:['שהעין השמאלית חזקה יותר מהימנית','שנקודות לבנות נעלמות תמיד על קיר כהה','שיש בעין מקום אחד שלא רואה כלום','שרואים טוב יותר מרחוק'], a:2, fb:'הנקודה נעלמה בלי ששום דבר הסתיר אותה — כי האור שלה נפל על מקום בעין שלא קולט אור. זה לא קשור לעין חזקה, לצבע הקיר, או לראייה טובה מרחוק: מקרוב יותר הנקודה חזרה.', btn:'next1' },
+  beatQ:{ q:'למה העיגול נעלם רק במרחק מסוים?', opts:['כי מרחוק הוא קטן מדי לראות','כי רק אז האור שלו נוחת בדיוק על החור','כי מקרוב הוא מסנוור את העין','כי העין מתעייפת אחרי כמה שניות'], a:1, fb:'כשהכרטיס זז, משתנה המקום שבו האור מהעיגול נוחת בתחתית העין. רק בטווח צר הוא נוחת על החור. העיגול לא קטן מדי וגם לא מסנוור — מקרוב ומרחוק רואים אותו מצוין — והעייפות לא קשורה.', btn:'next2' },
+  frameQ:{ q:'למה דווקא בפתח של עצב הראייה אין תאי אור?', opts:['כי שם העין חשוכה תמיד','כי השמש שרפה את התאים שם','כי שם נמצאת העדשה','כי משם יוצאים כל החוטים מהעין, ולא נשאר מקום לתאי אור'], a:3, fb:'יותר ממיליון חוטים צוללים יחד דרך הפתח הזה אל המוח, והוא כולו חוטים. האור מגיע לשם כמו לכל מקום אחר, אף תא לא נשרף, והעדשה נמצאת בכלל בחזית העין.', btn:'next3' },
+  lineQ:{ q:'מסתכלים בעין אחת על קיר עם פסים. מה רואים במקום החור?', opts:['פסים — המוח ממשיך אותם','כתם שחור','כתם לבן','כתם בצבע של העין'], a:0, fb:'המוח משלים את החור לפי מה שמסביב, ולכן הפסים ממשיכים. אף פעם לא רואים כתם שחור או לבן — וזו בדיוק הסיבה שלא ידעתם שיש לכם חור.', btn:'next4' },
+  deepQ:{ q:'העיגול נעלם כשהכרטיס במרחק <span class="num">30</span> ס״מ. עכשיו מרחיקים את הכרטיס פי שניים. איפה צריך להיות העיגול כדי שייעלם?', opts:['באותו מקום על הכרטיס','בחצי מהרווח','רחוק פי שניים מהאיקס','זה לא משנה — הוא ייעלם בכל מקרה'], a:2, fb:'החור נמצא בזווית קבועה. כשהמרחק גדל פי שניים, גם הרווח צריך לגדול פי שניים — מ־<span class="num">8</span> ל־<span class="num">16</span> סנטימטרים — כמו בשרטוט. באותו רווח או בחצי ממנו העיגול יוצא מהחור, ולכן זה בהחלט משנה.', btn:'next5' }
+};
+const MCQ = {
+  shared:[
+    { q:'למה יש בכל עין נקודה עיוורת?', opts:['כי שם העפעף מכסה את העין','כי במקום שבו החוטים יוצאים מהעין אל המוח אין תאי אור','כי שם יש כתם לכלוך קטן על העין','כי רק לאנשים עם משקפיים יש נקודה כזו'], a:1, fb:'החוטים מכל תאי האור נאספים ויוצאים יחד בעצב הראייה, ובפתח הזה אין מקום לתאי אור. העפעף ולכלוך לא קשורים, ולכל האנשים יש נקודה עיוורת — עם משקפיים ובלי.' },
+    { q:'למה לא רואים חור, גם כשעין אחת עצומה?', opts:['כי החור זז כל הזמן ממקום למקום','כי בעין עצומה רואים דרך העפעף','כי החור מופיע רק בחושך','כי המוח ממלא את החור במה שיש מסביב'], a:3, fb:'המוח "מצייר" בחור את מה שהכי סביר שיהיה שם, לפי מה שמסביב. החור לא זז — הוא במקום קבוע — לא רואים דרך העפעף, והחור קיים גם באור.' },
+    { q:'לאיזה בעל חיים אין נקודה עיוורת, ולמה?', opts:['לתמנון — החוטים שלו יוצאים מאחורי תאי האור','לחתול — כי הוא רואה בחושך','לנשר — כי הוא רואה רחוק','לאף אחד — לכל עין יש חור'], a:0, fb:'אצל התמנון תאי האור פונים אל האור והחוטים יוצאים מאחור, ולכן אין פתח ברשתית. ראייה בחושך או למרחק לא קשורה לפתח הזה, ולכן לא כל עין חייבת חור.' }
+  ],
+  younger:[
+    { q:'עוצמים את העין השמאלית ומסתכלים בעין הימנית על האיקס. איפה נמצא החור?', opts:['משמאל לאיקס','בדיוק על האיקס','מימין לאיקס','מעל הראש'], a:2, fb:'בניסוי, העיגול שמימין לאיקס נעלם — כי בעין הימנית החור נמצא בצד ימין. בדיוק על האיקס רואים הכי חד, ומשמאל או למעלה העיגול לא נעלם.' }
+  ],
+  older:[
+    { q:'בכרטיס אחד הרווח בין האיקס לעיגול <span class="num">8</span> ס״מ, והעיגול נעלם במרחק <span class="num">30</span> ס״מ. בכרטיס אחר הרווח <span class="num">4</span> ס״מ. באיזה מרחק העיגול שלו ייעלם?', opts:['<span class="num">60</span> ס״מ','<span class="num">15</span> ס״מ','<span class="num">30</span> ס״מ','<span class="num">26</span> ס״מ'], a:1, fb:'הזווית קבועה, ולכן היחס בין המרחק לרווח נשאר קבוע: רווח קטן פי שניים — מרחק קטן פי שניים, <span class="math">30 ÷ 2 = 15</span>. <span class="num">60</span> הוא הכיוון ההפוך, <span class="num">30</span> מתעלם מהשינוי ברווח, ו־<span class="num">26</span> מחסר את ההפרש במקום לחלק.' }
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'אור מהעיגול נכנס לעין דרך האישון ועובר בעדשה.'},
+  {id:'b', t:'האור עובר דרך שכבה של חוטים שקופים, שמונחים לפני תאי האור.'},
+  {id:'c', t:'האור פוגע בתאי האור, והם הופכים אותו להודעה חשמלית.'},
+  {id:'d', t:'ההודעות רצות בחוטים, וכל החוטים נאספים למקום אחד.'},
+  {id:'e', t:'החוטים יוצאים מהעין יחד, בעצב הראייה — ושם אין תאי אור.'},
+  {id:'f', t:'במוח, החור מתמלא במה שיש מסביב, ואנחנו "רואים".'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלכם: ' : '<span class="pill-ok">בדיוק ככה!</span>')+' אישון ועדשה ← דרך החוטים ← תאי האור ← החוטים נאספים ← עצב הראייה ← המוח משלים. האור חייב לעבור קודם דרך החוטים, כי הם מונחים לפני תאי האור — ורק בסוף המוח מרכיב את התמונה.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) אצלנו החוטים מונחים <b>לפני</b> תאי האור, אז האור פוגש אותם ראשון. (2) המוח יכול למלא את החור רק אחרי שההודעות הגיעו אליו.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && Math.abs(a-11)<0.11, bOk = hasB && Math.abs(b-165)<1.01;   /* 5.5 ÷ 0.5 = 11 moons across; 7.5 ÷ 0.5 = 15 rows; 11 × 15 = 165 moons */
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && Math.abs(a-2.75)<0.01) ? '(א): חילקתם ב־<span class="num">2</span> במקום ב־<span class="num">0.5</span>. כמה חצאים נכנסים ב־<span class="num">5.5</span>? <span class="math">5.5 ÷ 0.5 = ?</span>'
+    : (hasA && Math.abs(a-15)<0.01) ? '(א): <span class="num">15</span> זה מספר הירחים בגובה. בשורה, לרוחב, משתמשים ב־<span class="num">5.5</span> מעלות.'
+    : (hasA && (Math.abs(a-5.5)<0.01 || Math.abs(a-6)<0.01 || Math.abs(a-5)<0.01)) ? '(א): זה רוחב החור במעלות — אבל כל ירח רחב רק חצי מעלה. אז נכנסים פי שניים ירחים.'
+    : '(א): רמז — כל ירח רחב <span class="num">0.5</span> מעלה. כמה פעמים <span class="num">0.5</span> נכנס ב־<span class="num">5.5</span>? <span class="math">5.5 ÷ 0.5 = ?</span>';
+  const hintB = (hasB && Math.abs(b-15)<0.01) ? '(ב): <span class="num">15</span> זו עמודה אחת — כמה ירחים בגובה. וכמה עמודות כאלה יש? כפלו במספר מ־(א).'
+    : (hasB && Math.abs(b-41.25)<0.01) ? '(ב): <span class="math">5.5 × 7.5 = 41.25</span> — זה השטח ב"מעלות רבועות". כל ירח תופס ריבוע של <span class="math">0.5 × 0.5 = 0.25</span>. עוד צעד: חלקו.'
+    : (hasB && Math.abs(b-26)<0.01) ? '(ב): חיברתם שורה ועמודה. במלבן יש <b>שורות על גבי שורות</b> — כופלים.'
+    : (hasB && Math.abs(b-22)<0.01) ? '(ב): אלה רק שתי שורות. כמה שורות נכנסות לגובה של <span class="num">7.5</span> מעלות?'
+    : '(ב): רמז — קודם: כמה ירחים נכנסים לגובה? <span class="math">7.5 ÷ 0.5 = ?</span> אחר כך: <span class="math">(ירחים בשורה) × (מספר השורות)</span>.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">5.5 ÷ 0.5 = 11</span> ירחים בשורה. (ב) <span class="math">7.5 ÷ 0.5 = 15</span> שורות, ו־<span class="math">11 × 15 = 165</span> ירחים. בדיקה בדרך אחרת: <span class="math">41.25 ÷ 0.25 = 165</span>. יותר ממאה וחמישים ירחים נכנסים למלבן. החור עצמו מעוגל, ולכן נכנסים אליו קצת פחות — בערך <span class="num">130</span>. ועדיין: אף פעם לא ראיתם אותו! עכשיו פתחו את השאלה למחשבה שלמטה.'
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">11</span> ירחים.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — <span class="num">165</span> ירחים.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const mr=+numAdvR.value, mn=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && mr>=27.4 && mr<=28.1), yOk=(hasY && mn>=2.55 && mn<=2.8), sc = dOk&&yOk?2:((dOk||yOk)?1:0);   /* 3.7 × 7.5 = 27.75 cm; 0.096 × 27.75 = 2.664 ≈ 2.7 cm */
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && Math.abs(mr-2.03)<0.05) ? 'ב־(א): חילקתם. המרחק <b>גדול</b> מהרווח — פי <span class="num">3.7</span> — אז כופלים.'
+      : (hasD && Math.abs(mr-11.2)<0.05) ? 'ב־(א): חיברתם. "פי <span class="num">3.7</span>" פירושו כפל: <span class="math">3.7 × 7.5</span>.'
+      : (hasD && Math.abs(mr-277.5)<1) ? 'ב־(א): כמעט! בדקו איפה הנקודה העשרונית.'
+      : (hasD && Math.abs(mr-30)<0.01) ? 'ב־(א): <span class="num">30</span> זה המרחק לרווח של <span class="num">8</span> ס״מ. כאן הרווח <span class="num">7.5</span>.'
+      : 'רמז ל־(א): <span class="math">מרחק ≈ 3.7 × רווח = 3.7 × 7.5</span>.';
+    const hintY = (hasY && Math.abs(mn-0.72)<0.02) ? 'ב־(ב): <span class="math">0.096 × 7.5</span> משתמש ברווח. החור נמדד <b>במרחק מהעין</b> — השתמשו בתשובה של (א).'
+      : (hasY && mn>=25 && mn<=28.5) ? 'ב־(ב): זה המרחק מ־(א). עכשיו עוד צעד: כפלו אותו ב־<span class="num">0.096</span>.'
+      : (hasY && mn>=280 && mn<=300) ? 'ב־(ב): חילקתם ב־<span class="num">0.096</span>. כאן כופלים: <span class="math">0.096 × מרחק</span>.'
+      : 'רמז ל־(ב): <span class="math">רוחב ≈ 0.096 × (המרחק מ־א)</span>.';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">3.7 × 7.5 = 27.75</span> סנטימטרים — בערך <span class="num">28</span>. (ב) <span class="math">0.096 × 27.75 ≈ 2.7</span> סנטימטרים. כלומר, על הכרטיס החור מכסה עיגול ברוחב של כמעט <span class="num">3</span> סנטימטרים — ולכן עיגול אדום קטן נעלם בו כולו.'
+      : dOk ? '<span class="pill-ok">(א) נכון — כ־<span class="num">27.75</span> ס״מ.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">2.7</span> ס״מ.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-30)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">300 ÷ 10 = 30</span> סנטימטרים — רחב יותר מראש שלם. מהמרחק הזה כל הראש שלה נעלם בחור!':(Math.abs(v-3)<0.01||Math.abs(v-0.3)<0.01?'<span class="pill-bad">כמעט!</span> השאלה בסנטימטרים. מתחילים מ־<span class="num">300</span> סנטימטרים, ומחלקים ב־<span class="num">10</span>.':(Math.abs(v-3000)<0.01?'<span class="pill-bad">כמעט!</span> כפלתם ב־<span class="num">10</span>. עשירית פירושה לחלק ב־<span class="num">10</span>.':(Math.abs(v-290)<0.01?'<span class="pill-bad">עוד לא.</span> הורדתם <span class="num">10</span>. עשירית פירושה לחלק ב־<span class="num">10</span>, לא להוריד.':'<span class="pill-bad">עוד לא.</span> רמז: <span class="math">300 ÷ 10 = ?</span>'))); }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=v>=32.5&&v<=34; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">3.7 × 9 = 33.3</span> סנטימטרים — בערך <span class="num">33</span>. רווח גדול יותר, ולכן גם מרחק גדול יותר מה־<span class="num">30</span> של הכרטיס עם <span class="num">8</span> ס״מ.':(Math.abs(v-2.43)<0.05?'<span class="pill-bad">חילקתם.</span> המרחק גדול פי <span class="num">3.7</span> מהרווח — אז כופלים.':(Math.abs(v-12.7)<0.05?'<span class="pill-bad">חיברתם.</span> "פי <span class="num">3.7</span>" פירושו כפל: <span class="math">3.7 × 9</span>.':(Math.abs(v-333)<1?'<span class="pill-bad">כמעט!</span> בדקו איפה הנקודה העשרונית.':(Math.abs(v-30)<0.01?'<span class="pill-bad">עוד לא.</span> <span class="num">30</span> הוא המרחק לרווח של <span class="num">8</span>. כאן הרווח <span class="num">9</span>.':'<span class="pill-bad">עוד לא.</span> רמז: <span class="math">3.7 × 9 = ?</span>')))); }
+  fb.classList.add('show'); }
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שבתחתית העין יש תאים שקולטים אור, ושמכל תא יוצא חוט אל המוח.',
+  'הסברתי שכל החוטים יוצאים מהעין יחד, במקום אחד — עצב הראייה.',
+  'הסברתי שבמקום הזה אין תאי אור, ולכן מה שנופל עליו לא נראה.',
+  'הסברתי למה לא שמים לב: העין השנייה רואה את מה שחסר, והמוח ממלא את החור במה שיש מסביב.',
+  'הוספתי פרט מדויק: מריוט גילה את זה בשנת <span class="num">1668</span> בערך; יותר ממיליון חוטים; החור רחב בערך <span class="num">5.5</span> מעלות ומעלים ראש משני מטרים; או שלתמנון אין חור.',
+];
+const MODEL='בתחתית העין, ברשתית, יש כמעט מאה מיליון תאים שקולטים אור, ומכל אחד יוצא חוט שמעביר הודעות אל המוח. אצלנו החוטים עוברים לפני תאי האור, ובסוף כולם — יותר ממיליון — יוצאים מהעין יחד, במקום אחד: עצב הראייה. בפתח הזה אין מקום לתאי אור, ולכן מה שהאור שלו נוחת שם לא נראה בכלל — זו הנקודה העיוורת. אנחנו לא שמים לב אליה, כי כששתי העיניים פתוחות כל עין רואה את מה שחסר לשנייה, וגם עם עין אחת המוח ממלא את החור במה שיש מסביב — פסים ממשיכים להיות פסים, וקיר נשאר קיר.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון: תאי האור ברשתית, החוטים שעוברים לפניהם ונאספים כולם לעצב הראייה; בפתח (דיסקת עצב הראייה) אין תאי אור, ולכן מה שנופל שם לא נקלט; ושני הנימוקים לכך שלא שמים לב — העין השנייה מכסה, והמוח משלים לפי הסביבה; ולא רק "יש חור בעין" בלי הסיבה':'')
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "החור שיש לכם בעין — והמוח שמצייר עליו טלאי". הרעיונות המרכזיים: (1) בכל עין יש נקודה עיוורת: מקום ברשתית שאין בו תאי אור; את התופעה גילה אדם מריוט בצרפת, בשנת 1668 בערך (יש מקורות שכותבים 1660), בניסוי עם שתי נקודות על קיר — בעין אחת, ממרחק כשלושה מטרים, הנקודה הימנית נעלמה; (2) הסיבה: ברשתית כמעט מאה מיליון תאי אור (קנים ומדוכים), ומכל אחד יוצא חוט (סיב עצב); אצלנו החוטים עוברים לפני תאי האור, בצד שממנו בא האור, ויותר ממיליון חוטים יוצאים יחד בעצב הראייה דרך פתח אחד — שם אין תאי אור; (3) לתמנון ולדיונון אין נקודה עיוורת, כי החוטים יוצאים מאחורי תאי האור (אבולוציה מתכנסת); (4) לא שמים לב לחור כי כל עין מכסה את החור של השנייה (החור של העין הימנית בצד ימין של שדה הראייה), וגם בעין אחת המוח ממלא את החור לפי מה שמסביב — פסים ממשיכים, קו מושלם, אבל חפץ קטן שכולו בתוך החור נעלם; (5) המדידות: החור כ־15 מעלות הצידה ממקום המבט, רוחבו כ־5.5 וגובהו כ־7.5 מעלות; מרחק ≈ 3.7 × רווח (כרטיס עם רווח 8 ס״מ — נעלם בכ־30 ס״מ); רוחב החור ≈ 0.096 × מרחק (לצעירים: כלל העשירית), ולכן משני מטרים הוא מעלים ראש; (6) בטכניון (2010) הראו ארז ריבק ועמיחי לבין שתאי מילר מובילים אור דרך הרשתית כמו סיבים אופטיים. חישובי המבחן: צעיר — 300 ÷ 10 = 30 ס״מ; בוגר — 3.7 × 9 = 33.3 ס״מ; מתקדם — 3.7 × 7.5 = 27.75 ס״מ, ו־0.096 × 27.75 ≈ 2.7 ס״מ; אתגר — 5.5 ÷ 0.5 = 11 ירחים, 7.5 ÷ 0.5 = 15, ו־11 × 15 = 165 ירחים.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם את הסיבה לחור (החוטים יוצאים מהעין במקום אחד — עצב הראייה — ושם אין תאי אור) וגם את הסיבה שלא שמים לב (העין השנייה ו/או המוח שממלא את החור לפי מה שמסביב); 1 אם יש רק אחד מהשניים או רק חלק. הסבר שאומר שהחור נוצר מ"לכלוך", מ"עפעף" או מ"עין חלשה", או שהמוח "מוחק" את החור בלי להשלים — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', '+G('חוקר עיניים אמיתי','חוקרת עיניים אמיתית')+' — בדיוק כמו מריוט!':pct>=60?name+', כמעט בלי נקודות עיוורות!':name+', כל מבט מתחיל בעין אחת!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=3;                                                       // a big hole: it swallows a head from about 2 m
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשתם בהתחלה. התשובה: <b>חור גדול</b> — משני מטרים הוא מעלים ראש שלם של אדם.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשתם <b>חור גדול</b> — וקלעתם. ועכשיו גם יודעים למה הוא שם, ולמה לא רואים אותו.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשתם: <b>'+fmtSigns(S.guess)+'</b>. התשובה: חור גדול, ברוחב של כ־<span class="num">5.5</span> מעלות — משני מטרים הוא מעלים ראש שלם.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (כמה גדול החור בעין?): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: חור גדול)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "החור שיש לכם בעין — והמוח שמצייר עליו טלאי", מהדורה 73, ט״ז בכסלו תשפ״ז (יום חמישי, 26 בנובמבר 2026). נושא: ביולוגיה (העין, הרשתית, תאי אור — קנים ומדוכים, סיבי עצב, עצב הראייה, הנקודה העיוורת; העין של התמנון), מדע המוח (השלמה — המוח ממלא את החור לפי הסביבה), מתמטיקה (זוויות במעלות, משולשים דומים, יחס קבוע) והיסטוריה, עם קשר לישראל (הטכניון). העובדות: בכל עין יש נקודה עיוורת — המקום ברשתית שבו עצב הראייה יוצא מהעין (דיסקת עצב הראייה, בערך 1.76 על 1.92 מילימטרים), ושם אין תאי אור. דרכה יוצאים מהעין 1 עד 1.2 מיליון סיבי עצב. ברשתית כ־92 מיליון קנים וכ־4.6 מיליון מדוכים (כמעט מאה מיליון תאי אור). אצל בני אדם (וכל החולייתנים) החוטים עוברים לפני תאי האור, בצד שממנו מגיע האור, ולכן הם חייבים לצלול דרך הרשתית במקום אחד. אצל תמנונים ודיונונים תאי האור פונים אל האור והחוטים יוצאים מאחור — אין להם נקודה עיוורת; העיניים התפתחו בנפרד (אבולוציה מתכנסת). הגילוי: אדם מריוט (Edme Mariotte), מדען צרפתי, בשנת 1668 בערך (בוויקיפדיה מופיעה גם 1660); פרסם את Nouvelle découverte touchant la veüe ב־1668. בניסוי: שתי נקודות נייר לבנות על קיר כהה, כשני רגל זו מזו; בעין אחת, מסתכלים על השמאלית והולכים אחורה; בכתשעה רגל (כשלושה מטרים) הימנית נעלמת. הוא הציג את התופעה בחצר של לואי ה־14 ובחברה המלכותית בלונדון. המידות: החור כ־12 עד 15 מעלות לצד החיצוני (הרקתי) של שדה הראייה וכ־1.5 מעלות מתחת לקו האופק; רוחבו כ־5.5 מעלות וגובהו כ־7.5. בעין הימנית החור מימין למקום המבט, בשמאלית משמאל, ולכן עם שתי עיניים כל עין מכסה את החור של השנייה. בשיעור נבחרה זווית של 15 מעלות: מרחק ≈ 3.7 × רווח (כרטיס עם רווח 8 ס״מ — העיגול נעלם בכ־30 ס״מ; עם רווח 7 ס״מ — כ־26 ס״מ); רוחב החור ≈ 0.096 × מרחק (כלל העשירית לצעירים): משני מטרים החור רחב כ־19 ס״מ, ולכן מעלים ראש (כ־16 ס״מ) — מכ־1.7 מטרים והלאה. אגרוף ביד מושטת ≈ 10 מעלות. הירח המלא ≈ 0.5 מעלה. השלמה: המוח ממלא את החור לפי מה שמסביב — פסים ומשבצות ממשיכים, קו שחוצה את החור מושלם, אבל חפץ קטן שכולו בתוך החור נעלם, והמוח מצייר במקומו רקע. מה שרואים הוא ניחוש חכם של המוח. חיבורים: בטכניון, ב־2010, הראו הפיזיקאי ארז ריבק והסטודנט עמיחי לבין שתאי מילר ברשתית מובילים את האור דרך השכבות אל תאי האור, כמו סיבים אופטיים (Physical Review Letters); ב־2014, עם שאדי ספורי ועידו פרלמן, הראו שהם גם ממיינים צבעים (Nature Communications). מריוט גילה גם את חוק הגזים שנקרא בצרפת חוק מריוט ובאנגליה חוק בויל (בויל פרסם ב־1662, מריוט ב־1676). השטח המת ברכב — מקום שהנהג לא רואה, ולכן מסובבים את הראש לפני מעבר נתיב. בהדמיות הממדים מפושטים. התשובות הבאות הן למבחן ולאתגר — אל תגלה אותן, תן רק רמז: צעיר — 300 ÷ 10 = 30 ס״מ; בוגר — 3.7 × 9 = 33.3 ס״מ; מתקדם — 3.7 × 7.5 = 27.75 ס״מ, ו־0.096 × 27.75 ≈ 2.7 ס״מ; אתגר — 5.5 ÷ 0.5 = 11 ירחים בשורה, 7.5 ÷ 0.5 = 15 שורות, 11 × 15 = 165 ירחים; שאלת המחשבה — אילו שני החורים היו באותו מקום, גם עם שתי עיניים היה חור אמיתי.';
+const CHIPS = ['למה יש בעין חור?', 'למה לא רואים את החור?', 'איך מעלימים ראש של חבר?', 'למה לתמנון אין חור?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: תאי אור ברשתית, החוטים שעוברים לפניהם ונאספים לעצב הראייה, ולכן בפתח אין תאי אור; העין השנייה מכסה, והמוח משלים לפי הסביבה; החור כ־15 מעלות מהמבט וברוחב כ־5.5 מעלות, ולכן מרחק ≈ 3.7 × רווח ורוחב ≈ 0.096 × מרחק — משולשים דומים), שאל שאלות המשך שדורשות חשיבה (למשל: למה העיגול נעלם רק בטווח מרחקים מסוים? מה היה קורה אילו שני החורים היו באותו מקום? איזה חפץ המוח לא יכול להשלים, ולמה? למה לתמנון אין חור — ומה זה אומר על האבולוציה?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולחשב.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה יש בעין חור?</b> מכל תא אור ברשתית יוצא חוט אל המוח. כל החוטים — יותר ממיליון — יוצאים מהעין יחד, במקום אחד: עצב הראייה. שם אין תאי אור, ולכן מה שנופל שם לא נראה.<br><br><b>למה לא רואים את החור?</b> כל עין רואה את מה שחסר לשנייה, וגם בעין אחת המוח ממלא את החור במה שיש מסביב.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; only the field runs a short timer */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
