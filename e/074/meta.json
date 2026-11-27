@@ -16,7 +16,7 @@
   "teaser": null,
   "max_score": null,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-11-27T08:08:47.829Z",
   "password": null,
   "reviewer_verdict": "PASS (2 rounds) — nits left: step-1 figure stays a light card in dark mode; Arto nudge briefly covers the drop-tower canvas at 390px; advanced+challenge est. ~30–33 min vs the 'כ־25 דקות' tag; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template)",
   "review_url": "https://claude.ai/artifact/Wk9AKtivDjrSmQEvtrvQNy",
