@@ -1,0 +1,24 @@
+{
+  "n": 74,
+  "code": "WOW-074",
+  "date": "2026-11-27",
+  "language": "he",
+  "title": "למה להבה מצביעה תמיד למעלה — ובחלל היא כדור כחול",
+  "topics": [
+    "פיזיקה",
+    "כימיה",
+    "חלל",
+    "היסטוריה",
+    "מתמטיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "Why a candle flame points up: wax vapour (not wax) burns — relight a candle through its smoke; hot gas is lighter (density ∝ 1/T in kelvin: 300 K vs 1500 K → 5×), buoyancy + convection pull fresh air in and stretch the teardrop; in microgravity only diffusion — a small, cooler, soot-free blue ball (Shuttle 1992 flames ~1 min, Mir 45+ min), NASA's 24 m / 2.2 s drop tower; Faraday's 1848 candle lectures; SOFBALL on Columbia with Ilan Ramon; Hanukkah 44 candles, kelvin ratio + mass, jar-oxygen percent challenge.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (2 rounds) — nits left: step-1 figure stays a light card in dark mode; Arto nudge briefly covers the drop-tower canvas at 390px; advanced+challenge est. ~30–33 min vs the 'כ־25 דקות' tag; kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template)",
+  "review_url": "https://claude.ai/artifact/Wk9AKtivDjrSmQEvtrvQNy",
+  "editor_note": null
+}

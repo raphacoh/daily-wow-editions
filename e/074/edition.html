@@ -1,0 +1,1835 @@
+<title>שורשים וכנפיים #74 · למה להבה מצביעה תמיד למעלה — ובחלל היא כדור כחול</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#2F7D4F; --shadow-soft:#DDF0E0;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes tick{0%{opacity:.95}30%{opacity:.75}100%{opacity:.08}}
+@keyframes spark{0%{transform:translate(110px,143px);opacity:0}15%{opacity:1}100%{transform:translate(40px,150px);opacity:0}}
+@keyframes spark2{0%{transform:translate(195px,203px);opacity:0}15%{opacity:1}100%{transform:translate(265px,210px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 74</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false" style="opacity:.5">
+    <rect x="58" y="170" width="54" height="110" rx="8" fill="#FBEBD0" stroke="#1B1F33" stroke-width="5"/>
+    <line x1="85" y1="170" x2="85" y2="152" stroke="#1B1F33" stroke-width="5" stroke-linecap="round"/>
+    <path d="M85 40 C104 86 110 118 104 138 A20 20 0 0 1 66 138 C60 118 66 86 85 40 Z" fill="#F6C454" stroke="#E8A33D" stroke-width="4"/>
+    <path d="M85 112 C93 124 95 134 92 142 A8 8 0 0 1 78 142 C75 134 77 124 85 112 Z" fill="#3D7BFF" opacity=".75"/>
+    <rect x="188" y="170" width="54" height="110" rx="8" fill="#FBEBD0" stroke="#1B1F33" stroke-width="5"/>
+    <line x1="215" y1="170" x2="215" y2="152" stroke="#1B1F33" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="215" cy="148" r="30" fill="#5B8CFF" opacity=".75" stroke="#2F5FD8" stroke-width="4"/>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון <span class="num">74</span></span><span class="tag">יום שישי, <span class="num">27</span> בנובמבר <span class="num">2026</span></span><span class="tag">י״ז בכסלו תשפ״ז</span><span class="tag">כ־<span class="num">25</span> דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>למה להבה מצביעה תמיד למעלה — ובחלל היא כדור כחול</h1>
+  <p class="lede">הדליקו נר, הטו אותו קצת הצידה — והלהבה מתיישרת מיד ומצביעה <b>למעלה</b>. תמיד. אבל איך היא יודעת איפה זה "למעלה"? השאלה של היום: <b>מה מושך את האש אל השמיים — ומה קורה לה במקום שבו אין בכלל למעלה ולמטה?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">מדליקים נר בחללית, במקום שבו הכול מרחף. איך תיראה הלהבה?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>בדיוק כמו בבית</b><span>טיפה צהובה שמצביעה למעלה</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>היא לא תידלק בכלל</b><span>בחללית אש לא יכולה לבעור</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>כדור קטן, עגול וכחול</b><span>בלי קצה ובלי "למעלה"</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>לשון ארוכה לכל הכיוונים</b><span>האש תתפזר בכל החללית</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">מתחילים לגלות ←</button></div>
+</section>
+
+<!-- 1 · FARADAY'S CANDLE (figure) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">1</span></div>
+  <h2>הנר של פאראדיי</h2>
+  <p>בחג המולד של שנת <span class="num">1848</span>, בלונדון, עמד מול אולם מלא ילדים מדען בשם <b>מייקל פאראדיי</b>. ביד שלו היה נר אחד, רגיל לגמרי. במשך שש הרצאות — שש! — הוא דיבר עם הילדים רק על הנר הזה.</p>
+  <p>פאראדיי כמעט לא למד בבית ספר. אבא שלו היה נפח, ובגיל <span class="num">14</span> בערך הוא התחיל לעבוד כשוליה אצל כורך ספרים. בזמן שכרך את הספרים — הוא קרא אותם. ככה, ספר אחרי ספר, הוא הפך לאחד המדענים הגדולים בהיסטוריה. והוא אמר לילדים שאין דלת טובה יותר אל המדע מאשר נר בוער.</p>
+  <p>הסוד הראשון שגילה להם: <b>השעווה עצמה לא בוערת.</b> מה שבוער הוא <b>אדים</b> של שעווה — שעווה שהפכה לגז.</p>
+
+  <figure class="calfig" aria-label="נר גדול בחתך. למטה שעווה מוצקה. למעלה בריכה קטנה של שעווה נוזלית, ובאמצעה הפתיל. מעל הפתיל להבה: ליד הפתיל אזור כהה של אדי שעווה, בתחתית הלהבה חלק כחול שבו נכנס חמצן, ובגוף הלהבה חלק צהוב — פיח לוהט. חצים מראים את המסע: השעווה נמסה, מטפסת בפתיל, הופכת לאדים ובוערת">
+    <svg viewBox="0 0 640 520" role="img" aria-hidden="true" focusable="false" style="direction:ltr">
+      <defs>
+        <radialGradient id="f1glow" cx="50%" cy="60%" r="60%"><stop offset="0" stop-color="#FFE28A" stop-opacity=".85"/><stop offset="1" stop-color="#FFE28A" stop-opacity="0"/></radialGradient>
+        <linearGradient id="f1yel" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#FF9F2E"/><stop offset=".55" stop-color="#FFD050"/><stop offset="1" stop-color="#FFF3B0"/></linearGradient>
+      </defs>
+      <rect x="0" y="0" width="640" height="520" rx="14" fill="#F4EEDF"/>
+      <ellipse cx="320" cy="170" rx="150" ry="170" fill="url(#f1glow)"/>
+      <path d="M320 30 C356 110 368 190 362 236 A42 42 0 0 1 278 236 C272 190 284 110 320 30 Z" fill="#5B8CFF" opacity=".55"/>
+      <path d="M320 46 C350 116 358 186 352 226 A32 32 0 0 1 288 226 C282 186 290 116 320 46 Z" fill="url(#f1yel)"/>
+      <ellipse cx="320" cy="238" rx="16" ry="34" fill="#7A5A3A" opacity=".45"/>
+      <path d="M286 262 Q320 284 354 262" fill="none" stroke="#3D7BFF" stroke-width="12" stroke-linecap="round"/>
+      <rect x="250" y="292" width="140" height="210" rx="10" fill="#FFFDF6" stroke="#1B1F33" stroke-width="5"/>
+      <ellipse cx="320" cy="296" rx="62" ry="10" fill="#FBEBD0" stroke="#E8A33D" stroke-width="3"/>
+      <path d="M320 300 L320 252" stroke="#1B1F33" stroke-width="7" stroke-linecap="round"/>
+      <path d="M326 252 Q334 246 330 240" stroke="#1B1F33" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <g stroke="#585C72" stroke-width="3" fill="none">
+        <line x1="212" y1="98" x2="300" y2="130"/>
+        <line x1="402" y1="202" x2="340" y2="236"/>
+        <line x1="236" y1="268" x2="290" y2="266"/>
+        <line x1="408" y1="298" x2="380" y2="296"/>
+        <line x1="408" y1="398" x2="392" y2="398"/>
+        <line x1="190" y1="352" x2="312" y2="284"/>
+      </g>
+      <g font-family="Rubik,Arial" font-weight="700" font-size="30" fill="#1B1F33" text-anchor="middle" direction="rtl">
+        <text x="112" y="76">פיח לוהט:</text><text x="112" y="110">זוהר בצהוב</text>
+        <text x="514" y="176">אדי שעווה —</text><text x="514" y="210">עוד לא בוערים</text>
+        <text x="112" y="262">כחול: חמצן נכנס</text><text x="112" y="296">והאדים בוערים</text>
+        <text x="514" y="308">שעווה נוזלית</text>
+        <text x="514" y="408">שעווה מוצקה</text>
+        <text x="110" y="376">הפתיל</text>
+      </g>
+    </svg>
+    <figcaption>המסע של השעווה: מוצקה ← נמסה לנוזל ← מטפסת בפתיל ← הופכת לאדים ← האדים פוגשים חמצן ובוערים.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על מגבת נייר שנוגעת בשלולית: המים מטפסים בה למעלה. בדיוק ככה שעווה נוזלית מטפסת בפתיל. בראש הפתיל חם מאוד, ושם השעווה הופכת לאדים — כמו מים בסיר שרותחים והופכים לאדים. האדים האלה הם הדלק של האש. ואם תסתכלו טוב על נר, תראו ממש מעל הפתיל אזור כהה יותר: שם יש אדים שעוד לא התחילו לבעור.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>לטיפוס של נוזל ברווחים צרים בין סיבים, גם נגד כוח הכובד, קוראים <b>נימיות</b>. בראש הפתיל החום מאדה את השעווה, והאדים מתערבבים עם החמצן שבאוויר. אש צריכה שלושה דברים יחד: דלק, חמצן וחום. לכן ממש מעל הפתיל יש אזור כהה: יש בו הרבה אדים, אבל עוד אין בו מספיק חמצן, והם לא בוערים. הבעירה קורית בעיקר בשכבה שבה האדים והאוויר נפגשים.</p>
+  </div>
+
+  <div class="q qc" id="goalQ"></div>
+  <p class="small" id="hint1" style="text-align:center">כדי להמשיך, ענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · RELIGHT THROUGH THE SMOKE (interactive 1) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">2</span></div>
+  <h2>האש שקופצת בחזרה</h2>
+  <p>אם מה שבוער הוא אדים של שעווה, אפשר לבדוק את זה בניסוי מפתיע. כשמכבים נר, עולה ממנו פס של עשן לבן. העשן הזה הוא בעיקר אדי שעווה שהתקררו לטיפות זעירות — כלומר דלק שעוד לא נשרף.</p>
+
+  <!-- ===== INTERACTIVE 1 — מדליקים דרך העשן ===== -->
+  <div class="panel instrument">
+    <h3>להדליק נר בלי לגעת בפתיל</h3>
+    <p class="cap">כבו את הנר, ואז קרבו גפרור בוער אל העשן הלבן. בסליידר בוחרים כמה גבוה מעל הפתיל נמצא הגפרור. נחשו קודם: מה יקרה כשהגפרור ייגע בעשן?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="rlP0" onclick="rlPredict(0)">כלום — הפתיל כבר כבוי</button>
+        <button id="rlP1" onclick="rlPredict(1)">האש תקפוץ אל הפתיל</button>
+        <button id="rlP2" onclick="rlPredict(2)">העשן יכבה את הגפרור</button>
+      </div>
+    </div>
+    <canvas role="img" id="rlCv" width="640" height="600" aria-label="נר גדול באמצע, ומשמאלו סרגל שמראה גובה בסנטימטרים מעל הפתיל. כשהנר כבה עולה ממנו פס של עשן לבן. מימין גפרור בוער שאפשר להעלות ולהוריד. כשהגפרור נוגע בעשן מהר וקרוב לפתיל, האש רצה למטה לאורך העשן ומדליקה את הנר מחדש"></canvas>
+    <div class="controls">
+      <button class="btn small" id="rlB" onclick="rlBlow()">כבו את הנר</button>
+      <button class="btn small" id="rlL" onclick="rlLight()">קרבו את הגפרור לעשן</button>
+      <button class="btn small ghost" id="rlR" onclick="rlReset()">הדליקו מחדש</button>
+    </div>
+    <div class="controls">
+      <label>הגובה של הגפרור מעל הפתיל
+        <input type="range" id="rlH" min="1" max="12" step="1" value="3" oninput="rlSet()" aria-label="גובה הגפרור" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">גובה: <b id="rlOutH">?</b></div>
+      <div class="readout">מאז הכיבוי: <b id="rlOutT">—</b></div>
+    </div>
+    <p class="cap" id="rlMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="rlReveal" hidden><span class="hand">!</span><p><b>האש רצה למטה לאורך העשן, עד הפתיל!</b> העשן הלבן הוא שביל של דלק — אדי שעווה. הגפרור מדליק אותם, והאש "הולכת" בשביל הזה עד הפתיל, שעוד חם ועוד שולח אדים. אבל זה עובד רק בשניות הראשונות ורק קרוב לפתיל: אחרי כמה שניות הפתיל מתקרר ומפסיק לשלוח אדים, וגבוה מדי העשן כבר דליל ומעורבב בהרבה אוויר.</p></div>
+
+  <div id="rlAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>זה כמו שביל של פירורים: האש הולכת בעקבות הדלק. איפה שיש אדי שעווה — היא יכולה לבעור. איפה שאין — היא נעצרת. ועכשיו גם ברור למה נשיפה מכבה נר: היא מעיפה את האדים מהפתיל, ובלי דלק אין אש.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>יש כאן שני תנאים. צריך שהתערובת של אדים ואוויר תהיה עשירה מספיק בדלק — גבוה מדי, העשן מתערבב בהרבה אוויר ונעשה דליל מדי לבעירה. וצריך שהפתיל ימשיך להזין את השביל: כל עוד הוא חם, הוא מאדה עוד שעווה. אותו עיקרון מסביר את הנשיפה: היא מעיפה את האדים ומקררת את הפתיל, וכך מנתקת את הדלק מהחום.</p>
+  </div>
+
+  <div class="q qc" id="beatQ"></div>
+  </div>
+  <p class="small" id="hint2" style="text-align:center">כדי להמשיך, נחשו, הדליקו את הנר דרך העשן, ונסו גם פעם אחת שלא מצליחה — גבוה מדי או מאוחר מדי.</p>
+  <div class="next"><button class="btn" id="next2" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · WHY UP? HOT VS COLD (interactive 2) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">3</span></div>
+  <h2>למה דווקא למעלה?</h2>
+  <p>עכשיו לשאלה הגדולה. האוויר בנוי מחלקיקים זעירים — מולקולות — שמתרוצצים כל הזמן. כשאוויר מתחמם, החלקיקים זזים מהר יותר ודוחפים זה את זה הצידה. האוויר מתפשט ותופס יותר מקום. ואז בכל ליטר של אוויר חם יש פחות חלקיקים מאשר בליטר של אוויר קר — <b>הוא קל יותר</b>.</p>
+
+  <!-- ===== INTERACTIVE 2 — ליטר קר מול ליטר חם ===== -->
+  <div class="panel instrument">
+    <h3>ליטר קר מול ליטר חם</h3>
+    <p class="cap">שתי קופסאות של ליטר אחד, תלויות על מאזניים. מימין: אוויר בחדר. משמאל: גז שאפשר לחמם בסליידר. כל נקודה מייצגת המון חלקיקים. נחשו קודם: ליטר של גז חם כמו בלהבה הוא...</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="hbP0" onclick="hbPredict(0)">כבד יותר</button>
+        <button id="hbP1" onclick="hbPredict(1)">באותו משקל</button>
+        <button id="hbP2" onclick="hbPredict(2)">קל יותר</button>
+      </div>
+    </div>
+    <canvas role="img" id="hbCv" width="640" height="600" aria-label="מאזניים עם שתי קופסאות. בקופסה הימנית אוויר בחדר, עם הרבה נקודות צפופות. בקופסה השמאלית גז שמתחמם. ככל שהוא חם יותר יש בו פחות נקודות, הקופסה שלו קלה יותר, והמאזניים נוטים: הצד החם עולה למעלה"></canvas>
+    <div class="controls">
+      <label>הטמפרטורה של הגז בקופסה השמאלית
+        <input type="range" id="hbT" min="20" max="1300" step="10" value="20" oninput="hbSet()" aria-label="טמפרטורה" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">טמפרטורה: <b id="hbOutT">?</b></div>
+      <div class="readout">קל יותר פי: <b id="hbOutR">?</b></div>
+    </div>
+    <p class="cap" id="hbMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="hbReveal" hidden><span class="hand">!</span><p><b>גז בחום של להבה — יותר מאלף מעלות — קל פי ארבעה או חמישה מאוויר החדר.</b> האוויר הקר והכבד שמסביב דוחף אותו למעלה, כמו שהמים בבריכה דוחפים כדור ים אל פני המים. הגזים החמים של הנר עולים, ובמקומם נכנס מלמטה אוויר רענן מלא חמצן. הזרם הזה מותח את הלהבה לצורת טיפה — ולכן היא מצביעה למעלה.</p></div>
+
+  <div id="hbAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>חשבו על כדור ים שדוחפים מתחת למים בבריכה. אתם עוזבים — והוא קופץ למעלה, כי הוא קל מהמים שמסביב. כך גם הגזים החמים של הלהבה: הם קלים מהאוויר שמסביב, אז הם עולים — ולוקחים איתם את האש. ומלמטה נכנס כל הזמן אוויר טרי, שמביא חמצן חדש. ככה הנר "נושם".</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>לכוח שדוחף גז קל למעלה קוראים <b>ציפה</b>, ולזרם שנוצר — <b>הסעה</b>. הנר הוא בעצם משאבה קטנה: הוא מחמם, הגז החם עולה, ונוצר זרם שמושך אוויר רענן מלמטה ומהצדדים. ושימו לב לפרט החשוב: הציפה קיימת רק בגלל כוח הכובד. הכובד מושך חזק יותר את האוויר הקר והכבד, והוא "שוקע" מתחת לגז החם ודוחף אותו מעלה. בלי כובד — אין כבד ואין קל, ואין ציפה.</p>
+  </div>
+
+  <div class="q qc" id="frameQ"></div>
+  </div>
+  <p class="small" id="hint3" style="text-align:center">כדי להמשיך, נחשו, חממו את הגז עד מעל <span class="num">1,000</span> מעלות, ובדקו גם טמפרטורה בינונית — בין <span class="num">100</span> ל־<span class="num">700</span>.</p>
+  <div class="next"><button class="btn" id="next3" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · A CANDLE WITHOUT "UP" (interactive 3) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">4</span></div>
+  <h2>נר בלי למעלה</h2>
+  <p>אז מה יקרה לנר במקום שאין בו כמעט כובד? מדענים של נאס״א רצו לדעת. בשנת <span class="num">1992</span> הדליקו אסטרונאוטים נרות קטנים במעבורת החלל, ובשנים שאחר כך — גם בתחנת החלל הרוסית "מיר".</p>
+
+  <!-- ===== INTERACTIVE 3 — מכוונים את הכובד ===== -->
+  <div class="panel instrument">
+    <h3>מכוונים את כוח הכובד</h3>
+    <p class="cap">הזיזו את הסליידר מכדור הארץ אל החלל, או בחרו מקום. החצים מראים איך זורם האוויר. נחשו קודם: איך נראית הלהבה כשאין כובד בכלל?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="gvP0" onclick="gvPredict(0)">טיפה צהובה, כמו בבית</button>
+        <button id="gvP1" onclick="gvPredict(1)">כדור קטן וכחול</button>
+        <button id="gvP2" onclick="gvPredict(2)">שטוחה, כמו פנקייק</button>
+      </div>
+    </div>
+    <canvas role="img" id="gvCv" width="640" height="620" aria-label="נר גדול. בכובד של כדור הארץ הלהבה גבוהה, צהובה וצורתה טיפה, וחצים מראים אוויר שנכנס מלמטה וגזים חמים שעולים למעלה. כשמקטינים את הכובד הלהבה מתקצרת. בלי כובד בכלל היא כדור קטן וכחול, והחצים קצרים ומגיעים מכל הכיוונים"></canvas>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="בחירת מקום">
+        <button id="gvS0" onclick="gvPlace(100)" class="on">כדור הארץ</button>
+        <button id="gvS1" onclick="gvPlace(38)">מאדים</button>
+        <button id="gvS2" onclick="gvPlace(17)">הירח</button>
+        <button id="gvS3" onclick="gvPlace(0)">תחנת החלל</button>
+      </div>
+    </div>
+    <div class="controls">
+      <label>כוח הכובד, באחוזים מכדור הארץ
+        <input type="range" id="gvG" min="0" max="100" step="1" value="100" oninput="gvSet()" aria-label="כוח הכובד" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">כובד: <b id="gvOutG">?</b></div>
+      <div class="readout">זרם האוויר: <b id="gvOutF">?</b></div>
+    </div>
+    <p class="cap" id="gvMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="gvReveal" hidden><span class="hand">!</span><p><b>בלי כובד, הלהבה נעשית כמעט כדור — קטן, עגול וכחול.</b> אין כובד — אז אין "קל" ו"כבד", והגזים החמים לא עולים. אין זרם שמביא אוויר רענן מלמטה. החמצן מגיע ללהבה רק לאט, בזחילה מכל הכיוונים באותה מידה — ולכן היא עגולה. היא גם קרירה יותר, כמעט בלי פיח — ולכן כחולה ועמומה. (מיד אחרי ההדלקה היא עוד צהובה, ורק אחרי כמה שניות נעשית כחולה.) במעבורת החלל רוב הלהבות כבו אחרי בערך דקה. ב"מיר" נר אחד בער יותר מ־<span class="num">45</span> דקות.</p></div>
+
+  <div id="gvAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>על כדור הארץ, זרם האוויר הוא כמו רוח קטנה שנושבת כל הזמן מלמטה למעלה ומותחת את הלהבה לטיפה. בחלל אין רוח כזאת. החמצן מגיע לאט, מכל הצדדים באותה מידה — ולכן הלהבה עגולה כמו כדור. ובגלל שהיא מקבלת פחות חמצן, היא קטנה, חלשה יותר וכחולה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בלי הסעה, החמצן מגיע רק ב<b>פעפוע</b> (דיפוזיה): מולקולות שנודדות באקראי, לאט, מאזור שיש בו הרבה חמצן לאזור שיש בו מעט. הפעפוע שווה בכל הכיוונים — ולכן הצורה כדורית — והוא איטי בהרבה מזרם, ולכן הלהבה חלשה. גם תוצרי הבעירה, פחמן דו־חמצני ואדי מים, לא מתרחקים: הם נשארים סביב הלהבה ו"חונקים" אותה. ממש לפני שהלהבות במעבורת כבו, הן התחילו להבהב — לגדול ולהתכווץ — בערך פעם בשנייה.</p>
+  </div>
+
+  <div class="q qc" id="lineQ"></div>
+  </div>
+  <p class="small" id="hint4" style="text-align:center">כדי להמשיך, נחשו, הורידו את הכובד עד אפס, ובדקו גם את כדור הארץ.</p>
+  <div class="next"><button class="btn" id="next4" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE: COLOURS AND NUMBERS + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">5</span></div>
+  <h2>הצבעים והמספרים של הלהבה</h2>
+  <p>למה להבה בבית צהובה, ובחלל כחולה? האור הכחול מגיע מהבעירה עצמה: כשאדי השעווה והחמצן נפגשים ובוערים, הם פולטים אור כחלחל חלש. הצהוב הבוהק הוא משהו אחר לגמרי: <b>פיח</b> — גרגירי פחמן זעירים, שנוצרים מאדי שעווה שעוד לא קיבלו מספיק חמצן. הזרם שעולה סוחף אותם אל גוף הלהבה, ושם הם מתחממים לכ־<span class="num">1,000</span> מעלות וזוהרים בצהוב־כתום, כמו גחלת. בחלל הלהבה קרירה יותר, וכמעט לא נוצר בה פיח — אז נשאר רק הכחול.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>הנה <b>מפת הלהבה</b>, מלמטה למעלה. ליד הפתיל, בתחתית: כחול — כאן נכנס חמצן טרי והאדים בוערים. באמצע, ממש מעל הפתיל: אזור כהה — אדים שעוד לא בוערים. מעליו: הצהוב הבוהק — פיח לוהט שזוהר. ומסביב לכל הלהבה יש מעטפת דקה, כמעט שקופה. מפתיע, אבל דווקא שם, בחלק שכמעט לא רואים, הכי חם: בערך <span class="num">1,400</span> מעלות.</p>
+    <p>מה זה אומר בשבילכם? שהצבע לא מספר כמה חם. הצהוב הבוהק לא החלק הכי חם — הוא פשוט החלק הכי מאיר. ולכן אף פעם לא מקרבים יד מעל להבה, גם כשנראה שהיא "נגמרת": הגזים החמים ממשיכים לעלות הרבה מעל הקצה.</p>
+    <p>ועוד מספר אחד: נר יום הולדת קטן נותן חום של בערך <span class="num">50</span> ואט — כמו נורת להט ישנה. חום שעולה כל הזמן למעלה, ולכן מעל נר תמיד חם הרבה יותר מאשר לידו, באותו מרחק.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>כמה קל באמת הגז החם? בשביל זה מדענים משתמשים בסולם טמפרטורה מיוחד: <b>קלווין</b> (K). האפס של הסולם הזה הוא הקור הכי גדול שאפשר — בערך <span class="num">273</span> מעלות מתחת לאפס של צלזיוס. לכן ממירים כך: <span class="math">קלווין = צלזיוס + 273</span>.</p>
+    <p>והכלל: כשהלחץ שווה, גז קל יותר פי כמה שהטמפרטורה שלו בקלווין גבוהה יותר. דוגמה: אוויר בחדר, <span class="num">27</span> מעלות: <span class="math">27 + 273 = 300 K</span>. גז בלהבה, <span class="num">1,227</span> מעלות: <span class="math">1227 + 273 = 1500 K</span>. היחס: <span class="math">1500 ÷ 300 = 5</span> — ליטר של הגז החם שוקל חמישית מליטר של אוויר החדר. ואם ליטר אוויר שוקל <span class="num">1.2</span> גרם, ליטר הגז החם שוקל <span class="math">1.2 ÷ 5 = 0.24</span> גרם. (לשם הפשטות אנחנו מתעלמים מכך שגזי הבעירה עשויים מחומרים מעט שונים מאוויר — ההבדל קטן.)</p>
+    <p>ומה עם הכחול בחלל? פיח נוצר רק בלהבה חמה מספיק — מעל כ־<span class="num">1,000</span> מעלות צלזיוס. בחלל החמצן מגיע לאט, הבעירה חלשה והלהבה קרירה יותר, ולכן כמעט לא נוצר בה פיח. מה שנשאר הוא האור הכחלחל של הבעירה עצמה. ושימו לב: החלק הכי חם בלהבה הוא דווקא המעטפת הכמעט שקופה, עד כ־<span class="num">1,400</span> מעלות. לכן אף פעם לא מקרבים יד מעל להבה — גם כשנראה שהיא "נגמרת".</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b><span class="num">1</span>. שאלה כמותית:</b> מכסים נר דולק בצנצנת שיש בה <span class="num">2</span> ליטרים, כלומר <span class="num">2,000</span> מיליליטר, של אוויר. באוויר יש <span class="num">21%</span> חמצן. הנר כבה כשבצנצנת נשארים בערך <span class="num">14%</span> חמצן. (א) כמה מיליליטרים של חמצן הנר "אכל" עד שכבה? (ב) איזה אחוז זה מכל החמצן שהיה בצנצנת בהתחלה? (עגלו למספר שלם.)</p>
+      <div class="controls">
+        <label>(א) חמצן שנצרך, מ״ל <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) אחוז מהחמצן <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b><span class="num">2</span>. שאלה למחשבה:</b> בתחנת חלל יש אוויר מלא בחמצן, כמו בבית. ובכל זאת, נר שבוער באוויר שעומד במקום יכול לכבות שם מעצמו. למה?</p>
+      <details><summary>רמז</summary><p>לאן הולכים הגזים שהלהבה מייצרת — פחמן דו־חמצני ואדי מים — כשאין זרם שמרחיק אותם?</p></details>
+      <details><summary>התשובה</summary><p>בלי כובד אין הסעה. תוצרי הבעירה לא עולים ומתרחקים, אלא נשארים סביב הלהבה כמו שמיכה, והחמצן הטרי צריך לזחול דרכם לאט, בפעפוע. ליד הלהבה יש פחות ופחות חמצן — גם כשבשאר החללית יש בשפע. לכן הלהבה נחלשת ויכולה לכבות. אגב, זו גם הסיבה שבחלל מאווררים כל הזמן את האוויר: גם לאסטרונאוטים יש סביב הראש "שמיכה" של פחמן דו־חמצני שהם נושפים.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <p class="small" id="hint5" style="text-align:center">כדי להמשיך, ענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next5" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p><b>רק עם מבוגר!</b> צריך: נר קטן (נר חנוכה או נר תה) על צלחת, גפרורים ארוכים או מצית ארוך, צנצנת זכוכית, ושעון עם שניות. אוספים שיער ארוך, מרחיקים מהשולחן נייר ובדים, ושמים לידכם כוס מים.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — מדליקים בלי לגעת (<span class="num">5</span> דקות)</h3>
+    <ol>
+      <li>המבוגר מדליק את הנר, ונותנים לו לבעור דקה שלמה, כדי שתיווצר בריכה קטנה של שעווה נוזלית.</li>
+      <li>המבוגר מדליק גפרור ארוך ומחזיק אותו מוכן, בצד.</li>
+      <li>כבו את הנר בנשיפה עדינה אחת. מיד יעלה פס של עשן לבן.</li>
+      <li>מהר — תוך שתיים או שלוש שניות — המבוגר מכניס את הגפרור לתוך העשן, בערך <span class="num">2</span> ס״מ מעל הפתיל, בלי לגעת בפתיל.</li>
+      <li>צפו טוב: האש קופצת למטה לאורך העשן ומדליקה את הנר! אחר כך נסו גם גבוה יותר, וגם אחרי שמחכים <span class="num">10</span> שניות — ותראו מתי זה מפסיק לעבוד.</li>
+    </ol>
+    <details><summary>מה אמור לצאת?</summary><p>קרוב לפתיל ומהר — הנר נדלק כמעט תמיד. גבוה מכמה סנטימטרים, או אחרי כמה שניות, זה כבר לא עובד: העשן דליל מדי, והפתיל התקרר ולא שולח עוד אדים. אם זה לא עובד בכלל: ודאו שנתתם לנר לבעור לפני הכיבוי, ונשפו בעדינות — נשיפה חזקה מפזרת את העשן.</p></details>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — כמה זמן נר נושם בצנצנת? (<span class="num">10</span> דקות)</summary>
+    <ol>
+      <li>המבוגר מדליק את הנר על הצלחת.</li>
+      <li>נחשו: כמה שניות הוא ימשיך לבעור מתחת לצנצנת?</li>
+      <li>הפכו את הצנצנת ושימו אותה מעל הנר, ומדדו בשעון: כמה שניות עד שהלהבה כבתה?</li>
+      <li>אם יש לכם צנצנת גדולה יותר — חזרו על הניסוי. כמה זמן יותר בוער הנר בצנצנת הגדולה?</li>
+    </ol>
+    <p class="small">שימו לב גם ללהבה בזמן שהיא נחלשת: היא מתקצרת ונעשית כחלחלה יותר, כי מגיע אליה פחות חמצן. זהירות: הצנצנת מתחממת — מרימים אותה רק אחרי שהתקררה.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE: THE DROP TOWER (interactive 4) -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>נופלים כדי לרחף</h2>
+  <p>אי אפשר לטוס לחלל בכל פעם שרוצים לבדוק להבה. אז מדענים מצאו טריק: <b>ליפול</b>. בזמן נפילה חופשית הכול נופל יחד — הנר, האוויר והקופסה — ושום דבר לא "כבד" יותר מהשכן שלו. לכמה שניות, זה בדיוק כמו בחלל. בנאס״א, בעיר קליבלנד שבארצות הברית, יש מגדל נפילה מיוחד: קופסה עם ניסוי נופלת בו <span class="num">24</span> מטרים, ומקבלת <span class="num">2.2</span> שניות של ריחוף.</p>
+
+  <!-- ===== INTERACTIVE 4 — מגדל הנפילה ===== -->
+  <div class="panel instrument">
+    <h3>מפילים נר במגדל</h3>
+    <p class="cap">בתוך הקופסה דולק נר. מימין: המגדל. משמאל: זכוכית מגדלת על הלהבה שבתוך הקופסה. לחצו על "הפילו!" וצפו בלהבה בזמן הנפילה. נחשו קודם: מה יקרה ללהבה?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="dtP0" onclick="dtPredict(0)">כלום — תמשיך להצביע למעלה</button>
+        <button id="dtP1" onclick="dtPredict(1)">תתעגל ותהיה כחלחלה</button>
+        <button id="dtP2" onclick="dtPredict(2)">תצביע למטה</button>
+      </div>
+      <button class="btn small" id="dtB" onclick="dtDrop()">הפילו!</button>
+    </div>
+    <canvas role="img" id="dtCv" width="640" height="620" aria-label="מימין מגדל גבוה, ובראשו קופסה עם נר דולק. כשמפילים, הקופסה נופלת לאורך המגדל. משמאל עיגול גדול שמראה את הלהבה מקרוב: לפני הנפילה היא טיפה צהובה גבוהה, ובזמן הנפילה היא מתעגלת ונעשית כחלחלה. כשהקופסה נוחתת, הלהבה חוזרת להצביע למעלה"></canvas>
+    <div class="controls">
+      <div class="readout">זמן נפילה: <b id="dtOutT">?</b></div>
+      <div class="readout">בתוך הקופסה: <b id="dtOutG">?</b></div>
+    </div>
+    <p class="cap" id="dtMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="dtReveal" hidden><span class="hand">!</span><p><b>בזמן הנפילה הלהבה מתעגלת ונעשית כחלחלה ועמומה — כמו בחלל!</b> בתוך קופסה שנופלת, הגז החם כבר לא "קל" מהאוויר הקר: הכול נופל באותה מהירות, והזרם שמותח את הלהבה נעלם תוך רגע. ושימו לב: הלהבה לא הצביעה למטה. ה"למעלה" של להבה הוא לא כיוון השמיים — הוא נוצר רק מהכובד שמרגישים בתוך הקופסה. כשהקופסה נוחתת, הכובד חוזר, וגם הטיפה.</p></div>
+
+  <div id="dtAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>מה למדנו היום:</b> בנר בוערים אדים של שעווה. האש מחממת את הגזים, הגזים החמים קלים מהאוויר שמסביב, והאוויר הכבד דוחף אותם למעלה — ולכן הלהבה מצביעה למעלה, ומלמטה נכנס כל הזמן אוויר טרי. בלי כובד אין "קל" ו"כבד": החמצן מגיע לאט מכל הצדדים, והלהבה היא כדור קטן וכחול. שאלה לחקור: מה יקרה ללהבה של נר במעלית שמתחילה לרדת מהר?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>שלושה רעיונות בלהבה אחת.</b> כימיה: מה שבוער הוא אדי שעווה שפוגשים חמצן; הצהוב הוא פיח לוהט, והכחול הוא הבעירה עצמה. פיזיקה: גז חם קל יותר — פי היחס בין הטמפרטורות בקלווין — והכובד יוצר ציפה והסעה, שמותחות את הלהבה ומזינות אותה בחמצן. חלל: בלי כובד נשאר רק פעפוע — לאט ושווה לכל הכיוונים — והלהבה כדורית, קרירה וכחולה. שאלה לחקור: למה בתחנת החלל חייבים מאווררים שפועלים כל הזמן?</p>
+  </div>
+  </div>
+
+  <p class="small" id="hint7" style="text-align:center">כדי להמשיך, נחשו, והפילו את הקופסה.</p>
+  <div class="next"><button class="btn" id="next7" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד בוערת הלהבה של היום?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ישראל · חלל</div><h3>הלהבות החלשות ביותר בעולם</h3><p>במעבורת החלל קולומביה, בשנת <span class="num">2003</span>, טס <b>אילן רמון</b>, האסטרונאוט הישראלי הראשון. הצוות הפעיל שם ניסוי של "כדורי להבה" — להבות עגולות זעירות שקיימות רק בלי כובד. החלשות שבהן נתנו חום של חצי ואט בלבד, פי <span class="num">100</span> פחות מנר יום הולדת. אחת מהן בערה <span class="num">81</span> דקות — שיא לאש בחלל. המעבורת לא חזרה, אבל הנתונים ששודרו לכדור הארץ בזמן הטיסה עוזרים למדענים עד היום.</p></div>
+    <div class="tile"><div class="dom">ישראל · חגים</div><h3>חנוכייה מלאה להבות</h3><p>בעוד שבוע, ביום שישי בערב, מדליקים את הנר הראשון של חנוכה. בכל ערב מוסיפים נר, ועוד נר אחד — השמש — שבעזרתו מדליקים. כמה נרות בכל החג? זה במבחן. ובזמן המכבים הדליקו שמן זית עם פתיל: גם השמן מטפס בפתיל, הופך לאדים ובוער — ממש כמו בנר. הסתכלו על החנוכייה: כל הלהבות מצביעות למעלה.</p></div>
+    <div class="tile"><div class="dom">כימיה · מעבדה</div><h3>למה המבער במעבדה כחול</h3><p>במבער גז של מעבדה יש חור קטן בצד. כשהוא סגור, הלהבה צהובה ומפויחת, כמו של נר. כשפותחים אותו, אוויר נכנס ומתערבב עם הגז <b>לפני</b> הבעירה. יש מספיק חמצן, לא נוצר פיח — והלהבה כחולה ושקטה. גם בכיריים בבית הלהבה כחולה מאותה סיבה.</p></div>
+    <div class="tile"><div class="dom">היסטוריה · פיזיקה</div><h3>האש שהרימה בני אדם</h3><p>ב־<span class="num">21</span> בנובמבר <span class="num">1783</span> טסו לראשונה בני אדם בטיסה חופשית, בבלון של האחים מונגולפייה — כ־<span class="num">25</span> דקות מעל פריז. מה הרים אותם? אש מתחת לבלון: האוויר החם בפנים קל מהאוויר שבחוץ. זו בדיוק אותה ציפה שמרימה את הגזים של הנר.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): נשיפה שמכבה, נשיפה שמדליקה</summary>
+    <p>נשיפה על נר מכבה אותו. אבל כשנושפים על גחלים במדורה, הן דווקא מתלהטות! לפני שאתם פותחים — נחשו: למה?</p>
+    <details><summary>התשובה</summary>
+      <p><b>בנר הדלק הוא אדים, ובגחלים הדלק הוא מוצק.</b> כשנושפים על נר, הנשיפה מעיפה את האדים מהפתיל ומקררת אותו — הדלק נעלם, והאש כבתה. בגחלים הדלק הוא פחם מוצק ולוהט, שלא עף ברוח. הנשיפה מביאה אליו עוד חמצן — והבעירה מתחזקת. לכן מנפחים מדורה במפוח, ולא נר.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את מה שקורה בנר, מהרגע שמדליקים אותו ועד שהלהבה מצביעה למעלה. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: בחנוכה מדליקים בלילה הראשון נר אחד, בלילה השני שני נרות, וכך הלאה — עד שמונה נרות בלילה השמיני. ובכל לילה מדליקים גם את השמש. כמה נרות מדליקים בכל שמונת הלילות יחד, כולל השמשים?</div>
+    <div class="controls"><label>נרות <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: האוויר בחדר בטמפרטורה של <span class="num">20</span> מעלות צלזיוס, והגז בלהבה — <span class="num">1,400</span> מעלות צלזיוס. (א) פי כמה ליטר של הגז החם קל מליטר של אוויר החדר? עגלו לעשירית. (ב) ליטר של אוויר החדר שוקל <span class="num">1.2</span> גרם. כמה גרם שוקל ליטר של הגז החם? עגלו למאית. (מותר מחשבון.)</div>
+    <div class="controls"><label>(א) קל יותר פי <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) משקל, גרם <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: האוויר בחדר בטמפרטורה של <span class="num">300</span> קלווין, והגז בלהבה — <span class="num">1,200</span> קלווין. פי כמה ליטר של הגז החם קל מליטר של אוויר החדר?</div>
+    <div class="controls"><label>קל יותר פי <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>למה על כדור הארץ להבה מצביעה למעלה — ולמה בחלל היא כדור כחול?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="כשהנר בוער, הגזים שסביבו..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt"><span class="num">0</span></b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+<span class="num">0</span></b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+  <div class="panel">
+
+    <h3><span class="num">3</span> דברים לספר בארוחת ערב</h3>
+    <p style="margin:0"><span class="num">1</span>. בנר לא בוערת השעווה, אלא אדים של שעווה. אפשר להוכיח: מכבים נר, מקרבים גפרור לעשן הלבן — והאש קופצת למטה בחזרה אל הפתיל.<br>
+    <span class="num">2</span>. להבה מצביעה למעלה בגלל הכובד: הגזים החמים קלים מהאוויר שמסביב, האוויר הכבד דוחף אותם למעלה, ומלמטה נכנס כל הזמן אוויר רענן עם חמצן.<br>
+    <span class="num">3</span>. בחלל אין למעלה — ולהבה של נר היא כדור קטן וכחול. בתחנת החלל "מיר" נר כזה בער יותר מ־<span class="num">45</span> דקות.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>פאראדיי: Wikipedia, "The Chemical History of a Candle" — שש הרצאות חג המולד לצעירים במכון המלכותי בלונדון, <span class="num">1848</span>; הספר יצא ב־<span class="num">1861</span> (באתר candles.org מופיעה השנה <span class="num">1860</span>, שבה ההרצאות נישאו שוב). MacTutor (St Andrews), "Michael Faraday" — האב ג׳יימס היה נפח; ב־<span class="num">1805</span>, אחרי שנה כשליח, נעשה שוליה של כורך הספרים ג׳ורג׳ ריבו (כלומר בגיל <span class="num">14</span> בערך); הצטרף לדייווי במכון המלכותי ב־<span class="num">1813</span>. Science History Institute — "קיבל השכלה פורמלית מועטה". המשפט על "הדלת אל המדע" הוא פרפרזה על פתיחת ההרצאה הראשונה.</p>
+    <p>הלהבה: National Candle Association, "The Science Behind the Flame" — השעווה נמשכת בפתיל בנימיות ומתאדה; האזור הכהה כ־<span class="num">1,000</span>°C, הפיח בקצה הצהוב מתחמצן בכ־<span class="num">1,200</span>°C, המעטפת הכחולה החיצונית עד כ־<span class="num">1,400</span>°C. Wikipedia, "Flame" — רוב להבת הנר כ־<span class="num">1,100</span>°C עם נקודות חמות של <span class="math">1,300–1,400</span>°C; הצהוב מגיע מפיח לוהט. Royal Institution, "Candle chemistry" — הדלקת נר דרך העשן: הפתיל נשאר חם וממשיך לאדות שעווה. "עד כ־<span class="num">5</span> ס״מ ותוך כ־<span class="num">5</span> שניות" בהדמיה הם ערכים מפושטים להמחשה, לא מדידה. נר יום הולדת ≈ <span class="num">50</span> W — מתוך דף SOFBALL של פרופ׳ פול רוני (USC).</p>
+    <p>הצפיפות: חוק הגז האידיאלי בלחץ קבוע — הצפיפות ביחס הפוך לטמפרטורה המוחלטת. החישובים מתעלמים מהבדלי ההרכב בין גזי הבעירה לאוויר (המסה המולרית הממוצעת כמעט זהה). ליטר אוויר ב־<span class="num">20</span>°C שוקל כ־<span class="num">1.2</span> גרם. במבחן המתקדם: <span class="math">1673 ÷ 293 ≈ 5.71</span>, ו־<span class="math">1.2 ÷ 5.71 ≈ 0.21</span> גרם.</p>
+    <p>להבות בחלל: NASA, "Candle Flame — 1g vs Microgravity" — בלי זרמי הסעה הלהבה כדורית, ללא פיח וכחולה. Ross et al., NASA NTRS <span class="num">19960008390</span> — בניסוי במעבורת (USML-1, יוני <span class="num">1992</span>) הלהבות היו צהובות בהדלקה והפכו כחולות וכמעט חצי־כדוריות, בקוטר כ־<span class="num">1.5</span> ס״מ; כבו אחרי <span class="math">40–60</span> שניות (אחת אחרי <span class="num">105</span>); בחמש השניות האחרונות הבהבו בכ־<span class="num">1</span> הרץ; היעדר הפיח מיוחס ככל הנראה לטמפרטורה נמוכה יותר, ופיח נוצר רק מעל כ־<span class="num">1300</span> K. NASA, "Candle Flames" (תוצאות מיר) — אורך חיים מעל <span class="num">100</span> שניות ועד יותר מ־<span class="num">45</span> דקות. בהדמיה, צורת הלהבה בכובד חלקי (ירח, מאדים) היא אינטרפולציה להמחשה. NASA Glenn, "2.2 Second Drop Tower" — נפילה חופשית של <span class="num">24</span> מ׳ (<span class="num">79</span> רגל), <span class="num">2.2</span> שניות. בצנצנת: RSC Education, "The candle in the bell jar" — נר לא בוער באוויר עם פחות מכ־<span class="num">14%</span> חמצן (Kempa, <span class="num">1967</span>); הסף משתנה בין ניסויים, ולכן "בערך".</p>
+    <p>החיבורים: USC (Ronney), "SOFBALL-2 quick summary" — STS-107, ינואר <span class="num">2003</span>: <span class="num">55</span> כדורי להבה, החלשים כ־<span class="math">0.5</span> W, "הלהבות החלשות ביותר שבערו אי פעם", הארוך ביותר <span class="num">81</span> דקות; NASA STS-107 Press Kit — אילן רמון רשום בצוות של מודול הבעירה (CM-2), הכולל את SOFBALL. Hebcal — חנוכה תשפ״ז מתחיל במוצאי יום שישי, <span class="num">4</span> בדצמבר <span class="num">2026</span>; <span class="math">1 + 2 + … + 8 = 36</span> נרות ועוד <span class="num">8</span> שמשים = <span class="num">44</span>. History.com — <span class="num">21</span> בנובמבר <span class="num">1783</span>, פילאטר דה רוזייה והמרקיז ד׳ארלנד בבלון אוויר חם של האחים מונגולפייה, כ־<span class="num">25</span> דקות מעל פריז. מבער בונזן — תיאור כללי של להבה מעורבבת מראש מול להבת דיפוזיה.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:74, code:'WOW-074', date:'2026-11-27', title:'למה להבה מצביעה תמיד למעלה — ובחלל היא כדור כחול', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15zXldeX15sg16nXkCDXqNeV15PXmw=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'physics', w:3 }, { id:'chemistry', w:2 }, { id:'space', w:2 }, { id:'math', w:1 }, { id:'history', w:1 } ],
+  hero: { name:'הלהבה שמצביעה למעלה — ובחלל היא כדור כחול', fact:'מה שבוער בנר הוא אדי שעווה. הלהבה עולה כי גז חם קל מאוויר קר — ובלי כובד אין קל וכבד, והיא כדור קטן וכחול.' },
+  items: {
+    'predict':        { skill:'estimation',               d:2 },
+    'qc:scale':       { skill:'prior-knowledge',          d:1 },
+    'qc:goalQ':       { skill:'what-burns',               d:1 },
+    'qc:beatQ':       { skill:'experiment-observation',   d:1 },
+    'qc:frameQ':      { skill:'buoyancy',                 d:2 },
+    'qc:lineQ':       { skill:'diffusion-flame',          d:2 },
+    'qc:deepQ':       { skill:'soot-glow',                d:2 },
+    'mcq:shared:0':   { skill:'up-is-gravity',            d:1 },
+    'mcq:shared:1':   { skill:'flame-colour',             d:2 },
+    'mcq:shared:2':   { skill:'free-fall',                d:3 },
+    'mcq:younger:0':  { skill:'vapour-relight',           d:1 },
+    'mcq:older:0':    { skill:'density-temperature-ratio', d:3 },
+    'order':          { skill:'candle-burning-sequence',  d:2 },
+    'num:younger':    { skill:'sum-of-series',            d:2 },
+    'num:older':      { skill:'ratio-division',           d:2 },
+    'num:adv':        { skill:'kelvin-ratio-then-mass',   d:4 },
+    'challenge':      { skill:'percent-of-volume',        d:4 },
+    'explain':        { skill:'mechanism-explanation',    d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); } if(n===2) rlDraw(); if(n===3) hbDraw(); if(n===4) gvDraw(); if(n===7) dtDraw(); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+/* ---------- hero guess: what does a candle flame look like in a spacecraft? ----------
+   Four choices. The right answer: 3 — a small, round, blue ball (no buoyancy → no convection → diffusion from all sides). */
+const SCALE_ANS = 3;
+const fmtSigns = n => ({1:'בדיוק כמו בבית',2:'היא לא תידלק בכלל',3:'כדור קטן, עגול וכחול',4:'לשון ארוכה לכל הכיוונים'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> בחללית להבה של נר היא כדור קטן וכחול. אבל למה? ולמה בבית היא דווקא מצביעה למעלה? על זה השיעור.';
+const SCALE_FB = {
+  1: '<span class="pill-bad">מפתיע, אבל לא.</span> בחללית הלהבה נראית אחרת לגמרי: כדור קטן, עגול וכחול. למה? על זה השיעור.',
+  2: '<span class="pill-bad">היא דווקא נדלקת!</span> יש בחללית אוויר עם חמצן, והנר בוער — אבל כדור קטן, עגול וכחול. למה? על זה השיעור.',
+  3: SCALE_FB_RIGHT,
+  4: '<span class="pill-bad">להפך — היא קטנה ומתכנסת.</span> בחללית להבה של נר היא כדור קטן, עגול וכחול. למה? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(24,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI, DEG = PI/180;
+/* ---------- this edition's colours ---------- */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const GOLDT = () => isDark() ? '#F6C454' : '#8A5410';     // gold for text
+const BLUE = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+const INK = () => css('--ink');
+const GREY = () => isDark() ? '#8C90AE' : '#9AA0B4';
+const RIVER = () => isDark() ? '#1B4F7E' : '#3E9BD6';
+const LANDC = () => isDark() ? '#5E4E33' : '#E3CC9E';
+const WOOD = () => isDark() ? '#B07A55' : '#8C5A3C';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+function xMath(c,txt,x,y,size,col,align){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+const RM = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+const $ = id => document.getElementById(id);
+/* canvas pointer → canvas coordinates */
+function cvPoint(cv, e){ const r=cv.getBoundingClientRect(); return { x:(e.clientX-r.left)*cv.width/r.width, y:(e.clientY-r.top)*cv.height/r.height }; }
+function segDist(p,a,b){ const dx=b.x-a.x, dy=b.y-a.y, L=dx*dx+dy*dy; let t=L?((p.x-a.x)*dx+(p.y-a.y)*dy)/L:0; t=clamp(t,0,1); const x=a.x+t*dx-p.x, y=a.y+t*dy-p.y; return Math.sqrt(x*x+y*y); }
+const lerp=(a,b,t)=>a+(b-a)*t;
+/* ---------- this edition's extra colours ---------- */
+const WAX = () => isDark() ? '#E9DFC8' : '#FFFDF6';
+const WAXS = () => isDark() ? '#C9B98F' : '#E8A33D';
+const TABLE = () => isDark() ? '#3B3350' : '#D9C49A';
+const SMOKE = () => isDark() ? '#E8EAF5' : '#FFFFFF';
+const fmt1 = v => (Math.round(v*10)/10).toString();
+const NOW = () => (window.performance && performance.now) ? performance.now() : Date.now();
+
+/* ---------- the flame: one shape for every gravity ----------
+   g = felt gravity as a fraction of Earth's (0…1). s = √g drives the shape: tall yellow teardrop at s=1,
+   a small blue ball centred on the wick at s=0 (no buoyancy → no convection → oxygen only by diffusion). */
+function flamePath(c, x, cy, w, htop, s){
+  const k = lerp(0.552, 0.32, s), ky = lerp(1, 0.8, s), k1 = lerp(0.552, 0.5, s);
+  c.beginPath(); c.moveTo(x-w, cy);
+  c.arc(x, cy, w, PI, 0, true);
+  c.bezierCurveTo(x+w, cy-htop*k1, x+w*k, cy-htop*ky, x, cy-htop);
+  c.bezierCurveTo(x-w*k, cy-htop*ky, x-w, cy-htop*k1, x-w, cy);
+  c.closePath();
+}
+function drawFlame(c, x, y, g, sc, t){
+  const s = Math.sqrt(clamp(g,0,1));
+  const fl = RM() ? 0 : (Math.sin(t*0.009)*0.6 + Math.sin(t*0.023)*0.4);
+  const w = sc*(22 + 8*(1-s)), htop = w + sc*118*s*(1 + 0.05*fl), cy = y - sc*(2 + 14*s);
+  /* glow */
+  const gx = x, gy = cy - htop*0.35*s, gr = htop*0.9 + w*1.6;
+  const gg = c.createRadialGradient(gx, gy, 2, gx, gy, gr);
+  gg.addColorStop(0, s>0.2 ? 'rgba(255,205,90,'+(0.10+0.32*s)+')' : 'rgba(110,150,255,'+(0.28*(1-s))+')');
+  gg.addColorStop(1, 'rgba(255,205,90,0)');
+  c.fillStyle = gg; c.beginPath(); c.arc(gx, gy, gr, 0, 2*PI); c.fill();
+  /* outer blue sheath */
+  flamePath(c, x, cy, w, htop, s);
+  const bg = c.createRadialGradient(x, cy-w*0.2, 1, x, cy, w*1.3+htop*0.2);
+  bg.addColorStop(0, 'rgba(190,215,255,'+(0.85-0.4*s)+')'); bg.addColorStop(1, 'rgba(60,110,250,'+(0.75-0.15*s)+')');
+  c.fillStyle = bg; c.fill();
+  /* yellow core: glowing soot, only where buoyancy feeds it */
+  if(s>0.04){
+    const w2 = w*0.8, h2 = htop*0.93, cy2 = cy - sc*5*s;
+    c.save(); c.globalAlpha = clamp(s*1.5, 0, 1);
+    flamePath(c, x, cy2, w2, h2, s);
+    const yg = c.createLinearGradient(0, cy2+w2, 0, cy2-h2);
+    yg.addColorStop(0, '#FF8A1E'); yg.addColorStop(0.35, '#FFC23A'); yg.addColorStop(0.8, '#FFE680'); yg.addColorStop(1, '#FFF6C8');
+    c.fillStyle = yg; c.fill();
+    /* the dark vapour zone just above the wick */
+    c.fillStyle = 'rgba(120,80,40,'+(0.35*s)+')'; c.beginPath(); c.ellipse(x, y - sc*12, sc*6, sc*15, 0, 0, 2*PI); c.fill();
+    c.restore();
+  }
+}
+/* a candle: body from yTop to yBot, wick up to the tip at (x, yWick) */
+function drawCandle(c, x, yWick, yTop, yBot, bw){
+  c.fillStyle = WAX(); c.strokeStyle = INK(); c.lineWidth = 4;
+  c.beginPath(); c.roundRect(x-bw/2, yTop, bw, yBot-yTop, [10,10,4,4]); c.fill(); c.stroke();
+  c.fillStyle = isDark() ? '#F6D47A' : '#FBEBD0'; c.strokeStyle = WAXS(); c.lineWidth = 2;
+  c.beginPath(); c.ellipse(x, yTop+4, bw*0.42, Math.max(4, bw*0.07), 0, 0, 2*PI); c.fill(); c.stroke();
+  c.strokeStyle = INK(); c.lineWidth = Math.max(4, bw*0.06); c.lineCap = 'round';
+  c.beginPath(); c.moveTo(x, yTop+4); c.lineTo(x, yWick); c.stroke();
+}
+
+/* ---------- step 2 (interactive 1): relight a candle through its smoke ----------
+   The white smoke is condensed wax vapour = fuel. A match in the smoke lights it and the flame runs down the trail
+   to the wick — only while the wick is still hot (≈ first 5 s) and close to the wick (≈ ≤ 5 cm; simplified values). */
+const rlCv=$('rlCv'), rlctx=rlCv.getContext('2d');
+const RL={ opened:0, pred:-1, phase:'lit', tb:0, h:3, relit:0, fail:0, fireT:0, revealed:0 };
+const RL_X=300, RL_WY=400, RL_PX=24, RL_ALIVE=5, RL_MAXH=5, RL_GONE=8;
+const rlEl = () => (NOW()-RL.tb)/1000;
+const rlTop = el => Math.min(12, 10*el+1);
+function rlPredict(k){ RL.pred=k; segOn('rlP',3,k); WOW.emit('item', { id:'relight:predict', kind:'quick', correct:k===1, attempt: wowTry('relight:predict') });
+  rlMsg.innerHTML='רשמנו את הניחוש. עכשיו כבו את הנר — ומהר, קרבו את הגפרור לעשן.'; rlUpdate(); }
+function rlOpen(){ if(!RL.opened){ RL.opened=1; WOW.emit('open', { id:'relight' }); } }
+function rlSet(){ if(RL.pred<0){ rlH.value=RL.h; predictFirst(rlMsg,'הזיזו'); return; } rlOpen(); RL.h=+rlH.value; rlUpdate(); }
+function rlBlow(){ if(RL.pred<0){ predictFirst(rlMsg,'כבו'); return; } rlOpen();
+  if(RL.phase!=='lit'){ rlMsg.innerHTML='הנר כבר כבוי. לחצו "הדליקו מחדש" כדי להתחיל שוב.'; return; }
+  RL.phase='smoke'; RL.tb=NOW(); rlMsg.innerHTML='הנר כבה, והעשן הלבן עולה. מהר — קרבו את הגפרור!'; rlUpdate(); ensureLoop(); }
+function rlLight(){ if(RL.pred<0){ predictFirst(rlMsg,'קרבו את הגפרור'); return; } rlOpen();
+  if(RL.phase==='lit'){ rlMsg.innerHTML='הנר עוד דולק. קודם כבו אותו.'; return; }
+  if(RL.phase==='fire') return;
+  const el=rlEl();
+  if(RL.phase==='out' || el>=RL_ALIVE){ RL.fail=1; rlMsg.innerHTML='<b>מאוחר מדי.</b> עברו כמה שניות, הפתיל התקרר והפסיק לשלוח אדים — ובלי אדים אין שביל של דלק. לחצו "הדליקו מחדש" ונסו מהר יותר.'; }
+  else if(RL.h>rlTop(el)){ rlMsg.innerHTML='העשן עוד לא הגיע לגובה של הגפרור. חכו רגע — או הנמיכו אותו.'; }
+  else if(RL.h>RL_MAXH){ RL.fail=1; rlMsg.innerHTML='<b>גבוה מדי.</b> שם העשן כבר דליל ומעורבב בהרבה אוויר, ואין בו מספיק דלק כדי לבעור. הנמיכו את הגפרור ונסו שוב.'; }
+  else { RL.phase='fire'; RL.fireT=NOW(); rlMsg.innerHTML='העשן נדלק...'; ensureLoop(); }
+  rlUpdate(); }
+function rlReset(){ if(RL.pred<0){ predictFirst(rlMsg,'נסו'); return; } RL.phase='lit'; rlMsg.innerHTML='הנר דולק שוב. כבו אותו, ונסו גובה אחר או זמן אחר.'; rlUpdate(); }
+function rlTick(){ if(RL.phase==='smoke' && rlEl()>RL_GONE){ RL.phase='out'; rlMsg.innerHTML='העשן נעלם. אין עשן — אין דלק. לחצו "הדליקו מחדש".'; }
+  if(RL.phase==='fire' && NOW()-RL.fireT>700){ RL.phase='lit'; RL.relit=1; rlMsg.innerHTML='<b>הצליח!</b> האש רצה למטה לאורך העשן והדליקה את הנר — בלי לגעת בפתיל.'; }
+  rlUpdate(); }
+function rlUpdate(){ const known=RL.pred>=0;
+  rlOutH.innerHTML = known ? '<span class="num">'+RL.h+'</span> ס״מ' : '?';
+  rlOutT.innerHTML = RL.phase==='lit' ? 'הנר דולק' : RL.phase==='out' ? 'העשן נעלם' : '<span class="num">'+fmt1(Math.min(rlEl(),RL_GONE))+'</span> שניות';
+  rlDraw(); rlCheck(); }
+function rlCheck(){ if(RL.pred>=0 && !RL.revealed && RL.relit && RL.fail){ RL.revealed=1; rlReveal.hidden=false; rlAfter.hidden=false; hint2.textContent='ענו על השאלה כדי להמשיך.'; } }
+function rlDraw(){
+  const c=rlctx, W=rlCv.width, H=rlCv.height, known=RL.pred>=0, t=NOW(), mY=RL_WY-RL.h*RL_PX;
+  c.clearRect(0,0,W,H);
+  c.fillStyle=TABLE(); c.fillRect(0,560,W,40);
+  /* ruler: cm above the wick */
+  c.strokeStyle=GREY(); c.lineWidth=3; c.beginPath(); c.moveTo(110,RL_WY); c.lineTo(110,RL_WY-12*RL_PX); c.stroke();
+  for(let k=0;k<=12;k++){ const y=RL_WY-k*RL_PX; c.beginPath(); c.moveTo(110,y); c.lineTo(k%2?122:132,y); c.stroke(); if(k%2===0) xMath(c,String(k),78,y,22,INK()); }
+  xLabel(c,'ס״מ',112,56,22,INK(),.92);
+  /* smoke: condensed wax vapour, rising and fading */
+  if(RL.phase==='smoke' || RL.phase==='fire'){
+    const el=rlEl(), a=clamp(1-el/RL_GONE,0,1), top=rlTop(el)*RL_PX;
+    for(let dy=0; dy<=top; dy+=6){ const y=RL_WY-6-dy, x=RL_X+Math.sin(dy*0.05+el*3)*(3+dy*0.06), r=5+dy*0.05;
+      c.fillStyle='rgba(120,126,150,'+(0.30*a)+')'; c.beginPath(); c.arc(x,y,r+2,0,2*PI); c.fill(); }
+    c.fillStyle=SMOKE(); c.globalAlpha=0.9*a;
+    for(let dy=0; dy<=top; dy+=6){ const y=RL_WY-6-dy, x=RL_X+Math.sin(dy*0.05+el*3)*(3+dy*0.06), r=5+dy*0.05; c.beginPath(); c.arc(x,y,r,0,2*PI); c.fill(); }
+    c.globalAlpha=1;
+  }
+  drawCandle(c, RL_X, RL_WY, 430, 560, 96);
+  if(RL.phase==='lit') drawFlame(c, RL_X, RL_WY, 1, 1.15, t);
+  if(RL.phase==='smoke' || RL.phase==='out'){ c.fillStyle=isDark()?'#F2806F':'#C8452D'; c.beginPath(); c.arc(RL_X, RL_WY, 4, 0, 2*PI); c.fill(); }
+  /* the flame running down the smoke */
+  if(RL.phase==='fire'){ const p=clamp((t-RL.fireT)/700,0,1), yf=mY+(RL_WY-mY)*p;
+    c.fillStyle='rgba(255,170,60,0.35)'; c.beginPath(); c.roundRect(RL_X-9, mY, 18, Math.max(2,yf-mY), 9); c.fill();
+    drawFlame(c, RL_X, yf, 1, 0.55, t); }
+  /* the match */
+  if(known){
+    c.strokeStyle=WOOD(); c.lineWidth=11; c.lineCap='round'; c.beginPath(); c.moveTo(336,mY+6); c.lineTo(580,mY+86); c.stroke();
+    c.fillStyle=DANG(); c.beginPath(); c.ellipse(328,mY+2,12,9,0.32,0,2*PI); c.fill();
+    drawFlame(c, 324, mY-2, 1, 0.42, t);
+  } else {
+    xLabel(c,'נחשו קודם',360,250,30,DANG(),.95);
+  }
+  xLabel(c, RL.phase==='lit'?'הנר דולק':RL.phase==='fire'?'האש רצה למטה!':RL.phase==='out'?'אין עשן':'הנר כבוי — העשן עולה', 440, 42, 24, RL.phase==='fire'?DANG():INK(), .95);
+  if(RL.phase==='smoke' || RL.phase==='fire') xLabel(c,'העשן הלבן = אדי שעווה',RL_X,582,22,INK(),.95);
+}
+
+/* ---------- step 3 (interactive 2): a litre of room air vs a litre of hot gas ----------
+   Same pressure → density ∝ 1/T (kelvin). Room air 20 °C = 293 K. The hot box holds 64·293/(T+273) dots. */
+const hbCv=$('hbCv'), hbctx=hbCv.getContext('2d');
+const HB={ opened:0, pred:-1, T:20, revealed:0, hot:0, mid:0 };
+const HB_N=64, HB_PTS=(()=>{ let s=7; const r=()=>{ s=(s*16807)%2147483647; return s/2147483647; }; return Array.from({length:HB_N},()=>({x:r(), y:r(), p:r()*6.28})); })();
+const hbRatio = () => (HB.T+273)/293;
+function hbPredict(k){ HB.pred=k; segOn('hbP',3,k); WOW.emit('item', { id:'buoy:predict', kind:'quick', correct:k===2, attempt: wowTry('buoy:predict') });
+  hbMsg.innerHTML='רשמנו את הניחוש. עכשיו הזיזו את הסליידר וחממו את הגז.'; hbUpdate(); }
+function hbSet(){ if(HB.pred<0){ hbT.value=HB.T; predictFirst(hbMsg,'הזיזו'); return; }
+  if(!HB.opened){ HB.opened=1; WOW.emit('open', { id:'buoy' }); }
+  HB.T=+hbT.value; if(HB.T>=1000) HB.hot=1; if(HB.T>=100 && HB.T<=700) HB.mid=1;
+  const r=hbRatio();
+  hbMsg.innerHTML = r<1.05 ? 'שתי הקופסאות באותה טמפרטורה — באותו משקל. חממו את הקופסה השמאלית.'
+    : HB.T>=1000 ? '<b>חום של להבה!</b> בליטר החם נשארו רק מעט חלקיקים — הוא קל פי <span class="num">'+fmt1(r)+'</span>, והצד שלו עולה.'
+    : 'החלקיקים בגז החם זזים מהר יותר ותופסים יותר מקום, ולכן בליטר אחד יש פחות מהם. הוא קל פי <span class="num">'+fmt1(r)+'</span>.';
+  hbUpdate(); }
+function hbUpdate(){ const known=HB.pred>=0;
+  hbOutT.innerHTML = known ? '<span class="num">'+HB.T.toLocaleString('he-IL')+'</span> מעלות' : '?';
+  hbOutR.innerHTML = known ? '<span class="num">'+fmt1(hbRatio())+'</span>' : '?';
+  hbDraw(); hbCheck(); }
+function hbCheck(){ if(HB.pred>=0 && !HB.revealed && HB.hot && HB.mid){ HB.revealed=1; hbReveal.hidden=false; hbAfter.hidden=false; hint3.textContent='ענו על השאלה כדי להמשיך.'; } }
+function hbBox(c, cx, top, n, hot, speed, t){
+  const B=180;
+  c.fillStyle = hot ? (isDark()?'#4A2A16':'#FBE0C8') : (isDark()?'#1E3650':'#DCEAF5');
+  c.strokeStyle=INK(); c.lineWidth=4; c.beginPath(); c.roundRect(cx-B/2, top, B, B, 12); c.fill(); c.stroke();
+  c.fillStyle = hot ? DANG() : BLUE();
+  for(let i=0;i<n;i++){ const p=HB_PTS[i], amp=RM()?0:3*speed;
+    const x=cx-B/2+16+p.x*(B-32)+Math.sin(t*0.004*speed+p.p)*amp, y=top+16+p.y*(B-32)+Math.cos(t*0.005*speed+p.p*1.3)*amp;
+    c.beginPath(); c.arc(x,y,6,0,2*PI); c.fill(); }
+}
+function hbDraw(){
+  const c=hbctx, W=hbCv.width, H=hbCv.height, known=HB.pred>=0, t=NOW(), r=known?hbRatio():1;
+  c.clearRect(0,0,W,H);
+  const PX=320, PY=120, L=200, th=clamp((1-1/r)*0.32,0,0.3);
+  const lx=PX-L*Math.cos(th), ly=PY-L*Math.sin(th), rx=PX+L*Math.cos(th), ry=PY+L*Math.sin(th);
+  /* stand */
+  c.strokeStyle=INK(); c.lineWidth=8; c.lineCap='round'; c.beginPath(); c.moveTo(PX,PY); c.lineTo(PX,575); c.stroke();
+  c.fillStyle=INK(); c.beginPath(); c.roundRect(250,573,140,20,6); c.fill();
+  /* beam + strings */
+  c.lineWidth=9; c.beginPath(); c.moveTo(lx,ly); c.lineTo(rx,ry); c.stroke();
+  c.fillStyle=GOLD(); c.beginPath(); c.arc(PX,PY,11,0,2*PI); c.fill();
+  c.lineWidth=3; c.beginPath(); c.moveTo(lx,ly); c.lineTo(lx,ly+30); c.moveTo(rx,ry); c.lineTo(rx,ry+30); c.stroke();
+  /* boxes: right = room air, left = the heated gas */
+  hbBox(c, rx, ry+30, HB_N, false, 1, t);
+  const nHot = Math.round(HB_N/r);
+  hbBox(c, lx, ly+30, nHot, r>1.05, Math.sqrt(r), t);
+  xLabel(c,'אוויר בחדר',rx,ry+244,22,INK(),.95); xMath(c,'20°C',rx,ry+282,24,BLUE());
+  xLabel(c,r>1.05?'גז חם':'גז',lx,ly+244,22,INK(),.95); xMath(c,(known?HB.T:20)+'°C',lx,ly+282,24,r>1.05?DANG():BLUE());
+  if(!known) xLabel(c,'נחשו קודם',320,530,30,DANG(),.95);
+  else if(r>1.05) xLabel(c,'הגז החם קל פי '+fmt1(r),320,530,26,DANG(),.95);
+  else xLabel(c,'באותו משקל',320,530,26,INK(),.95);
+}
+
+/* ---------- step 4 (interactive 3): dial the gravity ----------
+   Earth 100 %, Mars 38 %, Moon 17 %, the space station ≈ 0. Convection strength ∝ √g (shape interpolation for illustration). */
+const gvCv=$('gvCv'), gvctx=gvCv.getContext('2d');
+const GV={ opened:0, pred:-1, g:100, revealed:0, zero:0, earth:0 };
+const GV_PLACES={100:'כדור הארץ',38:'מאדים',17:'הירח',0:'תחנת החלל'};
+function gvPredict(k){ GV.pred=k; segOn('gvP',3,k); WOW.emit('item', { id:'gravity:predict', kind:'quick', correct:k===1, attempt: wowTry('gravity:predict') });
+  gvMsg.innerHTML='רשמנו את הניחוש. עכשיו הורידו את הכובד — בסליידר או בכפתורים.'; gvUpdate(); }
+function gvPlace(v){ if(GV.pred<0){ predictFirst(gvMsg,'בחרו'); return; } gvG.value=v; gvSet(); }
+function gvSet(){ if(GV.pred<0){ gvG.value=GV.g; predictFirst(gvMsg,'הזיזו'); return; }
+  if(!GV.opened){ GV.opened=1; WOW.emit('open', { id:'gravity' }); }
+  GV.g=+gvG.value; if(GV.g<=2) GV.zero=1; if(GV.g>=90) GV.earth=1;
+  [100,38,17,0].forEach((v,i)=>{ const b=$('gvS'+i); if(b) b.classList.toggle('on', GV.g===v); });
+  gvMsg.innerHTML = GV.g>=90 ? 'כמו בבית: זרם חזק של אוויר מותח את הלהבה לטיפה גבוהה וצהובה.'
+    : GV.g>2 ? 'פחות כובד — זרם חלש יותר. הלהבה מתקצרת, ופחות פיח נסחף אל גוף הלהבה.'
+    : '<b>אין כובד, אין זרם.</b> החמצן זוחל לאט מכל הצדדים — והלהבה היא כדור קטן וכחול.';
+  gvUpdate(); }
+function gvUpdate(){ const known=GV.pred>=0;
+  gvOutG.innerHTML = known ? '<span class="num">'+GV.g+'%</span> מכדור הארץ' : '?';
+  gvOutF.innerHTML = !known ? '?' : GV.g>=60 ? 'חזק' : GV.g>=15 ? 'חלש יותר' : GV.g>2 ? 'חלש מאוד' : 'אין — רק זחילה איטית';
+  gvDraw(); gvCheck(); }
+function gvCheck(){ if(GV.pred>=0 && !GV.revealed && GV.zero && GV.earth){ GV.revealed=1; gvReveal.hidden=false; gvAfter.hidden=false; hint4.textContent='ענו על השאלה כדי להמשיך.'; } }
+const GV_PATH=[[40,470],[190,425],[278,398],[306,330],[316,120],[306,40]];
+function pathAt(P,u){ const seg=[]; let tot=0; for(let i=1;i<P.length;i++){ const d=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]); seg.push(d); tot+=d; }
+  let d=u*tot; for(let i=0;i<seg.length;i++){ if(d<=seg[i]){ const f=d/seg[i]; return [lerp(P[i][0],P[i+1][0],f), lerp(P[i][1],P[i+1][1],f)]; } d-=seg[i]; } return P[P.length-1]; }
+function gvDraw(){
+  const c=gvctx, W=gvCv.width, H=gvCv.height, known=GV.pred>=0, t=NOW(), g=known?GV.g/100:1, s=Math.sqrt(g);
+  c.clearRect(0,0,W,H);
+  c.fillStyle=TABLE(); c.fillRect(0,580,W,40);
+  const X=320, WY=392;
+  if(s>0.05){
+    /* convection: fresh air in from below and the sides, hot gas up */
+    for(const side of [1,-1]){ const P=GV_PATH.map(p=>[side>0?p[0]:2*X-p[0], p[1]]);
+      c.strokeStyle=GREY(); c.globalAlpha=0.35+0.4*s; c.lineWidth=3; c.setLineDash([10,10]); c.beginPath(); P.forEach((p,i)=>i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1])); c.stroke(); c.setLineDash([]);
+      const N=9; for(let i=0;i<N;i++){ const u=((RM()?0:t*0.00018*s)+i/N)%1, q=pathAt(P,u); c.fillStyle = u<0.42 ? BLUE() : DANG(); c.beginPath(); c.arc(q[0],q[1],7,0,2*PI); c.fill(); }
+      c.globalAlpha=1; }
+    c.fillStyle=DANG(); xArrow(c,X,30,0,-1,22); c.fillStyle=BLUE(); xArrow(c,262,400,1,-0.2,20); xArrow(c,378,400,-1,-0.2,20);
+  }
+  drawCandle(c, X, WY, 420, 580, 110);
+  drawFlame(c, X, WY, g, 1.55, t);
+  if(s<=0.05){
+    c.strokeStyle=GREY(); c.lineWidth=3; c.setLineDash([8,8]); c.beginPath(); c.arc(X,WY-4,86,0,2*PI); c.stroke(); c.setLineDash([]);
+    c.strokeStyle=BLUE(); c.fillStyle=BLUE(); c.lineWidth=5;
+    for(let k=0;k<8;k++){ const a=k*PI/4+PI/8, r1=150, r2=104, x1=X+r1*Math.cos(a), y1=WY-4+r1*Math.sin(a), x2=X+r2*Math.cos(a), y2=WY-4+r2*Math.sin(a);
+      if(y1>410 && Math.abs(x1-X)<70) continue;
+      c.beginPath(); c.moveTo(x1,y1); c.lineTo(x2,y2); c.stroke(); xArrow(c,x2,y2,x2-x1,y2-y1,16); }
+    if(known){ xLabel(c,'חמצן זוחל פנימה מכל הצדדים',X,150,22,BLUE(),.95); xLabel(c,'אין זרם',X,200,22,INK(),.95); }
+  } else if(known){
+    xLabel(c,'גזים חמים עולים',480,84,22,DANG(),.95);
+    xLabel(c,'אוויר רענן נכנס',130,520,22,BLUE(),.95);
+  }
+  if(!known) xLabel(c,'נחשו קודם',X,250,30,DANG(),.95);
+  else xLabel(c, GV_PLACES[GV.g] || ('כובד של '+GV.g+'%'), 120, 42, 24, INK(), .95);
+}
+
+/* ---------- step 7 (interactive 4): drop a candle down NASA's 2.2-second tower (24 m) ----------
+   In free fall nothing is heavier than its neighbour → no buoyancy → the flame rounds and dims; on landing it stretches back. */
+const dtCv=$('dtCv'), dtctx=dtCv.getContext('2d');
+const DT={ opened:0, pred:-1, phase:'top', t0:0, tl:0, drops:0, revealed:0 };
+const DT_FALL=2.2, DT_Y0=50, DT_Y1=440;
+function dtPredict(k){ DT.pred=k; segOn('dtP',3,k); WOW.emit('item', { id:'drop:predict', kind:'quick', correct:k===1, attempt: wowTry('drop:predict') });
+  dtMsg.innerHTML='רשמנו את הניחוש. עכשיו לחצו על "הפילו!" וצפו בזכוכית המגדלת.'; dtUpdate(); }
+function dtDrop(){ if(DT.pred<0){ predictFirst(dtMsg,'הפילו'); return; }
+  if(!DT.opened){ DT.opened=1; WOW.emit('open', { id:'drop' }); }
+  if(DT.phase==='fall') return;
+  DT.phase='fall'; DT.t0=NOW(); dtMsg.innerHTML='נופלים... הסתכלו על הלהבה!'; dtUpdate(); ensureLoop(); }
+function dtTau(){ return DT.phase==='fall' ? Math.min(DT_FALL,(NOW()-DT.t0)/1000) : DT.phase==='land' ? DT_FALL : 0; }
+function dtG(){ if(DT.phase==='fall'){ const k=clamp(1-dtTau()/0.35,0,1); return k*k; } if(DT.phase==='land') return clamp((NOW()-DT.tl)/600,0,1); return 1; }
+function dtTick(){ if(DT.phase==='fall' && (NOW()-DT.t0)/1000>=DT_FALL){ DT.phase='land'; DT.tl=NOW(); DT.drops++; dtMsg.innerHTML='<b>נחתנו!</b> הכובד חזר — והלהבה שוב מצביעה למעלה. אפשר להפיל שוב.'; } dtUpdate(); }
+function dtUpdate(){ const known=DT.pred>=0;
+  dtOutT.innerHTML = known ? '<span class="num">'+fmt1(dtTau())+'</span> שניות' : '?';
+  dtOutG.innerHTML = !known ? '?' : DT.phase==='fall' ? 'ריחוף — בלי כובד' : 'כובד רגיל';
+  dtDraw(); dtCheck(); }
+function dtCheck(){ if(DT.pred>=0 && !DT.revealed && DT.drops>0){ DT.revealed=1; dtReveal.hidden=false; dtAfter.hidden=false; hint7.hidden=true; next7.disabled=false; } }
+function dtDraw(){
+  const c=dtctx, W=dtCv.width, H=dtCv.height, known=DT.pred>=0, t=NOW(), g=dtG(), tau=dtTau();
+  c.clearRect(0,0,W,H);
+  /* the tower */
+  c.fillStyle=isDark()?'#232747':'#EFE6D2'; c.fillRect(430,30,150,540);
+  c.strokeStyle=INK(); c.lineWidth=5; c.strokeRect(430,30,150,540);
+  c.strokeStyle=GREY(); c.lineWidth=2; for(let y=80;y<570;y+=50){ c.beginPath(); c.moveTo(430,y); c.lineTo(445,y); c.moveTo(580,y); c.lineTo(565,y); c.stroke(); }
+  c.fillStyle=TABLE(); c.fillRect(430,560,150,10);
+  const yC = DT.phase==='fall' ? DT_Y0+(DT_Y1-DT_Y0)*Math.pow(tau/DT_FALL,2) : DT.phase==='land' ? DT_Y1 : DT_Y0;
+  /* the capsule with its candle */
+  c.fillStyle=isDark()?'#1B1F3C':'#FFFFFF'; c.strokeStyle=INK(); c.lineWidth=4; c.beginPath(); c.roundRect(450,yC,110,120,12); c.fill(); c.stroke();
+  drawCandle(c,505,yC+78,yC+84,yC+116,26);
+  drawFlame(c,505,yC+78,g,0.42,t);
+  if(DT.phase==='fall') xLabel(c,'ריחוף!',505,Math.max(28,yC-22),22,DANG(),.95);
+  xLabel(c,'מגדל של 24 מטרים',505,592,20,INK(),.95);
+  /* the magnifier */
+  const MX=200, MY=320, MR=165;
+  c.strokeStyle=GREY(); c.lineWidth=3; c.setLineDash([8,8]); c.beginPath(); c.moveTo(MX+MR*0.8,MY-MR*0.55); c.lineTo(450,yC+60); c.stroke(); c.setLineDash([]);
+  c.save(); c.beginPath(); c.arc(MX,MY,MR,0,2*PI); c.fillStyle=isDark()?'#191C30':'#FFFDF6'; c.fill(); c.clip();
+  drawCandle(c,MX,MY+60,MY+86,MY+MR+20,96);
+  drawFlame(c,MX,MY+60,g,1.3,t);
+  c.restore();
+  c.strokeStyle=INK(); c.lineWidth=6; c.beginPath(); c.arc(MX,MY,MR,0,2*PI); c.stroke();
+  xLabel(c,'הלהבה מקרוב',MX,MY-MR-24,22,INK(),.95);
+  if(!known) xLabel(c,'נחשו קודם',MX,MY,30,DANG(),.95);
+}
+
+/* ---------- one animation loop: active phases always, the flicker only for canvases on screen ---------- */
+const VIS=new Set(); let loopOn=false, loopLast=0;
+function ensureLoop(){ if(!loopOn){ loopOn=true; requestAnimationFrame(loop); } }
+function loop(now){
+  let need=false; const draw = now-loopLast>=33; if(draw) loopLast=now;
+  if(RL.phase==='smoke' || RL.phase==='fire'){ need=true; if(draw) rlTick(); }
+  else if(!RM() && VIS.has(rlCv)){ need=true; if(draw) rlDraw(); }
+  if(DT.phase==='fall' || (DT.phase==='land' && NOW()-DT.tl<700)){ need=true; if(draw) dtTick(); }
+  else if(!RM() && VIS.has(dtCv)){ need=true; if(draw) dtDraw(); }
+  if(!RM() && VIS.has(hbCv)){ need=true; if(draw) hbDraw(); }
+  if(!RM() && VIS.has(gvCv)){ need=true; if(draw) gvDraw(); }
+  if(need) requestAnimationFrame(loop); else loopOn=false;
+}
+if('IntersectionObserver' in window){ const io=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting) VIS.add(e.target); else VIS.delete(e.target); }); ensureLoop(); }); [rlCv,hbCv,gvCv,dtCv].forEach(cv=>io.observe(cv)); }
+[rlDraw, hbDraw, gvDraw, dtDraw].forEach(f=>f());
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  goalQ:{ q:'מה בעצם בוער בנר?', opts:['השעווה המוצקה','הפתיל — חוט הכותנה','אדים של שעווה, שמתערבבים עם האוויר','האוויר עצמו'], a:2, fb:'השעווה נמסה, מטפסת בפתיל והופכת לאדים — והאדים הם שבוערים, במקום שבו הם פוגשים את החמצן שבאוויר. השעווה המוצקה רק נמסה, הפתיל כמעט לא נשרף כי השעווה מקררת אותו, והאוויר נותן חמצן אבל הוא לא הדלק.', btn:'next1' },
+  beatQ:{ q:'למה האש קפצה מהגפרור אל הפתיל?', opts:['כי העשן הלבן הוא אדי שעווה — דלק שהאש יכולה ללכת בו','כי הגפרור חם יותר מהנר','כי העשן מושך את האש כמו מגנט','כי הפתיל עוד בער בסתר'], a:0, fb:'העשן הוא שביל של דלק, והאש בוערת לאורכו עד הפתיל. החום של הגפרור לבדו לא מספיק — גבוה מדי או מאוחר מדי זה לא עבד. אין כאן שום מגנט, והפתיל היה כבוי באמת: רק חם.', btn:'next2' },
+  frameQ:{ q:'למה הלהבה של נר מצביעה למעלה?', opts:['כי אש תמיד נמשכת אל השמיים','כי הגזים החמים קלים מהאוויר שמסביב, והאוויר הכבד דוחף אותם למעלה','כי הפתיל דוחף את האש למעלה','כי יש חמצן רק למעלה'], a:1, fb:'גז חם קל יותר, והאוויר הקר והכבד דוחף אותו מעלה — בזכות הכובד. האש לא "נמשכת" לשמיים, הפתיל לא דוחף כלום, וחמצן יש מכל הצדדים — הוא דווקא נכנס ללהבה מלמטה.', btn:'next3' },
+  lineQ:{ q:'למה בחלל הלהבה עגולה?', opts:['כי בחלל קר מאוד','כי האסטרונאוטים מסובבים את הנר','כי אין כובד, אז הגזים החמים לא עולים, והחמצן מגיע לאט מכל הכיוונים','כי בחללית אין חמצן'], a:2, fb:'בלי כובד אין "קל" ו"כבד" ואין זרם. החמצן זוחל אל הלהבה מכל הכיוונים באותה מידה, ולכן היא כדור. בחללית חם ונעים כמו בבית, אף אחד לא מסובב את הנר, ויש בה אוויר עם חמצן — אחרת הנר לא היה נדלק בכלל.', btn:'next4' },
+  deepQ:{ q:'למה החלק הצהוב של הלהבה זוהר?', opts:['כי השעווה צבועה בצהוב','כי יש בו גרגירי פיח זעירים ולוהטים, שזוהרים כמו גחלת','כי זה החלק הכי קר בלהבה','כי הוא משקף את האור של החדר'], a:1, fb:'הפיח — גרגירי פחמן מאדים שלא קיבלו מספיק חמצן — מתחמם לבערך <span class="num">1,000</span> מעלות וזוהר. גם נר לבן נותן להבה צהובה, הצהוב לא החלק הקר (הוא פשוט מאיר), ולהבה מאירה גם בחדר חשוך לגמרי.', btn:'next5' }
+};
+const MCQ = {
+  shared:[
+    { q:'מדליקים נר ומטים אותו קצת הצידה. לאן תצביע הלהבה?', opts:['לכיוון שאליו הנר מוטה','ישר למעלה','למטה','הצידה, הפוך מהנר'], a:1, fb:'הגזים החמים עולים ישר למעלה, לא משנה איך עומד הנר — את הכיוון "למעלה" קובע הכובד, לא הנר. לכן הלהבה לא הולכת אחרי הנר, לא נופלת למטה ולא בורחת הצידה.' },
+    { q:'למה בחלל הלהבה כחולה ולא צהובה?', opts:['כי בחלל השמיים שחורים','כי אסטרונאוטים משתמשים בנרות כחולים','כי בחלל אין אור','כי היא קרירה יותר וכמעט אין בה פיח לוהט'], a:3, fb:'הצהוב בא מפיח לוהט. בחלל הלהבה מקבלת פחות חמצן, היא קרירה יותר, וכמעט לא נוצר בה פיח — נשאר רק האור הכחלחל של הבעירה. צבע הנר והשמיים לא קשורים, ובחללית יש אור.' },
+    { q:'קופסה עם נר דולק נופלת במגדל נפילה. מה קורה ללהבה בזמן הנפילה?', opts:['היא מצביעה למטה','היא לא משתנה','היא מתעגלת ונעשית כחלחלה — כמו בחלל','היא מתפוצצת'], a:2, fb:'בנפילה חופשית הכול נופל יחד, ואף גז לא "קל" יותר מהשכן שלו — אין ציפה ואין זרם, בדיוק כמו בחלל. הלהבה לא מתהפכת ולא מתפוצצת: היא פשוט מאבדת את ה"למעלה" שלה.' }
+  ],
+  younger:[
+    { q:'מכבים נר, ומיד מקרבים גפרור בוער לעשן הלבן, קרוב לפתיל. מה קורה?', opts:['כלום','האש קופצת למטה לאורך העשן ומדליקה את הנר','הגפרור כבה','העשן נעשה שחור'], a:1, fb:'העשן הלבן הוא אדי שעווה — דלק. האש בוערת לאורכו עד הפתיל, שעוד חם. זה עובד רק בשניות הראשונות; אחר כך באמת לא קורה כלום.' }
+  ],
+  older:[
+    { q:'גז אחד בטמפרטורה של <span class="num">900</span> קלווין, וגז שני של <span class="num">300</span> קלווין, באותו לחץ. פי כמה ליטר של הגז החם קל יותר?', opts:['פי <span class="num">3</span>','פי <span class="num">600</span>','הוא דווקא כבד יותר, פי <span class="num">3</span>','הוא לא קל יותר — רק חם יותר'], a:0, fb:'באותו לחץ, הגז קל יותר פי היחס בין הטמפרטורות בקלווין: <span class="math">900 ÷ 300 = 3</span>. <span class="num">600</span> הוא ההפרש, לא היחס; הגז החם תמיד הקל מבין השניים; וחום הוא בדיוק מה שהופך אותו לקל.' }
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'הגפרור מחמם את הפתיל, והשעווה שבראש הנר נמסה.'},
+  {id:'b', t:'השעווה הנוזלית מטפסת בפתיל, כמו מים במגבת נייר.'},
+  {id:'c', t:'בראש הפתיל החום הופך את השעווה לאדים.'},
+  {id:'d', t:'האדים פוגשים את החמצן שבאוויר ובוערים — יש חום ואור.'},
+  {id:'e', t:'הגזים החמים, הקלים מהאוויר שמסביב, עולים למעלה.'},
+  {id:'f', t:'מלמטה נכנס אוויר רענן עם חמצן, והלהבה נמתחת ומצביעה למעלה.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלכם: ' : '<span class="pill-ok">בדיוק ככה!</span>')+' נמס ← מטפס בפתיל ← הופך לאדים ← בוער עם חמצן ← הגזים החמים עולים ← אוויר רענן נכנס מלמטה. השעווה חייבת קודם להפוך לאדים כדי לבעור, ורק כשיש בעירה יש גזים חמים שעולים ומושכים אחריהם אוויר חדש.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) שעווה לא יכולה לבעור לפני שהיא הופכת לאדים — ולשם היא צריכה קודם להגיע לראש הפתיל. (2) אוויר רענן נכנס מלמטה רק <b>בגלל</b> שהגזים החמים עולים ומפנים לו מקום.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && Math.abs(a-140)<1.01, bOk = hasB && b>=32.9 && b<=33.5;   /* 2000 × 0.21 = 420; 2000 × 0.14 = 280; 420 − 280 = 140 mL; 140 ÷ 420 ≈ 33.3 % */
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && Math.abs(a-420)<0.5) ? '(א): <span class="num">420</span> זה כל החמצן שהיה בהתחלה. כמה נשאר כשהנר כבה? את זה מחסרים.'
+    : (hasA && Math.abs(a-280)<0.5) ? '(א): <span class="num">280</span> זה מה שנשאר בסוף. כמה נצרך? <span class="math">420 − 280 = ?</span>'
+    : (hasA && Math.abs(a-7)<0.01) ? '(א): <span class="num">7</span> הוא ההפרש באחוזים. עכשיו הפכו אותו למיליליטרים: כמה זה <span class="num">7%</span> מ־<span class="num">2,000</span>?'
+    : '(א): רמז — <span class="math">2000 × 0.21 = ?</span> בהתחלה, <span class="math">2000 × 0.14 = ?</span> בסוף. ההפרש הוא התשובה.';
+  const hintB = (hasB && Math.abs(b-7)<0.01) ? '(ב): <span class="num">7%</span> זה מתוך כל האוויר. השאלה היא מתוך החמצן בלבד: <span class="num">140</span> מתוך <span class="num">420</span>.'
+    : (hasB && b>=66 && b<=67.1) ? '(ב): זה החלק שנשאר. השאלה היא על החלק שהנר צרך.'
+    : (hasB && b>=0.32 && b<=0.34) ? '(ב): כמעט! זה השבר. כדי לקבל אחוזים, כפלו ב־<span class="num">100</span>.'
+    : '(ב): רמז — <span class="math">(החמצן שנצרך ÷ החמצן בהתחלה) × 100</span>.';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) בהתחלה: <span class="math">2000 × 0.21 = 420</span> מ״ל חמצן. בסוף: <span class="math">2000 × 0.14 = 280</span> מ״ל. נצרכו <span class="math">420 − 280 = 140</span> מ״ל. (ב) <span class="math">140 ÷ 420 × 100 ≈ 33%</span> — רק שליש מהחמצן! הנר כבה הרבה לפני שהחמצן נגמר, כי באוויר דליל בחמצן הלהבה כבר לא חמה מספיק כדי להמשיך לבעור. עכשיו פתחו את השאלה למחשבה שלמטה.'
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">140</span> מ״ל.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">33%</span>.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const mr=+numAdvR.value, mn=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && mr>=5.6 && mr<=5.8), yOk=(hasY && mn>=0.2 && mn<=0.22), sc = dOk&&yOk?2:((dOk||yOk)?1:0);   /* (1400+273) ÷ (20+273) = 1673 ÷ 293 ≈ 5.71; 1.2 ÷ 5.71 ≈ 0.21 g */
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && Math.abs(mr-70)<0.5) ? 'ב־(א): חילקתם מעלות צלזיוס. קודם ממירים לקלווין — מוסיפים <span class="num">273</span> לכל טמפרטורה.'
+      : (hasD && mr>=4.7 && mr<=4.85) ? 'ב־(א): המרתם רק את הטמפרטורה של החדר. גם ל־<span class="num">1,400</span> צריך להוסיף <span class="num">273</span>.'
+      : (hasD && mr>0.16 && mr<0.19) ? 'ב־(א): הפכתם את החילוק. מחלקים את החם בקר: <span class="math">1673 ÷ 293</span>.'
+      : (hasD && Math.abs(mr-1380)<1) ? 'ב־(א): זה ההפרש. השאלה היא "פי כמה" — מחלקים.'
+      : 'רמז ל־(א): <span class="math">(1400 + 273) ÷ (20 + 273) = ?</span>';
+    const hintY = (hasY && mn>=6.7 && mn<=7) ? 'ב־(ב): כפלתם. הגז החם <b>קל</b> יותר — מחלקים את <span class="num">1.2</span> ביחס.'
+      : (hasY && Math.abs(mn-0.24)<0.005) ? 'ב־(ב): זה עם היחס <span class="num">5</span> מהדוגמה. כאן השתמשו ביחס שלכם מ־(א).'
+      : 'רמז ל־(ב): <span class="math">1.2 ÷ (התשובה של א) = ?</span>';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">1400 + 273 = 1673</span> קלווין, ו־<span class="math">20 + 273 = 293</span> קלווין; <span class="math">1673 ÷ 293 ≈ 5.7</span>. (ב) <span class="math">1.2 ÷ 5.71 ≈ 0.21</span> גרם — פחות מרבע גרם לליטר. ליטר כזה נדחף למעלה בכוח של האוויר הכבד שמסביב.'
+      : dOk ? '<span class="pill-ok">(א) נכון — פי <span class="num">5.7</span> בערך.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — כ־<span class="num">0.21</span> גרם.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-44)<0.01; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> <span class="math">1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 = 36</span> נרות, ועוד <span class="num">8</span> שמשים: <span class="math">36 + 8 = 44</span>. ארבעים וארבע להבות קטנות — וכולן מצביעות למעלה!':(Math.abs(v-36)<0.01?'<span class="pill-bad">כמעט!</span> שכחתם את השמשים — בכל לילה יש עוד אחד. כמה לילות יש?':(Math.abs(v-9)<0.01?'<span class="pill-bad">עוד לא.</span> <span class="num">9</span> זה רק הלילה השמיני (<span class="num">8</span> נרות ושמש). השאלה היא על כל הלילות יחד.':(Math.abs(v-16)<0.01?'<span class="pill-bad">עוד לא.</span> בכל לילה יש יותר נרות מהלילה הקודם — לא רק נר אחד. חברו את כל הלילות.':'<span class="pill-bad">עוד לא.</span> רמז: חברו בזוגות — <span class="math">1 + 8</span>, <span class="math">2 + 7</span>, <span class="math">3 + 6</span>, <span class="math">4 + 5</span>. ואחר כך הוסיפו <span class="num">8</span> שמשים.'))); }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=v>=3.95&&v<=4.05; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">1200 ÷ 300 = 4</span>. ליטר של הגז החם שוקל רבע מליטר של אוויר החדר — ולכן האוויר הכבד דוחף אותו למעלה.':(Math.abs(v-900)<0.5?'<span class="pill-bad">זה ההפרש.</span> השאלה היא "פי כמה" — מחלקים.':(Math.abs(v-0.25)<0.01?'<span class="pill-bad">הפכתם.</span> מחלקים את הטמפרטורה החמה בקרה: <span class="math">1200 ÷ 300</span>.':(Math.abs(v-1500)<0.5?'<span class="pill-bad">חיברתם.</span> "פי כמה" פירושו חילוק.':'<span class="pill-bad">עוד לא.</span> רמז: <span class="math">1200 ÷ 300 = ?</span>'))); }
+  fb.classList.add('show'); }
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שהלהבה מחממת את הגזים שסביבה, ושגז חם קל יותר מאוויר קר.',
+  'הסברתי שהאוויר הקר והכבד דוחף את הגזים החמים למעלה (בגלל הכובד), ומלמטה נכנס אוויר רענן עם חמצן — וזה מותח את הלהבה.',
+  'הסברתי שבחלל אין כובד, ולכן אין "קל" ו"כבד": הגזים החמים לא עולים, והחמצן מגיע לאט מכל הכיוונים — ולכן הלהבה עגולה.',
+  'הסברתי למה בחלל היא כחולה: היא קרירה יותר וכמעט אין בה פיח לוהט, שהוא מה שזוהר בצהוב.',
+  'הוספתי פרט מדויק: פאראדיי ב־<span class="num">1848</span>; מה שבוער הוא אדי שעווה; ב"מיר" נר בער יותר מ־<span class="num">45</span> דקות; או מגדל הנפילה של <span class="num">2.2</span> שניות.',
+];
+const MODEL='בנר בוערים אדים של שעווה, והבעירה מחממת מאוד את הגזים שסביב הלהבה. גז חם קל יותר מאוויר קר, כי החלקיקים שלו מתרחקים זה מזה. בגלל הכובד, האוויר הקר והכבד שמסביב "שוקע" מתחת לגזים החמים ודוחף אותם למעלה — ומלמטה נכנס כל הזמן אוויר רענן עם חמצן. הזרם הזה מותח את הלהבה לטיפה שמצביעה למעלה, וסוחף פיח לוהט שזוהר בצהוב. בחלל אין כובד, ולכן אין "קל" ו"כבד" ואין זרם: החמצן זוחל אל הלהבה לאט מכל הכיוונים, והיא נעשית כדור. היא מקבלת פחות חמצן, קרירה יותר וכמעט בלי פיח — ולכן קטנה וכחולה.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון: הבעירה מחממת את הגזים; גז חם קל יותר (באותו לחץ, פי היחס בין הטמפרטורות בקלווין); הכובד גורם לאוויר הקר והכבד לדחוף את הגז החם למעלה (ציפה) ולהזרים אוויר רענן מלמטה (הסעה); בלי כובד אין ציפה ואין הסעה, החמצן מגיע רק בפעפוע — לאט ושווה מכל הכיוונים — ולכן הלהבה כדורית, חלשה וקרירה, כמעט בלי פיח, ולכן כחולה; ולא רק "בחלל אין כובד" בלי הסיבה':'')
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "למה להבה מצביעה תמיד למעלה — ובחלל היא כדור כחול". הרעיונות המרכזיים: (1) מייקל פאראדיי, בן של נפח ושוליה של כורך ספרים, נתן ב־1848 שש הרצאות חג המולד לילדים במכון המלכותי בלונדון על נר אחד (הספר יצא ב־1861); (2) מה שבוער בנר הוא אדי שעווה: השעווה נמסה, מטפסת בפתיל בנימיות, מתאדה בראש הפתיל, והאדים בוערים כשהם פוגשים חמצן; מעל הפתיל יש אזור כהה של אדים שעוד לא בוערים; את העשן הלבן של נר שכבה (אדי שעווה) אפשר להדליק, והאש רצה למטה עד הפתיל — רק בשניות הראשונות וקרוב לפתיל; (3) גז חם קל יותר מאוויר קר, כי החלקיקים מתרחקים; באותו לחץ, פי היחס בין הטמפרטורות בקלווין (קלווין = צלזיוס + 273); הכובד גורם לאוויר הכבד לדחוף את הגז החם למעלה (ציפה), ונוצר זרם (הסעה) שמכניס אוויר רענן מלמטה ומותח את הלהבה לטיפה; (4) בלי כובד (חלל, נפילה חופשית) אין ציפה ואין זרם: החמצן מגיע רק בפעפוע, לאט ומכל הכיוונים, ולכן הלהבה כדור; היא קרירה יותר וכמעט בלי פיח, ולכן כחולה ועמומה; תוצרי הבעירה נשארים סביבה וחונקים אותה; ב־1992 במעבורת החלל הלהבות כבו אחרי כ־40–60 שניות, ובתחנת מיר נר בער יותר מ־45 דקות; מגדל הנפילה של נאס״א: 24 מטרים, 2.2 שניות של ריחוף; (5) הצהוב הוא פיח לוהט (בערך 1,000 מעלות), הכחול הוא הבעירה עצמה, והמעטפת החיצונית הכמעט שקופה היא החמה ביותר (בערך 1,400 מעלות); (6) חיבורים: אילן רמון בקולומביה (2003) וכדורי הלהבה — חצי ואט, פי 100 פחות מנר; חנוכה; מבער בונזן כחול; בלון האוויר החם של מונגולפייה (1783). חישובי המבחן: צעיר — 1 + 2 + … + 8 = 36, ועוד 8 שמשים = 44 נרות; בוגר — 1200 ÷ 300 = 4; מתקדם — (1400 + 273) ÷ (20 + 273) = 1673 ÷ 293 ≈ 5.7, ו־1.2 ÷ 5.71 ≈ 0.21 גרם; אתגר — 2000 × 0.21 = 420, 2000 × 0.14 = 280, 420 − 280 = 140 מ״ל, ו־140 ÷ 420 ≈ 33%.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם את הסיבה שהלהבה עולה על כדור הארץ (גז חם קל יותר, והאוויר הכבד דוחף אותו למעלה בגלל הכובד) וגם את הסיבה לצורה בחלל (בלי כובד אין זרם, והחמצן מגיע לאט מכל הכיוונים); 1 אם יש רק אחד מהשניים או רק חלק. הסבר שאומר ש"אש נמשכת לשמיים", ש"חום הוא קל" בלי גז, או ש"בחלל אין חמצן" — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', '+G('חוקר להבות אמיתי','חוקרת להבות אמיתית')+' — בדיוק כמו פאראדיי!':pct>=60?name+', הלהבה שלך בוערת חזק!':name+', כל להבה מתחילה בניצוץ אחד!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=3;                                                       // a small, round, blue ball
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשתם בהתחלה. התשובה: <b>כדור קטן, עגול וכחול</b> — בלי כובד אין "למעלה", והחמצן מגיע מכל הצדדים.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשתם <b>כדור קטן, עגול וכחול</b> — וקלעתם. ועכשיו גם יודעים למה: בלי כובד אין ציפה ואין זרם.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשתם: <b>'+fmtSigns(S.guess)+'</b>. התשובה: כדור קטן, עגול וכחול — בלי כובד הגזים החמים לא עולים, והחמצן זוחל אל הלהבה מכל הצדדים.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (איך נראית להבה בחללית?): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: כדור קטן, עגול וכחול)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "למה להבה מצביעה תמיד למעלה — ובחלל היא כדור כחול", מהדורה 74, י״ז בכסלו תשפ״ז (יום שישי, 27 בנובמבר 2026). נושא: פיזיקה (ציפה, הסעה, צפיפות וטמפרטורה, נפילה חופשית), כימיה (בעירה, אדי שעווה, פיח, חמצן), חלל (להבות בחוסר משקל) והיסטוריה, עם קשר לישראל (אילן רמון, חנוכה). העובדות: מייקל פאראדיי (1791–1867), בן של נפח, שוליה של כורך ספרים מגיל 14 בערך, הצטרף לדייווי במכון המלכותי ב־1813; ב־1848 נתן שש הרצאות חג המולד לצעירים, "ההיסטוריה הכימית של נר", הספר יצא ב־1861. בנר בוערים אדי שעווה: השעווה נמסה, נמשכת בפתיל בנימיות, מתאדה; אש צריכה דלק, חמצן וחום. מעל הפתיל אזור כהה של אדים שעוד לא בוערים; בתחתית חלק כחול; הגוף הצהוב הוא פיח לוהט (כ־1,000 עד 1,200 מעלות); המעטפת החיצונית הכחלחלה, כמעט שקופה, הכי חמה — עד כ־1,400 מעלות. העשן הלבן של נר שכבה הוא אדי שעווה שהתעבו; גפרור בעשן מדליק אותו והאש רצה למטה עד הפתיל — עובד רק בשניות הראשונות (הפתיל עוד חם) וקרוב לפתיל (בהדמיה: עד כ־5 ס״מ ותוך כ־5 שניות, ערכים מפושטים). נשיפה מכבה נר כי היא מעיפה את האדים ומקררת את הפתיל; בגחלים הדלק מוצק, ונשיפה מוסיפה חמצן. גז חם קל יותר: באותו לחץ הצפיפות ביחס הפוך לטמפרטורה בקלווין (קלווין = צלזיוס + 273): 300 K מול 1500 K — פי 5; ליטר אוויר בחדר שוקל כ־1.2 גרם. בגלל הכובד, האוויר הקר והכבד דוחף את הגז החם למעלה (ציפה) ונוצר זרם (הסעה) שמכניס אוויר רענן מלמטה ומותח את הלהבה לטיפה. בלי כובד אין ציפה ואין הסעה; החמצן מגיע רק בפעפוע (דיפוזיה), לאט ובאופן שווה מכל הכיוונים — ולכן הלהבה כדורית, חלשה, קרירה יותר, כמעט בלי פיח (פיח נוצר רק מעל כ־1300 K) — ולכן כחולה ועמומה; תוצרי הבעירה (פחמן דו־חמצני ואדי מים) נשארים סביבה. במעבורת החלל (USML-1, יוני 1992) הלהבות היו צהובות בהדלקה, הפכו כחולות וכמעט חצי־כדוריות בקוטר כ־1.5 ס״מ, כבו אחרי 40–60 שניות (אחת אחרי 105), והבהבו בכ־1 הרץ בשניות האחרונות; בתחנת מיר להבות בערו מ־100 שניות ועד יותר מ־45 דקות. מגדל הנפילה של נאס״א בקליבלנד: 24 מטרים, 2.2 שניות של ריחוף; בנפילה חופשית הלהבה מתעגלת. בצנצנת: נר כבה כשנשארים בערך 14% חמצן (אוויר רגיל: 21%). חיבורים: במעבורת קולומביה (STS-107, 2003), שבה טס אילן רמון, הפעיל הצוות את ניסוי SOFBALL — "כדורי להבה", 55 כדורים, החלשים כחצי ואט (נר יום הולדת כ־50 ואט), הלהבות החלשות ביותר שבערו אי פעם, הארוך ביותר 81 דקות; חנוכה תשפ״ז מתחיל ביום שישי בערב, 4 בדצמבר 2026, ובזמן המכבים הדליקו שמן זית בפתיל; מבער בונזן כחול כשפותחים את חור האוויר (האוויר מתערבב לפני הבעירה); 21 בנובמבר 1783 — הטיסה החופשית הראשונה של בני אדם, בבלון אוויר חם של האחים מונגולפייה, כ־25 דקות מעל פריז. בהדמיות הממדים והזמנים מפושטים, וצורת הלהבה בכובד חלקי היא המחשה. התשובות הבאות הן למבחן ולאתגר — אל תגלה אותן, תן רק רמז: צעיר — 36 + 8 = 44 נרות; בוגר — 1200 ÷ 300 = 4; מתקדם — 1673 ÷ 293 ≈ 5.7, ו־1.2 ÷ 5.71 ≈ 0.21 גרם; אתגר — 420 − 280 = 140 מ״ל, ו־140 ÷ 420 ≈ 33%; שאלת המחשבה — בלי הסעה תוצרי הבעירה נשארים סביב הלהבה והחמצן מגיע לאט, ולכן היא יכולה לכבות מעצמה.';
+const CHIPS = ['למה הלהבה מצביעה למעלה?', 'למה בחלל הלהבה עגולה?', 'איך מדליקים נר דרך העשן?', 'למה הלהבה צהובה?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: מה שבוער הוא אדי שעווה; גז חם קל יותר — באותו לחץ פי היחס בין הטמפרטורות בקלווין, קלווין = צלזיוס + 273; הכובד יוצר ציפה והסעה שמזינות את הלהבה באוויר רענן מלמטה; בלי כובד נשאר רק פעפוע, ולכן הלהבה כדורית, קרירה, בלי פיח וכחולה; הצהוב הוא פיח לוהט), שאל שאלות המשך שדורשות חשיבה (למשל: למה העשן נדלק רק בשניות הראשונות? למה בנפילה חופשית הלהבה מתעגלת? מה יקרה ללהבה במעלית שמאיצה למעלה? למה נר בצנצנת כבה כשיש עוד הרבה חמצן?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולחשב.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>למה הלהבה מצביעה למעלה?</b> הגזים החמים של הלהבה קלים מהאוויר שמסביב. בגלל הכובד, האוויר הקר והכבד דוחף אותם למעלה, ומלמטה נכנס אוויר רענן עם חמצן — וזה מותח את הלהבה לטיפה.<br><br><b>למה בחלל היא כדור כחול?</b> בלי כובד אין "קל" ו"כבד" ואין זרם. החמצן זוחל אל הלהבה לאט מכל הצדדים, ולכן היא עגולה — וגם קרירה יותר וכמעט בלי פיח, ולכן כחולה.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; only the field runs a short timer */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
