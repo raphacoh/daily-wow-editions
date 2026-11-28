@@ -1,0 +1,24 @@
+{
+  "n": 75,
+  "code": "WOW-075",
+  "date": "2026-11-28",
+  "language": "he",
+  "title": "האישה שציירה את קרקעית האוקיינוס — וגילתה שהיבשות זזות",
+  "topics": [
+    "גאולוגיה",
+    "גאוגרפיה",
+    "מתמטיקה",
+    "היסטוריה",
+    "פיזיקה",
+    "מדע ישראלי"
+  ],
+  "summary": "Marie Tharp, barred from research ships, drew the Atlantic floor from echo soundings (depth = 1500 × t ÷ 2) and in 1952 found a V-shaped rift in every profile of the Mid-Atlantic Ridge; Heezen called it 'girl talk' until earthquake epicentres fell inside it; sea-floor spreading (~2.5 cm/yr = 25 km per My, young rock in the middle), Wegener 1912, the ~65,000 km ridge and Iceland; the Dead Sea Transform (~105 km, ~5 mm/yr) and the Red Sea; echo-depth sums, two-step crest/valley depths, cm→km rate and 5,000 km ÷ 25 = 200 My challenge.",
+  "teaser": null,
+  "max_score": null,
+  "status": "released",
+  "released_at": null,
+  "password": null,
+  "reviewer_verdict": "PASS (3 rounds) — nits left: est. ~32–35 min per track vs the 'כ־25 דקות' tag after trims (length downgraded to a nit in round 3 because the 4-tile format is fixed); kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template)",
+  "review_url": "https://claude.ai/artifact/82SAZ1UMERojLTKpCiJ9Bm",
+  "editor_note": null
+}

@@ -1,0 +1,1764 @@
+<title>שורשים וכנפיים #75 · האישה שציירה את קרקעית האוקיינוס — וגילתה שהיבשות זזות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700;800&family=Amatic+SC:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --card:#FFFFFF; --card2:#F8F5EC; --ink:#1B1F33; --muted:#585C72;
+  --sun:#E8A33D; --sun-deep:#8A5410; --sun-soft:#FBEBD0;
+  --nile:#2F6F9F; --nile-soft:#DCEAF5; --shadow:#2F7D4F; --shadow-soft:#DDF0E0;
+  --night:#1A2238; --aur:#F6C454; --aur2:#F39A6B;
+  --sand:#DDD4BE; --line:#E5DFCF; --ok:#1F8A5B; --ok-soft:#DDF3E7; --bad:#C8452D; --bad-soft:#FBE3DE;
+  --sky1:#C9E1F2; --sky2:#F4EEDF; --sea:#1B6FA8; --earth:#E3CC9E; --earth2:#B08A55; --leaf:#4DA36A; --leaf2:#2F7D4F; --water:#3E9BD6;
+  --focus:#B5521B;
+  --calpage:#FFFDF6; --calred:#C8452D; --calgold:#E2A21F; --iron:#8C5A3C;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+    --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+    --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+    --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+    --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+    --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12142A; --card:#1B1F3C; --card2:#232747; --ink:#F2EDE0; --muted:#B0B4CC;
+  --sun:#F2B65A; --sun-deep:#FBD9A0; --sun-soft:#3A2A12;
+  --nile:#7FB3DD; --nile-soft:#1E3650; --shadow:#7FD09A; --shadow-soft:#173A2C;
+  --night:#0B1226; --aur:#F6D47A; --aur2:#FFB38A;
+  --sand:#383C5E; --line:#2F3459; --ok:#4FD08F; --ok-soft:#173A2C; --bad:#F2806F; --bad-soft:#4A2320;
+  --sky1:#1D3266; --sky2:#191C30; --sea:#1B4F7E; --earth:#5E4E33; --earth2:#8A7047; --leaf:#5FBF7F; --leaf2:#3E9A62; --water:#4FA8E0;
+    --calpage:#2A2F55; --calred:#F2806F; --calgold:#F6C454; --iron:#D9A27E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Noto Sans Hebrew",Arial,sans-serif;font-size:18px;line-height:1.65;direction:rtl}
+#app{direction:rtl;text-align:right;overflow-x:hidden}
+h1,h2,h3{font-family:"Secular One",Rubik,Arial,sans-serif;font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,7vw,3.6rem)}
+h2{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1em}
+.hand{font-family:"Amatic SC",Rubik,sans-serif;font-weight:700;letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;white-space:nowrap}
+a{color:var(--nile)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Secular One",Rubik,sans-serif;font-size:1.15rem;white-space:nowrap}
+.brand .disc{width:22px;height:22px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px var(--sun-soft)}
+.progress{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.progress span{height:8px;border-radius:4px;background:var(--line);transition:background .3s}
+.progress span.done{background:var(--sun)}
+.progress span.cur{background:var(--sun);box-shadow:0 0 0 2px var(--sun-soft)}
+.who{font-size:.9rem;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.who b{color:var(--ink)}
+.statpill{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.85rem;white-space:nowrap}
+.statpill svg{width:15px;height:15px}
+.flame{color:var(--sun-deep);display:inline-flex}
+@media (max-width:640px){.brand span.t{display:none}.who .lvl{display:none}}
+
+main{max-width:760px;margin:0 auto;padding:0 20px 120px}
+.step{display:none;padding:44px 0 8px;border-bottom:1px dashed var(--line)}
+.step.shown{display:block;animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.shown{animation:none} *{transition:none!important}}
+
+/* chapter marker: a tiny calendar page */
+.ch{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;color:var(--muted);font-size:.95rem;letter-spacing:.06em}
+.ch .stick{position:relative;width:30px;height:32px;flex:none;border:2px solid var(--ink);border-radius:6px;background:var(--calpage);box-sizing:border-box}
+.ch .stick::before{content:"";position:absolute;right:-2px;left:-2px;top:-2px;height:10px;border-radius:6px 6px 0 0;background:var(--calred);border:2px solid var(--ink);box-sizing:border-box}
+.ch .stick::after{content:"";position:absolute;right:6px;left:6px;top:15px;height:9px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);opacity:.35;box-sizing:border-box}
+
+/* hero: a clock face whose hand loops back */
+.hero{position:relative;padding-top:56px}
+.scaleq{display:grid;gap:8px;margin-top:6px}
+@media (min-width:560px){.scaleq{grid-template-columns:1fr 1fr}}
+.scaleopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:right;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.scaleopt b{font-size:1.12rem}
+.scaleopt span{color:var(--muted);font-size:.88rem}
+.scaleopt:hover{border-color:var(--nile)}
+.scaleopt:active{transform:scale(.99)}
+.scaleopt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.scaleopt[data-state="picked"]{border-color:var(--nile);background:var(--nile-soft)}
+.scaleopt[data-state="right"]{border-color:var(--ok);background:var(--ok-soft)}
+.scaleopt[data-state="wrong"]{border-color:var(--bad);background:var(--bad-soft)}
+.scaleq.done .scaleopt{cursor:default}
+.hero .skyart{position:absolute;top:8px;left:-40px;width:300px;height:300px;z-index:0;opacity:.9;pointer-events:none}
+.hero > *:not(.skyart){position:relative;z-index:1}
+@media (max-width:640px){.hero .skyart{width:150px;height:150px;left:-30px;top:-6px;opacity:.3}}
+@media (prefers-reduced-motion:no-preference){.hero .skyart .spark{animation:spark 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hero .skyart .spark2{animation:spark2 3.6s ease-in-out infinite .8s;transform-box:fill-box;transform-origin:center}}
+@keyframes tick{0%{opacity:.95}30%{opacity:.75}100%{opacity:.08}}
+@keyframes spark{0%{transform:translate(110px,143px);opacity:0}15%{opacity:1}100%{transform:translate(40px,150px);opacity:0}}
+@keyframes spark2{0%{transform:translate(195px,203px);opacity:0}15%{opacity:1}100%{transform:translate(265px,210px);opacity:0}}
+/* this edition's widgets */
+[hidden]{display:none!important}   /* reveal notes and control rows stay hidden until earned */
+.calfig{margin:18px 0 24px}
+.cdot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none;align-self:center}
+.cdot.c1{background:var(--nile)} .cdot.c2{background:var(--bad)} .cdot.c3{background:var(--shadow)} .cdot.c4{background:var(--ok)}
+@media (max-width:640px){.seg{border-radius:16px}.seg button{flex:1 1 auto}}
+.calfig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (max-width:640px){.calfig svg{width:calc(100% + 40px);max-width:none;margin:0 -20px}}   /* phones: figure labels stay ≥18 CSS px */
+.calfig figcaption{color:var(--muted);font-size:.98rem;margin-top:10px;text-align:center}
+sub{font-size:.72em;line-height:0}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-bottom:14px;flex-wrap:wrap}
+.eyebrow .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.eyebrow a.tag{text-decoration:none;color:inherit;border-color:var(--sun)}
+.lede{font-size:1.2rem;max-width:34em;margin-top:18px}
+.lede b{color:var(--sun-deep)}
+
+/* cards & panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
+.panel.instrument{border:2px solid var(--sand);background:var(--card2)}
+.panel h3{margin-bottom:10px}
+.panel .cap{color:var(--muted);font-size:.95rem;margin:0}
+.note{background:var(--sun-soft);border-radius:12px;padding:16px 18px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
+.note .hand{font-size:1.9rem;line-height:1;color:var(--sun-deep);flex:none;margin-top:2px}
+.note p{margin:0}
+.aha{border-right:6px solid var(--sun);padding:6px 18px;margin:22px 0;font-size:1.15rem}
+.aha b{color:var(--sun-deep)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr} .panel.instrument canvas{width:calc(100% + 44px);margin:0 -22px;border-radius:0}}
+canvas{display:block;width:100%;height:auto;border-radius:10px;background:var(--sky2)}
+.controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.controls label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px;font-size:.95rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+input[type=number],input[type=text],textarea{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+input[type=number]{direction:ltr;text-align:right}
+textarea{min-height:140px;resize:vertical;line-height:1.6}
+.readout{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:inline-flex;gap:8px;align-items:baseline}
+.readout b{font-size:1.5rem;color:var(--sun-deep)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:2px solid var(--sand);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 16px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:#1E2140;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:0 3px 0 var(--sun-deep);transition:transform .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--sun-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--sand);box-shadow:none}
+.btn.ghost.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{padding:8px 14px;font-size:.95rem;color:#1E2140}   /* .small alone would inherit the muted colour */
+.btn.ghost.small{color:var(--ink)} .btn.ghost.small.on{color:var(--bg)}
+.next{margin:26px 0 12px;display:flex;justify-content:flex-start}
+
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.track{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:16px;cursor:pointer;text-align:right;display:flex;gap:14px;align-items:center;transition:border-color .2s,transform .1s}
+.track:hover:not(:disabled){transform:translateY(-2px)}
+.track:disabled{cursor:default;opacity:.7}
+.track.on:disabled{opacity:1}
+.track .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Secular One";font-size:1.05rem;color:#fff;flex:none}
+.track[data-trk=younger] .av{background:var(--nile)} .track[data-trk=older] .av{background:var(--shadow)}
+.track[data-trk=younger].on{border-color:var(--nile)} .track[data-trk=older].on{border-color:var(--shadow)}
+.track small{display:block;color:var(--muted)}
+body[data-track=younger] [data-track=older]{display:none!important}
+body[data-track=older] [data-track=younger]{display:none!important}
+body:not([data-track]) [data-track]{display:none!important}
+body:not([data-level=advanced]) [data-level=advanced]{display:none!important}
+body[data-level=advanced] [data-level=standard]{display:none!important}
+/* app levels: body[data-push=ontrack] = 'on track' (standard content, the challenge recommended by name) */
+span[data-push]{display:none!important}
+body[data-push=ontrack] span[data-push=ontrack]{display:inline!important}
+body[data-push=ontrack] .challenge [data-level=standard]{display:none!important}
+body[data-runtime] .tracks{display:none} body[data-runtime=demo] .tracks{display:grid}
+.demo-level{margin:14px 0 0;display:grid;gap:12px;font-size:.95rem;color:var(--muted)} .demo-level label{display:grid;gap:4px} .demo-level label>span:first-child{color:var(--ink)} .demo-level input[type=range]{width:100%;accent-color:var(--ink);direction:rtl} .demo-level .ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:0 4px} .demo-level .ticks i{font-style:normal}
+body[data-runtime] #mailBtn{display:none}   /* the app emails the parent itself; no placeholder address on demo pages either */
+.challenge{border:2px dashed var(--shadow);background:var(--shadow-soft)}
+.challenge h3{color:var(--shadow)}
+.trackpill{display:inline-block;font-size:.85rem;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+[data-track=younger] .trackpill{background:var(--nile-soft);color:var(--nile)}
+[data-track=older] .trackpill{background:var(--shadow-soft);color:var(--shadow)}
+
+/* quiz */
+.q{margin:18px 0;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.q .qt{font-weight:700;font-size:1.08rem;margin-bottom:12px}
+.q .opts{display:grid;gap:8px}
+.q .opt{text-align:right;background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.q .opt .k{width:26px;height:26px;border-radius:50%;border:2px solid var(--sand);display:grid;place-items:center;font-size:.85rem;flex:none}
+.q .opt:hover{border-color:var(--sun)}
+.q.locked .opt{cursor:default}
+.q .opt.right{border-color:var(--ok);background:var(--ok-soft)} .q .opt.right .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opt.wrong{border-color:var(--bad);background:var(--bad-soft)} .q .opt.wrong .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.q .fb{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--sun-soft);display:none}
+.q .fb.show{display:block}
+.qc-label{font-size:.85rem;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+
+/* ordering */
+.order{display:grid;gap:8px}
+.order .card{background:var(--card2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;display:flex;gap:12px;align-items:center;text-align:right}
+.order .card .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:700;flex:none}
+.order .card.picked{border-color:var(--sun);background:var(--sun-soft)} .order .card.picked .n{background:var(--sun)}
+.order .card.ok{border-color:var(--ok)} .order .card.ok .n{background:var(--ok);color:#fff}
+.order .card.ko{border-color:var(--bad)} .order .card.ko .n{background:var(--bad);color:#fff}
+
+details.bonus{background:var(--card2);border:2px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:22px 0;color:var(--ink);font-size:1rem}
+details.bonus summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.latbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.98rem}
+.latbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.latbl td:first-child{font-weight:700}
+
+/* connections */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .dom{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.tile h3{margin-bottom:6px;font-size:1.1rem}
+.tile p{margin:0;font-size:1rem}
+
+/* results */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sun) calc(var(--p)*1%),var(--line) 0);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;z-index:1;font-family:"Secular One";font-size:2rem}
+.meter{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--shadow),var(--sun));width:0;transition:width 1.2s ease-out}
+.stars{font-size:1.6rem;letter-spacing:.1em;color:var(--sun)}
+.stars .off{color:var(--line)}
+.mic{width:48px;height:48px;border-radius:50%;border:2px solid var(--sand);background:var(--card);cursor:pointer;display:grid;place-items:center;flex:none}
+.mic.rec{border-color:var(--bad);background:var(--bad-soft);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px var(--bad-soft)}}
+.mic svg{width:22px;height:22px}
+.small{font-size:.92rem;color:var(--muted)}
+details.src{margin-top:30px;color:var(--muted);font-size:.9rem}
+details.src summary{cursor:pointer}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:3px;accent-color:var(--sun)}
+.pill-ok{color:var(--ok);font-weight:700}
+.pill-bad{color:var(--bad);font-weight:700}
+.wow{font-family:"Amatic SC";font-size:2.6rem;color:var(--sun-deep);line-height:1;transform:rotate(-4deg);display:inline-block}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:40}
+.toast.show{opacity:1}
+
+/* game layer */
+.xpbar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:var(--sun);width:0;transition:width 1s ease-out}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sun-soft);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.badge .dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center;color:#1E2140;font-family:"Secular One";font-size:.9rem}
+.badge.new{outline:2px solid var(--sun)}
+.vault{position:relative;border:3px dashed var(--sand);border-radius:16px;padding:22px;text-align:center;margin:22px 0;background:var(--card2)}
+.vault.open{border-style:solid;border-color:var(--sun);background:linear-gradient(180deg,var(--sun-soft),var(--card2))}
+.vault .lock{font-size:2.2rem;line-height:1}
+.vault .pw{font-family:"Secular One";font-size:clamp(1.8rem,6vw,2.8rem);letter-spacing:.04em;color:var(--sun-deep);margin:8px 0 4px;user-select:all}
+.vault .todo{display:inline-block;text-align:right;margin-top:8px}
+.vault .todo span{display:block}
+.vault .todo .ok{color:var(--ok)} .vault .todo .no{color:var(--bad)}
+.streakrow{display:flex;gap:6px;margin-top:10px;direction:ltr}
+.streakrow span{flex:1;height:38px;border-radius:8px;background:var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--muted);line-height:1.1;text-align:center}
+.streakrow span.hit{background:var(--sun);color:#1E2140;font-weight:700}
+.streakrow span.today{outline:2px dashed var(--sun-deep);outline-offset:2px}
+
+/* assistant: Arto the librarian */
+.fab{position:fixed;left:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px 10px 10px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab .av{width:34px;height:34px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.artotip{position:fixed;left:18px;bottom:calc(var(--rw-h,0px) + 78px);z-index:32;max-width:min(320px,calc(100vw - 36px));background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:12px 14px;text-align:right;font:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;direction:rtl}
+.artotip.on{opacity:1;transform:none}
+.artotip b{display:block;font-size:1rem;margin-bottom:2px}
+.artotip span{display:block;font-size:.88rem;opacity:.85;line-height:1.4}
+.artotip::after{content:'';position:absolute;left:22px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+body[data-runtime=app] .artotip{bottom:calc(var(--rw-h,0px) + 78px)}
+.fab .av svg{width:20px;height:20px}
+.fab:hover{transform:translateY(-1px)}
+.chat{position:fixed;left:14px;bottom:14px;z-index:31;width:min(430px,calc(100vw - 28px));height:min(640px,calc(100vh - 28px));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+/* phones: the chat takes the whole screen and follows the keyboard (dvh shrinks with it; 100vh does not on iOS) */
+@media (max-width:640px){.chat{left:0;right:0;bottom:0;width:100%;height:100dvh;max-height:100dvh;border-radius:0;border:0;box-shadow:none} body.chat-open{overflow:hidden;overscroll-behavior:none}}
+.chat header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--sun-soft);border-bottom:1px solid var(--line)}
+.chat header .av{width:40px;height:40px;border-radius:50%;background:var(--sun);display:grid;place-items:center;flex:none}
+.chat header .av svg{width:24px;height:24px}
+.chat header b{display:block;font-family:"Secular One";font-weight:400;font-size:1.1rem}
+.chat header small{color:var(--muted)}
+.chat header .left{display:block;color:var(--sun-deep);font-size:.85rem}
+.chat header .x{margin-inline-start:auto;background:transparent;border:0;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.55;font-size:1rem}
+.msg.bot{background:var(--card2);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.me{background:var(--nile-soft);align-self:flex-end;border-top-left-radius:4px}
+body[data-track=older] .msg.me{background:var(--shadow-soft)}
+.msg.sys{background:transparent;color:var(--muted);font-size:.9rem;align-self:center;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.chips button{background:var(--card);border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer}
+.chips button:hover{border-color:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:flex-end}
+.composer textarea{min-height:44px;max-height:120px;padding:9px 12px;border-radius:12px;resize:none;font-size:max(16px,1rem)}   /* ≥16px: iOS does not zoom the page on focus */
+.composer .send{background:var(--sun);border:0;border-radius:12px;width:44px;height:44px;cursor:pointer;display:grid;place-items:center;flex:none;box-shadow:0 2px 0 var(--sun-deep)}
+.composer .send:disabled{opacity:.4;box-shadow:none}
+.composer .send svg{width:20px;height:20px}
+.composer .mic{width:44px;height:44px;border-radius:12px}
+.typing{display:inline-flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.2}}
+@media (max-width:640px){.fab span.lbl{display:none}.fab{padding:8px}}
+
+/* entrance gate (public site only) */
+.gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;direction:rtl;text-align:right}
+.gate.on{display:flex}
+.gate .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;max-width:420px;width:100%;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.gate .disc{width:44px;height:44px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 8px var(--sun-soft);margin-bottom:14px}
+.gate h2{margin-bottom:6px}
+.gate p{color:var(--muted);font-size:1rem}
+.gate form{display:flex;gap:8px;margin-top:14px}
+.gate input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);direction:ltr;text-align:center}
+.gate .err{color:var(--bad);font-weight:700;min-height:1.6em;margin:8px 0 0}
+</style>
+
+<div id="app" dir="rtl" lang="he">
+<header class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="disc"></span><span class="t">שורשים וכנפיים</span></div>
+  <div class="progress" id="progress"></div>
+  <div class="who" id="who">גיליון 75</div>
+</div></header>
+
+
+<main>
+<!-- 0 · HERO -->
+<section class="step hero shown" data-step="0">
+  <svg class="skyart" viewBox="0 0 300 300" aria-hidden="true" focusable="false" style="opacity:.5">
+    <rect x="0" y="96" width="300" height="204" fill="#DCEAF5"/>
+    <path d="M0 96 Q38 88 75 96 T150 96 T225 96 T300 96" fill="none" stroke="#2F6F9F" stroke-width="5"/>
+    <path d="M110 70 L190 70 L176 94 L124 94 Z" fill="#FFFDF6" stroke="#1B1F33" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="140" y="46" width="22" height="24" fill="#E8A33D" stroke="#1B1F33" stroke-width="4"/>
+    <path d="M128 130 Q150 142 172 130 M118 160 Q150 178 182 160 M108 190 Q150 214 192 190" fill="none" stroke="#2F6F9F" stroke-width="5" stroke-linecap="round"/>
+    <path d="M0 290 L40 262 L80 250 L112 214 L132 196 L142 236 L158 236 L168 196 L188 214 L220 250 L260 262 L300 290 Z" fill="#B08A55" stroke="#1B1F33" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M142 236 L150 272 L158 236" fill="#C8452D"/>
+  </svg>
+  <div class="eyebrow"><span class="tag">גיליון <span class="num">75</span></span><span class="tag">שבת, <span class="num">28</span> בנובמבר <span class="num">2026</span></span><span class="tag">י״ח בכסלו תשפ״ז</span><span class="tag">כ־<span class="num">25</span> דקות</span><a class="tag libLink" href="e/" hidden>כל הגיליונות ›</a></div>
+  <h1>האישה שציירה את קרקעית האוקיינוס — וגילתה שהיבשות זזות</h1>
+  <p class="lede">לפני <span class="num">70</span> שנה, כמעט אף אחד בעולם לא ידע איך נראית קרקעית האוקיינוס. היא חשוכה, היא עמוקה כמה קילומטרים, ואי אפשר לרדת אליה. ובכל זאת, אישה אחת ציירה אותה — <b>בלי לראות אותה אף פעם</b>, ובלי שהרשו לה אפילו לעלות על הספינה. השאלה של היום: <b>איך מציירים מקום שאי אפשר לראות — ומה היא מצאה שם, באמצע האוקיינוס?</b></p>
+
+  <div class="panel instrument">
+    <h3>לפני שמתחילים — נחשו!</h3>
+    <p class="cap">אם היו שואבים את כל המים מהאוקיינוס האטלנטי, מה היינו רואים באמצע שלו?</p>
+    <div class="scaleq" id="scaleQ" role="group" aria-label="בחירת ניחוש">
+      <button type="button" class="scaleopt" data-scale="1"><b>מישור חלק ושטוח</b><span>כמו רצפה של אמבטיה ענקית</span></button>
+      <button type="button" class="scaleopt" data-scale="2"><b>בור עמוק במיוחד</b><span>האמצע הוא המקום הכי עמוק</span></button>
+      <button type="button" class="scaleopt" data-scale="3"><b>רכס הרים ענק</b><span>ובאמצע שלו — סדק ארוך</span></button>
+      <button type="button" class="scaleopt" data-scale="4"><b>חול, והרבה ספינות טבועות</b><span>ככה זה בכל מקום</span></button>
+    </div>
+    <div class="fb" id="scaleFb"></div>
+  </div>
+
+  <h3>מי לומד עכשיו?</h3>
+  <div class="tracks">
+    <!-- one button per kid, generated from KIDS -->
+  </div>
+  <div class="demo-level" id="demoLevel" hidden>
+    <label><span>כיתה <b id="demoGradeOut">ה</b></span><input type="range" id="demoGrade" min="0" max="6" step="1" value="3" oninput="demoLevelChange()" aria-label="כיתה"><span class="ticks" aria-hidden="true"><i>ב</i><i>ג</i><i>ד</i><i>ה</i><i>ו</i><i>ז</i><i>ח</i></span></label>
+    <label><span>רמה <b id="demoLevelOut">רגיל</b></span><input type="range" id="demoLevelSel" min="0" max="2" step="1" value="1" oninput="demoLevelChange()" aria-label="רמה"><span class="ticks" aria-hidden="true"><i>צריך/ה עזרה</i><i>רגיל</i><i>מתקדם/ת</i></span></label>
+  </div>
+  <p class="small" id="rtStatus" hidden></p>
+  <div class="next"><button class="btn" id="startBtn" disabled onclick="startLesson()">מתחילים לגלות ←</button></div>
+</section>
+
+<!-- 1 · THE WOMAN WHO STAYED ON SHORE (figure) -->
+<section class="step" data-step="1">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">1</span></div>
+  <h2>האישה שנשארה על החוף</h2>
+  <p><b>מארי ת׳ארפ</b> נולדה בשנת <span class="num">1920</span> בארצות הברית. אבא שלה מיפה אדמה בשביל החקלאים, והיא נסעה איתו ממקום למקום. בשנת <span class="num">1948</span> היא התחילה לעבוד במעבדה בניו יורק שחקרה את האוקיינוסים.</p>
+  <p>הייתה רק בעיה אחת: באותן שנים <b>לא הרשו לנשים לעלות על ספינות המחקר</b>. הגברים הפליגו, והיא נשארה במשרד. מה שהגיע אליה היו דפים מלאים במספרים — שורות על שורות של מדידות. מכל המספרים האלה היא הייתה צריכה לצייר את מה שאף אחד לא ראה: את קרקעית הים.</p>
+  <p>אז איך בכלל מודדים עומק של כמה קילומטרים, בלי חבל ובלי צוללת? בעזרת <b>הד</b>.</p>
+
+  <figure class="calfig" aria-label="ספינה על פני הים שולחת צפצוף של קול למטה. הקול יורד במים, פוגע בקרקעית וחוזר למעלה אל הספינה. מימין: במקום רדוד ההד חוזר מהר. משמאל: במקום עמוק ההד חוזר לאט">
+    <svg viewBox="0 0 640 520" role="img" aria-hidden="true" focusable="false" style="direction:ltr">
+      <rect x="0" y="0" width="640" height="520" rx="14" fill="#F4EEDF"/>
+      <rect x="0" y="120" width="640" height="400" fill="#DCEAF5"/>
+      <path d="M0 120 Q40 110 80 120 T160 120 T240 120 T320 120 T400 120 T480 120 T560 120 T640 120" fill="none" stroke="#2F6F9F" stroke-width="5"/>
+      <path d="M0 470 L120 470 L190 300 L250 260 L300 250 L360 280 L430 330 L520 440 L640 470 L640 520 L0 520 Z" fill="#B08A55" stroke="#1B1F33" stroke-width="4" stroke-linejoin="round"/>
+      <g stroke="#1B1F33" stroke-width="4" stroke-linejoin="round">
+        <path d="M240 90 L360 90 L344 118 L256 118 Z" fill="#FFFDF6"/>
+        <rect x="282" y="62" width="34" height="28" fill="#E8A33D"/>
+        <path d="M120 96 L190 96 L180 118 L130 118 Z" fill="#FFFDF6"/>
+        <path d="M470 96 L540 96 L530 118 L480 118 Z" fill="#FFFDF6"/>
+      </g>
+      <g fill="none" stroke-width="6" stroke-linecap="round">
+        <line x1="290" y1="128" x2="290" y2="242" stroke="#C8452D" stroke-dasharray="14 10"/>
+        <line x1="312" y1="242" x2="312" y2="128" stroke="#2F7D4F" stroke-dasharray="14 10"/>
+        <line x1="150" y1="128" x2="150" y2="420" stroke="#C8452D" stroke-dasharray="14 10"/>
+        <line x1="500" y1="128" x2="500" y2="405" stroke="#C8452D" stroke-dasharray="14 10"/>
+      </g>
+      <g fill="#C8452D"><path d="M280 236 L290 254 L300 236 Z"/><path d="M140 414 L150 432 L160 414 Z"/><path d="M490 399 L500 417 L510 399 Z"/></g>
+      <path d="M302 134 L312 116 L322 134 Z" fill="#2F7D4F"/>
+      <g font-family="Rubik,Arial" font-weight="700" font-size="28" fill="#1B1F33" text-anchor="middle" direction="rtl">
+        <text x="300" y="40">צפצוף יורד — הד חוזר</text>
+        <text x="420" y="214">רדוד: ההד</text><text x="420" y="246">חוזר מהר</text>
+        <text x="150" y="500" fill="#FFFDF6">עמוק: ההד</text>
+        <text x="520" y="500" fill="#FFFDF6">חוזר לאט</text>
+      </g>
+    </svg>
+    <figcaption>הספינה שולחת צפצוף של קול אל הקרקעית, ומודדת כמה זמן עובר עד שההד חוזר. ככל שהזמן ארוך יותר — הקרקעית עמוקה יותר.</figcaption>
+  </figure>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>אם צועקים מול קיר רחוק, שומעים את הקול שלנו חוזר: זה ההד. ככל שהקיר רחוק יותר, ההד חוזר מאוחר יותר. הספינות עשו בדיוק את זה, אבל כלפי מטה: הן שלחו צפצוף אל הקרקעית וספרו את הזמן עד שההד חזר. הד מהיר — הקרקעית קרובה. הד איטי — הקרקעית רחוקה ועמוקה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>מכשיר כזה נקרא <b>מד־עומק הדי</b> (סונאר). במים, הקול עובר בערך <span class="num">1,500</span> מטרים בכל שנייה — מהר פי ארבעה בערך מאשר באוויר. אבל שימו לב: הקול עושה את הדרך <b>פעמיים</b> — למטה אל הקרקעית, ובחזרה למעלה. לכן העומק הוא רק חצי מהדרך שהקול עבר: <span class="math">עומק = 1500 × זמן ÷ 2</span>.</p>
+  </div>
+
+  <div class="q qc" id="goalQ"></div>
+  <p class="small" id="hint1" style="text-align:center">כדי להמשיך, ענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next1" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 2 · PING THE DARK SEA (interactive 1) -->
+<section class="step" data-step="2">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">2</span></div>
+  <h2>מגששים בחושך</h2>
+  <p>עכשיו אתם על הספינה. הים חשוך, ואת הקרקעית אי אפשר לראות. יש לכם רק דבר אחד: כפתור שמשמיע צפצוף, ושעון שמודד מתי ההד חוזר.</p>
+
+  <!-- ===== INTERACTIVE 1 — הד בחושך ===== -->
+  <div class="panel instrument">
+    <h3>צפצוף אחרי צפצוף</h3>
+    <p class="cap">הזיזו את הספינה בסליידר ולחצו "צפצוף!". כל הד מסמן נקודה אחת על הקרקעית. נחשו קודם: כשהקרקעית עמוקה יותר, ההד חוזר...</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="snP0" onclick="snPredict(0)">מהר יותר</button>
+        <button id="snP1" onclick="snPredict(1)">אחרי אותו זמן</button>
+        <button id="snP2" onclick="snPredict(2)">מאוחר יותר</button>
+      </div>
+    </div>
+    <canvas role="img" id="snCv" width="640" height="600" aria-label="ים חשוך מלמעלה למטה. ספינה על פני המים זזה ימינה ושמאלה. כשלוחצים צפצוף, גל קול יורד, פוגע בקרקעית הנסתרת וחוזר, ובמקום שבו פגע נשארת נקודה. אחרי הרבה נקודות מחברים אותן ומתגלה צורת הקרקעית: רדוד ליד החופים, עמוק במישורים, רכס הרים באמצע — ובמרכז הרכס עמק צר"></canvas>
+    <div class="controls">
+      <label>המקום של הספינה
+        <input type="range" id="snX" min="0" max="12" step="1" value="6" oninput="snSet()" aria-label="המקום של הספינה" style="direction:ltr">
+      </label>
+      <button class="btn small" id="snB" onclick="snPing()">צפצוף!</button>
+      <button class="btn small ghost" id="snC" onclick="snConnect()" disabled>חברו את הנקודות</button>
+    </div>
+    <div class="controls">
+      <div class="readout">ההד חזר אחרי: <b id="snOutT">?</b></div>
+      <div class="readout">עומק: <b id="snOutD">?</b></div>
+    </div>
+    <p class="cap" id="snMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="snReveal" hidden><span class="hand">!</span><p><b>מכל ההדים יחד יצאה תמונה!</b> הד מאוחר — מקום עמוק; הד מהיר — מקום רדוד. ככה בדיוק עבדה מארי ת׳ארפ: כל מספר בדף היה נקודה אחת על הקרקעית, והיא חיברה אלפי נקודות כאלה ביד, בעיפרון. והתמונה שיצאה מפתיעה: באמצע האוקיינוס יש <b>רכס הרים</b>, ובמרכז שלו — <b>עמק צר ועמוק</b>.</p></div>
+
+  <div id="snAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>כל צפצוף הוא כמו לגעת בקרקעית עם מקל ארוך מאוד. נגיעה אחת לא מספרת הרבה — אבל הרבה נגיעות, אחת ליד השנייה, מראות הרים ועמקים.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>ת׳ארפ קיבלה "חתכים": שורות של מדידות לאורך הדרך של ספינה אחת שחצתה את האוקיינוס. היא הפכה כל זמן של הד לעומק, וציירה מכל שורה קו — <b>פרופיל</b>, כמו פרוסה דקה של הקרקעית. בשנת <span class="num">1952</span>, כשציירה בערך שישה פרופילים כאלה, היא שמה לב שבכל אחד מהם, בדיוק באמצע הרכס, יש שקע בצורת האות V.</p>
+  </div>
+
+  <div class="q qc" id="beatQ"></div>
+  </div>
+  <p class="small" id="hint2" style="text-align:center">כדי להמשיך, נחשו, צפצפו לפחות בשישה מקומות שונים — גם ליד החוף וגם באמצע — ולחצו "חברו את הנקודות".</p>
+  <div class="next"><button class="btn" id="next2" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 3 · GIRL TALK? (interactive 2) -->
+<section class="step" data-step="3">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">3</span></div>
+  <h2>"סתם דיבורים של בנות"</h2>
+  <p>מארי ת׳ארפ הראתה את השקע לבוס שלה, הגאולוג <b>ברוס הייזן</b>. הוא לא האמין. הוא אמר שזה "סתם דיבורים של בנות". למה הוא כל כך התנגד? כי עמק כזה באמצע האוקיינוס אומר משהו מטורף: שהקרקעית שם <b>נקרעת לשניים</b>. ובאותן שנים כמעט כל המדענים היו בטוחים שהיבשות והאוקיינוסים לא זזים בכלל.</p>
+  <p>אבל עמק אחד בפרופיל אחד יכול להיות טעות. מה קורה כשמסתכלים על הרבה פרופילים, מהרבה ספינות, על מפה אחת?</p>
+
+  <!-- ===== INTERACTIVE 2 — הפרופילים על המפה ===== -->
+  <div class="panel instrument">
+    <h3>שש ספינות, מפה אחת</h3>
+    <p class="cap">משמאל אמריקה, מימין אירופה ואפריקה. כל ספינה חצתה את האוקיינוס וציירה פרופיל. הוסיפו ספינות בסליידר. כל שקע בצורת V מסומן בנקודה אדומה. נחשו קודם: איפה יהיו הנקודות האדומות על המפה?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="prP0" onclick="prPredict(0)">מפוזרות בכל מקום</button>
+        <button id="prP1" onclick="prPredict(1)">בקו אחד ארוך באמצע</button>
+        <button id="prP2" onclick="prPredict(2)">ליד החופים</button>
+      </div>
+    </div>
+    <canvas role="img" id="prCv" width="640" height="620" aria-label="מפה של האוקיינוס האטלנטי בין שני חופים. קווים אופקיים הם הדרכים של ספינות, ועל כל קו מצויר הפרופיל של הקרקעית: רכס באמצע ושקע קטן במרכזו, מסומן בנקודה אדומה. כשמוסיפים ספינות, הנקודות האדומות מסתדרות בקו אחד ארוך שמתפתל באמצע האוקיינוס, בדיוק כמו קווי החוף. אפשר להוסיף גם כוכבים צהובים של רעידות אדמה, והם נופלים על אותו קו"></canvas>
+    <div class="controls">
+      <label>כמה ספינות חצו את האוקיינוס
+        <input type="range" id="prN" min="1" max="6" step="1" value="1" oninput="prSet()" aria-label="מספר הספינות" style="direction:ltr">
+      </label>
+      <button class="btn small ghost" id="prQ" onclick="prQuakes()">הוסיפו רעידות אדמה</button>
+    </div>
+    <div class="controls">
+      <div class="readout">ספינות: <b id="prOutN">?</b></div>
+      <div class="readout">שקעים שנמצאו: <b id="prOutV">?</b></div>
+    </div>
+    <p class="cap" id="prMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="prReveal" hidden><span class="hand">!</span><p><b>כל השקעים מסתדרים בקו אחד — וגם רעידות האדמה!</b> הייזן נתן לעוזר שלו לסמן על מפה את המקומות שבהם קרו רעידות אדמה באוקיינוס. כשהניחו את המפה הזאת על המפה של ת׳ארפ, הרעידות נפלו בדיוק בתוך העמק שלה. זו לא הייתה טעות, וגם לא "דיבורים": זה סדק ענק שעובר לאורך כל האוקיינוס, והאדמה בו זזה ורועדת. לקח לה בערך שנה לשכנע את הבוס — ובסוף הוא השתכנע.</p></div>
+
+  <div id="prAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>תחשבו על כמה ילדים, שכל אחד ראה רק חתיכה קטנה מכביש, וכל אחד מספר: "ראיתי בור". כשמסמנים את כל הבורות על מפה אחת, הם יוצרים קו — אלה לא בורות, זו תעלה אחת ארוכה! ככה ת׳ארפ הבינה שהשקע הוא לא טעות.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>זה הכוח של <b>שתי ראיות שונות</b> שמצביעות על אותו דבר. הפרופילים הם מדידה של צורה, ורעידות האדמה הן מדידה של תנועה — והן נאספו בשיטות שונות לגמרי, בידי אנשים שונים. כשהן נופלות על אותו קו, קשה מאוד לומר שזה מקרה. והקו הזה מתפתל בדיוק כמו קווי החוף של אמריקה ושל אפריקה — כאילו האוקיינוס נפתח מתוכו, כמו רוכסן.</p>
+  </div>
+
+  <div class="q qc" id="frameQ"></div>
+  </div>
+  <p class="small" id="hint3" style="text-align:center">כדי להמשיך, נחשו, הוסיפו את כל שש הספינות, והוסיפו את רעידות האדמה.</p>
+  <div class="next"><button class="btn" id="next3" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 4 · THE OCEAN THAT GROWS (interactive 3) -->
+<section class="step" data-step="4">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">4</span></div>
+  <h2>האוקיינוס שגדל</h2>
+  <p>כבר בשנת <span class="num">1912</span>, מדען גרמני בשם <b>אלפרד וגנר</b> אמר שהיבשות זזות. הוא שם לב שהחופים של דרום אמריקה ושל אפריקה משתלבים כמו שני חלקים של פאזל. אבל רוב המדענים צחקו עליו, כי הוא לא ידע להסביר <b>איך</b> יבשת שלמה יכולה לזוז. הסדק של ת׳ארפ עזר למצוא את התשובה.</p>
+
+  <!-- ===== INTERACTIVE 3 — הסרט הנע ===== -->
+  <div class="panel instrument">
+    <h3>מה קורה בתוך הסדק</h3>
+    <p class="cap">זה חתך של האוקיינוס, כמו פרוסה של עוגה. בסליידר מריצים את הזמן קדימה, במיליוני שנים. נחשו קודם: איפה נמצא הסלע הכי צעיר בקרקעית?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="spP0" onclick="spPredict(0)">ליד החופים</button>
+        <button id="spP1" onclick="spPredict(1)">באמצע, בתוך הסדק</button>
+        <button id="spP2" onclick="spPredict(2)">כל הקרקעית באותו גיל</button>
+      </div>
+    </div>
+    <canvas role="img" id="spCv" width="640" height="560" aria-label="חתך של כדור הארץ. בהתחלה שתי יבשות צמודות. כשמריצים את הזמן, סלע לוהט עולה מלמטה אל הסדק שבאמצע, מתקשה והופך לקרקעית חדשה, ודוחף את שני הצדדים החוצה. הקרקעית נצבעת בפסים לפי גיל: הפסים הצעירים באמצע, ליד הסדק, והזקנים ליד היבשות. האוקיינוס בין היבשות הולך ומתרחב"></canvas>
+    <div class="controls">
+      <label>הזמן מאז שהסדק נפתח, במיליוני שנים
+        <input type="range" id="spT" min="0" max="200" step="5" value="0" oninput="spSet()" aria-label="זמן במיליוני שנים" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="תצוגה">
+        <button id="spV0" onclick="spView(0)" class="on">צבע אחד</button>
+        <button id="spV1" onclick="spView(1)">צבעים לפי גיל</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="readout">זמן: <b id="spOutT">?</b></div>
+      <div class="readout">רוחב האוקיינוס: <b id="spOutW">?</b></div>
+    </div>
+    <p class="cap" id="spMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="spReveal" hidden><span class="hand">!</span><p><b>הקרקעית נולדת באמצע — ונעה החוצה.</b> מתחת לסדק יש סלע לוהט ורך, שעולה לאט לאט אל הסדק, מתקרר ומתקשה והופך לקרקעית חדשה. סלע חדש שעולה אחריו דוחף אותה הצידה, לשני הכיוונים. לכן הסלע הכי צעיר נמצא באמצע, והזקן ליד היבשות. האוקיינוס האטלנטי מתרחב ככה בערך <span class="num">2.5</span> סנטימטרים בכל שנה — בערך כמו הקצב שבו הציפורניים שלכם גדלות.</p></div>
+
+  <div id="spAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>תחשבו על משחת שיניים שלוחצים מהשפופרת: משחה חדשה יוצאת מהפתח ודוחפת את המשחה שכבר יצאה. ככה גם בסדק: סלע חדש יוצא מלמטה ודוחף את הסלע הישן הצידה. והיבשות? הן כמו צעצועים שמונחים על שטיח שמישהו מושך — הן לא שוחות בים, הן נוסעות על הקרקעית שזזה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>הקליפה של כדור הארץ שבורה לחתיכות ענקיות שנקראות <b>לוחות</b>, והן צפות לאט על שכבה חמה ורכה מתחתיהן. ברכס, שני לוחות מתרחקים זה מזה, וסלע לוהט ממלא את הרווח: זו <b>התפשטות קרקעית הים</b>. התשובה לשאלה של וגנר הייתה שהיבשות לא חורשות את הקרקעית כמו ספינות. הן חלק מהלוחות, ונוסעות יחד איתם. הרעיון הזה — <b>טקטוניקת הלוחות</b> — התקבל אצל רוב המדענים רק בשנות ה־<span class="num">60</span>, כשראיות נוספות הצטרפו למפות של ת׳ארפ.</p>
+  </div>
+
+  <div class="q qc" id="lineQ"></div>
+  </div>
+  <p class="small" id="hint4" style="text-align:center">כדי להמשיך, נחשו, הריצו את הזמן לפחות <span class="num">150</span> מיליון שנה, והדליקו את הצבעים לפי גיל.</p>
+  <div class="next"><button class="btn" id="next4" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 5 · THE DEEP DIVE + challenge -->
+<section class="step" data-step="5">
+  <div class="ch"><span class="stick"></span>פרק <span class="num">5</span></div>
+  <h2>ההרים הכי ארוכים בעולם</h2>
+  <p>הרכס שת׳ארפ ציירה הוא לא רק באוקיינוס האטלנטי. בשנים שאחר כך היא והייזן מיפו את כל האוקיינוסים, וגילו שהרכס ממשיך ומתפתל סביב כל כדור הארץ, כמו התפר של כדור טניס. האורך שלו: כמעט <span class="num">65,000</span> קילומטרים. זה רכס ההרים הארוך ביותר בעולם — וכמעט כולו מתחת למים. העמק שבמרכז שלו, לפי המנהלה האמריקאית לאוקיינוסים ולאטמוספרה (NOAA), עמוק ורחב בערך כמו הגרנד קניון.</p>
+
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p>יש מקום אחד שבו הרכס יוצא מהמים: <b>איסלנד</b>. האי הזה יושב בדיוק על הסדק, ויש בו הרבה הרי געש ומעיינות חמים. שם אפשר ללכת ממש בתוך העמק שבין שני הלוחות — צד אחד שייך ללוח של אמריקה, והצד השני ללוח של אירופה.</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p>בואו נבדוק את המספרים. <span class="num">2.5</span> סנטימטרים בשנה נשמע כמו כלום. כמה זה במיליון שנה? <span class="math">2.5 × 1,000,000 = 2,500,000</span> סנטימטרים. בקילומטר יש <span class="math">100,000</span> סנטימטרים (<span class="num">100</span> בכל מטר, כפול <span class="num">1,000</span> מטרים), ולכן: <span class="math">2,500,000 ÷ 100,000 = 25</span> קילומטרים במיליון שנה. מעט מאוד ביום — הרבה מאוד בזמן גאולוגי.</p>
+    <p>ועוד שאלה חשובה: אם קרקעית חדשה נולדת כל הזמן ברכסים, למה כדור הארץ לא תופח כמו בלון? כי במקומות אחרים — בעיקר סביב האוקיינוס השקט — קרקעית ישנה <b>צוללת</b> חזרה אל פנים כדור הארץ, מתחת ללוח אחר, ונמסה שם. שם נמצאות התעלות העמוקות ביותר בים, והרבה הרי געש ורעידות אדמה.</p>
+
+    <div class="panel challenge">
+      <h3>אתגר <span data-level="standard">(לא חובה — למי שרוצה עוד)</span><span data-push="ontrack">— <span data-kidname></span>, מומלץ בשבילך</span><span data-level="advanced">— <span data-kidname></span>, זה בשבילך</span></h3>
+      <p><b><span class="num">1</span>. שאלה כמותית:</b> האוקיינוס האטלנטי מתרחב בערך <span class="num">2.5</span> סנטימטרים בשנה. (א) בכמה קילומטרים הוא מתרחב ב־<span class="num">1,000,000</span> שנים? (ב) נניח שבמקום מסוים יש בין שני החופים <span class="num">5,000</span> קילומטרים של אוקיינוס, והקצב היה תמיד אותו קצב. לפני כמה מיליוני שנים התחיל הסדק להיפתח שם?</p>
+      <div class="controls">
+        <label>(א) קילומטרים במיליון שנה <input type="number" id="chalA" inputmode="decimal" step="any" placeholder="?"></label>
+        <label>(ב) לפני כמה מיליוני שנים <input type="number" id="chalB" inputmode="decimal" step="any" placeholder="?"></label>
+        <button class="btn small" onclick="checkChallenge()">בדקו</button>
+      </div>
+      <div class="fb" id="chalFb"></div>
+      <p style="margin-top:14px"><b><span class="num">2</span>. שאלה למחשבה:</b> ספינת מחקר קודחת ולוקחת דוגמאות סלע מקרקעית הים, פעם ליד הרכס ופעם ליד החוף של אפריקה. מה היא תמצא — ולמה זו הוכחה לכך שהקרקעית זזה?</p>
+      <details><summary>רמז</summary><p>איפה נולד הסלע — ולאן הוא הולך אחרי שנולד? ומה נערם על הקרקעית לאט לאט, שנה אחרי שנה?</p></details>
+      <details><summary>התשובה</summary><p>ליד הרכס הסלע צעיר, וכמעט אין עליו בוץ ושרידים של יצורים זעירים שנערמים על הקרקעית. ככל שמתרחקים מהרכס, הסלע זקן יותר, ושכבת הבוץ עליו עבה יותר — כי היה לו יותר זמן לאסוף. אם הקרקעית הייתה עומדת במקום, היא הייתה באותו גיל בכל מקום. הגיל שעולה בהדרגה משני צידי הרכס, כמו מראה, מראה שהיא נולדת באמצע ונעה החוצה. וזה בדיוק מה שספינות קידוח מצאו בשנים שאחרי שת׳ארפ ציירה את הרכס.</p></details>
+    </div>
+  </div>
+
+  <div class="q qc" id="deepQ"></div>
+  <p class="small" id="hint5" style="text-align:center">כדי להמשיך, ענו על השאלה.</p>
+  <div class="next"><button class="btn" id="next5" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 6 · TRY AT HOME (shared) -->
+<section class="step" data-step="6">
+  <div class="ch"><span class="stick"></span>לנסות בבית</div>
+  <h2>לנסות בבית</h2>
+  <p>עכשיו תורכם למפות קרקעית שאי אפשר לראות. צריך: קופסת נעליים עם מכסה, פלסטלינה או בצק משחק, שיפוד עץ ארוך, סרגל, עט, ודף משבצות. כדאי לעבוד בזוג: אחד בונה, והשני ממפה.</p>
+
+  <div class="panel">
+    <h3>חלק א׳ — הים שבקופסה (<span class="num">15</span> דקות)</h3>
+    <p>בונים "קרקעית" בתוך קופסה סגורה, מודדים אותה בשיפוד דרך חורים במכסה — ומציירים אותה בלי להציץ, בדיוק כמו ת׳ארפ.</p>
+    <details><summary>איך עושים — שלב אחרי שלב</summary>
+    <ol>
+      <li>בונים בתוך הקופסה "קרקעית": הרים, עמקים, ואולי רכס עם סדק באמצע. מי שממפה — לא מציץ!</li>
+      <li>סוגרים את המכסה. על המכסה מסמנים קו ישר ולאורכו <span class="num">8</span> נקודות, כל <span class="num">2</span> ס״מ, ומנקבים בכל נקודה חור קטן בעיפרון.</li>
+      <li>מסמנים על השיפוד קווים כל סנטימטר. מכניסים את השיפוד בכל חור, עד שהוא נוגע בקרקעית, וקוראים כמה סנטימטרים נכנסו.</li>
+      <li>רושמים את המספרים בטבלה: חור <span class="num">1</span>, חור <span class="num">2</span>, וכך הלאה. זה בדיוק הדף שמארי ת׳ארפ קיבלה מהספינות.</li>
+      <li>על דף המשבצות מסמנים לכל חור נקודה בעומק שמדדתם, ומחברים את הנקודות. זה הפרופיל! רק עכשיו פותחים את המכסה ומשווים.</li>
+    </ol>
+    </details>
+    <details><summary>מה אמור לצאת?</summary><p>הפרופיל ידמה לקרקעית, אבל לא בדיוק. הר צר שנפל בין שני חורים פשוט ייעלם מהציור! ככל שהחורים צפופים יותר, הציור מדויק יותר. זו בדיוק הבעיה שת׳ארפ התמודדה איתה: בין קווי הספינות היו מאות קילומטרים בלי שום מדידה, והיא הייתה צריכה להבין גאולוגיה כדי לנחש נכון מה יש שם.</p></details>
+  </div>
+
+  <details class="bonus">
+    <summary>חלק ב׳ — רכס מנייר (<span class="num">5</span> דקות)</summary>
+    <ol>
+      <li>חותכים שתי רצועות נייר ארוכות ומניחים אותן זו על זו.</li>
+      <li>מצמידים שני ספרים על השולחן, עם רווח צר ביניהם, ומשחילים את הרצועות מלמטה דרך הרווח.</li>
+      <li>מושכים לאט: רצועה אחת ימינה והשנייה שמאלה. כל כמה סנטימטרים מסמנים פס בטוש על שתיהן, ממש ליד הרווח.</li>
+    </ol>
+    <p class="small">הרווח הוא הסדק, והנייר הוא הקרקעית שנולדת בו. שימו לב: הפסים מסודרים כמו במראה משני הצדדים, והפס האחרון שציירתם — הצעיר ביותר — תמיד הכי קרוב לסדק.</p>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 7 · THE BIG PICTURE: THE CRACK IN ISRAEL (interactive 4) -->
+<section class="step" data-step="7">
+  <div class="ch"><span class="stick"></span>התמונה הגדולה</div>
+  <h2>גם אצלנו יש סדק</h2>
+  <p>לא צריך לנסוע לאמצע האוקיינוס כדי לראות גבול בין לוחות. הוא עובר ממש כאן: לאורך <b>הערבה, ים המלח, בקעת הירדן והכנרת</b>. ממערב לקו הזה נמצא הלוח שעליו יושבים ישראל וסיני, וממזרח לו — הלוח הערבי, עם ירדן. כאן הלוחות לא מתרחקים זה מזה כמו באטלנטי, אלא <b>מחליקים זה לצד זה</b>. להעתק הזה קוראים "העתק ים המלח".</p>
+
+  <!-- ===== INTERACTIVE 4 — העתק ים המלח ===== -->
+  <div class="panel instrument">
+    <h3>שני צדדים של אותו סלע</h3>
+    <p class="cap">על המפה יש שכבת סלע מיוחדת (בכתום) שפעם הייתה שלמה, משני צידי הקו. בסליידר מריצים את הזמן. נחשו קודם: לאן זז הצד המזרחי, של ירדן?</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="ניחוש">
+        <button id="ilP0" onclick="ilPredict(0)">צפונה</button>
+        <button id="ilP1" onclick="ilPredict(1)">דרומה</button>
+        <button id="ilP2" onclick="ilPredict(2)">הוא לא זז</button>
+      </div>
+    </div>
+    <canvas role="img" id="ilCv" width="640" height="640" aria-label="מפה פשוטה של ישראל וירדן. באמצע קו אדום מלמעלה למטה: הכנרת, נהר הירדן, ים המלח והערבה עד אילת. משמאל לקו: הים התיכון, זכרון יעקב, הלוח של ישראל וסיני. מימין: הלוח הערבי עם ירדן. שכבת סלע כתומה חצויה בקו. כשמריצים את הזמן, החצי שמימין זז צפונה, והמרחק בין שני החצאים גדל עד בערך 105 קילומטרים"></canvas>
+    <div class="controls">
+      <label>הזמן, במיליוני שנים
+        <input type="range" id="ilT" min="0" max="21" step="1" value="0" oninput="ilSet()" aria-label="זמן במיליוני שנים" style="direction:ltr">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="readout">זמן: <b id="ilOutT">?</b></div>
+      <div class="readout">ההזזה: <b id="ilOutD">?</b></div>
+    </div>
+    <p class="cap" id="ilMsg" style="margin-top:12px"></p>
+  </div>
+
+  <div class="note" id="ilReveal" hidden><span class="hand">!</span><p><b>הצד של ירדן החליק צפונה — בערך <span class="num">105</span> קילומטרים!</b> גאולוגים מצאו סלעים זהים משני צידי הערבה, אבל לא זה מול זה: הצד המזרחי שלהם נמצא הרבה יותר צפונה. מזה הם חישבו כמה הלוח הערבי החליק. היום הוא ממשיך לזוז בערך חצי סנטימטר בשנה. ולפעמים, כשהלוחות נתקעים ואז משתחררים בבת אחת, יש כאן רעידת אדמה. (בהדמיה הקצב קבוע והמפה לא בקנה מידה, לשם הפשטות.)</p></div>
+
+  <div id="ilAfter" hidden>
+  <div data-track="younger">
+    <span class="trackpill" data-kidpill="younger"></span>
+    <p><b>מה למדנו היום:</b> מארי ת׳ארפ ציירה את קרקעית הים מתוך הדים, ומצאה באמצע האוקיינוס רכס עם סדק. בסדק נולדת קרקעית חדשה ודוחפת את היבשות הצידה — לאט, כמו ציפורניים שגדלות. ולאורך ים המלח יש לנו סדק משלנו. שאלה לחקור: מה יקרה לים סוף בעוד מיליוני שנים?</p>
+  </div>
+  <div data-track="older">
+    <span class="trackpill" data-kidpill="older"></span>
+    <p><b>שלושה רעיונות בסדק אחד.</b> מתמטיקה: <span class="math">עומק = 1500 × זמן ÷ 2</span> הופך הדים למפה, ו־<span class="num">2.5</span> ס״מ בשנה הם <span class="num">25</span> ק״מ במיליון שנה. גאולוגיה: הקליפה בנויה מלוחות — ברכסים הם מתרחקים, בתעלות הם צוללים, ובהעתק ים המלח הם מחליקים זה לצד זה. והיסטוריה: אישה שלא הרשו לה לעלות על ספינה עזרה לשנות את כל מדעי כדור הארץ. שאלה לחקור: אם הלוח הערבי זז חצי סנטימטר בשנה, כמה הוא יזוז עד גיל <span class="num">80</span> שלכם?</p>
+  </div>
+  </div>
+
+  <p class="small" id="hint7" style="text-align:center">כדי להמשיך, נחשו, והריצו את הזמן עד הסוף.</p>
+  <div class="next"><button class="btn" id="next7" disabled onclick="next()">המשך ←</button></div>
+</section>
+
+<!-- 8 · CONNECTIONS + BONUS -->
+<section class="step" data-step="8">
+  <div class="ch"><span class="stick"></span>החיבורים</div>
+  <h2>איפה עוד מסתתר הסדק של היום?</h2>
+  <div class="grid2">
+    <div class="tile"><div class="dom">ישראל · גאוגרפיה</div><h3>ים סוף — אוקיינוס תינוק</h3><p>הסדק של ים המלח ממשיך דרומה, דרך מפרץ אילת, אל ים סוף. שם הלוחות כבר מתרחקים זה מזה — בערך סנטימטר בשנה — וקרקעית חדשה נולדת באמצע הים, בדיוק כמו באטלנטי. ים סוף הוא מה שהאטלנטי היה פעם: אוקיינוס בתחילת הדרך.</p></div>
+    <div class="tile"><div class="dom">ביולוגיה · פיזיקה</div><h3>עטלפים ודולפינים</h3><p>הספינות של ת׳ארפ "ראו" בעזרת הד — אבל העטלפים והדולפינים עושים את זה כבר מיליוני שנים. הם משמיעים צלילים ומקשיבים להד, וכך יודעים בחושך מוחלט איפה יש קיר, דג או חרק. לזה קוראים איתור בהד.</p></div>
+    <div class="tile"><div class="dom">היסטוריה · מדע</div><h3>הספינה הגרמנית "מטאור"</h3><p>בשנות ה־<span class="num">20</span> של המאה הקודמת, ספינת המחקר הגרמנית "מטאור" השתמשה במד־עומק הדי באוקיינוס האטלנטי, וגילתה שהרכס שבמרכז האוקיינוס ארוך הרבה יותר ממה שחשבו. ת׳ארפ הייתה הראשונה שראתה שיש בו סדק.</p></div>
+    <div class="tile"><div class="dom">גאולוגיה · מתמטיקה</div><h3>הפאזל של וגנר</h3><p>וגנר צדק שהיבשות זזות, אבל טעה במהירות: הוא חשב שהן זזות כ־<span class="num">250</span> סנטימטרים בשנה — פי <span class="num">100</span> בערך מהקצב האמיתי. בגלל טעויות כאלה, ובגלל שלא היה לו מנגנון, לקח עוד כחמישים שנה עד שרוב המדענים השתכנעו.</p></div>
+  </div>
+
+  <details class="bonus" id="giantBox">
+    <summary>בונוס (<span class="num">2</span> דקות): למה לא פשוט מצלמים את הקרקעית מלוויין?</summary>
+    <p>לוויינים מצלמים כל רחוב בעולם. אז למה צריך ספינות והדים כדי למפות את קרקעית הים? לפני שאתם פותחים — נחשו!</p>
+    <details><summary>התשובה</summary>
+      <p><b>אור לא עובר דרך הרבה מים.</b> בעומק של כמה מאות מטרים כבר כמעט חשוך, ומתחת לקילומטר — חשוך לגמרי. אור מלוויין לא מגיע לקרקעית שנמצאת בעומק של קילומטרים. קול, לעומת זאת, עובר במים מצוין, ולכן משתמשים בהד. לוויינים יכולים לעזור קצת בדרך עקיפה: הם מודדים בליטות זעירות בפני הים, שנוצרות בגלל הרים גדולים מתחת לים. אבל כדי לראות פרטים — עדיין צריך ספינות.</p>
+    </details>
+  </details>
+
+  <div class="next"><button class="btn" onclick="next()">למבחן! ←</button></div>
+</section>
+
+<!-- 9 · TEST -->
+<section class="step" data-step="9">
+  <div class="ch"><span class="stick"></span>המבחן</div>
+  <h2>בואו נראה מה נשאר בראש</h2>
+  <p>ארבע שאלות, סידור אחד, חישוב אחד — ובסוף אתם המורים. על כל שאלה תקבלו מיד הסבר.</p>
+
+  <div id="mcqs"></div>
+
+  <div class="q">
+    <div class="qt">סדרו את מה שקורה ברכס שבאמצע האוקיינוס, מההתחלה ועד שהאוקיינוס מתרחב. לחצו על הכרטיסים לפי הסדר (לחיצה נוספת מבטלת):</div>
+    <div class="order" id="order"></div>
+    <div class="controls" style="margin-top:12px">
+      <button class="btn small" id="orderCheck" onclick="checkOrder()" disabled>בדקו את הסדר</button>
+      <button class="btn small ghost" onclick="resetOrder()">מהתחלה</button>
+    </div>
+    <div class="fb" id="orderFb"></div>
+  </div>
+
+  <div class="q" data-track="younger">
+    <div class="qt">חישוב: ספינה שולחת צפצוף. במים הקול עובר <span class="num">1,500</span> מטרים בכל שנייה, וההד חוזר אחרי <span class="num">4</span> שניות. זכרו: הקול ירד למטה <b>וגם</b> חזר למעלה. כמה מטרים עמוקה הקרקעית?</div>
+    <div class="controls"><label>עומק, מטרים <input type="number" id="numYounger" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('younger')">בדקו</button></div>
+    <div class="fb" id="numFbYounger"></div>
+  </div>
+  <div class="q" data-track="older" data-level="advanced">
+    <div class="qt">חישוב: ספינה חוצה את הרכס. על הפסגה שליד העמק, ההד חוזר אחרי <span class="num">3.4</span> שניות. כשהיא נמצאת בדיוק מעל קרקעית העמק, ההד מתעכב עוד <span class="num">1.6</span> שניות. מהירות הקול במים: <span class="num">1,500</span> מטרים בשנייה. (א) מה העומק מתחת לספינה כשהיא מעל הפסגה, במטרים? (ב) בכמה מטרים קרקעית העמק נמוכה מהפסגה?</div>
+    <div class="controls"><label>(א) עומק הפסגה, מטרים <input type="number" id="numAdvR" inputmode="decimal" step="any" placeholder="?"></label><label>(ב) עומק העמק מתחת לפסגה, מטרים <input type="number" id="numAdv" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('adv')">בדקו</button></div>
+    <div class="fb" id="numFbAdv"></div>
+  </div>
+  <div class="q" data-track="older" data-level="standard">
+    <div class="qt">חישוב: ספינה שולחת צפצוף. מהירות הקול במים: <span class="num">1,500</span> מטרים בשנייה. ההד חוזר אחרי <span class="num">6</span> שניות. כמה מטרים עמוקה הקרקעית?</div>
+    <div class="controls"><label>עומק, מטרים <input type="number" id="numOlder" inputmode="decimal" step="any" placeholder="?"></label><button class="btn small" onclick="checkNum('older')">בדקו</button></div>
+    <div class="fb" id="numFbOlder"></div>
+  </div>
+
+  <div class="q">
+    <div class="qt">עכשיו אתם המורים. הסבירו לחבר או לחברה, ב־<span class="math">3–4</span> משפטים: <b>איך מארי ת׳ארפ גילתה את הסדק באמצע האוקיינוס בלי לראות אותו — ומה הסדק הזה מספר על היבשות?</b> אפשר להקליד — או ללחוץ על המיקרופון ולדבר.</div>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <textarea id="explain" placeholder="הספינות שלחו צפצוף אל הקרקעית..."></textarea>
+      <button class="mic" id="micBtn" onclick="toggleDictation()" title="הקלטה בעברית" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    </div>
+    <p class="small" id="micMsg" style="margin:8px 0 0"></p>
+    <div class="controls"><button class="btn small" id="explainBtn" onclick="gradeExplain()">בדקו את ההסבר שלי</button></div>
+    <div class="fb" id="explainFb"></div>
+  </div>
+
+  <p class="small" data-track="older">תזכורת: האתגר שבפרק <span class="num">5</span> שווה שתי נקודות ותג. אפשר לחזור אליו גם אחרי המבחן.</p>
+  <div class="next"><button class="btn" id="finishBtn" onclick="finish()">סיימתי — לתוצאות ←</button></div>
+</section>
+<!-- 10 · RESULTS -->
+<section class="step" data-step="10">
+  <div class="ch"><span class="stick"></span>הסיכום</div>
+  <h2 id="resTitle">כל הכבוד!</h2>
+  <div class="panel">
+    <div class="score">
+      <div class="ring" id="ring" style="--p:0"><b class="num" id="ringTxt"><span class="num">0</span></b></div>
+      <div style="flex:1;min-width:220px">
+        <p id="resLine" style="font-size:1.15rem"></p>
+        <p class="small" id="resDetail"></p>
+        <div class="small">מד הוואו</div>
+        <div class="meter"><i id="wowMeter"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vault" id="vault">
+    <div class="lock" id="vaultLock" aria-hidden="true">🔒</div>
+    <h3 id="vaultTitle">הסיסמה הסודית של היום</h3>
+    <div id="vaultBody"></div>
+  </div>
+
+  <div class="twocol">
+    <div class="panel">
+      <h3>הנקודות שלי</h3>
+      <p style="margin:0"><b class="num" id="xpToday">+<span class="num">0</span></b> XP היום</p>
+      <p class="small" id="xpDetail" style="margin:4px 0 0"></p>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <p class="small" id="xpLevel" style="margin:6px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3>הרצף שלי</h3>
+      <p style="margin:0" id="streakLine"></p>
+      <div class="streakrow" id="streakRow"></div>
+      <p class="small" id="streakNext" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 id="badgesTitle">תגים שזכית בהם היום</h3>
+    <div class="badges" id="badges"></div>
+    <p class="small" id="badgeNone" style="margin:8px 0 0"></p>
+    <div data-wow="progress"></div>
+  </div>
+
+  <div class="panel">
+    <h3>הניחוש מול המציאות</h3>
+    <p id="resGuess" style="margin:0"></p>
+  </div>
+  <div class="panel">
+    <h3><span class="num">3</span> דברים לספר בארוחת ערב</h3>
+    <p style="margin:0"><span class="num">1</span>. בשנות ה־<span class="num">50</span> לא הרשו לנשים לעלות על ספינות מחקר. מארי ת׳ארפ נשארה במשרד, ומתוך מספרים של הדים ציירה את קרקעית האוקיינוס — בלי לראות אותה אף פעם.<br>
+    <span class="num">2</span>. באמצע האוקיינוס האטלנטי יש רכס הרים, ובמרכזו סדק. הבוס שלה קרא לזה "דיבורים של בנות" — עד שרעידות האדמה נפלו בדיוק בתוך הסדק.<br>
+    <span class="num">3</span>. בסדק נולדת קרקעית חדשה, והאטלנטי מתרחב בערך <span class="num">2.5</span> סנטימטרים בשנה — כמו ציפורניים שגדלות. וגם אצלנו, לאורך ים המלח, הלוח של ירדן מחליק צפונה.</p>
+  </div>
+  <div class="controls">
+    <a class="btn" id="mailBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none">שלחו את התוצאה לאבא במייל</a>
+    <button class="btn ghost" onclick="copyResults()">או העתיקו לוואטסאפ</button>
+    <button class="btn ghost small" onclick="restart()">להתחיל מחדש</button>
+    <a class="btn ghost small libLink" href="e/" hidden style="text-decoration:none">כל הגיליונות ›</a>
+  </div>
+
+  <details class="src"><summary>למבוגרים: מקורות ודיוק</summary>
+    <p>מארי ת׳ארפ: AIP (Niels Bohr Library), "Marie Tharp's Discovery of the Mid-Ocean Ridge Rift Valley in 1952" — לא הורשתה לעלות על ספינות לאיסוף נתונים, ומאמצע שנות ה־<span class="num">60</span> הצטרפה לחלק מההפלגות; הייזן "הניח שיש טעות"; העוזר שמיפה את מוקדי רעידות האדמה מצא שהם "נפלו בתוך עמק הבקע"; ספריית הקונגרס, <span class="num">1997</span> — "אחת מארבעת הקרטוגרפים הגדולים של המאה ה־<span class="num">20</span>"; ברוס הייזן (<span class="math">1924–1977</span>). NOAA NCEI, "Marie Tharp" — נולדה ב־<span class="num">30</span> ביולי <span class="num">1920</span> ונפטרה ב־<span class="num">2006</span>; נשים עדיין לא הורשו לעלות על כלי מחקר; הייזן ביטל את הגילוי כ־"girl talk". Wikipedia, "Marie Tharp" — עברה לניו יורק ב־<span class="num">1948</span> ועבדה עם מוריס יואינג בלמונט; ב־<span class="num">1952</span> ציירה כשישה פרופילים ממערב למזרח (NCEI כותב "שלושה פרופילים" — המקורות חלוקים, ולכן "בערך שישה"); "לקח לה שנה לשכנע את הייזן"; הווארד פוסטר מיפה את המוקדים; המפה הפיזיוגרפית הראשונה של צפון האטלנטי ב־<span class="num">1957</span>; "World Ocean Floor" עם היינריך ברן ב־<span class="num">1977</span>; השתתפה בהפלגה של USNS Kane ב־<span class="num">1968</span>. Science News (B. Mason, <span class="num">2021</span>) — "לקח לה שנה בערך לשכנע את הייזן"; תרגמה הדים לעומקים ושרטטה חתכים ביד. אביה, וויליאם ת׳ארפ, עבד בסקר הקרקע של משרד החקלאות האמריקאי (Wikipedia). "סתם דיבורים של בנות" הוא תרגום של "girl talk".</p>
+    <p>הד ועומק: Wikipedia, "Echo sounding" — העומק הוא מחצית הזמן מהשליחה עד החזרה, כפול מהירות הקול במים, כ־<span class="num">1.5</span> ק״מ בשנייה (המהירות משתנה מעט עם טמפרטורה, לחץ ומליחות). בהדמיה זמני ההד והעומקים הם ערכים מומצאים אך סבירים לחתך של האטלנטי. Wikipedia, "Atlantic Ocean" — משלחת "מטאור" הגרמנית גילתה בשנות ה־<span class="num">20</span> את שאר הרכס בעזרת מד־עומק הדי.</p>
+    <p>הרכס וההתפשטות: NOAA Ocean Exploration, "What is the mid-ocean ridge?" — אורך כמעט <span class="num">65,000</span> ק״מ; עמק הבקע "בערך בעומק וברוחב של הגרנד קניון"; קצב התפשטות <span class="math">2–5</span> ס״מ בשנה. Wikipedia, "Mid-Atlantic Ridge" — האטלנטי מתרחב בכ־<span class="num">2.5</span> ס״מ בשנה; פירוק פנגיאה לפני כ־<span class="math">200–160</span> מיליון שנה; איסלנד היא חלק מהרכס שמעל פני הים. ההשוואה לקצב גדילת הציפורניים מקובלת בספרות הפופולרית (סדר גודל, לא מדידה). באתגר: <span class="math">2.5 × 1,000,000 ÷ 100,000 = 25</span> ק״מ במיליון שנה; <span class="math">5,000 ÷ 25 = 200</span> מיליון שנה — "5,000 ק״מ" הוא מספר לדוגמה, והקצב לא היה קבוע באמת; התוצאה בסדר הגודל של תחילת פתיחת האטלנטי. Wikipedia, "Alfred Wegener" — הציג את נדידת היבשות ב־<span class="num">6</span> בינואר <span class="num">1912</span>; העריך מהירות של <span class="num">250</span> ס״מ בשנה; הרעיון התקבל בזרם המרכזי רק בשנות ה־<span class="num">60</span>. בהדמיה של ההתפשטות הקצב קבוע והפסים הם המחשה של גיל.</p>
+    <p>ישראל: Wikipedia, "Dead Sea Transform" — העתק בין הלוח האפריקאי (תת־הלוח של סיני) ממערב ללוח הערבי ממזרח; הזזה שמאלית של כ־<span class="math">105–107</span> ק״מ; קצב של כ־<span class="num">4</span> עד <span class="num">5</span> מ״מ בשנה (בערבה <span class="math">4 ± 2</span>, בבקעת הירדן <span class="math">4.7–5.1</span>). בהדמיה הקצב קבוע (<span class="num">5</span> ק״מ במיליון שנה) לשם הפשטות; ההזזה התרחשה במשך מיליוני שנים רבים, והתזמון המדויק נתון במחלוקת. Wikipedia, "Red Sea Rift" — קצב התפשטות של כ־<span class="num">1</span> ס״מ בשנה; העתק ים המלח מתחבר לקצה הצפוני שלו. "שכבת הסלע הכתומה" במפה היא סמל, לא שכבה מסוימת.</p>
+  </details>
+</section>
+</main>
+
+
+
+
+
+
+
+<button class="fab" id="fab" onclick="openChat()" aria-label="שאלו את ארטו"><span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span><span class="lbl">לא הבנתי? שאלו את ארטו</span></button>
+<section class="chat" id="chat" dir="rtl" lang="he" aria-label="שיחה עם ארטו">
+  <header>
+    <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v13H8a2 2 0 0 1-2-2V4z"/><path d="M6 4a2 2 0 0 0-2 2v2h2M18 20a2 2 0 0 0 2-2v-1h-2M9 9h6M9 13h4"/></svg></span>
+    <div><b>ארטו</b><small>הספרן של אלכסנדריה · כאן בשבילכם</small><small class="left" id="artoLeft" hidden></small></div>
+    <button class="x" onclick="closeChat()" aria-label="סגירה">×</button>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chips" id="chips"></div>
+  <div class="composer">
+    <button class="mic" id="chatMic" onclick="chatDictate()" title="לדבר במקום להקליד" aria-label="הקלטה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <textarea id="chatIn" rows="1" placeholder="מה לא הבנתם? או — מה עוד מסקרן אתכם?"></textarea>
+    <button class="send" id="chatSend" onclick="sendChat()" aria-label="שליחה"><svg viewBox="0 0 24 24" fill="none" stroke="#1E2140" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+</div>
+<div class="gate" id="gate" dir="rtl" lang="he" aria-label="כניסה">
+  <div class="card">
+    <div class="disc" aria-hidden="true"></div>
+    <h2>שורשים וכנפיים</h2>
+    <p>הדף הזה הוא רק <span id="gateNames"></span>. מה סיסמת הכניסה? היא כתובה במייל של שורשים וכנפיים (זו לא הסיסמה הסודית של היום).</p>
+    <form onsubmit="return gateSubmit(event)">
+      <input id="gateIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="סיסמת כניסה" aria-label="סיסמת כניסה">
+      <button class="btn" type="submit">כניסה</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- edition data (the nightly bot fills these from the parents' ledger) ---------- */
+const EDITION = { n:75, code:'WOW-075', date:'2026-11-28', title:'האישה שציירה את קרקעית האוקיינוס — וגילתה שהיבשות זזות', parent:'parent@example.com' };
+/* kids: id → name, gender (f), age, grade, which CONTENT TRACK they use ('younger' and 'older' — several kids can share a track), an optional cc for their parent on the completion mail, and an optional level:'advanced' (elements with data-level="advanced" replace their data-level="standard" twins; the assistant and the grader push harder). Track ids are fixed; kids are not. */
+const KIDS = {
+  younger: { name:'יובל', f:false, age:'8–9',   grade:'ג–ד', track:'younger' },
+  older:   { name:'נועה', f:true,  age:'10–11', grade:'ה–ו', track:'older' },
+  // more kids can share a track — e.g. a cousin on the older track whose parent gets a cc of the completion mail,
+  // and an especially strong kid on the ADVANCED level (harder twin of the numeric task, the challenge addressed to them, a pushier assistant/grader):
+  // dani: { name:'דני', f:false, age:'11', grade:'ו', track:'older', cc:'their.parent@example.com', level:'advanced' },
+};
+const STATS = { younger:{ streak:0, best:0, xp:0, badges:[] }, older:{ streak:0, best:0, xp:0, badges:[] } };
+const PW_ENC = '15nXqNeQ154g15zXqSDXp9eT16HXlA=='; // base64 of the reversed password
+const LEVELS = [ [0,'סקרן','סקרנית'], [150,'חוקר צעיר','חוקרת צעירה'], [400,'מגלה','מגלה'], [800,'מדען','מדענית'], [1500,'פרופסור','פרופסורית'], [2500,'גאון','גאונית'], [4000,'אגדה','אגדה'] ];
+/* public-site access: PROXY.url = the assistant proxy (Vercel Functions; config.proxy_url, ends with /api); PROXY.pwHash = SHA-256 hex of the kids' entrance password (config.gate_pw_hash).
+   Both empty → no gate, ארטו only inside Claude. The gate never shows inside the Claude viewer. */
+/* THE APP (runtime mode): the server prepends `window.RUNTIME = { api, kidToken, edition, profile?, library }` before this fragment.
+   With a kid token the profile is loaded (server-injected or fetched), the kid is picked automatically, there is no picker and no gate,
+   completions are POSTed to the app, and the assistant is the app's own /api/arto (system prompt server-side). Without a token → demo profile. */
+const RT = (typeof window!=='undefined' && window.RUNTIME && typeof window.RUNTIME==='object') ? window.RUNTIME : null;
+const PROXY = RT ? { url: String(RT.api||'/api').replace(/\/+$/,'')+'/arto', pwHash:'', app:true } : { url:'', pwHash:'' };
+/* app level → engine mapping: support→younger track; advanced→data-level=advanced; on_track|advanced→push */
+const GRADES_HE = ['ב','ג','ד','ה','ו','ז','ח'];
+const APP_LEVELS = { support:{level:'standard',push:'none'}, standard:{level:'standard',push:'ontrack'}, advanced:{level:'advanced',push:'advanced'} };   // 'on_track' (legacy) = standard
+const LEVEL_HE = { support:'צריך/ה עזרה', standard:'רגיל', advanced:'מתקדם/ת' };
+function normLevel(l){ return l==='on_track' ? 'standard' : (APP_LEVELS[l] ? l : 'standard'); }
+/* the content track follows the grade (ב–ד → younger, ה–ח → older); 'support' always takes the younger track, 'advanced' always the older one */
+function trackFor(grade, level){ let t = level==='support' ? 'younger' : level==='advanced' ? 'older' : ((()=>{ const gi=GRADES_HE.indexOf(String(grade||'').trim()); return (gi>=0 && gi<=2) ? 'younger' : 'older'; })());
+  /* an edition may ship a single track (or legacy track ids): fall back to what exists in the markup */
+  const avail=[...new Set([...document.querySelectorAll('[data-track]')].map(e=>e.dataset.track))]; if(avail.length && !avail.includes(t)) t = avail.includes('older') ? 'older' : avail[0]; return t; }
+function kidFromProfile(p){ const lv=normLevel(p.level), m=APP_LEVELS[lv]; return { name:p.name, f:!!p.feminine, age:String(p.age||''), grade:String(p.grade||''), track:trackFor(p.grade, lv), level:m.level, push:m.push, appLevel:lv }; }
+function setKids(obj){ Object.keys(KIDS).forEach(k=>delete KIDS[k]); Object.assign(KIDS, obj); }
+if(RT && !RT.kidToken){ /* demo: a guest of either gender, level chosen under the picker */
+  setKids({ guest_m: kidFromProfile({name:'אורח', feminine:false, age:'10', grade:'ה', level:'standard'}), guest_f: kidFromProfile({name:'אורחת', feminine:true, age:'10', grade:'ה', level:'standard'}) });
+  STATS.guest_m = { streak:0, best:0, xp:0, badges:[] }; STATS.guest_f = { streak:0, best:0, xp:0, badges:[] };
+}
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use==='function');   // opened inside Claude (review copy) vs. the public site
+
+/* ---------- state ---------- */
+const S = { kid:null, track:null, started:false, challenge:false, step:0, guess:0, qc:{}, mcq:{}, order:[], orderScore:null, num:null, explain:0, explainText:'', explainGraded:false };
+/* ---------- the app: gamification hooks (keep byte-for-byte; the app serves window.WOW, elsewhere these are no-ops) ---------- */
+const ENGINE_VERSION = '2';
+/* WOW_META — what this edition grows (roots, weights), the collectible card, and a skill tag + difficulty (1–5) per test item. Rewrite it for every new topic; keep the structural item ids. */
+const WOW_META = {
+  v: 1,
+  roots: [ { id:'geology', w:3 }, { id:'geography', w:2 }, { id:'math', w:2 }, { id:'history', w:2 }, { id:'physics', w:1 } ],
+  hero: { name:'הסדק באמצע האוקיינוס — והאישה שציירה אותו', fact:'מארי ת׳ארפ ציירה את קרקעית האטלנטי מתוך הדים, וגילתה רכס עם סדק באמצעו. שם נולדת קרקעית חדשה, והאוקיינוס מתרחב בכ־2.5 ס״מ בשנה.' },
+  items: {
+    'predict':        { skill:'estimation',               d:2 },
+    'qc:scale':       { skill:'prior-knowledge',          d:1 },
+    'qc:goalQ':       { skill:'echo-sounding',            d:1 },
+    'qc:beatQ':       { skill:'echo-time-depth',          d:1 },
+    'qc:frameQ':      { skill:'independent-evidence',     d:2 },
+    'qc:lineQ':       { skill:'seafloor-age',             d:2 },
+    'qc:deepQ':       { skill:'spreading-rate',           d:2 },
+    'mcq:shared:0':   { skill:'echo-compare',             d:1 },
+    'mcq:shared:1':   { skill:'plate-motion',             d:2 },
+    'mcq:shared:2':   { skill:'dead-sea-transform',       d:2 },
+    'mcq:younger:0':  { skill:'mid-ocean-ridge',          d:1 },
+    'mcq:older:0':    { skill:'rate-times-time',          d:3 },
+    'order':          { skill:'spreading-sequence',       d:2 },
+    'num:younger':    { skill:'speed-time-halve',         d:2 },
+    'num:older':      { skill:'speed-time-halve',         d:2 },
+    'num:adv':        { skill:'two-step-echo-depths',     d:4 },
+    'challenge':      { skill:'unit-conversion-rate',     d:4 },
+    'explain':        { skill:'mechanism-explanation',    d:4 }
+  }
+};
+const WOW = (typeof window!=='undefined' && window.WOW && window.WOW.emit) ? window.WOW : { emit(){}, mount(){} };
+S.tries = {};
+function wowTry(id){ S.tries[id]=(S.tries[id]||0)+1; return S.tries[id]; }
+const KEY='wow-'+EDITION.code+(RT&&RT.kidToken?'-'+String(RT.kidToken).slice(0,8):'');
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 1-3s0 3 2 3c2 0 1-4 2-10z"/></svg>';
+const KID = () => KIDS[S.kid] || KIDS.younger;
+const F = () => !!KID().f;                          // feminine?
+const G = (m,f) => F()? f : m;                     // gendered string
+const NAME = () => KID().name;
+/* names in the static markup come from KIDS */
+function buildPicker(){ document.querySelector('.tracks').innerHTML = Object.entries(KIDS).map(([id,k])=>'<button class="track" data-pick="'+id+'" data-trk="'+k.track+'" onclick="pickKid(\''+id+'\')"><span class="av">'+esc(k.name)+'</span><span><b>'+esc(k.name)+'</b><small>'+(RT?(k.f?'בת':'בן'):(k.track==='younger'?'המסלול הצעיר':'המסלול הבוגר'))+'</small></span></button>').join(''); }
+buildPicker();
+function fillKidStrings(){ const k=KID(); document.querySelectorAll('[data-kidpill]').forEach(el=>{ el.textContent='המסלול של '+k.name; }); document.querySelectorAll('[data-kidname]').forEach(el=>{ el.textContent=k.name; }); document.querySelectorAll('[data-g]').forEach(el=>{ const [m,f]=el.dataset.g.split('|'); el.textContent = k.f ? f : m; }); }
+document.getElementById('gateNames').textContent = (()=>{ const n=Object.values(KIDS).map(k=>'ל'+k.name); return n.length>1 ? n.slice(0,-1).join(', ')+' ו'+n[n.length-1] : (n[0]||''); })();
+/* the library of past editions lives at <site>/e/ — from an archived copy (…/e/NNN/) that is ../, from the root it is e/ */
+const LIB_URL = RT ? String(RT.library||'/library') : (/\/e\/\d{3}\/?(index\.html)?$/.test(location.pathname) ? '../' : 'e/');
+document.querySelectorAll('.libLink').forEach(a=>{ a.href=LIB_URL; a.hidden=IN_CLAUDE; });
+const TODAY = new Date().toLocaleDateString('en-CA');                                     // YYYY-MM-DD, device local time
+const LATE = TODAY > ((RT&&RT.edition&&RT.edition.date)||EDITION.date);                   // an old edition completed on a later day: XP yes, streak no (the app's date wins)
+function decodePw(){ try{ return decodeURIComponent(escape(atob(PW_ENC))).split('').reverse().join(''); }catch(e){ return '—'; } }
+function levelFor(xp, f){ let L=LEVELS[0], i=0; LEVELS.forEach((l,k)=>{ if(xp>=l[0]){ L=l; i=k; } }); return { i, name: f?L[2]:L[1], next: LEVELS[i+1]?LEVELS[i+1][0]:null }; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- progress / navigation ---------- */
+const prog = document.getElementById('progress');
+for(let i=0;i<10;i++){ prog.appendChild(document.createElement('span')); }
+function paintProgress(){ [...prog.children].forEach((s,i)=>{ const k=i+1; s.className = k<S.step?'done':(k===S.step?'cur':''); }); }
+function next(){ goTo(S.step+1); }
+function goTo(n){
+  const sec = document.querySelector(`.step[data-step="${n}"]`);
+  if(!sec) return;
+  S.step = n; sec.classList.add('shown'); paintProgress();
+  requestAnimationFrame(()=>{ sec.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); });
+  if(n===1){ showArtoTip(); } if(n===2) snUpdate(); if(n===3) prDraw(); if(n===4) spDraw(); if(n===7) ilDraw(); if(n===9) buildTest();
+  save();
+}
+function pickKid(id){
+  if(S.started || !KIDS[id]) return;
+  S.kid = id; S.track = KIDS[id].track; document.body.dataset.track = S.track; document.body.dataset.kid = id; document.body.dataset.level = KIDS[id].level||'standard'; document.body.dataset.push = KIDS[id].push||'none';
+  document.querySelectorAll('.track').forEach(b=>b.classList.toggle('on', b.dataset.pick===id));
+  fillKidStrings();
+  const st=STATS[id]||{streak:0,xp:0}, lv=levelFor(st.xp, F());
+  document.getElementById('who').innerHTML = '<b>'+NAME()+'</b><span class="statpill" title="רצף ימים"><span class="flame">'+FLAME+'</span><span class="num">'+st.streak+'</span></span><span class="statpill lvl" title="רמה">'+lv.name+'</span>';
+  document.getElementById('startBtn').disabled = false;
+  save();
+}
+function startLesson(){ if(!S.kid) return; S.started=true; document.querySelectorAll('.track').forEach(b=>b.disabled=true); document.getElementById('startBtn').disabled=true; next(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({kid:S.kid, guess:S.guess})); }catch(e){} }
+function restore(){
+  try{ const d = JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+    if(d.guess){ const b=scaleQ.querySelector('.scaleopt[data-scale="'+d.guess+'"]'); if(b) pickScale(b); }
+    if(d.kid && KIDS[d.kid] && !(RT&&RT.kidToken)){ pickKid(d.kid); } }catch(e){}
+}
+function restart(){ try{localStorage.removeItem(KEY);}catch(e){} location.reload(); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---------- entrance gate (public site) ---------- */
+const GATE_KEY='wow-gate';
+async function sha256(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function gatePw(){ try{ return localStorage.getItem(GATE_KEY)||''; }catch(e){ return ''; } }
+async function gateCheck(){
+  if(IN_CLAUDE || RT || !PROXY.pwHash) return;                 // gate only on the legacy public site (the app uses personal links)
+  gate.classList.add('on');                                    // cover the page at once, then check the remembered password
+  const saved=gatePw();
+  if(saved && (await sha256(saved))===PROXY.pwHash){ gate.classList.remove('on'); return; }   // remembered on this device
+  setTimeout(()=>gateIn.focus(),50);
+}
+async function gateSubmit(ev){
+  ev.preventDefault();
+  const v=gateIn.value.trim(); if(!v) return false;
+  if((await sha256(v))===PROXY.pwHash){ try{ localStorage.setItem(GATE_KEY, v); }catch(e){} gate.classList.remove('on'); toast('ברוכים הבאים!'); }
+  else { gateErr.textContent='לא נכון — נסו שוב, או בקשו מאבא ואמא.'; gateIn.select(); }
+  return false;
+}
+
+
+/* ---------- hero guess: what lies in the middle of the Atlantic floor? ----------
+   Four choices. The right answer: 3 — a huge mountain range with a crack (rift valley) down its middle. */
+const SCALE_ANS = 3;
+const fmtSigns = n => ({1:'מישור חלק ושטוח',2:'בור עמוק במיוחד',3:'רכס הרים ענק עם סדק באמצע',4:'חול והרבה ספינות טבועות'})[n] || String(n);
+const SCALE_FB_RIGHT = '<span class="pill-ok">קלעתם!</span> באמצע האטלנטי יש רכס הרים ענק, ובמרכזו סדק. אבל איך גילו את זה בלי לראות — ומה הסדק עושה שם? על זה השיעור.';
+const SCALE_FB = {
+  1: '<span class="pill-bad">ככה חשבו הרבה מדענים — אבל לא.</span> באמצע האטלנטי יש רכס הרים ענק, ובמרכזו סדק. איך גילו את זה? על זה השיעור.',
+  2: '<span class="pill-bad">דווקא להפך!</span> באמצע האוקיינוס הקרקעית עולה: יש שם רכס הרים ענק, ובמרכזו סדק. איך גילו את זה? על זה השיעור.',
+  3: SCALE_FB_RIGHT,
+  4: '<span class="pill-bad">יש שם חול ובוץ, אבל זה לא העיקר.</span> באמצע האטלנטי יש רכס הרים ענק, ובמרכזו סדק. איך גילו את זה? על זה השיעור.'
+};
+const scaleQ = document.getElementById('scaleQ'), scaleFb = document.getElementById('scaleFb');
+function pickScale(btn){
+  if(scaleQ.classList.contains('done')) return;
+  const v = +btn.dataset.scale, ok = v===SCALE_ANS;
+  S.guess = v;
+  scaleQ.classList.add('done');
+  for(const b of scaleQ.querySelectorAll('.scaleopt')){
+    const bv = +b.dataset.scale;
+    b.dataset.state = bv===SCALE_ANS ? 'right' : (bv===v ? 'wrong' : '');
+    b.setAttribute('aria-disabled','true');
+  }
+  scaleFb.innerHTML = SCALE_FB[v] + (ok ? '' : ' התשובה מסומנת בירוק.');
+  scaleFb.classList.add('show');
+  WOW.emit('item', { id:'qc:scale', kind:'quick', correct: ok, attempt: wowTry('qc:scale') });
+  save();
+}
+scaleQ.addEventListener('click', e => { const b = e.target.closest('.scaleopt'); if(b) pickScale(b); });
+</script>
+<script>
+/* ---------- shared canvas helpers for this edition ---------- */
+const XREDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function xArrow(c,x,y,dx,dy,s){ const a=Math.atan2(dy,dx); c.beginPath(); c.moveTo(x,y);
+  c.lineTo(x-s*Math.cos(a-0.42), y-s*Math.sin(a-0.42)); c.lineTo(x-s*Math.cos(a+0.42), y-s*Math.sin(a+0.42)); c.closePath(); c.fill(); }
+function xPlate(c,x,y,w,h,alpha){ c.fillStyle=css('--card'); c.globalAlpha=alpha||.86; c.beginPath(); c.roundRect(x,y,w,h,9); c.fill(); c.globalAlpha=1; }
+function xText(c,txt,x,y,size,col,align,weight){ size=Math.max(24,size)*LS(); c.font=(weight||'700')+' '+size+'px Rubik, Arial'; c.direction='rtl'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); c.direction='ltr'; }
+/* a text label on its own plate (Hebrew), centred at x */
+function xLabel(c,txt,x,y,size,col,alpha){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='rtl'; const w=c.measureText(txt).width; x=clamp(x, w/2+12, c.canvas.width-w/2-12); xPlate(c,x-w/2-10,y-size*0.9,w+20,size*1.8,alpha); xText(c,txt,x,y,size/LS(),col,'center'); return w; }
+/* ---------- small helpers for this edition ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function isDark(){ const t=document.documentElement.dataset.theme; return t==='dark' || (t!=='light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+/* phones: the 640px canvas is shown at ~346 CSS px, so every label is drawn ~1.55× bigger there (22px → ≈18 CSS px) (and the panel lets the canvas bleed to the screen edges) */
+const LS = () => (window.innerWidth<=640 ? 1.55 : 1);
+const PI = Math.PI, DEG = PI/180;
+/* ---------- this edition's colours ---------- */
+const GOOD = () => isDark() ? '#4FD08F' : '#1F8A5B';
+const DANG = () => isDark() ? '#F2806F' : '#C8452D';
+const GOLD = () => isDark() ? '#F6C454' : '#E2A21F';
+const BLUE = () => isDark() ? '#6FB2E8' : '#2F6F9F';
+const INK = () => css('--ink');
+const GREY = () => isDark() ? '#8C90AE' : '#9AA0B4';
+const SEAD = () => isDark() ? '#0B1F3A' : '#123A63';      // the dark deep sea
+const SEAL = () => isDark() ? '#1B4F7E' : '#9CCBEA';      // a lighter, map-style sea
+const LANDC = () => isDark() ? '#5E4E33' : '#E3CC9E';
+const ROCK = () => isDark() ? '#8A7047' : '#B08A55';
+const SKY = () => isDark() ? '#1D3266' : '#C9E1F2';
+function predictFirst(msgEl, verb){ msgEl.innerHTML='<b>נחשו קודם</b> (למעלה), ואז '+(verb||'נסו')+'.'; }
+function segOn(prefix, n, k){ for(let i=0;i<n;i++){ const b=document.getElementById(prefix+i); if(b) b.classList.toggle('on', i===k); } }
+function xMath(c,txt,x,y,size,col,align){ size=Math.max(24,size)*LS(); c.font='700 '+size+'px Rubik, Arial'; c.direction='ltr'; c.textAlign=align||'center'; c.textBaseline='middle'; c.fillStyle=col; c.fillText(txt,x,y); }
+const RM = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+const $ = id => document.getElementById(id);
+const lerp=(a,b,t)=>a+(b-a)*t;
+const fmt1 = v => (Math.round(v*10)/10).toString();
+const fmtK = v => Math.round(v).toLocaleString('en-US');
+const NOW = () => (window.performance && performance.now) ? performance.now() : Date.now();
+function drawShip(c,x,y,s){ s=s||1; c.fillStyle=isDark()?'#E9DFC8':'#FFFDF6'; c.strokeStyle=INK(); c.lineWidth=4;
+  c.beginPath(); c.moveTo(x-46*s,y-22*s); c.lineTo(x+46*s,y-22*s); c.lineTo(x+32*s,y); c.lineTo(x-32*s,y); c.closePath(); c.fill(); c.stroke();
+  c.fillStyle=GOLD(); c.beginPath(); c.rect(x-12*s,y-44*s,24*s,22*s); c.fill(); c.stroke(); }
+
+/* ---------- step 2 (interactive 1): echo sounding in the dark ----------
+   13 ship positions across an Atlantic cross-section. Echo time t (s) → depth = 1500 × t ÷ 2 = 750·t m.
+   Values are invented but realistic: shelf, abyssal plain, ridge crests, a rift valley in the middle. */
+const snCv=$('snCv'), snctx=snCv.getContext('2d');
+const SN={ opened:0, pred:-1, i:6, hit:{}, phase:'idle', t0:0, conn:0, revealed:0, last:-1 };
+const SN_T=[0.4,4.0,7.0,6.2,4.8,3.4,5.4,3.6,5.0,6.4,7.2,4.2,0.4];
+const SN_SURF=118, snX = i => 50+i*45, snY = d => SN_SURF+12+d*0.072, snDepth = i => Math.round(750*SN_T[i]);
+const snCount = () => Object.keys(SN.hit).length;
+function snPredict(k){ SN.pred=k; segOn('snP',3,k); WOW.emit('item', { id:'echo:predict', kind:'quick', correct:k===2, attempt: wowTry('echo:predict') });
+  snMsg.innerHTML='רשמנו את הניחוש. עכשיו לחצו "צפצוף!", הזיזו את הספינה, וצפצפו שוב.'; snUpdate(); }
+function snOpen(){ if(!SN.opened){ SN.opened=1; WOW.emit('open', { id:'echo' }); } }
+function snSet(){ if(SN.pred<0){ snX_.value=SN.i; predictFirst(snMsg,'הזיזו'); return; } if(SN.phase!=='idle'){ snX_.value=SN.i; return; } snOpen(); SN.i=+snX_.value; snUpdate(); }
+const snX_ = $('snX');
+function snPing(){ if(SN.pred<0){ predictFirst(snMsg,'צפצפו'); return; } snOpen(); if(SN.phase!=='idle') return;
+  SN.phase='go'; SN.t0=NOW(); snMsg.innerHTML='הצפצוף יורד במים החשוכים... מקשיבים להד.'; ensureLoop(); snUpdate(); }
+function snDur(){ return RM() ? 300 : SN_T[SN.i]*380; }       // animation: real echo time scaled ×0.38
+function snTick(){ if(SN.phase==='go' && NOW()-SN.t0>=snDur()){ SN.phase='idle'; SN.hit[SN.i]=1; SN.last=SN.i;
+    const t=SN_T[SN.i], d=snDepth(SN.i);
+    snMsg.innerHTML = t<1 ? 'הד מהיר מאוד — כאן ליד החוף המים רדודים.' : t>=6.5 ? '<b>הד איטי!</b> הקול נסע הרבה עד שחזר — כאן עמוק מאוד.' : 'ההד חזר. עוד נקודה על המפה. הזיזו את הספינה וצפצפו שוב.';
+    if(snCount()>=6) snC.disabled=false; }
+  snUpdate(); }
+function snConnect(){ if(snCount()<6) return; SN.conn=1; snMsg.innerHTML='<b>הנה הקרקעית!</b> רדוד ליד החופים, עמוק במישורים, רכס באמצע — ובמרכז הרכס עמק.'; snUpdate(); }
+function snUpdate(){ const known=SN.pred>=0, has=SN.last>=0;
+  snOutT.innerHTML = has ? '<span class="num">'+fmt1(SN_T[SN.last])+'</span> שניות' : '?';
+  snOutD.innerHTML = !has ? '?' : (S.track==='older' ? '<span class="math">1500 × '+fmt1(SN_T[SN.last])+' ÷ 2 = '+fmtK(snDepth(SN.last))+'</span> מ׳' : '<span class="num">'+fmtK(snDepth(SN.last))+'</span> מטרים');
+  snDraw(); snCheck(); }
+function snCheck(){ const shore = SN.hit[0]||SN.hit[12], mid = SN.hit[5]||SN.hit[6]||SN.hit[7];
+  if(SN.pred>=0 && !SN.revealed && snCount()>=6 && shore && mid && SN.conn){ SN.revealed=1; snReveal.hidden=false; snAfter.hidden=false; hint2.textContent='ענו על השאלה כדי להמשיך.'; } }
+function snDraw(){
+  const c=snctx, W=snCv.width, H=snCv.height, known=SN.pred>=0, t=NOW();
+  c.clearRect(0,0,W,H);
+  c.fillStyle=SKY(); c.fillRect(0,0,W,SN_SURF);
+  const g=c.createLinearGradient(0,SN_SURF,0,H); g.addColorStop(0, isDark()?'#163A62':'#2D6FA3'); g.addColorStop(1, SEAD()); c.fillStyle=g; c.fillRect(0,SN_SURF,W,H-SN_SURF);
+  c.strokeStyle=isDark()?'#7FB3DD':'#DCEAF5'; c.lineWidth=4; c.beginPath(); for(let x=0;x<=W;x+=8){ const y=SN_SURF+Math.sin(x*0.05+(RM()?0:t*0.002))*3; x?c.lineTo(x,y):c.moveTo(x,y); } c.stroke();
+  /* depth scale on the left */
+  c.strokeStyle='rgba(255,255,255,.35)'; c.lineWidth=2;
+  for(let d=1000; d<=5000; d+=1000){ const y=snY(d); c.setLineDash([6,10]); c.beginPath(); c.moveTo(0,y); c.lineTo(W,y); c.stroke(); c.setLineDash([]); xMath(c,String(d/1000),624,y-16,22,'#DCEAF5'); }
+  xText(c,'ק״מ',596,snY(5000)+30,20,'#DCEAF5');
+  /* the floor, once the dots are joined */
+  const pts=Object.keys(SN.hit).map(Number).sort((a,b)=>a-b);
+  if(SN.conn){   /* the real floor appears, with the measured line on top */
+    c.fillStyle=ROCK(); c.globalAlpha=.55; c.beginPath(); c.moveTo(snX(0),H); SN_T.forEach((t,i)=>c.lineTo(snX(i),snY(snDepth(i)))); c.lineTo(snX(12),H); c.closePath(); c.fill(); c.globalAlpha=1; }
+  if(SN.conn && pts.length>=2){
+    c.fillStyle=ROCK(); c.beginPath(); c.moveTo(snX(pts[0]),H); pts.forEach(i=>c.lineTo(snX(i),snY(snDepth(i)))); c.lineTo(snX(pts[pts.length-1]),H); c.closePath(); c.globalAlpha=.85; c.fill(); c.globalAlpha=1;
+    c.strokeStyle=GOLD(); c.lineWidth=5; c.beginPath(); pts.forEach((i,k)=>k?c.lineTo(snX(i),snY(snDepth(i))):c.moveTo(snX(i),snY(snDepth(i)))); c.stroke();
+    if(SN.hit[6] && (SN.hit[5]||SN.hit[7])){ xLabel(c,'רכס — ובאמצעו עמק',320,snY(2550)-40,22,INK(),.95); }
+  } else if(known){ xLabel(c,'הקרקעית חשוכה — אי אפשר לראות אותה',320,250,22,INK(),.9); }
+  /* dots */
+  pts.forEach(i=>{ const x=snX(i), y=snY(snDepth(i)); c.fillStyle=GOLD(); c.strokeStyle=INK(); c.lineWidth=3; c.beginPath(); c.arc(x,y,10,0,2*PI); c.fill(); c.stroke(); });
+  /* the ping */
+  if(SN.phase==='go'){ const p=clamp((t-SN.t0)/snDur(),0,1), x=snX(SN.i), yb=snY(snDepth(SN.i)), top=SN_SURF+6;
+    const y = p<0.5 ? lerp(top,yb,p*2) : lerp(yb,top,(p-0.5)*2), col = p<0.5 ? '#FF8A6E' : '#7FE0A8';
+    c.strokeStyle=col; c.lineWidth=6; c.lineCap='round';
+    for(let k=0;k<3;k++){ const yy=y+(p<0.5?-1:1)*k*14; c.globalAlpha=1-k*0.3; c.beginPath(); c.arc(x, yy+(p<0.5?-30:30), 30, p<0.5?0.25*PI:1.25*PI, p<0.5?0.75*PI:1.75*PI); c.stroke(); }
+    c.globalAlpha=1;
+    xLabel(c, p<0.5?'הצפצוף יורד':'ההד חוזר', 320, 40, 24, p<0.5?DANG():GOOD(), .95);
+  }
+  drawShip(c, snX(SN.i), SN_SURF+4, 0.9);
+  if(!known) xLabel(c,'נחשו קודם',320,330,30,DANG(),.95);
+  else if(SN.phase!=='go') xLabel(c,'נקודות: '+pts.length,320,40,22,INK(),.95);
+}
+
+/* ---------- step 3 (interactive 2): six crossings on one map ----------
+   Each ship track is drawn with its profile; the V notch of every profile sits on the ridge axis,
+   so the red dots line up along a line that follows the coasts. Earthquakes fall on the same line. */
+const prCv=$('prCv'), prctx=prCv.getContext('2d');
+const PR={ opened:0, pred:-1, n:1, quakes:0, revealed:0 };
+const PR_Y=[100,175,250,325,400,475];
+const prL = y => 110 + 46*Math.sin((y-40)/520*PI*1.15);     // the American coast (an S-curve)
+const prR = y => prL(y) + 400;                               // the African/European coast, parallel
+const prA = y => (prL(y)+prR(y))/2 + 6*Math.sin(y*0.05);     // the ridge axis, midway
+function prElev(x,y){ const xr=prA(y), xl=prL(y), xR=prR(y);
+  return 26*Math.exp(-Math.pow((x-xr)/70,2)) - 15*Math.exp(-Math.pow((x-xr)/9,2)) + 16*(Math.exp(-Math.pow((x-xl)/16,2))+Math.exp(-Math.pow((x-xR)/16,2))) + 2*Math.sin(x*0.21+y); }
+function prPredict(k){ PR.pred=k; segOn('prP',3,k); WOW.emit('item', { id:'map:predict', kind:'quick', correct:k===1, attempt: wowTry('map:predict') });
+  prMsg.innerHTML='רשמנו את הניחוש. עכשיו הוסיפו ספינות בסליידר.'; prUpdate(); }
+function prSet(){ if(PR.pred<0){ prN.value=PR.n; predictFirst(prMsg,'הזיזו'); return; }
+  if(!PR.opened){ PR.opened=1; WOW.emit('open', { id:'map' }); }
+  PR.n=+prN.value;
+  prMsg.innerHTML = PR.n<=1 ? 'פרופיל אחד, שקע אחד. אולי זו טעות? הוסיפו עוד ספינות.' : PR.n<6 ? 'עוד ספינה, עוד שקע — ושוב באמצע הרכס. שימו לב איפה הנקודות האדומות.' : '<b>שש ספינות, שישה שקעים — בקו אחד!</b> עכשיו הוסיפו את רעידות האדמה.';
+  prUpdate(); }
+function prQuakes(){ if(PR.pred<0){ predictFirst(prMsg,'הוסיפו'); return; } PR.quakes=1; prQ.classList.add('on');
+  prMsg.innerHTML = '<b>הרעידות נופלות בדיוק על הקו של השקעים!</b>'+(PR.n<6?' הוסיפו את כל הספינות כדי לראות את כל הקו.':''); prUpdate(); }
+function prUpdate(){ const known=PR.pred>=0;
+  prOutN.innerHTML = known ? '<span class="num">'+PR.n+'</span>' : '?';
+  prOutV.innerHTML = known ? '<span class="num">'+PR.n+'</span>' : '?';
+  prDraw(); prCheck(); }
+function prCheck(){ if(PR.pred>=0 && !PR.revealed && PR.n===6 && PR.quakes){ PR.revealed=1; prReveal.hidden=false; prAfter.hidden=false; hint3.textContent='ענו על השאלה כדי להמשיך.'; } }
+function prDraw(){
+  const c=prctx, W=prCv.width, H=prCv.height, known=PR.pred>=0, n=known?PR.n:1;
+  c.clearRect(0,0,W,H);
+  c.fillStyle=SEAL(); c.fillRect(0,0,W,H);
+  /* land on both sides */
+  c.fillStyle=LANDC(); c.strokeStyle=INK(); c.lineWidth=4;
+  c.beginPath(); c.moveTo(0,0); for(let y=0;y<=H;y+=10) c.lineTo(prL(y),y); c.lineTo(0,H); c.closePath(); c.fill(); c.stroke();
+  c.beginPath(); c.moveTo(W,0); for(let y=0;y<=H;y+=10) c.lineTo(prR(y),y); c.lineTo(W,H); c.closePath(); c.fill(); c.stroke();
+  xLabel(c,'אמריקה',70,560,24,INK(),.95); xLabel(c,'אירופה ואפריקה',W-110,40,24,INK(),.95);
+  /* earthquakes */
+  if(PR.quakes){ for(let k=0;k<12;k++){ const y=50+k*44+((k*37)%17), x=prA(y)+((k*53)%11)-5; c.fillStyle=GOLD(); c.strokeStyle=INK(); c.lineWidth=2; c.beginPath();
+      for(let j=0;j<10;j++){ const r=j%2?6:14, a=-PI/2+j*PI/5; j?c.lineTo(x+r*Math.cos(a),y+r*Math.sin(a)):c.moveTo(x+r*Math.cos(a),y+r*Math.sin(a)); } c.closePath(); c.fill(); c.stroke(); } }
+  /* the rift line, once everything is in */
+  if(known && n===6 && PR.quakes){ c.strokeStyle=DANG(); c.lineWidth=4; c.setLineDash([12,8]); c.beginPath(); for(let y=30;y<=H-30;y+=8){ const x=prA(y); y>30?c.lineTo(x,y):c.moveTo(x,y); } c.stroke(); c.setLineDash([]); }
+  /* tracks + profiles */
+  for(let k=0;k<n;k++){ const y=PR_Y[k], xl=prL(y)+6, xr=prR(y)-6;
+    c.strokeStyle=isDark()?'rgba(255,255,255,.35)':'rgba(27,31,51,.35)'; c.lineWidth=2; c.setLineDash([6,8]); c.beginPath(); c.moveTo(xl,y+20); c.lineTo(xr,y+20); c.stroke(); c.setLineDash([]);
+    c.strokeStyle=INK(); c.lineWidth=4; c.beginPath(); for(let x=xl;x<=xr;x+=3){ const yy=y+20-prElev(x,y); x>xl?c.lineTo(x,yy):c.moveTo(x,yy); } c.stroke();
+    const xa=prA(y); c.fillStyle=DANG(); c.strokeStyle='#fff'; c.lineWidth=3; c.beginPath(); c.arc(xa, y+20-prElev(xa,y), 9, 0, 2*PI); c.fill(); c.stroke();
+    if(k===n-1 && known) drawShip(c, xr-30, y+2, 0.45); }
+  if(!known) xLabel(c,'נחשו קודם',320,300,30,DANG(),.95);
+  else if(n===1) xLabel(c,'הנקודה האדומה = שקע בצורת V',320,580,22,DANG(),.95);
+  else if(n===6 && PR.quakes) xLabel(c,'הסדק',prA(560)+60,560,24,DANG(),.95);
+}
+
+/* ---------- step 4 (interactive 3): sea-floor spreading ----------
+   Constant full spreading rate 2.5 cm/yr = 25 km per million years. 0…200 My → 0…5,000 km.
+   Age of the floor at distance d from the axis = d ÷ (half rate): young in the middle, old by the coasts. */
+const spCv=$('spCv'), spctx=spCv.getContext('2d');
+const SP={ opened:0, pred:-1, t:0, view:0, revealed:0, far:0, aged:0 };
+const SP_CX=320, SP_MAXW=200, SP_SEA=170, SP_FLOOR=330;
+const SP_AGEC=['#E8452D','#F07A2E','#F2A93B','#E9C94A','#B9C95A','#7FBF6A','#4FAE8A','#3E9BB8','#3F7FC8','#4B5FC0'];
+function spPredict(k){ SP.pred=k; segOn('spP',3,k); WOW.emit('item', { id:'spread:predict', kind:'quick', correct:k===1, attempt: wowTry('spread:predict') });
+  spMsg.innerHTML='רשמנו את הניחוש. עכשיו הריצו את הזמן בסליידר.'; spUpdate(); }
+function spSet(){ if(SP.pred<0){ spT.value=SP.t; predictFirst(spMsg,'הזיזו'); return; }
+  if(!SP.opened){ SP.opened=1; WOW.emit('open', { id:'spread' }); }
+  SP.t=+spT.value; if(SP.t>=150) SP.far=1;
+  spMsg.innerHTML = SP.t===0 ? 'היבשות עוד צמודות. הסדק רק מתחיל להיפתח.' : SP.t<60 ? 'סלע לוהט עולה בסדק, מתקשה, ונדחף הצידה. נולד ים צר.' : SP.t<150 ? 'האוקיינוס מתרחב, והיבשות מתרחקות זו מזו — כל הזמן באותו קצב איטי.' : '<b>אוקיינוס שלם!</b> אלפי קילומטרים — מ־<span class="num">2.5</span> סנטימטרים בשנה.';
+  spUpdate(); }
+function spView(v){ if(SP.pred<0){ predictFirst(spMsg,'בחרו'); return; } SP.view=v; segOn('spV',2,v); if(v===1){ SP.aged=1; spMsg.innerHTML='<b>הפסים האדומים — הצעירים — באמצע, ליד הסדק.</b> הכחולים — הזקנים — ליד היבשות. ושימו לב: שני הצדדים כמו מראה.'; } spUpdate(); }
+function spUpdate(){ const known=SP.pred>=0;
+  spOutT.innerHTML = known ? '<span class="num">'+SP.t+'</span> מיליון שנה' : '?';
+  spOutW.innerHTML = known ? '<span class="num">'+fmtK(SP.t*25)+'</span> ק״מ' : '?';
+  spDraw(); spCheck(); }
+function spCheck(){ if(SP.pred>=0 && !SP.revealed && SP.far && SP.aged){ SP.revealed=1; spReveal.hidden=false; spAfter.hidden=false; hint4.textContent='ענו על השאלה כדי להמשיך.'; } }
+function spDraw(){
+  const c=spctx, W=spCv.width, H=spCv.height, known=SP.pred>=0, t=known?SP.t:0, now=NOW();
+  const w = 4 + t/200*SP_MAXW;                       // half-width of the ocean floor, px
+  c.clearRect(0,0,W,H);
+  c.fillStyle=SKY(); c.fillRect(0,0,W,SP_SEA);
+  /* mantle */
+  const mg=c.createLinearGradient(0,400,0,H); mg.addColorStop(0, isDark()?'#7A3A1E':'#F2B07A'); mg.addColorStop(1, isDark()?'#5A2412':'#E07B4A'); c.fillStyle=mg; c.fillRect(0,400,W,H-400);
+  /* water */
+  if(w>6){ c.fillStyle=SEAL(); c.fillRect(SP_CX-w,SP_SEA,2*w,SP_FLOOR-SP_SEA); }
+  /* ocean floor (crust), coloured by age */
+  for(let x=SP_CX-w; x<SP_CX+w; x+=2){ const d=Math.abs(x+1-SP_CX), age = t*d/w, top = SP_FLOOR - 34*Math.exp(-Math.pow(d/60,2)) + (d<5?18:0);
+    c.fillStyle = SP.view===1 && known ? SP_AGEC[clamp(Math.floor(age/20),0,9)] : ROCK(); c.fillRect(x, top, 2, 400-top); }
+  /* continents riding on the plates */
+  c.fillStyle=LANDC(); c.strokeStyle=INK(); c.lineWidth=4;
+  c.beginPath(); c.roundRect(SP_CX-w-230, 130, 230, 270, [16,0,0,0]); c.fill(); c.stroke();
+  c.beginPath(); c.roundRect(SP_CX+w, 130, 230, 270, [0,16,0,0]); c.fill(); c.stroke();
+  c.strokeStyle=INK(); c.lineWidth=4; c.beginPath(); c.moveTo(0,400); c.lineTo(W,400); c.stroke();
+  /* hot rock rising into the crack */
+  c.fillStyle=DANG(); const ph = RM()?0:(now*0.0012)%1;
+  for(let k=0;k<3;k++){ const y = 540 - ((ph+k/3)%1)*170; c.globalAlpha=.85; c.beginPath(); c.arc(SP_CX + Math.sin(y*0.05)*6, y, 11, 0, 2*PI); c.fill(); }
+  c.globalAlpha=1; xArrow(c,SP_CX,345,0,-1,22);
+  if(known && t>0){ c.fillStyle=INK(); xArrow(c,SP_CX-w-20,370,-1,0,22); xArrow(c,SP_CX+w+20,370,1,0,22); }
+  { const l0=Math.max(0,SP_CX-w-230), l1=SP_CX-w, r0=SP_CX+w, r1=Math.min(W,SP_CX+w+230); if(l1-l0>=70) xLabel(c,'יבשת',(l0+l1)/2,200,24,INK(),.95); if(r1-r0>=70) xLabel(c,'יבשת',(r0+r1)/2,200,24,INK(),.95); }
+  xLabel(c,'סלע לוהט עולה',SP_CX,520,22,DANG(),.95);
+  if(!known) xLabel(c,'נחשו קודם',SP_CX,80,30,DANG(),.95);
+  else if(SP.view===1 && w>60){ xLabel(c,'צעיר',SP_CX,SP_FLOOR-95,22,'#C8452D',.95); xLabel(c,'זקן',SP_CX-w+48,372,22,'#3F5FB0',.95); xLabel(c,'זקן',SP_CX+w-48,372,22,'#3F5FB0',.95); }
+  else if(t===0) xLabel(c,'כאן ייפתח הסדק',SP_CX,80,24,INK(),.95);
+  else xLabel(c,'קרקעית חדשה',SP_CX,80,24,INK(),.95);
+}
+
+/* ---------- step 7 (interactive 4): the Dead Sea Transform ----------
+   Map scale 1.2 px per km. The Arabian plate slides north ≈ 105 km relative to Sinai/Israel;
+   shown at a constant 5 km per million years (21 My → 105 km) — a simplification. */
+const ilCv=$('ilCv'), ilctx=ilCv.getContext('2d');
+const IL={ opened:0, pred:-1, t:0, revealed:0, end:0 };
+const IL_FX=380, IL_PXKM=1.2, IL_RY=470;
+function ilPredict(k){ IL.pred=k; segOn('ilP',3,k); WOW.emit('item', { id:'fault:predict', kind:'quick', correct:k===0, attempt: wowTry('fault:predict') });
+  ilMsg.innerHTML='רשמנו את הניחוש. עכשיו הריצו את הזמן.'; ilUpdate(); }
+function ilSet(){ if(IL.pred<0){ ilT.value=IL.t; predictFirst(ilMsg,'הזיזו'); return; }
+  if(!IL.opened){ IL.opened=1; WOW.emit('open', { id:'fault' }); }
+  IL.t=+ilT.value; if(IL.t>=21) IL.end=1;
+  ilMsg.innerHTML = IL.t===0 ? 'שכבת הסלע הכתומה עוד שלמה — שני החצאים זה מול זה.' : IL.t<21 ? 'הצד המזרחי מחליק צפונה, והשכבה נקרעת לשניים.' : '<b>בערך <span class="num">105</span> קילומטרים!</b> כך גאולוגים יודעים כמה הלוח הערבי החליק.';
+  ilUpdate(); }
+function ilUpdate(){ const known=IL.pred>=0;
+  ilOutT.innerHTML = known ? '<span class="num">'+IL.t+'</span> מיליון שנה' : '?';
+  ilOutD.innerHTML = known ? '<span class="num">'+(IL.t*5)+'</span> ק״מ' : '?';
+  ilDraw(); ilCheck(); }
+function ilCheck(){ if(IL.pred>=0 && !IL.revealed && IL.end){ IL.revealed=1; ilReveal.hidden=false; ilAfter.hidden=false; hint7.hidden=true; next7.disabled=false; } }
+function ilDraw(){
+  const c=ilctx, W=ilCv.width, H=ilCv.height, known=IL.pred>=0, off=(known?IL.t:0)*5*IL_PXKM;
+  c.clearRect(0,0,W,H);
+  c.fillStyle=LANDC(); c.fillRect(0,0,W,H);
+  c.fillStyle=isDark()?'#6B5A3C':'#EAD9B4'; c.fillRect(IL_FX,0,W-IL_FX,H);     // the Arabian plate, a shade apart
+  /* the Mediterranean */
+  c.fillStyle=SEAL(); c.strokeStyle=INK(); c.lineWidth=4;
+  c.beginPath(); c.moveTo(0,0); c.lineTo(320,0); c.lineTo(306,150); c.lineTo(293,216); c.lineTo(272,293); c.lineTo(200,345); c.lineTo(0,362); c.closePath(); c.fill();
+  c.beginPath(); c.moveTo(320,0); c.lineTo(306,150); c.lineTo(293,216); c.lineTo(272,293); c.lineTo(200,345); c.lineTo(0,362); c.stroke();
+  xLabel(c,'הים התיכון',110,260,24,INK(),.9);
+  /* the orange rock layer: west half fixed, east half slides north */
+  c.fillStyle='#E8862D'; c.strokeStyle=INK(); c.lineWidth=3;
+  c.beginPath(); c.roundRect(IL_FX-110, IL_RY, 110, 26, [8,0,0,8]); c.fill(); c.stroke();
+  c.beginPath(); c.roundRect(IL_FX, IL_RY-off, 110, 26, [0,8,8,0]); c.fill(); c.stroke();
+  if(off>8){ c.strokeStyle=DANG(); c.lineWidth=3; c.setLineDash([6,6]); c.beginPath(); c.moveTo(IL_FX+122, IL_RY+13); c.lineTo(IL_FX+122, IL_RY+13-off); c.stroke(); c.setLineDash([]);
+    if(off>40) xLabel(c, (known?IL.t*5:0)+' ק״מ', IL_FX+190, IL_RY+13-off/2, 24, DANG(), .95); }
+  /* the fault and its lakes */
+  c.strokeStyle=DANG(); c.lineWidth=6; c.beginPath(); c.moveTo(IL_FX,20); c.lineTo(IL_FX,H); c.stroke();
+  c.fillStyle=SEAL(); c.strokeStyle=INK(); c.lineWidth=3;
+  c.beginPath(); c.ellipse(IL_FX,130,12,22,0,0,2*PI); c.fill(); c.stroke();
+  c.beginPath(); c.ellipse(IL_FX,295,14,36,0,0,2*PI); c.fill(); c.stroke();
+  c.beginPath(); c.moveTo(IL_FX-14,640); c.lineTo(IL_FX-2,575); c.lineTo(IL_FX+10,640); c.closePath(); c.fill(); c.stroke();
+  c.strokeStyle=BLUE(); c.lineWidth=3; c.beginPath(); for(let y=152;y<=259;y+=4){ const x=IL_FX+Math.sin(y*0.2)*5; y>152?c.lineTo(x,y):c.moveTo(x,y); } c.stroke();
+  xLabel(c,'הכנרת',IL_FX+80,110,22,INK(),.95); xLabel(c,'ים המלח',IL_FX-100,300,22,INK(),.95); xLabel(c,'אילת',IL_FX-80,600,22,INK(),.95);
+  /* Zikhron Yaakov */
+  c.fillStyle=INK(); c.beginPath(); c.arc(312,150,8,0,2*PI); c.fill(); xLabel(c,'זכרון יעקב',200,150,22,INK(),.95);
+  /* plates and motion */
+  xLabel(c,'ישראל וסיני',170,450,24,INK(),.95); xLabel(c,'ירדן',560,520,24,INK(),.95); xLabel(c,'הלוח הערבי',520,600,22,INK(),.95);
+  if(known){ c.fillStyle=DANG(); c.strokeStyle=DANG(); c.lineWidth=7; c.beginPath(); c.moveTo(560,250); c.lineTo(560,170); c.stroke(); xArrow(c,560,150,0,-1,26); }
+  c.fillStyle=INK(); xArrow(c,600,40,0,-1,20); xText(c,'צפון',600,74,20,INK());
+  if(!known) xLabel(c,'נחשו קודם',W/2,520,30,DANG(),.95);
+}
+
+/* ---------- one animation loop: active phases always, ambient motion only for canvases on screen ---------- */
+const VIS=new Set(); let loopOn=false, loopLast=0;
+function ensureLoop(){ if(!loopOn){ loopOn=true; requestAnimationFrame(loop); } }
+function loop(now){
+  let need=false; const draw = now-loopLast>=33; if(draw) loopLast=now;
+  if(SN.phase==='go'){ need=true; if(draw) snTick(); }
+  else if(!RM() && VIS.has(snCv)){ need=true; if(draw) snDraw(); }
+  if(!RM() && VIS.has(spCv)){ need=true; if(draw) spDraw(); }
+  if(need) requestAnimationFrame(loop); else loopOn=false;
+}
+if('IntersectionObserver' in window){ const io=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting) VIS.add(e.target); else VIS.delete(e.target); }); ensureLoop(); }); [snCv,prCv,spCv,ilCv].forEach(cv=>io.observe(cv)); }
+[snDraw, prDraw, spDraw, ilDraw].forEach(f=>f());
+</script>
+<script>
+/* ---------- questions ---------- */
+const QC = {
+  goalQ:{ q:'איך מדדו הספינות את העומק של האוקיינוס?', opts:['הורידו חבל ארוך עם משקולת בכל מקום','שלחו צפצוף אל הקרקעית ומדדו כמה זמן עבר עד שההד חזר','צילמו את הקרקעית מלמעלה','שאלו דייגים כמה עמוק'], a:1, fb:'צפצוף יורד, פוגע בקרקעית וחוזר — וככל שהזמן ארוך יותר, הים עמוק יותר. חבל של קילומטרים כמעט אי אפשר להוריד בכל מקום, ואור לא מגיע לקרקעית החשוכה.', btn:'next1' },
+  beatQ:{ q:'ההד חזר אחרי זמן ארוך במיוחד. מה זה אומר?', opts:['שהקרקעית כאן עמוקה מאוד','שהקרקעית כאן רדודה','שהספינה שטה מהר','שהמים כאן קרים'], a:0, fb:'הקול עשה דרך ארוכה, למטה וחזרה — ולכן הקרקעית עמוקה. במקום רדוד ההד חוזר מהר.', btn:'next2' },
+  frameQ:{ q:'מה שכנע לבסוף את ברוס הייזן שהסדק אמיתי?', opts:['מארי ת׳ארפ צעקה עליו','מפה של רעידות אדמה: הן נפלו בדיוק בתוך העמק שהיא ציירה','צוללן ירד לקרקעית וצילם את הסדק','הוא ראה את הסדק מהספינה'], a:1, fb:'שתי ראיות שונות — הצורה של הקרקעית והמקומות של רעידות האדמה — נפלו על אותו קו. אף אחד לא צלל לעומק כזה, ומספינה אי אפשר לראות את הקרקעית. מדענים משתכנעים מראיות.', btn:'next3' },
+  lineQ:{ q:'למה הסלע הכי צעיר בקרקעית נמצא באמצע, ליד הסדק?', opts:['כי שם נולד סלע חדש, שעולה מלמטה ודוחף את הישן הצידה','כי הדגים מנקים אותו','כי שם המים הכי חמים','כי היבשות בנו אותו'], a:0, fb:'בסדק סלע לוהט עולה ומתקשה לקרקעית חדשה, וסלע חדש אחריו דוחף אותה החוצה. לכן ככל שמתרחקים מהסדק — הסלע זקן יותר.', btn:'next4' },
+  deepQ:{ q:'בכמה סנטימטרים בערך מתרחב האוקיינוס האטלנטי בכל שנה?', opts:['<span class="num">2.5</span> סנטימטרים — בערך כמו ציפורניים שגדלות','<span class="num">2.5</span> מטרים','קילומטר שלם','הוא לא מתרחב בכלל'], a:0, fb:'רק כ־<span class="num">2.5</span> סנטימטרים בשנה — מעט מאוד. אבל במשך מיליוני שנים זה מצטבר לאלפי קילומטרים. ו"הוא לא מתרחב בכלל" — זה מה שחשבו לפני ת׳ארפ.', btn:'next5' }
+};
+const MCQ = {
+  shared:[
+    { q:'ספינה א׳ שומעת הד אחרי <span class="num">2</span> שניות, וספינה ב׳ אחרי <span class="num">6</span> שניות. מתחת לאיזו ספינה הים עמוק יותר?', opts:['מתחת לספינה א׳','מתחת לספינה ב׳','העומק זהה','אי אפשר לדעת'], a:1, fb:'הד מאוחר יותר אומר דרך ארוכה יותר — הקרקעית מתחת לספינה ב׳ עמוקה פי <span class="num">3</span>. הזמנים שונים, ולכן העומק לא זהה, ודווקא אפשר לדעת: זה כל הרעיון של מד־עומק הדי.' },
+    { q:'איך היבשות זזות?', opts:['הן צפות על המים כמו ספינות','הן חלק מלוחות ענקיים שזזים, וקרקעית חדשה שנולדת ברכסים מרחיקה אותן זו מזו','הרוח דוחפת אותן','הן בכלל לא זזות'], a:1, fb:'היבשות הן חלק מהלוחות, ונוסעות יחד איתם, כשבסדק נולדת קרקעית חדשה. הן לא צפות על הים — מתחת לים יש סלע — והרוח חלשה מדי. ושהן זזות, זה כבר נמדד.' },
+    { q:'מה קורה לאורך העתק ים המלח, בערבה ובבקעת הירדן?', opts:['הלוח הערבי, עם ירדן, מחליק צפונה לצד הלוח של ישראל וסיני','שני הצדדים מתרחקים ונוצר שם אוקיינוס ענק','שום דבר לא זז שם','ים המלח מתמלא בלבה'], a:0, fb:'כאן הלוחות מחליקים זה לצד זה: הצד המזרחי זז צפונה, ועד היום החליק כבר כ־<span class="num">105</span> קילומטרים. התרחקות של לוחות קורית דרומה משם, בים סוף, ושם היא איטית. ובים המלח אין לבה — רק מים מלוחים מאוד.' }
+  ],
+  younger:[
+    { q:'מה מארי ת׳ארפ גילתה באמצע האוקיינוס האטלנטי?', opts:['מישור שטוח וחלק','רכס הרים ארוך, ובאמצעו עמק צר — סדק','אי אחד עם הר געש','ספינה טבועה'], a:1, fb:'היא ציירה מההדים רכס הרים שמתפתל לאורך כל האוקיינוס, ובמרכזו עמק צר: הסדק. הקרקעית שם בכלל לא שטוחה, והיא לא חיפשה ספינות — היא חיפשה את הצורה של הקרקעית. איים יש מעט, ואיסלנד היא המקום שבו הרכס עצמו יוצא מהמים.' }
+  ],
+  older:[
+    { q:'האטלנטי מתרחב בכ־<span class="num">2.5</span> סנטימטרים בשנה. בכמה הוא יתרחב במשך <span class="num">100</span> שנה?', opts:['בכ־<span class="num">2.5</span> מטרים','בכ־<span class="num">25</span> סנטימטרים','בכ־<span class="num">250</span> מטרים','בכ־<span class="num">2.5</span> קילומטרים'], a:0, fb:'<span class="math">2.5 × 100 = 250</span> סנטימטרים, ובמטר יש <span class="num">100</span> סנטימטרים: <span class="math">250 ÷ 100 = 2.5</span> מטרים. <span class="num">25</span> סנטימטרים זה רק <span class="num">10</span> שנים, <span class="num">250</span> מטרים זה כבר <span class="num">10,000</span> שנה, ו־<span class="num">2.5</span> קילומטרים — <span class="num">100,000</span> שנה.' }
+  ]
+};
+function renderQ(el, d, onDone, isQuick){
+  el.innerHTML = (isQuick?'<div class="qc-label">בדיקה מהירה</div>':'')+'<div class="qt">'+d.q+'</div><div class="opts">'+d.opts.map((o,i)=>'<button class="opt" data-i="'+i+'"><span class="k">'+['א','ב','ג','ד'][i]+'</span><span>'+o+'</span></button>').join('')+'</div><div class="fb"></div>';
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(el.classList.contains('locked')) return; el.classList.add('locked');
+    const i=+b.dataset.i, ok=i===d.a;
+    b.classList.add(ok?'right':'wrong'); if(!ok) el.querySelector('.opt[data-i="'+d.a+'"]').classList.add('right');
+    const fb=el.querySelector('.fb'); fb.innerHTML=(ok?'<span class="pill-ok">נכון! </span>':'<span class="pill-bad">לא בדיוק. </span>')+d.fb; fb.classList.add('show');
+    WOW.emit('item', { id: isQuick ? 'qc:'+el.id : 'mcq:'+(el.dataset.wow||'?'), kind: isQuick ? 'quick' : 'mcq', correct: ok, attempt: 1 });
+    onDone(ok);
+  });
+}
+Object.entries(QC).forEach(([id,d])=>{ renderQ(document.getElementById(id), d, ok=>{ S.qc[id]=ok; if(d.btn) document.getElementById(d.btn).disabled=false; }, true); });
+
+/* ---------- test ---------- */
+let testBuilt=false;
+const MCQ_N = 4;
+function buildTest(){
+  if(testBuilt) return; testBuilt=true;
+  const list=[...MCQ.shared, ...(MCQ[S.track]||MCQ.younger)]; const box=document.getElementById('mcqs'); box.innerHTML='';
+  list.forEach((d,i)=>{ const el=document.createElement('div'); el.className='q'; el.dataset.wow = i<MCQ.shared.length ? 'shared:'+i : S.track+':'+(i-MCQ.shared.length); box.appendChild(el); renderQ(el, {...d, q:(i+1)+'. '+d.q}, ok=>{ S.mcq[i]=ok; }); });
+  buildOrder();
+}
+const ORDER=[
+  {id:'a', t:'סלע לוהט ורך עולה מלמטה אל הסדק שבאמצע הרכס.'},
+  {id:'b', t:'הסלע מגיע לקרקעית, מתקרר ומתקשה — נולדה קרקעית חדשה.'},
+  {id:'c', t:'עוד סלע לוהט עולה אחריו, ודוחף את הקרקעית החדשה הצידה.'},
+  {id:'d', t:'הקרקעית נעה לאט החוצה, לשני הכיוונים, ומזדקנת בדרך.'},
+  {id:'e', t:'היבשות, שיושבות על אותם לוחות, נוסעות יחד עם הקרקעית.'},
+  {id:'f', t:'האוקיינוס בין היבשות מתרחב — בערך <span class="num">2.5</span> סנטימטרים בשנה.'},
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildOrder(){ const cards=shuffle([...ORDER]); const box=document.getElementById('order'); box.innerHTML='';
+  cards.forEach(c=>{ const el=document.createElement('button'); el.className='card'; el.dataset.id=c.id; el.innerHTML='<span class="n"></span><span>'+c.t+'</span>'; el.onclick=()=>pickOrder(c.id); box.appendChild(el); }); }
+function pickOrder(id){ if(S.orderScore!==null) return; const i=S.order.indexOf(id);
+  if(i>=0){ S.order.splice(i,1); } else S.order.push(id);
+  document.querySelectorAll('#order .card').forEach(c=>{ const k=S.order.indexOf(c.dataset.id); c.classList.toggle('picked',k>=0); c.querySelector('.n').textContent=k>=0?k+1:''; });
+  orderCheck.disabled = S.order.length!==ORDER.length; }
+function resetOrder(){ S.order=[]; S.orderScore=null; orderFb.classList.remove('show'); buildOrder(); orderCheck.disabled=true; }
+function checkOrder(){
+  const o=S.order, correct=ORDER.map(c=>c.id);
+  const ok = o.length===correct.length && o.every((id,i)=>id===correct[i]);
+  if(S.orderFirst==null) S.orderFirst = ok?1:0;   /* a retry after the per-card marks keeps the first score */
+  S.orderScore = S.orderFirst;
+  WOW.emit('item', { id:'order', kind:'order', correct: ok, attempt: wowTry('order') });
+  document.querySelectorAll('#order .card').forEach(c=>{ const id=c.dataset.id, good = o.indexOf(id)===correct.indexOf(id); c.classList.add(good?'ok':'ko'); });
+  orderFb.innerHTML = ok ? (S.orderFirst===0 ? '<span class="pill-ok">עכשיו הסדר נכון!</span> הנקודה נקבעת בניסיון הראשון, אבל עכשיו זה אצלכם: ' : '<span class="pill-ok">בדיוק ככה!</span>')+' סלע לוהט עולה ← מתקשה לקרקעית חדשה ← סלע חדש דוחף אותה ← היא נעה החוצה ← היבשות נוסעות איתה ← האוקיינוס מתרחב. קרקעית צריכה קודם להיוולד בסדק, ורק אז היא יכולה לזוז; והיבשות זזות רק כי הלוח שמתחתיהן זז.' : '<span class="pill-bad">לא בדיוק.</span> שני רמזים: (1) הכול מתחיל בסדק, מתחת לקרקעית — שם עולה הסלע הלוהט. (2) היבשות לא זזות לבד: הן זזות רק <b>אחרי</b> שהקרקעית שמתחתיהן כבר נדחפת החוצה.';
+  orderFb.classList.add('show');
+}
+function checkChallenge(){
+  const a=+chalA.value, b=+chalB.value, fb=document.getElementById('chalFb'); fb.classList.add('show');
+  const hasA=chalA.value!=='', hasB=chalB.value!=='';
+  const aOk = hasA && Math.abs(a-25)<0.01, bOk = hasB && Math.abs(b-200)<0.5;   /* 2.5 × 1,000,000 = 2,500,000 cm; ÷ 100,000 = 25 km per My; 5,000 ÷ 25 = 200 My */
+  const allOk = aOk && bOk; S.challenge = S.challenge || allOk;
+  const hintA = (hasA && Math.abs(a-2500000)<1) ? '(א): <span class="num">2,500,000</span> זה בסנטימטרים. בקילומטר יש <span class="num">100,000</span> סנטימטרים — חלקו.'
+    : (hasA && Math.abs(a-2500)<0.5) ? '(א): חילקתם ב־<span class="num">1,000</span>. אבל בקילומטר יש <span class="math">100 × 1000 = 100,000</span> סנטימטרים.'
+    : (hasA && Math.abs(a-250)<0.5) ? '(א): קרוב! חילקתם ב־<span class="num">10,000</span>. בקילומטר יש <span class="num">100,000</span> סנטימטרים.'
+    : (hasA && Math.abs(a-2.5)<0.01) ? '(א): זה בשנה אחת, ובסנטימטרים. כפלו במיליון, ואז הפכו לקילומטרים.'
+    : '(א): רמז — <span class="math">2.5 × 1,000,000 = ?</span> סנטימטרים, ואז <span class="math">? ÷ 100,000</span> קילומטרים.';
+  const hintB = (hasB && Math.abs(b-2000)<0.5) ? '(ב): חילקתם ב־<span class="num">2.5</span>. אבל הקצב בקילומטרים הוא <span class="num">25</span> קילומטרים במיליון שנה — השתמשו בתשובה של (א).'
+    : (hasB && Math.abs(b-125000)<1) ? '(ב): כפלתם. השאלה היא כמה "מנות" של <span class="num">25</span> קילומטרים נכנסות ב־<span class="num">5,000</span> — מחלקים.'
+    : (hasB && b>0 && b<0.01) ? '(ב): הפכתם את החילוק: <span class="math">5000 ÷ 25</span>, לא <span class="math">25 ÷ 5000</span>.'
+    : (hasB && Math.abs(b-200000000)<1) ? '(ב): נכון בשנים! אבל התשובה מבוקשת <b>במיליוני</b> שנים.'
+    : '(ב): רמז — <span class="math">5000 ÷ (התשובה של א) = ?</span>';
+  fb.innerHTML = allOk ? '<span class="pill-ok">מרשים.</span> (א) <span class="math">2.5 × 1,000,000 = 2,500,000</span> סנטימטרים, ו־<span class="math">2,500,000 ÷ 100,000 = 25</span> קילומטרים במיליון שנה. (ב) <span class="math">5000 ÷ 25 = 200</span> מיליון שנה. ובמציאות? האטלנטי התחיל להיפתח לפני כ־<span class="num">200</span> מיליון שנה — כשהדינוזאורים רק התחילו לשלוט. החישוב הפשוט שלכם פוגע קרוב מאוד, אף שהקצב לא היה קבוע לגמרי. עכשיו פתחו את השאלה למחשבה שלמטה.'
+    : aOk ? '<span class="pill-ok">(א) נכון — <span class="num">25</span> קילומטרים.</span> '+hintB
+    : bOk ? '<span class="pill-ok">(ב) נכון — <span class="num">200</span> מיליון שנה.</span> '+hintA
+    : '<span class="pill-bad">עוד לא.</span> '+hintA+(hasB?' '+hintB:'');
+  WOW.emit('item', { id:'challenge', kind:'challenge', correct: allOk, attempt: wowTry('challenge') });
+}
+function checkNum(t){
+  if(t==='adv'){ const mr=+numAdvR.value, mn=+numAdv.value, fb=document.getElementById('numFbAdv');
+    if(numAdv.value==='' && numAdvR.value===''){ fb.innerHTML='<span class="pill-bad">השדות ריקים.</span> כתבו מספרים.'; fb.classList.add('show'); return; }
+    const hasD=numAdvR.value!=='', hasY=numAdv.value!=='';
+    const dOk=(hasD && Math.abs(mr-2550)<=1), yOk=(hasY && Math.abs(mn-1200)<=20), sc = dOk&&yOk?2:((dOk||yOk)?1:0);   /* 1500 × 3.4 ÷ 2 = 2,550 m; 1500 × 1.6 ÷ 2 = 1,200 m (or 3,750 − 2,550) */
+    S.num=Math.max(S.num||0, sc);
+    WOW.emit('item', { id:'num:adv', kind:'num', correct: dOk&&yOk, partial: sc, attempt: wowTry('num:adv') });
+    const hintD = (hasD && Math.abs(mr-5100)<1) ? 'ב־(א): זו כל הדרך של הקול — למטה וחזרה. העומק הוא חצי ממנה.'
+      : (hasD && Math.abs(mr-3750)<1) ? 'ב־(א): זה העומק של קרקעית העמק. השאלה הראשונה היא על הפסגה — ההד שלה חזר אחרי <span class="num">3.4</span> שניות.'
+      : (hasD && Math.abs(mr-441.2)<1) ? 'ב־(א): חילקתם במקום לכפול. דרך = מהירות × זמן.'
+      : 'רמז ל־(א): <span class="math">1500 × 3.4 ÷ 2 = ?</span>';
+    const hintY = (hasY && Math.abs(mn-2400)<1) ? 'ב־(ב): שכחתם לחלק ב־<span class="num">2</span>: גם התוספת של <span class="num">1.6</span> שניות היא דרך הלוך וחזור.'
+      : (hasY && Math.abs(mn-3750)<1) ? 'ב־(ב): זה העומק של קרקעית העמק מפני הים. השאלה היא בכמה היא נמוכה <b>מהפסגה</b> — חסרו את התשובה של (א).'
+      : (hasY && Math.abs(mn-5)<0.01) ? 'ב־(ב): <span class="num">5</span> זה הזמן הכולל בשניות. הפכו אותו לעומק, וחסרו את עומק הפסגה.'
+      : 'רמז ל־(ב): <span class="math">1500 × 1.6 ÷ 2 = ?</span>, או חשבו את עומק העמק עם <span class="math">3.4 + 1.6</span> שניות וחסרו.';
+    fb.innerHTML = (dOk&&yOk) ? '<span class="pill-ok">מדויק!</span> (א) <span class="math">1500 × 3.4 = 5100</span> מטרים הלוך וחזור, ו־<span class="math">5100 ÷ 2 = 2550</span> מטרים. (ב) <span class="math">1500 × 1.6 ÷ 2 = 1200</span> מטרים — או <span class="math">1500 × 5 ÷ 2 = 3750</span> ו־<span class="math">3750 − 2550 = 1200</span>. עמק בעומק של יותר מקילומטר, באמצע האוקיינוס — זה הסדק של ת׳ארפ.'
+      : dOk ? '<span class="pill-ok">(א) נכון — <span class="num">2,550</span> מטרים.</span> '+hintY
+      : yOk ? '<span class="pill-ok">(ב) נכון — <span class="num">1,200</span> מטרים.</span> '+hintD
+      : '<span class="pill-bad">עוד לא.</span> '+hintD+(hasY?' '+hintY:'');
+    fb.classList.add('show'); return; }
+  const v=+document.getElementById(t==='younger'?'numYounger':'numOlder').value, fb=document.getElementById(t==='younger'?'numFbYounger':'numFbOlder');
+  if(t==='younger'){ const raw=document.getElementById('numYounger').value; const ok=Math.abs(v-3000)<0.5; if(raw!=='') S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:younger', kind:'num', correct: ok, attempt: wowTry('num:younger') }); fb.innerHTML= (raw==='')?'<span class="pill-bad">השדה ריק.</span> כתבו מספר.':ok?'<span class="pill-ok">נכון!</span> בארבע שניות הקול עבר <span class="math">1500 × 4 = 6000</span> מטרים. אבל זו הדרך למטה <b>וגם</b> חזרה, אז העומק הוא חצי: <span class="math">6000 ÷ 2 = 3000</span> מטרים. שלושה קילומטרים של מים!':(Math.abs(v-6000)<0.5?'<span class="pill-bad">כמעט!</span> <span class="num">6,000</span> זו כל הדרך של הקול — למטה וחזרה. העומק הוא רק חצי מהדרך.':(Math.abs(v-1500)<0.5?'<span class="pill-bad">עוד לא.</span> <span class="num">1,500</span> מטרים הקול עובר בשנייה <b>אחת</b>. ההד חזר אחרי <span class="num">4</span> שניות.':(Math.abs(v-12000)<0.5?'<span class="pill-bad">עוד לא.</span> כפלתם בשתיים במקום לחלק. הקול הלך וחזר — אז העומק הוא חצי מהדרך.':'<span class="pill-bad">עוד לא.</span> רמז: קודם <span class="math">1500 × 4 = ?</span> — זו כל הדרך. ואז חלקו ב־<span class="num">2</span>.'))); }
+  else { const rawO=document.getElementById('numOlder').value; if(rawO===''){ fb.innerHTML='<span class="pill-bad">השדה ריק.</span> כתבו מספר.'; fb.classList.add('show'); return; } const ok=Math.abs(v-4500)<0.5; S.num=Math.max(S.num||0, ok?2:0); WOW.emit('item', { id:'num:older', kind:'num', correct: ok, attempt: wowTry('num:older') }); fb.innerHTML= ok?'<span class="pill-ok">מדויק!</span> <span class="math">1500 × 6 = 9000</span> מטרים הלוך וחזור, ו־<span class="math">9000 ÷ 2 = 4500</span> מטרים. ארבעה וחצי קילומטרים של מים — ואין שם שום אור.':(Math.abs(v-9000)<0.5?'<span class="pill-bad">כמעט.</span> <span class="num">9,000</span> זו הדרך הלוך וחזור. העומק הוא חצי ממנה.':(Math.abs(v-250)<0.5?'<span class="pill-bad">הפכתם.</span> דרך = מהירות × זמן, לא מהירות ÷ זמן.':(Math.abs(v-18000)<0.5?'<span class="pill-bad">עוד לא.</span> כפלתם בשתיים במקום לחלק.':'<span class="pill-bad">עוד לא.</span> רמז: <span class="math">1500 × 6 ÷ 2 = ?</span>'))); }
+  fb.classList.add('show'); }
+
+/* ---------- dictation ---------- */
+let rec=null, recOn=false;
+function toggleDictation(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ micMsg.textContent='ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד. (עובד בכרום ובאדג׳.)'; return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang='he-IL'; rec.interimResults=true; rec.continuous=true; const base=explain.value? explain.value.trim()+' ' : '';
+  rec.onresult=e=>{ let fin='', tmp=''; for(const r of e.results){ (r.isFinal?fin+=r[0].transcript+' ':tmp+=r[0].transcript); } explain.value=base+fin+tmp; };
+  rec.onerror=e=>{ micMsg.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? 'אין הרשאה למיקרופון כאן — אפשר להקליד את ההסבר.' : 'ההקלטה נעצרה ('+e.error+'). אפשר לנסות שוב או להקליד.'; stopRec(); };
+  rec.onend=stopRec;
+  try{ rec.start(); recOn=true; micBtn.classList.add('rec'); micMsg.textContent='מקליט... דברו ברור, ולחצו שוב כדי לעצור.'; }catch(err){ micMsg.textContent='לא הצלחנו להתחיל הקלטה — אפשר להקליד.'; }
+}
+function stopRec(){ recOn=false; micBtn.classList.remove('rec'); if(micMsg.textContent.startsWith('מקליט')) micMsg.textContent='ההקלטה נעצרה. אפשר לערוך את הטקסט.'; }
+
+
+/* ---------- explain-back grading ---------- */
+const RUBRIC=[
+  'כתבתי שהספינות שלחו צפצוף אל הקרקעית וקיבלו הד, ושככל שההד חוזר מאוחר יותר — הים עמוק יותר.',
+  'הסברתי שמארי ת׳ארפ הפכה את המספרים לעומקים, ציירה מהם פרופילים של הקרקעית, ומצאה רכס עם עמק — סדק — באמצעו.',
+  'כתבתי מה הוכיח שהסדק אמיתי: השקעים מכל הפרופילים יצרו קו אחד, ורעידות האדמה נפלו בדיוק עליו.',
+  'הסברתי שבסדק סלע לוהט עולה והופך לקרקעית חדשה, שנדחפת לשני הצדדים — ולכן היבשות שעל הלוחות מתרחקות.',
+  'הוספתי פרט מדויק: <span class="num">1952</span>; הקול עובר <span class="num">1,500</span> מטרים בשנייה; כ־<span class="num">2.5</span> ס״מ בשנה; רכס של כמעט <span class="num">65,000</span> ק״מ; "דיבורים של בנות"; או העתק ים המלח.',
+];
+const MODEL='הספינות שלחו צפצוף אל קרקעית הים ומדדו כמה זמן עבר עד שההד חזר. הד מאוחר אומר שהמים עמוקים, ומהזמן אפשר לחשב את העומק, כי הקול עובר במים כ־<span class="num">1,500</span> מטרים בשנייה, למטה וחזרה. מארי ת׳ארפ, שלא הרשו לה לעלות על הספינות, הפכה את המספרים לעומקים וציירה מהם פרופילים של הקרקעית. היא גילתה שבאמצע האטלנטי יש רכס הרים, ובמרכז הרכס, בכל פרופיל, עמק צר. כשסימנו את העמקים על מפה הם יצרו קו אחד ארוך — ורעידות האדמה נפלו בדיוק עליו. הסדק הזה הוא המקום שבו סלע לוהט עולה מלמטה, מתקשה לקרקעית חדשה ונדחף לשני הצדדים. לכן הקרקעית הצעירה נמצאת באמצע, האוקיינוס מתרחב בכ־<span class="num">2.5</span> סנטימטרים בשנה, והיבשות, שיושבות על הלוחות, מתרחקות זו מזו.';
+
+/* ---------- AI backend: the Claude viewer's `sample` capability (the parent's review copy) or the ארטו proxy (public site) ---------- */
+let samplePromise = IN_CLAUDE ? window.claude.use('sample').catch(()=>null) : Promise.resolve(null);
+const PX = {
+  key:'wow-arto',
+  load(){ try{ const d=JSON.parse(localStorage.getItem(this.key)||'null'); return d&&d.token&&(Date.now()-d.at<5*3600e3)?d:null; }catch(e){ return null; } },
+  save(d){ try{ localStorage.setItem(this.key, JSON.stringify(d)); }catch(e){} },
+  async post(path, body, timeoutMs){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), timeoutMs||30000);
+    let r; try{ r=await fetch(PROXY.url.replace(/\/+$/,'')+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal}); }
+    catch(e){ const err=new Error('network'); err.code='network'; throw err; }
+    finally{ clearTimeout(timer); }
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(!r.ok){ const err=new Error(j.error||('http_'+r.status)); err.code=j.error||('http_'+r.status); err.data=j; throw err; }
+    return j;
+  },
+  async token(fresh){
+    const d=this.load(); if(d && !fresh) return d.token;
+    const j = PROXY.app ? await this.post('/session',{kidToken:RT.kidToken||'', edition_n:EDITION.n}, 12000) : await this.post('/session',{password:gatePw()}, 12000);
+    this.save({token:j.token, at:Date.now()}); this.meter(j); return j.token;
+  },
+  meter(j){ if(!j || typeof j.remaining!=='number') return; const el=document.getElementById('artoLeft'); if(!el) return;
+    const n=j.remaining; el.hidden = !(n<=5); el.textContent = n<=0 ? 'ארטו סיים להיום' : n===1 ? 'עוד שאלה אחת להיום' : 'עוד '+n+' שאלות להיום'; },
+  async chat(system, messages, max_tokens){
+    const call = async tok => { const j = PROXY.app ? await this.post('/chat',{token:tok, messages}, 40000) : await this.post('/chat',{token:tok, system, messages, max_tokens}, 40000); this.meter(j); return j.text; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  },
+  async grade(explanation){                       // app mode only: the server owns the grading prompt (lesson context + rubric)
+    const call = async tok => { const j=await this.post('/grade',{token:tok, explanation}, 40000); this.meter(j); return j; };
+    try{ return await call(await this.token(false)); }
+    catch(e){ if(['session_expired','bad_token','session_limit'].includes(e.code)) return await call(await this.token(true)); throw e; }
+  }
+};
+const AI = {
+  mode:null,
+  async init(){ if(this.mode) return this.mode; const s=await samplePromise; this.mode = s?'sample':(PROXY.url?'proxy':'none'); return this.mode; },
+  async chat(system, history, onText){            // history: [{role,content}…], last one is the user's
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; const turns=[{role:'user', content: system+'\n\n(ענה ישירות לשאלת הילד/ה שלהלן.)\n\n'+history[0].content}, ...history.slice(1)]; const r=await s(turns,{modelTier:'default', cache:false, onText:({text})=>onText&&onText(text)}); return r.text; }
+    if(m==='proxy') return await PX.chat(system, history, 600);
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  },
+  async grade(explanation, prompt){              // explain-it-back: the app grades server-side; the kit modes build the prompt here
+    const m=await this.init();
+    if(m==='proxy' && PROXY.app) return await PX.grade(explanation);
+    return await this.json(prompt);
+  },
+  async json(prompt){
+    const m=await this.init();
+    if(m==='sample'){ const s=await samplePromise; return await s.json(prompt,{modelTier:'quick', cache:false}); }
+    if(m==='proxy'){ const t=await PX.chat('אתה מחזיר JSON תקין בלבד — בלי טקסט לפני או אחרי, בלי סימוני קוד.', [{role:'user', content:prompt}], 400); const mm=t.match(/\{[\s\S]*\}/); return JSON.parse(mm?mm[0]:t); }
+    const e=new Error('no_ai'); e.code='no_ai'; throw e;
+  }
+};
+function artoError(e){
+  const c=e&&e.code;
+  if(c==='daily_limit') return 'ארטו כבר ענה על הרבה שאלות היום, ועכשיו הוא נח. מחר הוא חוזר! בינתיים אפשר לשאול את אבא או אמא.';
+  if(c==='cap' && e.data && e.data.demo) return 'ההדגמה נותנת '+(e.data.cap||3)+' שאלות. עם הרשמה, ארטו עונה לילדים עד 30 שאלות ביום — והשיעור תמיד חינם.';
+  if(c==='cap') return (e.data&&e.data.subscribed) ? 'ארטו סיים להיום — נמשיך מחר.' : 'ארטו ענה על '+((e.data&&e.data.cap)||3)+' שאלות היום. רוצה עוד? ההורים יכולים להפעיל אותו.';
+  if(c==='off_closed') return 'ארטו חוזר מחר עם השיעור הבא.';
+  if(c==='bad_kid'||c==='no_kid') return 'הקישור הזה לא מזוהה — בקשו מההורים קישור חדש.';
+  if(c==='session_limit') return 'ארטו צריך הפסקה — נסו שוב עוד כמה דקות.';
+  if(c==='wrong_password'||c==='password_not_configured') return 'משהו לא מסתדר עם סיסמת הכניסה — אמרו לאבא.';
+  if(c==='too_many_attempts') return 'יותר מדי ניסיונות — נסו שוב בעוד שעה.';
+  if(c==='network') return 'אין חיבור לארטו — בדקו את האינטרנט ונסו שוב.';
+  if(c==='rate_limited'||c==='upstream_error') return 'ארטו צריך לנוח דקה — נסו שוב עוד רגע.';
+  if(c==='cancelled') return 'בוטל.';
+  if(c==='not_granted'||c==='sampling_disabled'||c==='capability_disabled'||c==='no_ai') return 'ארטו לא זמין בדפדפן הזה.';
+  return 'משהו השתבש ('+(c||'שגיאה')+'). נסו שוב.';
+}
+const ARTO_OFF = c => ['daily_limit','cap','off_closed','bad_kid','no_kid','wrong_password','password_not_configured','too_many_attempts','not_granted','sampling_disabled','capability_disabled','no_ai'].includes(c);
+async function gradeExplain(){
+  const txt=explain.value.trim(); S.explainText=txt; const fb=document.getElementById('explainFb'); fb.classList.add('show');
+  if(txt.length<15){ fb.innerHTML=G('כתוב או הקלט עוד קצת — לפחות שני משפטים. אתה יודע את זה!','כתבי או הקליטי עוד קצת — לפחות שני משפטים. את יודעת את זה!'); return; }
+  explainBtn.disabled=true; fb.innerHTML='בודקים את ההסבר...'; S.explainGraded=true;
+  const mode = await AI.init();
+  if(mode!=='none'){
+    try{
+      /* lint-ignore: math */
+      const who = (F()?'ילדה בכיתה '+KID().grade+' (בת '+KID().age+')':'ילד בכיתה '+KID().grade+' (בן '+KID().age+')') + (KID().level==='advanced'?' — ברמה מתקדמת: דרוש/י הסבר מלא של המנגנון: ההד חוזר אחרי זמן שתלוי בעומק (עומק = מהירות × זמן ÷ 2, כי הקול הולך וחוזר); מהעומקים ציירה ת׳ארפ פרופילים ומצאה עמק במרכז הרכס בכל אחד מהם; השקעים יוצרים קו אחד ורעידות האדמה נופלות עליו — שתי ראיות שונות שמסכימות; בסדק סלע לוהט עולה, מתקשה לקרקעית חדשה ונדחף לשני הצדדים, ולכן הקרקעית הצעירה באמצע והיבשות שעל הלוחות מתרחקות (התפשטות קרקעית הים, טקטוניקת הלוחות); ולא רק "היבשות זזות" בלי הסיבה':'')
+      /* lint-ignore: math */
+      const prompt = 'את/ה מורה חם/ה ומעודד/ת ל'+who+'. הילד/ה למד/ה היום על "האישה שציירה את קרקעית האוקיינוס — וגילתה שהיבשות זזות". הרעיונות המרכזיים: (1) מארי ת׳ארפ (1920–2006) עבדה מ־1948 במעבדה של אוניברסיטת קולומביה בניו יורק; באותן שנים לא הרשו לנשים לעלות על ספינות מחקר, והיא ציירה את קרקעית הים מתוך מספרים שהספינות אספו; (2) מד־עומק הדי: הספינה שולחת צפצוף ומודדת את הזמן עד שההד חוזר; הקול עובר במים כ־1,500 מטרים בשנייה, והולך למטה וחזרה, ולכן עומק = 1500 × זמן ÷ 2; הד מאוחר = מקום עמוק; (3) ב־1952, מתוך בערך שישה פרופילים, ראתה ת׳ארפ באמצע הרכס שבאמצע האטלנטי עמק בצורת V בכל פרופיל; הבוס שלה, ברוס הייזן, לא האמין וקרא לזה "דיבורים של בנות"; מפה של מוקדי רעידות אדמה הראתה שהן נופלות בדיוק בתוך העמק, ואחרי כשנה הוא השתכנע; (4) בסדק סלע לוהט עולה, מתקשה לקרקעית חדשה ונדחף לשני הצדדים — התפשטות קרקעית הים; הקרקעית הצעירה באמצע והזקנה ליד היבשות; האטלנטי מתרחב בכ־2.5 ס״מ בשנה (כמו ציפורניים), כלומר 25 ק״מ במיליון שנה; היבשות הן חלק מלוחות ונוסעות איתם; אלפרד וגנר הציע ב־1912 שהיבשות זזות, אבל לא היה לו מנגנון; הרעיון התקבל בשנות ה־60; (5) הרכס מקיף את כדור הארץ, כמעט 65,000 ק״מ, ויוצא מהמים באיסלנד; העמק בערך בעומק וברוחב של הגרנד קניון; קרקעית ישנה צוללת חזרה במקומות אחרים, ולכן כדור הארץ לא גדל; (6) בישראל: העתק ים המלח (ערבה, ים המלח, בקעת הירדן, הכנרת) — הלוח הערבי מחליק צפונה לצד הלוח של ישראל וסיני, כ־105 ק״מ עד היום, כחצי סנטימטר בשנה; ים סוף מתרחב כסנטימטר בשנה, אוקיינוס בתחילת הדרך. חישובי המבחן: צעיר — 1500 × 4 = 6000, ו־6000 ÷ 2 = 3000 מטרים; בוגר — 1500 × 6 ÷ 2 = 4500 מטרים; מתקדם — 1500 × 3.4 ÷ 2 = 2550 מטרים, ו־1500 × 1.6 ÷ 2 = 1200 מטרים; אתגר — 2.5 × 1,000,000 ÷ 100,000 = 25 ק״מ, ו־5000 ÷ 25 = 200 מיליון שנה.\n\nההסבר של הילד/ה:\n"""'+txt+'"""\n\nהחזר/י JSON בלבד, בלי טקסט נוסף: {"stars": 1|2, "praise": "משפט אחד ספציפי על מה שהיה טוב בהסבר", "missing": ["רעיון חסר או לא מדויק, בקצרה"], "tip": "משפט אחד מעודד שמכוון להשלמה"}. missing: עד 2 פריטים, יכול להיות ריק. stars: 2 אם ההסבר כולל גם איך היא מצאה את הסדק (הדים שהפכו לעומקים ולפרופילים, ועמק באמצע הרכס — ואם אפשר גם רעידות האדמה שאישרו) וגם מה הסדק אומר (קרקעית חדשה נולדת בו ונדחפת לצדדים, ולכן היבשות מתרחקות); 1 אם יש רק אחד מהשניים או רק חלק. הסבר שאומר שת׳ארפ "ראתה" או "צללה" לקרקעית, שהיבשות "צפות על המים", או שהאוקיינוס מתרחב במטרים בשנה — לתקן בעדינות. כתוב/כתבי בעברית פשוטה ובגובה העיניים, '+(F()?'בלשון נקבה':'בלשון זכר')+', בלי להעליב. חישובים כותבים משמאל לימין.';
+      const r = await AI.grade(txt, prompt);
+      WOW.emit('item', { id:'explain', kind:'explain', stars: Math.max(1,Math.min(2,Number(r&&r.stars)||1)), graded:'ai', attempt: wowTry('explain') });
+      const stars=Math.max(1,Math.min(2,+r.stars||1)); S.explain=stars;
+      fb.innerHTML='<div class="stars">'+'★'.repeat(stars)+'<span class="off">'+'★'.repeat(2-stars)+'</span></div><p style="margin:8px 0"><b>'+fmtBot(r.praise||'')+'</b></p>'+(r.missing&&r.missing.length?'<p style="margin:0 0 8px">מה עוד אפשר להוסיף: '+r.missing.map(fmtBot).join(' · ')+'</p>':'')+'<p class="small" style="margin:0">'+fmtBot(r.tip||'')+'</p><details style="margin-top:10px"><summary>ההסבר של המורה</summary><p>'+MODEL+'</p></details>';
+      explainBtn.textContent='נבדק'; return;
+    }catch(e){ /* fall through to the self-check rubric */ }
+  }
+  fb.innerHTML='<p style="margin:0 0 8px">'+G('קרא את ההסבר שלך, וסמן מה כתבת:','קראי את ההסבר שלך, וסמני מה כתבת:')+'</p>'+RUBRIC.map((r,i)=>'<label class="chk"><input type="checkbox" data-r="'+i+'" onchange="rubricChange()"><span>'+r+'</span></label>').join('')+'<div class="stars" id="rubStars"><span class="off">★★</span></div><details style="margin-top:10px"><summary>ההסבר של המורה — להשוואה</summary><p>'+MODEL+'</p></details>';
+  explainBtn.textContent='נבדק';
+}
+function rubricChange(){
+  const n=[...document.querySelectorAll('#explainFb input:checked')].length, need = S.track==='younger' ? 3 : 4;
+  S.explain = n>=need ? 2 : n>=2 ? 1 : 0;
+  WOW.emit('item', { id:'explain', kind:'explain', stars: S.explain, graded:'rubric', attempt: wowTry('explain') });
+  rubStars.innerHTML='★'.repeat(S.explain)+'<span class="off">'+'★'.repeat(2-S.explain)+'</span>';
+}
+
+/* ---------- finish ---------- */
+function finish(){
+  const mcq=Object.values(S.mcq).filter(Boolean).length, order=S.orderScore||0, num=S.num||0, ex=S.explain||0, chal = (S.track==='older' && S.challenge) ? 2 : 0;
+  const total=mcq+order+num+ex+chal, max=MCQ_N+1+2+2+(S.track==='older'?2:0), pct=Math.round(total/max*100);
+  goTo(10);
+  const ring=document.getElementById('ring'); setTimeout(()=>{ ring.style.setProperty('--p',pct); },50); ringTxt.textContent=pct+'%';
+  wowMeter.style.width='0'; setTimeout(()=>{ wowMeter.style.width=Math.max(30,pct)+'%'; },300);
+  const name=NAME();
+  resTitle.textContent = pct>=80?name+', '+G('ממפה אמיתי','ממפה אמיתית')+' — בדיוק כמו מארי ת׳ארפ!':pct>=60?name+', מצאת את הסדק!':name+', כל מפה מתחילה בנקודה אחת!';
+  resLine.innerHTML='<b class="num">'+total+'</b> מתוך '+max+' נקודות.';
+  resDetail.innerHTML='שאלות: <span class="math">'+mcq+'/'+MCQ_N+'</span> · סידור: <span class="math">'+order+'/1</span> · חישוב: <span class="math">'+num+'/2</span> · ההסבר שלי: <span class="math">'+ex+'/2</span>'+(S.track==='older'?' · האתגר: <span class="math">'+chal+'/2</span>'+(S.challenge?'':' · <button class="btn small ghost" onclick="goTo(5)">האתגר בפרק 5 עוד פתוח</button>'):'');
+  const target=3;                                                       // a mountain range with a crack down the middle
+  const diff = S.guess ? (S.guess===target ? 0 : 9) : 9;               // 0 = the right answer
+  if(!S.guess){ resGuess.innerHTML='לא ניחשתם בהתחלה. התשובה: <b>רכס הרים ענק, ובאמצעו סדק</b> — המקום שבו נולדת קרקעית חדשה.'; }
+  else if(S.guess===target){ resGuess.innerHTML='בהתחלה ניחשתם <b>רכס הרים ענק עם סדק באמצע</b> — וקלעתם. ועכשיו גם יודעים מה הסדק עושה: שם נולדת קרקעית חדשה, והיבשות מתרחקות.'; }
+  else { resGuess.innerHTML='בהתחלה ניחשתם: <b>'+fmtSigns(S.guess)+'</b>. התשובה: רכס הרים ענק, ובאמצעו סדק — שם נולדת קרקעית חדשה ונדחפת לשני הצדדים.'; }
+  S.result={total,max,pct};
+
+  /* completion gate & password vault */
+  const todo = [
+    [Object.keys(S.mcq).length>=MCQ_N, 'לענות על כל '+MCQ_N+' השאלות'],
+    [S.orderScore!==null, 'לבדוק את סידור השלבים'],
+    [S.num!==null, 'לפתור את שאלת החישוב'],
+    [S.explainGraded, 'לכתוב או להקליט הסבר ולבדוק אותו'],
+  ];
+  const complete = todo.every(t=>t[0]);
+  const vault=document.getElementById('vault');
+  if(complete){
+    vault.classList.add('open'); vaultLock.textContent='🔓';
+    vaultTitle.textContent='הסיסמה הסודית של היום היא:';
+    /* in the app the secret never travels in the page: it arrives with the server's answer to the completion */
+    vaultBody.innerHTML='<div class="pw">'+((RT&&RT.kidToken)?'…':esc(decodePw()))+'</div><p class="small" style="margin:0">'+G('ספר','ספרי')+' אותה לאבא או לאמא — הם יודעים מה היא פותחת. הסיסמה מתחלפת כל יום.</p>';
+  } else {
+    vault.classList.remove('open'); vaultLock.textContent='🔒';
+    vaultTitle.textContent='הסיסמה הסודית של היום עדיין נעולה';
+    vaultBody.innerHTML='<p style="margin:0 0 6px">כדי לפתוח אותה צריך לסיים את כל המבחן:</p><div class="todo">'+todo.map(t=>'<span class="'+(t[0]?'ok':'no')+'">'+(t[0]?'✓ ':'○ ')+t[1]+'</span>').join('')+'</div><div style="margin-top:12px"><button class="btn small" onclick="goTo(9)">חזרה למבחן</button></div>';
+  }
+
+  /* XP & level (same formula the nightly bot uses) */
+  const st = STATS[S.kid]||{streak:0,best:0,xp:0,badges:[]};
+  const streakAfter = (complete && !LATE) ? st.streak+1 : st.streak;
+  const xpBase = total*10, xpDone = complete?20:0, xpStreak = (complete && !LATE)?Math.min(50, streakAfter*5):0, xpToday = xpBase+xpDone+xpStreak;
+  document.getElementById('xpToday').textContent='+'+xpToday;
+  xpDetail.innerHTML='<span class="math">'+total+' × 10 = '+xpBase+'</span> על הנקודות'+(complete?' · <span class="math">+20</span> על סיום המבחן'+(LATE?' · השלמה מאוחרת — בלי בונוס רצף':' · <span class="math">+'+xpStreak+'</span> בונוס רצף'):' · (בונוס מחכה למי שמסיים את המבחן)');
+  const xpTotal = st.xp+xpToday, lv=levelFor(xpTotal,F()), prevLv=levelFor(st.xp,F());
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (xpTotal-LEVELS[lv.i][0]) : 1;
+  setTimeout(()=>{ xpBar.style.width=Math.round(into/span*100)+'%'; },200);
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+xpTotal+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-xpTotal)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!')+(lv.i>prevLv.i?' — <b>עלית רמה היום!</b>':'');
+
+  /* streak: last 7 days, labelled by day of month */
+  streakLine.innerHTML = LATE ? 'זה גיליון מ־<b class="num">'+EDITION.date.split('-').reverse().join('.')+'</b>. השלמה מאוחרת נותנת XP, אבל לא נספרת ברצף — הרצף נבנה מהגיליון של היום.' : complete ? '<b class="num">'+streakAfter+'</b> '+(streakAfter===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">'+st.streak+'</b> · היום עוד לא נספר — '+G('סיים','סיימי')+' את המבחן.';
+  const row=document.getElementById('streakRow'); row.innerHTML=''; row.hidden=LATE;
+  const base=new Date(EDITION.date+'T12:00:00');
+  for(let i=6;i>=0;i--){ const d=new Date(base); d.setDate(base.getDate()-i); const s=document.createElement('span'); const hit = i===0 ? complete : (i<=st.streak); s.innerHTML='<span>'+(i===0?'היום':d.getDate()+'.'+(d.getMonth()+1))+'</span>'; if(hit) s.classList.add('hit'); if(i===0) s.classList.add('today'); row.appendChild(s); }
+  const nextMilestone=[3,7,14,30,100].find(m=>m>streakAfter);
+  streakNext.textContent = LATE ? '' : complete ? (nextMilestone?'עוד '+(nextMilestone-streakAfter)+' ימים לתג "רצף '+nextMilestone+'". מחר יש גיליון חדש!':'רצף אגדי.') : '';
+
+  /* badges */
+  const earned=[];
+  if(complete && !LATE && st.streak===0) earned.push(['1','היום הראשון']);
+  if(mcq===MCQ_N) earned.push(['✓','בלי טעויות']);
+  if(ex===2) earned.push(['★','המורה']);
+  if(diff<0.15) earned.push(['≈','ניחוש חד']);
+  if(S.track==='older' && S.challenge) earned.push(['Σ','האתגר']);
+  if(complete && !LATE && [3,7,14,30,100].includes(streakAfter)) earned.push(['🔥','רצף '+streakAfter]);
+  badgesTitle.textContent='תגים שזכית בהם היום';
+  const bb=document.getElementById('badges'); bb.innerHTML = earned.map(b=>'<span class="badge new"><span class="dot">'+b[0]+'</span>'+b[1]+'</span>').join('');
+  badgeNone.textContent = earned.length? '' : 'עוד לא — תגים מחכים למי שמסיים בלי טעויות, מסביר כמו מורה, או שומר על רצף.';
+  S.game={complete, xpToday, streakAfter, badges:earned.map(b=>b[1])};
+  WOW.emit('finish', { score: total, max, complete });
+  reportCompletion();
+
+  /* one-tap report to the parent */
+  mailBtn.href = 'mailto:'+EDITION.parent+'?'+(KID().cc?'cc='+encodeURIComponent(KID().cc)+'&':'')+'subject='+encodeURIComponent('שורשים וכנפיים #'+EDITION.n+' · סיום · '+name)+'&body='+encodeURIComponent(summaryText());
+}
+function summaryText(){
+  const r=S.result||{total:0,max:9,pct:0}, g=S.game||{};
+  return 'שורשים וכנפיים #'+EDITION.n+' · '+EDITION.title+'\n'+NAME()+': '+r.total+'/'+r.max+' נקודות ('+r.pct+'%)'+(g.complete?' · המבחן הושלם ✓':' · המבחן לא הושלם')+'\nXP היום: +'+(g.xpToday||0)+(g.badges&&g.badges.length?' · תגים: '+g.badges.join(', '):'')+'\nהניחוש שלי (מה יש באמצע האטלנטי?): '+(S.guess?fmtSigns(S.guess):'—')+' (התשובה: רכס הרים ענק עם סדק באמצע)\n'+(S.explainText?'ההסבר שלי: '+S.explainText+'\n':'')+'\n'+EDITION.code+'|'+(S.kid||'')+'|'+r.total+'|'+r.max+'|'+(g.complete?'done':'partial')+(LATE?'|late':'');
+}
+async function copyResults(){
+  const txt=summaryText();
+  try{ await navigator.clipboard.writeText(txt); toast('הועתק! אפשר להדביק בוואטסאפ לאבא.'); }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); toast('הועתק!');}catch(err){ toast('לא הצלחנו להעתיק — צלמו מסך!'); } ta.remove(); }
+}
+
+/* ---------- the app: completion POST (replaces the email hack), queued in localStorage when offline ---------- */
+const CQ_KEY='wow-cq';
+function cqLoad(){ try{ return JSON.parse(localStorage.getItem(CQ_KEY)||'[]'); }catch(e){ return []; } }
+function cqSave(q){ try{ localStorage.setItem(CQ_KEY, JSON.stringify(q.slice(-20))); }catch(e){} }
+async function postCompletion(body){
+  const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 10000);
+  try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/complete',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:ac.signal});
+    let j={}; try{ j=await r.json(); }catch(e){}
+    if(r.status>=500 || r.status===0) throw new Error('server'); return { ok:r.ok, j }; }
+  finally{ clearTimeout(timer); }
+}
+async function flushQueue(){ if(!(RT&&RT.kidToken)) return; const q=cqLoad(); if(!q.length) return; const rest=[]; for(const b of q){ try{ await postCompletion(b); }catch(e){ rest.push(b); } } cqSave(rest); }
+function reportCompletion(){
+  if(!(RT&&RT.kidToken) || !S.result) return;
+  const g=S.game||{}, r=S.result;
+  const body={ token:RT.kidToken, edition_n:EDITION.n, score:r.total, max:r.max, complete:!!g.complete, late:LATE, challenge:!!S.challenge, client_at:new Date().toISOString() };
+  if(RT.profile && RT.profile.keep_explanations && S.explainText) body.answers={ explain:S.explainText };
+  postCompletion(body).then(({ok,j})=>{ if(ok && j && j.stats) applyServerStats(j); }).catch(()=>{ const q=cqLoad(); q.push(body); cqSave(q); const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה במכשיר ותישלח כשיהיה חיבור.'; } const pwEl=document.querySelector('.vault .pw'); if(pwEl && pwEl.textContent==='…') pwEl.textContent='הסיסמה תופיע כשיהיה חיבור'; });
+}
+function applyServerStats(j){   // the server's truth wins on the results screen (streak derived from completions, XP awarded once)
+  const st=j.stats, lv=levelFor(st.xp,F());
+  const pwEl=document.querySelector('.vault .pw'); if(pwEl && j.password) pwEl.textContent=j.password;
+  if(typeof j.xp_awarded==='number' && j.xp_awarded>=0) document.getElementById('xpToday').textContent='+'+j.xp_awarded;
+  const span = lv.next? (lv.next-LEVELS[lv.i][0]) : 1, into = lv.next? (st.xp-LEVELS[lv.i][0]) : 1;
+  xpBar.style.width=Math.round(into/span*100)+'%';
+  xpLevel.innerHTML = 'סה״כ <b class="num">'+st.xp+'</b> XP · רמה '+(lv.i+1)+': <b>'+lv.name+'</b>'+(lv.next?' · עוד <span class="num">'+(lv.next-st.xp)+'</span> XP לרמה הבאה':' · הרמה הגבוהה ביותר!');
+  if(!LATE){ streakLine.innerHTML = st.streak>0 ? '<b class="num">'+st.streak+'</b> '+(st.streak===1?'יום ברצף — ההתחלה!':'ימים ברצף!') : 'הרצף שלך: <b class="num">0</b> · '+G('סיים','סיימי')+' את המבחן כדי להתחיל רצף.';
+    const row=document.getElementById('streakRow'); [...row.children].forEach((s,i)=>{ const back=6-i; s.classList.toggle('hit', back===0 ? !!(S.game&&S.game.complete) : back<=st.streak-(S.game&&S.game.complete?1:0)); }); }
+  if(Array.isArray(j.new_badges) && j.new_badges.length){ const bb=document.getElementById('badges'); const have=new Set([...bb.querySelectorAll('.badge')].map(b=>b.textContent.trim())); j.new_badges.forEach(b=>{ if(!have.has(b)){ const s=document.createElement('span'); s.className='badge new'; s.innerHTML='<span class="dot">★</span>'+esc(b); bb.appendChild(s); } }); badgeNone.textContent=''; }
+  const el=document.getElementById('rtStatus'); if(el){ el.hidden=false; el.textContent='התוצאה נשמרה. ההורים רואים אותה בלוח.'; }
+}
+
+/* ---------- the app: profile bootstrap ---------- */
+async function bootFromRuntime(){
+  if(!RT) return;
+  document.body.dataset.runtime = RT.kidToken ? 'app' : 'demo';
+  if(!RT.kidToken){ const dl=document.getElementById('demoLevel'); if(dl) dl.hidden=false; return; }
+  const status=document.getElementById('rtStatus'); if(status){ status.hidden=false; status.textContent='טוענים את הפרופיל…'; }
+  let p = RT.profile || null;
+  if(!p){
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(), 8000);
+    try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/profile',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken}),signal:ac.signal}); if(r.ok) p=await r.json(); }
+    catch(e){} finally{ clearTimeout(timer); }
+  }
+  if(p && p.kid){
+    RT.profile = p;
+    const id = p.kid.id || 'me';
+    setKids({ [id]: kidFromProfile(p.kid) }); STATS[id] = Object.assign({ streak:0, best:0, xp:0, badges:[] }, p.stats||{});
+    buildPicker(); pickKid(id); if(status) status.hidden=true;
+  } else {
+    /* offline profile: the lesson still works; standard level, no assistant, completion queued */
+    setKids({ me: kidFromProfile({ name:(RT.name||'אורח/ת'), feminine:!!RT.feminine, age:'', grade:'', level:'standard' }) }); STATS.me={ streak:0, best:0, xp:0, badges:[] };
+    buildPicker(); pickKid('me'); PROXY.url=''; if(status){ status.hidden=false; status.textContent='אין חיבור לשרת כרגע — אפשר ללמוד; התוצאה תישמר במכשיר ותישלח אחר כך.'; }
+  }
+  flushQueue();
+}
+function demoLevelChange(){ const gi=+document.getElementById('demoGrade').value, g=GRADES_HE[gi]||'ה', lv=['support','standard','advanced'][+document.getElementById('demoLevelSel').value]||'standard';
+  document.getElementById('demoGradeOut').textContent=g; document.getElementById('demoLevelOut').textContent=LEVEL_HE[lv];
+  Object.keys(KIDS).forEach(id=>{ const k=KIDS[id]; Object.assign(k, kidFromProfile({ name:k.name, feminine:k.f, age:String(7+gi), grade:g, level:lv })); }); buildPicker(); if(S.kid){ const id=S.kid; S.kid=null; S.started=false; pickKid(id); } }
+
+
+/* ---------- Arto, the assistant ---------- */
+/* lint-ignore: math */
+const LESSON_CONTEXT = 'השיעור של היום: "האישה שציירה את קרקעית האוקיינוס — וגילתה שהיבשות זזות", מהדורה 75, י״ח בכסלו תשפ״ז (שבת, 28 בנובמבר 2026). נושא: גאולוגיה (טקטוניקת הלוחות, התפשטות קרקעית הים, רכסים והעתקים), גאוגרפיה (האוקיינוס האטלנטי, איסלנד, ים סוף, ים המלח), מתמטיקה (מהירות × זמן, יחידות, קצב) והיסטוריה, עם קשר לישראל (העתק ים המלח). העובדות: מארי ת׳ארפ נולדה ב־30 ביולי 1920 במישיגן ונפטרה ב־2006; אביה עבד במיפוי קרקע; ב־1948 עברה לניו יורק ועבדה במעבדת למונט של אוניברסיטת קולומביה; באותן שנים נשים לא הורשו לעלות על ספינות מחקר, והיא הצטרפה להפלגות רק מאמצע שנות ה־60 (למשל 1968, הספינה USNS Kane). מד־עומק הדי: הספינה שולחת צפצוף, הקול פוגע בקרקעית וחוזר; הקול עובר במים כ־1,500 מטרים בשנייה (משתנה מעט לפי טמפרטורה, לחץ ומליחות), ולכן עומק = 1500 × זמן ÷ 2. ת׳ארפ הפכה את הזמנים לעומקים וציירה ביד פרופילים — חתכים לאורך הדרך של כל ספינה. ב־1952, מתוך בערך שישה פרופילים (מקור אחד אומר שלושה), ראתה עמק בצורת V במרכז הרכס שבאמצע האטלנטי; הבוס שלה ברוס הייזן (1924–1977) חשב שזו טעות וקרא לזה "girl talk" ("דיבורים של בנות"); העוזר הווארד פוסטר מיפה מוקדי רעידות אדמה, והם נפלו בתוך העמק; לקח לה כשנה לשכנע את הייזן. ב־1957 פרסמו את המפה הפיזיוגרפית של צפון האטלנטי, וב־1977 את מפת כל קרקעית האוקיינוסים, עם הצייר היינריך ברן. ב־1997 ספריית הקונגרס קבעה שהיא אחת מארבעת הקרטוגרפים הגדולים של המאה ה־20. אלפרד וגנר הציג ב־1912 את רעיון נדידת היבשות (חופי דרום אמריקה ואפריקה משתלבים), אבל לא היה לו מנגנון, והוא העריך 250 ס״מ בשנה — פי 100 בערך מהאמת; הרעיון התקבל בשנות ה־60. התפשטות קרקעית הים: בסדק סלע לוהט ורך עולה, מתקשה לקרקעית חדשה, ונדחף לשני הצדדים; הקרקעית הצעירה באמצע והזקנה (עם שכבת בוץ עבה יותר) ליד היבשות; האטלנטי מתרחב בכ־2.5 ס״מ בשנה (בערך כמו ציפורניים; ברכסים בעולם 2–5 ס״מ), כלומר 25 ק״מ במיליון שנה; פירוק פנגיאה החל לפני כ־200 מיליון שנה. הקליפה בנויה מלוחות; ברכסים הם מתרחקים, בתעלות (בעיקר סביב האוקיינוס השקט) קרקעית ישנה צוללת פנימה, ולכן כדור הארץ לא גדל. הרכס מקיף את כדור הארץ, כמעט 65,000 ק״מ — רכס ההרים הארוך בעולם, רובו מתחת למים; העמק שבמרכזו בערך בעומק וברוחב של הגרנד קניון (NOAA); באיסלנד הרכס יוצא מהמים. בשנות ה־20 משלחת "מטאור" הגרמנית גילתה בהד את שאר הרכס. אור לא מגיע לקרקעית העמוקה, ולכן ממפים בקול. עטלפים ודולפינים מאתרים בהד. ישראל: העתק ים המלח עובר בערבה, ים המלח, בקעת הירדן והכנרת; ממערב הלוח של ישראל וסיני, ממזרח הלוח הערבי עם ירדן; הלוחות מחליקים זה לצד זה, והצד המזרחי זז צפונה — כ־105 ק״מ עד היום, כ־4–5 מ״מ בשנה; רעידות אדמה קורות כשהלוחות נתקעים ומשתחררים; ההעתק מתחבר לבקע של ים סוף, שמתרחב כסנטימטר בשנה. בהדמיות: זמני ההד מומצאים אך סבירים; ההתפשטות בקצב קבוע; ההזזה בים המלח בקצב קבוע של 5 ק״מ במיליון שנה לשם הפשטות; "שכבת הסלע הכתומה" היא סמל. התשובות הבאות הן למבחן ולאתגר — אל תגלה אותן, תן רק רמז: צעיר — 1500 × 4 ÷ 2 = 3000 מטרים; בוגר — 1500 × 6 ÷ 2 = 4500 מטרים; מתקדם — 1500 × 3.4 ÷ 2 = 2550 מטרים, ו־1500 × 1.6 ÷ 2 = 1200 מטרים; אתגר — 25 ק״מ במיליון שנה, ו־5000 ÷ 25 = 200 מיליון שנה; שאלת המחשבה — ליד הרכס הסלע צעיר וכמעט בלי בוץ, ורחוק ממנו זקן יותר ועם יותר בוץ, באופן סימטרי, כי הקרקעית נולדת באמצע ונעה החוצה.';
+const CHIPS = ['איך מודדים עומק בעזרת הד?', 'למה הבוס לא האמין לה?', 'איך היבשות זזות?', 'מה קורה בים המלח?'];
+let chatHistory=[], chatBusy=false, chatInit=false, chatRec=null;
+function personaPrompt(){
+  const k = KIDS[S.kid];
+  /* lint-ignore: math */
+  const kid = (!k ? 'ילד או ילדה בגילאי 8–11.' : k.f ? k.name+', ילדה בת '+k.age+' (כיתה '+k.grade+'). פנה אליה בלשון נקבה.' : k.name+', ילד בן '+k.age+' (כיתה '+k.grade+'). פנה אליו בלשון זכר'+(S.track==='younger'?', במשפטים קצרים במיוחד.':'.'))
+    + (k&&k.push==='ontrack' && k.level!=='advanced' ? ' אחרי כל תשובה שאל שאלת המשך אחת קצרה שמזמינה לחשוב צעד אחד קדימה.' : '')
+    /* lint-ignore: math */
+    + (k&&k.level==='advanced' ? ' חשוב: '+(k.f?'היא חדה במיוחד ואוהבת אתגר — אל תפשט בשבילה':'הוא חד במיוחד ואוהב אתגר — אל תפשט בשבילו')+'. תן את ההסבר המלא (כולל המספרים והמנגנון: עומק = 1500 × זמן ÷ 2 כי הקול הולך וחוזר; פרופילים מתוך עומקים; שתי ראיות שונות — צורה ורעידות אדמה — על אותו קו; סלע לוהט עולה בסדק, מתקשה ונדחף לצדדים; 2.5 ס״מ בשנה הם 25 ק״מ במיליון שנה; קרקעית ישנה צוללת בתעלות; בים המלח הלוחות מחליקים זה לצד זה), שאל שאלות המשך שדורשות חשיבה (למשל: למה צריך לחלק בשתיים? מה היה קורה למפה אם הספינות היו רחוקות זו מזו? למה הקרקעית ליד הרכס כמעט בלי בוץ? למה כדור הארץ לא גדל? כמה יזוז הלוח הערבי בחיים שלך?), הצע את הגרסה הקשה של כל רעיון, והזמן לנמק ולחשב.' : '');
+  /* lint-ignore: math */
+  return 'אתה ארטו — ספרן חכם, סבלני וקצת מצחיק מהספרייה הגדולה של אלכסנדריה, שמלווה ילדים ב"שורשים וכנפיים". המשתמש/ת: '+kid+'\n'+LESSON_CONTEXT+'\n\nכללים: כתוב בעברית פשוטה, חמה, בגובה העיניים. 2–5 משפטים בכל תשובה (יותר רק אם מבקשים סיפור). תמיד הסבר עם דוגמה מהחיים של ילדים (כדורגל, פיצה, חצר, אופניים). כשהילד/ה שואל/ת על שאלה מהמבחן — אל תיתן את התשובה; תן רמז או שאלה מכוונת. אם שואלים מעבר לשיעור (חלל, היסטוריה, מתמטיקה, כל דבר) — ענה בשמחה ובדיוק מדעי, וחבר בחזרה לנושא אם אפשר. דבר רק על נושאים שמתאימים לילדים; אם עולה משהו לא מתאים, החזר בעדינות לשיעור. חישובים כותבים תמיד משמאל לימין, למשל 1240 ÷ 450 ≈ 2.76. אל תשתמש באמוג׳י. סיים לפעמים בשאלה קטנה שמזמינה להמשיך לחשוב. אל תמציא עובדות; אם אינך בטוח, אמור זאת.';
+}
+/* a one-time nudge at the first question: the assistant is here for exactly this */
+function showArtoTip(){ try{ if(localStorage.getItem('wow-artotip')) return; }catch(e){} if(!PROXY.url && !IN_CLAUDE) return; setTimeout(()=>{ if(chat.classList.contains('open') || document.getElementById('artoTip')) return; const t=document.createElement('button'); t.id='artoTip'; t.className='artotip'; t.type='button'; t.innerHTML='<b>'+G('לא בטוח? שאל את ארטו','לא בטוחה? שאלי את ארטו')+'</b><span>הוא כאן בשביל בדיוק זה: להסביר שוב, לתת רמז, לא לתת תשובה.</span>'; t.onclick=()=>{ hideArtoTip(); openChat(); }; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('on')); try{ localStorage.setItem('wow-artotip','1'); }catch(e){} setTimeout(hideArtoTip, 12000); }, 1500); }
+function hideArtoTip(){ const t=document.getElementById('artoTip'); if(t){ t.classList.remove('on'); setTimeout(()=>t.remove(), 300); } }
+function openChat(){ hideArtoTip(); chat.classList.add('open'); document.body.classList.add('chat-open'); fab.style.display='none'; if(!chatInit){ chatInit=true; initChat(); } chatIn.focus(); setTimeout(()=>{ msgs.scrollTop=msgs.scrollHeight; }, 250); }
+function closeChat(){ chat.classList.remove('open'); document.body.classList.remove('chat-open'); fab.style.display=''; chatIn.blur(); }
+/* when the on-screen keyboard resizes the viewport, keep the latest message in view */
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', ()=>{ if(chat.classList.contains('open')) msgs.scrollTop=msgs.scrollHeight; }); }
+function addMsg(kind, html){ const m=document.createElement('div'); m.className='msg '+kind; m.innerHTML=html; msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight; return m; }
+function renderChips(){ chips.innerHTML=CHIPS.map(c=>'<button onclick="askChip(this)">'+esc(c)+'</button>').join(''); }
+function askChip(b){ chatIn.value=b.textContent; sendChat(); }
+function fmtBot(t){ let h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); h=h.replace(/(\d[\d.,]*\s*(?:[÷×+\-−=]\s*[\d.,]*[%°]?\s*)+)/g, m=>'<span class="math">'+m.trim()+'</span>'); return h; }
+function chatOff(placeholder){ chatIn.disabled=true; chatSend.disabled=true; chatMic.disabled=true; chatIn.placeholder=placeholder||'ארטו לא זמין עכשיו'; chips.innerHTML=''; }
+async function initChat(){
+  const name = S.kid?NAME():'';
+  const mode = await AI.init();
+  if(mode==='none'){
+    addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן. בדפדפן הזה אני לא יכול לענות על שאלות, אבל הנה תשובות לשתי השאלות הנפוצות:');
+    addMsg('bot','<b>איך מודדים עומק בעזרת הד?</b> הספינה שולחת צפצוף וסופרת את הזמן עד שההד חוזר מהקרקעית. הקול עובר במים כ־<span class="num">1,500</span> מטרים בשנייה, למטה וחזרה — לכן העומק הוא חצי מהדרך.<br><br><b>איך היבשות זזות?</b> באמצע האוקיינוס יש סדק. סלע לוהט עולה בו, מתקשה לקרקעית חדשה ונדחף לשני הצדדים. היבשות יושבות על אותם לוחות — ונוסעות איתם, בערך <span class="num">2.5</span> סנטימטרים בשנה.');
+    return;
+  }
+  addMsg('bot','שלום'+(name?' '+name:'')+'! אני ארטו, הספרן של אלכסנדריה. לא הבנתם משהו? מסקרן אתכם עוד משהו? תשאלו — אני כאן.');
+  renderChips();
+}
+async function sendChat(){
+  const txt=chatIn.value.trim(); if(!txt||chatBusy||chatIn.disabled) return;
+  chatIn.value=''; chatBusy=true; chatSend.disabled=true; chips.innerHTML='';
+  addMsg('me', esc(txt));
+  chatHistory.push({role:'user', content: txt});
+  const bubble=addMsg('bot','<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const text = await AI.chat(personaPrompt(), chatHistory.slice(), t=>{ bubble.innerHTML=fmtBot(t); msgs.scrollTop=msgs.scrollHeight; });
+    bubble.innerHTML=fmtBot(text); chatHistory.push({role:'assistant', content:text});
+  }catch(e){
+    const code=e&&e.code;
+    bubble.className='msg sys'; bubble.textContent=artoError(e);
+    if(code==='cap' && e.data && e.data.demo && RT){ const a=document.createElement('a'); a.href='/join'; a.textContent='לקבל את השיעור למייל ›'; a.style.cssText='display:block;margin-top:6px;font-weight:700;color:var(--nile)'; bubble.appendChild(a); }
+    if(code==='cap' && e.data && !e.data.demo && !e.data.subscribed && RT && RT.kidToken){ const b=document.createElement('button'); b.className='btn small'; b.style.marginTop='8px'; b.textContent=G('שלח להורים בקשה','שלחי להורים בקשה'); b.onclick=async()=>{ b.disabled=true; b.textContent='שולחים…'; try{ const r=await fetch(String(RT.api||'/api').replace(/\/+$/,'')+'/kid/ask-parent',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:RT.kidToken, edition_n:EDITION.n})}); const j=await r.json().catch(()=>({})); b.replaceWith(Object.assign(document.createElement('div'),{className:'small',style:'margin-top:8px',textContent: j.already ? 'שלחנו להורים מייל היום. כשהם יפעילו, ארטו חוזר.' : 'שלחנו להורים מייל עם קישור. כשהם יפעילו, ארטו חוזר.'})); }catch(err){ b.disabled=false; b.textContent='לא הצלחנו לשלוח — נסו שוב'; } }; bubble.appendChild(b); }
+    chatHistory.pop();
+    if(ARTO_OFF(code)) chatOff((code==='daily_limit'||code==='cap'||code==='off_closed')?'ארטו נח — נתראה מחר!':'ארטו לא זמין עכשיו');
+  }
+  chatBusy=false; if(!chatIn.disabled){ chatSend.disabled=false; renderChips(); chatIn.focus(); }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+chatIn.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); } });
+function chatDictate(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ addMsg('sys','ההקלטה לא נתמכת בדפדפן הזה — אפשר להקליד.'); return; }
+  if(chatRec){ chatRec.stop(); return; }
+  chatRec=new SR(); chatRec.lang='he-IL'; chatRec.interimResults=true; chatRec.continuous=false;
+  chatRec.onresult=e=>{ let t=''; for(const r of e.results) t+=r[0].transcript; chatIn.value=t; };
+  chatRec.onend=()=>{ chatMic.classList.remove('rec'); chatRec=null; if(chatIn.value.trim()) sendChat(); };
+  chatRec.onerror=e=>{ chatMic.classList.remove('rec'); chatRec=null; addMsg('sys', e.error==='not-allowed'?'אין הרשאה למיקרופון כאן — אפשר להקליד.':'ההקלטה נעצרה — אפשר להקליד.'); };
+  try{ chatRec.start(); chatMic.classList.add('rec'); }catch(err){ chatRec=null; }
+}
+
+/* hide the Arto button while a field is being typed in, so it never covers a "check" button */
+document.addEventListener('focusin', e=>{ if(e.target.matches('input, textarea') && !chat.contains(e.target)) fab.style.visibility='hidden'; });
+document.addEventListener('focusout', e=>{ if(e.target.matches('input, textarea')) setTimeout(()=>{ if(!document.activeElement || !document.activeElement.matches('input, textarea')) fab.style.visibility=''; },150); });
+
+/* ---------- init ---------- */
+document.querySelectorAll('details.bonus, details.src').forEach(d=>d.addEventListener('toggle', ()=>{ if(d.open) WOW.emit('open', { id: d.classList.contains('src') ? 'sources' : 'bonus' }); }));
+/* this edition's canvases redraw on open (goTo) and on every control; only the field runs a short timer */
+if(RT){ bootFromRuntime().then(restore); } else { restore(); }
+paintProgress(); gateCheck();
+</script>
