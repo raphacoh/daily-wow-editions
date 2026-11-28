@@ -16,7 +16,7 @@
   "teaser": null,
   "max_score": null,
   "status": "released",
-  "released_at": null,
+  "released_at": "2026-11-28T08:09:06.233Z",
   "password": null,
   "reviewer_verdict": "PASS (3 rounds) — nits left: est. ~32–35 min per track vs the 'כ־25 דקות' tag after trims (length downgraded to a nit in round 3 because the 4-tile format is fixed); kit lint/check missing from the repo so local stand-ins were used; Arto and the AI grader not exercised offline; review copy doesn't declare the sample capability (template)",
   "review_url": "https://claude.ai/artifact/82SAZ1UMERojLTKpCiJ9Bm",
